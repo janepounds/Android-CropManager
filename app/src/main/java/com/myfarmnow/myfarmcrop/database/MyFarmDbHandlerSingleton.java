@@ -69,7 +69,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         database = db;
         String crop_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+" ( "+CROP_INVENTORY_FERTILIZER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                CROP_INVENTORY_FERTILIZER_USER_ID+"TEXT,"+CROP_INVENTORY_FERTILIZER_DATE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_TYPE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_NAME+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_N_PERCENTAGE+" REAL,"+
+                CROP_INVENTORY_FERTILIZER_USER_ID+" TEXT,"+CROP_INVENTORY_FERTILIZER_DATE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_TYPE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_NAME+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_N_PERCENTAGE+" REAL,"+
                 CROP_INVENTORY_FERTILIZER_P_PERCENTAGE+" REAL,"+ CROP_INVENTORY_FERTILIZER_K_PERCENTAGE+" REAL,"+ CROP_INVENTORY_FERTILIZER_QUANTITY+" REAL NOT NULL,"+CROP_INVENTORY_FERTILIZER_BATCH_NUMBER+" TEXT NOT NULL,"+
                 CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER+" TEXT,"+CROP_INVENTORY_FERTILIZER_SUPPLIER+" TEXT,"+CROP_INVENTORY_FERTILIZER_USAGE_UNIT+" TEXT ,"+CROP_INVENTORY_FERTILIZER_COST+" REAL ,"+CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA+" REAL ,"+
                 CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG+" REAL ,"+CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_S+" REAL ,"+CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_B+" REAL ,"+
@@ -130,6 +130,44 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.insert(CROP_INVENTORY_FERTILIZER_TABLE_NAME,null,contentValues);
         closeDB();
     }
+    public void  updateCropFertilizer(CropInventoryFertilizer fertilizer){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_INVENTORY_FERTILIZER_DATE,fertilizer.getPurchaseDate());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_USER_ID,fertilizer.getUserId());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_TYPE,fertilizer.getType());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_NAME,fertilizer.getName());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_N_PERCENTAGE,fertilizer.getnPercentage());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_K_PERCENTAGE,fertilizer.getkPercentage());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_P_PERCENTAGE,fertilizer.getpPercentage());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_QUANTITY,fertilizer.getQuantity());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_BATCH_NUMBER,fertilizer.getBatchNumber());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER,fertilizer.getSerialNumber());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_SUPPLIER,fertilizer.getSupplier());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_USAGE_UNIT,fertilizer.getUsageUnit());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_COST,fertilizer.getCost());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA,fertilizer.getMacroNutrientsCa());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG,fertilizer.getMacroNutrientsMg());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_S,fertilizer.getMacroNutrientsS());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_B,fertilizer.getMicroNutrientsB());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MN,fertilizer.getMicroNutrientsMn());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MO,fertilizer.getMicroNutrientsMo());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CL,fertilizer.getMicroNutrientsCl());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CU,fertilizer.getMicroNutrientsCu());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN,fertilizer.getMicroNutrientsZn());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE,fertilizer.getMicroNutrientsFe());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA,fertilizer.getMicroNutrientsNa());
+
+        database.update(CROP_INVENTORY_FERTILIZER_TABLE_NAME,contentValues,CROP_INVENTORY_FERTILIZER_ID+" = ?", new String[]{fertilizer.getId()});
+        closeDB();
+    }
+    public boolean deleteCropFertilizer(String fertilizerId){
+        openDB();
+        database.delete(CROP_INVENTORY_FERTILIZER_TABLE_NAME,CROP_INVENTORY_FERTILIZER_ID+" = ?", new String[]{fertilizerId});
+        closeDB();
+        return true;
+    }
+
 
     public ArrayList<CropInventoryFertilizer> getCropFertilizers(String userId){
         openDB();
@@ -144,6 +182,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             CropInventoryFertilizer fertilizer = new CropInventoryFertilizer();
             fertilizer.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_ID)));
             fertilizer.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_USER_ID)));
+            fertilizer.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_DATE)));
             fertilizer.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_TYPE)));
             fertilizer.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
             fertilizer.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_QUANTITY)));
