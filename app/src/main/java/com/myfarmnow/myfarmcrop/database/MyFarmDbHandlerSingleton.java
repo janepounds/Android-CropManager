@@ -18,7 +18,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME ="myfarmdb";
     private static int database_version=1;
-    public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME ="crop_fertilizer";
+    public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME ="crop_inventory_fertilizer";
+    public static final String CROP_INVENTORY_SEEDS_TABLE_NAME ="crop_inventory_seeds";
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
