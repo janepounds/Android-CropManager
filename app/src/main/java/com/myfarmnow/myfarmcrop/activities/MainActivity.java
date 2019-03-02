@@ -8,6 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
+
+
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +34,28 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        MyFarmDbHandlerSingleton handler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+       // handler.openDB();
+
+        CropInventoryFertilizer x = new CropInventoryFertilizer();
+
+        x.setPurchaseDate("2019-02-01");
+        x.setType("Solid Manufactured");
+        x.setFertilizerName("Solid Manufactured");
+        float y =45;
+        x.setQuantity(y);
+        x.setUserId("1");
+        x.setBatchNumber("3562783738");
+
+        handler.insertCropFertilizer(x);
+
+        ArrayList<CropInventoryFertilizer> list = handler.getCropFertilizers("1");
+
+        Log.d("FERTILIZERS",list.toString());
+
+
     }
 
     @Override

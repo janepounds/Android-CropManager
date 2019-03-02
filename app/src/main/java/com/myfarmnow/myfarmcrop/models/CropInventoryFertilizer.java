@@ -7,6 +7,10 @@ import org.json.JSONObject;
 
 public class CropInventoryFertilizer implements CropInventory {
     String id="";
+
+
+
+    String userId="";
     String purchaseDate="";
     String fertilizerName="";
     String batchNumber="";
@@ -78,6 +82,13 @@ public class CropInventoryFertilizer implements CropInventory {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setPurchaseDate(String purchaseDate) {
@@ -309,5 +320,38 @@ public class CropInventoryFertilizer implements CropInventory {
 
     public void setMicroNutrientsNa(float microNutrientsNa) {
         this.microNutrientsNa = microNutrientsNa;
+    }
+
+    @Override
+    public String toString() {
+        return "CropInventoryFertilizer{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", purchaseDate='" + purchaseDate + '\'' +
+                ", fertilizerName='" + fertilizerName + '\'' +
+                ", batchNumber='" + batchNumber + '\'' +
+                ", quantity=" + quantity +
+                ", totalConsumed=" + totalConsumed +
+                ", usageUnits='" + usageUnits + '\'' +
+                ", type='" + type + '\'' +
+                ", nPercentage=" + nPercentage +
+                ", kPercentage=" + kPercentage +
+                ", pPercentage=" + pPercentage +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", supplier='" + supplier + '\'' +
+                ", usageUnit='" + usageUnit + '\'' +
+                ", cost=" + cost +
+                ", macroNutrientsCa=" + macroNutrientsCa +
+                ", macroNutrientsMg=" + macroNutrientsMg +
+                ", macroNutrientsS=" + macroNutrientsS +
+                ", microNutrientsB=" + microNutrientsB +
+                ", microNutrientsMn=" + microNutrientsMn +
+                ", microNutrientsCl=" + microNutrientsCl +
+                ", microNutrientsMo=" + microNutrientsMo +
+                ", microNutrientsCu=" + microNutrientsCu +
+                ", microNutrientsZn=" + microNutrientsZn +
+                ", microNutrientsFe=" + microNutrientsFe +
+                ", microNutrientsNa=" + microNutrientsNa +
+                '}';
     }
 }
