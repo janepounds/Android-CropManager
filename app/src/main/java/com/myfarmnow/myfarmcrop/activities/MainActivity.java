@@ -8,6 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
+
+
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropField;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+
+import java.util.ArrayList;
 
 import com.myfarmnow.myfarmcrop.R;
 
@@ -28,14 +37,70 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        MyFarmDbHandlerSingleton handler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+       // handler.openDB();
+
+        CropInventoryFertilizer x = new CropInventoryFertilizer();
+
+        x.setPurchaseDate("2019-02-01");
+        x.setType("Solid Manufactured");
+        x.setFertilizerName("Solid Manufactured");
+        float y =45;
+        x.setQuantity(y);
+        x.setUserId("1");
+        x.setBatchNumber("3562783738");
+
+        handler.insertCropFertilizer(x);
+
+        ArrayList<CropInventoryFertilizer> list = handler.getCropFertilizers("1");
+
+        Log.d("FERTILIZERS",list.toString());
+
+
+        CropField n = new CropField();
+
+
+        n.setSoilType("Sand");
+       n.setSoilCategory("Shallow");
+        n.setFieldName("Field1");
+        n.setWatercourse("Dry Ditch");
+        float z =45;
+        n.setTotalArea(z);
+        n.setUserId("1");
+        float b = (float) 20.5;
+        n.setCroppableArea(b);
+        float a = (float) 50.5;
+        n.setUnits(a);
+
+
+        handler.insertCropField(n);
+        //handler.updateCropField(n);
+
+        ArrayList<CropField> robert = handler.getCropFields("1");
+
+        Log.d("FIELDS-before",robert.toString());
+        handler.deleteCropField("1");
+
+        ArrayList<CropField> georgia = handler.getCropFields("1");
+        for(int i=0; i<georgia.size();i++)
+        {
+            CropField field = robert.get(i);
+            field.setSoilCategory("Medium");
+            handler.updateCropField(field);
+        }
+
+        georgia =handler.getCropFields("1");
+
+        Log.d("FIELDS-after",georgia.toString());
+
+
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

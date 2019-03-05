@@ -5,9 +5,16 @@ buildscript {
     repositories {
         google()
         jcenter()
+        //mavenCentral()
+        //maven {'https://maven.fabric.io/public'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
+        /*classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-pluin:0.5'
+        classpath 'coom.google.gms:google-services:3.1.2'
+        classpath 'io.fabric.tools:gradle:1.25.1'*/
+
+
         
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -16,6 +23,16 @@ buildscript {
 }
 
 allprojects {
+   /* ext{
+        androidApplicationId= 'com.medikoe.connect'
+        androidVersionCode= 23
+        androidVersionName="1.7.2"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId='com.medikoe.test'
+
+    }*/
+
+
     repositories {
         google()
         jcenter()
