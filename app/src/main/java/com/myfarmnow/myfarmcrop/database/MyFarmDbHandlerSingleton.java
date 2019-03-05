@@ -8,9 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
+
+import com.myfarmnow.myfarmcrop.models.CropField;
+
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
@@ -31,6 +35,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_CULTIVATION_TABLE_NAME ="crop_cultivate";
     public static final String CROP_FERTILIZER_APPLICATION_TABLE_NAME ="crop_fertilizer_application";
     public static final String CROP_SPRAYING_TABLE_NAME ="crop_fertilizer_application";
+    public static final String CROP_FIELDS_TABLE_NAME ="crop_fields";
+    public static final String CROP_MACHINES_TABLE_NAME ="crop_machines";
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
@@ -146,6 +152,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
+    public static final String CROP_FIELD_ID ="id";
+    public static final String CROP_FIELD_USER_ID ="userId";
+    public static final String CROP_FIELD_NAME="fieldName";
+    public static final String CROP_FIELD_SOIL_CATEGORY="soilCategory";
+    public static final String CROP_FIELD_SOIL_TYPE="soilType";
+    public static final String CROP_FIELD_WATERCOURSE="watercourse";
+    public static final String CROP_FIELD_TOTAL_AREA="totalArea";
+    public static final String CROP_FIELD_CROPPABLE_AREA="croppableArea";
+    public static final String CROP_FIELD_UNITS="units";
+
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -225,16 +242,33 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_insert_query);
         database.execSQL(crop_cultivate_insert_query);
         database.execSQL(crop_fertilizer_insert_query);
+
         database.execSQL(crop_spraying_insert_query);
+
+
+        String crop_field_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_FIELDS_TABLE_NAME +" ( "+ CROP_FIELD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
+                CROP_FIELD_TOTAL_AREA +" REAL NOT NULL ,"+ CROP_FIELD_CROPPABLE_AREA+" REAL ,"+ CROP_FIELD_UNITS+" REAL NOT NULL)";
+
+        Log.d("FIELDS QUERY",crop_field_insert_query); //displays this generated SQL query on the log cat
+
+        database.execSQL(crop_field_insert_query);
+
+
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_SEEDS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_SPRAY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
         onCreate(db);
     }
+
+
 
     public MyFarmDbHandlerSingleton openDB() throws SQLException {
 
@@ -712,6 +746,26 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.insert(CROP_INVENTORY_FERTILIZER_TABLE_NAME,null,contentValues);
         closeDB();
     }
+
+    public void  insertCropField(CropField field){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_FIELD_USER_ID,field.getUserId());
+        contentValues.put(CROP_FIELD_NAME,field.getFieldName());
+        contentValues.put(CROP_FIELD_SOIL_CATEGORY,field.getSoilCategory());
+        contentValues.put(CROP_FIELD_SOIL_TYPE,field.getSoilType());
+        contentValues.put(CROP_FIELD_TOTAL_AREA,field.getTotalArea());
+        contentValues.put(CROP_FIELD_CROPPABLE_AREA,field.getCroppableArea());
+        contentValues.put(CROP_FIELD_UNITS,field.getUnits());
+
+
+        database.insert(CROP_FIELDS_TABLE_NAME,null,contentValues);
+        closeDB();
+    }
+
+
+
     public void  updateCropFertilizer(CropInventoryFertilizer fertilizer){
         openDB();
         ContentValues contentValues = new ContentValues();
@@ -798,7 +852,57 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
+    public void  updateCropField(CropField field){
+        openDB();
+        ContentValues contentValues = new ContentValues();
 
 
+        contentValues.put(CROP_FIELD_USER_ID,field.getUserId());
+        contentValues.put(CROP_FIELD_NAME,field.getFieldName());
+        contentValues.put(CROP_FIELD_SOIL_CATEGORY,field.getSoilCategory());
+        contentValues.put(CROP_FIELD_SOIL_TYPE,field.getSoilType());
+        contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
+        contentValues.put(CROP_FIELD_TOTAL_AREA,field.getTotalArea());
+        contentValues.put(CROP_FIELD_CROPPABLE_AREA,field.getCroppableArea());
 
-}
+
+        database.update(CROP_FIELDS_TABLE_NAME,contentValues, CROP_FIELD_ID +" = ?", new String[]{field.getId()});
+        closeDB();
+    }
+
+
+    public boolean deleteCropField(String fieldId){
+        openDB();
+        database.delete(CROP_FIELDS_TABLE_NAME, CROP_FIELD_ID +" = ?", new String[]{fieldId});
+        closeDB();
+        return true;
+    }
+
+    public ArrayList<CropField> getCropFields(String userId) {
+        openDB();
+        ArrayList<CropField> array_list = new ArrayList();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            CropField field = new CropField();
+            field.setId(res.getString(res.getColumnIndex(CROP_FIELD_ID)));
+            field.setUserId(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID)));
+            field.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            field.setSoilCategory(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_CATEGORY)));
+            field.setSoilType(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_TYPE)));
+            field.setWatercourse(res.getString(res.getColumnIndex(CROP_FIELD_WATERCOURSE)));
+            field.setTotalArea(res.getFloat(res.getColumnIndex(CROP_FIELD_TOTAL_AREA)));
+            field.setCroppableArea(res.getFloat(res.getColumnIndex(CROP_FIELD_CROPPABLE_AREA)));
+            field.setUnits(res.getFloat(res.getColumnIndex(CROP_FIELD_UNITS)));
+            array_list.add(field);
+
+            res.moveToNext();
+        }
+        closeDB();
+        Log.d("FIELDS SIZE",array_list.size()+"");
+        return array_list;
+
+}}

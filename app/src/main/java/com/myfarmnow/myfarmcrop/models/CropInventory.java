@@ -11,5 +11,4 @@ public interface CropInventory {
     float getAmountConsumed();
     float calculateAmountLeft();
     String getUsageUnits();
-
 }
