@@ -7,10 +7,8 @@ import org.json.JSONObject;
 
 public class CropInventoryFertilizer implements CropInventory {
     String id="";
-
-
-
     String userId="";
+
     String purchaseDate="";
     String fertilizerName="";
     String batchNumber="";

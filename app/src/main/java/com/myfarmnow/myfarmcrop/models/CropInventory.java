@@ -1,7 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
 public interface CropInventory {
-    String CONST_FERTILIZER_INVENTORY = "fertilizer";
+    final String CONST_FERTILIZER_INVENTORY = "fertilizer";
+    final String CONST_SEEDS_INVENTORY = "seeds";
 
     String getBatchNumber();
     String getInventoryType();
