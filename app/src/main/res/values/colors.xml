@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2b8c41</color>
+
+    <color name="colorPrimary_birds">#f4ad42</color>
+    <color name="colorPrimaryDark">#161f2b</color>
+    <color name="colorAccent">#2b8c41</color>
+    <color name="White">#ffffff</color>
+    <color name="Grey">#ecf0f5</color>
+    <color name="blackText">#292929</color>
+    <color name="transparent_blue">#322100c8</color>
+    <color name="QRCodeWhiteColor">#ffffff</color>
+    <color name="QRCodeBlackColor">#000000</color>
+    <color name="black">#000000</color>
+    <color name="green">#1ec442</color>
+    <color name="orange">#c48d1e</color>
+    <color name="red">#ce0000</color>
+    <color name="whiteColor">#ffffff</color>
+    <color name="submitBtnColor">#ff31243e</color>
+    <color name="hintColor">#ffb4b1b1</color>
+    <color name="editTextBorderColor">#ffd3d4d9</color>
+
+    <color name="pedigreetextcolor">#3a3a3d</color>
+    <color name="pedigreetcolor">#000000</color>
+    <color name="pedigreeimagecolor">#000000</color>
+    <color name="inventory">#effff7</color>
+
+
+    <color name="white">#ffffff</color>
+    <color name="background_tab_pressed">#6633b5e5</color>
+    <color name="mid_gray">#e5e5e5</color>
+
+    <color name="device_ok">#92cf05</color>
+    <color name="device_problem">#dc4436</color>
+    <color name="gray">#f0f1ed</color>
+    <color name="gray_mh">#b8b8b8</color>
+    <color name="green_mh">#3fc926</color>
+    <color name="lite_green">#377f22</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="blue_mh">#4cc0ff</color>
+    <color name="dark_gray_mh">#868686</color>
+    <color name="dark_green">#3d8e27</color>
+    <color name="darker_gray">#b2b2b2</color>
+    <color name="design_bottom_navigation_shadow_color">#14000000</color>
+
 </resources>

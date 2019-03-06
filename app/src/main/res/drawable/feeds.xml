@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape >
+            <solid android:color="#dfb745"/>
+            <padding
+                android:bottom="120dp"
+                android:left="100dp"
+                android:right="100dp"
+                android:top="80dp" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/feed"/>
+</layer-list>
