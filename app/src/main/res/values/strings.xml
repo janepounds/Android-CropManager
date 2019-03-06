@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Farm Crop</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="title_activity_dashboard">Crop Manager</string>
     <string name="label_fields">Fields</string>
     <string name="label_crops">Crops</string>
@@ -14,4 +15,14 @@
     <string name="label_financial_summary">Financial Summary</string>
     <string name="title_activity_crop_inventory_seeds_manager">CropInventorySeedsManagerActivity
     </string>
+=======
+    <string name="field_name">Field Name :</string>
+    <string name="save">SAVE</string>
+    <string name="soil_category">Soil Category :</string>
+    <string name="croppable_area">Croppable Area:</string>
+    <string name="total_area">Total Area :</string>
+    <string name="watercourse">Watercourse :</string>
+    <string name="soil_type">Soil Type :</string>
+    <string name="soil_category">Soil Category :</string>
+>>>>>>> f82d65c9715bba896faf0756cc7cd18ec33de13e
 </resources>
