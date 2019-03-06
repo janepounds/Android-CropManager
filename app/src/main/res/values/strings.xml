@@ -16,12 +16,49 @@
     <string name="title_activity_crop_inventory_seeds_manager">CropInventorySeedsManagerActivity
     </string>
 
-    <string name="field_name">Field Name :</string>
+    <string name="field_name">Field Name</string>
     <string name="save">SAVE</string>
-    <string name="soil_category">Soil Category :</string>
-    <string name="croppable_area">Croppable Area:</string>
-    <string name="total_area">Total Area :</string>
-    <string name="watercourse">Watercourse :</string>
-    <string name="soil_type">Soil Type :</string>
+    <string name="croppable_area">Croppable Area</string>
+    <string name="total_area">Total Area</string>
+    <string name="watercourse">Watercourse</string>
+    <string name="soil_type">Soil Type</string>
+    <string name="soil_category">Soil Category</string>
+    <string name="units">Units</string>
 
+    <string-array name="crop_field_units">
+        <item>Select Unit</item>
+        <item>Acres</item>
+        <item>Hectares</item>
+        <item>Square Miles</item>
+    </string-array>
+    <string-array name="crop_field_soil_type">
+        <item>Select Type</item>
+        <item>Sand</item>
+        <item>Loamy Sand</item>
+        <item>Sand Loam</item>
+        <item>Loam</item>
+        <item>Silt Loam</item>
+        <item>Clay Loam</item>
+        <item>Sandy Clay Loam</item>
+        <item>Silty Clay Loam</item>
+    </string-array>
+    <string-array name="crop_field_soil_category">
+        <item>Select Category</item>
+        <item>Light Sand</item>
+        <item>Shallow</item>
+        <item>Medium</item>
+        <item>Deep Clayey</item>
+        <item>Deep Silty</item>
+        <item>Organic</item>
+        <item>Peat</item>
+    </string-array>
+    <string-array name="crop_field_watercourse">
+        <item>Select</item>
+        <item>None</item>
+        <item>Small (0-3m)</item>
+        <item>Medium (3-6m)</item>
+        <item>Large (6m)</item>
+        <item>Dry Ditch</item>
+    </string-array>
+    <string name="title_activity_crop_fields_list">CropFieldsListActivity</string>
 </resources>
