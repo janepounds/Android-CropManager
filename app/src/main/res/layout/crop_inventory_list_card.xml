@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@color/inventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp">
+
+                        <TextView
+                            android:id="@+id/txt_view_inventory_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Death"
+                            android:textColor="#000"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:textSize="22dp"
+                            android:id="@+id/edt_deletefields"
+                            android:background="@drawable/ic_delete"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="2dp"/>
+
+                        <TextView
+                            android:textSize="22dp"
+                            android:id="@+id/edt_editfields"
+                            android:src="@drawable/ic_edit"
+                            android:layout_width="35dp"
+                            android:textColor="@color/darker_gray"
+                            android:layout_height="30dp"
+                            />
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_consumption"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="70dp"
+                        android:max="40"
+                        android:progress="20"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:textSize="14dp"
+                            android:textColor="#696666"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Current Inventory : "/>
+
+                        <TextView
+                            android:id="@+id/txt_view_current_inventory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="0/0 Straws"
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/ln_batch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/layout_batch_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="3dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txt_view_batch_lbl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Batch# : "
+                                android:textColor="#696666"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:id="@+id/txtView_batch_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="0/0 Straws"
+                                android:textColor="#696666"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/ln_embroy"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="6dp">
+
+                            <TextView
+                                android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Grade : "/>
+
+                            <TextView android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:id="@+id/edt_Grade"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="5" android:layout_weight="1"/>
+
+                            <TextView
+                                android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Stage : "/>
+
+                            <TextView android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:id="@+id/edt_Stage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="6" android:layout_weight="1"/>
+
+                            <TextView android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status : "/>
+
+                            <TextView
+                                android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:id="@+id/edt_Status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="A1"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

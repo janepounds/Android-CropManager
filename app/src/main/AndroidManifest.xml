@@ -29,6 +29,10 @@
             android:name=".activities.CropInventorySeedsManagerActivity"
             android:label="@string/title_activity_crop_inventory_seeds_manager"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activities.CropInventoryListActivity"
+            android:label="@string/label_inventory_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

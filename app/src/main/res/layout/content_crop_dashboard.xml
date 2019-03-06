@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropDashboardActivity"
-    tools:showIn="@layout/activity_dashboard">
+    tools:showIn="@layout/activity_crop_dashboard">
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -194,7 +194,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/tv_litar1"
+                                android:id="@+id/layout_crop_dashboard_inventory"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
