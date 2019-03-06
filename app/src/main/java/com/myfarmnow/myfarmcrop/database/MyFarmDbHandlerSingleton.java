@@ -18,6 +18,7 @@ import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
+import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_FERTILIZER_APPLICATION_TABLE_NAME ="crop_fertilizer_application";
     public static final String CROP_SPRAYING_TABLE_NAME ="crop_fertilizer_application";
     public static final String CROP_FIELDS_TABLE_NAME ="crop_fields";
-    public static final String CROP_MACHINES_TABLE_NAME ="crop_machines";
+    public static final String CROP_MACHINE_TABLE_NAME ="crop_machine";
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
@@ -148,10 +149,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
-
-
-
-
     public static final String CROP_FIELD_ID ="id";
     public static final String CROP_FIELD_USER_ID ="userId";
     public static final String CROP_FIELD_NAME="fieldName";
@@ -161,6 +158,22 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_FIELD_TOTAL_AREA="totalArea";
     public static final String CROP_FIELD_CROPPABLE_AREA="croppableArea";
     public static final String CROP_FIELD_UNITS="units";
+
+    public static final String CROP_MACHINE_ID ="id";
+    public static final String CROP_MACHINE_USER_ID ="userId";
+    public static final String CROP_MACHINE_NAME="name";
+    public static final String CROP_MACHINE_BRAND="brand";
+    public static final String CROP_MACHINE_CATEGORY="category";
+    public static final String CROP_MACHINE_MANUFACTURER="manufacturer";
+    public static final String CROP_MACHINE_MODEL="model";
+    public static final String CROP_MACHINE_REGISTRATION_NUMBER="registrationNumber";
+    public static final String CROP_MACHINE_QUANTITY="quantity";
+    public static final String CROP_MACHINE_DATE_ACQUIRED="date";
+    public static final String CROP_MACHINE_PURCHASED_FROM="purchasedFrom";
+    public static final String CROP_MACHINE_STORAGE_LOCATION="storageLocation";
+    public static final String CROP_MACHINE_PURCHASE_PRICE="purchasePrice";
+
+
 
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
@@ -227,6 +240,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SPRAYING_WATER_VOLUME+" REAL ,"+ CROP_SPRAYING_WATER_CONDITION+" TEXT,"+CROP_SPRAYING_WIND_DIRECTION+" TEXT, "+CROP_SPRAYING_EQUIPMENT_USED+" TEXT ,"+
                 CROP_SPRAYING_SPARY_ID+" TEXT NOT NULL,"+ CROP_SPRAYING_RATE+" REAL NOT NULL ,"+CROP_SPRAYING_TREATMENT_REASON+" TEXT ,"+CROP_SPRAYING_COST+" REAL )";
 
+        String crop_field_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_FIELDS_TABLE_NAME +" ( "+ CROP_FIELD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
+                CROP_FIELD_TOTAL_AREA +" REAL NOT NULL ,"+ CROP_FIELD_CROPPABLE_AREA+" REAL ,"+ CROP_FIELD_UNITS+" REAL NOT NULL)";
+
+
+        String crop_machine_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_MACHINE_TABLE_NAME+" ( "+CROP_MACHINE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_MACHINE_USER_ID+" TEXT,"+CROP_MACHINE_NAME+" TEXT NOT NULL,"+CROP_MACHINE_BRAND+" TEXT ,"+CROP_MACHINE_CATEGORY+" TEXT NOT NULL,"+CROP_MACHINE_MANUFACTURER+" TEXT ,"+ CROP_MACHINE_MODEL+" TEXT ,"+
+                CROP_MACHINE_REGISTRATION_NUMBER+" REAL,"+ CROP_MACHINE_QUANTITY+" REAL NOT NULL,"+CROP_MACHINE_DATE_ACQUIRED+" TEXT NOT NULL,"+
+                CROP_MACHINE_PURCHASED_FROM+" TEXT NOT NULL,"+CROP_MACHINE_STORAGE_LOCATION+" TEXT,"+CROP_MACHINE_PURCHASE_PRICE+" REAL NOT NULL )";
+
+
         Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
         Log.d("SPRAY INVENTORY",crop_inventory_spray_insert_query);
@@ -234,7 +258,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("CROP",crop_insert_query);
         Log.d("CULTIVATE",crop_cultivate_insert_query);
         Log.d("FERTILIZER",crop_fertilizer_insert_query);
-
+        Log.d("FIELDS",crop_field_insert_query);
+        Log.d("MACHINE",crop_machine_insert_query);
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
@@ -242,17 +267,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_insert_query);
         database.execSQL(crop_cultivate_insert_query);
         database.execSQL(crop_fertilizer_insert_query);
-
         database.execSQL(crop_spraying_insert_query);
-
-
-        String crop_field_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_FIELDS_TABLE_NAME +" ( "+ CROP_FIELD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
-                CROP_FIELD_TOTAL_AREA +" REAL NOT NULL ,"+ CROP_FIELD_CROPPABLE_AREA+" REAL ,"+ CROP_FIELD_UNITS+" REAL NOT NULL)";
-
-        Log.d("FIELDS QUERY",crop_field_insert_query); //displays this generated SQL query on the log cat
-
         database.execSQL(crop_field_insert_query);
+        database.execSQL(crop_machine_insert_query);
+
+
+
+
+
 
 
     }
@@ -265,6 +287,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_SEEDS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_SPRAY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_TABLE_NAME);
         onCreate(db);
     }
 
@@ -886,7 +909,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = " + userId, null);
         res.moveToFirst();
 
-        while(!res.isAfterLast()){
+        while (!res.isAfterLast()) {
             CropField field = new CropField();
             field.setId(res.getString(res.getColumnIndex(CROP_FIELD_ID)));
             field.setUserId(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID)));
@@ -902,7 +925,86 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
         closeDB();
-        Log.d("FIELDS SIZE",array_list.size()+"");
+        Log.d("FIELDS SIZE", array_list.size() + "");
         return array_list;
+    }
+        public void  insertCropMachine(CropMachine machine){
+            openDB();
+            ContentValues contentValues = new ContentValues();
 
-}}
+            contentValues.put(CROP_MACHINE_USER_ID, machine.getUserId());
+            contentValues.put(CROP_MACHINE_NAME, machine.getName());
+            contentValues.put(CROP_MACHINE_BRAND, machine.getBrand());
+            contentValues.put(CROP_MACHINE_CATEGORY, machine.getCategory());
+            contentValues.put(CROP_MACHINE_MANUFACTURER, machine.getManufacturer());
+            contentValues.put(CROP_MACHINE_MODEL, machine.getModel());
+            contentValues.put(CROP_MACHINE_REGISTRATION_NUMBER, machine.getRegistrationNumber());
+            contentValues.put(CROP_MACHINE_QUANTITY, machine.getQuantity());
+            contentValues.put(CROP_MACHINE_DATE_ACQUIRED, machine.getDate());
+            contentValues.put(CROP_MACHINE_PURCHASED_FROM, machine.getPurchasedFrom());
+            contentValues.put(CROP_MACHINE_STORAGE_LOCATION, machine.getStorageLocation());
+            contentValues.put(CROP_MACHINE_PURCHASE_PRICE, machine.getPurchasePrice());
+
+            database.insert(CROP_MACHINE_TABLE_NAME,null,contentValues);
+            closeDB();
+        }
+        public void  updateCropMachine(CropMachine machine){
+            openDB();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(CROP_MACHINE_USER_ID, machine.getUserId());
+            contentValues.put(CROP_MACHINE_NAME, machine.getName());
+            contentValues.put(CROP_MACHINE_BRAND, machine.getBrand());
+            contentValues.put(CROP_MACHINE_CATEGORY, machine.getCategory());
+            contentValues.put(CROP_MACHINE_MANUFACTURER, machine.getManufacturer());
+            contentValues.put(CROP_MACHINE_MODEL, machine.getModel());
+            contentValues.put(CROP_MACHINE_REGISTRATION_NUMBER, machine.getRegistrationNumber());
+            contentValues.put(CROP_MACHINE_QUANTITY, machine.getQuantity());
+            contentValues.put(CROP_MACHINE_DATE_ACQUIRED, machine.getDate());
+            contentValues.put(CROP_MACHINE_PURCHASED_FROM, machine.getPurchasedFrom());
+            contentValues.put(CROP_MACHINE_STORAGE_LOCATION, machine.getStorageLocation());
+            contentValues.put(CROP_MACHINE_PURCHASE_PRICE, machine.getPurchasePrice());
+
+            database.update(CROP_MACHINE_TABLE_NAME,contentValues,CROP_MACHINE_ID+" = ?", new String[]{machine.getId()});
+
+            closeDB();
+        }
+        public boolean deleteCropMachine(String machineId){
+            openDB();
+            database.delete(CROP_MACHINE_TABLE_NAME,CROP_MACHINE_ID+" = ?", new String[]{machineId});
+            closeDB();
+            return true;
+        }
+        public ArrayList<CropMachine> getCropMachines(String userId){
+            openDB();
+            ArrayList<CropMachine> array_list = new ArrayList();
+
+            //hp = new HashMap();
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor res = db.rawQuery("select * from " + CROP_MACHINE_TABLE_NAME + " where " + CROP_MACHINE_ID + " = " + userId, null);
+            res.moveToFirst();
+
+            while (!res.isAfterLast()) {
+                CropMachine machine = new CropMachine();
+                machine.setId(res.getString(res.getColumnIndex(CROP_MACHINE_ID)));
+                machine.setUserId(res.getString(res.getColumnIndex(CROP_MACHINE_USER_ID)));
+                machine.setDate(res.getString(res.getColumnIndex(CROP_MACHINE_DATE_ACQUIRED)));
+                machine.setName(res.getString(res.getColumnIndex(CROP_MACHINE_NAME)));
+                machine.setBrand(res.getString(res.getColumnIndex(CROP_MACHINE_BRAND)));
+                machine.setCategory(res.getString(res.getColumnIndex(CROP_MACHINE_CATEGORY)));
+                machine.setManufacturer(res.getString(res.getColumnIndex(CROP_MACHINE_MANUFACTURER)));
+                machine.setRegistrationNumber(res.getFloat(res.getColumnIndex(CROP_MACHINE_REGISTRATION_NUMBER)));
+                machine.setQuantity(res.getFloat(res.getColumnIndex(CROP_MACHINE_QUANTITY)));
+                machine.setPurchasedFrom(res.getString(res.getColumnIndex(CROP_MACHINE_PURCHASED_FROM)));
+                machine.setStorageLocation(res.getString(res.getColumnIndex(CROP_MACHINE_STORAGE_LOCATION)));
+                machine.setPurchasePrice(res.getFloat(res.getColumnIndex(CROP_MACHINE_PURCHASE_PRICE)));
+
+
+                array_list.add(machine);
+                res.moveToNext();
+            }
+
+            closeDB();
+            return array_list;
+        }
+
+}

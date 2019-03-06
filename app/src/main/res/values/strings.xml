@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">My Farm Crop</string>
     <string name="action_settings">Settings</string>
+    <string name="field_name">Field Name :</string>
+    <string name="save">SAVE</string>
+    <string name="soil_category">Soil Category :</string>
+    <string name="croppable_area">Croppable Area:</string>
+    <string name="total_area">Total Area :</string>
+    <string name="watercourse">Watercourse :</string>
+    <string name="soil_type">Soil Type :</string>
+    <string name="soil_category">Soil Category :</string>
 </resources>
