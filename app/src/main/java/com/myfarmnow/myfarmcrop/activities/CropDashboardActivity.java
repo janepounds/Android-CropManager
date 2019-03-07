@@ -1,6 +1,9 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +23,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CropDashboardActivity extends AppCompatActivity {
 
@@ -79,6 +85,47 @@ public class CropDashboardActivity extends AppCompatActivity {
             }
         });
 
+        SavePreferences("userId", "1");
+        SavePreferences("email", "georgia@gmail.com");
+        SavePreferences("Firmname", "Crop Farm");
+        SavePreferences("firstname", "Georgia" );
+
     }
+    public static  void addDatePicker(final EditText ed_, final Context context){
+        ed_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentDate = Calendar.getInstance();
+                int mYear = mcurrentDate.get(Calendar.YEAR);
+                int mMonth = mcurrentDate.get(Calendar.MONTH);
+                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                final DatePickerDialog mDatePicker = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+
+                        int month = selectedmonth + 1;
+                        ed_.setText( selectedyear+ "-" + month + "-" +selectedday );
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePicker.show();
+
+            }
+        });
+    }
+
+    private void SavePreferences(String key, String value) {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
+                0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+    public static String getPreferences(String key, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
+                0);
+        return sharedPreferences.getString(key, "0");
+
+    }
+
 
 }

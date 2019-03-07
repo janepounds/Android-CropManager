@@ -20,7 +20,7 @@ public class CropInventorySeeds implements CropInventory{
     String dressing;
     String tgw;
     private String userId;
-    private String cost;
+    private float cost;
     private String supplier;
 
     public String getId() {
@@ -181,11 +181,11 @@ public class CropInventorySeeds implements CropInventory{
         this.userId = userId;
     }
 
-    public String getCost() {
+    public float getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(float cost) {
         this.cost = cost;
     }
 

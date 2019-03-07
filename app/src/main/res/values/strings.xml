@@ -22,6 +22,12 @@
     <string name="watercourse">Watercourse :</string>
     <string name="soil_type">Soil Type :</string>
     <string name="label_inventory_list">Inventory List</string>
+    <string name="date_not_entered_message">The date has not been entered</string>
+    <string name="seed_name_not_entered_message">You must enter a seed Name</string>
+    <string name="quantity_not_entered_message">You must enter a quantity</string>
+    <string name="batch_number_entered_message">You must enter a batch number</string>
+    <string name="missing_fields_message">Missing Fields:</string>
+    <string name="usage_units_not_selected">Usage Units not selected</string>
 
     <string-array name="crop_seeds_usage_units">
         <item>Select unit</item>
