@@ -10,11 +10,13 @@
     tools:showIn="@layout/activity_crop_inventory_seeds_manager">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +62,8 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:textSize="16sp" android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" android:textStyle="bold"
                         android:layout_weight="0.6"
                         android:text="Seed Name "
                         android:textColor="@color/colorPrimary"
@@ -280,7 +283,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:inputType="numberDecimal"
+                            android:entries="@array/crop_seeds_usage_units"
                             android:hint="Enter"
                             android:textSize="14sp" />
                     </LinearLayout>

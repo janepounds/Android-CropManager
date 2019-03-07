@@ -13,17 +13,32 @@
     <string name="label_weather_forecast">Weather Forecast</string>
     <string name="label_basic_practices">Basic Practices</string>
     <string name="label_financial_summary">Financial Summary</string>
+
     <string name="title_activity_crop_inventory_seeds_manager">CropInventorySeedsManagerActivity
     </string>
 
-    <string name="field_name">Field Name</string>
-    <string name="save">SAVE</string>
-    <string name="croppable_area">Croppable Area</string>
-    <string name="total_area">Total Area</string>
-    <string name="watercourse">Watercourse</string>
-    <string name="soil_type">Soil Type</string>
-    <string name="soil_category">Soil Category</string>
     <string name="units">Units</string>
+
+
+    <string name="label_inventory_list">Inventory List</string>
+
+    <string-array name="crop_seeds_usage_units">
+        <item>Select unit</item>
+        <item>g</item>
+        <item>Kg</item>
+        <item>cwt</item>
+        <item>tonne</item>
+    </string-array>
+    <string-array name="cropInventories">
+        <item>Select Inventory</item>
+        <item>All Records</item>
+
+        <item>Fertilizers</item>
+        <item>Seed</item>
+
+        <item>Spray</item>
+    </string-array>
+
 
     <string-array name="crop_field_units">
         <item>Select Unit</item>
@@ -61,4 +76,10 @@
         <item>Dry Ditch</item>
     </string-array>
     <string name="title_activity_crop_fields_list">CropFieldsListActivity</string>
+    <string name="field_name">Field Name</string>
+    <string name="soil_category">Soil Category</string>
+    <string name="soil_type">Soil Type</string>
+    <string name="watercourse">Watercourse</string>
+    <string name="total_area">Total Area</string>
+    <string name="croppable_area">Croppable Area</string>
 </resources>

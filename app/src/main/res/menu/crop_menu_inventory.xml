@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_inventory"
+        android:title="Add Item"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_add_spray"
+                android:title="Spray" />
+            <item
+                android:id="@+id/action_add_seed"
+                android:title="Seed" />
+            <item
+                android:id="@+id/action_add_fertilizer"
+                android:title="Fertilizer" />
+        </menu>
+
+    </item>
+
+
+</menu>
