@@ -16,36 +16,37 @@ import android.widget.Spinner;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.adapters.CropInventoryListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
 import java.util.ArrayList;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
+import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 public class CropInventoryListActivity extends AppCompatActivity {
 
-    RecyclerView sheepInventoryListRecyclerView;
+    RecyclerView cropInventoryListRecyclerView;
     LinearLayoutManager linearLayoutManager;
-    CropInventoryListRecyclerAdapter sheepListRecyclerAdapter;
+    CropInventoryListRecyclerAdapter cropListRecyclerAdapter;
     Spinner selectInventorySpinner;
-    ArrayList<CropInventory> sheepList = new ArrayList();
-    ArrayList<CropInventory> sheepListBackUp = new ArrayList();
+    ArrayList<CropInventory> cropInventoryList = new ArrayList();
+    ArrayList<CropInventory> cropListBackUp = new ArrayList();
+    MyFarmDbHandlerSingleton dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_inventory_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        try {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        }catch (NullPointerException exception){ }
-
-        sheepInventoryListRecyclerView = findViewById(R.id.inventory_recyc_view);
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        cropInventoryListRecyclerView = findViewById(R.id.inventory_recyc_view);
         selectInventorySpinner = findViewById(R.id.select_inventory_spinner);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        sheepInventoryListRecyclerView.setLayoutManager(linearLayoutManager);
-        sheepListRecyclerAdapter = new CropInventoryListRecyclerAdapter(CropInventoryListActivity.this.sheepList,CropInventoryListActivity.this);
-        sheepInventoryListRecyclerView.setAdapter(sheepListRecyclerAdapter);
+        cropInventoryListRecyclerView.setLayoutManager(linearLayoutManager);
+        cropListRecyclerAdapter = new CropInventoryListRecyclerAdapter(CropInventoryListActivity.this.cropInventoryList,CropInventoryListActivity.this);
+        cropInventoryListRecyclerView.setAdapter(cropListRecyclerAdapter);
         loadCropInventories();
 
         selectInventorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -54,22 +55,22 @@ public class CropInventoryListActivity extends AppCompatActivity {
                 if(position !=0){
                     String selection = parent.getSelectedItem().toString();
                     ArrayList<CropInventory> filteredList = new ArrayList<>();
-                    if(sheepListBackUp.size() ==0 ){
-                       // sheepList.clear();
-                        for(CropInventory x :sheepListRecyclerAdapter.getInventoryList()){
-                            sheepListBackUp.add(x);
+                    if(cropListBackUp.size() ==0 ){
+                       // cropInventoryList.clear();
+                        for(CropInventory x :cropListRecyclerAdapter.getInventoryList()){
+                            cropListBackUp.add(x);
                         }
                     }
 
                     //filteredList.clear();
-                    for(CropInventory x :sheepListBackUp){
+                    for(CropInventory x :cropListBackUp){
                         if(selection.toLowerCase().contains(x.getInventoryType().toLowerCase())||position==1){
                             filteredList.add(x);
                         }
 
                     }
 
-                    sheepListRecyclerAdapter.changeList(filteredList);
+                    cropListRecyclerAdapter.changeList(filteredList);
 
                 }
             }
@@ -85,7 +86,15 @@ public class CropInventoryListActivity extends AppCompatActivity {
 
     private void loadCropInventories(){
         AsyncHttpClient client = new AsyncHttpClient();
-
+        for(CropInventorySeeds seedsInventory:dbHandler.getCropSeeds(CropDashboardActivity.getPreferences("userId",this))){
+            cropListRecyclerAdapter.addInventory(seedsInventory);
+        }
+        for(CropInventoryFertilizer fertilizerInventory:dbHandler.getCropFertilizers(CropDashboardActivity.getPreferences("userId",this))){
+            cropListRecyclerAdapter.addInventory(fertilizerInventory);
+        }
+        for(CropInventorySpray spraysInventory:dbHandler.getCropSpray(CropDashboardActivity.getPreferences("userId",this))){
+            cropListRecyclerAdapter.addInventory(spraysInventory);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
