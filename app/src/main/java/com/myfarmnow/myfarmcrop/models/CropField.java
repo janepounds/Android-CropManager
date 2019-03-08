@@ -9,7 +9,7 @@ public class CropField {
     String watercourse="";
     float totalArea=0;
     float croppableArea=0;
-    float units=0;
+    String units="";
 
     public CropField(){
 
@@ -78,14 +78,14 @@ public class CropField {
     public void setCroppableArea(float croppableArea) {
         this.croppableArea = croppableArea;
     }
-
-    public float getUnits() {
+    public String getUnits() {
         return units;
     }
 
-    public void setUnits(float units) {
+    public void setUnits(String units) {
         this.units = units;
     }
+
 
     @Override
     public String toString() {
@@ -101,5 +101,7 @@ public class CropField {
                 ", units=" + units +
                 '}';
     }
+
+
 }
 

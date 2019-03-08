@@ -71,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         n.setUserId("1");
         float b = (float) 20.5;
         n.setCroppableArea(b);
-        float a = (float) 50.5;
-        n.setUnits(a);
+
 
 
         handler.insertCropField(n);

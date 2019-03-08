@@ -113,8 +113,8 @@ public class CropMachine {
         return storageLocation;
     }
 
-    public void setStorageLocation(String storageLoacation) {
-        this.storageLocation = storageLoacation;
+    public void setStorageLocation(String storageLocation) {
+        this.storageLocation = storageLocation;
     }
 
     public float getPurchasePrice() {

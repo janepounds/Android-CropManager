@@ -13,14 +13,13 @@
     <string name="label_weather_forecast">Weather Forecast</string>
     <string name="label_basic_practices">Basic Practices</string>
     <string name="label_financial_summary">Financial Summary</string>
-    <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager</string>
-    <string name="field_name">Field Name :</string>
-    <string name="save">SAVE</string>
-    <string name="soil_category">Soil Category :</string>
-    <string name="croppable_area">Croppable Area:</string>
-    <string name="total_area">Total Area :</string>
-    <string name="watercourse">Watercourse :</string>
-    <string name="soil_type">Soil Type :</string>
+
+    <string name="title_activity_crop_inventory_seeds_manager">CropInventorySeedsManagerActivity
+    </string>
+
+    <string name="units">Units</string>
+
+
     <string name="label_inventory_list">Inventory List</string>
     <string name="date_not_entered_message">The date has not been entered</string>
     <string name="seed_name_not_entered_message">You must enter a seed Name</string>
@@ -78,5 +77,159 @@
     <string name="fertilizer_type_not_selected">Fertilizer type not selected</string>
     <string name="default_numeric_value">0</string>
     <string name="title_activity_crop_inventory_spray_manager">Spray Manager</string>
+
+
+    <string-array name="crop_field_units">
+        <item>Select Unit</item>
+        <item>Acres</item>
+        <item>Hectares</item>
+        <item>Square Miles</item>
+    </string-array>
+    <string-array name="crop_field_soil_type">
+        <item>Select Type</item>
+        <item>Sand</item>
+        <item>Loamy Sand</item>
+        <item>Sand Loam</item>
+        <item>Loam</item>
+        <item>Silt Loam</item>
+        <item>Clay Loam</item>
+        <item>Sandy Clay Loam</item>
+        <item>Silty Clay Loam</item>
+    </string-array>
+    <string-array name="crop_field_soil_category">
+        <item>Select Category</item>
+        <item>Light Sand</item>
+        <item>Shallow</item>
+        <item>Medium</item>
+        <item>Deep Clayey</item>
+        <item>Deep Silty</item>
+        <item>Organic</item>
+        <item>Peat</item>
+    </string-array>
+    <string-array name="crop_field_watercourse">
+        <item>Select</item>
+        <item>None</item>
+        <item>Small (0-3m)</item>
+        <item>Medium (3-6m)</item>
+        <item>Large (6m)</item>
+        <item>Dry Ditch</item>
+    </string-array>
+    <string-array name="crops_growing_cycle">
+        <item>Select Cycle</item>
+        <item>Annual</item>
+        <item>Perennial</item>
+        <item>Biennial</item>
+    </string-array>
+    <string-array name="crops_planting_method">
+        <item>Select Method</item>
+        <item>Drill Sow</item>
+        <item>Broadcast Sow</item>
+
+    </string-array>
+    <string-array name="crop_cultivate_operation">
+        <item>Select Operation</item>
+        <item>Field Preparation</item>
+        <item>Lime</item>
+        <item>Pest Management</item>
+        <item>Weed Control</item>
+        <item>Other</item>
+
+    </string-array>
+    <string-array name="crop_fertilizer_application_method_solid">
+        <item>Select Method</item>
+        <item>Broadcasting</item>
+        <item>Placement</item>
+        <item>Band Placement</item>
+        <item>Pellet Application</item>
+    </string-array>
+    <string-array name="crop_fertilizer_application_method_liquid">
+        <item>Select Method</item>
+        <item>Starter Solutions</item>
+        <item>Foliar Application</item>
+        <item>Fertigation</item>
+        <item>Injection into Soil</item>
+        <item>Aerial Application</item>
+    </string-array>
+    <string-array name="crop_fertilizer_form">
+        <item>Select Form</item>
+        <item>Solid</item>
+        <item>Liquid</item>
+
+
+    </string-array>
+    <string-array name="crop_spraying_weather_condition">
+        <item>Select</item>
+        <item>Sunny</item>
+        <item>Sunny Spells</item>
+        <item>Fine</item>
+        <item>Showers</item>
+        <item>Rain</item>
+        <item>Heavy Rain</item>
+    </string-array>
+    <string-array name="crop_spraying_wind_direction">
+        <item>Select</item>
+        <item>N</item>
+        <item>N.E</item>
+        <item>N.W</item>
+        <item>S</item>
+        <item>S.E</item>
+        <item>S.W</item>
+        <item>E</item>
+        <item>W</item>
+    </string-array>
+
+    <string name="title_activity_crop_fields_list">CropFieldsListActivity</string>
+    <string name="field_name">Field Name</string>
+    <string name="soil_category">Soil Category</string>
+    <string name="soil_type">Soil Type</string>
+    <string name="watercourse">Watercourse</string>
+    <string name="total_area">Total Area</string>
+    <string name="croppable_area">Croppable Area</string>
+    <string name="machine_name">Machine Name</string>
+    <string name="brand">Brand</string>
+    <string name="category">Category</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="model">Model</string>
+    <string name="reg">Reg#</string>
+    <string name="quantity">Quantity</string>
+    <string name="date_acquired">Date Acquired</string>
+    <string name="purchased_from">Purchased From</string>
+    <string name="storage_location">Storage Location</string>
+    <string name="purchase_price">Purchase Price</string>
+    <string name="crop">Crop</string>
+    <string name="variety">Variety</string>
+    <string name="field">Field</string>
+    <string name="growing_cycle">Growing Cycle</string>
+    <string name="date_sown">Date Sown</string>
+    <string name="operator_cost">Operator Cost</string>
+    <string name="seed_name">Seed Name</string>
+    <string name="rate">Rate</string>
+    <string name="planting_method">Planting Method</string>
+    <string name="cultivation_date">Cultivation Date</string>
+    <string name="operation">Operation</string>
+    <string name="operator">Operator</string>
+    <string name="fixed_cost">Fixed Cost</string>
+    <string name="notes">Notes</string>
+    <string name="application_date">Application Date</string>
+    <string name="application_method">Application Method</string>
+    <string name="application_reason">Application Reason</string>
+    <string name="fertilizer_form">Fertilizer Form</string>
+    <string name="fertilizer_name">Fertilizer Name</string>
+    <string name="labour_cost">Labour Cost</string>
+    <string name="treatment_date">Treatment Date</string>
+    <string name="start_time">Start Time </string>
+    <string name="performed_by">Performed by</string>
+    <string name="weather_condition">Weather Condition</string>
+    <string name="wind_direction">Wind Direction</string>
+    <string name="equipment_used">Equipment Used</string>
+    <string name="spray_name">Spray Name</string>
+    <string name="treatment_reason">Treatment Reason</string>
+    <string name="soil_ph">Soil pH</string>
+    <string name="analysis_date">Analysis Date</string>
+    <string name="organic_matter">Organic Matter</string>
+    <string name="agronomist">Agronomist</string>
+    <string name="cost">Cost</string>
+    <string name="results">Results</string>
+    <string name="end_time">End Time</string>
 
 </resources>

@@ -4,21 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.CropFieldManagerActivity">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
+    tools:context=".activities.CropCultivateManagerActivity">
 
 
     <LinearLayout
@@ -39,20 +25,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/field_name"
+                android:text="@string/cultivation_date"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"
                 />
 
             <EditText
-                android:id="@+id/txt_crop_field_name"
+                android:id="@+id/txt_crop_cultivate_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
 
                 />
@@ -69,57 +56,24 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/soil_category"
+                android:text="@string/operation"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:layout_weight="0.5"
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/sp_crop_field_soil_category"
+                android:id="@+id/sp_crop_cultivate_operation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
-                android:entries="@array/crop_field_soil_category"
-                />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/soil_type"
-                android:layout_weight="0.6"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <Spinner
-
-                android:id="@+id/sp_crop_field_soil_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_soil_type"
-
+                android:entries="@array/crop_cultivate_operation"
+                android:background="@drawable/input_shapes"
 
                 />
-
         </LinearLayout>
 
         <LinearLayout
@@ -133,65 +87,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="@string/watercourse"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/operator"
+                android:textStyle="bold"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/colorPrimary"
+                />
 
-            <Spinner
-                android:id="@+id/sp_crop_field_watercourse"
+            <EditText
+                android:id="@+id/txt_crop_cultivate_operator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_watercourse"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_area"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/txt_crop_field_total_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
-
-
-                />
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/croppable_area"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/txt_crop_field_croppable_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="5"
-                android:hint="Enter"
-                android:textSize="14sp"
 
                 />
 
@@ -206,33 +117,63 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/units"
                 android:layout_weight="0.5"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/fixed_cost"
                 android:textStyle="bold"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                />
 
-            <Spinner
-                android:id="@+id/sp_crop_field_units"
+            <EditText
+                android:id="@+id/txt_crop_cultivate_fixed_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_units"
+                android:ems="10"
+                android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
+
+
                 />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/notes"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                />
+
+
+
+
+            <EditText
+                android:id="@+id/txt_crop_soil_analysis_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_weight="0.5"
+                android:inputType="textMultiLine"
+                android:background="@drawable/input_shapes"
+                android:hint="Enter"
+
+
+                />
+
 
 
         </LinearLayout>
-
         <Button
             android:id="@+id/btn_save"
             style="@style/Button"
@@ -244,7 +185,6 @@
             android:textAllCaps="false"
             android:textColor="#ffffff" />
 
-
-
     </LinearLayout>
+
 </LinearLayout>

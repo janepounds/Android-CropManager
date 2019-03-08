@@ -111,7 +111,7 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-
+                                android:id="@+id/layout_crop_dashboard_fields"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -239,7 +239,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/broke3"
+                            android:id="@+id/layout_crop_dashboard_machines"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
