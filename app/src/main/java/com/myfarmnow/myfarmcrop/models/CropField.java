@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropField {
+public class CropField  implements CropSpinnerItem{
     String id="";
     String userId="";
     String fieldName="";
@@ -89,17 +89,7 @@ public class CropField {
 
     @Override
     public String toString() {
-        return "CropField{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", fieldName='" + fieldName + '\'' +
-                ", soilCategory='" + soilCategory + '\'' +
-                ", soilType='" + soilType + '\'' +
-                ", watercourse='" + watercourse + '\'' +
-                ", totalArea=" + totalArea +
-                ", croppableArea=" + croppableArea +
-                ", units=" + units +
-                '}';
+        return getFieldName();
     }
 
 

@@ -38,6 +38,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SPRAYING_TABLE_NAME ="crop_fertilizer_application";
     public static final String CROP_FIELDS_TABLE_NAME ="crop_fields";
     public static final String CROP_MACHINE_TABLE_NAME ="crop_machine";
+    public static final String CROP_SOIL_ANALYSIS_TABLE_NAME ="crop_soil_analysis";
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
@@ -173,6 +174,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_MACHINE_STORAGE_LOCATION="storageLocation";
     public static final String CROP_MACHINE_PURCHASE_PRICE="purchasePrice";
 
+    public static final String CROP_SOIL_ANALYSIS_ID ="id";
+    public static final String CROP_SOIL_ANALYSIS_USER_ID ="userId";
+    public static final String CROP_SOIL_ANALYSIS_DATE="date";
+    public static final String CROP_SOIL_ANALYSIS_PH="ph";
+    public static final String CROP_SOIL_ANALYSIS_ORGANIC_MATTER="organicMatter";
+    public static final String CROP_SOIL_ANALYSIS_AGRONOMIST="agronomist";
+    public static final String CROP_SOIL_ANALYSIS_COST="cost";
+    public static final String CROP_SOIL_ANALYSIS_RESULTS="results";
+    public static final String CROP_SOIL_ANALYSIS_FIELD_ID="fieldId";
+
+
 
 
 
@@ -222,7 +234,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_CROP_USER_ID+" TEXT,"+ CROP_CROP_VARIETY+" TEXT ,"+ CROP_CROP_YEAR +" INTEGER,"+ CROP_CROP_NAME +" TEXT NOT NULL,"+
                 CROP_CROP_FIELD_ID+" TEXT NOT NULL," +CROP_CROP_GROWING_CYCLE+" TEXT,"+CROP_CROP_DATE_SOWN+" TEXT NOT NULL,"+
                 CROP_CROP_AREA+" REAL,"+CROP_CROP_OPERATOR+" TEXT NOT NULL,"+
-                CROP_CROP_COST+" REAL NOT NULL,"+CROP_CROP_SEED_ID+" TEXT NOT NULL,"+CROP_CROP_RATE+" REAL ,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL )";
+                CROP_CROP_COST+" REAL NOT NULL,"+CROP_CROP_SEED_ID+" TEXT ,"+CROP_CROP_RATE+" REAL ,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL )";
 
         String crop_cultivate_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CULTIVATION_TABLE_NAME+" ( "+CROP_CULTIVATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CULTIVATION_USER_ID+" TEXT,"+CROP_CULTIVATION_CROP_ID+" TEXT NOT NULL,"+ CROP_CULTIVATION_DATE+" TEXT NOT NULL,"+ CROP_CULTIVATION_OPERATION+" TEXT NOT NULL,"+CROP_CULTIVATION_OPERATOR+" TEXT NOT NULL,"+
@@ -244,6 +256,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
                 CROP_FIELD_TOTAL_AREA +" REAL NOT NULL ,"+ CROP_FIELD_CROPPABLE_AREA+" REAL ,"+ CROP_FIELD_UNITS+" TEXT NOT NULL)";
 
+        String crop_soil_analysis_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_SOIL_ANALYSIS_TABLE_NAME +" ( "+ CROP_SOIL_ANALYSIS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SOIL_ANALYSIS_USER_ID+" TEXT ,"+CROP_SOIL_ANALYSIS_FIELD_ID+" TEXT,"+CROP_SOIL_ANALYSIS_DATE+" TEXT NOT NULL,"+ CROP_SOIL_ANALYSIS_PH+" REAL,"+ CROP_SOIL_ANALYSIS_ORGANIC_MATTER+" TEXT,"+
+                CROP_SOIL_ANALYSIS_AGRONOMIST +" TEXT NOT NULL ,"+ CROP_SOIL_ANALYSIS_COST+" REAL  NOT NULL  ,"+ CROP_SOIL_ANALYSIS_RESULTS+" TEXT NOT NULL)";
 
         String crop_machine_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_MACHINE_TABLE_NAME+" ( "+CROP_MACHINE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_MACHINE_USER_ID+" TEXT,"+CROP_MACHINE_NAME+" TEXT NOT NULL,"+CROP_MACHINE_BRAND+" TEXT ,"+CROP_MACHINE_CATEGORY+" TEXT NOT NULL,"+CROP_MACHINE_MANUFACTURER+" TEXT ,"+ CROP_MACHINE_MODEL+" TEXT ,"+
@@ -270,6 +285,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_spraying_insert_query);
         database.execSQL(crop_field_insert_query);
         database.execSQL(crop_machine_insert_query);
+        database.execSQL(crop_soil_analysis_insert_query);
 
 
 
@@ -529,6 +545,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_VARIETY,inventorySpray.getVariety());
         contentValues.put(CROP_CROP_AREA,inventorySpray.getArea());
         contentValues.put(CROP_CROP_COST,inventorySpray.getCost());
+        contentValues.put(CROP_CROP_NAME,inventorySpray.getName());
         contentValues.put(CROP_CROP_YEAR,inventorySpray.getCroppingYear());
         contentValues.put(CROP_CROP_OPERATOR,inventorySpray.getOperator());
         contentValues.put(CROP_CROP_FIELD_ID,inventorySpray.getFieldId());
@@ -586,7 +603,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
             crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
             crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
-            crop.setRate(res.getString(res.getColumnIndex(CROP_CROP_RATE)));
+            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
             crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
             array_list.add(crop);
             res.moveToNext();
@@ -788,7 +805,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FIELD_CROPPABLE_AREA,field.getCroppableArea());
         contentValues.put(CROP_FIELD_UNITS,field.getUnits());
 
-
         database.insert(CROP_FIELDS_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -876,7 +892,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
         closeDB();
-        Log.d("HOUSES SIZE",array_list.size()+"");
+        //Log.d("HOUSES SIZE",array_list.size()+"");
         return array_list;
 
     }

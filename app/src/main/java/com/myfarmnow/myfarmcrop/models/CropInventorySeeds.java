@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 
-public class CropInventorySeeds implements CropInventory,Serializable{
+public class CropInventorySeeds implements CropInventory,Serializable,CropSpinnerItem{
     String id;
     String dateOfPurchase;
     String name;
@@ -196,5 +196,10 @@ public class CropInventorySeeds implements CropInventory,Serializable{
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

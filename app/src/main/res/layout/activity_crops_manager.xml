@@ -33,13 +33,15 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/sp_crop_machine_category"
+                android:id="@+id/sp_crop_crop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
+                android:background="@drawable/input_shapes"
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
+                android:entries="@array/crops_list"
                 />
 
             <TextView
@@ -57,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:ems="5"
                 android:hint="Enter"
+                android:background="@drawable/input_shapes"
                 android:textSize="14sp"
 
 
@@ -88,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:ems="5"
                 android:hint="Enter"
+                android:background="@drawable/input_shapes"
                 android:textSize="14sp"
                 />
             <TextView
@@ -107,6 +111,7 @@
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
+                android:background="@drawable/input_shapes"
 
                 />
 
@@ -139,6 +144,7 @@
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
                 android:entries="@array/crops_growing_cycle"
+                android:background="@drawable/input_shapes"
                 />
 
         </LinearLayout>
@@ -165,9 +171,7 @@
                 android:ems="5"
                 android:hint="Enter"
                 android:textSize="14sp"
-
-
-
+                android:background="@drawable/input_shapes"
                 />
             <TextView
 
@@ -185,7 +189,7 @@
                 android:ems="8"
                 android:hint="Enter"
                 android:textSize="14sp"
-
+                android:background="@drawable/input_shapes"
                 />
 
         </LinearLayout>
@@ -211,9 +215,7 @@
                 android:ems="5"
                 android:hint="Enter"
                 android:textSize="14sp"
-
-
-
+                android:background="@drawable/input_shapes"
                 />
             <TextView
 
@@ -231,7 +233,7 @@
                 android:ems="8"
                 android:hint="Enter"
                 android:textSize="14sp"
-
+                android:background="@drawable/input_shapes"
                 />
 
         </LinearLayout>
@@ -258,6 +260,7 @@
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
+                android:background="@drawable/input_shapes"
                 />
 
             <TextView
@@ -276,8 +279,8 @@
                 android:ems="5"
                 android:hint="Enter"
                 android:textSize="14sp"
-
-
+                android:inputType="numberDecimal"
+                android:background="@drawable/input_shapes"
 
                 />
             <TextView
@@ -290,6 +293,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"
                 android:labelFor="@+id/txt_crop_spray_rate"
+
                 />
 
 
@@ -329,6 +333,7 @@
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
                 android:entries="@array/crops_planting_method"
+                android:background="@drawable/input_shapes"
                 />
 
         </LinearLayout>

@@ -12,8 +12,17 @@ public class Crop {
  private float cost;
  private String operator;
  private String seedId;
- private String rate;
+ private float rate;
  private String plantingMethod;
+ private String name;
+
+ public String getName() {
+  return name;
+ }
+
+ public void setName(String name) {
+  this.name = name;
+ }
 
  public Crop(){
 
@@ -63,7 +72,7 @@ public class Crop {
   return seedId;
  }
 
- public String getRate() {
+ public float getRate() {
   return rate;
  }
 
@@ -116,7 +125,7 @@ public class Crop {
   this.seedId = seedId;
  }
 
- public void setRate(String rate) {
+ public void setRate(float rate) {
   this.rate = rate;
  }
 

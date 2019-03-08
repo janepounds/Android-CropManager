@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     ExpandableListView expandableListView;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout;
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,8 @@ public class CropDashboardActivity extends AppCompatActivity {
         inventoryLinearLayout =findViewById(R.id.layout_crop_dashboard_inventory);
         fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
         machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
+        cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
+
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 supportInvalidateOptionsMenu();
@@ -103,12 +107,36 @@ public class CropDashboardActivity extends AppCompatActivity {
                 startActivity(openMachines);
             }
         });
+        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openCrops = new Intent(CropDashboardActivity.this, CropsListActivity.class);
+                startActivity(openCrops);
+            }
+        });
 
 
         SavePreferences("userId", "1");
         SavePreferences("email", "georgia@gmail.com");
         SavePreferences("Firmname", "Crop Farm");
         SavePreferences("firstname", "Georgia" );
+
+        CropField n = new CropField();
+
+
+        n.setSoilType("Sand");
+        n.setSoilCategory("Shallow");
+        n.setFieldName("Field1");
+        n.setWatercourse("Dry Ditch");
+        float z =45;
+        n.setTotalArea(z);
+        n.setUserId("1");
+        float b = (float) 20.5;
+        n.setCroppableArea(b);
+
+
+
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).insertCropField(n);
 
     }
     public static  void addDatePicker(final EditText ed_, final Context context){
@@ -122,7 +150,6 @@ public class CropDashboardActivity extends AppCompatActivity {
 
                 final DatePickerDialog mDatePicker = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-
                         int month = selectedmonth + 1;
                         ed_.setText( selectedyear+ "-" + month + "-" +selectedday );
                     }

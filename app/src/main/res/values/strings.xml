@@ -14,7 +14,7 @@
     <string name="label_basic_practices">Basic Practices</string>
     <string name="label_financial_summary">Financial Summary</string>
 
-    <string name="title_activity_crop_inventory_seeds_manager">CropInventorySeedsManagerActivity
+    <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager
     </string>
 
     <string name="units">Units</string>
@@ -177,8 +177,17 @@
         <item>E</item>
         <item>W</item>
     </string-array>
+    <string-array name="crops_list">
+        <item>Select Crop</item>
+        <item>Beans</item>
+        <item>Tomatoes</item>
+        <item>Maize</item>
+        <item>Cassava</item>
+        <item>Irish Potatoes</item>
+        <item>Sweet Potatoes</item>
+    </string-array>
 
-    <string name="title_activity_crop_fields_list">CropFieldsListActivity</string>
+    <string name="title_activity_crop_fields_list">Fields List</string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
     <string name="soil_type">Soil Type</string>
@@ -231,5 +240,12 @@
     <string name="cost">Cost</string>
     <string name="results">Results</string>
     <string name="end_time">End Time</string>
+    <string name="area_not_entered">The area has not been entered</string>
+    <string name="rate_not_entered">Rate has not been entered</string>
+    <string name="operator_not_entered">Operator has not been entered</string>
+    <string name="crop_not_selected">Crop has not been selected</string>
+    <string name="field_not_selected">Field has not been Selected</string>
+    <string name="activity_crops_list">Crops List</string>
+    <string name="activity_crop_manager">Crop Manager</string>
 
 </resources>

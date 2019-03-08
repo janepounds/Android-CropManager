@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropMachine {
+public class CropMachine implements CropSpinnerItem {
 
     String id="";
     String userId="";
