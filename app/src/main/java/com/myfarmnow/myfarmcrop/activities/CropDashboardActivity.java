@@ -34,7 +34,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     ExpandableListView expandableListView;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
-    LinearLayout inventoryLinearLayout;
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,8 @@ public class CropDashboardActivity extends AppCompatActivity {
 
         mainlayout = findViewById(R.id.mainlayout);
         inventoryLinearLayout =findViewById(R.id.layout_crop_dashboard_inventory);
+        fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
+        machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 supportInvalidateOptionsMenu();
@@ -84,6 +86,22 @@ public class CropDashboardActivity extends AppCompatActivity {
                 startActivity(openInventory);
             }
         });
+
+        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openFields = new Intent(CropDashboardActivity.this, CropFieldsListActivity.class);
+                startActivity(openFields);
+            }
+        });
+        machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openMachines = new Intent(CropDashboardActivity.this, CropMachinesListActivity.class);
+                startActivity(openMachines);
+            }
+        });
+
 
         SavePreferences("userId", "1");
         SavePreferences("email", "georgia@gmail.com");

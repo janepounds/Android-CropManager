@@ -5,20 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.CropFieldManagerActivity">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    tools:context=".activities.CropsManagerActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
 
 
     <LinearLayout
@@ -28,6 +16,7 @@
         android:orientation="vertical">
 
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,116 +27,42 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/field_name"
-                android:textStyle="bold"
-                android:textSize="16sp"
+                android:text="@string/crop"
                 android:textColor="@color/colorPrimary"
-                />
+                android:textStyle="bold"
+                android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/txt_crop_field_name"
+            <Spinner
+                android:id="@+id/sp_crop_machine_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
                 android:layout_weight="0.5"
-                android:ems="10"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/variety"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txt_crops_variety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
                 android:hint="Enter"
                 android:textSize="14sp"
 
 
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp"
-            >
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/soil_category"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:layout_weight="0.5"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/sp_crop_field_soil_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:layout_weight="0.5"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_soil_category"
-                />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/soil_type"
-                android:layout_weight="0.6"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <Spinner
-
-                android:id="@+id/sp_crop_field_soil_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_soil_type"
-
 
                 />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/watercourse"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/sp_crop_field_watercourse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_watercourse"
-                />
 
         </LinearLayout>
         <LinearLayout
@@ -156,17 +71,95 @@
             android:orientation="horizontal"
             android:layout_marginBottom="10dp">
 
+
+
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_area"
+                android:text="Cropping Year"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/txt_crop_field_total_area"
+                android:id="@+id/txt_crops_cropping_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Enter"
+                android:textSize="14sp"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/sp_crops_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/growing_cycle"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <Spinner
+                android:id="@+id/sp_crops_growing_cycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                android:entries="@array/crops_growing_cycle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_sown"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txt_crops_date_sown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
@@ -180,16 +173,16 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/croppable_area"
+                android:text="Area"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/txt_crop_field_croppable_area"
+                android:id="@+id/txt_crops_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="8"
                 android:hint="Enter"
                 android:textSize="14sp"
 
@@ -206,23 +199,102 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/units"
-                android:layout_weight="0.5"
+                android:text="@string/operator"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txt_crops_operator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Enter"
+                android:textSize="14sp"
+
+
+
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/operator_cost"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txt_crops_operator_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:hint="Enter"
+                android:textSize="14sp"
+
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seed_name"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/sp_crop_field_units"
+                android:id="@+id/sp_crops_seed_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rate"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txt_crops_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:hint="Enter"
+                android:textSize="14sp"
+
+
+
+                />
+            <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:layout_gravity="center"
-                android:entries="@array/crop_field_units"
-                android:textSize="14sp"
+                android:text="Kg/ha"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:labelFor="@+id/txt_crop_spray_rate"
                 />
 
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -232,6 +304,35 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/planting_method"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/sp_crops_planting_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                android:entries="@array/crops_planting_method"
+                />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_save"
@@ -243,6 +344,7 @@
             android:text="Save "
             android:textAllCaps="false"
             android:textColor="#ffffff" />
+
 
 
 
