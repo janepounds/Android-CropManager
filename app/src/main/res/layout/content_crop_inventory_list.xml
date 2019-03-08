@@ -10,12 +10,13 @@
 
     <Spinner
         android:id="@+id/select_inventory_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:entries="@array/cropInventories"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/input_shapes"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

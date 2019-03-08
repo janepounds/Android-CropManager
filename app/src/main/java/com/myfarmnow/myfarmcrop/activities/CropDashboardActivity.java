@@ -12,12 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
@@ -125,6 +127,21 @@ public class CropDashboardActivity extends AppCompatActivity {
                 0);
         return sharedPreferences.getString(key, "0");
 
+    }
+    public static void selectSpinnerItemByValue(Spinner spnr, String value) {
+
+        ArrayAdapter<String> adapter = (ArrayAdapter) spnr.getAdapter();
+        if(value==null){
+            return;
+        }
+        for (int position = 0; position < adapter.getCount(); position++) {
+            String item =(String)adapter.getItem(position);
+            if(item.toLowerCase().equals(value.toLowerCase())){
+                spnr.setSelection(position);
+                return;
+            }
+
+        }
     }
 
 

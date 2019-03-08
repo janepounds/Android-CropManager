@@ -5,7 +5,9 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CropInventoryFertilizer implements CropInventory {
+import java.io.Serializable;
+
+public class CropInventoryFertilizer implements CropInventory,Serializable {
     String id="";
     String userId="";
 

@@ -5,8 +5,10 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 
-public class CropInventorySpray implements CropInventory{
+
+public class CropInventorySpray implements CropInventory, Serializable{
     String id;
     String dateOfPurchase;
     String name;
@@ -15,8 +17,6 @@ public class CropInventorySpray implements CropInventory{
     float totalConsumed;
     String usageUnits ="Ltr";
     String type;
-    String dressing;
-
     private String userId;
     private float cost;
     private String supplier;
@@ -40,13 +40,7 @@ public class CropInventorySpray implements CropInventory{
         return totalConsumed;
     }
 
-    public String getDressing() {
-        return dressing;
-    }
 
-    public void setDressing(String dressing) {
-        this.dressing = dressing;
-    }
 
 
 
@@ -124,7 +118,7 @@ public class CropInventorySpray implements CropInventory{
 
     @Override
     public String getInventoryType() {
-        return CropInventory.CONST_SEEDS_INVENTORY;
+        return CropInventory.CONST_SPRAY_INVENTORY;
     }
 
 

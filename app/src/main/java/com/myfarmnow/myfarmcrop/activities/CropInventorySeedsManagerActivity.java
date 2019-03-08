@@ -29,6 +29,9 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_inventory_seeds_manager);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(getIntent().hasExtra("seedsInventory")){
+            seedsInventoryToEdit =(CropInventorySeeds)getIntent().getSerializableExtra("seedsInventory");
+        }
         initializeForm();
     }
 
@@ -46,6 +49,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(purchaseDatTxt,this);
+        fillViews();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +71,23 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         });
     }
 
+    public void fillViews(){
+        if(seedsInventoryToEdit != null){
+
+            CropDashboardActivity.selectSpinnerItemByValue(usageUnitSpinner,seedsInventoryToEdit.getUsageUnits());
+            purchaseDatTxt.setText(seedsInventoryToEdit.getDateOfPurchase());
+            seedNameTxt.setText(seedsInventoryToEdit.getName());
+            varietyTxt.setText(seedsInventoryToEdit.getVariety());
+            dressingTxt.setText(seedsInventoryToEdit.getDressing());
+            quantityTxt.setText(seedsInventoryToEdit.getQuantity()+"");
+            costTxt.setText(seedsInventoryToEdit.getCost()+"");
+            batchTxt.setText(seedsInventoryToEdit.getBatchNumber()+"");
+            supplierTxt.setText(seedsInventoryToEdit.getSupplier()+"");
+            tgwTxt.setText(seedsInventoryToEdit.getTgw()+"");
+
+
+        }
+    }
     public void saveSeeds(){
         seedsInventoryToEdit = new CropInventorySeeds();
         seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
@@ -87,20 +108,23 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
 
     }
     public void updateSeeds(){
-        seedsInventoryToEdit = new CropInventorySeeds();
-        seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
-        seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
-        seedsInventoryToEdit.setDateOfPurchase(purchaseDatTxt.getText().toString());
-        seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
-        seedsInventoryToEdit.setVariety(varietyTxt.getText().toString());
-        seedsInventoryToEdit.setDressing(dressingTxt.getText().toString());
-        seedsInventoryToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
-        seedsInventoryToEdit.setCost(Float.parseFloat(costTxt.getText().toString()));
-        seedsInventoryToEdit.setBatchNumber(batchTxt.getText().toString());
-        seedsInventoryToEdit.setSupplier(supplierTxt.getText().toString());
-        seedsInventoryToEdit.setTgw(tgwTxt.getText().toString());
 
-        dbHandler.updateCropSeeds(seedsInventoryToEdit);
+        if(seedsInventoryToEdit != null) {
+            Log.d("TESTING","Called");
+            seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId", this));
+            seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
+            seedsInventoryToEdit.setDateOfPurchase(purchaseDatTxt.getText().toString());
+            seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
+            seedsInventoryToEdit.setVariety(varietyTxt.getText().toString());
+            seedsInventoryToEdit.setDressing(dressingTxt.getText().toString());
+            seedsInventoryToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
+            seedsInventoryToEdit.setCost(Float.parseFloat(costTxt.getText().toString()));
+            seedsInventoryToEdit.setBatchNumber(batchTxt.getText().toString());
+            seedsInventoryToEdit.setSupplier(supplierTxt.getText().toString());
+            seedsInventoryToEdit.setTgw(tgwTxt.getText().toString());
+
+            dbHandler.updateCropSeeds(seedsInventoryToEdit);
+        }
     }
 
     public boolean validateEntries(){

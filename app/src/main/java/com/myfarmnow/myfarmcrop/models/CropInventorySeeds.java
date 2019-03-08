@@ -5,9 +5,10 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 
 
-public class CropInventorySeeds implements CropInventory{
+public class CropInventorySeeds implements CropInventory,Serializable{
     String id;
     String dateOfPurchase;
     String name;

@@ -109,7 +109,7 @@ public class CropInventoryListActivity extends AppCompatActivity {
         switch (id) {
 
             case R.id.action_add_fertilizer:
-                Intent openFertilizerForm = new Intent(this, CropInventorySeedsManagerActivity.class);
+                Intent openFertilizerForm = new Intent(this, CropInventoryFertilizerManagerActivity.class);
                 startActivity(openFertilizerForm);
                 return true;
 
@@ -118,7 +118,7 @@ public class CropInventoryListActivity extends AppCompatActivity {
                 startActivity(openSeedForm);
                 return true;
             case R.id.action_add_spray:
-                Intent openSprayForm = new Intent(this, CropInventorySeedsManagerActivity.class);
+                Intent openSprayForm = new Intent(this, CropInventorySprayManagerActivity.class);
                 startActivity(openSprayForm);
                 return true;
 

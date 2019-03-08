@@ -39,11 +39,44 @@
     <string-array name="cropInventories">
         <item>Select Inventory</item>
         <item>All Records</item>
-
         <item>Fertilizers</item>
         <item>Seed</item>
-
         <item>Spray</item>
     </string-array>
+    <string-array name="crop_fertilizers_usage_units">
+        <item>Select unit</item>
+        <item>g</item>
+        <item>Kg</item>
+        <item>cwt</item>
+        <item>tonne</item>
+        <item>lt</item>
+        <item>ml</item>
+        <item>m3</item>
+    </string-array>
+    <string-array name="crop_spray_usage_units">
+        <item>Select unit</item>
+        <item>ml</item>
+        <item>cwt</item>
+        <item>flo3</item>
+        <item>lt</item>
+        <item>m3</item>
+    </string-array>
+    <string-array name="crop_fertilizers_types">
+        <item>Select Type</item>
+        <item>Solid Manufactured</item>
+        <item>Liquid Manufactured</item>
+        <item>Solid Manure</item>
+        <item>Poultry Manure</item>
+        <item>Cattle Slurry</item>
+        <item>Pig Slurry</item>
+        <item>Other Organic</item>
+    </string-array>
+    <string name="title_activity_crop_inventory_fertilizer_manager">
+        Fertilizer Manager
+    </string>
+    <string name="fertilizer_name_not_entered">Fertilizer name has not been entered</string>
+    <string name="fertilizer_type_not_selected">Fertilizer type not selected</string>
+    <string name="default_numeric_value">0</string>
+    <string name="title_activity_crop_inventory_spray_manager">Spray Manager</string>
 
 </resources>

@@ -45,21 +45,21 @@
                             android:textColor="#000"
                             android:textSize="20dp" />
 
-                        <TextView
+                        <ImageView
                             android:textSize="22dp"
-                            android:id="@+id/edt_deletefields"
+                            android:id="@+id/img_crop_inventory_delete"
                             android:background="@drawable/ic_delete"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_marginTop="2dp"/>
 
-                        <TextView
-                            android:textSize="22dp"
-                            android:id="@+id/edt_editfields"
-                            android:src="@drawable/ic_edit"
-                            android:layout_width="35dp"
+                        <ImageView
+                            android:id="@+id/img_crop_inventory_edit"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/arrow_right_gray"
                             android:textColor="@color/darker_gray"
-                            android:layout_height="30dp"
+                            android:textSize="22dp"
                             />
                     </LinearLayout>
 
@@ -68,8 +68,8 @@
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="70dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:max="40"
                         android:progress="20"
                         app:layout_constraintEnd_toEndOf="parent"

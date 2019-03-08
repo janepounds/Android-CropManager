@@ -10,11 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropFieldManagerActivity"></activity>
+        <activity android:name=".activities.CropFieldManagerActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropDashboardActivity"
             android:label="@string/title_activity_dashboard"
@@ -28,10 +28,18 @@
         <activity
             android:name=".activities.CropInventorySeedsManagerActivity"
             android:label="@string/title_activity_crop_inventory_seeds_manager"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropInventoryListActivity"
             android:label="@string/label_inventory_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropInventoryFertilizerManagerActivity"
+            android:label="@string/title_activity_crop_inventory_fertilizer_manager"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropInventorySprayManagerActivity"
+            android:label="@string/title_activity_crop_inventory_spray_manager"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
