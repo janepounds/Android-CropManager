@@ -56,7 +56,7 @@ public class CropInventoryListActivity extends AppCompatActivity {
                     String selection = parent.getSelectedItem().toString();
                     ArrayList<CropInventory> filteredList = new ArrayList<>();
                     if(cropListBackUp.size() ==0 ){
-                       // cropInventoryList.clear();
+                       // cropArrayList.clear();
                         for(CropInventory x :cropListRecyclerAdapter.getInventoryList()){
                             cropListBackUp.add(x);
                         }

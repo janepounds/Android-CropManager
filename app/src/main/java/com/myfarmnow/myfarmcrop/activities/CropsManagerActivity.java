@@ -55,6 +55,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(dateTxt,this);
         saveBtn = findViewById(R.id.btn_save);
 
+        fillViews();
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +92,7 @@ public class CropsManagerActivity extends AppCompatActivity {
 
     public void saveCrop(){
         crop = new Crop();
+        crop.setUserId(CropDashboardActivity.getPreferences("userId",this));
         crop.setName(cropSP.getSelectedItem().toString());
         crop.setVariety(varietyTxt.getText().toString());
         crop.setCroppingYear(Integer.parseInt(yearTxt.getText().toString()));
@@ -176,4 +178,5 @@ public class CropsManagerActivity extends AppCompatActivity {
         // Log.d("ERROR",message);
         return true;
     }
+
 }

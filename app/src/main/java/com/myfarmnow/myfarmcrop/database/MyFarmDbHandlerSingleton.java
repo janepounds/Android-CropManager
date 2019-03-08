@@ -19,6 +19,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
+import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 
 import java.util.ArrayList;
@@ -319,6 +320,42 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void closeDB() throws SQLException{
         this.close();
     }
+    public void  insertCropSoilAnalysis(CropSoilAnalysis spraying){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE,spraying.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_USER_ID,spraying.getUserId());
+        contentValues.put(CROP_SOIL_ANALYSIS_FIELD_ID,spraying.getFieldId());
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE,spraying.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_PH,spraying.getPh());
+        contentValues.put(CROP_SOIL_ANALYSIS_AGRONOMIST,spraying.getAgronomist());
+        contentValues.put(CROP_SOIL_ANALYSIS_RESULTS,spraying.getResult());
+        contentValues.put(CROP_SOIL_ANALYSIS_COST,spraying.getCost());
+        contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER,spraying.getOrganicMatter());
+        database.insert(CROP_SOIL_ANALYSIS_TABLE_NAME,null,contentValues);
+        closeDB();
+    }
+    public void  updateCropSoilAnalysis(CropSoilAnalysis spraying){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE,spraying.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_USER_ID,spraying.getUserId());
+        contentValues.put(CROP_SOIL_ANALYSIS_FIELD_ID,spraying.getFieldId());
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE,spraying.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_PH,spraying.getPh());
+        contentValues.put(CROP_SOIL_ANALYSIS_AGRONOMIST,spraying.getAgronomist());
+        contentValues.put(CROP_SOIL_ANALYSIS_RESULTS,spraying.getResult());
+        contentValues.put(CROP_SOIL_ANALYSIS_COST,spraying.getCost());
+        contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER,spraying.getOrganicMatter());
+        database.update(CROP_SOIL_ANALYSIS_TABLE_NAME,contentValues,CROP_SOIL_ANALYSIS_ID+" = ?", new String[]{spraying.getId()});
+        closeDB();
+    }
+    public boolean deleteCropSoilAnalysis(String id){
+        openDB();
+        database.delete(CROP_FERTILIZER_APPLICATION_TABLE_NAME,CROP_FERTILIZER_APPLICATION_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
     public void  insertCropSpraying(CropSpraying spraying){
         openDB();
         ContentValues contentValues = new ContentValues();
@@ -603,6 +640,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
             crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
             crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
+            crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
             crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
             array_list.add(crop);
@@ -610,6 +648,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
         closeDB();
+        Log.d("TESTING",array_list.toString());
         return array_list;
 
     }

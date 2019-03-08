@@ -3,19 +3,49 @@ package com.myfarmnow.myfarmcrop.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.R;
+
+import com.myfarmnow.myfarmcrop.adapters.CropsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
+import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
+
+import java.util.ArrayList;
 
 public class CropsListActivity extends AppCompatActivity {
 
+    RecyclerView cropInventoryListRecyclerView;
+    LinearLayoutManager linearLayoutManager;
+    CropsListRecyclerAdapter cropListRecyclerAdapter;
+    MyFarmDbHandlerSingleton dbHandler;
+    ArrayList<Crop> cropArrayList = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crops_list);
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        cropInventoryListRecyclerView = findViewById(R.id.crops_recyc_view);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        cropInventoryListRecyclerView.setLayoutManager(linearLayoutManager);
+        cropListRecyclerAdapter = new CropsListRecyclerAdapter(CropsListActivity.this.cropArrayList,CropsListActivity.this);
+        cropInventoryListRecyclerView.setAdapter(cropListRecyclerAdapter);
+        loadCropInventories();
     }
+    private void loadCropInventories(){
+
+        cropListRecyclerAdapter.addList(dbHandler.getCrops(CropDashboardActivity.getPreferences("userId",this)));
+
+    }
+
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.crop_list_activitys_menu, menu);

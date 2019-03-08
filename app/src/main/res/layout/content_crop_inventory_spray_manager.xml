@@ -155,6 +155,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number|numberDecimal"
                         android:background="@drawable/input_shapes"
+                        android:text="@string/default_numeric_value"
                         android:hint="Enter.."
                         android:textSize="14sp" />
 

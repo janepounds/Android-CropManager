@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 
@@ -23,12 +23,12 @@ import com.myfarmnow.myfarmcrop.models.Crop;
 import java.util.ArrayList;
 
 public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecyclerAdapter.CropCardViewHolder>  {
-    ArrayList<Crop> inventoryList;
+    ArrayList<Crop> cropsList;
     LayoutInflater mInflater;
     Context mContext;
 
     public CropsListRecyclerAdapter(ArrayList<Crop> inventoryList, Context context){
-        this.inventoryList = inventoryList;
+        this.cropsList = inventoryList;
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
 
@@ -37,48 +37,47 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     @NonNull
     @Override
     public CropCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.crop_inventory_list_card, parent, false);
+        View view = mInflater.inflate(R.layout.crops_list_card, parent, false);
         return new CropCardViewHolder(view);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull CropCardViewHolder holder, int position) {
-        Crop curInventory = inventoryList.get(position);
+        Crop curCrop = cropsList.get(position);
+        holder.cropNameTxtView.setText(curCrop.getName());
+        holder.cropVarietyTextView.setText("("+curCrop.getVariety()+")");
+        holder.cropAge.setText("("+curCrop.computeAge()+")");
+        holder.datePlantedTxt.setText(curCrop.getDateSown());
+        holder.croppableAreaTxtView.setText(curCrop.getArea()+"ha");
 
-      /*  holder.inventoryNameTxtView.setText(curInventory.getInventoryType()+" ("+curInventory.getName()+")");
-        holder.batchNumberTxtView.setText(curInventory.getBatchNumber());
-        holder.consumptionProgressBar.setMax((int)curInventory.getInitialQuantity());
-        holder.consumptionProgressBar.setProgress((int)curInventory.calculateAmountLeft());
-        holder.curInventoryTxtView.setText(curInventory.calculateAmountLeft()+"/"+curInventory.getInitialQuantity()+" "+curInventory.getUsageUnits());
-      */
     }
 
     @Override
     public int getItemCount() {
-        return inventoryList.size();
+        return cropsList.size();
     }
 
     public void addList(ArrayList<Crop> inventoryListToAdd){
         int size = getItemCount();
-        this.inventoryList.addAll(inventoryListToAdd);
-        Log.d("INITAL SIZE",size+" "+this.inventoryList.size());
+        this.cropsList.addAll(inventoryListToAdd);
+        Log.d("INITAL SIZE",size+" "+this.cropsList.size());
         notifyDataSetChanged();
     }
 
     public void addInventory(Crop sheepInventory){
-        this.inventoryList.add(sheepInventory);
+        this.cropsList.add(sheepInventory);
         notifyItemChanged(getItemCount());
     }
 
-    public ArrayList<Crop> getInventoryList(){
+    public ArrayList<Crop> getCropsList(){
 
-        return inventoryList;
+        return cropsList;
     }
 
     public void changeList(ArrayList<Crop> filteredList) {
-        this.inventoryList.clear();
-        this.inventoryList.addAll(filteredList);
+        this.cropsList.clear();
+        this.cropsList.addAll(filteredList);
         notifyDataSetChanged();
     }
 
@@ -88,24 +87,23 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
         ImageView sheepPhotoImageView;
         ImageView editButton, deleteButton;
-        TextView inventoryNameTxtView,batchNumberTxtView,curInventoryTxtView, batchNumberlblTxtView;
-        ProgressBar consumptionProgressBar;
-        LinearLayout batchNumberLayout;
+        TextView cropNameTxtView, cropVarietyTextView, croppableAreaTxtView, cropAge;
+
+        TextView datePlantedTxt;
         public CropCardViewHolder(View itemView) {
             super(itemView);
-            inventoryNameTxtView = itemView.findViewById(R.id.txt_view_inventory_name);
-            batchNumberTxtView = itemView.findViewById(R.id.txtView_batch_number);
-            curInventoryTxtView = itemView.findViewById(R.id.txt_view_current_inventory);
-            consumptionProgressBar = itemView.findViewById(R.id.progress_bar_consumption);
-            batchNumberLayout = itemView.findViewById(R.id.layout_batch_number);
-            batchNumberlblTxtView = itemView.findViewById(R.id.txt_view_batch_lbl);
-            editButton = itemView.findViewById(R.id.img_crop_inventory_edit);
-            deleteButton = itemView.findViewById(R.id.img_crop_inventory_delete);
+            cropNameTxtView = itemView.findViewById(R.id.txt_crop_card_name);
+            cropVarietyTextView = itemView.findViewById(R.id.txt_crop_card_variety);
+            croppableAreaTxtView = itemView.findViewById(R.id.txt_crop_card_area);
+            datePlantedTxt = itemView.findViewById(R.id.txt_crop_card_actual_date_planted);
+            cropAge = itemView.findViewById(R.id.txt_crop_card_age);
+            editButton = itemView.findViewById(R.id.img_crop_card_edit);
+            deleteButton = itemView.findViewById(R.id.img_crop_card_delete);
             //layout_batch_number txt_view_batch_lbl
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Crop inventory = inventoryList.get(getAdapterPosition());
+                    final Crop inventory = cropsList.get(getAdapterPosition());
                     new AlertDialog.Builder(mContext)
                             .setTitle("Confirm")
                             .setMessage("Do you really want to delete the crop "+inventory.getName()+" ("+inventory.getVariety()+") ?")
@@ -114,13 +112,10 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
 
-
-                                    Crop inventory = inventoryList.get(getAdapterPosition());
-
-                                    inventoryList.remove(getAdapterPosition());
+                                    Crop crop = cropsList.get(getAdapterPosition());
+                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCrop(crop.getId());
+                                    cropsList.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
-
-
 
                                 }})
                             .setNegativeButton(android.R.string.no, null).show();
@@ -131,10 +126,10 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Crop inventory = inventoryList.get(getAdapterPosition());
-                    //
-
+                    Crop crop = cropsList.get(getAdapterPosition());
+                    Intent editCrop = new Intent(mContext, CropsManagerActivity.class);
+                    editCrop.putExtra("crop", crop);
+                    mContext.startActivity(editCrop);
 
                 }
             });

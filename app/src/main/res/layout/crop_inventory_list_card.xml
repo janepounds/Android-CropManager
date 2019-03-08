@@ -134,66 +134,6 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/ln_embroy"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="6dp">
-
-                            <TextView
-                                android:textSize="14dp"
-                                android:textColor="#696666"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Grade : "/>
-
-                            <TextView android:textSize="14dp"
-                                android:textColor="#696666"
-                                android:id="@+id/edt_Grade"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="5" android:layout_weight="1"/>
-
-                            <TextView
-                                android:textSize="14dp"
-                                android:textColor="#696666"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Stage : "/>
-
-                            <TextView android:textSize="14dp"
-                                android:textColor="#696666"
-                                android:id="@+id/edt_Stage"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="6" android:layout_weight="1"/>
-
-                            <TextView android:textSize="14dp"
-                                android:textColor="#696666"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Status : "/>
-
-                            <TextView
-                                android:textSize="14dp"
-                                android:textColor="#696666"
-                                android:id="@+id/edt_Status"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="A1"
-                                android:layout_weight="1"/>
-
-                        </LinearLayout>
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
