@@ -33,7 +33,7 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/sp_crop_machine_category"
+                android:id="@+id/sp_crop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"

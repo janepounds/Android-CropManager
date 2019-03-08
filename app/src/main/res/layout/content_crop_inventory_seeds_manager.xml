@@ -181,6 +181,7 @@
                             android:layout_weight="0.4"
                             android:inputType="text"
                             android:hint="Enter"
+                            android:text="@string/default_numeric_value"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>

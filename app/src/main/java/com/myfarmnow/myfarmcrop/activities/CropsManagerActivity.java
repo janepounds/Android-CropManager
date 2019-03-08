@@ -12,4 +12,5 @@ public class CropsManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crops_manager);
     }
+
 }

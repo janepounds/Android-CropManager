@@ -294,6 +294,7 @@
                     android:layout_height="wrap_content"
                     android:text="Cost"
                     android:layout_weight="0.7"
+
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
