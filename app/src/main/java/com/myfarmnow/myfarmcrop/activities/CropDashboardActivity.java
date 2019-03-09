@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
@@ -136,7 +137,7 @@ public class CropDashboardActivity extends AppCompatActivity {
 
 
 
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).insertCropField(n);
+       /// MyFarmDbHandlerSingleton.getHandlerInstance(this).insertCropField(n);
 
     }
     public static  void addDatePicker(final EditText ed_, final Context context){
@@ -182,6 +183,24 @@ public class CropDashboardActivity extends AppCompatActivity {
         for (int position = 0; position < adapter.getCount(); position++) {
             String item =(String)adapter.getItem(position);
             if(item.toLowerCase().equals(value.toLowerCase())){
+                spnr.setSelection(position);
+                return;
+            }
+
+        }
+    }
+    public static void selectSpinnerItemById(Spinner spnr, String id) {
+
+        CropSpinnerAdapter adapter = (CropSpinnerAdapter) spnr.getAdapter();
+        if(id==null || adapter==null){
+            return;
+        }
+        for (int position = 0; position < adapter.getCount(); position++) {
+            String item =adapter.getItem(position).getId();
+            if(item==null){
+                continue;//this occurs for the first element
+            }
+            if(item.toLowerCase().equals(id)){
                 spnr.setSelection(position);
                 return;
             }

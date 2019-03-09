@@ -145,7 +145,7 @@ public class Crop implements Serializable {
  }
 
  public String computeAge(){
-  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   Date convertedDate = new Date();
   try {
 
@@ -160,7 +160,7 @@ public class Crop implements Serializable {
 
    int months = (int)(daysBetween/30);
    int days =(int)(daysBetween%30);
-
+   Log.d("DATES",getDateSown()+" "+convertedDate.toString()+" - "+today.getTime().toString()+" days = "+daysBetween);
    return months+"m "+days+"d";
 
   } catch (ParseException e) {
@@ -177,7 +177,8 @@ public class Crop implements Serializable {
 
   long daysBetween = 0;
   while (sDate.before(eDate)) {
-   sDate.add(Calendar.DAY_OF_MONTH, 1);
+   sDate.add(Calendar.DAY_OF_MONTH,1);
+   //Log.d("Day "+daysBetween,sDate.getTime().toString());
    daysBetween++;
   }
   return daysBetween;

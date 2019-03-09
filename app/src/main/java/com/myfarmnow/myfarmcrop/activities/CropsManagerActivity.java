@@ -55,7 +55,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(dateTxt,this);
         saveBtn = findViewById(R.id.btn_save);
 
-        fillViews();
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +88,8 @@ public class CropsManagerActivity extends AppCompatActivity {
         }
         seedsSpinnerAdapter = new CropSpinnerAdapter(seedItems,"Seed",this);
         seedSp.setAdapter(seedsSpinnerAdapter);
+
+        fillViews();
     }
 
     public void saveCrop(){
@@ -102,7 +104,9 @@ public class CropsManagerActivity extends AppCompatActivity {
         crop.setArea(Float.parseFloat(areaTxt.getText().toString()));
         crop.setOperator(operatorTxt.getText().toString());
         crop.setCost(Float.parseFloat(costTxt.getText().toString()));
-        crop.setSeedId(((CropInventorySeeds)seedSp.getSelectedItem()).getId());
+        if(seedSp.getSelectedItemPosition()!=0){
+            crop.setSeedId(((CropInventorySeeds)seedSp.getSelectedItem()).getId());
+        }
         crop.setRate(Float.parseFloat(rateTxt.getText().toString()));
         crop.setPlantingMethod(plantingMethodSp.getSelectedItem().toString());
         dbHandler.insertCrop(crop);
@@ -118,7 +122,9 @@ public class CropsManagerActivity extends AppCompatActivity {
             crop.setArea(Float.parseFloat(areaTxt.getText().toString()));
             crop.setOperator(operatorTxt.getText().toString());
             crop.setCost(Float.parseFloat(costTxt.getText().toString()));
-            crop.setSeedId(((CropInventorySeeds)fieldSp.getSelectedItem()).getId());
+            if(seedSp.getSelectedItemPosition()!=0){
+                crop.setSeedId(((CropInventorySeeds)seedSp.getSelectedItem()).getId());
+            }
             crop.setRate(Float.parseFloat(rateTxt.getText().toString()));
             crop.setPlantingMethod(plantingMethodSp.getSelectedItem().toString());
 
@@ -139,8 +145,8 @@ public class CropsManagerActivity extends AppCompatActivity {
             operatorTxt.setText(crop.getOperator());
             costTxt.setText(crop.getCost()+"");
             rateTxt.setText(crop.getRate()+"");
-            //crop.setFieldId(((CropField)fieldSp.getSelectedItem()).getId());
-            //crop.setSeedId(((CropInventorySeeds)fieldSp.getSelectedItem()).getId());
+            CropDashboardActivity.selectSpinnerItemById(seedSp,crop.getSeedId());
+            CropDashboardActivity.selectSpinnerItemById(fieldSp,crop.getFieldId());
         }
 
     }

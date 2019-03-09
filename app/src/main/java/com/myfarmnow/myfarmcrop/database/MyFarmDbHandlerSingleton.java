@@ -640,6 +640,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
             crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
             crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
             crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
             crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
