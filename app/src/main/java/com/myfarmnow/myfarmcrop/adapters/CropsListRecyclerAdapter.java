@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropCultivateListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
@@ -83,9 +84,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
-        ImageView sheepPhotoImageView;
-        ImageView editButton, deleteButton;
+        ImageView editButton, deleteButton,cultivateButton;
         TextView cropNameTxtView, cropVarietyTextView, croppableAreaTxtView, cropAge;
 
         TextView datePlantedTxt;
@@ -98,6 +97,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             cropAge = itemView.findViewById(R.id.txt_crop_card_age);
             editButton = itemView.findViewById(R.id.img_crop_card_edit);
             deleteButton = itemView.findViewById(R.id.img_crop_card_delete);
+            cultivateButton = itemView.findViewById(R.id.img_crop_card_cultivate);
             //layout_batch_number txt_view_batch_lbl
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,6 +129,16 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     Intent editCrop = new Intent(mContext, CropsManagerActivity.class);
                     editCrop.putExtra("crop", crop);
                     mContext.startActivity(editCrop);
+
+                }
+            });
+            cultivateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Crop crop = cropsList.get(getAdapterPosition());
+                    Intent showCultivates = new Intent(mContext, CropCultivateListActivity.class);
+                    showCultivates.putExtra("cropId", crop.getId());
+                    mContext.startActivity(showCultivates);
 
                 }
             });

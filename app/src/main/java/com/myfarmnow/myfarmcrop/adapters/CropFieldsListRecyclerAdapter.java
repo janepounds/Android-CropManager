@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
@@ -85,7 +86,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
     public class FieldViewHolder extends RecyclerView.ViewHolder{
 
         TextView fieldNameTextView, fieldAreaTextView, soilCategoryTextView, soilTypeTextView, croppableAreaTextView;
-        ImageView editButton, deleteButton;
+        ImageView editButton, deleteButton,soilAnalysisButton;
         public FieldViewHolder(View itemView) {
             super(itemView);
             fieldNameTextView = itemView.findViewById(R.id.txt_crop_field_card_name);
@@ -95,6 +96,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             croppableAreaTextView = itemView.findViewById(R.id.txt_crop_field_card_croppable_area);
             deleteButton = itemView.findViewById(R.id.img_crop_field_card_delete);
             editButton = itemView.findViewById(R.id.img_crop_field_card_edit);
+            soilAnalysisButton = itemView.findViewById(R.id.img_crop_card_soil_analysis);
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,6 +106,16 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
                     Intent editField = new Intent(mContext, CropFieldManagerActivity.class);
                     editField.putExtra("cropField",cropField);
                     mContext.startActivity(editField);
+                }
+            });
+            soilAnalysisButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    CropField cropField = cropFieldsList.get(getAdapterPosition());
+                    Intent showSoilAnalysis = new Intent(mContext, CropSoilAnalysisListActivity.class);
+                    showSoilAnalysis.putExtra("fieldId",cropField.getId());
+                    mContext.startActivity(showSoilAnalysis);
                 }
             });
             deleteButton.setOnClickListener(new View.OnClickListener() {

@@ -252,6 +252,9 @@
     <string name="batch">Batch #</string>
     <string name="btn_update_label">Update</string>
     <string name="activity_crop_field_manager_title">Field Manager</string>
+    <string name="crop_not_entered">The cost has not been entered</string>
+    <string name="agronomist_not_entered">The Agronomist has not been entered</string>
+    <string name="title_activity_crop_cultivate_list">CropCultivateListActivity</string>
 
 
 </resources>
