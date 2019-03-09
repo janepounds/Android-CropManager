@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
 
@@ -39,7 +39,8 @@
                 android:textColor="@color/colorPrimary"
                 android:background="@drawable/input_shapes"
                 android:textSize="14sp"
-                android:layout_weight="0.5"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
                 android:layout_gravity="center"
                 android:entries="@array/crops_list"
                 />
@@ -57,8 +58,9 @@
                 android:id="@+id/txt_crops_variety"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/input_shapes"
                 android:textSize="14sp"
 
@@ -72,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
 
 
@@ -90,8 +92,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
+                android:layout_marginLeft="3dp"
                 android:hint="Enter"
                 android:background="@drawable/input_shapes"
+                android:inputType="numberDecimal"
                 android:textSize="14sp"
                 />
             <TextView
@@ -99,19 +103,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field"
+                android:layout_weight="0.2"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_marginLeft="10dp"
                 android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/sp_crops_field"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:background="@drawable/input_shapes"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_weight="0.5"
-                android:layout_gravity="center"
-                android:background="@drawable/input_shapes"
 
                 />
 
@@ -122,13 +128,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.2"
                 android:text="@string/growing_cycle"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -141,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.8"
                 android:layout_gravity="center"
                 android:entries="@array/crops_growing_cycle"
                 android:background="@drawable/input_shapes"
@@ -153,13 +159,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_sown"
+                android:layout_marginRight="5dp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
@@ -180,13 +187,16 @@
                 android:text="Area"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="30dp"
+                />
 
             <EditText
                 android:id="@+id/txt_crops_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
@@ -197,7 +207,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
 
@@ -206,13 +216,14 @@
                 android:text="@string/operator"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_marginRight="5dp"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/txt_crops_operator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="6"
                 android:hint="Enter"
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
@@ -224,6 +235,8 @@
                 android:text="@string/operator_cost"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
                 android:textSize="16sp" />
 
             <EditText
@@ -241,7 +254,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
 
@@ -250,6 +263,7 @@
                 android:text="@string/seed_name"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_marginRight="5dp"
                 android:textSize="16sp" />
 
             <Spinner
@@ -259,7 +273,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_weight="0.5"
-                android:layout_gravity="center"
+
                 android:background="@drawable/input_shapes"
                 />
 
@@ -270,13 +284,15 @@
                 android:text="@string/rate"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/txt_crops_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="3"
                 android:hint="Enter"
                 android:textSize="14sp"
                 android:inputType="numberDecimal"
@@ -318,7 +334,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.2"
                 android:text="@string/planting_method"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
@@ -330,7 +346,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.8"
                 android:layout_gravity="center"
                 android:entries="@array/crops_planting_method"
                 android:background="@drawable/input_shapes"

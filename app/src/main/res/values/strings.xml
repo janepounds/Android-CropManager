@@ -247,5 +247,9 @@
     <string name="field_not_selected">Field has not been Selected</string>
     <string name="activity_crops_list">Crops List</string>
     <string name="activity_crop_manager">Crop Manager</string>
+    <string name="usage_unit">Usage Unit</string>
+    <string name="tgw">TGW</string>
+    <string name="batch">Batch #</string>
+
 
 </resources>

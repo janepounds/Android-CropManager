@@ -61,7 +61,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     public void addList(ArrayList<Crop> inventoryListToAdd){
         int size = getItemCount();
         this.cropsList.addAll(inventoryListToAdd);
-        Log.d("INITAL SIZE",size+" "+this.cropsList.size());
+        Log.d("INITIAL SIZE",size+" "+this.cropsList.size());
         notifyDataSetChanged();
     }
 
