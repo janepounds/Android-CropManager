@@ -352,10 +352,52 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
     public boolean deleteCropSoilAnalysis(String id){
         openDB();
-        database.delete(CROP_FERTILIZER_APPLICATION_TABLE_NAME,CROP_FERTILIZER_APPLICATION_ID+" = ?", new String[]{id});
+        database.delete(CROP_SOIL_ANALYSIS_TABLE_NAME,CROP_SOIL_ANALYSIS_ID+" = ?", new String[]{id});
         closeDB();
         return true;
     }
+    public ArrayList<CropSoilAnalysis> getCropSoilAnalysis(String fieldId){
+        openDB();
+        ArrayList<CropSoilAnalysis> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_SOIL_ANALYSIS_TABLE_NAME+" where "+CROP_SOIL_ANALYSIS_FIELD_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            CropSoilAnalysis crop = new CropSoilAnalysis();
+            crop.setId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_ID)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_USER_ID)));
+            crop.setDate(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE)));
+            crop.setAgronomist(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_AGRONOMIST)));
+            crop.setResult(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RESULTS)));
+            crop.setOrganicMatter(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_ORGANIC_MATTER)));
+            crop.setPh(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_PH)));
+            crop.setCost(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_FIELD_ID)));
+           /* crop.setCropId(res.getString(res.getColumnIndex(CROP_SPRAYING_CROP_ID)));
+            crop.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_START_TIME)));
+            crop.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_END_TIME)));
+            crop.setCost(res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
+            crop.setOperator(res.getString(res.getColumnIndex(CROP_SPRAYING_OPERATOR)));
+            crop.setWaterCondition(res.getString(res.getColumnIndex(CROP_SPRAYING_WATER_CONDITION)));
+            crop.setWaterVolume(res.getFloat(res.getColumnIndex(CROP_SPRAYING_WATER_VOLUME)));
+            crop.setWindDirection(res.getString(res.getColumnIndex(CROP_SPRAYING_WIND_DIRECTION)));
+            crop.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
+            crop.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
+            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPARY_ID)));
+            crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));*/
+
+            array_list.add(crop);
+            res.moveToNext();
+        }
+
+        closeDB();
+        return array_list;
+
+    }
+
     public void  insertCropSpraying(CropSpraying spraying){
         openDB();
         ContentValues contentValues = new ContentValues();

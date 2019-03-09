@@ -250,6 +250,8 @@
     <string name="usage_unit">Usage Unit</string>
     <string name="tgw">TGW</string>
     <string name="batch">Batch #</string>
+    <string name="btn_update_label">Update</string>
+    <string name="activity_crop_field_manager_title">Field Manager</string>
 
 
 </resources>

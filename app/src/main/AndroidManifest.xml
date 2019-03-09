@@ -29,7 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropFieldManagerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/activity_crop_field_manager_title"/>
 
         <activity
             android:name=".activities.MainActivity"

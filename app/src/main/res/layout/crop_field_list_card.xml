@@ -1,235 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="vertical"
+                android:background="@color/white"
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp">
+
+
+                    <ImageView
+                        android:id="@+id/img_crop_card_cultivate"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        app:srcCompat="@drawable/input_shapes" />
+
+                    <ImageView
+                        android:id="@+id/img_crop_card_fertilizer_application"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        app:srcCompat="@mipmap/ic_launcher_round" />
+
+                    <ImageView
+                        android:id="@+id/img_crop_card_spraying"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        app:srcCompat="@mipmap/ic_launcher_round" />
+
+
+                    <ImageView
+                        android:id="@+id/img_crop_field_card_delete"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/ic_delete"
+                        android:textSize="22dp" />
+
+
+                    <ImageView
+                        android:id="@+id/img_crop_field_card_edit"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/arrow_right_gray"
+                        android:textColor="@color/darker_gray"
+                        android:textSize="22dp" />
+
+                    <ImageView
+                        android:id="@+id/img_crop_card_more"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/black"
+                        android:textColor="@color/darker_gray"
+                        app:srcCompat="@drawable/more_options_icon" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:orientation="horizontal">
+
+
 
                     <LinearLayout
                         android:orientation="vertical"
-                        android:background="@color/white"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
                         android:layout_height="wrap_content">
+
 
                         <LinearLayout
                             android:orientation="horizontal"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
                             android:layout_marginLeft="6dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp">
+                            android:layout_marginTop="3dp">
+
+                            <TextView
+                                android:id="@+id/txt_crop_field_card_name"
+                                android:textSize="14dp"
+                                android:textColor="#696666"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginRight="250dp"
+                                android:text="Field 1 " />
 
 
-                            <ImageView
-                                android:id="@+id/img_crop_card_cultivate"
-                                android:layout_width="25dp"
-                                android:layout_height="match_parent"
-                                android:layout_margin="2dp"
-                                app:srcCompat="@drawable/input_shapes" />
 
-                            <ImageView
-                                android:id="@+id/img_crop_card_fertilizer_application"
-                                android:layout_width="25dp"
-                                android:layout_height="match_parent"
-                                android:layout_margin="2dp"
-                                app:srcCompat="@mipmap/ic_launcher_round" />
+                            <TextView
+                                android:id="@+id/txt_crop_field_card_area"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="15.5 ha"
+                                android:textColor="#696666"
+                                android:textSize="14dp" />
 
-                            <ImageView
-                                android:id="@+id/img_crop_card_spraying"
-                                android:layout_width="25dp"
-                                android:layout_height="match_parent"
-                                android:layout_margin="2dp"
-                                app:srcCompat="@mipmap/ic_launcher_round" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="6dp"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginTop="3dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/txt_crop_field_card_soil_category"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Light Sand "
+                                    android:textColor="#696666"
+                                    android:textSize="14dp" />
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=","
+                                    android:textColor="#696666"
+                                    android:layout_marginRight="10dp"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:id="@+id/txt_crop_field_card_soil_type"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Loamy Sand"
+                                    android:textColor="#696666"
+                                    android:textSize="14dp" />
 
 
-                            <ImageView
-                                android:textSize="22dp"
-                                android:id="@+id/img_crop_card_delete"
-                                android:background="@drawable/ic_delete"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginTop="2dp" />
-
-
-                            <ImageView
-                                android:id="@+id/img_crop_card_edit"
-                                android:layout_width="25dp"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/arrow_right_gray"
-                                android:textColor="@color/darker_gray"
-                                android:textSize="22dp" />
-
-                            <ImageView
-                                android:id="@+id/img_crop_card_more"
-                                android:layout_width="25dp"
-                                android:layout_height="match_parent"
-                                android:backgroundTint="@color/black"
-                                android:textColor="@color/darker_gray"
-                                app:srcCompat="@drawable/more_options_icon" />
+                            </LinearLayout>
 
 
                         </LinearLayout>
 
                         <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp"
-                            android:orientation="horizontal">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Croppable Area :"
+                                android:textColor="#696666"
+                                android:textStyle="bold"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:id="@+id/txt_crop_field_card_croppable_area"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12.45 ha"
+                                android:textColor="#696666"
+                                android:layout_marginLeft="10dp"
+                                android:textSize="14dp" />
 
 
 
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-
-                                <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
-
-                                    <TextView
-                                        android:id="@+id/txt_crop_field_card_name"
-                                        android:textSize="14dp"
-                                        android:textColor="#696666"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textStyle="bold"
-                                        android:layout_marginRight="250dp"
-                                        android:text="Field 1 " />
-
-
-
-                                    <TextView
-                                        android:id="@+id/txt_crop_card_area"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="15.5 ha"
-                                        android:textColor="#696666"
-                                        android:textSize="14dp" />
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="6dp"
-                                        android:layout_marginLeft="6dp"
-                                        android:layout_marginTop="3dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:id="@+id/txt_crop_field_card_soil_category"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Light Sand "
-                                            android:textColor="#696666"
-                                            android:textSize="14dp" />
-
-                                        <TextView
-
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text=","
-                                            android:textColor="#696666"
-                                            android:layout_marginRight="10dp"
-                                            android:textSize="14dp" />
-
-                                        <TextView
-                                            android:id="@+id/txt_crop_field_card_soil_type"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Loamy Sand"
-                                            android:textColor="#696666"
-                                            android:textSize="14dp" />
-
-
-                                    </LinearLayout>
-
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Croppable Area :"
-                                        android:textColor="#696666"
-                                        android:textStyle="bold"
-                                        android:textSize="14dp" />
-
-                                    <TextView
-                                        android:id="@+id/txt_crop_field_card_croppable_area"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="12.45 ha"
-                                        android:textColor="#696666"
-                                        android:layout_marginLeft="10dp"
-                                        android:textSize="14dp" />
-
-
-
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
-
-
-
-
-
-                                </LinearLayout>
-
-                            </LinearLayout>
 
                         </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="3dp">
+
+
+
+
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+
 
 
     </LinearLayout>
-
-
 </LinearLayout>

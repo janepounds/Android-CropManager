@@ -15,12 +15,11 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 
 public class CropFieldManagerActivity extends AppCompatActivity {
 
 
-    CropField cropFieldToEdit=null;
+    CropField cropField =null;
     EditText  fieldNameTxt,totalAreaTxt,croppableAreaTxt ;
     Spinner soilCategorySpinner,soilTypeSpinner,watercourseSpinner,unitsSpinner;
     Button saveBtn;
@@ -30,6 +29,10 @@ public class CropFieldManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_field_manager);
+
+        if(getIntent().hasExtra("cropField")){
+            cropField = (CropField)getIntent().getSerializableExtra("cropField");
+        }
         initializeForm();
     }
 
@@ -45,18 +48,17 @@ public class CropFieldManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-
-
+        fillViews();
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
             public void onClick(View v) {
                 if(validateEntries()){
-                    if(cropFieldToEdit==null){
+                    if(cropField ==null){
                         saveFields();
                     }
                     else{
-                        //updateFields();
+                        updateField();
                     }
 
                     Intent toCropFieldsList = new Intent(CropFieldManagerActivity.this, CropFieldsListActivity.class);
@@ -69,22 +71,50 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         });
     }
     public void saveFields(){
-        cropFieldToEdit = new CropField();
-        cropFieldToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
-        cropFieldToEdit.setFieldName(fieldNameTxt.getText().toString());
-        cropFieldToEdit.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
-        cropFieldToEdit.setSoilType( soilTypeSpinner.getSelectedItem().toString());
-        cropFieldToEdit.setWatercourse( watercourseSpinner.getSelectedItem().toString());
-        cropFieldToEdit.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
-        cropFieldToEdit.setCroppableArea(Float.parseFloat(croppableAreaTxt.getText().toString()));
-        cropFieldToEdit.setUnits(unitsSpinner.getSelectedItem().toString());
+        cropField = new CropField();
+        cropField.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropField.setFieldName(fieldNameTxt.getText().toString());
+        cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
+        cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
+        cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
+        cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
+        cropField.setCroppableArea(Float.parseFloat(croppableAreaTxt.getText().toString()));
+        cropField.setUnits(unitsSpinner.getSelectedItem().toString());
 
 
-        dbHandler.insertCropField(cropFieldToEdit);
+        dbHandler.insertCropField(cropField);
 
 
 
     }
+    public void updateField(){
+        if(cropField !=null){
+
+            cropField.setFieldName(fieldNameTxt.getText().toString());
+            cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
+            cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
+            cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
+            cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
+            cropField.setCroppableArea(Float.parseFloat(croppableAreaTxt.getText().toString()));
+            cropField.setUnits(unitsSpinner.getSelectedItem().toString());
+            dbHandler.updateCropField(cropField);
+
+        }
+    }
+
+    public void fillViews(){
+        if(cropField !=null){
+            fieldNameTxt.setText(cropField.getFieldName());
+            CropDashboardActivity.selectSpinnerItemByValue(soilCategorySpinner,cropField.getSoilCategory());
+            CropDashboardActivity.selectSpinnerItemByValue(soilTypeSpinner,cropField.getSoilType());
+            CropDashboardActivity.selectSpinnerItemByValue(watercourseSpinner,cropField.getWatercourse());
+            CropDashboardActivity.selectSpinnerItemByValue(unitsSpinner,cropField.getUnits());
+            totalAreaTxt.setText(cropField.getTotalArea()+"");
+            croppableAreaTxt.setText(cropField.getCroppableArea()+"");
+            saveBtn.setText(R.string.btn_update_label);
+        }
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public boolean validateEntries(){
