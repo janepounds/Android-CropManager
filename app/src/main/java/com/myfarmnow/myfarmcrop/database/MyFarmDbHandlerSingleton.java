@@ -313,6 +313,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public MyFarmDbHandlerSingleton openDB() throws SQLException {
 
         database=this.getWritableDatabase();
+        onCreate(database);
 
         return this;
     }

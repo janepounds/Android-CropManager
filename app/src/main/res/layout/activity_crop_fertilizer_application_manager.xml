@@ -129,7 +129,6 @@
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:layout_gravity="center"
-                android:entries="@array/crop_fertilizer_application_method_solid"
                 android:background="@drawable/input_shapes"
                 />
         </LinearLayout>
@@ -183,7 +182,7 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/sp_crop_fertilizer_name"
+                android:id="@+id/sp_crop_fertilizer_application_fertilizername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"

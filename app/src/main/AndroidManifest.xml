@@ -12,12 +12,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.CropsListActivity"
-            android:label="@string/activity_crops_list"></activity>
+            android:label="@string/activity_crops_list" />
         <activity android:name=".activities.CropSoilAnalysisListActivity" />
         <activity android:name=".activities.CropSoilAnalysisManagerActivity" />
         <activity android:name=".activities.CropSprayingManagerActivity" />
         <activity android:name=".activities.CropFertilizerApplicationManagerActivity" />
-        <activity android:name=".activities.CropCultivateManagerActivity" />
+        <activity android:name=".activities.CropCultivationManagerActivity" />
         <activity
             android:name=".activities.CropsManagerActivity"
             android:label="@string/activity_crop_manager" />
@@ -62,8 +62,16 @@
             android:label="@string/title_activity_crop_inventory_spray_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropCultivateListActivity"
+            android:name=".activities.CropCultivationsListActivity"
             android:label="@string/title_activity_crop_cultivate_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropSprayingListActivity"
+            android:label="@string/title_activity_crop_spraying_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropFertilizerApplicationListActivity"
+            android:label="@string/title_activity_crop_fertilizer_application_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -2,24 +2,29 @@ package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.CropCultivationsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
-public class CropCultivateListActivity extends AppCompatActivity {
+public class CropCultivationsListActivity extends AppCompatActivity {
 
+    RecyclerView cultivationListRecyclerView;
+    CropCultivationsListRecyclerAdapter cropCultivationsListRecyclerAdapter;
+    LinearLayoutManager linearLayoutManager;
+    MyFarmDbHandlerSingleton dbHandler;
     String cropId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop_cultivate_list);
+        setContentView(R.layout.activity_crop_cultivations_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,6 +34,12 @@ public class CropCultivateListActivity extends AppCompatActivity {
         else{
             finish();
         }
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        cultivationListRecyclerView = findViewById(R.id.crop_cultivations_recyc_view);
+        cropCultivationsListRecyclerAdapter = new CropCultivationsListRecyclerAdapter(this,dbHandler.getCropCultivate(cropId));
+        cultivationListRecyclerView.setAdapter(cropCultivationsListRecyclerAdapter);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        cultivationListRecyclerView.setLayoutManager(linearLayoutManager);
 
 
     }

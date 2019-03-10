@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class CropInventoryFertilizer implements CropInventory,Serializable {
+public class CropInventoryFertilizer implements CropInventory,Serializable,CropSpinnerItem {
     String id="";
     String userId="";
 

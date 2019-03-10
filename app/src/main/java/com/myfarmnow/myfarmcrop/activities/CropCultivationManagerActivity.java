@@ -14,7 +14,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 
-public class CropCultivateManagerActivity extends AppCompatActivity {
+public class CropCultivationManagerActivity extends AppCompatActivity {
 
     EditText dateTxt, notesTxt,costTxt, operatorTxt;
     Button btn_save;
@@ -25,7 +25,7 @@ public class CropCultivateManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop_cultivate_manager);
+        setContentView(R.layout.activity_crop_cultivation_manager);
         if(getIntent().hasExtra("cultivation")){
             cultivation =(CropCultivation) getIntent().getSerializableExtra("cultivation");
         }
@@ -58,7 +58,7 @@ public class CropCultivateManagerActivity extends AppCompatActivity {
                     else{
                         updateCultivation();
                     }
-                    Intent toCropsList = new Intent(CropCultivateManagerActivity.this, CropCultivateListActivity.class);
+                    Intent toCropsList = new Intent(CropCultivationManagerActivity.this, CropCultivationsListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);
                 }else{
@@ -118,7 +118,7 @@ public class CropCultivateManagerActivity extends AppCompatActivity {
 
 
         if(message != null){
-            Toast.makeText(CropCultivateManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+            Toast.makeText(CropCultivationManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
             return false;
         }
         // Log.d("ERROR",message);

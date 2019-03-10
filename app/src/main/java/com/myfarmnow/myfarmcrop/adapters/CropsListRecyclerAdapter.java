@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropCultivateListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
@@ -84,7 +85,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView editButton, deleteButton,cultivateButton;
+        ImageView editButton, deleteButton,cultivateButton,fertilizerApplicationButton;
         TextView cropNameTxtView, cropVarietyTextView, croppableAreaTxtView, cropAge;
 
         TextView datePlantedTxt;
@@ -98,6 +99,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             editButton = itemView.findViewById(R.id.img_crop_card_edit);
             deleteButton = itemView.findViewById(R.id.img_crop_card_delete);
             cultivateButton = itemView.findViewById(R.id.img_crop_card_cultivate);
+            fertilizerApplicationButton = itemView.findViewById(R.id.img_crop_card_fertilizer_application);
             //layout_batch_number txt_view_batch_lbl
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -136,9 +138,19 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                 @Override
                 public void onClick(View v) {
                     Crop crop = cropsList.get(getAdapterPosition());
-                    Intent showCultivates = new Intent(mContext, CropCultivateListActivity.class);
+                    Intent showCultivates = new Intent(mContext, CropCultivationsListActivity.class);
                     showCultivates.putExtra("cropId", crop.getId());
                     mContext.startActivity(showCultivates);
+
+                }
+            });
+            fertilizerApplicationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Crop crop = cropsList.get(getAdapterPosition());
+                    Intent showFertilizerApplication = new Intent(mContext, CropFertilizerApplicationListActivity.class);
+                    showFertilizerApplication.putExtra("cropId", crop.getId());
+                    mContext.startActivity(showFertilizerApplication);
 
                 }
             });

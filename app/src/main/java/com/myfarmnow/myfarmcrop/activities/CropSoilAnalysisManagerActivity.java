@@ -62,6 +62,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
             }
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        fillViews();
     }
 
     public void saveSoilAnalysis(){
@@ -122,6 +123,17 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         }
         // Log.d("ERROR",message);
         return true;
+    }
+
+    public void fillViews() {
+        if (soilAnalysis != null) {
+            dateTxt.setText(soilAnalysis.getDate());
+            organicMatterTxt.setText(soilAnalysis.getOrganicMatter()+"");
+            agronomistTxt.setText(soilAnalysis.getAgronomist()+"");
+            costTxt.setText(soilAnalysis.getCost()+"");
+            phTxt.setText(soilAnalysis.getPh()+"");
+            resultsTxt.setText(soilAnalysis.getResult());
+        }
     }
 
 }
