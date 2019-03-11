@@ -86,7 +86,7 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
                     holder.notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
 
-                int containerHeight = holder.notesTextView.getHeight()+holder.costTextView.getHeight()+holder.operatorTextView.getHeight();
+                int containerHeight = holder.notesTextView.getHeight()+holder.costTextView.getHeight()+holder.costTextView.getHeight()+holder.operatorTextView.getHeight();
                 ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
                 params.height = containerHeight;
                 Log.d("LENGTH",containerHeight+"");
