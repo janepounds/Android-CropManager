@@ -498,6 +498,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID,fertilizerApplication.getFertilizerId());
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR,fertilizerApplication.getOperator());
         contentValues.put(CROP_FERTILIZER_APPLICATION_COST,fertilizerApplication.getCost());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_RATE,fertilizerApplication.getRate());
         database.insert(CROP_FERTILIZER_APPLICATION_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -515,6 +516,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID,fertilizerApplication.getFertilizerId());
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR,fertilizerApplication.getOperator());
         contentValues.put(CROP_FERTILIZER_APPLICATION_COST,fertilizerApplication.getCost());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_RATE,fertilizerApplication.getRate());
         database.update(CROP_FERTILIZER_APPLICATION_TABLE_NAME,contentValues,CROP_FERTILIZER_APPLICATION_ID+" = ?", new String[]{fertilizerApplication.getId()});
         closeDB();
     }
@@ -608,6 +610,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setOperation(res.getString(res.getColumnIndex(CROP_CULTIVATION_OPERATION)));
             crop.setCost(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST)));
             crop.setOperator(res.getString(res.getColumnIndex(CROP_CULTIVATION_OPERATOR)));
+            crop.setNotes(res.getString(res.getColumnIndex(CROP_CULTIVATION_NOTES)));
 
             array_list.add(crop);
             res.moveToNext();
