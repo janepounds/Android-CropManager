@@ -36,6 +36,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         else{
             finish();
         }
+        Log.d("FIELD ID",fieldId);
         initializeForm();
     }
 

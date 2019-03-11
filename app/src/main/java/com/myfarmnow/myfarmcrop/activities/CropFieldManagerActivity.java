@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,8 @@ public class CropFieldManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_field_manager);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         if(getIntent().hasExtra("cropField")){
             cropField = (CropField)getIntent().getSerializableExtra("cropField");
@@ -120,15 +123,15 @@ public class CropFieldManagerActivity extends AppCompatActivity {
     public boolean validateEntries(){
         String message = null;
         if(fieldNameTxt.getText().toString().isEmpty()){
-            message = getString(R.string.date_not_entered_message);
+            message = getString(R.string.field_name_not_entered_message);
             fieldNameTxt.requestFocus();
         }
         else if(totalAreaTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.total_area_not_entered_message);
             totalAreaTxt.requestFocus();
         }
         else if(unitsSpinner.getSelectedItemPosition()==0){
-            message = getString(R.string.usage_units_not_selected);
+            message = getString(R.string.units_not_selected);
             unitsSpinner.requestFocus();
         }
 

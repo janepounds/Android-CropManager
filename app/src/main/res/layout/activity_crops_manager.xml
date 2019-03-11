@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.CropsManagerActivity">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -59,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/input_shapes"
                 android:textSize="14sp"
@@ -93,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:ems="5"
                 android:layout_marginLeft="3dp"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:background="@drawable/input_shapes"
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
@@ -176,8 +178,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
+                android:inputType="numberDecimal"
+
                 android:background="@drawable/input_shapes"
                 />
             <TextView
@@ -197,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 />
@@ -224,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="6"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 />
@@ -244,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="8"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 />
@@ -293,7 +297,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="3"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:inputType="numberDecimal"
                 android:background="@drawable/input_shapes"
@@ -369,5 +373,9 @@
 
 
 
+
+
+
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

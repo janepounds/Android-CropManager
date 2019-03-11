@@ -205,7 +205,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             methodSp.requestFocus();
         }
         else if(fertilizerId.getSelectedItemPosition()==0){
-            message =  message = getString(R.string.fertilizer_name_not_entered);
+            message = getString(R.string.fertilizer_name_not_entered);
             fertilizerId.requestFocus();
         }
         if(message != null){

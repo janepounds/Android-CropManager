@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:inputType="text"
-                        android:hint="Enter"
+                        android:hint="Enter.."
                         android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:inputType="text"
-                        android:hint="Enter"
+                        android:hint="Enter.."
                         android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
                         android:inputType="text"
-                        android:hint="Enter"
+                        android:hint="Enter.."
                         android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -165,7 +165,7 @@
                             android:layout_weight="0.4"
                             android:inputType="numberDecimal"
                             android:background="@drawable/input_shapes"
-                            android:hint="Enter"
+                            android:hint="Enter.."
                             android:textSize="14sp" />
                     </LinearLayout>
                     <LinearLayout
@@ -188,8 +188,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
-                            android:inputType="text"
+
                             android:hint="Enter"
+                            android:inputType="numberDecimal"
                             android:background="@drawable/input_shapes"
                             android:text="@string/default_numeric_value"
                             android:textSize="14sp" />
@@ -222,7 +223,7 @@
                             android:layout_weight="0.4"
                             android:inputType="text"
                             android:background="@drawable/input_shapes"
-                            android:hint="Enter"
+                            android:hint="Enter.."
                             android:textSize="14sp" />
                     </LinearLayout>
                     <LinearLayout
@@ -247,7 +248,7 @@
                             android:layout_weight="0.4"
                             android:inputType="text"
                             android:background="@drawable/input_shapes"
-                            android:hint="Enter"
+                            android:hint="Enter.."
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -277,7 +278,7 @@
                             android:layout_weight="0.4"
                             android:inputType="text"
                             android:background="@drawable/input_shapes"
-                            android:hint="Enter"
+                            android:hint="Enter.."
                             android:textSize="14sp" />
                     </LinearLayout>
                     <LinearLayout

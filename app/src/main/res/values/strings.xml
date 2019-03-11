@@ -187,6 +187,27 @@
         <item>Sweet Potatoes</item>
     </string-array>
 
+    <string-array name="crop_machine_category">
+        <item>Select</item>
+        <item>Plow</item>
+    <item>Cultivator</item>
+    <item>Roller</item>
+    <item>Tractor</item>
+    <item>Trowel</item>
+    <item>Seed Drill</item>
+    <item>Manure Spreader</item>
+        <item>Irrigation Pump</item>
+        <item>Sprinkler System</item>
+        <item>Grain dryer</item>
+        <item>Buckrake</item>
+        <item>Harvestor</item>
+        <item>Rake</item>
+        <item>Wagon</item>
+        <item>Baler</item>
+        <item>Engine</item>
+        <item>Others</item>
+</string-array>
+
     <string name="title_activity_crop_fields_list">Fields List</string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
@@ -252,6 +273,10 @@
     <string name="batch">Batch #</string>
     <string name="btn_update_label">Update</string>
     <string name="activity_crop_field_manager_title">Field Manager</string>
+    <string name="machine_name_not_entered_message">You must enter the Machine Name</string>
+    <string name="purchaed_from_not_entered_message">You Must Enter where you Purchased From</string>
+    <string name="purchase_price_not_entered_message">You Must Enter the Purchase Price</string>
+    <string name="category_not_selected">You must select Category</string>
     <string name="crop_not_entered">The cost has not been entered</string>
     <string name="agronomist_not_entered">The Agronomist has not been entered</string>
     <string name="title_activity_crop_cultivate_list">Cultivate List</string>
@@ -264,8 +289,14 @@
     <string name="application_method_not_entered">Application Method not selected</string>
     <string name="fertilizer_form_not_selected">Fertilizer Form not selected</string>
     <string name="operation_not_selected">Operation has not been selected</string>
+
     <string name="activity_soil_analysis_list_label">Soil Analysis List</string>
     <string name="activity_soil_analysis_manager_label">Soil Analysis Manager</string>
+
+    <string name="field_name_not_entered_message">You must enter a field name</string>
+    <string name="total_area_not_entered_message">You must enter the total area</string>
+    <string name="units_not_selected">You must select units</string>
+
 
 
 </resources>

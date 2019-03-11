@@ -9,7 +9,9 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+
+        >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -17,6 +19,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+
 
     </android.support.design.widget.AppBarLayout>
 
@@ -51,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
+                android:background="@drawable/input_shapes"
                 android:textSize="14sp"
 
 
@@ -82,6 +87,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_weight="0.5"
+                android:background="@drawable/input_shapes"
                 android:layout_gravity="center"
                 android:entries="@array/crop_field_soil_category"
                 />
@@ -116,6 +122,7 @@
                 android:textSize="14sp"
                 android:layout_gravity="center"
                 android:entries="@array/crop_field_soil_type"
+                android:background="@drawable/input_shapes"
 
 
                 />
@@ -147,6 +154,8 @@
                 android:textSize="14sp"
                 android:layout_gravity="center"
                 android:entries="@array/crop_field_watercourse"
+                android:background="@drawable/input_shapes"
+
                 />
 
         </LinearLayout>
@@ -163,17 +172,21 @@
                 android:text="@string/total_area"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginRight="5dp"
+                />
 
             <EditText
                 android:id="@+id/txt_crop_field_total_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
-                android:hint="Enter"
+                android:ems="3"
+                android:hint="Enter.."
+                android:inputType="numberDecimal"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
-
+                android:layout_marginRight="10dp"
 
                 />
             <TextView
@@ -192,6 +205,8 @@
                 android:ems="5"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
+                android:inputType="numberDecimal"
 
                 />
 
@@ -220,6 +235,8 @@
                 android:layout_gravity="center"
                 android:entries="@array/crop_field_units"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
+
                 />
 
         </LinearLayout>

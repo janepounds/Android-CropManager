@@ -96,4 +96,18 @@ public class CropSoilAnalysis implements Serializable {
         this.result = result;
     }
 
+    @Override
+    public String toString() {
+        return "CropSoilAnalysis{" +
+                "userId='" + userId + '\'' +
+                ", id='" + id + '\'' +
+                ", fieldId='" + fieldId + '\'' +
+                ", date='" + date + '\'' +
+                ", ph=" + ph +
+                ", organicMatter=" + organicMatter +
+                ", agronomist='" + agronomist + '\'' +
+                ", cost=" + cost +
+                ", result='" + result + '\'' +
+                '}';
+    }
 }

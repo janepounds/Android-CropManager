@@ -40,6 +40,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
                         android:hint="Select"
+                        android:background="@drawable/input_shapes"
+
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -58,7 +60,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="fertilizer Type"
+                        android:text="Fertilizer Type"
                         android:layout_weight="0.7"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
@@ -69,6 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
                         android:entries="@array/crop_fertilizers_types"
+                        android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -98,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
                         android:hint="Enter..."
+                        android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -126,7 +130,11 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
                         android:text="@string/default_numeric_value"
+                        android:inputType="number|numberDecimal"
+
                         android:layout_weight="1"
+                        android:background="@drawable/input_shapes"
+                        android:layout_marginRight="5dp"
                         android:textSize="14sp" />
 
                     <EditText
@@ -135,7 +143,12 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
                         android:text="@string/default_numeric_value"
+                        android:inputType="number|numberDecimal"
+
                         android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+
+                        android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_npk_k"
@@ -143,7 +156,10 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
                         android:text="@string/default_numeric_value"
+                        android:inputType="number|numberDecimal"
+
                         android:layout_weight="1"
+                        android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
                 
 
@@ -172,7 +188,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
-                        android:hint="Enter"
+                        android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+
                         android:inputType="number|numberDecimal"
                         android:textSize="14sp" />
 
@@ -203,6 +221,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+                        android:layout_marginRight="10dp"
                         android:textSize="14sp" />
 
 
@@ -225,6 +245,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -254,6 +276,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+                        android:layout_marginRight="10dp"
                         android:textSize="14sp" />
 
 
@@ -276,7 +300,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/crop_fertilizers_usage_units"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:background="@drawable/input_shapes"
+
+                        />
 
                 </LinearLayout>
             </LinearLayout>
@@ -305,6 +332,8 @@
                     android:hint="Enter.."
                     android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
+                    android:background="@drawable/input_shapes"
+
                     android:layout_weight="0.3"
                     android:textSize="14sp"
                     android:visibility="visible" />
@@ -339,7 +368,9 @@
                     android:layout_height="wrap_content"
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
+                    android:background="@drawable/input_shapes"
                     android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -353,7 +384,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                   android:hint="%"  android:text="@string/default_numeric_value"
-
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
                     android:textSize="14sp" />
@@ -370,6 +402,8 @@
                     android:layout_height="wrap_content"
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
+                    android:background="@drawable/input_shapes"
+
                     android:layout_weight="1"
                     android:textSize="14sp" />
 
@@ -402,6 +436,9 @@
                     android:layout_height="wrap_content"
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -417,6 +454,8 @@
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -432,6 +471,8 @@
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -447,6 +488,7 @@
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
+                    android:background="@drawable/input_shapes"
                     android:textSize="14sp" />
 
 
@@ -472,6 +514,8 @@
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -487,6 +531,8 @@
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -502,6 +548,8 @@
                   android:hint="%"  android:text="@string/default_numeric_value"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
+                    android:background="@drawable/input_shapes"
+                    android:layout_marginRight="5dp"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -515,7 +563,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                   android:hint="%"  android:text="@string/default_numeric_value"
-
+                    android:background="@drawable/input_shapes"
                     android:inputType="numberDecimal"
                     android:layout_weight="1"
                     android:textSize="14sp" />

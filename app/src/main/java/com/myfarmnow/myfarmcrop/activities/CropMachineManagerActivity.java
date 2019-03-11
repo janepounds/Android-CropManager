@@ -31,7 +31,12 @@ public class CropMachineManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_machine_manager);
 
+        if(getIntent().hasExtra("cropMachine")){
+            cropMachineToEdit = (CropMachine) getIntent().getSerializableExtra("cropMachine");
+        }
         initializeForm();
+
+
 
     }
 
@@ -64,7 +69,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
                         saveMachines();
                     }
                     else{
-                        //updateFields();
+                        updateMachines();
                     }
 
                     Intent toCropMachinesList = new Intent(CropMachineManagerActivity.this, CropMachinesListActivity.class);
@@ -75,52 +80,87 @@ public class CropMachineManagerActivity extends AppCompatActivity {
                 }
             }
         });
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        fillViews();
     }
     public void saveMachines(){
         cropMachineToEdit = new CropMachine();
+        Log.d("ERROR", "SAVE MACHINES METHOD");
         cropMachineToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropMachineToEdit.setName(machineNameTxt.getText().toString());
         cropMachineToEdit.setBrand(brandTxt.getText().toString());
         cropMachineToEdit.setCategory(categorySpinner.getSelectedItem().toString());
         cropMachineToEdit.setManufacturer(manufacturerTxt.getText().toString());
         cropMachineToEdit.setModel(modelTxt.getText().toString());
-        cropMachineToEdit.setRegistrationNumber(Float.parseFloat(regNumberTxt.getText().toString()));
+        cropMachineToEdit.setRegistrationNumber(Integer.parseInt(regNumberTxt.getText().toString()));
         cropMachineToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         cropMachineToEdit.setDate(dateAcquiredTxt.getText().toString());
         cropMachineToEdit.setPurchasedFrom(purchasedFromTxt.getText().toString());
         cropMachineToEdit.setStorageLocation(storageLocationTxt.getText().toString());
         cropMachineToEdit.setPurchasePrice(Float.parseFloat(purchasePriceTxt.getText().toString()));
-
-
-
-
         dbHandler.insertCropMachine(cropMachineToEdit);
 
 
 
     }
 
+    public void updateMachines(){
+        if(cropMachineToEdit != null){
+            cropMachineToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropMachineToEdit.setName(machineNameTxt.getText().toString());
+            cropMachineToEdit.setBrand(brandTxt.getText().toString());
+            cropMachineToEdit.setCategory(categorySpinner.getSelectedItem().toString());
+            cropMachineToEdit.setManufacturer(manufacturerTxt.getText().toString());
+            cropMachineToEdit.setModel(modelTxt.getText().toString());
+            cropMachineToEdit.setRegistrationNumber(Integer.parseInt(regNumberTxt.getText().toString()));
+            cropMachineToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
+            cropMachineToEdit.setDate(dateAcquiredTxt.getText().toString());
+            cropMachineToEdit.setPurchasedFrom(purchasedFromTxt.getText().toString());
+            cropMachineToEdit.setStorageLocation(storageLocationTxt.getText().toString());
+            cropMachineToEdit.setPurchasePrice(Float.parseFloat(purchasePriceTxt.getText().toString()));
+            dbHandler.updateCropMachine(cropMachineToEdit);
+        }
+    }
+    public void fillViews(){
+        if(cropMachineToEdit != null){
+            CropDashboardActivity.selectSpinnerItemByValue(categorySpinner, cropMachineToEdit.getCategory());
+
+            machineNameTxt.setText(cropMachineToEdit.getName());
+            brandTxt.setText(cropMachineToEdit.getBrand());
+            manufacturerTxt.setText(cropMachineToEdit.getManufacturer());
+            modelTxt.setText(cropMachineToEdit.getModel());
+            regNumberTxt.setText(cropMachineToEdit.getRegistrationNumber()+"");
+            quantityTxt.setText(cropMachineToEdit.getQuantity()+"");
+            dateAcquiredTxt.setText(cropMachineToEdit.getDate());
+            purchasedFromTxt.setText(cropMachineToEdit.getPurchasedFrom());
+            storageLocationTxt.setText(cropMachineToEdit.getStorageLocation());
+            purchasePriceTxt.setText(cropMachineToEdit.getPurchasePrice()+"");
+}
+
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public boolean validateEntries(){
         String message = null;
         if(machineNameTxt.getText().toString().isEmpty()){
-            message = getString(R.string.date_not_entered_message);
+            message = getString(R.string.machine_name_not_entered_message);
             machineNameTxt.requestFocus();
         }
         else if(quantityTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.quantity_not_entered_message);
             quantityTxt.requestFocus();
         }
         else if(purchasedFromTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.purchaed_from_not_entered_message);
             purchasedFromTxt.requestFocus();
         }
         else if(purchasePriceTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.purchase_price_not_entered_message);
             purchasePriceTxt.requestFocus();
         }
         else if(categorySpinner.getSelectedItemPosition()==0){
-            message = getString(R.string.usage_units_not_selected);
+            message = getString(R.string.category_not_selected);
             categorySpinner.requestFocus();
         }
 
