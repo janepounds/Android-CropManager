@@ -109,7 +109,7 @@
                 android:textSize="14sp"
                 android:layout_weight="0.5"
 
-                android:entries="@array/crop_field_soil_category"
+                android:entries="@array/crop_machine_category"
                 android:background="@drawable/input_shapes"
 
                 />

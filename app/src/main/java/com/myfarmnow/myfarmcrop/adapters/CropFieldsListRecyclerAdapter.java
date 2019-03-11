@@ -96,7 +96,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             croppableAreaTextView = itemView.findViewById(R.id.txt_crop_field_card_croppable_area);
             deleteButton = itemView.findViewById(R.id.img_crop_field_card_delete);
             editButton = itemView.findViewById(R.id.img_crop_field_card_edit);
-            soilAnalysisButton = itemView.findViewById(R.id.img_crop_card_soil_analysis);
+            soilAnalysisButton = itemView.findViewById(R.id.img_crop_field_card_soil_analysis);
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override

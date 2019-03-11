@@ -28,7 +28,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="Purchase Date"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
@@ -37,7 +37,7 @@
                         android:id="@+id/txt_crop_spray_date_of_purchase"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.5"
                         android:background="@drawable/input_shapes"
                         android:hint="Select"
                         android:textSize="14sp" />
@@ -248,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:background="@drawable/input_shapes"
-                        android:hint="Enter"
+                        android:hint="Enter.."
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -267,8 +267,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Harvest Inteval"
-                        android:layout_weight="0.2"
+                        android:text="Harvest Interval"
+                        android:layout_weight="0.3"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
@@ -276,9 +276,9 @@
                         android:id="@+id/txt_crop_spray_harvest_interval"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
+                        android:layout_weight="0.5"
                         android:background="@drawable/input_shapes"
-                        android:hint="Enter"
+                        android:hint="Enter.."
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="match_parent"
@@ -313,10 +313,12 @@
                         android:id="@+id/spinner_crop_spray_unit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+
                         android:entries="@array/crop_spray_usage_units"
                         android:textSize="14sp"
-                        android:visibility="visible" />
+                        android:layout_marginRight="10dp"
+                        />
 
                 </LinearLayout>
                 <LinearLayout
