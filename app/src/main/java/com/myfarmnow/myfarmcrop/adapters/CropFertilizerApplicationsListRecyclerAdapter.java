@@ -74,17 +74,17 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
         holder.methodTextView.setText(field.getMethod());
         holder.operationTextView.setText(field.getFertilizerName());
 
-      /*  final ViewTreeObserver observer = holder.notesTextView.getViewTreeObserver();
+        final ViewTreeObserver observer = holder.operationTextView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.notesTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    holder.operationTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 } else {
-                    holder.notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    holder.operationTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
 
-                int containerHeight = holder.notesTextView.getHeight()+holder.costTextView.getHeight()+holder.operatorTextView.getHeight();
+                int containerHeight = holder.rateTextView.getHeight()+holder.operationTextView.getHeight()+holder.costTextView.getHeight()+holder.methodTextView.getHeight();
                 ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
                 params.height = containerHeight;
                 Log.d("LENGTH",containerHeight+"");
@@ -92,7 +92,7 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
 
 
             }
-        });*/
+        });
 
     }
 

@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,7 +65,7 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
 
 
     @Override
-    public void onBindViewHolder(@NonNull SprayingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SprayingViewHolder holder, int position) {
 
         CropSpraying field = cropSprayingsList.get(position);
         holder.sprayNameTextView.setText(field.getSprayName());
@@ -72,6 +74,26 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
         holder.windDirectionTextView.setText("W.D : "+field.getWindDirection());
         holder.waterConditionTextView.setText("W.C : "+field.getWaterCondition());
         holder.treatmentReasonTextView.setText(field.getTreatmentReason());
+
+        final ViewTreeObserver observer = holder.treatmentReasonTextView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.treatmentReasonTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    holder.treatmentReasonTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+
+                int containerHeight = holder.rateTextView.getHeight()+holder.treatmentReasonTextView.getHeight()+holder.waterConditionTextView.getHeight()+holder.operatorTextView.getHeight()+holder.operatorTextView.getHeight();
+                ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
+                params.height = containerHeight;
+                Log.d("LENGTH",containerHeight+"");
+                holder.verticalLineView.requestLayout();
+
+
+            }
+        });
     }
 
 

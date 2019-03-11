@@ -296,7 +296,7 @@
     <string name="field_name_not_entered_message">You must enter a field name</string>
     <string name="total_area_not_entered_message">You must enter the total area</string>
     <string name="units_not_selected">You must select units</string>
-
+    <string name="activity_spraying_manager_label">Spraying Manager</string>
 
 
 </resources>

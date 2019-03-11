@@ -36,7 +36,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_CROP_TABLE_NAME ="crop";
     public static final String CROP_CULTIVATION_TABLE_NAME ="crop_cultivate";
     public static final String CROP_FERTILIZER_APPLICATION_TABLE_NAME ="crop_fertilizer_application";
-    public static final String CROP_SPRAYING_TABLE_NAME ="crop_fertilizer_application";
+    public static final String CROP_SPRAYING_TABLE_NAME ="crop_spraying";
     public static final String CROP_FIELDS_TABLE_NAME ="crop_fields";
     public static final String CROP_MACHINE_TABLE_NAME ="crop_machine";
     public static final String CROP_SOIL_ANALYSIS_TABLE_NAME ="crop_soil_analysis";
@@ -277,6 +277,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("FIELDS",crop_field_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);
 
+      //  db.execSQL("DROP TABLE IF EXISTS "+CROP_SPRAYING_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -303,6 +304,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_SEEDS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+CROP_INVENTORY_SPRAY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+CROP_SPRAYING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_TABLE_NAME);
         onCreate(db);
@@ -313,7 +315,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public MyFarmDbHandlerSingleton openDB() throws SQLException {
 
         database=this.getWritableDatabase();
-       // onCreate(database);
+        onCreate(database);
 
         return this;
     }
@@ -433,7 +435,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
     public boolean deleteCropSpraying(String fertilizerId){
         openDB();
-        database.delete(CROP_FERTILIZER_APPLICATION_TABLE_NAME,CROP_FERTILIZER_APPLICATION_ID+" = ?", new String[]{fertilizerId});
+        database.delete(CROP_SPRAYING_TABLE_NAME,CROP_SPRAYING_ID+" = ?", new String[]{fertilizerId});
         closeDB();
         return true;
     }
@@ -443,17 +445,18 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" where "+CROP_FERTILIZER_APPLICATION_CROP_ID+" = "+cropId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_SPRAYING_TABLE_NAME+" where "+CROP_SPRAYING_CROP_ID+" = "+cropId, null );
         res.moveToFirst();
 
         while(!res.isAfterLast()){
             CropSpraying crop = new CropSpraying();
+            Log.d("COLUMN",res.getColumnIndex(CROP_SPRAYING_START_TIME)+"");
             crop.setId(res.getString(res.getColumnIndex(CROP_SPRAYING_ID)));
             crop.setUserId(res.getString(res.getColumnIndex(CROP_SPRAYING_USER_ID)));
             crop.setDate(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)));
             crop.setCropId(res.getString(res.getColumnIndex(CROP_SPRAYING_CROP_ID)));
             crop.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_START_TIME)));
-            crop.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_END_TIME)));
+            crop.setEndTime(res.getString(res.getColumnIndex(CROP_SPRAYING_END_TIME)));
             crop.setCost(res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
             crop.setOperator(res.getString(res.getColumnIndex(CROP_SPRAYING_OPERATOR)));
             crop.setWaterCondition(res.getString(res.getColumnIndex(CROP_SPRAYING_WATER_CONDITION)));

@@ -31,8 +31,8 @@ public class CropSprayingListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(getIntent().hasExtra("fieldId")){
-            cropId =getIntent().getStringExtra("fieldId");
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
         }
         else{
             finish();
@@ -55,8 +55,8 @@ public class CropSprayingListActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add_new:
-                Intent intent = new Intent(this, CropSprayingListActivity.class);
-                intent.putExtra("fieldId",cropId);
+                Intent intent = new Intent(this, CropSprayingManagerActivity.class);
+                intent.putExtra("cropId",cropId);
                 startActivity(intent);
                 return true;
             default:
