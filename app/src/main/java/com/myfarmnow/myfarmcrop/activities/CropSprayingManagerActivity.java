@@ -11,9 +11,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
+
+import java.util.ArrayList;
 
 public class CropSprayingManagerActivity extends AppCompatActivity {
 
@@ -31,6 +36,12 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_spraying_manager);
         if(getIntent().hasExtra("spraying")){
             spraying =(CropSpraying) getIntent().getSerializableExtra("spraying");
+        }
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
+        }
+        else{
+            finish();
         }
         initializeForm();
     }
@@ -64,6 +75,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
                         updateSpraying();
                     }
                     Intent toCropsList = new Intent(CropSprayingManagerActivity.this, CropSprayingListActivity.class);
+                    toCropsList.putExtra("cropId",cropId);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);
                 }else{
@@ -72,6 +84,12 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             }
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
+        for(CropInventorySpray x: dbHandler.getCropSpray(CropDashboardActivity.getPreferences("userId",this))){
+            spraysList.add(x);
+        }
+        CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",this);
+        sprayIdSp.setAdapter(fertilizerAdapter);
         fillViews();
     }
 

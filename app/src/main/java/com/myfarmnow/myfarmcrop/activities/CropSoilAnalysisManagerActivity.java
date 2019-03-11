@@ -30,6 +30,13 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         if(getIntent().hasExtra("soilAnalysis")){
             soilAnalysis =(CropSoilAnalysis) getIntent().getSerializableExtra("soilAnalysis");
         }
+        if(getIntent().hasExtra("fieldId")){
+            fieldId =getIntent().getStringExtra("fieldId");
+        }
+        else{
+            finish();
+        }
+        Log.d("FIELD ID",fieldId);
         initializeForm();
     }
 
@@ -54,6 +61,8 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
                         updateSoilAnalysis();
                     }
                     Intent toCropsList = new Intent(CropSoilAnalysisManagerActivity.this, CropSoilAnalysisListActivity.class);
+                    toCropsList.putExtra("fieldId",fieldId);
+
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);
                 }else{

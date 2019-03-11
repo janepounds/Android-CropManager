@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 
-public class CropInventorySpray implements CropInventory, Serializable{
+public class CropInventorySpray implements CropInventory, Serializable,CropSpinnerItem{
     String id;
     String dateOfPurchase;
     String name;
@@ -199,5 +199,10 @@ public class CropInventorySpray implements CropInventory, Serializable{
 
     public void setActiveIngredients(String activeIngredients) {
         this.activeIngredients = activeIngredients;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

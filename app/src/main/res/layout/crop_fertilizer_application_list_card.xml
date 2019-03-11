@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="0dp"
     android:background="@color/gray">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,15 +68,24 @@
                 android:layout_marginEnd="8dp"
               android:padding="4dp"
              >
+
               <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  >
+                  android:orientation="horizontal">
+
+                  <TextView
+                      android:id="@+id/txt_view_crop_fertilizer_application_card_operation"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="1"
+                      android:text="Field Preparation"
+                      android:textColor="@color/blackText" />
                   <LinearLayout
-                      android:layout_width="wrap_content"
+                      android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:layout_gravity="right"
+                      android:layout_weight="0.2"
                       android:orientation="horizontal">
 
                       <ImageView
@@ -90,25 +101,6 @@
                           android:layout_height="24dp"
                           android:src="@drawable/arrow_right_gray" />
                   </LinearLayout>
-              </LinearLayout>
-
-              <View
-                  android:layout_width="match_parent"
-                  android:layout_height="2dp"
-                  android:background="@color/gray">
-              </View>
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal">
-
-                  <TextView
-                      android:id="@+id/txt_view_crop_fertilizer_application_card_operation"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_weight="1"
-                      android:text="Field Preparation"
-                      android:textColor="@color/blackText" />
               </LinearLayout>
               <View
                   android:layout_width="match_parent"

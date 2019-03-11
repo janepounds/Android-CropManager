@@ -102,7 +102,6 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             editButton = itemView.findViewById(R.id.img_crop_card_edit);
             deleteButton = itemView.findViewById(R.id.img_crop_card_delete);
             cultivateButton = itemView.findViewById(R.id.img_crop_card_cultivate);
-            soilAnalysisButton = itemView.findViewById(R.id.img_crop_card_soil_analysis);
             fertilizerApplicationButton = itemView.findViewById(R.id.img_crop_card_fertilizer_application);
             sprayingButton = itemView.findViewById(R.id.img_crop_card_spraying);
             //layout_batch_number txt_view_batch_lbl
@@ -144,7 +143,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                 public void onClick(View v) {
                     Crop crop = cropsList.get(getAdapterPosition());
                     Intent editCrop = new Intent(mContext, CropSprayingListActivity.class);
-                    editCrop.putExtra("crop", crop);
+                    editCrop.putExtra("cropId", crop.getId());
                     mContext.startActivity(editCrop);
 
                 }
@@ -159,16 +158,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
                 }
             });
-            soilAnalysisButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Crop crop = cropsList.get(getAdapterPosition());
-                    Intent showSoilAnalysis = new Intent(mContext, CropSoilAnalysisListActivity.class);
-                    showSoilAnalysis.putExtra("cropId", crop.getId());
-                    mContext.startActivity(showSoilAnalysis);
 
-                }
-            });
             fertilizerApplicationButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

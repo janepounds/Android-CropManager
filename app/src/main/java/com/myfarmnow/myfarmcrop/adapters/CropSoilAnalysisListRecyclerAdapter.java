@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,7 +65,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
 
     @Override
-    public void onBindViewHolder(@NonNull SoilAnalysisViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SoilAnalysisViewHolder holder, int position) {
 
         CropSoilAnalysis field = cropsoilAnalysisList.get(position);
 
@@ -71,6 +73,26 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
         holder.resultsTextView.setText(field.getResult());
         holder.organicMatterTextView.setText(field.getOrganicMatter()+"%");
         holder.phTextView.setText(field.getPh()+"");
+
+        final ViewTreeObserver observer = holder.resultsTextView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.resultsTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    holder.resultsTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+
+                int containerHeight = holder.resultsTextView.getHeight()+holder.phTextView.getHeight()+holder.organicMatterTextView.getHeight()+holder.agronomistTextView.getHeight()+holder.agronomistTextView.getHeight();
+                ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
+                params.height = containerHeight;
+                Log.d("LENGTH",containerHeight+"");
+                holder.verticalLineView.requestLayout();
+
+
+            }
+        });
 
     }
 
@@ -108,6 +130,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
                     CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
                     Intent editSoilAnalysis = new Intent(mContext, CropSoilAnalysisManagerActivity.class);
                     editSoilAnalysis.putExtra("cropSoilAnalysis",cropSoilAnalysis);
+                    editSoilAnalysis.putExtra("fieldId",cropSoilAnalysis.getFieldId());
                     mContext.startActivity(editSoilAnalysis);
                 }
             });

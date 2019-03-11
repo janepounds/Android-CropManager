@@ -40,8 +40,8 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         if(getIntent().hasExtra("fertilizerApplication")){
             fertilizerApplication =(CropFertilizerApplication) getIntent().getSerializableExtra("fertilizerApplication");
         }
-        if(getIntent().hasExtra("cropId")){
-            cropId =getIntent().getStringExtra("cropId");
+        if(getIntent().hasExtra("fieldId")){
+            cropId =getIntent().getStringExtra("fieldId");
         }
         else{
             finish();
@@ -112,7 +112,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     }
                     Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropFertilizerApplicationListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    toCropsList.putExtra("cropId",cropId);
+                    toCropsList.putExtra("fieldId",cropId);
                     startActivity(toCropsList);
                 }else{
                     Log.d("ERROR","Testing");

@@ -55,7 +55,7 @@ public class CropSprayingListActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add_new:
-                Intent intent = new Intent(this, CropSprayingListActivity.class);
+                Intent intent = new Intent(this, CropSprayingManagerActivity.class);
                 intent.putExtra("cropId",cropId);
                 startActivity(intent);
                 return true;
