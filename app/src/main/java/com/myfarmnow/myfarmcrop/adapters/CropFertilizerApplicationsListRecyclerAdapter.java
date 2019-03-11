@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,7 +65,7 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
 
 
     @Override
-    public void onBindViewHolder(@NonNull FertilizerApplicationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FertilizerApplicationViewHolder holder, int position) {
 
         CropFertilizerApplication field = cropFertilizerApplicationsList.get(position);
 
@@ -71,6 +73,26 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
         holder.rateTextView.setText(field.getRate()+"Kg/ha");
         holder.methodTextView.setText(field.getMethod());
         holder.operationTextView.setText(field.getFertilizerName());
+
+      /*  final ViewTreeObserver observer = holder.notesTextView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.notesTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    holder.notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+
+                int containerHeight = holder.notesTextView.getHeight()+holder.costTextView.getHeight()+holder.operatorTextView.getHeight();
+                ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
+                params.height = containerHeight;
+                Log.d("LENGTH",containerHeight+"");
+                holder.verticalLineView.requestLayout();
+
+
+            }
+        });*/
 
     }
 

@@ -30,8 +30,8 @@ public class CropFertilizerApplicationListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_fertilizer_application_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getIntent().hasExtra("cropId")){
-            cropId =getIntent().getStringExtra("cropId");
+        if(getIntent().hasExtra("fieldId")){
+            cropId =getIntent().getStringExtra("fieldId");
         }
         else{
             finish();
@@ -56,7 +56,7 @@ public class CropFertilizerApplicationListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_new:
                 Intent intent = new Intent(this, CropFertilizerApplicationManagerActivity.class);
-                intent.putExtra("cropId",cropId);
+                intent.putExtra("fieldId",cropId);
                 startActivity(intent);
                 return true;
             default:

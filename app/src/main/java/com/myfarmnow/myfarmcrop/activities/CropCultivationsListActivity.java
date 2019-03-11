@@ -28,8 +28,8 @@ public class CropCultivationsListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(getIntent().hasExtra("cropId")){
-            cropId =getIntent().getStringExtra("cropId");
+        if(getIntent().hasExtra("fieldId")){
+            cropId =getIntent().getStringExtra("fieldId");
         }
         else{
             finish();
@@ -58,7 +58,7 @@ public class CropCultivationsListActivity extends AppCompatActivity {
 
             case R.id.action_add_new:
                 Intent intent = new Intent(this, CropCultivationManagerActivity.class);
-                intent.putExtra("cropId",cropId);
+                intent.putExtra("fieldId",cropId);
                 startActivity(intent);
                 return true;
             default:

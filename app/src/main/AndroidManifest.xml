@@ -13,8 +13,10 @@
         <activity
             android:name=".activities.CropsListActivity"
             android:label="@string/activity_crops_list" />
-        <activity android:name=".activities.CropSoilAnalysisListActivity" />
-        <activity android:name=".activities.CropSoilAnalysisManagerActivity" />
+        <activity android:name=".activities.CropSoilAnalysisListActivity"
+            android:label="@string/activity_soil_analysis_list_label"/>
+        <activity android:name=".activities.CropSoilAnalysisManagerActivity"
+            android:label="@string/activity_soil_analysis_manager_label"/>
         <activity android:name=".activities.CropSprayingManagerActivity" />
         <activity android:name=".activities.CropFertilizerApplicationManagerActivity" />
         <activity android:name=".activities.CropCultivationManagerActivity" />

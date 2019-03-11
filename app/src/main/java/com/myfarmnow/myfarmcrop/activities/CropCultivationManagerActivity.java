@@ -29,8 +29,8 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         if(getIntent().hasExtra("cultivation")){
             cultivation =(CropCultivation) getIntent().getSerializableExtra("cultivation");
         }
-        if(getIntent().hasExtra("cropId")){
-            cropId =getIntent().getStringExtra("cropId");
+        if(getIntent().hasExtra("fieldId")){
+            cropId =getIntent().getStringExtra("fieldId");
         }
         else{
             finish();
@@ -60,7 +60,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                     }
                     Intent toCropsList = new Intent(CropCultivationManagerActivity.this, CropCultivationsListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    toCropsList.putExtra("cropId",cropId);
+                    toCropsList.putExtra("fieldId",cropId);
                     startActivity(toCropsList);
                 }else{
                     Log.d("ERROR","Testing");

@@ -30,6 +30,12 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         if(getIntent().hasExtra("soilAnalysis")){
             soilAnalysis =(CropSoilAnalysis) getIntent().getSerializableExtra("soilAnalysis");
         }
+        if(getIntent().hasExtra("fieldId")){
+            fieldId =getIntent().getStringExtra("fieldId");
+        }
+        else{
+            finish();
+        }
         initializeForm();
     }
 

@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +33,7 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
 
-        Log.d("CROP FIELDS",cropCultivationsList.size()+" ");
+        //Log.d("CROP FIELDS",cropCultivationsList.size()+" ");
     }
     @NonNull
     @Override
@@ -63,7 +65,7 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
 
     @Override
-    public void onBindViewHolder(@NonNull CultivationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CultivationViewHolder holder, int position) {
 
         CropCultivation field = cropCultivationsList.get(position);
         holder.operatorTextView.setText(field.getOperator());
@@ -73,9 +75,26 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
         holder.dateTextView.setText(field.getDate());
        // holder.verticalLineView.setMinimumHeight( holder.verticalLineView.getHeight()+holder.notesTextView.getHeight());
         //holder.verticalLineView.getLayoutParams();
-        ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
-        params.height = holder.verticalLineView.getHeight()+holder.notesTextView.getHeight();
-        holder.verticalLineView.requestLayout();
+
+        final ViewTreeObserver observer = holder.notesTextView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    holder.notesTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    holder.notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+
+                int containerHeight = holder.notesTextView.getHeight()+holder.costTextView.getHeight()+holder.operatorTextView.getHeight();
+                ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
+                params.height = containerHeight;
+                Log.d("LENGTH",containerHeight+"");
+                holder.verticalLineView.requestLayout();
+
+
+            }
+        });
     }
 
 
@@ -107,9 +126,9 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     CropCultivation cropCultivation = cropCultivationsList.get(getAdapterPosition());
                     Intent editCultivation = new Intent(mContext, CropCultivationManagerActivity.class);
+                    editCultivation.putExtra("cropCultivation",cropCultivation);
                     editCultivation.putExtra("cropCultivation",cropCultivation);
                     mContext.startActivity(editCultivation);
                 }
