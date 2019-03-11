@@ -324,34 +324,6 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
 
     @Override
     public String toString() {
-        return "CropInventoryFertilizer{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", purchaseDate='" + purchaseDate + '\'' +
-                ", fertilizerName='" + fertilizerName + '\'' +
-                ", batchNumber='" + batchNumber + '\'' +
-                ", quantity=" + quantity +
-                ", totalConsumed=" + totalConsumed +
-                ", usageUnits='" + usageUnits + '\'' +
-                ", type='" + type + '\'' +
-                ", nPercentage=" + nPercentage +
-                ", kPercentage=" + kPercentage +
-                ", pPercentage=" + pPercentage +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", supplier='" + supplier + '\'' +
-                ", usageUnit='" + usageUnit + '\'' +
-                ", cost=" + cost +
-                ", macroNutrientsCa=" + macroNutrientsCa +
-                ", macroNutrientsMg=" + macroNutrientsMg +
-                ", macroNutrientsS=" + macroNutrientsS +
-                ", microNutrientsB=" + microNutrientsB +
-                ", microNutrientsMn=" + microNutrientsMn +
-                ", microNutrientsCl=" + microNutrientsCl +
-                ", microNutrientsMo=" + microNutrientsMo +
-                ", microNutrientsCu=" + microNutrientsCu +
-                ", microNutrientsZn=" + microNutrientsZn +
-                ", microNutrientsFe=" + microNutrientsFe +
-                ", microNutrientsNa=" + microNutrientsNa +
-                '}';
+        return fertilizerName;
     }
 }

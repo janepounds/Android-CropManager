@@ -36,7 +36,7 @@ public class CropCultivationsListActivity extends AppCompatActivity {
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         cultivationListRecyclerView = findViewById(R.id.crop_cultivations_recyc_view);
-        cropCultivationsListRecyclerAdapter = new CropCultivationsListRecyclerAdapter(this,dbHandler.getCropCultivate(cropId));
+        cropCultivationsListRecyclerAdapter = new CropCultivationsListRecyclerAdapter(this,dbHandler.getCropCultivates(cropId));
         cultivationListRecyclerView.setAdapter(cropCultivationsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         cultivationListRecyclerView.setLayoutManager(linearLayoutManager);

@@ -40,6 +40,12 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         if(getIntent().hasExtra("fertilizerApplication")){
             fertilizerApplication =(CropFertilizerApplication) getIntent().getSerializableExtra("fertilizerApplication");
         }
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
+        }
+        else{
+            finish();
+        }
         initializeForm();
     }
 
@@ -106,6 +112,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     }
                     Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropFertilizerApplicationListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);
                 }else{
                     Log.d("ERROR","Testing");
@@ -133,6 +140,8 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         fertilizerApplication.setCost(Float.parseFloat(costTxt.getText().toString()));
         fertilizerApplication.setOperator(operatorTxt.getText().toString());
         fertilizerApplication.setReason(reasonTxt.getText().toString());
+        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
+        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
 
@@ -145,8 +154,11 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             fertilizerApplication.setCost(Float.parseFloat(costTxt.getText().toString()));
             fertilizerApplication.setOperator(operatorTxt.getText().toString());
             fertilizerApplication.setReason(reasonTxt.getText().toString());
+            fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
+            fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
             fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
             dbHandler.updateCropFertilizerApplication(fertilizerApplication);
+
         }
     }
     public void fillViews(){
@@ -183,7 +195,16 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             message = getString(R.string.rate_not_entered);
             rateTxt.requestFocus();
         }
-       else if(fertilizerId.getSelectedItemPosition()==0){
+
+        else if(fertilizerFormSp.getSelectedItemPosition()==0){
+            message = getString(R.string.fertilizer_form_not_selected);
+            fertilizerId.requestFocus();
+        }
+        else if(methodSp.getSelectedItemPosition()==0){
+            message =  getString(R.string.application_method_not_entered);
+            methodSp.requestFocus();
+        }
+        else if(fertilizerId.getSelectedItemPosition()==0){
             message =  message = getString(R.string.fertilizer_name_not_entered);
             fertilizerId.requestFocus();
         }

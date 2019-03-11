@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropFertilizerApplicationsListRecyclerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.CropfertilizerApplicationsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
 public class CropFertilizerApplicationListActivity extends AppCompatActivity {
