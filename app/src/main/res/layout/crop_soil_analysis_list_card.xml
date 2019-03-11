@@ -68,19 +68,41 @@
                 android:layout_marginEnd="8dp"
               android:padding="4dp"
              >
+
               <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  >
-
+                  android:orientation="horizontal">
 
                   <LinearLayout
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:orientation="horizontal">
 
-                      android:orientation="horizontal"
-                      android:layout_gravity="end">
+                      <TextView
+
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1.3"
+                          android:text="Soil PH"
+                          android:textColor="@color/blackText"
+                          android:textStyle="bold" />
+
+                      <TextView
+                          android:id="@+id/txt_view_crop_soil_analysis_card_ph"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_weight="1.3"
+                          android:text="Oral Dose"
+                          android:textColor="@color/blackText" />
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="0.3"
+                      android:orientation="horizontal">
 
                       <ImageView
                           android:id="@+id/img_crop_soil_analysis_card_delete"
@@ -95,36 +117,7 @@
                           android:layout_height="24dp"
                           android:src="@drawable/arrow_right_gray" />
                   </LinearLayout>
-              </LinearLayout>
 
-              <View
-                  android:layout_width="match_parent"
-                  android:layout_height="2dp"
-                  android:background="@color/gray">
-
-              </View>
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal">
-
-                  <TextView
-
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_weight="1.3"
-                      android:text="Soil PH"
-                      android:textStyle="bold"
-                      android:textColor="@color/blackText"
-                       />
-
-                  <TextView
-                      android:id="@+id/txt_view_crop_soil_analysis_card_ph"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_weight="1.3"
-                      android:text="Oral Dose"
-                      android:textColor="@color/blackText" />
               </LinearLayout>
               <View
                   android:layout_width="match_parent"

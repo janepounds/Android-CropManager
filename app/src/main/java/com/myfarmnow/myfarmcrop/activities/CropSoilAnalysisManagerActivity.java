@@ -61,6 +61,8 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
                         updateSoilAnalysis();
                     }
                     Intent toCropsList = new Intent(CropSoilAnalysisManagerActivity.this, CropSoilAnalysisListActivity.class);
+                    toCropsList.putExtra("fieldId",fieldId);
+
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);
                 }else{
