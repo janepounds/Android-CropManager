@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropCultivation {
+import java.io.Serializable;
+
+public class CropCultivation implements Serializable {
     String date;
     String operation;
     String operator;

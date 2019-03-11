@@ -144,7 +144,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SPRAYING_WATER_CONDITION ="waterCondition";
     public static final String CROP_SPRAYING_WIND_DIRECTION="windDirection";
     public static final String CROP_SPRAYING_EQUIPMENT_USED="equipmentUsed";
-    public static final String CROP_SPRAYING_SPARY_ID="sprayId";
+    public static final String CROP_SPRAYING_SPRAY_ID ="sprayId";
     public static final String CROP_SPRAYING_RATE="rate";
     public static final String CROP_SPRAYING_TREATMENT_REASON="treatmentReason";
     public static final String CROP_SPRAYING_COST="cost";
@@ -251,7 +251,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SPRAYING_USER_ID+" TEXT,"+CROP_SPRAYING_CROP_ID+" TEXT NOT NULL,"+ CROP_SPRAYING_DATE +" TEXT NOT NULL,"+CROP_SPRAYING_START_TIME+" TEXT,"+
                 CROP_SPRAYING_END_TIME+" TEXT,"+CROP_SPRAYING_OPERATOR+" TEXT NOT NULL,"+
                 CROP_SPRAYING_WATER_VOLUME+" REAL ,"+ CROP_SPRAYING_WATER_CONDITION+" TEXT,"+CROP_SPRAYING_WIND_DIRECTION+" TEXT, "+CROP_SPRAYING_EQUIPMENT_USED+" TEXT ,"+
-                CROP_SPRAYING_SPARY_ID+" TEXT NOT NULL,"+ CROP_SPRAYING_RATE+" REAL NOT NULL ,"+CROP_SPRAYING_TREATMENT_REASON+" TEXT ,"+CROP_SPRAYING_COST+" REAL )";
+                CROP_SPRAYING_SPRAY_ID +" TEXT NOT NULL,"+ CROP_SPRAYING_RATE+" REAL NOT NULL ,"+CROP_SPRAYING_TREATMENT_REASON+" TEXT ,"+CROP_SPRAYING_COST+" REAL )";
 
         String crop_field_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_FIELDS_TABLE_NAME +" ( "+ CROP_FIELD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
@@ -313,6 +313,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public MyFarmDbHandlerSingleton openDB() throws SQLException {
 
         database=this.getWritableDatabase();
+        onCreate(database);
 
         return this;
     }
@@ -386,7 +387,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setWindDirection(res.getString(res.getColumnIndex(CROP_SPRAYING_WIND_DIRECTION)));
             crop.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
             crop.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
-            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPARY_ID)));
+            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));*/
 
             array_list.add(crop);
@@ -413,7 +414,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_WIND_DIRECTION,spraying.getWindDirection());
         contentValues.put(CROP_SPRAYING_TREATMENT_REASON,spraying.getTreatmentReason());
         contentValues.put(CROP_SPRAYING_EQUIPMENT_USED,spraying.getEquipmentUsed());
-        contentValues.put(CROP_SPRAYING_SPARY_ID,spraying.getSprayId());
+        contentValues.put(CROP_SPRAYING_SPRAY_ID,spraying.getSprayId());
         contentValues.put(CROP_SPRAYING_OPERATOR,spraying.getOperator());
         contentValues.put(CROP_SPRAYING_COST,spraying.getCost());
         contentValues.put(CROP_SPRAYING_RATE,spraying.getRate());
@@ -435,7 +436,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_WIND_DIRECTION,spraying.getWindDirection());
         contentValues.put(CROP_SPRAYING_TREATMENT_REASON,spraying.getTreatmentReason());
         contentValues.put(CROP_SPRAYING_EQUIPMENT_USED,spraying.getEquipmentUsed());
-        contentValues.put(CROP_SPRAYING_SPARY_ID,spraying.getSprayId());
+        contentValues.put(CROP_SPRAYING_SPRAY_ID,spraying.getSprayId());
         contentValues.put(CROP_SPRAYING_OPERATOR,spraying.getOperator());
         contentValues.put(CROP_SPRAYING_COST,spraying.getCost());
         contentValues.put(CROP_SPRAYING_RATE,spraying.getRate());
@@ -472,7 +473,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setWindDirection(res.getString(res.getColumnIndex(CROP_SPRAYING_WIND_DIRECTION)));
             crop.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
             crop.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
-            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPARY_ID)));
+            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));
 
             array_list.add(crop);
@@ -1084,7 +1085,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
             //hp = new HashMap();
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor res = db.rawQuery("select * from " + CROP_MACHINE_TABLE_NAME + " where " + CROP_MACHINE_ID + " = " + userId, null);
+            Cursor res = db.rawQuery("select * from " + CROP_MACHINE_TABLE_NAME+ " where " + CROP_MACHINE_USER_ID + " = " + userId, null);
             res.moveToFirst();
 
             while (!res.isAfterLast()) {
@@ -1096,6 +1097,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 machine.setBrand(res.getString(res.getColumnIndex(CROP_MACHINE_BRAND)));
                 machine.setCategory(res.getString(res.getColumnIndex(CROP_MACHINE_CATEGORY)));
                 machine.setManufacturer(res.getString(res.getColumnIndex(CROP_MACHINE_MANUFACTURER)));
+                machine.setModel(res.getString(res.getColumnIndex(CROP_MACHINE_MODEL)));
+
                 machine.setRegistrationNumber(res.getInt(res.getColumnIndex(CROP_MACHINE_REGISTRATION_NUMBER)));
                 machine.setQuantity(res.getFloat(res.getColumnIndex(CROP_MACHINE_QUANTITY)));
                 machine.setPurchasedFrom(res.getString(res.getColumnIndex(CROP_MACHINE_PURCHASED_FROM)));

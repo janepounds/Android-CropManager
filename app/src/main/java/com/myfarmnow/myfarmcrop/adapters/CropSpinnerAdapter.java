@@ -14,9 +14,10 @@ import java.util.ArrayList;
 
 public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
     ArrayList<CropSpinnerItem> values=new ArrayList<>();
+    String fieldLabel;
     public CropSpinnerAdapter(ArrayList<CropSpinnerItem> items,final String fieldLabel, Context context) {
         super(context,  android.R.layout.simple_spinner_item);
-
+        this.fieldLabel =fieldLabel;
         values.add(new CropSpinnerItem() {
             @Override
             public String getId() {
@@ -44,6 +45,20 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
     }
 
 
+    public void changeItems(ArrayList<CropSpinnerItem> items){
+        values.clear();
+        values.add(new CropSpinnerItem() {
+            @Override
+            public String getId() {
+                return null;
+            }
+            public String toString(){
+                return "Select "+fieldLabel;
+            }
+        });
+        values.addAll(items);
+        notifyDataSetChanged();
+    }
     // And the "magic" goes here
     // This is for the "passive" state of the spinner
     @Override

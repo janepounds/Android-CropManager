@@ -118,7 +118,7 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
 
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSeeds(cropMachine.getId());
+                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropMachine(cropMachine.getId());
                                     cropMachinesList.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
 

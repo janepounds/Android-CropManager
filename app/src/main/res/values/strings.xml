@@ -136,14 +136,14 @@
 
     </string-array>
     <string-array name="crop_fertilizer_application_method_solid">
-        <item>Select Method</item>
+
         <item>Broadcasting</item>
         <item>Placement</item>
         <item>Band Placement</item>
         <item>Pellet Application</item>
     </string-array>
     <string-array name="crop_fertilizer_application_method_liquid">
-        <item>Select Method</item>
+
         <item>Starter Solutions</item>
         <item>Foliar Application</item>
         <item>Fertigation</item>
@@ -256,6 +256,17 @@
     <string name="purchaed_from_not_entered_message">You Must Enter where you Purchased From</string>
     <string name="purchase_price_not_entered_message">You Must Enter the Purchase Price</string>
     <string name="category_not_selected">You must select Category</string>
+    <string name="crop_not_entered">The cost has not been entered</string>
+    <string name="agronomist_not_entered">The Agronomist has not been entered</string>
+    <string name="title_activity_crop_cultivate_list">Cultivate List</string>
+    <string name="equipment_not_entered">Equipment used not entered</string>
+    <string name="spray_name_not_entered">Spray Name has not been entered</string>
+    <string name="title_activity_crop_spraying_list">Spraying List</string>
+    <string name="title_activity_crop_fertilizer_application_list">
+        Fertilizer Application List
+    </string>
+    <string name="application_method_not_entered">Application Method not selected</string>
+    <string name="fertilizer_form_not_selected">Fertilizer Form not selected</string>
 
 
 </resources>

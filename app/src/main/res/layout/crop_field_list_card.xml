@@ -36,7 +36,7 @@
                         app:srcCompat="@mipmap/ic_launcher_round" />
 
                     <ImageView
-                        android:id="@+id/img_crop_card_spraying"
+                        android:id="@+id/img_crop_card_soil_analysis"
                         android:layout_width="25dp"
                         android:layout_height="match_parent"
                         android:layout_margin="2dp"

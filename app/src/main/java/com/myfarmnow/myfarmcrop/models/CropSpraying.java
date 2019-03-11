@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropSpraying {
+import java.io.Serializable;
+
+public class CropSpraying implements Serializable {
     String date;
     String startTime;
     String endTime;
@@ -16,6 +18,15 @@ public class CropSpraying {
     String id="";
     String userId="";
     String cropId;
+    String sprayName;
+
+    public String getSprayName() {
+        return sprayId; //TODO change this to spray name after updating the db handler to send it
+    }
+
+    public void setSprayName(String sprayName) {
+        this.sprayName = sprayName;
+    }
 
     public String getCropId() {
         return cropId;

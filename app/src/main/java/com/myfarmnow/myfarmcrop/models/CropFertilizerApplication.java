@@ -1,12 +1,15 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropFertilizerApplication {
+import java.io.Serializable;
+
+public class CropFertilizerApplication implements Serializable {
     String date;
     String operator;
     String method;
     String reason;
     String fertilizerForm;
     String fertilizerId;
+    String fertilizerName;
     float rate;
     float cost;
     String id;
@@ -99,5 +102,13 @@ public class CropFertilizerApplication {
 
     public void setCropId(String cropId) {
         this.cropId = cropId;
+    }
+
+    public String getFertilizerName() {
+        return fertilizerId; //TODO change this to fertilizer name after updating the db handler to send it
+    }
+
+    public void setFertilizerName(String fertilizerName) {
+        this.fertilizerName = fertilizerName;
     }
 }
