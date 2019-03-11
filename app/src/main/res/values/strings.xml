@@ -292,6 +292,8 @@
     <string name="field_name_not_entered_message">You must enter a field name</string>
     <string name="total_area_not_entered_message">You must enter the total area</string>
     <string name="units_not_selected">You must select units</string>
+    <string name="machines_list">Machines List</string>
+    <string name="activity_crop_machine_manager">Machine Manager</string>
 
 
 </resources>
