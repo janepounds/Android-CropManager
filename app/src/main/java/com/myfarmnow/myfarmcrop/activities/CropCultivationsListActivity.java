@@ -57,7 +57,7 @@ public class CropCultivationsListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_add_new:
-                Intent intent = new Intent(this, CropSoilAnalysisManagerActivity.class);
+                Intent intent = new Intent(this, CropCultivationManagerActivity.class);
                 intent.putExtra("cropId",cropId);
                 startActivity(intent);
                 return true;

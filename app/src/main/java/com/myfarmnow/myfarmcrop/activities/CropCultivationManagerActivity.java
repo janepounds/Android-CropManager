@@ -60,12 +60,14 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                     }
                     Intent toCropsList = new Intent(CropCultivationManagerActivity.this, CropCultivationsListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);
                 }else{
                     Log.d("ERROR","Testing");
                 }
             }
         });
+        fillViews();
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
     }
 
@@ -84,7 +86,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
     }
     public void updateCultivation(){
         if(cultivation != null){
-            cultivation.setUserId(CropDashboardActivity.getPreferences("userId",this));
+
             cultivation.setDate(dateTxt.getText().toString());
             cultivation.setOperator(operatorTxt.getText().toString());
             cultivation.setOperation(operationTxt.getSelectedItem().toString());
@@ -96,6 +98,16 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         }
     }
 
+    public void fillViews(){
+        if(cultivation != null){
+            dateTxt.setText(cultivation.getDate());
+            operatorTxt.setText(cultivation.getOperator());
+            CropDashboardActivity.selectSpinnerItemByValue(operationTxt, cultivation.getOperation());
+            notesTxt.setText(cultivation.getNotes());
+            costTxt.setText(cultivation.getCost()+"");
+        }
+    }
+
     public boolean validateEntries(){
         String message = null;
         if(dateTxt.getText().toString().isEmpty()){
@@ -103,7 +115,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
             dateTxt.requestFocus();
         }
         else if(operationTxt.getSelectedItemPosition()==0){
-            message = "Operation has not been selected";
+            message = getString(R.string.operation_not_selected);
             operationTxt.requestFocus();
         }
         else if(operatorTxt.getText().toString().isEmpty()){

@@ -71,6 +71,11 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
         holder.operationTextView.setText(field.getOperation());
         holder.notesTextView.setText(field.getNotes());
         holder.dateTextView.setText(field.getDate());
+       // holder.verticalLineView.setMinimumHeight( holder.verticalLineView.getHeight()+holder.notesTextView.getHeight());
+        //holder.verticalLineView.getLayoutParams();
+        ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
+        params.height = holder.verticalLineView.getHeight()+holder.notesTextView.getHeight();
+        holder.verticalLineView.requestLayout();
     }
 
 
