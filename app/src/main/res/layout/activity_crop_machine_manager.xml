@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".activities.CropMachineManagerActivity"
     >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +44,7 @@
                 android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
 
                 />
@@ -55,7 +60,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_weight="0.7"
                 android:text="@string/brand"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -66,12 +71,24 @@
                 android:id="@+id/txt_crop_machine_brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
-
+                android:background="@drawable/input_shapes"
+                android:layout_weight="0.3"
 
                 />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            >
+
 
             <TextView
 
@@ -80,7 +97,8 @@
                 android:text="@string/category"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.5"
                 android:textSize="16sp" />
 
             <Spinner
@@ -89,12 +107,16 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_gravity="center"
+                android:layout_weight="0.5"
+
                 android:entries="@array/crop_field_soil_category"
+                android:background="@drawable/input_shapes"
+
                 />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -120,6 +142,7 @@
                 android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
 
                 />
@@ -136,6 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/model"
+                android:layout_weight="0.6"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
@@ -144,13 +168,24 @@
                 android:id="@+id/txt_crop_machine_model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
+                android:layout_weight="0.4"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
 
 
                 />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+
             <TextView
 
                 android:layout_width="wrap_content"
@@ -158,19 +193,26 @@
                 android:text="@string/reg"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_weight="0.5"
+
+                android:layout_marginLeft="10dp"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/txt_crop_machine_reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:layout_weight="0.4"
+
+                android:background="@drawable/input_shapes"
 
                 />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -182,6 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/quantity"
+                android:layout_weight="0.6"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
@@ -190,13 +233,24 @@
                 android:id="@+id/txt_crop_machine_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
-
+                android:background="@drawable/input_shapes"
+                android:layout_weight="0.4"
 
 
                 />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+
             <TextView
 
                 android:layout_width="wrap_content"
@@ -204,19 +258,25 @@
                 android:text="@string/date_acquired"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:textSize="16sp" />
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:layout_weight="0.5"
+                />
 
             <EditText
                 android:id="@+id/txt_crop_machine_date_acquired"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
+                android:layout_weight="0.5"
 
                 />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -243,6 +303,8 @@
                 android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
+
 
 
                 />
@@ -274,7 +336,7 @@
                 android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
-
+                android:background="@drawable/input_shapes"
 
                 />
 
@@ -305,6 +367,7 @@
                 android:ems="10"
                 android:hint="Enter"
                 android:textSize="14sp"
+                android:background="@drawable/input_shapes"
 
 
                 />
@@ -326,6 +389,13 @@
             android:textColor="#ffffff" />
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+
 
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

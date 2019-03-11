@@ -31,7 +31,12 @@ public class CropMachineManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_machine_manager);
 
+        if(getIntent().hasExtra("cropMachine")){
+            cropMachineToEdit = (CropMachine) getIntent().getSerializableExtra("cropMachine");
+        }
         initializeForm();
+
+
 
     }
 
@@ -84,7 +89,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
         cropMachineToEdit.setCategory(categorySpinner.getSelectedItem().toString());
         cropMachineToEdit.setManufacturer(manufacturerTxt.getText().toString());
         cropMachineToEdit.setModel(modelTxt.getText().toString());
-        cropMachineToEdit.setRegistrationNumber(Float.parseFloat(regNumberTxt.getText().toString()));
+        cropMachineToEdit.setRegistrationNumber(Integer.parseInt(regNumberTxt.getText().toString()));
         cropMachineToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         cropMachineToEdit.setDate(dateAcquiredTxt.getText().toString());
         cropMachineToEdit.setPurchasedFrom(purchasedFromTxt.getText().toString());
@@ -104,23 +109,23 @@ public class CropMachineManagerActivity extends AppCompatActivity {
     public boolean validateEntries(){
         String message = null;
         if(machineNameTxt.getText().toString().isEmpty()){
-            message = getString(R.string.date_not_entered_message);
+            message = getString(R.string.machine_name_not_entered_message);
             machineNameTxt.requestFocus();
         }
         else if(quantityTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.quantity_not_entered_message);
             quantityTxt.requestFocus();
         }
         else if(purchasedFromTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.purchaed_from_not_entered_message);
             purchasedFromTxt.requestFocus();
         }
         else if(purchasePriceTxt.getText().toString().isEmpty()){
-            message = getString(R.string.seed_name_not_entered_message);
+            message = getString(R.string.purchase_price_not_entered_message);
             purchasePriceTxt.requestFocus();
         }
         else if(categorySpinner.getSelectedItemPosition()==0){
-            message = getString(R.string.usage_units_not_selected);
+            message = getString(R.string.category_not_selected);
             categorySpinner.requestFocus();
         }
 

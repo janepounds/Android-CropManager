@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropMachine implements CropSpinnerItem {
+import java.io.Serializable;
+
+public class CropMachine implements CropSpinnerItem, Serializable {
 
     String id="";
     String userId="";
@@ -9,7 +11,7 @@ public class CropMachine implements CropSpinnerItem {
     String category="";
     String manufacturer="";
     String model="";
-    float registrationNumber=0;
+    int registrationNumber=0;
     float quantity=0;
     String date="";
     String purchasedFrom="";
@@ -77,11 +79,11 @@ public class CropMachine implements CropSpinnerItem {
         this.model = model;
     }
 
-    public float getRegistrationNumber() {
+    public Integer getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(float registrationNumber) {
+    public void setRegistrationNumber(int registrationNumber) {
         this.registrationNumber = registrationNumber;
     }
 

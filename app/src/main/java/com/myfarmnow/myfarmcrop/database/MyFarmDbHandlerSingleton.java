@@ -1096,7 +1096,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 machine.setBrand(res.getString(res.getColumnIndex(CROP_MACHINE_BRAND)));
                 machine.setCategory(res.getString(res.getColumnIndex(CROP_MACHINE_CATEGORY)));
                 machine.setManufacturer(res.getString(res.getColumnIndex(CROP_MACHINE_MANUFACTURER)));
-                machine.setRegistrationNumber(res.getFloat(res.getColumnIndex(CROP_MACHINE_REGISTRATION_NUMBER)));
+                machine.setRegistrationNumber(res.getInt(res.getColumnIndex(CROP_MACHINE_REGISTRATION_NUMBER)));
                 machine.setQuantity(res.getFloat(res.getColumnIndex(CROP_MACHINE_QUANTITY)));
                 machine.setPurchasedFrom(res.getString(res.getColumnIndex(CROP_MACHINE_PURCHASED_FROM)));
                 machine.setStorageLocation(res.getString(res.getColumnIndex(CROP_MACHINE_STORAGE_LOCATION)));
