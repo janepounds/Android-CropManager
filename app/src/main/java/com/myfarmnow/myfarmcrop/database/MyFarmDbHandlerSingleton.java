@@ -23,6 +23,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
+import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SOIL_ANALYSIS_TABLE_NAME ="crop_soil_analysis";
     public static final String CROP_EMPLOYEE_TABLE_NAME ="crop_employee";
     public static final String CROP_CUSTOMER_TABLE_NAME ="crop_customer";
+    public static final String CROP_SUPPLIER_TABLE_NAME ="crop_supplier";
 
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
@@ -226,6 +228,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY ="shippingCountry";
 
 
+    public static final String CROP_SUPPLIER_ID ="id";
+    public static final String CROP_SUPPLIER_USER_ID ="userId";
+    public static final String CROP_SUPPLIER_NAME ="name";
+    public static final String CROP_SUPPLIER_COMPANY ="company";
+    public static final String CROP_SUPPLIER_TAX_REG_NO ="taxRegNo";
+    public static final String CROP_SUPPLIER_PHONE ="phone";
+    public static final String CROP_SUPPLIER_MOBILE ="mobile";
+    public static final String CROP_SUPPLIER_EMAIL ="email";
+    public static final String CROP_SUPPLIER_OPENING_BALANCE ="openingBalance";
+    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_STREET ="invoiceStreet";
+    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_CITY ="invoiceCityOrTown";
+    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY ="invoiceCountry";
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -313,9 +328,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_customer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CUSTOMER_TABLE_NAME+" ( "+CROP_CUSTOMER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CUSTOMER_USER_ID+" TEXT,"+CROP_CUSTOMER_NAME+" TEXT NOT NULL,"+CROP_CUSTOMER_COMPANY+" TEXT NOT NULL,"+CROP_CUSTOMER_TAX_REG_NO+" TEXT ,"+
                 CROP_CUSTOMER_PHONE+" TEXT NOT NULL,"+CROP_CUSTOMER_MOBILE+" TEXT ,"+ CROP_CUSTOMER_EMAIL+" TEXT ,"+
-                CROP_CUSTOMER_OPENING_BALANCE+" REAL NOT NULL,"+ CROP_CUSTOMER_BILL_ADDRESS_STREET+" TEXT NOT NULL ,"+CROP_CUSTOMER_BILL_ADDRESS_STREET+" TEXT NOT NULL ,"+
-                CROP_CUSTOMER_BILL_ADDRESS_CITY+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_CITY+" TEXT NOT NULL,"+
+                CROP_CUSTOMER_OPENING_BALANCE+" REAL NOT NULL,"+ CROP_CUSTOMER_BILL_ADDRESS_STREET+" TEXT NOT NULL ,"+CROP_CUSTOMER_BILL_ADDRESS_CITY+" TEXT NOT NULL ,"+
+                CROP_CUSTOMER_BILL_ADDRESS_COUNTRY+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_CITY+" TEXT NOT NULL,"+
                 CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
+        String crop_supplier_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SUPPLIER_TABLE_NAME+" ( "+CROP_SUPPLIER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SUPPLIER_USER_ID+" TEXT,"+CROP_SUPPLIER_NAME+" TEXT NOT NULL,"+CROP_SUPPLIER_COMPANY+" TEXT NOT NULL,"+CROP_SUPPLIER_TAX_REG_NO+" TEXT ,"+
+                CROP_SUPPLIER_PHONE+" TEXT NOT NULL,"+CROP_SUPPLIER_MOBILE+" TEXT ,"+ CROP_SUPPLIER_EMAIL+" TEXT ,"+CROP_SUPPLIER_INVOICE_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_SUPPLIER_INVOICE_ADDRESS_CITY+" TEXT NOT NULL,"+
+                CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
 
 
 
@@ -343,6 +362,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_soil_analysis_insert_query);
         database.execSQL(crop_employee_insert_query);
         database.execSQL(crop_customer_insert_query);
+        database.execSQL(crop_supplier_insert_query);
 
     }
 
@@ -372,6 +392,80 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public void closeDB() throws SQLException{
         this.close();
+    }
+    public void  insertCropSupplier(CropSupplier spraying){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_SUPPLIER_USER_ID,spraying.getUserId());
+        contentValues.put(CROP_SUPPLIER_NAME,spraying.getName());
+        contentValues.put(CROP_SUPPLIER_COMPANY,spraying.getCompany());
+        contentValues.put(CROP_SUPPLIER_TAX_REG_NO,spraying.getTaxRegNo());
+        contentValues.put(CROP_SUPPLIER_PHONE,spraying.getPhone());
+        contentValues.put(CROP_SUPPLIER_MOBILE,spraying.getMobile());
+        contentValues.put(CROP_SUPPLIER_EMAIL,spraying.getEmail());
+        contentValues.put(CROP_SUPPLIER_OPENING_BALANCE,spraying.getOpeningBalance());
+        contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_STREET,spraying.getInvoiceStreet());
+        contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_CITY,spraying.getInvoiceCityOrTown());
+        contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY,spraying.getInvoiceCountry());
+        database.insert(CROP_SUPPLIER_TABLE_NAME,null,contentValues);
+
+        closeDB();
+    }
+    public void  updateCropSupplier(CropSupplier customer){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_SUPPLIER_USER_ID,customer.getUserId());
+        contentValues.put(CROP_SUPPLIER_NAME,customer.getName());
+        contentValues.put(CROP_SUPPLIER_COMPANY,customer.getCompany());
+        contentValues.put(CROP_SUPPLIER_TAX_REG_NO,customer.getTaxRegNo());
+        contentValues.put(CROP_SUPPLIER_PHONE,customer.getPhone());
+        contentValues.put(CROP_SUPPLIER_MOBILE,customer.getMobile());
+        contentValues.put(CROP_SUPPLIER_EMAIL,customer.getEmail());
+        contentValues.put(CROP_SUPPLIER_OPENING_BALANCE,customer.getOpeningBalance());
+        contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_STREET,customer.getInvoiceStreet());
+        contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_CITY,customer.getInvoiceCityOrTown());
+        contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY,customer.getInvoiceCountry());
+        database.update(CROP_SUPPLIER_TABLE_NAME,contentValues,CROP_SUPPLIER_ID+" = ?", new String[]{customer.getId()});
+        closeDB();
+    }
+    public boolean deleteCropSupplier(String id){
+        openDB();
+        database.delete(CROP_SUPPLIER_TABLE_NAME,CROP_SUPPLIER_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropSupplier> getCropSuppliers(String fieldId){
+        openDB();
+        ArrayList<CropSupplier> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+
+        while(!res.isAfterLast()){
+            CropSupplier cropSupplier = new CropSupplier();
+            cropSupplier.setId(res.getString(res.getColumnIndex(CROP_SUPPLIER_ID)));
+            cropSupplier.setUserId(res.getString(res.getColumnIndex(CROP_SUPPLIER_USER_ID)));
+            cropSupplier.setName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            cropSupplier.setCompany(res.getString(res.getColumnIndex(CROP_SUPPLIER_COMPANY)));
+            cropSupplier.setTaxRegNo(res.getString(res.getColumnIndex(CROP_SUPPLIER_TAX_REG_NO)));
+            cropSupplier.setPhone(res.getString(res.getColumnIndex(CROP_SUPPLIER_PHONE)));
+            cropSupplier.setMobile(res.getString(res.getColumnIndex(CROP_SUPPLIER_MOBILE)));
+            cropSupplier.setEmail(res.getString(res.getColumnIndex(CROP_SUPPLIER_EMAIL)));
+            cropSupplier.setOpeningBalance(res.getFloat(res.getColumnIndex(CROP_SUPPLIER_OPENING_BALANCE)));
+            cropSupplier.setInvoiceStreet(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_STREET)));
+            cropSupplier.setInvoiceCityOrTown(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_CITY)));
+            cropSupplier.setInvoiceCountry(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY)));
+            array_list.add(cropSupplier);
+            res.moveToNext();
+        }
+
+        closeDB();
+        Log.d("Crop Analysis",array_list.toString());
+        return array_list;
+
     }
     public void  insertCropCustomer(CropCustomer spraying){
         openDB();
