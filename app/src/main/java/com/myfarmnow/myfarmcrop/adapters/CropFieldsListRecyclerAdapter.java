@@ -130,7 +130,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
 
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSeeds(cropField.getId());
+                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropField(cropField.getId());
                                     cropFieldsList.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
 

@@ -29,7 +29,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:text="@string/machine_name"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
 
@@ -60,7 +60,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:layout_weight="0.5"
                 android:text="@string/brand"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -97,7 +97,7 @@
                 android:text="@string/category"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
+
                 android:layout_weight="0.5"
                 android:textSize="16sp" />
 
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
 
@@ -194,8 +194,6 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:layout_weight="0.5"
-
-                android:layout_marginLeft="10dp"
                 android:textSize="16sp" />
 
             <EditText
@@ -203,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:layout_weight="0.4"
 
@@ -234,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 android:layout_weight="0.4"
@@ -258,9 +256,8 @@
                 android:text="@string/date_acquired"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginLeft="5dp"
                 android:textSize="16sp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 />
 
             <EditText
@@ -268,10 +265,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
 
                 />
 
@@ -288,7 +285,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="@string/purchased_from"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -299,9 +296,9 @@
                 android:id="@+id/txt_crop_machine_purchased_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
 
@@ -334,7 +331,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
 
@@ -352,7 +349,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="@string/purchase_price"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -363,9 +360,9 @@
                 android:id="@+id/txt_crop_machine_purchase_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:ems="10"
-                android:hint="Enter"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
 

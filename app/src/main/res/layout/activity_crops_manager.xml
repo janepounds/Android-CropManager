@@ -25,6 +25,11 @@
             android:orientation="horizontal"
             android:layout_marginBottom="15dp">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
             <TextView
 
                 android:layout_width="wrap_content"
@@ -46,6 +51,11 @@
                 android:layout_gravity="center"
                 android:entries="@array/crops_list"
                 />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <TextView
 
@@ -69,7 +79,7 @@
 
 
                 />
-
+            </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
@@ -78,7 +88,11 @@
             android:orientation="horizontal"
             android:layout_marginBottom="15dp">
 
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="10dp">
 
             <TextView
 
@@ -93,50 +107,53 @@
                 android:id="@+id/txt_crops_cropping_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
-                android:layout_marginLeft="3dp"
+                android:ems="10"
                 android:hint="Enter.."
                 android:background="@drawable/input_shapes"
                 android:inputType="numberDecimal"
+                android:layout_marginRight="10dp"
                 android:textSize="14sp"
                 />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field"
-                android:layout_weight="0.2"
+
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
                 android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/sp_crops_field"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.8"
+
                 android:background="@drawable/input_shapes"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
 
                 />
 
-
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="15dp">
 
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.4"
                 android:text="@string/growing_cycle"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -145,12 +162,11 @@
 
             <Spinner
                 android:id="@+id/sp_crops_growing_cycle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_weight="0.8"
-                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
                 android:entries="@array/crops_growing_cycle"
                 android:background="@drawable/input_shapes"
                 />
@@ -162,6 +178,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="15dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="15dp"
+                >
 
             <TextView
 
@@ -177,13 +199,19 @@
                 android:id="@+id/txt_crops_date_sown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="5"
+                android:ems="10"
                 android:hint="Enter.."
                 android:textSize="14sp"
                 android:inputType="numberDecimal"
 
                 android:background="@drawable/input_shapes"
                 />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
 
                 android:layout_width="wrap_content"
@@ -193,7 +221,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginRight="15dp"
-                android:layout_marginLeft="30dp"
+
                 />
 
             <EditText
@@ -205,13 +233,19 @@
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 />
-
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="15dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="10dp"
+                >
 
             <TextView
 
@@ -227,11 +261,16 @@
                 android:id="@+id/txt_crops_operator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="6"
+                android:ems="10"
                 android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
 
                 android:layout_width="wrap_content"
@@ -239,26 +278,32 @@
                 android:text="@string/operator_cost"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="5dp"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/txt_crops_operator_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="10"
                 android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 />
-
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="15dp">
+
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+                android:layout_marginRight="15dp"
+                >
+
 
             <TextView
 
@@ -276,11 +321,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_weight="0.5"
 
                 android:background="@drawable/input_shapes"
                 />
-
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
 
                 android:layout_width="wrap_content"
@@ -288,33 +336,41 @@
                 android:text="@string/rate"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:layout_marginLeft="20dp"
+
                 android:layout_marginRight="5dp"
                 android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/txt_crops_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="3"
+                android:ems="10"
                 android:hint="Enter.."
                 android:textSize="14sp"
                 android:inputType="numberDecimal"
                 android:background="@drawable/input_shapes"
 
                 />
-            <TextView
+                    <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Kg/ha"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
-                android:labelFor="@+id/txt_crop_spray_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-                />
+                        android:text="Kg/ha"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimary"
+                        android:labelFor="@+id/txt_crop_spray_rate"
+
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -331,7 +387,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -346,12 +402,11 @@
 
             <Spinner
                 android:id="@+id/sp_crops_planting_method"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_weight="0.8"
-                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
                 android:entries="@array/crops_planting_method"
                 android:background="@drawable/input_shapes"
                 />
