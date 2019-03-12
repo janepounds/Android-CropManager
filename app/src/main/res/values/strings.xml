@@ -301,6 +301,7 @@
     <string name="activity_crop_machine_manager">Machine Manager</string>
 
     <string name="activity_spraying_manager_label">Spraying Manager</string>
+    <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
 
 
 

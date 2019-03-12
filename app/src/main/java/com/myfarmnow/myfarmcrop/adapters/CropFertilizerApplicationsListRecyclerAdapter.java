@@ -129,7 +129,8 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
 
                     CropFertilizerApplication cropFertilizerApplication = cropFertilizerApplicationsList.get(getAdapterPosition());
                     Intent editFertilizerApplication = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
-                    editFertilizerApplication.putExtra("cropFertilizerApplication",cropFertilizerApplication);
+                    editFertilizerApplication.putExtra("fertilizerApplication",cropFertilizerApplication);
+                    editFertilizerApplication.putExtra("cropId",cropFertilizerApplication.getCropId());
                     mContext.startActivity(editFertilizerApplication);
                 }
             });
@@ -140,7 +141,7 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
                     final CropFertilizerApplication cropFertilizerApplication = cropFertilizerApplicationsList.get(getAdapterPosition());
                     new AlertDialog.Builder(mContext)
                             .setTitle("Confirm")
-                            .setMessage("Do you really want to delete the fertilizer_application on "+cropFertilizerApplication.getDate()+"?")
+                            .setMessage("Do you really want to delete the fertilizer application done on "+cropFertilizerApplication.getDate()+"?")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
