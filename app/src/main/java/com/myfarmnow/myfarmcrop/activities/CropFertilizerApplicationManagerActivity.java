@@ -40,8 +40,8 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         if(getIntent().hasExtra("fertilizerApplication")){
             fertilizerApplication =(CropFertilizerApplication) getIntent().getSerializableExtra("fertilizerApplication");
         }
-        if(getIntent().hasExtra("fieldId")){
-            cropId =getIntent().getStringExtra("fieldId");
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
         }
         else{
             finish();
@@ -112,7 +112,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     }
                     Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropFertilizerApplicationListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    toCropsList.putExtra("fieldId",cropId);
+                    toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);
                 }else{
                     Log.d("ERROR","Testing");
@@ -163,8 +163,6 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
     }
     public void fillViews(){
         if(fertilizerApplication != null){
-            CropDashboardActivity.selectSpinnerItemByValue(methodSp, fertilizerApplication.getMethod());
-
             rateTxt.setText(fertilizerApplication.getRate()+"");
             dateTxt.setText(fertilizerApplication.getDate());
             reasonTxt.setText(fertilizerApplication.getReason());
@@ -174,6 +172,8 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
 
             CropDashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getId());
             CropDashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());
+
+            CropDashboardActivity.selectSpinnerItemById(methodSp, fertilizerApplication.getMethod());
         }
 
     }

@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
+import com.myfarmnow.myfarmcrop.models.CropCustomer;
+import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -40,6 +42,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_FIELDS_TABLE_NAME ="crop_fields";
     public static final String CROP_MACHINE_TABLE_NAME ="crop_machine";
     public static final String CROP_SOIL_ANALYSIS_TABLE_NAME ="crop_soil_analysis";
+    public static final String CROP_EMPLOYEE_TABLE_NAME ="crop_employee";
+    public static final String CROP_CUSTOMER_TABLE_NAME ="crop_customer";
+
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
@@ -185,8 +190,40 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SOIL_ANALYSIS_RESULTS="results";
     public static final String CROP_SOIL_ANALYSIS_FIELD_ID="fieldId";
 
+    public static final String CROP_EMPLOYEE_ID ="id";
+    public static final String CROP_EMPLOYEE_USER_ID ="userId";
+    public static final String CROP_EMPLOYEE_TITLE ="title";
+    public static final String CROP_EMPLOYEE_FIRST_NAME ="firstName";
+    public static final String CROP_EMPLOYEE_LAST_NAME ="lastName";
+    public static final String CROP_EMPLOYEE_PHONE ="phone";
+    public static final String CROP_EMPLOYEE_MOBILE ="mobile";
+    public static final String CROP_EMPLOYEE_EMP_ID ="employeeId";
+    public static final String CROP_EMPLOYEE_GENDER ="gender";
+    public static final String CROP_EMPLOYEE_ADDRESS ="address";
+    public static final String CROP_EMPLOYEE_EMAIL ="email";
+    public static final String CROP_EMPLOYEE_DOB ="dateOfBirth";
+    public static final String CROP_EMPLOYEE_HIRE_DATE ="hireDate";
+    public static final String CROP_EMPLOYEE_EMPLOYMENT_STATUS ="employmentStatus";
+    public static final String CROP_EMPLOYEE_PAY_AMOUNT ="payAmount";
+    public static final String CROP_EMPLOYEE_PAY_RATE ="payRate";
+    public static final String CROP_EMPLOYEE_PAY_TYPE ="payType";
+    public static final String CROP_EMPLOYEE_SUPERVISOR ="supervisor";
 
-
+    public static final String CROP_CUSTOMER_ID ="id";
+    public static final String CROP_CUSTOMER_USER_ID ="userId";
+    public static final String CROP_CUSTOMER_NAME ="name";
+    public static final String CROP_CUSTOMER_COMPANY ="company";
+    public static final String CROP_CUSTOMER_TAX_REG_NO ="taxRegNo";
+    public static final String CROP_CUSTOMER_PHONE ="phone";
+    public static final String CROP_CUSTOMER_MOBILE ="mobile";
+    public static final String CROP_CUSTOMER_EMAIL ="email";
+    public static final String CROP_CUSTOMER_OPENING_BALANCE ="openingBalance";
+    public static final String CROP_CUSTOMER_BILL_ADDRESS_STREET ="billingStreet";
+    public static final String CROP_CUSTOMER_BILL_ADDRESS_CITY ="billingCityOrTown";
+    public static final String CROP_CUSTOMER_BILL_ADDRESS_COUNTRY ="billingCountry";
+    public static final String CROP_CUSTOMER_SHIP_ADDRESS_STREET ="shippingStreet";
+    public static final String CROP_CUSTOMER_SHIP_ADDRESS_CITY ="shippingCityOrTown";
+    public static final String CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY ="shippingCountry";
 
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
@@ -266,8 +303,23 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_MACHINE_REGISTRATION_NUMBER+" REAL,"+ CROP_MACHINE_QUANTITY+" REAL NOT NULL,"+CROP_MACHINE_DATE_ACQUIRED+" TEXT NOT NULL,"+
                 CROP_MACHINE_PURCHASED_FROM+" TEXT NOT NULL,"+CROP_MACHINE_STORAGE_LOCATION+" TEXT,"+CROP_MACHINE_PURCHASE_PRICE+" REAL NOT NULL )";
 
+        String crop_employee_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_EMPLOYEE_TABLE_NAME+" ( "+CROP_EMPLOYEE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_EMPLOYEE_USER_ID+" TEXT,"+CROP_EMPLOYEE_FIRST_NAME+" TEXT NOT NULL,"+CROP_EMPLOYEE_LAST_NAME+" TEXT NOT NULL,"+CROP_EMPLOYEE_TITLE+" TEXT NOT NULL ,"+
+                CROP_EMPLOYEE_PHONE+" TEXT NOT NULL,"+CROP_EMPLOYEE_MOBILE+" TEXT ,"+ CROP_EMPLOYEE_EMP_ID+" TEXT ,"+
+                CROP_EMPLOYEE_GENDER+" TEXT NOT NULL,"+ CROP_EMPLOYEE_ADDRESS+" TEXT ,"+CROP_EMPLOYEE_EMAIL+" TEXT ,"+
+                CROP_EMPLOYEE_DOB+" TEXT,"+CROP_EMPLOYEE_HIRE_DATE+" TEXT,"+CROP_EMPLOYEE_EMPLOYMENT_STATUS+" TEXT NOT NULL,"+
+                CROP_EMPLOYEE_PAY_AMOUNT+" REAL NOT NULL,"+ CROP_EMPLOYEE_PAY_RATE+" TEXT ,"+CROP_EMPLOYEE_PAY_TYPE+" TEXT NOT NULL,"+CROP_EMPLOYEE_SUPERVISOR+" TEXT "+" )";
 
-        Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
+        String crop_customer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CUSTOMER_TABLE_NAME+" ( "+CROP_CUSTOMER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_CUSTOMER_USER_ID+" TEXT,"+CROP_CUSTOMER_NAME+" TEXT NOT NULL,"+CROP_CUSTOMER_COMPANY+" TEXT NOT NULL,"+CROP_CUSTOMER_TAX_REG_NO+" TEXT ,"+
+                CROP_CUSTOMER_PHONE+" TEXT NOT NULL,"+CROP_CUSTOMER_MOBILE+" TEXT ,"+ CROP_CUSTOMER_EMAIL+" TEXT ,"+
+                CROP_CUSTOMER_OPENING_BALANCE+" REAL NOT NULL,"+ CROP_CUSTOMER_BILL_ADDRESS_STREET+" TEXT NOT NULL ,"+CROP_CUSTOMER_BILL_ADDRESS_STREET+" TEXT NOT NULL ,"+
+                CROP_CUSTOMER_BILL_ADDRESS_CITY+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_CITY+" TEXT NOT NULL,"+
+                CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
+
+
+
+        /*Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
         Log.d("SPRAY INVENTORY",crop_inventory_spray_insert_query);
         Log.d("SPRAY INVENTORY",crop_spraying_insert_query);
@@ -275,7 +327,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("CULTIVATE",crop_cultivate_insert_query);
         Log.d("FERTILIZER",crop_fertilizer_insert_query);
         Log.d("FIELDS",crop_field_insert_query);
-        Log.d("MACHINE",crop_machine_insert_query);
+        Log.d("MACHINE",crop_machine_insert_query);*/
+
 
       //  db.execSQL("DROP TABLE IF EXISTS "+CROP_SPRAYING_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
@@ -288,12 +341,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_field_insert_query);
         database.execSQL(crop_machine_insert_query);
         database.execSQL(crop_soil_analysis_insert_query);
-
-
-
-
-
-
+        database.execSQL(crop_employee_insert_query);
+        database.execSQL(crop_customer_insert_query);
 
     }
 
@@ -307,6 +356,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+CROP_SPRAYING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ CROP_EMPLOYEE_TABLE_NAME);
         onCreate(db);
     }
 
@@ -322,6 +372,184 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public void closeDB() throws SQLException{
         this.close();
+    }
+    public void  insertCropCustomer(CropCustomer spraying){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_CUSTOMER_USER_ID,spraying.getUserId());
+        contentValues.put(CROP_CUSTOMER_NAME,spraying.getName());
+        contentValues.put(CROP_CUSTOMER_COMPANY,spraying.getCompany());
+        contentValues.put(CROP_CUSTOMER_TAX_REG_NO,spraying.getTaxRegNo());
+        contentValues.put(CROP_CUSTOMER_PHONE,spraying.getPhone());
+        contentValues.put(CROP_CUSTOMER_MOBILE,spraying.getMobile());
+        contentValues.put(CROP_CUSTOMER_EMAIL,spraying.getEmail());
+        contentValues.put(CROP_CUSTOMER_OPENING_BALANCE,spraying.getOpeningBalance());
+        contentValues.put(CROP_CUSTOMER_BILL_ADDRESS_STREET,spraying.getBillingStreet());
+        contentValues.put(CROP_CUSTOMER_BILL_ADDRESS_CITY,spraying.getBillingCityOrTown());
+        contentValues.put(CROP_CUSTOMER_BILL_ADDRESS_COUNTRY,spraying.getBillingCountry());
+        contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_STREET,spraying.getShippingStreet());
+        contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_CITY,spraying.getShippingCityOrTown());
+        contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY,spraying.getShippingCountry());
+        database.insert(CROP_CUSTOMER_TABLE_NAME,null,contentValues);
+
+        closeDB();
+    }
+    public void  updateCropCustomer(CropCustomer customer){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_CUSTOMER_USER_ID,customer.getUserId());
+        contentValues.put(CROP_CUSTOMER_NAME,customer.getName());
+        contentValues.put(CROP_CUSTOMER_COMPANY,customer.getCompany());
+        contentValues.put(CROP_CUSTOMER_TAX_REG_NO,customer.getTaxRegNo());
+        contentValues.put(CROP_CUSTOMER_PHONE,customer.getPhone());
+        contentValues.put(CROP_CUSTOMER_MOBILE,customer.getMobile());
+        contentValues.put(CROP_CUSTOMER_EMAIL,customer.getEmail());
+        contentValues.put(CROP_CUSTOMER_OPENING_BALANCE,customer.getOpeningBalance());
+        contentValues.put(CROP_CUSTOMER_BILL_ADDRESS_STREET,customer.getBillingStreet());
+        contentValues.put(CROP_CUSTOMER_BILL_ADDRESS_CITY,customer.getBillingCityOrTown());
+        contentValues.put(CROP_CUSTOMER_BILL_ADDRESS_COUNTRY,customer.getBillingCountry());
+        contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_STREET,customer.getShippingStreet());
+        contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_CITY,customer.getShippingCityOrTown());
+        contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY,customer.getShippingCountry());
+        database.update(CROP_CUSTOMER_TABLE_NAME,contentValues,CROP_CUSTOMER_ID+" = ?", new String[]{customer.getId()});
+        closeDB();
+    }
+    public boolean deleteCropCustomer(String id){
+        openDB();
+        database.delete(CROP_CUSTOMER_TABLE_NAME,CROP_CUSTOMER_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropCustomer> getCropCustomers(String fieldId){
+        openDB();
+        ArrayList<CropCustomer> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+
+        while(!res.isAfterLast()){
+            CropCustomer cropEmployee = new CropCustomer();
+            cropEmployee.setId(res.getString(res.getColumnIndex(CROP_CUSTOMER_ID)));
+            cropEmployee.setUserId(res.getString(res.getColumnIndex(CROP_CUSTOMER_USER_ID)));
+            cropEmployee.setName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
+            cropEmployee.setCompany(res.getString(res.getColumnIndex(CROP_CUSTOMER_COMPANY)));
+            cropEmployee.setTaxRegNo(res.getString(res.getColumnIndex(CROP_CUSTOMER_TAX_REG_NO)));
+            cropEmployee.setPhone(res.getString(res.getColumnIndex(CROP_CUSTOMER_PHONE)));
+            cropEmployee.setMobile(res.getString(res.getColumnIndex(CROP_CUSTOMER_MOBILE)));
+            cropEmployee.setEmail(res.getString(res.getColumnIndex(CROP_CUSTOMER_EMAIL)));
+            cropEmployee.setOpeningBalance(res.getFloat(res.getColumnIndex(CROP_CUSTOMER_OPENING_BALANCE)));
+            cropEmployee.setBillingStreet(res.getString(res.getColumnIndex(CROP_CUSTOMER_BILL_ADDRESS_STREET)));
+            cropEmployee.setBillingCityOrTown(res.getString(res.getColumnIndex(CROP_CUSTOMER_BILL_ADDRESS_CITY)));
+            cropEmployee.setBillingCountry(res.getString(res.getColumnIndex(CROP_CUSTOMER_BILL_ADDRESS_COUNTRY)));
+            cropEmployee.setShippingStreet(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_STREET)));
+            cropEmployee.setShippingCityOrTown(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_CITY)));
+            cropEmployee.setShippingCountry(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY)));
+            array_list.add(cropEmployee);
+            res.moveToNext();
+        }
+
+        closeDB();
+        Log.d("Crop Analysis",array_list.toString());
+        return array_list;
+
+    }
+    public void  insertCropEmployee(CropEmployee spraying){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_EMPLOYEE_USER_ID,spraying.getUserId());
+        contentValues.put(CROP_EMPLOYEE_TITLE,spraying.getTitle());
+        contentValues.put(CROP_EMPLOYEE_FIRST_NAME,spraying.getFirstName());
+        contentValues.put(CROP_EMPLOYEE_LAST_NAME,spraying.getLastName());
+        contentValues.put(CROP_EMPLOYEE_PHONE,spraying.getPhone());
+        contentValues.put(CROP_EMPLOYEE_MOBILE,spraying.getMobile());
+        contentValues.put(CROP_EMPLOYEE_EMP_ID,spraying.getEmployeeId());
+        contentValues.put(CROP_EMPLOYEE_GENDER,spraying.getGender());
+        contentValues.put(CROP_EMPLOYEE_ADDRESS,spraying.getAddress());
+        contentValues.put(CROP_EMPLOYEE_EMAIL,spraying.getEmail());
+        contentValues.put(CROP_EMPLOYEE_DOB,spraying.getDateOfBirth());
+        contentValues.put(CROP_EMPLOYEE_HIRE_DATE,spraying.getHireDate());
+        contentValues.put(CROP_EMPLOYEE_EMPLOYMENT_STATUS,spraying.getEmploymentStatus());
+        contentValues.put(CROP_EMPLOYEE_PAY_AMOUNT,spraying.getPayAmount());
+        contentValues.put(CROP_EMPLOYEE_PAY_RATE,spraying.getPayRate());
+        contentValues.put(CROP_EMPLOYEE_PAY_TYPE,spraying.getPayType());
+        contentValues.put(CROP_EMPLOYEE_SUPERVISOR,spraying.getSupervisor());
+        database.insert(CROP_EMPLOYEE_TABLE_NAME,null,contentValues);
+        /*
+        public static final String  ="id";
+
+         */
+        closeDB();
+    }
+    public void  updateCropEmployee(CropEmployee s){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_EMPLOYEE_USER_ID,s.getUserId());
+        contentValues.put(CROP_EMPLOYEE_TITLE,s.getTitle());
+        contentValues.put(CROP_EMPLOYEE_FIRST_NAME,s.getFirstName());
+        contentValues.put(CROP_EMPLOYEE_LAST_NAME,s.getLastName());
+        contentValues.put(CROP_EMPLOYEE_PHONE,s.getPhone());
+        contentValues.put(CROP_EMPLOYEE_MOBILE,s.getMobile());
+        contentValues.put(CROP_EMPLOYEE_EMP_ID,s.getEmployeeId());
+        contentValues.put(CROP_EMPLOYEE_GENDER,s.getGender());
+        contentValues.put(CROP_EMPLOYEE_ADDRESS,s.getAddress());
+        contentValues.put(CROP_EMPLOYEE_EMAIL,s.getEmail());
+        contentValues.put(CROP_EMPLOYEE_DOB,s.getDateOfBirth());
+        contentValues.put(CROP_EMPLOYEE_HIRE_DATE,s.getHireDate());
+        contentValues.put(CROP_EMPLOYEE_EMPLOYMENT_STATUS,s.getEmploymentStatus());
+        contentValues.put(CROP_EMPLOYEE_PAY_AMOUNT,s.getPayAmount());
+        contentValues.put(CROP_EMPLOYEE_PAY_RATE,s.getPayRate());
+        contentValues.put(CROP_EMPLOYEE_PAY_TYPE,s.getPayType());
+        contentValues.put(CROP_EMPLOYEE_SUPERVISOR,s.getSupervisor());
+        database.update(CROP_EMPLOYEE_TABLE_NAME,contentValues,CROP_EMPLOYEE_ID+" = ?", new String[]{s.getId()});
+        closeDB();
+    }
+    public boolean deleteCropEmployee(String id){
+        openDB();
+        database.delete(CROP_EMPLOYEE_TABLE_NAME,CROP_EMPLOYEE_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropEmployee> getCropEmployee(String fieldId){
+        openDB();
+        ArrayList<CropEmployee> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+
+        while(!res.isAfterLast()){
+            CropEmployee cropEmployee = new CropEmployee();
+            cropEmployee.setId(res.getString(res.getColumnIndex(CROP_EMPLOYEE_ID)));
+            cropEmployee.setUserId(res.getString(res.getColumnIndex(CROP_EMPLOYEE_USER_ID)));
+            cropEmployee.setTitle(res.getString(res.getColumnIndex(CROP_EMPLOYEE_TITLE)));
+            cropEmployee.setFirstName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_FIRST_NAME)));
+            cropEmployee.setLastName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_LAST_NAME)));
+            cropEmployee.setPhone(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PHONE)));
+            cropEmployee.setMobile(res.getString(res.getColumnIndex(CROP_EMPLOYEE_MOBILE)));
+            cropEmployee.setEmployeeId(res.getString(res.getColumnIndex(CROP_EMPLOYEE_EMP_ID)));
+            cropEmployee.setGender(res.getString(res.getColumnIndex(CROP_EMPLOYEE_GENDER)));
+            cropEmployee.setAddress(res.getString(res.getColumnIndex(CROP_EMPLOYEE_ADDRESS)));
+            cropEmployee.setEmail(res.getString(res.getColumnIndex(CROP_EMPLOYEE_EMAIL)));
+            cropEmployee.setDateOfBirth(res.getString(res.getColumnIndex(CROP_EMPLOYEE_DOB)));
+            cropEmployee.setHireDate(res.getString(res.getColumnIndex(CROP_EMPLOYEE_HIRE_DATE)));
+            cropEmployee.setEmploymentStatus(res.getString(res.getColumnIndex(CROP_EMPLOYEE_EMPLOYMENT_STATUS)));
+            cropEmployee.setPayAmount(res.getFloat(res.getColumnIndex(CROP_EMPLOYEE_PAY_AMOUNT)));
+            cropEmployee.setPayRate(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PAY_RATE)));
+            cropEmployee.setPayType(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PAY_TYPE)));
+            cropEmployee.setSupervisor(res.getString(res.getColumnIndex(CROP_EMPLOYEE_SUPERVISOR)));
+            array_list.add(cropEmployee);
+            res.moveToNext();
+        }
+
+        closeDB();
+        Log.d("Crop Analysis",array_list.toString());
+        return array_list;
+
     }
     public void  insertCropSoilAnalysis(CropSoilAnalysis spraying){
         openDB();
@@ -445,7 +673,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_SPRAYING_TABLE_NAME+" where "+CROP_SPRAYING_CROP_ID+" = "+cropId, null );
+        String query ="select "+CROP_SPRAYING_TABLE_NAME+".*,"+CROP_INVENTORY_SPRAY_TABLE_NAME+"."+CROP_INVENTORY_SPRAY_NAME+" from "+CROP_SPRAYING_TABLE_NAME+" LEFT JOIN "+CROP_INVENTORY_SPRAY_TABLE_NAME+" ON "+CROP_SPRAYING_TABLE_NAME+"."+CROP_SPRAYING_SPRAY_ID+" = "+CROP_INVENTORY_SPRAY_TABLE_NAME+"."+CROP_INVENTORY_SPRAY_ID+" where "+CROP_SPRAYING_CROP_ID+" = "+cropId ;
+        Log.d("QUERY",query);
+        Cursor res =  db.rawQuery( query,null );
         res.moveToFirst();
 
         while(!res.isAfterLast()){
@@ -465,6 +695,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
             crop.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
             crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
+            crop.setSprayName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));
 
             array_list.add(crop);
@@ -523,7 +754,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" where "+CROP_FERTILIZER_APPLICATION_CROP_ID+" = "+cropId, null );
+        //Cursor res =  db.rawQuery( "select * from "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" where "+CROP_FERTILIZER_APPLICATION_CROP_ID+" = "+cropId, null );
+
+        String query ="select "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+".*,"+CROP_INVENTORY_FERTILIZER_TABLE_NAME+"."+CROP_INVENTORY_FERTILIZER_NAME+" from "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" LEFT JOIN "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+" ON "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+"."+CROP_FERTILIZER_APPLICATION_ID+" = "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+"."+CROP_INVENTORY_FERTILIZER_ID+" where "+CROP_FERTILIZER_APPLICATION_CROP_ID+" = "+cropId ;
+
+        Cursor res =  db.rawQuery(query,null);
         res.moveToFirst();
 
         while(!res.isAfterLast()){
@@ -539,6 +774,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
             crop.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
+            crop.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
 
             array_list.add(crop);
             res.moveToNext();

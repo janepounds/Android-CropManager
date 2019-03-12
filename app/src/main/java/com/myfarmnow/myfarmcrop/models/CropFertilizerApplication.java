@@ -105,7 +105,7 @@ public class CropFertilizerApplication implements Serializable {
     }
 
     public String getFertilizerName() {
-        return fertilizerId; //TODO change this to fertilizer name after updating the db handler to send it
+        return fertilizerName;
     }
 
     public void setFertilizerName(String fertilizerName) {

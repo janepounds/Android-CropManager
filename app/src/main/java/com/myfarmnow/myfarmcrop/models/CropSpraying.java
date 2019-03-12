@@ -21,7 +21,7 @@ public class CropSpraying implements Serializable {
     String sprayName;
 
     public String getSprayName() {
-        return sprayId; //TODO change this to spray name after updating the db handler to send it
+        return sprayName; //TODO change this to spray name after updating the db handler to send it
     }
 
     public void setSprayName(String sprayName) {
