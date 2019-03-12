@@ -24,6 +24,10 @@
         <activity
             android:name=".activities.CropsManagerActivity"
             android:label="@string/activity_crop_manager" />
+        <activity
+            android:name=".activities.CropMachinesListActivity"
+            android:label="@string/machines_list"
+            />
 
         <activity android:name=".activities.CropMachineManagerActivity"
             android:label="@string/activity_crop_machine_manager"
@@ -80,11 +84,7 @@
             android:label="@string/title_activity_crop_fertilizer_application_list"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity
-            android:name=".activities.CropMachinesListActivity"
-            android:label="@string/machines_list"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
 
 
     </application>
