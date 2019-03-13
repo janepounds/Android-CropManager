@@ -26,16 +26,22 @@
         <activity
             android:name=".activities.CropFertilizerApplicationManagerActivity"
             android:label="@string/activity_fertilizer_application_manager_label" />
+
         <activity
             android:name=".activities.CropCultivationManagerActivity"
             android:label="@string/activity_cultivate_manage" />
+
+
+
         <activity
             android:name=".activities.CropsManagerActivity"
             android:label="@string/activity_crop_manager" />
         <activity
+
             android:name=".activities.CropMachinesListActivity"
             android:label="@string/machines_list" />
         <activity
+
             android:name=".activities.CropMachineManagerActivity"
             android:label="@string/activity_crop_machine_manager" />
         <activity
@@ -88,6 +94,14 @@
             android:name=".activities.CropFertilizerApplicationListActivity"
             android:label="@string/title_activity_crop_fertilizer_application_list"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+
+        <activity
+            android:name=".activities.CropEstimateManager"
+            android:label="@string/title_activity_crop_estimate_manager"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

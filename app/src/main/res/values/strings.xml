@@ -302,8 +302,12 @@
 
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
+
     <string name="activity_cultivate_manage">Cultivate Manager</string>
     <string name="ugx">UGX</string>
+
+    <string name="title_activity_crop_estimate_manager">Crop Estimate Manager</string>
+
 
 
 </resources>
