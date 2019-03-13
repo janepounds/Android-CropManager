@@ -13,6 +13,8 @@ import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
+import com.myfarmnow.myfarmcrop.models.CropEstimate;
+import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -20,7 +22,11 @@ import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
+import com.myfarmnow.myfarmcrop.models.CropInvoice;
+import com.myfarmnow.myfarmcrop.models.CropInvoiceItem;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
+import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
@@ -46,6 +52,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_EMPLOYEE_TABLE_NAME ="crop_employee";
     public static final String CROP_CUSTOMER_TABLE_NAME ="crop_customer";
     public static final String CROP_SUPPLIER_TABLE_NAME ="crop_supplier";
+    public static final String CROP_PRODUCT_TABLE_NAME ="crop_product";
+    public static final String CROP_ESTIMATE_TABLE_NAME ="crop_estimate";
+    public static final String CROP_ESTIMATE_ITEM_TABLE_NAME ="crop_estimate_items";
+    public static final String CROP_INVOICE_TABLE_NAME ="crop_invoice";
+    public static final String CROP_INVOICE_ITEM_TABLE_NAME ="crop_invoice_items";
+    public static final String CROP_PAYMENT_TABLE_NAME ="crop_payments";
 
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
@@ -241,6 +253,68 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SUPPLIER_INVOICE_ADDRESS_CITY ="invoiceCityOrTown";
     public static final String CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY ="invoiceCountry";
 
+    public static final String CROP_PRODUCT_ID ="id";
+    public static final String CROP_PRODUCT_USER_ID ="userId";
+    public static final String CROP_PRODUCT_NAME ="name";
+    public static final String CROP_PRODUCT_TYPE ="type";
+    public static final String CROP_PRODUCT_CODE ="code";
+    public static final String CROP_PRODUCT_UNITS ="units";
+    public static final String CROP_PRODUCT_LINKED_ACCOUNT ="linkedAccount";
+    public static final String CROP_PRODUCT_OPENING_COST ="openingCost";
+    public static final String CROP_PRODUCT_OPENING_QUANTITY ="openingQuantity";
+    public static final String CROP_PRODUCT_SELLING_PRICE ="sellingPrice";
+    public static final String CROP_PRODUCT_TAX_RATE="taxRate";
+    public static final String CROP_PRODUCT_DESCRIPTION ="description";
+
+    public static final String CROP_ESTIMATE_ID ="id";
+    public static final String CROP_ESTIMATE_USER_ID ="userId";
+    public static final String CROP_ESTIMATE_CUSTOMER_ID ="customerId";
+    public static final String CROP_ESTIMATE_NO ="number";
+    public static final String CROP_ESTIMATE_DATE ="date";
+    public static final String CROP_ESTIMATE_EXP_DATE ="expiryDate";
+    public static final String CROP_ESTIMATE_DISCOUNT ="discount";
+    public static final String CROP_ESTIMATE_SHIPPING_CHARGES ="shippingCharges";
+    public static final String CROP_ESTIMATE_CUSTOMER_NOTES ="customerNotes";
+    public static final String CROP_ESTIMATE_TERMS_AND_CONDITIONS ="termsAndConditions";
+
+
+    public static final String CROP_ESTIMATE_ITEM_ID ="id";
+    public static final String CROP_ESTIMATE_ITEM_PRODUCT_ID ="productId";
+    public static final String CROP_ESTIMATE_ITEM_ESTIMATE_ID ="estimateId";
+    public static final String CROP_ESTIMATE_ITEM_QUANTITY="quantity";
+    public static final String CROP_ESTIMATE_ITEM_RATE="rate";
+    public static final String CROP_ESTIMATE_ITEM_TAX="tax";
+
+    public static final String CROP_INVOICE_ID ="id";
+    public static final String CROP_INVOICE_USER_ID ="userId";
+    public static final String CROP_INVOICE_CUSTOMER_ID ="customerId";
+    public static final String CROP_INVOICE_NO ="number";
+    public static final String CROP_INVOICE_DATE ="date";
+    public static final String CROP_INVOICE_EXP_DATE ="expiryDate";
+    public static final String CROP_INVOICE_DISCOUNT ="discount";
+    public static final String CROP_INVOICE_SHIPPING_CHARGES ="shippingCharges";
+    public static final String CROP_INVOICE_CUSTOMER_NOTES ="customerNotes";
+    public static final String CROP_INVOICE_TERMS_AND_CONDITIONS ="termsAndConditions";
+
+
+    public static final String CROP_INVOICE_ITEM_ID ="id";
+    public static final String CROP_INVOICE_ITEM_PRODUCT_ID ="productId";
+    public static final String CROP_INVOICE_ITEM_INVOICE_ID ="estimateId";
+    public static final String CROP_INVOICE_ITEM_QUANTITY="quantity";
+    public static final String CROP_INVOICE_ITEM_RATE="rate";
+    public static final String CROP_INVOICE_ITEM_TAX="tax";
+
+    public static final String CROP_PAYMENT_ID ="id";
+    public static final String CROP_PAYMENT_USER_ID ="userId";
+    public static final String CROP_PAYMENT_CUSTOMER_ID ="customerId";
+    public static final String CROP_PAYMENT_AMOUNT ="amount";
+    public static final String CROP_PAYMENT_DATE ="date";
+    public static final String CROP_PAYMENT_MODE ="mode";
+    public static final String CROP_PAYMENT_REFERENCE_NO ="referenceNo";
+    public static final String CROP_PAYMENT_NUMBER ="paymentNumber";
+    public static final String CROP_PAYMENT_NOTES ="notes";
+    public static final String CROP_PAYMENT_INVOICE_ID ="invoiceId";
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -335,8 +409,39 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SUPPLIER_USER_ID+" TEXT,"+CROP_SUPPLIER_NAME+" TEXT NOT NULL,"+CROP_SUPPLIER_COMPANY+" TEXT NOT NULL,"+CROP_SUPPLIER_TAX_REG_NO+" TEXT ,"+
                 CROP_SUPPLIER_PHONE+" TEXT NOT NULL,"+CROP_SUPPLIER_MOBILE+" TEXT ,"+ CROP_SUPPLIER_EMAIL+" TEXT ,"+CROP_SUPPLIER_INVOICE_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_SUPPLIER_INVOICE_ADDRESS_CITY+" TEXT NOT NULL,"+
                 CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
+        String crop_product_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_PRODUCT_USER_ID+" TEXT NOT NULL,"+CROP_PRODUCT_NAME+" TEXT NOT NULL,"+CROP_PRODUCT_TYPE+" TEXT NOT NULL,"+CROP_PRODUCT_CODE+" TEXT ,"+
+                CROP_PRODUCT_UNITS+" TEXT,"+CROP_PRODUCT_LINKED_ACCOUNT+" TEXT ,"+ CROP_PRODUCT_OPENING_COST+" REAL  ,"+CROP_PRODUCT_OPENING_QUANTITY+" REAL ,"+
+                CROP_PRODUCT_SELLING_PRICE+" REAL ,"+CROP_PRODUCT_TAX_RATE+" REAL ,"+
+                CROP_PRODUCT_DESCRIPTION+" TEXT "+" )";
+
+        String crop_estimates_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_ESTIMATE_USER_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_NO+" TEXT NOT NULL,"+CROP_ESTIMATE_DATE+" TEXT NOT NULL,"+
+                CROP_ESTIMATE_EXP_DATE+" TEXT,"+CROP_ESTIMATE_DISCOUNT+" REAL DEFAULT 0,"+ CROP_ESTIMATE_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
+                CROP_ESTIMATE_CUSTOMER_NOTES+" TEXT ,"+ CROP_ESTIMATE_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
 
+        String crop_estimate_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_ESTIMATE_ITEM_TABLE_NAME+" ( "+CROP_ESTIMATE_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_ESTIMATE_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_ITEM_ESTIMATE_ID+" TEXT NOT NULL,"+ CROP_ESTIMATE_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_ESTIMATE_ITEM_TAX+" REAL NOT NULL, "+
+                CROP_ESTIMATE_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_ESTIMATE_ITEM_ESTIMATE_ID+") REFERENCES  "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_ESTIMATE_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
+
+
+        String crop_invoices_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVOICE_USER_ID+" TEXT NOT NULL,"+CROP_INVOICE_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_INVOICE_NO+" TEXT NOT NULL,"+CROP_INVOICE_DATE+" TEXT NOT NULL,"+
+                CROP_INVOICE_EXP_DATE+" TEXT,"+CROP_INVOICE_DISCOUNT+" REAL DEFAULT 0,"+ CROP_INVOICE_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
+                CROP_INVOICE_CUSTOMER_NOTES+" TEXT ,"+ CROP_INVOICE_TERMS_AND_CONDITIONS+" TEXT "+" )";
+
+
+        String crop_invoice_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVOICE_ITEM_TABLE_NAME+" ( "+CROP_INVOICE_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVOICE_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_INVOICE_ITEM_INVOICE_ID+" TEXT NOT NULL,"+ CROP_INVOICE_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_INVOICE_ITEM_TAX+" REAL NOT NULL, "+
+                CROP_INVOICE_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_INVOICE_ITEM_INVOICE_ID+") REFERENCES  "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_INVOICE_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
+
+        String crop_payment_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PAYMENT_TABLE_NAME+" ( "+CROP_PAYMENT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_PAYMENT_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_PAYMENT_DATE+" TEXT NOT NULL,"+ CROP_PAYMENT_MODE+" TEXT NOT NULL, "+CROP_PAYMENT_AMOUNT+" REAL NOT NULL, "+
+                CROP_PAYMENT_REFERENCE_NO+" TEXT , "+CROP_PAYMENT_NUMBER+" TEXT , "+CROP_PAYMENT_NOTES+" TEXT , "+CROP_PAYMENT_INVOICE_ID+" TEXT , "+" FOREIGN KEY ( "+CROP_PAYMENT_INVOICE_ID+") REFERENCES  "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_PAYMENT_CUSTOMER_ID+") REFERENCES  "+CROP_CUSTOMER_TABLE_NAME+" ( "+CROP_CUSTOMER_ID+" ) )";
 
         /*Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
@@ -349,7 +454,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("MACHINE",crop_machine_insert_query);*/
 
 
-      //  db.execSQL("DROP TABLE IF EXISTS "+CROP_SPRAYING_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -363,6 +467,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_employee_insert_query);
         database.execSQL(crop_customer_insert_query);
         database.execSQL(crop_supplier_insert_query);
+        database.execSQL(crop_product_insert_query);
+        database.execSQL(crop_estimates_insert_query);
+        database.execSQL(crop_estimate_item_insert_query);
+        database.execSQL(crop_invoices_insert_query);
+        database.execSQL(crop_invoice_item_insert_query);
+        database.execSQL(crop_payment_item_insert_query);
 
     }
 
@@ -392,6 +502,399 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public void closeDB() throws SQLException{
         this.close();
+    }
+
+    public void  insertCropPayment(CropPayment cropPayment){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PAYMENT_USER_ID,cropPayment.getUserId());
+        contentValues.put(CROP_PAYMENT_AMOUNT,cropPayment.getAmount());
+        contentValues.put(CROP_PAYMENT_DATE,cropPayment.getDate());
+        contentValues.put(CROP_PAYMENT_MODE,cropPayment.getMode());
+        contentValues.put(CROP_PAYMENT_NUMBER,cropPayment.getPaymentNumber());
+        contentValues.put(CROP_PAYMENT_NOTES,cropPayment.getNotes());
+        contentValues.put(CROP_PAYMENT_CUSTOMER_ID,cropPayment.getCustomerId());
+        contentValues.put(CROP_PAYMENT_REFERENCE_NO,cropPayment.getReferenceNo());
+        contentValues.put(CROP_PAYMENT_INVOICE_ID,cropPayment.getInvoiceId());
+        contentValues.put(CROP_PAYMENT_CUSTOMER_ID,cropPayment.getCustomerId());
+        database.insert(CROP_PAYMENT_TABLE_NAME,null,contentValues);
+
+        closeDB();
+    }
+    public void  updateCropPayment(CropPayment cropPayment){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PAYMENT_USER_ID,cropPayment.getUserId());
+        contentValues.put(CROP_PAYMENT_AMOUNT,cropPayment.getAmount());
+        contentValues.put(CROP_PAYMENT_DATE,cropPayment.getDate());
+        contentValues.put(CROP_PAYMENT_MODE,cropPayment.getMode());
+        contentValues.put(CROP_PAYMENT_NUMBER,cropPayment.getPaymentNumber());
+        contentValues.put(CROP_PAYMENT_NOTES,cropPayment.getNotes());
+        contentValues.put(CROP_PAYMENT_CUSTOMER_ID,cropPayment.getCustomerId());
+        contentValues.put(CROP_PAYMENT_REFERENCE_NO,cropPayment.getReferenceNo());
+        contentValues.put(CROP_PAYMENT_INVOICE_ID,cropPayment.getInvoiceId());
+        contentValues.put(CROP_PAYMENT_CUSTOMER_ID,cropPayment.getCustomerId());
+        database.update(CROP_PAYMENT_TABLE_NAME,contentValues,CROP_PAYMENT_ID+" = ?", new String[]{cropPayment.getId()});
+
+        closeDB();
+
+    }
+    public boolean deleteCropPayment(String id){
+        openDB();
+        database.delete(CROP_PAYMENT_TABLE_NAME,CROP_PAYMENT_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropPayment> getCropPayments(String fieldId){
+        openDB();
+        ArrayList<CropPayment> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+
+        while(!res.isAfterLast()){
+            CropPayment cropPayment = new CropPayment();
+            cropPayment.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_ID)));
+            cropPayment.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_USER_ID)));
+            cropPayment.setAmount(res.getString(res.getColumnIndex(CROP_PAYMENT_AMOUNT)));
+            cropPayment.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_MODE)));
+            cropPayment.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_DATE)));
+            cropPayment.setReferenceNo(res.getString(res.getColumnIndex(CROP_PAYMENT_REFERENCE_NO)));
+            cropPayment.setPaymentNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_NUMBER)));
+            cropPayment.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_NOTES)));
+            cropPayment.setCustomerId(res.getString(res.getColumnIndex(CROP_PAYMENT_CUSTOMER_ID)));
+            cropPayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
+            array_list.add(cropPayment);
+            res.moveToNext();
+        }
+
+        closeDB();
+        Log.d("Crop Payment",array_list.toString());
+        return array_list;
+
+    }
+    public void  insertCropInvoice(CropInvoice invoice){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_INVOICE_USER_ID,invoice.getUserId());
+        contentValues.put(CROP_INVOICE_CUSTOMER_ID,invoice.getCustomerId());
+        contentValues.put(CROP_INVOICE_NO,invoice.getNumber());
+        contentValues.put(CROP_INVOICE_DATE,invoice.getDate());
+        contentValues.put(CROP_INVOICE_EXP_DATE,invoice.getExpiryDate());
+        contentValues.put(CROP_INVOICE_DISCOUNT,invoice.getDiscount());
+        contentValues.put(CROP_INVOICE_SHIPPING_CHARGES,invoice.getShippingCharges());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getCustomerNotes());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getTermsAndConditions());
+
+        database.insert(CROP_INVOICE_TABLE_NAME,null,contentValues);
+
+        Cursor res =  database.rawQuery( "select "+CROP_INVOICE_ID+" from "+CROP_INVOICE_TABLE_NAME+" where "+CROP_INVOICE_CUSTOMER_ID+" = '"+invoice.getCustomerId()+"' AND "+CROP_INVOICE_NO+" = '"+invoice.getNumber()+"'", null );
+        if(!res.isAfterLast()){
+            String invoiceId = res.getString(res.getColumnIndex(CROP_INVOICE_ID));
+
+            ArrayList<CropInvoiceItem> items = invoice.getItems();
+
+            for(CropInvoiceItem x: items){
+                contentValues.clear();
+                contentValues.put(CROP_INVOICE_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_INVOICE_ITEM_INVOICE_ID,invoiceId);
+                contentValues.put(CROP_INVOICE_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_INVOICE_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_INVOICE_ITEM_RATE,x.getRate());
+                database.insert(CROP_INVOICE_ITEM_TABLE_NAME,null,contentValues);
+            }
+        }
+        closeDB();
+    }
+    public void  updateCropInvoice(CropInvoice invoice){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_INVOICE_USER_ID,invoice.getUserId());
+        contentValues.put(CROP_INVOICE_CUSTOMER_ID,invoice.getCustomerId());
+        contentValues.put(CROP_INVOICE_NO,invoice.getNumber());
+        contentValues.put(CROP_INVOICE_DATE,invoice.getDate());
+        contentValues.put(CROP_INVOICE_EXP_DATE,invoice.getExpiryDate());
+        contentValues.put(CROP_INVOICE_DISCOUNT,invoice.getDiscount());
+        contentValues.put(CROP_INVOICE_SHIPPING_CHARGES,invoice.getShippingCharges());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getCustomerNotes());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getTermsAndConditions());
+
+        database.update(CROP_INVOICE_TABLE_NAME,contentValues,CROP_INVOICE_ID+" = ?", new String[]{invoice.getId()});
+
+        String invoiceId = invoice.getId();
+
+        ArrayList<CropInvoiceItem> items = invoice.getItems();
+
+        for(CropInvoiceItem x: items){
+            contentValues.clear();
+            if(x.getId()==null){
+                contentValues.put(CROP_INVOICE_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_INVOICE_ITEM_INVOICE_ID,invoiceId);
+                contentValues.put(CROP_INVOICE_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_INVOICE_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_INVOICE_ITEM_RATE,x.getRate());
+                database.update(CROP_INVOICE_ITEM_TABLE_NAME,contentValues,CROP_INVOICE_ITEM_ID+" = ?", new String[]{x.getId()});
+            }
+
+        }
+        closeDB();
+    }
+    public boolean deleteCropInvoice(String id){
+        openDB();
+        database.delete(CROP_INVOICE_ITEM_TABLE_NAME,CROP_INVOICE_ITEM_INVOICE_ID+" = ?", new String[]{id});
+        database.delete(CROP_INVOICE_TABLE_NAME,CROP_INVOICE_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropInvoice> getCropInvoices(String userId){
+        openDB();
+        ArrayList<CropInvoice> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_INVOICE_TABLE_NAME+" where "+CROP_INVOICE_USER_ID+" = "+ userId, null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            CropInvoice cropInvoice = new CropInvoice();
+            cropInvoice.setId(res.getString(res.getColumnIndex(CROP_INVOICE_ID)));
+            cropInvoice.setUserId(res.getString(res.getColumnIndex(CROP_INVOICE_USER_ID)));
+            cropInvoice.setCustomerId(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_ID)));
+            cropInvoice.setNumber(res.getString(res.getColumnIndex(CROP_INVOICE_NO)));
+            cropInvoice.setDate(res.getString(res.getColumnIndex(CROP_INVOICE_DATE)));
+            cropInvoice.setExpiryDate(res.getString(res.getColumnIndex(CROP_INVOICE_EXP_DATE)));
+            cropInvoice.setDiscount(res.getFloat(res.getColumnIndex(CROP_INVOICE_DISCOUNT)));
+            cropInvoice.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_INVOICE_SHIPPING_CHARGES)));
+            cropInvoice.setCustomerNotes(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_NOTES)));
+            cropInvoice.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_INVOICE_TERMS_AND_CONDITIONS)));
+            array_list.add(cropInvoice);
+            res.moveToNext();
+        }
+
+
+        for(CropInvoice invoice: array_list){
+            ArrayList<CropInvoiceItem> items_list = new ArrayList();
+            res = db.rawQuery( "select * from "+CROP_INVOICE_ITEM_TABLE_NAME+" where "+CROP_INVOICE_ITEM_INVOICE_ID+" = "+ invoice.getId(), null );
+            res.moveToFirst();
+            while(!res.isAfterLast()) {
+                CropInvoiceItem item = new CropInvoiceItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_ID)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_PRODUCT_ID)));
+                item.setInvoiceId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_INVOICE_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_RATE)));
+                items_list.add(item);
+            }
+            invoice.setItems(items_list);
+        }
+
+        closeDB();
+        Log.d("Crop Product",array_list.toString());
+        return array_list;
+    }
+    public void  insertCropEstimate(CropEstimate estimate){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_ESTIMATE_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
+        contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
+        contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
+        contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getTermsAndConditions());
+
+        database.insert(CROP_ESTIMATE_TABLE_NAME,null,contentValues);
+
+        Cursor res =  database.rawQuery( "select "+CROP_ESTIMATE_ID+" from "+CROP_ESTIMATE_TABLE_NAME+" where "+CROP_ESTIMATE_CUSTOMER_ID+" = '"+estimate.getCustomerId()+"' AND "+CROP_ESTIMATE_NO+" = '"+estimate.getNumber()+"'", null );
+        if(!res.isAfterLast()){
+            String estimateId = res.getString(res.getColumnIndex(CROP_ESTIMATE_ID));
+
+            ArrayList<CropEstimateItem> items = estimate.getItems();
+
+            for(CropEstimateItem x: items){
+                contentValues.clear();
+                contentValues.put(CROP_ESTIMATE_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_ESTIMATE_ITEM_ESTIMATE_ID,estimateId);
+                contentValues.put(CROP_ESTIMATE_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_ESTIMATE_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_ESTIMATE_ITEM_RATE,x.getRate());
+                database.insert(CROP_ESTIMATE_ITEM_TABLE_NAME,null,contentValues);
+            }
+        }
+        closeDB();
+    }
+    public void  updateCropEstimate(CropEstimate estimate){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_ESTIMATE_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
+        contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
+        contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
+        contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getTermsAndConditions());
+
+        database.update(CROP_ESTIMATE_TABLE_NAME,contentValues,CROP_ESTIMATE_ID+" = ?", new String[]{estimate.getId()});
+
+        String estimateId = estimate.getId();
+
+        ArrayList<CropEstimateItem> items = estimate.getItems();
+
+        for(CropEstimateItem x: items){
+            contentValues.clear();
+            if(x.getId()==null){
+                contentValues.put(CROP_ESTIMATE_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_ESTIMATE_ITEM_ESTIMATE_ID,estimateId);
+                contentValues.put(CROP_ESTIMATE_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_ESTIMATE_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_ESTIMATE_ITEM_RATE,x.getRate());
+                database.update(CROP_ESTIMATE_ITEM_TABLE_NAME,contentValues,CROP_ESTIMATE_ITEM_ID+" = ?", new String[]{x.getId()});
+            }
+
+        }
+        closeDB();
+    }
+    public boolean deleteCropEstimate(String id){
+        openDB();
+        database.delete(CROP_ESTIMATE_ITEM_TABLE_NAME,CROP_ESTIMATE_ITEM_ESTIMATE_ID+" = ?", new String[]{id});
+        database.delete(CROP_ESTIMATE_TABLE_NAME,CROP_ESTIMATE_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropEstimate> getCropEstimates(String userId){
+        openDB();
+        ArrayList<CropEstimate> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_ESTIMATE_TABLE_NAME+" where "+CROP_ESTIMATE_USER_ID+" = "+ userId, null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            CropEstimate cropEstimate = new CropEstimate();
+            cropEstimate.setId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ID)));
+            cropEstimate.setUserId(res.getString(res.getColumnIndex(CROP_ESTIMATE_USER_ID)));
+            cropEstimate.setCustomerId(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_ID)));
+            cropEstimate.setNumber(res.getString(res.getColumnIndex(CROP_ESTIMATE_NO)));
+            cropEstimate.setDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_DATE)));
+            cropEstimate.setExpiryDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_EXP_DATE)));
+            cropEstimate.setDiscount(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_DISCOUNT)));
+            cropEstimate.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_SHIPPING_CHARGES)));
+            cropEstimate.setCustomerNotes(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_NOTES)));
+            cropEstimate.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_ESTIMATE_TERMS_AND_CONDITIONS)));
+            array_list.add(cropEstimate);
+            res.moveToNext();
+        }
+
+
+        for(CropEstimate estimate: array_list){
+            ArrayList<CropEstimateItem> items_list = new ArrayList();
+            res = db.rawQuery( "select * from "+CROP_ESTIMATE_ITEM_TABLE_NAME+" where "+CROP_ESTIMATE_ITEM_ESTIMATE_ID+" = "+ estimate.getId(), null );
+            res.moveToFirst();
+            while(!res.isAfterLast()) {
+                CropEstimateItem item = new CropEstimateItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ID)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_PRODUCT_ID)));
+                item.setEstimateId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ESTIMATE_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_RATE)));
+                items_list.add(item);
+            }
+            estimate.setItems(items_list);
+        }
+
+        closeDB();
+        Log.d("Crop Product",array_list.toString());
+        return array_list;
+    }
+    public void  insertCropProduct(CropProduct cropProduct){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PRODUCT_USER_ID,cropProduct.getUserId());
+        contentValues.put(CROP_PRODUCT_NAME,cropProduct.getName());
+        contentValues.put(CROP_PRODUCT_TYPE,cropProduct.getType());
+        contentValues.put(CROP_PRODUCT_CODE,cropProduct.getCode());
+        contentValues.put(CROP_PRODUCT_UNITS,cropProduct.getUnits());
+        contentValues.put(CROP_PRODUCT_LINKED_ACCOUNT,cropProduct.getLinkedAccount());
+        contentValues.put(CROP_PRODUCT_OPENING_COST,cropProduct.getOpeningCost());
+        contentValues.put(CROP_PRODUCT_OPENING_QUANTITY,cropProduct.getOpeningQuantity());
+        contentValues.put(CROP_PRODUCT_SELLING_PRICE,cropProduct.getSellingPrice());
+        contentValues.put(CROP_PRODUCT_TAX_RATE,cropProduct.getTaxRate());
+        contentValues.put(CROP_PRODUCT_DESCRIPTION,cropProduct.getDescription());
+        database.insert(CROP_PRODUCT_TABLE_NAME,null,contentValues);
+
+        closeDB();
+    }
+    public void  updateCropProduct(CropProduct cropProduct){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PRODUCT_USER_ID,cropProduct.getUserId());
+        contentValues.put(CROP_PRODUCT_NAME,cropProduct.getName());
+        contentValues.put(CROP_PRODUCT_TYPE,cropProduct.getType());
+        contentValues.put(CROP_PRODUCT_CODE,cropProduct.getCode());
+        contentValues.put(CROP_PRODUCT_UNITS,cropProduct.getUnits());
+        contentValues.put(CROP_PRODUCT_LINKED_ACCOUNT,cropProduct.getLinkedAccount());
+        contentValues.put(CROP_PRODUCT_OPENING_COST,cropProduct.getOpeningCost());
+        contentValues.put(CROP_PRODUCT_OPENING_QUANTITY,cropProduct.getOpeningQuantity());
+        contentValues.put(CROP_PRODUCT_SELLING_PRICE,cropProduct.getSellingPrice());
+        contentValues.put(CROP_PRODUCT_TAX_RATE,cropProduct.getTaxRate());
+        contentValues.put(CROP_PRODUCT_DESCRIPTION,cropProduct.getDescription());
+        database.update(CROP_PRODUCT_TABLE_NAME,contentValues,CROP_PRODUCT_ID+" = ?", new String[]{cropProduct.getId()});
+
+        closeDB();
+
+    }
+    public boolean deleteCropProduct(String id){
+        openDB();
+        database.delete(CROP_PRODUCT_TABLE_NAME,CROP_PRODUCT_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropProduct> getCropProducts(String fieldId){
+        openDB();
+        ArrayList<CropProduct> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+
+        while(!res.isAfterLast()){
+            CropProduct cropSupplier = new CropProduct();
+            cropSupplier.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ID)));
+            cropSupplier.setUserId(res.getString(res.getColumnIndex(CROP_PRODUCT_USER_ID)));
+            cropSupplier.setName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            cropSupplier.setType(res.getString(res.getColumnIndex(CROP_PRODUCT_TYPE)));
+            cropSupplier.setCode(res.getString(res.getColumnIndex(CROP_PRODUCT_CODE)));
+            cropSupplier.setUnits(res.getString(res.getColumnIndex(CROP_PRODUCT_UNITS)));
+            cropSupplier.setLinkedAccount(res.getString(res.getColumnIndex(CROP_PRODUCT_LINKED_ACCOUNT)));
+            cropSupplier.setOpeningCost(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_COST)));
+            cropSupplier.setOpeningQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_QUANTITY)));
+            cropSupplier.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
+            cropSupplier.setTaxRate(res.getString(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
+            cropSupplier.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
+            array_list.add(cropSupplier);
+            res.moveToNext();
+        }
+
+        closeDB();
+        Log.d("Crop Product",array_list.toString());
+        return array_list;
+
     }
     public void  insertCropSupplier(CropSupplier spraying){
         openDB();
