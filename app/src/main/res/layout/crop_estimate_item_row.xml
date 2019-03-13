@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal">
+
+    <TableRow
+        android:background="@drawable/crop_invoice_table_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        >
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="28dp"
+            android:background="@drawable/crop_invoice_table_border"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/spinner_crop_invoice_products"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/crop_invoice_table_border"
+                android:gravity="center"
+                android:spinnerMode="dialog"
+                android:textSize="16sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="@dimen/crop_estimate_small_column_size"
+            android:layout_height="28dp"
+            android:background="@drawable/crop_invoice_table_border"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/txt_crop_invoice_qty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/crop_invoice_table_border"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="@dimen/crop_estimate_small_column_size"
+            android:layout_height="28dp"
+            android:background="@drawable/crop_invoice_table_border"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/txt_crop_invoice_rate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/crop_invoice_table_border"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="@dimen/crop_estimate_small_column_size"
+            android:layout_height="28dp"
+            android:background="@drawable/crop_invoice_table_border"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/txt_crop_invoice_tax"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/crop_invoice_table_border"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="@dimen/crop_estimate_small_column_size"
+            android:layout_height="28dp"
+            android:background="@drawable/crop_invoice_table_border"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/txt_view_crop_invoice_amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/crop_invoice_table_border"
+                android:gravity="center"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+
+
+    </TableRow>
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="10dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+       <!-- <ImageView
+            android:id="@+id/img_crop_invoice_edit"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+
+            android:src="@drawable/edit_red"
+            />-->
+
+        <ImageView
+            android:id="@+id/img_crop_invoice_delete"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:src="@drawable/delete_red"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
+

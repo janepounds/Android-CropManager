@@ -363,13 +363,13 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/broke4"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:id="@+id/lv_milk_record"
+                                android:id="@+id/layout_crop_dashboard_income_expense"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"

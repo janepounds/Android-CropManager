@@ -885,7 +885,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSupplier.setOpeningCost(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_COST)));
             cropSupplier.setOpeningQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_QUANTITY)));
             cropSupplier.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
-            cropSupplier.setTaxRate(res.getString(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
+            cropSupplier.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
             cropSupplier.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
             array_list.add(cropSupplier);
             res.moveToNext();

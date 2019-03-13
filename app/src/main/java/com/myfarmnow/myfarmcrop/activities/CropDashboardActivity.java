@@ -23,7 +23,6 @@ import android.widget.Spinner;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 
@@ -39,7 +38,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     ExpandableListView expandableListView;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout;
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +58,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         inventoryLinearLayout =findViewById(R.id.layout_crop_dashboard_inventory);
         fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
         machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
+        incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
 
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
@@ -112,6 +112,13 @@ public class CropDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent openCrops = new Intent(CropDashboardActivity.this, CropsListActivity.class);
+                startActivity(openCrops);
+            }
+        });
+        incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openCrops = new Intent(CropDashboardActivity.this, CropEstimateManagerActivity.class);
                 startActivity(openCrops);
             }
         });

@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropProduct {
+public class CropProduct implements CropSpinnerItem {
     String id;
     String userId;
     String  name;
@@ -11,7 +11,7 @@ public class CropProduct {
     float openingCost;
     float  openingQuantity;
     float  sellingPrice;
-    String taxRate;
+    float taxRate;
     String description;
 
     public String getId() {
@@ -94,11 +94,11 @@ public class CropProduct {
         this.sellingPrice = sellingPrice;
     }
 
-    public String getTaxRate() {
+    public float getTaxRate() {
         return taxRate;
     }
 
-    public void setTaxRate(String taxRate) {
+    public void setTaxRate(float taxRate) {
         this.taxRate = taxRate;
     }
 
@@ -108,5 +108,9 @@ public class CropProduct {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String toString(){
+        return name;
     }
 }

@@ -303,6 +303,11 @@
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
     <string name="title_activity_crop_estimate_manager">CropEstimateManager</string>
+    <string name="weight_label">Weight</string>
+    <string name="label_tax">Tax</string>
+    <string name="amount_label">Amount</string>
+    <string name="item_details_label">Item Details</string>
+    <string name="label_add_item">Add Item</string>
 
 
 </resources>
