@@ -339,7 +339,6 @@
 
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
-    <string name="title_activity_crop_estimate_manager">CropEstimateManager</string>
     <string name="weight_label">Weight</string>
     <string name="label_tax">Tax</string>
     <string name="amount_label">Amount</string>
@@ -348,7 +347,7 @@
     <string name="activity_cultivate_manage">Cultivate Manager</string>
     <string name="ugx">UGX</string>
 
-    <string name="title_activity_crop_estimate_manager">Crop Estimate Manager</string>
+    <string name="title_activity_crop_estimate_manager">Estimate Manager</string>
     <string name="title">Title</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -384,7 +383,16 @@
     <string name="selling_price">Selling Price</string>
     <string name="tax_rate">Tax Rate</string>
     <string name="description">Description</string>
-
+    <string name="sub_total">Sub Total</string>
+    <string name="discount">Discount</string>
+    <string name="shipping_charges">Shipping Charges</string>
+    <string name="total_ugx">Total (UGX)</string>
+    <string name="customer_notes">Customer Notes:</string>
+    <string name="terms_and_conditions">Terms and Conditions:</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="estimate_number">Estimate #</string>
+    <string name="estimate_date">Estimate Date</string>
+    <string name="expiry_date">Expiry Date</string>
 
 
 </resources>

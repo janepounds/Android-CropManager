@@ -1,16 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropEstimateManagerActivity"
     tools:showIn="@layout/activity_crop_estimate_manager">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+       android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" android:textStyle="bold"
+            android:layout_weight="0.6"
+            android:text="@string/customer_name"
+            android:textColor="@color/colorPrimary"
+            />
+
+        <Spinner
+            android:id="@+id/txt_crop_estimate_customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_shapes"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" android:textStyle="bold"
+            android:layout_weight="0.6"
+            android:text="@string/estimate_number"
+            android:textColor="@color/colorPrimary"
+            />
+
+        <EditText
+            android:id="@+id/txt_crop_estimate_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_shapes"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="0.6"
+                    android:text="@string/estimate_date"
+                    android:textColor="@color/colorPrimary"
+                    />
+                <EditText
+                    android:id="@+id/txt_crop_estimate_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:background="@drawable/input_shapes"
+                    android:hint="Select"
+                    android:inputType="none"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp" android:textStyle="bold"
+                    android:layout_weight="0.6"
+                    android:text="@string/expiry_date"
+                    android:textColor="@color/colorPrimary"
+                    />
+                <EditText
+                    android:id="@+id/txt_crop_estimate_expiry_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+
+                    android:background="@drawable/input_shapes"
+                    android:hint="Select"
+                    android:inputType="none"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <HorizontalScrollView
@@ -127,13 +250,7 @@
             </LinearLayout>
 
         </HorizontalScrollView>
-        <TextView
-            android:id="@+id/txt_view_crop_estimate_sub_total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/crop_invoice_table_border"
-            android:gravity="center"
-            android:textSize="14sp"/>
+
         <Button
             android:id="@+id/btn_add_item"
             style="@style/Button"
@@ -142,11 +259,250 @@
             android:backgroundTint="@color/colorPrimary"
             android:drawableLeft="@android:drawable/ic_input_add"
             android:drawableTint="#ffffff"
+            android:textAllCaps="false"
             android:text="@string/label_add_item"
             android:textColor="#ffffff"
              />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
 
-</android.support.constraint.ConstraintLayout>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sub_total"
+                android:textColor="@color/colorPrimary"
+
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginRight="40dp"/>
+
+            <TextView
+
+                android:id="@+id/txt_view_crop_estimate_sub_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="250,000"
+              />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginRight="65dp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:background="@color/gray_mh"
+               >
+
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:hint="Enter.."
+                    android:layout_weight="0.5"
+                    android:inputType="number"
+
+                    android:textSize="14sp"
+                    android:background="@drawable/input_shapes"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="%"
+                    android:layout_weight="0.1"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/txt_crop_estimate_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="-10,000" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+           >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shipping_charges"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginRight="5dp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="10dp"
+
+                >
+
+
+                <EditText
+                    android:id="@+id/txt_crop_cultivate_fixed_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="6"
+                    android:hint="Enter.."
+                    android:layout_weight="0.5"
+                    android:inputType="number"
+                    android:textSize="14sp"
+                    android:background="@drawable/input_shapes"
+
+                    />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/txt_crop_estimate_shipping_charges"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="50,000" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/input_shapes"
+            >
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_ugx"
+                android:textColor="@color/colorPrimary"
+
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginRight="40dp"/>
+
+            <TextView
+
+                android:id="@+id/txt_crop_estimate_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="290,000"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/customer_notes"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginRight="30dp"
+                android:layout_gravity="start"/>
+            <EditText
+               android:id="@+id/txt_crop_estimate_customer_notes"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Enter.."
+                android:gravity="start"
+                android:background="@drawable/input_shapes"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/terms_and_conditions"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="start"/>
+            <EditText
+               android:id="@+id/txt_crop_estimate_terms_and_conditions"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Enter.."
+                android:gravity="start"
+                android:background="@drawable/input_shapes"/>
+
+        </LinearLayout>
+    </LinearLayout>
+   </ScrollView>
+</LinearLayout>
+
+
+
