@@ -16,7 +16,7 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
     String batchNumber="";
     float quantity=0;
     float totalConsumed=0;
-    String usageUnits ="Ltr";
+    String usageUnits ="";
     String type="";
     float nPercentage=0;
     float kPercentage=0;
@@ -72,11 +72,9 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         //
     }
     public void setUsageUnits(String usageUnits) {
-        if(usageUnits != null){
+
             this.usageUnits = usageUnits;
-        }else{
-            this.usageUnits ="Ltr";
-        }
+
 
     }
 

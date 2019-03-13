@@ -130,6 +130,7 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
                     CropSpraying cropSpraying = cropSprayingsList.get(getAdapterPosition());
                     Intent editSpraying = new Intent(mContext, CropSprayingManagerActivity.class);
                     editSpraying.putExtra("cropSpraying",cropSpraying);
+                    editSpraying.putExtra("cropId",cropSpraying.getCropId());
                     mContext.startActivity(editSpraying);
                 }
             });

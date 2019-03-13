@@ -190,12 +190,12 @@
     <string-array name="crop_machine_category">
         <item>Select</item>
         <item>Plow</item>
-    <item>Cultivator</item>
-    <item>Roller</item>
-    <item>Tractor</item>
-    <item>Trowel</item>
-    <item>Seed Drill</item>
-    <item>Manure Spreader</item>
+        <item>Cultivator</item>
+        <item>Roller</item>
+        <item>Tractor</item>
+        <item>Trowel</item>
+        <item>Seed Drill</item>
+        <item>Manure Spreader</item>
         <item>Irrigation Pump</item>
         <item>Sprinkler System</item>
         <item>Grain dryer</item>
@@ -206,7 +206,7 @@
         <item>Baler</item>
         <item>Engine</item>
         <item>Others</item>
-</string-array>
+    </string-array>
 
     <string name="title_activity_crop_fields_list">Fields List</string>
     <string name="field_name">Field Name</string>
@@ -302,7 +302,8 @@
 
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
-
+    <string name="activity_cultivate_manage">Cultivate Manager</string>
+    <string name="ugx">UGX</string>
 
 
 </resources>

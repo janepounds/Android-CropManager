@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,6 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
@@ -25,7 +25,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
 
     EditText dateTxt, startTimeTxt,endTimeTxt, operatorTxt, waterVolumeTxt,costTxt, rateTxt,reasonTxt, equipmentUsedTxt;
     Button btn_save;
-    CropSpraying spraying;
+    CropSpraying cropSpraying;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner windDirectionSp,waterConditionSp,sprayIdSp;
@@ -34,8 +34,10 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_spraying_manager);
-        if(getIntent().hasExtra("spraying")){
-            spraying =(CropSpraying) getIntent().getSerializableExtra("spraying");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
+        if(getIntent().hasExtra("cropSpraying")){
+            cropSpraying =(CropSpraying) getIntent().getSerializableExtra("cropSpraying");
         }
         if(getIntent().hasExtra("cropId")){
             cropId =getIntent().getStringExtra("cropId");
@@ -68,7 +70,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateEntries()){
-                    if(spraying==null){
+                    if(cropSpraying ==null){
                         saveSpraying();
                     }
                     else{
@@ -94,67 +96,67 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
     }
 
     public void saveSpraying(){
-        spraying = new CropSpraying();
-        spraying.setUserId(CropDashboardActivity.getPreferences("userId",this));
-        spraying.setDate(dateTxt.getText().toString());
-        spraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
-        spraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
-        spraying.setCropId(cropId);
-        spraying.setStartTime(startTimeTxt.getText().toString());
-        spraying.setEndTime(endTimeTxt.getText().toString());
-        spraying.setCost(Float.parseFloat(costTxt.getText().toString()));
-        spraying.setOperator(operatorTxt.getText().toString());
-        spraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
-        spraying.setTreatmentReason(reasonTxt.getText().toString());
-        spraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
+        cropSpraying = new CropSpraying();
+        cropSpraying.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropSpraying.setDate(dateTxt.getText().toString());
+        cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
+        cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
+        cropSpraying.setCropId(cropId);
+        cropSpraying.setStartTime(startTimeTxt.getText().toString());
+        cropSpraying.setEndTime(endTimeTxt.getText().toString());
+        cropSpraying.setCost(Float.parseFloat(costTxt.getText().toString()));
+        cropSpraying.setOperator(operatorTxt.getText().toString());
+        cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
+        cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
+        cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
 
-        if(waterConditionSp.getSelectedItemPosition()==0){
-            spraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
+        if(waterConditionSp.getSelectedItemPosition()!=0){
+            cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
         }
-        if(windDirectionSp.getSelectedItemPosition()==0){
-            spraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
+        if(windDirectionSp.getSelectedItemPosition()!=0){
+            cropSpraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
         }
-        dbHandler.insertCropSpraying(spraying);
+        dbHandler.insertCropSpraying(cropSpraying);
 
     }
     public void updateSpraying(){
-        if(spraying != null){
-            spraying.setDate(dateTxt.getText().toString());
-            spraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
-            spraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
-            spraying.setCropId(cropId);
-            spraying.setStartTime(startTimeTxt.getText().toString());
-            spraying.setEndTime(endTimeTxt.getText().toString());
-            spraying.setCost(Float.parseFloat(costTxt.getText().toString()));
-            spraying.setOperator(operatorTxt.getText().toString());
-            spraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
-            spraying.setTreatmentReason(reasonTxt.getText().toString());
-            spraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
+        if(cropSpraying != null){
+            cropSpraying.setDate(dateTxt.getText().toString());
+            cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
+            cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
+            cropSpraying.setCropId(cropId);
+            cropSpraying.setStartTime(startTimeTxt.getText().toString());
+            cropSpraying.setEndTime(endTimeTxt.getText().toString());
+            cropSpraying.setCost(Float.parseFloat(costTxt.getText().toString()));
+            cropSpraying.setOperator(operatorTxt.getText().toString());
+            cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
+            cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
+            cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
             if(waterConditionSp.getSelectedItemPosition()!=0){
-                spraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
+                cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
             }
             if(windDirectionSp.getSelectedItemPosition()!=0){
-                spraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
+                cropSpraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
             }
-            dbHandler.updateCropSpraying(spraying);
+            dbHandler.updateCropSpraying(cropSpraying);
         }
     }
     public void fillViews(){
-        if(spraying != null){
-            CropDashboardActivity.selectSpinnerItemByValue(windDirectionSp, spraying.getWindDirection());
-            CropDashboardActivity.selectSpinnerItemByValue(waterConditionSp, spraying.getWaterCondition());
-            rateTxt.setText(spraying.getRate()+"");
-            waterVolumeTxt.setText(spraying.getWaterVolume()+"");
-            dateTxt.setText(spraying.getDate());
-            startTimeTxt.setText(spraying.getStartTime()+"");
-            endTimeTxt.setText(spraying.getEndTime()+"");
-            equipmentUsedTxt.setText(spraying.getEquipmentUsed());
-            reasonTxt.setText(spraying.getTreatmentReason());
-            operatorTxt.setText(spraying.getOperator());
-            costTxt.setText(spraying.getCost()+"");
-            rateTxt.setText(spraying.getRate()+"");
+        if(cropSpraying != null){
+            CropDashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
+            CropDashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
+            rateTxt.setText(cropSpraying.getRate()+"");
+            waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
+            dateTxt.setText(cropSpraying.getDate());
+            startTimeTxt.setText(cropSpraying.getStartTime()+"");
+            endTimeTxt.setText(cropSpraying.getEndTime()+"");
+            equipmentUsedTxt.setText(cropSpraying.getEquipmentUsed());
+            reasonTxt.setText(cropSpraying.getTreatmentReason());
+            operatorTxt.setText(cropSpraying.getOperator());
+            costTxt.setText(cropSpraying.getCost()+"");
+            rateTxt.setText(cropSpraying.getRate()+"");
 
-            CropDashboardActivity.selectSpinnerItemById(sprayIdSp,spraying.getId());
+            CropDashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getId());
         }
 
     }

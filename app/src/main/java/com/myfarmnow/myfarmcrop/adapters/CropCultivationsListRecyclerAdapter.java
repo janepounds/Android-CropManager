@@ -129,7 +129,7 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
                     CropCultivation cropCultivation = cropCultivationsList.get(getAdapterPosition());
                     Intent editCultivation = new Intent(mContext, CropCultivationManagerActivity.class);
                     editCultivation.putExtra("cropCultivation",cropCultivation);
-                    editCultivation.putExtra("cropCultivation",cropCultivation);
+                    editCultivation.putExtra("cropId",cropCultivation.getCropId());
                     mContext.startActivity(editCultivation);
                 }
             });

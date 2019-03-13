@@ -10,30 +10,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.CropEmployeeManagerActivity"></activity>
         <activity
             android:name=".activities.CropsListActivity"
             android:label="@string/activity_crops_list" />
-        <activity android:name=".activities.CropSoilAnalysisListActivity"
-            android:label="@string/activity_soil_analysis_list_label"/>
-        <activity android:name=".activities.CropSoilAnalysisManagerActivity"
-            android:label="@string/activity_soil_analysis_manager_label"/>
-        <activity android:name=".activities.CropSprayingManagerActivity"
-            android:label="@string/activity_spraying_manager_label"/>
-        <activity android:name=".activities.CropFertilizerApplicationManagerActivity"
-            android:label="@string/activity_fertilizer_application_manager_label"
-            />
-        <activity android:name=".activities.CropCultivationManagerActivity" />
+        <activity
+            android:name=".activities.CropSoilAnalysisListActivity"
+            android:label="@string/activity_soil_analysis_list_label" />
+        <activity
+            android:name=".activities.CropSoilAnalysisManagerActivity"
+            android:label="@string/activity_soil_analysis_manager_label" />
+        <activity
+            android:name=".activities.CropSprayingManagerActivity"
+            android:label="@string/activity_spraying_manager_label" />
+        <activity
+            android:name=".activities.CropFertilizerApplicationManagerActivity"
+            android:label="@string/activity_fertilizer_application_manager_label" />
+        <activity
+            android:name=".activities.CropCultivationManagerActivity"
+            android:label="@string/activity_cultivate_manage" />
         <activity
             android:name=".activities.CropsManagerActivity"
             android:label="@string/activity_crop_manager" />
         <activity
             android:name=".activities.CropMachinesListActivity"
-            android:label="@string/machines_list"
-            />
-
-        <activity android:name=".activities.CropMachineManagerActivity"
-            android:label="@string/activity_crop_machine_manager"
-            />
+            android:label="@string/machines_list" />
+        <activity
+            android:name=".activities.CropMachineManagerActivity"
+            android:label="@string/activity_crop_machine_manager" />
         <activity
             android:name=".activities.CropFieldsListActivity"
             android:label="@string/title_activity_crop_fields_list"
@@ -46,7 +50,6 @@
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.CropDashboardActivity"
             android:label="@string/title_activity_dashboard"
@@ -84,11 +87,7 @@
         <activity
             android:name=".activities.CropFertilizerApplicationListActivity"
             android:label="@string/title_activity_crop_fertilizer_application_list"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

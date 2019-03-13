@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     android:orientation="vertical"
     tools:context=".activities.CropsManagerActivity">
     <ScrollView
@@ -23,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -67,7 +68,7 @@
 
             <EditText
                 android:id="@+id/txt_crops_variety"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Enter.."
@@ -85,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -109,14 +110,14 @@
                 android:ems="10"
                 android:hint="Enter.."
                 android:background="@drawable/input_shapes"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:layout_marginRight="10dp"
                 android:textSize="14sp"
                 />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="192dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -132,7 +133,7 @@
 
                 <Spinner
                     android:id="@+id/sp_crops_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
                     android:background="@drawable/input_shapes"
@@ -148,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
 
             <TextView
 
@@ -167,7 +168,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_marginRight="10dp"
                 android:entries="@array/crops_growing_cycle"
                 android:background="@drawable/input_shapes"
                 />
@@ -178,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_sown"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="4dp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
@@ -203,14 +203,13 @@
                 android:ems="10"
                 android:hint="Enter.."
                 android:textSize="14sp"
-                android:inputType="numberDecimal"
-
+                android:inputType="none"
                 android:background="@drawable/input_shapes"
                 />
 
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
             <TextView
@@ -221,17 +220,18 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="14dp"
 
                 />
 
                 <EditText
                     android:id="@+id/txt_crops_area"
-                    android:layout_width="195dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_shapes"
                     android:ems="10"
                     android:hint="Enter.."
+                    android:inputType="numberDecimal"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
@@ -239,7 +239,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
                 />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
             <TextView
@@ -279,22 +279,43 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/gray_mh">
 
-                <EditText
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:labelFor="@+id/txt_crop_spray_rate"
+        android:text="@string/ugx"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+
+        />
+    <EditText
                     android:id="@+id/txt_crops_operator_cost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/input_shapes"
                     android:ems="10"
                     android:hint="Enter.."
+                    android:inputType="number"
                     android:textSize="14sp" />
+
+</LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="163dp"
@@ -340,14 +361,16 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/gray_mh"
+                    >
 
                     <EditText
                         android:id="@+id/txt_crops_rate"
-                        android:layout_width="78dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@drawable/input_shapes"
-                        android:ems="10"
+                        android:ems="4"
                         android:hint="Enter.."
                         android:inputType="numberDecimal"
                         android:textSize="14sp"
@@ -356,16 +379,16 @@
 
                     <TextView
 
-                        android:layout_width="86dp"
-                        android:layout_height="wrap_content"
-
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                       android:padding="4dp"
                         android:labelFor="@+id/txt_crop_spray_rate"
                         android:text="Kg/ha"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
                         android:textStyle="bold"
 
                         />
+
 
                 </LinearLayout>
             </LinearLayout>
@@ -404,7 +427,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_marginRight="10dp"
                 android:entries="@array/crops_planting_method"
                 android:background="@drawable/input_shapes"
                 />
@@ -417,6 +439,7 @@
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:backgroundTint="@color/colorPrimary"
             android:drawableTint="#ffffff"
             android:text="Save "
