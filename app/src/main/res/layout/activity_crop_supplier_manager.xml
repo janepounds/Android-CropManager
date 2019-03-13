@@ -37,7 +37,7 @@
                         />
 
                     <EditText
-                        android:id="@+id/txt_crop_customer_name"
+                        android:id="@+id/txt_crop_supplier_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -69,7 +69,7 @@
                         android:textColor="@color/colorPrimary"
                         />
                     <EditText
-                        android:id="@+id/txt_crop_customer_company"
+                        android:id="@+id/txt_crop_supplier_company"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -92,7 +92,7 @@
                         android:textColor="@color/colorPrimary"
                         />
                     <EditText
-                        android:id="@+id/txt_crop_customer_tax_reg_number"
+                        android:id="@+id/txt_crop_supplier_tax_reg_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -126,7 +126,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/txt_crop_customer_phone"
+                        android:id="@+id/txt_crop_supplier_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -161,7 +161,7 @@
                         />
 
                     <EditText
-                        android:id="@+id/txt_crop_customer_mobile"
+                        android:id="@+id/txt_crop_supplier_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -202,7 +202,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/txt_crop_customer_email"
+                        android:id="@+id/txt_crop_supplier_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -246,7 +246,7 @@
 
                             />
                         <EditText
-                            android:id="@+id/txt_crop_customer_opening_balance"
+                            android:id="@+id/txt_crop_supplier_opening_balance"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/input_shapes"
@@ -267,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:orientation="vertical"
-                android:id="@+id/layout_customer_billing_add"
+                android:id="@+id/layout_supplier_invoice_add"
 
                 >
                 <LinearLayout
@@ -278,7 +278,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Billing Address"
+                        android:text="Invoice Address"
                         android:textStyle="bold"
                         android:textSize="18sp"/>
 
@@ -291,7 +291,7 @@
                         android:textColor="@color/colorPrimary"
                         />
                     <EditText
-                        android:id="@+id/txt_crop_customer_street"
+                        android:id="@+id/txt_crop_supplier_street"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -314,7 +314,7 @@
                         android:textColor="@color/colorPrimary"
                         />
                     <EditText
-                        android:id="@+id/txt_crop_customer_city_town"
+                        android:id="@+id/txt_crop_supplier_city_town"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -337,7 +337,7 @@
                         android:textColor="@color/colorPrimary"
                         />
                     <Spinner
-                        android:id="@+id/txt_crop_customer_country"
+                        android:id="@+id/txt_crop_supplier_country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
@@ -347,110 +347,6 @@
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/layout_customer_shipping_add"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/shipping_address"
-                        android:textSize="18dp"
-                        android:textStyle="bold"/>
-                    <CheckBox
-                        android:id="@+id/check_crop_customer_shipping_as_billing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/as_billing_address"
-                        android:textSize="18dp"
-                        android:textStyle="bold"/>
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
-                        android:layout_weight="0.6"
-                        android:text="@string/street"
-                        android:textColor="@color/colorPrimary"
-                        />
-                    <EditText
-                        android:id="@+id/txt_crop_customer_shipping_add_street"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
-                        android:layout_weight="0.6"
-                        android:text="@string/city_town"
-                        android:textColor="@color/colorPrimary"
-                        />
-                    <EditText
-                        android:id="@+id/txt_crop_customer_shipping_add_city_town"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
-                        android:layout_weight="0.6"
-                        android:text="@string/country"
-                        android:textColor="@color/colorPrimary"
-                        />
-                    <Spinner
-                        android:id="@+id/txt_crop_customer_shipping_add_country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:hint="Enter.."
-                        android:entries="@array/country_list"
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
 
 
             <Button
