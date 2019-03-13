@@ -23,6 +23,10 @@
 
 
     </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
 
     <LinearLayout
@@ -35,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -51,9 +55,9 @@
 
             <EditText
                 android:id="@+id/txt_crop_field_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Enter.."
                 android:background="@drawable/input_shapes"
@@ -66,7 +70,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="15dp"
             >
 
@@ -82,13 +86,12 @@
 
             <Spinner
                 android:id="@+id/sp_crop_field_soil_category"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:background="@drawable/input_shapes"
-                android:layout_gravity="center"
                 android:entries="@array/crop_field_soil_category"
                 />
 
@@ -99,7 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -115,12 +118,11 @@
             <Spinner
 
                 android:id="@+id/sp_crop_field_soil_type"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_gravity="center"
                 android:entries="@array/crop_field_soil_type"
                 android:background="@drawable/input_shapes"
 
@@ -132,7 +134,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -147,12 +149,11 @@
 
             <Spinner
                 android:id="@+id/sp_crop_field_watercourse"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:layout_gravity="center"
                 android:entries="@array/crop_field_watercourse"
                 android:background="@drawable/input_shapes"
 
@@ -164,6 +165,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+               >
 
             <TextView
 
@@ -180,7 +187,7 @@
                 android:id="@+id/txt_crop_field_total_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="3"
+                android:ems="10"
                 android:hint="Enter.."
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
@@ -189,6 +196,12 @@
                 android:layout_marginRight="10dp"
 
                 />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
             <TextView
 
                 android:layout_width="wrap_content"
@@ -200,21 +213,22 @@
 
             <EditText
                 android:id="@+id/txt_crop_field_croppable_area"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="5"
-                android:hint="Enter"
+                android:ems="10"
+                android:hint="Enter.."
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 android:inputType="numberDecimal"
 
                 />
+            </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginBottom="10dp">
 
             <TextView
@@ -229,12 +243,12 @@
 
             <Spinner
                 android:id="@+id/sp_crop_field_units"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_gravity="center"
                 android:entries="@array/crop_field_units"
                 android:textSize="14sp"
+                android:inputType="numberDecimal"
+
                 android:background="@drawable/input_shapes"
 
                 />
@@ -263,5 +277,9 @@
 
 
 
+
+
+
     </LinearLayout>
+</ScrollView>
 </LinearLayout>

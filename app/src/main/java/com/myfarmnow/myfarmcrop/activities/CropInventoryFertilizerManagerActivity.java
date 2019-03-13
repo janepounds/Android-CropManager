@@ -16,7 +16,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 
 public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
-
+//TO DO  FIX BUG- USAGE UNITS NOT SHOWING
     EditText dateTxt,nameTxt,batchNumberTxt,npkNTxt, npkPTxt, npkKTxt,qtyTxt,serialNumberTxt,supplierTxt,costTxt;
     EditText macrosCa,macrosMg,macrosS,microsB,microsMn,microsCl,microsMo,microsCu,microsZn,microsFe,microsNa;
     Spinner typeSp,usageUnitSp;
@@ -63,10 +63,6 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         microsZn= findViewById(R.id.txt_crop_fertilizer_micros_zn);
         microsFe= findViewById(R.id.txt_crop_fertilizer_micros_fe);
         microsNa= findViewById(R.id.txt_crop_fertilizer_micros_na);
-
-
-
-
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateTxt,this);
@@ -96,6 +92,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         if(fertilizerInventory != null){
 
             CropDashboardActivity.selectSpinnerItemByValue(usageUnitSp,fertilizerInventory.getUsageUnits());
+            Log.d("USAGE UNITS", fertilizerInventory.getUsageUnits());
             CropDashboardActivity.selectSpinnerItemByValue(typeSp,fertilizerInventory.getType());
             dateTxt.setText(fertilizerInventory.getPurchaseDate());
             nameTxt.setText(fertilizerInventory.getName());
@@ -104,6 +101,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
             npkPTxt.setText(fertilizerInventory.getpPercentage()+"");
             qtyTxt.setText(fertilizerInventory.getQuantity()+"");
             costTxt.setText(fertilizerInventory.getCost()+"");
+            serialNumberTxt.setText(fertilizerInventory.getSerialNumber());
             batchNumberTxt.setText(fertilizerInventory.getBatchNumber());
             supplierTxt.setText(fertilizerInventory.getSupplier());
             macrosCa.setText(fertilizerInventory.getMacroNutrientsCa()+"");

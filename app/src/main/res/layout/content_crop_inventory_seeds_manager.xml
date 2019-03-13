@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="4dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropInventorySeedsManagerActivity"
     tools:showIn="@layout/activity_crop_inventory_seeds_manager">
@@ -26,14 +27,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
                         android:layout_weight="0.7"
                         android:text="Purchase Date"
+
                         android:textColor="@color/colorPrimary"
                         />
 
@@ -42,7 +45,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:inputType="date"
+                        android:inputType="none"
                         android:hint="Select"
                         android:textSize="14sp"
                         android:background="@drawable/input_shapes"/>
@@ -59,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -93,7 +96,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginBottom="12dp">
 
                     <TextView
@@ -117,7 +120,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginBottom="12dp">
 
                     <TextView
@@ -143,59 +146,84 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="12dp">
+
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
                             android:layout_weight="0.6"
                             android:text="@string/quantity"
                             android:textColor="@color/colorPrimary"
-                            />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
                         <EditText
                             android:id="@+id/txt_crop_quantity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
-                            android:inputType="numberDecimal"
                             android:background="@drawable/input_shapes"
                             android:hint="Enter.."
+                            android:inputType="numberDecimal"
                             android:textSize="14sp" />
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:orientation="vertical"
+                        android:layout_weight="1"
 
+                        >
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp" android:textStyle="bold"
-                            android:layout_weight="0.6"
-                            android:text="Cost"
-                            android:layout_marginLeft="7dp"
-                            android:textColor="@color/colorPrimary"
-                            />
-                        <EditText
-                            android:id="@+id/txt_crop_cost"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
 
-                            android:hint="Enter"
-                            android:inputType="numberDecimal"
-                            android:background="@drawable/input_shapes"
-                            android:text="@string/default_numeric_value"
-                            android:textSize="14sp" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cost"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@color/gray_mh">
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:padding="4dp"
+                                android:labelFor="@+id/txt_crop_spray_rate"
+                                android:text="@string/ugx"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+
+                                />
+                            <EditText
+                                android:id="@+id/txt_crop_cost"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/input_shapes"
+                                android:ems="10"
+                                android:hint="Enter.."
+                                android:text="@string/default_numeric_value"
+
+                                android:inputType="number"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,8 +232,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -221,7 +250,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
-                            android:inputType="text"
                             android:background="@drawable/input_shapes"
                             android:hint="Enter.."
                             android:textSize="14sp" />
@@ -229,7 +257,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1">
 
                         <TextView
@@ -259,8 +287,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -284,7 +313,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1">
 
                         <TextView

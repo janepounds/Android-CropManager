@@ -129,7 +129,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
                     CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
                     Intent editSoilAnalysis = new Intent(mContext, CropSoilAnalysisManagerActivity.class);
-                    editSoilAnalysis.putExtra("cropSoilAnalysis",cropSoilAnalysis);
+                    editSoilAnalysis.putExtra("soilAnalysis",cropSoilAnalysis);
                     editSoilAnalysis.putExtra("fieldId",cropSoilAnalysis.getFieldId());
                     mContext.startActivity(editSoilAnalysis);
                 }

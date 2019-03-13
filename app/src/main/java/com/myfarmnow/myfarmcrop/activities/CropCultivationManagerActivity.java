@@ -29,8 +29,8 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         if(getIntent().hasExtra("cultivation")){
             cultivation =(CropCultivation) getIntent().getSerializableExtra("cultivation");
         }
-        if(getIntent().hasExtra("fieldId")){
-            cropId =getIntent().getStringExtra("fieldId");
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
         }
         else{
             finish();
