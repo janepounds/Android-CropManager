@@ -207,6 +207,43 @@
         <item>Engine</item>
         <item>Others</item>
     </string-array>
+    <string-array name="sp_crop_employee_gender">
+        <item>Select Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="sp_crop_employee_employment_status">
+        <item>Select Status</item>
+        <item>Full-Time</item>
+        <item>Intern</item>
+        <item>Part-Time</item>
+        <item>Terminated</item>
+    </string-array>
+    <string-array name="sp_crop_employee_per">
+        <item>Select</item>
+        <item>Hour</item>
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+
+    </string-array>
+    <string-array name="sp_crop_employee_pay_type">
+        <item>Select</item>
+        <item>Salary</item>
+        <item>Hourly</item>
+        <item>Contract</item>
+        <item>Salary non-exempt</item>
+    </string-array>
+    <string-array name="sp_crop_customer_country">
+        <item>Select Country</item>
+
+    </string-array>
+    <string-array name="sp_crop_product_type">
+        <item>Select Type</item>
+        <item>Stock</item>
+        <item>Service</item>
+    </string-array>
 
     <string name="title_activity_crop_fields_list">Fields List</string>
     <string name="field_name">Field Name</string>
@@ -307,7 +344,41 @@
     <string name="ugx">UGX</string>
 
     <string name="title_activity_crop_estimate_manager">Crop Estimate Manager</string>
-
+    <string name="title">Title</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="mobile">Mobile</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+    <string name="email">Email</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="hire_date">Hire Date</string>
+    <string name="employment_status">Employment Status</string>
+    <string name="pay_rate">Pay Rate</string>
+    <string name="per">Per</string>
+    <string name="reports_to">Reports To</string>
+    <string name="pay_type">Pay Type</string>
+    <string name="name">Name</string>
+    <string name="company">Company</string>
+    <string name="tax_reg_no">Tax Reg No.</string>
+    <string name="opening_balance">Opening Balance</string>
+    <string name="usd">USD</string>
+    <string name="street">Street</string>
+    <string name="city_town">City / Town</string>
+    <string name="shipping_address">Shipping Address :</string>
+    <string name="as_billing_address">As Billing Address</string>
+    <string name="country">Country</string>
+    <string name="product_name">Product Name</string>
+    <string name="type">Type</string>
+    <string name="code">Code</string>
+    <string name="linked_account">Linked Account</string>
+    <string name="opening_cost">Opening Cost</string>
+    <string name="opening_quantity">Opening Quantity</string>
+    <string name="selling_price">Selling Price</string>
+    <string name="tax_rate">Tax Rate</string>
+    <string name="description">Description</string>
 
 
 </resources>
