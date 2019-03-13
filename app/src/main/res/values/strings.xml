@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">My Farm Crop</string>
     <string name="action_settings">Settings</string>
-
     <string name="title_activity_dashboard">Crop Manager</string>
     <string name="label_fields">Fields</string>
     <string name="label_crops">Crops</string>
@@ -13,7 +12,6 @@
     <string name="label_weather_forecast">Weather Forecast</string>
     <string name="label_basic_practices">Basic Practices</string>
     <string name="label_financial_summary">Financial Summary</string>
-
     <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager
     </string>
 
@@ -235,7 +233,7 @@
         <item>Contract</item>
         <item>Salary non-exempt</item>
     </string-array>
-    <string-array name="sp_crop_customer_country">
+    <string-array name="country_list">
         <item>Select Country</item>
 
     </string-array>
@@ -339,7 +337,7 @@
 
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
-    <string name="title_activity_crop_estimate_manager">CropEstimateManager</string>
+
     <string name="weight_label">Weight</string>
     <string name="label_tax">Tax</string>
     <string name="amount_label">Amount</string>
@@ -384,7 +382,10 @@
     <string name="selling_price">Selling Price</string>
     <string name="tax_rate">Tax Rate</string>
     <string name="description">Description</string>
-
+    <string name="title_activity_crop_customers_list">CropCustomersList</string>
+    <string name="phone_number_not_entered">Phone Number is not entered</string>
+    <string name="shipping_address_not_complete">Shipping address not complete</string>
+    <string name="billing_address_not_complete">Billing Address Not Complete</string>
 
 
 </resources>
