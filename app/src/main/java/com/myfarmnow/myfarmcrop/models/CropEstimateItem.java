@@ -14,19 +14,19 @@ public class CropEstimateItem implements CropProductItem {
 
      public CropEstimateItem( String  productId, String  estimateId, float quantity){
          setProductId(productId);
-         setEstimateId(estimateId);
+         setInvoiceOrEstimateId(estimateId);
          setQuantity(quantity);
      }
     public CropEstimateItem( String id, String  productId, String  estimateId, float quantity){
         setId(id);
         setProductId(productId);
-        setEstimateId(estimateId);
+        setInvoiceOrEstimateId(estimateId);
         setQuantity(quantity);
     }
     public CropEstimateItem( String id, String  productId, String  estimateId, float quantity,float rate,float tax){
         setId(id);
         setProductId(productId);
-        setEstimateId(estimateId);
+        setInvoiceOrEstimateId(estimateId);
         setQuantity(quantity);
         setRate(rate);
         setTax(tax);
@@ -48,11 +48,11 @@ public class CropEstimateItem implements CropProductItem {
         this.productId = productId;
     }
 
-    public String getEstimateId() {
+    public String getInvoiceOrEstimateId() {
         return estimateId;
     }
 
-    public void setEstimateId(String estimateId) {
+    public void setInvoiceOrEstimateId(String estimateId) {
         this.estimateId = estimateId;
     }
 

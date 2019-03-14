@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Farm Crop</string>
+    <string name="app_name">Crop Manager</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_dashboard">Crop Manager</string>
     <string name="label_fields">Fields</string>
@@ -664,7 +664,10 @@
     <string name="employment_status_not_selected">You must select Employment Status</string>
     <string name="per_not_selected">You must select pay rate</string>
     <string name="pay_type_not_selected">You must select the Pay Type</string>
-
+    <string name="invoice_date">Invoice Date</string>
+    <string name="invoice_number">Order Number</string>
+    <string name="title_activity_crop_invoices_list">Invoices</string>
+    <string name="title_activity_crop_invoice_manager">Invoice Manager</string>
 
 
 </resources>

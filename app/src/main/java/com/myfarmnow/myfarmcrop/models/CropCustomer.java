@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropCustomer {
+public class CropCustomer implements CropSpinnerItem{
     String id;
     String userId;
     String name;
@@ -135,5 +135,9 @@ public class CropCustomer {
 
     public void setShippingCountry(String shippingCountry) {
         this.shippingCountry = shippingCountry;
+    }
+
+    public String toString(){
+        return getName();
     }
 }

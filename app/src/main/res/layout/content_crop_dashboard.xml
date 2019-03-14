@@ -642,6 +642,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:orientation="horizontal"
+                            android:onClick="openEmployeeList"
                             android:layout_marginStart="0dp"
                             android:paddingBottom="5dp"
                             android:paddingTop="5dp">
@@ -670,16 +671,6 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
 
-                            <ImageView
-
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
                         <LinearLayout
@@ -914,7 +905,7 @@
                                     android:orientation="horizontal"
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
-                                    android:onClick="openCustomerList"
+                                    android:onClick="openInvoicesList"
                                     android:paddingTop="5dp">
 
                                     <ImageView
