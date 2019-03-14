@@ -506,15 +506,779 @@
 
                 <include layout="@layout/nav_header_navigation_drawer" />
 
-                <ExpandableListView
-                    android:id="@+id/drawer_menu_list"
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="#1E282C"
-                    android:divider="@null"
-                    android:groupIndicator="@null"
-                    android:scrollbars="none" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:visibility="visible" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_icon"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Fields"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"></TextView>
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/leftarrow1"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/arrow_left_black"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/group_indicator_selector"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/downarrow"
+                        android:visibility="gone" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                       android:layout_marginStart="0dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/finance"
+                            android:padding="8dp"
+                            android:visibility="visible" />
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/iv_icon"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|left"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="5dp"
+                            android:text="Financial Manager"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"/>
+
+                        <ImageView
+
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center_vertical"
+                            android:padding="8dp"
+                            android:src="@drawable/right_arrow_white"
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_crop_dashboard_financial_submenus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp">
+
+                            <ImageView
+
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/user"
+                                android:padding="8dp"
+                                android:visibility="visible" />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_icon"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Employees"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+
+                            <ImageView
+
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:src="@drawable/right_arrow_white"
+                                />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="openCustomerList"
+                            android:paddingTop="5dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/user"
+                                android:padding="8dp"
+                                android:visibility="visible" />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_icon"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Customers"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+
+                            <ImageView
+
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:src="@drawable/right_arrow_white"
+                                />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="openSupplierList"
+                            android:paddingTop="5dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/user"
+                                android:padding="8dp"
+                                android:visibility="visible" />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_icon"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Suppliers"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+
+                            <ImageView
+
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center_vertical"
+                                android:padding="8dp"
+                                android:src="@drawable/right_arrow_white"
+                                />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="openProductsList"
+                            android:paddingTop="5dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/user"
+                                android:padding="8dp"
+                                android:visibility="visible" />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_icon"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Products"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                           >
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="0dp"
+                                android:paddingBottom="5dp"
+                                android:paddingTop="5dp">
+
+                                <ImageView
+
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:gravity="center_vertical"
+                                    android:src="@drawable/finance"
+                                    android:padding="8dp"
+                                    android:visibility="visible" />
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_toRightOf="@+id/iv_icon"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|left"
+                                    android:paddingBottom="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingTop="5dp"
+                                    android:text="Sales"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15dp"/>
+
+                                <ImageView
+
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:gravity="center_vertical"
+                                    android:padding="8dp"
+                                    android:src="@drawable/right_arrow_white"
+                                    />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/layout_crop_dashboard_financial_sales_submenus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openEstimatesList"
+                                    android:paddingTop="5dp">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:gravity="center_vertical"
+                                        android:src="@drawable/user"
+                                        android:padding="8dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Estimates"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+                                    <ImageView
+
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginLeft="15dp"
+                                        android:gravity="center_vertical"
+                                        android:padding="8dp"
+                                        android:src="@drawable/right_arrow_white"
+                                        />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openCustomerList"
+                                    android:paddingTop="5dp">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:gravity="center_vertical"
+                                        android:src="@drawable/user"
+                                        android:padding="8dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Invoices"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openSupplierList"
+                                    android:paddingTop="5dp">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:gravity="center_vertical"
+                                        android:src="@drawable/user"
+                                        android:padding="8dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Payments Received"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openSupplierList"
+                                    android:paddingTop="5dp">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:gravity="center_vertical"
+                                        android:src="@drawable/user"
+                                        android:padding="8dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Sales Order"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openSupplierList"
+                                    android:paddingTop="5dp">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:gravity="center_vertical"
+                                        android:src="@drawable/user"
+                                        android:padding="8dp"
+                                        android:visibility="visible" />
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Sales Report"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        </LinearLayout>
+
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:visibility="visible" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_icon"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Fields"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"></TextView>
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/leftarrow1"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/arrow_left_black"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/group_indicator_selector"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/downarrow"
+                        android:visibility="gone" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:visibility="visible" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_icon"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Reports"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"></TextView>
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/leftarrow1"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/arrow_left_black"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/group_indicator_selector"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/downarrow"
+                        android:visibility="gone" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:visibility="visible" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_icon"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Help"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"></TextView>
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/leftarrow1"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/arrow_left_black"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/group_indicator_selector"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/downarrow"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
             </LinearLayout>
         </android.support.design.widget.NavigationView>
 

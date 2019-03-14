@@ -23,8 +23,11 @@ import android.widget.Spinner;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.NavigationAdapterExpand;
+import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
+import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +40,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     RelativeLayout mainlayout;
     Toolbar toolbar;
     ExpandableListView expandableListView;
+    NavigationAdapterExpand expandableMenuAdapter;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
     LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout;
     @Override
@@ -52,8 +56,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     public void initializeDashboard(){
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        expandableListView = findViewById(R.id.drawer_menu_list);
-
+        //expandableListView = findViewById(R.id.drawer_menu_list);
         mainlayout = findViewById(R.id.mainlayout);
         inventoryLinearLayout =findViewById(R.id.layout_crop_dashboard_inventory);
         fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
@@ -129,22 +132,26 @@ public class CropDashboardActivity extends AppCompatActivity {
         SavePreferences("Firmname", "Crop Farm");
         SavePreferences("firstname", "Georgia" );
 
-        CropField n = new CropField();
+        NavDrawerItem fieldsItem = new NavDrawerItem(true,"Fields","1",R.drawable.finance);
+        NavDrawerItem reportsItem = new NavDrawerItem(true,"Reports","2",R.drawable.finance);
+        NavDrawerItem helpItem = new NavDrawerItem(true,"Help","3",R.drawable.help);
+        NavDrawerItem logoutItem = new NavDrawerItem(true,"Logout","4",R.drawable.logout);
+        NavDrawerItem financialManagerItem = new NavDrawerItem(true,"Financial Manager","5",R.drawable.finance);
 
+        NavDrawerItemchild customerSubItem = new NavDrawerItemchild(true,"Customer",financialManagerItem.getId()+"1",R.drawable.finance);
+        NavDrawerItemchild supplierSubItem = new NavDrawerItemchild(true,"Supplier",financialManagerItem.getId()+"2",R.drawable.finance);
 
-        n.setSoilType("Sand");
-        n.setSoilCategory("Shallow");
-        n.setFieldName("Field1");
-        n.setWatercourse("Dry Ditch");
-        float z =45;
-        n.setTotalArea(z);
-        n.setUserId("1");
-        float b = (float) 20.5;
-        n.setCroppableArea(b);
+        financialManagerItem.addChildItem(customerSubItem);
+        financialManagerItem.addChildItem(supplierSubItem);
 
+        menuList.add(fieldsItem);
+        menuList.add(financialManagerItem);
+        menuList.add(reportsItem);
+        menuList.add(helpItem);
+        menuList.add(logoutItem);
+        //expandableMenuAdapter = new NavigationAdapterExpand(this,menuList,1);
+        //expandableListView.setAdapter(expandableMenuAdapter);
 
-
-       /// MyFarmDbHandlerSingleton.getHandlerInstance(this).insertCropField(n);
 
     }
     public static  void addDatePicker(final EditText ed_, final Context context){
@@ -168,6 +175,26 @@ public class CropDashboardActivity extends AppCompatActivity {
         });
     }
 
+    public void openEmployeeList(){
+        //Intent openList = new Intent(this, CropEmployeeList)
+    }
+
+    public void openCustomerList(View view){
+        Intent openList = new Intent(this, CropCustomersListActivity.class);
+        startActivity(openList);
+    }
+    public void openSupplierList(View view){
+        Intent openList = new Intent(this, CropSuppliersListActivity.class);
+        startActivity(openList);
+    }
+    public void openProductsList(View view){
+        Intent openList = new Intent(this, CropProductsListActivity.class);
+        startActivity(openList);
+    }
+    public void openEstimatesList(View view){
+        Intent openList = new Intent(this, CropEstimatesListActivity.class);
+        startActivity(openList);
+    }
     private void SavePreferences(String key, String value) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
                 0);

@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.CropProductManagerActivity" />
-        <activity android:name=".activities.CropCustomerManagerActivity" />
+        <activity
+            android:name=".activities.CropCustomerManagerActivity"
+            android:label="@string/activity_crop_customer_manager_title" />
         <activity android:name=".activities.CropEmployeeManagerActivity" />
         <activity
             android:name=".activities.CropsListActivity"
@@ -97,6 +99,22 @@
         <activity
             android:name=".activities.CropCustomersListActivity"
             android:label="@string/title_activity_crop_customers_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropProductsListActivity"
+            android:label="@string/title_activity_crop_products_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropSuppliersListActivity"
+            android:label="@string/title_activity_crop_supplies_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropSupplierManagerActivity"
+            android:label="@string/title_activity_crop_supplier_manager"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropEstimatesListActivity"
+            android:label="@string/title_activity_crop_estimates_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

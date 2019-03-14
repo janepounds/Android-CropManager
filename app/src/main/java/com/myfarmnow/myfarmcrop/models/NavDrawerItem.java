@@ -29,6 +29,9 @@ public class NavDrawerItem {
     public void setList(ArrayList<NavDrawerItemchild> list) {
         this.list = list;
     }
+    public void addChildItem(NavDrawerItemchild item){
+        list.add(item);
+    }
 
     private ArrayList<NavDrawerItemchild> list = new ArrayList<NavDrawerItemchild>();
 

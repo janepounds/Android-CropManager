@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropEstimateItem {
+public class CropEstimateItem implements CropProductItem {
      String  id;
      String  productId;
      String  estimateId;

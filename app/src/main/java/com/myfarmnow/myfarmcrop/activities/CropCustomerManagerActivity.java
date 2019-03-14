@@ -31,9 +31,6 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_customer_manager);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         if(getIntent().hasExtra("cropCustomer")){
             cropCustomer = (CropCustomer)getIntent().getSerializableExtra("cropCustomer");
         }
@@ -53,8 +50,8 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
         billingCityTxt = findViewById(R.id.txt_crop_customer_city_town);
         billingCountryTcxt = findViewById(R.id.txt_crop_customer_country);
         shippingStretTxt = findViewById(R.id.txt_crop_customer_shipping_add_street);
-        shippingStretTxt = findViewById(R.id.txt_crop_customer_shipping_add_city_town);
-        shippingStretTxt = findViewById(R.id.txt_crop_customer_shipping_add_street);
+        shippingCityTxt = findViewById(R.id.txt_crop_customer_shipping_add_city_town);
+        shippingCountryTxt = findViewById(R.id.txt_crop_customer_shipping_add_country);
         billingAsShipping = findViewById(R.id.check_crop_customer_shipping_as_billing);
 
         billingAsShipping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
