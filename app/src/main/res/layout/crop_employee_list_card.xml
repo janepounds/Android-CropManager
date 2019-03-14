@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_crop_card"
+                                android:layout_width="60dp"
+                                android:layout_height="80dp"
+                                android:layout_margin="10dp"
+                                tools:srcCompat="@drawable/profile" />
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginTop="3dp">
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_employee_card_first_name"
+                                        android:textSize="14dp"
+                                        android:textColor="#696666"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+
+                                        android:layout_weight="1"
+                                        android:text="Alex" />
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_employee_card_last_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Muhangi"
+                                        android:textStyle="bold"
+                                        android:textColor="#696666"
+                                        android:textSize="14dp" />
+                                    <LinearLayout
+                                        android:orientation="horizontal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginTop="3dp"
+                                        android:layout_marginBottom="3dp">
+
+
+
+
+                                        <ImageView
+                                            android:id="@+id/img_crop_card_more"
+                                            android:layout_width="25dp"
+                                            android:layout_height="20dp"
+                                            android:backgroundTint="@color/black"
+                                            android:textColor="@color/darker_gray"
+                                            app:srcCompat="@drawable/more_options_icon" />
+
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="6dp"
+                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginTop="3dp"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/txt_crop_employee_card_title"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Production Manager "
+                                            android:textColor="#696666"
+                                            android:textStyle="bold"
+                                            android:textSize="14dp" />
+
+
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginTop="3dp">
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_employee_card_employment_status"
+                                        android:textSize="14dp"
+                                        android:textColor="#696666"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Full-Time"
+                                        android:textStyle="bold"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginTop="3dp">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+                                        <ImageView
+                                            android:layout_width="25dp"
+                                            android:layout_height="wrap_content"
+                                            android:backgroundTint="@color/black"
+                                            app:srcCompat="@drawable/telephone"
+                                           />
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_employee_card_phone"
+                                        android:textSize="14dp"
+                                        android:textColor="#696666"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0704123123"
+                                        android:textStyle="bold"/>
+                                        <TextView
+                                            android:textSize="14dp"
+                                            android:textColor="#696666"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text=","
+                                            android:layout_marginRight="5dp"
+                                            android:layout_marginLeft="5dp"/>
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txt_crop_employee_card_pay_type"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salary"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UGX"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/txt_crop_employee_card_pay_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <TextView
+            android:id="@+id/txt_crop_employee_card_pay_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Month"
+            android:textStyle="bold"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

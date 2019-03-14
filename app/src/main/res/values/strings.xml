@@ -649,6 +649,22 @@
     <string name="title_activity_crop_supplies_list">Suppliers List</string>
     <string name="title_activity_crop_supplier_manager">Supplier Manager</string>
     <string name="title_activity_crop_estimates_list">CropEstimatesListActivity</string>
+    <string name="select_invoice">Select Invoice</string>
+    <string name="payment_date">Payment Date</string>
+    <string name="payment_number">Payment #</string>
+    <string name="amount">Amount</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="reference_number">Reference Number</string>
+    <string name="amount_received">Amount Received</string>
+    <string name="save_send"><![CDATA[Save & Send]]></string>
+    <string name="title_not_entered_message">You must enter the Title</string>
+    <string name="last_name_not_entered_message">You must enter your Last Name</string>
+    <string name="first_name_not_entered">You must enter your First Name</string>
+    <string name="gender_not_selected">You must select Gender</string>
+    <string name="employment_status_not_selected">You must select Employment Status</string>
+    <string name="per_not_selected">You must select pay rate</string>
+    <string name="pay_type_not_selected">You must select the Pay Type</string>
+
 
 
 </resources>
