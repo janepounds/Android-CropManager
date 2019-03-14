@@ -175,7 +175,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         });
     }
 
-    public void openEmployeeList(){
+    public void openEmployeeList(View view){
         Intent openList = new Intent(this, CropEmployeesListActivity.class);
         startActivity(openList);
     }
