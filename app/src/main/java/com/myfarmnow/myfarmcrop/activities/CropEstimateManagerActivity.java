@@ -85,7 +85,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
             customersList.add(x);
         }
-        customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Field",this);
+        customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
         customersSp.setAdapter(customersSpinnerAdapter);
         //itemListRecyclerAdapter
         CropEstimateItem item = new CropEstimateItem();
