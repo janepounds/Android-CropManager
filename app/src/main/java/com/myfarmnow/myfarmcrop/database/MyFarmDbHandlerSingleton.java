@@ -685,7 +685,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CropInvoiceItem item = new CropInvoiceItem();
                 item.setId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_ID)));
                 item.setProductId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_PRODUCT_ID)));
-                item.setInvoiceId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_INVOICE_ID)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_INVOICE_ID)));
                 item.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_QUANTITY)));
                 item.setTax(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_TAX)));
                 item.setRate(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_RATE)));
@@ -807,7 +807,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CropEstimateItem item = new CropEstimateItem();
                 item.setId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ID)));
                 item.setProductId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_PRODUCT_ID)));
-                item.setEstimateId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ESTIMATE_ID)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ESTIMATE_ID)));
                 item.setQuantity(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_QUANTITY)));
                 item.setTax(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_TAX)));
                 item.setRate(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_RATE)));

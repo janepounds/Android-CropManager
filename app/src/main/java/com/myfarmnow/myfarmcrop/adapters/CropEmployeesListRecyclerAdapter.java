@@ -91,7 +91,7 @@ public class CropEmployeesListRecyclerAdapter extends RecyclerView.Adapter<CropE
             perTextView = itemView.findViewById(R.id.txt_crop_employee_card_pay_rate);
             employmentStatusTextView = itemView.findViewById(R.id.txt_crop_employee_card_employment_status);
             phoneTextView = itemView.findViewById(R.id.txt_crop_employee_card_phone);
-            mobileTextView = itemView.findViewById(R.id.txt_crop_employee_card_mobile);
+            //mobileTextView = itemView.findViewById(R.id.txt_crop_employee_card_mobile);
             payTypeTextView = itemView.findViewById(R.id.txt_crop_employee_card_pay_type);
             payRateTextView = itemView.findViewById(R.id.txt_crop_employee_card_pay_amount);
         }

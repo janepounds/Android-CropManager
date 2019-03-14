@@ -176,7 +176,8 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
 
     public void openEmployeeList(){
-        //Intent openList = new Intent(this, CropEmployeeList)
+        Intent openList = new Intent(this, CropEmployeesListActivity.class);
+        startActivity(openList);
     }
 
     public void openCustomerList(View view){
@@ -193,6 +194,10 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
     public void openEstimatesList(View view){
         Intent openList = new Intent(this, CropEstimatesListActivity.class);
+        startActivity(openList);
+    }
+    public void openInvoicesList(View view){
+        Intent openList = new Intent(this, CropInvoicesListActivity.class);
         startActivity(openList);
     }
     private void SavePreferences(String key, String value) {

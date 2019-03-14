@@ -7,7 +7,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropEstimateManagerActivity"
-    tools:showIn="@layout/activity_crop_estimate_manager">
+    tools:showIn="@layout/activity_crop_invoice_manager">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                             android:textStyle="bold" />
 
                         <Spinner
-                            android:id="@+id/spinner_crop_estimate_customer_name"
+                            android:id="@+id/txt_crop_invoice_customer_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
@@ -62,13 +62,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="@string/estimate_number"
+                            android:text="@string/invoice_number"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/txt_crop_estimate_number"
+                            android:id="@+id/txt_crop_invoice_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
@@ -93,13 +93,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="@string/estimate_date"
+                            android:text="@string/invoice_date"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/txt_crop_estimate_date"
+                            android:id="@+id/txt_crop_invoice_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
@@ -125,7 +125,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/txt_crop_estimate_expiry_date"
+                            android:id="@+id/txt_crop_invoice_expiry_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
@@ -187,7 +187,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="@dimen/crop_estimate_small_column_size"
+                                    android:layout_width="@dimen/crop_invoice_small_column_size"
                                     android:layout_height="28dp"
                                     android:background="@drawable/crop_invoice_table_border"
                                     android:orientation="horizontal">
@@ -204,7 +204,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="@dimen/crop_estimate_small_column_size"
+                                    android:layout_width="@dimen/crop_invoice_small_column_size"
                                     android:layout_height="28dp"
                                     android:background="@drawable/crop_invoice_table_border"
                                     android:orientation="horizontal">
@@ -221,7 +221,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="@dimen/crop_estimate_small_column_size"
+                                    android:layout_width="@dimen/crop_invoice_small_column_size"
                                     android:layout_height="28dp"
                                     android:background="@drawable/crop_invoice_table_border"
                                     android:orientation="horizontal">
@@ -238,7 +238,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="@dimen/crop_estimate_small_column_size"
+                                    android:layout_width="@dimen/crop_invoice_small_column_size"
                                     android:layout_height="28dp"
                                     android:background="@drawable/crop_invoice_table_border"
                                     android:orientation="horizontal">
@@ -312,7 +312,7 @@
 
                     <TextView
 
-                        android:id="@+id/txt_view_crop_estimate_sub_total"
+                        android:id="@+id/txt_view_crop_invoice_sub_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -347,7 +347,6 @@
 
 
                         <EditText
-                            android:id="@+id/txt_crop_estimate_discount_percentage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -381,11 +380,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txt_crop_estimate_discount"
+                            android:id="@+id/txt_crop_invoice_discount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="@string/default_numeric_value"/>
+                            android:text="-10,000" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -417,7 +416,7 @@
 
 
                         <EditText
-                            android:id="@+id/txt_crop_estimate_shipping_charge"
+                            android:id="@+id/txt_crop_cultivate_fixed_cost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
@@ -439,11 +438,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txt_view_crop_estimate_shipping_charges"
+                            android:id="@+id/txt_crop_invoice_shipping_charges"
                             android:layout_width="74dp"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="@string/default_numeric_value" />
+                            android:text="50,000" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -468,11 +467,11 @@
 
                     <TextView
 
-                        android:id="@+id/txt_crop_estimate_total"
+                        android:id="@+id/txt_crop_invoice_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="@string/default_numeric_value" />
+                        android:text="290,000" />
 
                 </LinearLayout>
 
@@ -495,7 +494,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/txt_crop_estimate_customer_notes"
+                    android:id="@+id/txt_crop_invoice_customer_notes"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@drawable/input_shapes"
@@ -521,7 +520,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/txt_crop_estimate_terms_and_conditions"
+                    android:id="@+id/txt_crop_invoice_terms_and_conditions"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@drawable/input_shapes"

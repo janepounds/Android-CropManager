@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropInvoiceItem {
+public class CropInvoiceItem implements CropProductItem {
      String  id;
      String  productId;
      String  invoiceId;
@@ -14,19 +14,19 @@ public class CropInvoiceItem {
 
      public CropInvoiceItem(String  productId, String  estimateId, float quantity){
          setProductId(productId);
-         setInvoiceId(estimateId);
+         setInvoiceOrEstimateId(estimateId);
          setQuantity(quantity);
      }
     public CropInvoiceItem(String id, String  productId, String  estimateId, float quantity){
         setId(id);
         setProductId(productId);
-        setInvoiceId(estimateId);
+        setInvoiceOrEstimateId(estimateId);
         setQuantity(quantity);
     }
     public CropInvoiceItem(String id, String  productId, String  estimateId, float quantity, float rate, float tax){
         setId(id);
         setProductId(productId);
-        setInvoiceId(estimateId);
+        setInvoiceOrEstimateId(estimateId);
         setQuantity(quantity);
         setRate(rate);
         setTax(tax);
@@ -48,11 +48,11 @@ public class CropInvoiceItem {
         this.productId = productId;
     }
 
-    public String getInvoiceId() {
+    public String getInvoiceOrEstimateId() {
         return invoiceId;
     }
 
-    public void setInvoiceId(String estimateId) {
+    public void setInvoiceOrEstimateId(String estimateId) {
         this.invoiceId = estimateId;
     }
 
