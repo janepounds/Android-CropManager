@@ -10,9 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".activities.CropEmployeesListActivity"
             android:label="Employees List"/>
         <activity android:name=".activities.CropProductManagerActivity" />
+
+
+
         <activity
             android:name=".activities.CropCustomerManagerActivity"
             android:label="@string/activity_crop_customer_manager_title" />
@@ -114,7 +118,7 @@
         <activity
             android:name=".activities.CropSupplierManagerActivity"
             android:label="@string/title_activity_crop_supplier_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name=".activities.CropEstimatesListActivity"
             android:label="@string/title_activity_crop_estimates_list"

@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,17 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
+import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
@@ -32,11 +36,15 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     Button addItemBtn;
     MyFarmDbHandlerSingleton dbHandler;
-    String cropId;
-    TextView subTotalTextView, discountAmountTxt,shippingChargesTxt,totalAmountTxt;
-    EditText discountPercentageTxt;
+
+    CropEstimate cropEstimate;
+    TextView subTotalTextView, discountAmountTxt,shippingChargesTxtView,totalAmountTxt;
+    EditText discountPercentageTxt,shippingChargesTxt,termsAndConditionsTxt,notesTxt,estimateDateTxt,expiryDateTxt;
+    TextView estimateNumberTextView;
     Spinner customersSp;
+    Button saveBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
+    ArrayList <CropEstimateItem> estimateItems = new ArrayList<>();
     CropSpinnerAdapter customersSpinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +52,6 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_estimate_manager);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        CropProduct x = new CropProduct();
-        x.setId("1");
-        x.setTaxRate(10);
-        x.setName("Water Pipes");
-        x.setSellingPrice(2000);
-        CropProduct y = new CropProduct();
-        y.setId("1");
-        y.setName("Water Pipes");
-        y.setTaxRate(17);
-        y.setSellingPrice(2600);
-
-        list.add(x);
-        list.add(y);
 
         initializeForm();
 
@@ -68,14 +61,23 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
     public void initializeForm(){
         subTotalTextView = findViewById(R.id.txt_view_crop_estimate_sub_total);
         discountAmountTxt = findViewById(R.id.txt_crop_estimate_discount);
-        shippingChargesTxt = findViewById(R.id.txt_view_crop_estimate_shipping_charges);
+        shippingChargesTxtView = findViewById(R.id.txt_view_crop_estimate_shipping_charges);
         totalAmountTxt = findViewById(R.id.txt_crop_estimate_total);
         discountPercentageTxt = findViewById(R.id.txt_crop_estimate_discount_percentage);
+        shippingChargesTxt = findViewById(R.id.txt_crop_estimate_shipping_charge);
+        estimateNumberTextView = findViewById(R.id.txt_crop_estimate_number);
+        estimateDateTxt = findViewById(R.id.txt_crop_estimate_date);
+        expiryDateTxt = findViewById(R.id.txt_crop_estimate_expiry_date);
+        notesTxt = findViewById(R.id.txt_crop_estimate_customer_notes);
+        termsAndConditionsTxt = findViewById(R.id.txt_crop_estimate_terms_and_conditions);
         customersSp = findViewById(R.id.spinner_crop_estimate_customer_name);
+        saveBtn = findViewById(R.id.btn_save);
+        CropDashboardActivity.addDatePicker(estimateDateTxt,this);
+        CropDashboardActivity.addDatePicker(expiryDateTxt,this);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
-        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),list,subTotalTextView);
+        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(CropDashboardActivity.getPreferences("userId",this)),subTotalTextView);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
@@ -87,9 +89,8 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         }
         customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
         customersSp.setAdapter(customersSpinnerAdapter);
-        //itemListRecyclerAdapter
-        CropEstimateItem item = new CropEstimateItem();
-        itemListRecyclerAdapter.addCropProductItem(item);
+        estimateNumberTextView.setText(dbHandler.getNextEstimateNumber());
+      //  estimateNumberTextView.setEnabled(false);
 
 
         addItemBtn.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +119,6 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
 
         subTotalTextView.addTextChangedListener(watcher);
         shippingChargesTxt.addTextChangedListener(watcher);
-        discountAmountTxt.addTextChangedListener(watcher);
         discountPercentageTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,37 +127,163 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                computeDiscount();
+              updateTotalAmount();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                computeDiscount();
+                updateTotalAmount();
+            }
+        });
+        shippingChargesTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                shippingChargesTxtView.setText(shippingChargesTxt.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                shippingChargesTxtView.setText(shippingChargesTxt.getText().toString());
             }
         });
 
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(validateEntries()){
+                    if(cropEstimate ==null){
+                        saveEstimate();
+                    }
+                    else{
+                        updateEstimate();
+                    }
+
+                    Intent toCropEmployeesList = new Intent(CropEstimateManagerActivity.this, CropEstimatesListActivity.class);
+                    toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(toCropEmployeesList);
+                }else{
+                    Log.d("ERROR","Testing");
+                }
+            }
+        });
+        fillViews();
+
+
     }
 
-    public void computeDiscount(){
+    public void saveEstimate(){
+        cropEstimate = new CropEstimate();
+        cropEstimate.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
+        cropEstimate.setCustomerNotes(notesTxt.getText().toString());
+        cropEstimate.setExpiryDate(expiryDateTxt.getText().toString());
+        cropEstimate.setDate(estimateDateTxt.getText().toString());
+        cropEstimate.setNumber(estimateNumberTextView.getText().toString());
+        cropEstimate.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
+
+        estimateItems.clear();
+
+        for(CropProductItem x:itemListRecyclerAdapter.getItems()){
+            estimateItems.add((CropEstimateItem)x);
+        }
+        cropEstimate.setItems(estimateItems);
+
+        dbHandler.insertCropEstimate(cropEstimate);
+
+    }
+
+    public void updateEstimate(){
+        if(cropEstimate != null){
+            cropEstimate.setCustomerNotes(notesTxt.getText().toString());
+            cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
+            cropEstimate.setExpiryDate(expiryDateTxt.getText().toString());
+            cropEstimate.setDate(estimateDateTxt.getText().toString());
+            cropEstimate.setNumber(estimateNumberTextView.getText().toString());
+            cropEstimate.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
+            estimateItems.clear();
+            for(CropProductItem x:itemListRecyclerAdapter.getItems()){
+                estimateItems.add((CropEstimateItem)x);
+            }
+            cropEstimate.setItems(estimateItems);
+            dbHandler.updateCropEstimate(cropEstimate);
+        }
+    }
+
+    public void fillViews(){
+        if(cropEstimate != null){
+            CropDashboardActivity.selectSpinnerItemById(customersSp,cropEstimate.getCustomerId());
+            ArrayList <CropProductItem> items = new ArrayList<>();
+            for(CropProductItem x: cropEstimate.getItems()){
+                items.add(x);
+            }
+            itemListRecyclerAdapter.appendList(items);
+            termsAndConditionsTxt.setText(cropEstimate.getTermsAndConditions());
+            notesTxt.setText(cropEstimate.getCustomerNotes());
+            expiryDateTxt.setText(cropEstimate.getExpiryDate());
+            estimateNumberTextView.setText(cropEstimate.getNumber());
+            estimateDateTxt.setText(cropEstimate.getDate());
+        }
+    }
+
+    public float computeDiscount(){
         try{
             float subTotal = Float.parseFloat(subTotalTextView.getText().toString());
             float discountPercentage = Float.parseFloat(discountPercentageTxt.getText().toString());
             float amount = (discountPercentage/100)*subTotal;
-            discountAmountTxt.setText(amount+"");
+
+            return amount;
         }catch (Exception e){
 
         }
+        return 0;
     }
     public void updateTotalAmount(){
         try{
             float subTotal = Float.parseFloat(subTotalTextView.getText().toString());
-            float discount = Float.parseFloat(discountAmountTxt.getText().toString());
-            float shippingCharges = Float.parseFloat(shippingChargesTxt.getText().toString());
-            float total = subTotal+discount+shippingCharges;
+            float discount = computeDiscount();
+            float shippingCharges = Float.parseFloat(shippingChargesTxtView.getText().toString());
+            float total = subTotal-discount+shippingCharges;
+            discountAmountTxt.setText("-"+discount);
             totalAmountTxt.setText(total+"");
+
         }catch (Exception e){
 
         }
+    }
+
+    public boolean validateEntries() {
+        String message = null;
+
+        if(estimateDateTxt.getText().toString().isEmpty()){
+            message = getString(R.string.date_not_entered_message);
+            estimateDateTxt.requestFocus();
+        }
+        if(itemListRecyclerAdapter.getItems().size()==0){
+            message =getString(R.string.estimate_no_items_added);
+
+        }
+        if(discountPercentageTxt.getText().toString().isEmpty()){
+            discountPercentageTxt.setText(getString(R.string.default_numeric_value));
+        }
+        if(shippingChargesTxt.getText().toString().isEmpty()){
+            shippingChargesTxt.setText(getString(R.string.default_numeric_value));
+        }
+
+        if(customersSp.getSelectedItemPosition()==0){
+            message = "Customer not selected";
+            estimateDateTxt.requestFocus();
+        }
+        if(message != null){
+            Toast.makeText(CropEstimateManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
 }

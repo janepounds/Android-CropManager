@@ -37,12 +37,12 @@
 
                     <TextView
                         android:id="@+id/txt_crop_product_card_name"
-                        android:textSize="16sp"
-                        android:textColor="#696666"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="Water Nipples " />
+                        android:text="Water Nipples "
+                        android:textColor="#696666"
+                        android:textSize="16sp" />
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                             android:textSize="14dp" />
 
                         <TextView
-                            android:id="@+id/txt_crop_product_card_quantitty"
+                            android:id="@+id/txt_crop_product_card_quantity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

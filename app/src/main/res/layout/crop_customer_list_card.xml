@@ -23,7 +23,7 @@
 
 
             <ImageView
-                android:id="@+id/img_crop_machine_card_delete"
+                android:id="@+id/img_crop_customer_card_delete"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="2dp"
@@ -32,7 +32,7 @@
 
 
             <ImageView
-                android:id="@+id/img_crop_machine_card_edit"
+                android:id="@+id/img_crop_customer_card_edit"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/arrow_right_gray"
@@ -40,7 +40,7 @@
                 android:textSize="22dp" />
 
             <ImageView
-                android:id="@+id/img_crop_machine_card_more"
+                android:id="@+id/img_crop_customer_card_more"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/black"
@@ -168,7 +168,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txt_crop_machine_card_registration_number"
+                        android:id="@+id/txt_crop_customer_card_opening_balance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="1762156000"
@@ -204,7 +204,7 @@
                             android:textSize="14dp" />
 
                         <TextView
-                            android:id="@+id/txt_crop_machine_card_storage_location"
+                            android:id="@+id/txt_crop_customer_card_storage_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

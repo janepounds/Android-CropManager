@@ -19,7 +19,7 @@ import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 public class CropSupplierManagerActivity extends AppCompatActivity {
     CropSupplier cropSupplier =null;
-    EditText nameTxt, companyTxt, taxRegTxt,phoneTxt, mobileTxt, emailTxt, balanceTxt, invoiceStreetTxt,invoiceCityTxt,shippingStretTxt,shippingCityTxt;
+    EditText nameTxt, companyTxt, taxRegTxt,phoneTxt, mobileTxt, emailTxt, balanceTxt, invoiceStreetTxt,invoiceCityTxt;
    Spinner invoiceCountryTcxt,shippingCountryTxt;
  
     Button saveBtn;
@@ -29,8 +29,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_supplier_manager);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         if(getIntent().hasExtra("cropSupplier")){
             cropSupplier = (CropSupplier)getIntent().getSerializableExtra("cropSupplier");
@@ -149,18 +148,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
             message = getString(R.string.phone_number_not_entered);
             phoneTxt.requestFocus();
         }
-        else if(shippingCountryTxt.getSelectedItemPosition()==0){
-            message =getString(R.string.shipping_address_not_complete);
-            shippingCountryTxt.requestFocus();
-        }
-        else if(shippingCityTxt.getText().toString().isEmpty()){
-            message =getString(R.string.shipping_address_not_complete);
-            shippingCityTxt.requestFocus();
-        }
-        else if(shippingStretTxt.getText().toString().isEmpty()){
-            message =getString(R.string.shipping_address_not_complete);
-            shippingStretTxt.requestFocus();
-        }
+
         else if(invoiceCountryTcxt.getSelectedItemPosition()==0){
             message = getString(R.string.invoice_address_not_complete);
             balanceTxt.requestFocus();

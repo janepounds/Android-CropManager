@@ -72,7 +72,7 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
                         billingStreetTxt.requestFocus();
                     }
 
-                    if(message != null){
+                    if(message == null){
                         shippingCityTxt.setText(billingCityTxt.getText().toString());
                         shippingStretTxt.setText(billingStreetTxt.getText().toString());
                         CropDashboardActivity.selectSpinnerItemByValue(shippingCountryTxt,billingCountryTcxt.getSelectedItem().toString());

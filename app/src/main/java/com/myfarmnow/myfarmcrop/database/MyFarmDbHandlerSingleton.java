@@ -407,7 +407,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
         String crop_supplier_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SUPPLIER_TABLE_NAME+" ( "+CROP_SUPPLIER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SUPPLIER_USER_ID+" TEXT,"+CROP_SUPPLIER_NAME+" TEXT NOT NULL,"+CROP_SUPPLIER_COMPANY+" TEXT NOT NULL,"+CROP_SUPPLIER_TAX_REG_NO+" TEXT ,"+
-                CROP_SUPPLIER_PHONE+" TEXT NOT NULL,"+CROP_SUPPLIER_MOBILE+" TEXT ,"+ CROP_SUPPLIER_EMAIL+" TEXT ,"+CROP_SUPPLIER_INVOICE_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_SUPPLIER_INVOICE_ADDRESS_CITY+" TEXT NOT NULL,"+
+                CROP_SUPPLIER_PHONE+" TEXT NOT NULL,"+CROP_SUPPLIER_MOBILE+" TEXT ,"+ CROP_SUPPLIER_EMAIL+" TEXT ,"+CROP_SUPPLIER_OPENING_BALANCE+" REAL ,"+CROP_SUPPLIER_INVOICE_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_SUPPLIER_INVOICE_ADDRESS_CITY+" TEXT NOT NULL,"+
                 CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
         String crop_product_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_PRODUCT_USER_ID+" TEXT NOT NULL,"+CROP_PRODUCT_NAME+" TEXT NOT NULL,"+CROP_PRODUCT_TYPE+" TEXT NOT NULL,"+CROP_PRODUCT_CODE+" TEXT ,"+
@@ -453,7 +453,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("FIELDS",crop_field_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);*/
 
-
+        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_SUPPLIER_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -732,6 +732,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
         closeDB();
     }
+    public String getNextEstimateNumber(){
+        openDB();
+        Cursor res =  database.rawQuery( "select "+CROP_ESTIMATE_ID+" from "+CROP_ESTIMATE_TABLE_NAME+" ORDER BY "+CROP_ESTIMATE_ID+" DESC LIMIT 1",null);
+        int lastId = 0;
+        if(!res.isAfterLast()){
+            lastId = res.getInt(res.getColumnIndex(CROP_ESTIMATE_ID));
+        }
+        int id=lastId+1;
+        closeDB();
+        return "EST-"+id;
+    }
     public void  updateCropEstimate(CropEstimate estimate){
         openDB();
         ContentValues contentValues = new ContentValues();
@@ -869,7 +880,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_PRODUCT_TABLE_NAME/*+" where "+CROP_PRODUCT_USER_ID+" = "+fieldId*/, null );
         res.moveToFirst();
 
 
@@ -943,7 +954,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_SUPPLIER_TABLE_NAME+" where "+CROP_SUPPLIER_USER_ID+" = "+fieldId, null );
         res.moveToFirst();
 
 
@@ -1023,7 +1034,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_EMPLOYEE_TABLE_NAME+" where "+CROP_EMPLOYEE_USER_ID+" = "+fieldId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+CROP_CUSTOMER_USER_ID+" = "+fieldId, null );
         res.moveToFirst();
 
 

@@ -137,6 +137,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
                         android:textColor="@color/colorPrimary"
+                        android:entries="@array/sp_crop_product_units"
                         android:textSize="14sp"
 
                         />
@@ -167,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
+                    android:entries="@array/sp_crop_linked_account"
                     android:background="@drawable/input_shapes"
                     />
 

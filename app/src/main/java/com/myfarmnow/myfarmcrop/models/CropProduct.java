@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropProduct implements CropSpinnerItem {
+import java.io.Serializable;
+
+public class CropProduct implements CropSpinnerItem, Serializable {
     String id;
     String userId;
     String  name;

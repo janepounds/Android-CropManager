@@ -15,10 +15,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemListRecyclerAdapter.ItemViewHolder> {
@@ -71,8 +74,17 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
     @Override
     public void onBindViewHolder(@NonNull final ItemViewHolder holder, int position) {
 
-        CropProductItem field = cropItemsList.get(position);
-        holder.qtyTxt.setText("0");
+        CropProductItem item = cropItemsList.get(position);
+
+
+        holder.qtyTxt.setText(item.getQuantity()+"");
+        holder.taxTxt.setText(item.getTax()+"");
+        holder.rateTxt.setText(item.getRate()+"");
+
+        if(item.getId() != null){
+            CropDashboardActivity.selectSpinnerItemById(holder.productSpinner,item.getId());
+        }
+
 
       
 
@@ -84,6 +96,16 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
     @Override
     public int getItemCount() {
         return cropItemsList.size();
+    }
+
+    public ArrayList<CropProductItem> getItems() {
+        ArrayList<CropProductItem> items = new ArrayList<>();
+        for(CropProductItem y:cropItemsList){
+            if(y.getId() != null){
+                items.add(y);
+            }
+        }
+        return items;
     }
 
 
@@ -119,6 +141,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
                         CropProductItem currentItem = cropItemsList.get(getAdapterPosition());
                         currentItem.setRate(product.getSellingPrice());
                         currentItem.setTax(product.getTaxRate());
+                        currentItem.setId(product.getId());
                         taxTxt.setText(currentItem.getTax()+"");
                         rateTxt.setText(currentItem.getRate()+"");
                         updateAmount();
