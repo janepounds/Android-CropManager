@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropSupplier {
+import java.io.Serializable;
+
+public class CropSupplier implements Serializable{
     String id;
     String userId;
     String name;

@@ -1,8 +1,9 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CropEstimate {
+public class CropEstimate  implements Serializable{
      String  id;
      String  userId;
      String  customerId;;

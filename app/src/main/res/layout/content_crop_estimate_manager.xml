@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,11 +68,12 @@
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/txt_crop_estimate_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
+                            android:textColor="@color/blackText"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -129,7 +131,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
-
                             android:background="@drawable/input_shapes"
                             android:hint="Select"
                             android:inputType="none"
@@ -278,10 +279,12 @@
                     android:id="@+id/btn_add_item"
                     style="@style/Button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
+                    android:minWidth="1dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:drawableLeft="@android:drawable/ic_input_add"
                     android:drawableTint="#ffffff"
+                    android:textSize="14sp"
                     android:text="@string/label_add_item"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />
@@ -316,7 +319,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="250,000" />
+                        android:text="@string/default_numeric_value" />
 
                 </LinearLayout>
 
