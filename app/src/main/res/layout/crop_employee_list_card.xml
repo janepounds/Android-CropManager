@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -18,9 +19,7 @@
             android:layout_height="wrap_content">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -46,7 +45,8 @@
                                 android:layout_width="60dp"
                                 android:layout_height="80dp"
                                 android:layout_margin="10dp"
-                                tools:srcCompat="@drawable/profile" />
+                                android:backgroundTint="@color/black"
+                                tools:src="@drawable/profile" />
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -65,16 +65,15 @@
                                         android:id="@+id/txt_crop_employee_card_first_name"
                                         android:textSize="14dp"
                                         android:textColor="#696666"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textStyle="bold"
-
-                                        android:layout_weight="1"
+                                        android:layout_marginRight="10dp"
                                         android:text="Alex" />
 
                                     <TextView
                                         android:id="@+id/txt_crop_employee_card_last_name"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:text="Muhangi"
@@ -179,14 +178,6 @@
                                         android:layout_height="wrap_content"
                                         android:text="0704123123"
                                         android:textStyle="bold"/>
-                                        <TextView
-                                            android:textSize="14dp"
-                                            android:textColor="#696666"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text=","
-                                            android:layout_marginRight="5dp"
-                                            android:layout_marginLeft="5dp"/>
 
 
                                     </LinearLayout>
@@ -219,6 +210,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UGX"
+            android:layout_marginRight="5dp"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/txt_crop_employee_card_pay_amount"
@@ -246,7 +238,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-        </LinearLayout>
+
 
 
 

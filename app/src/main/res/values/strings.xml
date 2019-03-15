@@ -484,7 +484,19 @@
     </string-array>
     <string-array name="sp_crop_linked_account">
         <item>Select Account</item>
-        <item>Account</item>
+        <item>Discount</item>
+        <item>General Income</item>
+        <item>Interest Income</item>
+        <item>Other Charges</item>
+        <item>Sales</item>
+        <item>Shipping Charge</item>
+        <item>Cost of Sales</item>
+        <item>Accounts Receivable</item>
+        <item>Inventory Assets</item>
+        <item>Cash &amp; Cash Equivalents</item>
+        <item>Prepaid Expenses</item>
+        <item>Share Capital</item>
+        <item>Other </item>
 
     </string-array>
     <string-array name="sp_crop_product_units">

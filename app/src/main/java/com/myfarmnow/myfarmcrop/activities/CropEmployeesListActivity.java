@@ -3,18 +3,35 @@ package com.myfarmnow.myfarmcrop.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.CropEmployeesListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
 public class CropEmployeesListActivity extends AppCompatActivity {
+
+    RecyclerView employeesListRecyclerView;
+    CropEmployeesListRecyclerAdapter cropEmployeesListRecyclerAdapter;
+    LinearLayoutManager linearLayoutManager;
+    MyFarmDbHandlerSingleton dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_employees_list);
+
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+
+        employeesListRecyclerView = findViewById(R.id.crop_employee_recyc_view);
+        cropEmployeesListRecyclerAdapter = new CropEmployeesListRecyclerAdapter(this,dbHandler.getCropEmployee(CropDashboardActivity.getPreferences("userId",this)));
+        employeesListRecyclerView.setAdapter(cropEmployeesListRecyclerAdapter);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        employeesListRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

@@ -3,6 +3,8 @@ package com.myfarmnow.myfarmcrop.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -12,10 +14,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.CropEmployeesListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 
 public class CropEmployeeManagerActivity extends AppCompatActivity {
+
     CropEmployee cropEmployee= null;
     EditText titleTxt,firstNameTxt,lastNameTxt,payRateTxt,reportsToTxt,phoneTxt,mobileTxt,employeeIdTxt,addressTxt,emailTxt,date0fBirthTxt,hireDateTxt ;
     Spinner genderTxt, employeeStatusTxt, perTxt,payTypeTxt;
@@ -26,8 +30,7 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_employee_manager);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         if(getIntent().hasExtra("cropEmployee")){
             cropEmployee = (CropEmployee)getIntent().getSerializableExtra("cropEmployee");
@@ -56,6 +59,8 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
 
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        CropDashboardActivity.addDatePicker(date0fBirthTxt,this);
+        CropDashboardActivity.addDatePicker(hireDateTxt,this);
         fillViews();
         saveBtn.setOnClickListener(new View.OnClickListener() {
 

@@ -1,55 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_margin="5dp"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
 
-
-            <ImageView
-                android:id="@+id/img_crop_machine_card_delete"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/ic_delete"
-                android:textSize="22dp" />
-
-
-            <ImageView
-                android:id="@+id/img_crop_machine_card_edit"
-                android:layout_width="25dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/arrow_right_gray"
-                android:textColor="@color/darker_gray"
-                android:textSize="22dp" />
-
-            <ImageView
-                android:id="@+id/img_crop_machine_card_more"
-                android:layout_width="25dp"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/black"
-                android:textColor="@color/darker_gray"
-                app:srcCompat="@drawable/more_options_icon" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,23 +37,53 @@
                     android:layout_marginTop="3dp">
 
                     <TextView
-                        android:textSize="14dp"
+                        android:id="@+id/txt_crop_estimate_card_customer_name"
+                        android:textSize="14sp"
                         android:textColor="#696666"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:layout_marginRight="5dp"
-                        android:text="Name : " />
-
-
-
-                    <TextView
-                        android:id="@+id/txt_crop_machine_card_name"
+                        android:text="Kleiner Parker Firm " />
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Submissive Pump"
-                        android:textColor="#696666"
-                        android:textSize="14dp" />
+                        android:gravity="right"
+                        android:layout_marginLeft="6dp"
+                        >
+
+
+
+                        <ImageView
+                            android:id="@+id/img_crop_product_card_delete"
+                            android:layout_width="25dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/ic_delete"
+                            android:textSize="22dp" />
+
+
+                        <ImageView
+                            android:id="@+id/img_crop_product_card_edit"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/arrow_right_gray"
+                            android:textColor="@color/darker_gray"
+                            android:textSize="22dp" />
+
+                        <ImageView
+                            android:id="@+id/img_crop_product_card_more"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/black"
+                            android:textColor="@color/darker_gray"
+                            app:srcCompat="@drawable/more_options_icon" />
+
+
+                    </LinearLayout>
+
+
+
 
                 </LinearLayout>
 
@@ -101,26 +95,35 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
+
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="3dp"
                         android:orientation="horizontal">
 
                         <TextView
+                           android:id="@+id/txt_crop_estimate_card_estimate_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Category :"
-                            android:textStyle="bold"
+                            android:text="EST-001"
                             android:textColor="#696666"
                             android:textSize="14dp" />
 
                         <TextView
-                            android:id="@+id/txt_crop_machine_card_category"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="right"
                             android:layout_marginLeft="5dp"
-                            android:text="Irrigation Pump"
+                            android:text="UGX"
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+                        <TextView
+                            android:id="@+id/txt_crop_product_card_quantitty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="300,000"
+                            android:layout_marginRight="10dp"
                             android:textColor="#696666"
                             android:textSize="14dp" />
 
@@ -140,37 +143,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Model :"
+                        android:text="Ref # :"
                         android:textColor="#696666"
                         android:textStyle="bold"
                         android:textSize="14dp" />
 
                     <TextView
-                        android:id="@+id/txt_crop_machine_card_model"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txt_crop_estimate_card_reference_number"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="M756"
+                        android:text="123456 "
                         android:textColor="#696666"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="100dp"
+                        android:layout_marginRight="10dp"
                         android:textSize="14dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reg# :"
-                        android:textColor="#696666"
-                        android:textStyle="bold"
-                        android:textSize="14dp" />
 
-                    <TextView
-                        android:id="@+id/txt_crop_machine_card_registration_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1762156"
-                        android:textColor="#696666"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="14dp" />
 
 
 
@@ -190,22 +178,24 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/txt_crop_estimate_card_estimate_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Location :"
-                            android:textStyle="bold"
+                            android:text="08-03-2019"
+
                             android:textColor="#696666"
                             android:textSize="14dp" />
 
+
                         <TextView
-                            android:id="@+id/txt_crop_machine_card_storage_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:gravity="end"
                             android:layout_marginLeft="5dp"
-                            android:text="Machine Store"
+                            android:text="INVOICED"
                             android:textColor="#696666"
-                            android:textSize="14dp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
 
 
                     </LinearLayout>
@@ -213,17 +203,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
 
-
-
-
-                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -231,4 +211,5 @@
 
 
     </LinearLayout>
+
 </LinearLayout>
