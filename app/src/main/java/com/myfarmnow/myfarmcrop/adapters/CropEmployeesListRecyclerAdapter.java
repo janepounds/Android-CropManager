@@ -62,7 +62,7 @@ public class CropEmployeesListRecyclerAdapter extends RecyclerView.Adapter<CropE
         holder.lastNameTextView.setText(employee.getLastName());
         holder.employmentStatusTextView.setText(employee.getEmploymentStatus());
         holder.phoneTextView.setText(employee.getPhone());
-        holder.mobileTextView.setText(employee.getPhone());
+        //holder.mobileTextView.setText(employee.getPhone());
         holder.payTypeTextView.setText(employee.getPayType());
         holder.payRateTextView.setText(employee.getPayAmount()+"");
         holder.perTextView.setText(employee.getPayRate());

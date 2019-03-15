@@ -76,7 +76,6 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Enter.."
-                        android:inputType="numberDecimal"
                         android:textSize="14sp"
                         android:background="@drawable/input_shapes"
                         android:layout_weight="0.4"
