@@ -14,117 +14,117 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropCustomerManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropEstimateManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropCustomer;
+import com.myfarmnow.myfarmcrop.models.CropEstimate;
 
 import java.util.ArrayList;
 
-public class CropCustomersListRecyclerAdapter extends RecyclerView.Adapter<CropCustomersListRecyclerAdapter.CustomerViewHolder> {
+public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropEstimatesListRecyclerAdapter.EstimateViewHolder> {
 
     LayoutInflater layoutInflater;
     Context mContext;
-    ArrayList<CropCustomer> cropCustomersList = new ArrayList<>();
+    ArrayList<CropEstimate> cropEstimatesList = new ArrayList<>();
 
-    public CropCustomersListRecyclerAdapter(Context context, ArrayList<CropCustomer> cropCustomers){
-        cropCustomersList.addAll(cropCustomers);
+    public CropEstimatesListRecyclerAdapter(Context context, ArrayList<CropEstimate> cropEstimates){
+        cropEstimatesList.addAll(cropEstimates);
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
 
-        Log.d("CROP FIELDS",cropCustomersList.size()+" ");
+        Log.d("CROP FIELDS",cropEstimatesList.size()+" ");
     }
     @NonNull
     @Override
-    public CustomerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EstimateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = layoutInflater.inflate(R.layout.crop_customer_list_card,parent,false);
+        View view = layoutInflater.inflate(R.layout.crop_estimate_list_card,parent,false);
 
-        CustomerViewHolder holder = new CustomerViewHolder(view);
+        EstimateViewHolder holder = new EstimateViewHolder(view);
         return holder;
     }
 
-    public void appendList(ArrayList<CropCustomer> cropCustomers){
+    public void appendList(ArrayList<CropEstimate> cropEstimates){
 
-        this.cropCustomersList.addAll(cropCustomers);
+        this.cropEstimatesList.addAll(cropEstimates);
         notifyDataSetChanged();
     }
 
-    public void addCropCustomer(CropCustomer cropCustomer){
-        this.cropCustomersList.add(cropCustomer);
+    public void addCropEstimate(CropEstimate cropEstimate){
+        this.cropEstimatesList.add(cropEstimate);
         notifyItemChanged(getItemCount());
     }
-    public void changeList(ArrayList<CropCustomer> cropCustomers){
+    public void changeList(ArrayList<CropEstimate> cropEstimates){
 
-        this.cropCustomersList.clear();
-        this.cropCustomersList.addAll(cropCustomers);
+        this.cropEstimatesList.clear();
+        this.cropEstimatesList.addAll(cropEstimates);
 
         notifyDataSetChanged();
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EstimateViewHolder holder, int position) {
 
-        CropCustomer customer = cropCustomersList.get(position);
-        holder.nameTextView.setText(customer.getName());
-        holder.taxTextView.setText(customer.getPhone()+"");
-        holder.companyTxt.setText(customer.getCompany());
-        holder.cityTextView.setText(customer.getShippingCityOrTown());
-        //holder.dateTextView.setText(customer.getD());
+        CropEstimate estimate = cropEstimatesList.get(position);
+        holder.nameTextView.setText(estimate.getCustomerName());
+        holder.dateTextView.setText(estimate.getDate());
+        //holder.orderNumberTxt.setText(estimate.getCompany());
+        holder.estimateNumberTextView.setText(estimate.getNumber());
+        //holder.dateTextView.setText(estimate.getD());
 
-        holder.quantityTextView.setText(customer.getOpeningBalance()+"");
+        holder.amountTextView.setText(estimate.computeTotal()+"");
     }
 
 
 
     @Override
     public int getItemCount() {
-        return cropCustomersList.size();
+        return cropEstimatesList.size();
     }
 
 
-    public class CustomerViewHolder extends RecyclerView.ViewHolder{
+    public class EstimateViewHolder extends RecyclerView.ViewHolder{
 
-        TextView  quantityTextView, companyTxt, taxTextView, nameTextView,cityTextView, dateTextView;
+        TextView amountTextView, referenceNumberTxt, taxTextView, nameTextView, estimateNumberTextView, dateTextView;
         ImageView editButton, deleteButton;
-        public CustomerViewHolder(View itemView) {
+        public EstimateViewHolder(View itemView) {
             super(itemView);
 
-            quantityTextView = itemView.findViewById(R.id.txt_crop_customer_card_opening_balance);
-            cityTextView = itemView.findViewById(R.id.txt_crop_customer_card_city_town);
-            dateTextView = itemView.findViewById(R.id.txt_crop_customer_card_opening_balance);
-            companyTxt = itemView.findViewById(R.id.txt_crop_customer_card_company);
-            taxTextView = itemView.findViewById(R.id.txt_crop_customer_card_phone);
-            nameTextView = itemView.findViewById(R.id.txt_crop_customer_card_name);
-            deleteButton = itemView.findViewById(R.id.img_crop_customer_card_delete);
-            editButton = itemView.findViewById(R.id.img_crop_customer_card_edit);
+            amountTextView = itemView.findViewById(R.id.txt_crop_estimate_card_amount);
+            estimateNumberTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_number);
+            dateTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_date);
+            referenceNumberTxt = itemView.findViewById(R.id.txt_crop_estimate_card_reference_number);
+          //  taxTextView = itemView.findViewById(R.id.txt_crop_estimate_card_phone);
+            nameTextView = itemView.findViewById(R.id.txt_crop_estimate_card_customer_name);
+            deleteButton = itemView.findViewById(R.id.img_crop_estimate_card_delete);
+            editButton = itemView.findViewById(R.id.img_crop_estimate_card_edit);
 
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropCustomer cropCustomer = cropCustomersList.get(getAdapterPosition());
-                    Intent editCustomer = new Intent(mContext, CropCustomerManagerActivity.class);
-                    editCustomer.putExtra("cropCustomer",cropCustomer);
-                    mContext.startActivity(editCustomer);
+                    CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
+                    Intent editEstimate = new Intent(mContext, CropEstimateManagerActivity.class);
+                    editEstimate.putExtra("cropEstimate",cropEstimate);
+                    mContext.startActivity(editEstimate);
                 }
             });
        
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final CropCustomer cropCustomer = cropCustomersList.get(getAdapterPosition());
+                    final CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
                     new AlertDialog.Builder(mContext)
                             .setTitle("Confirm")
-                            .setMessage("Do you really want to delete "+cropCustomer.getName()+" ?")
+                            .setMessage("Do you really want to delete "+cropEstimate.getNumber()+" ?")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
 
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropCustomer(cropCustomer.getId());
-                                    cropCustomersList.remove(getAdapterPosition());
+                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropEstimate(cropEstimate.getId());
+                                    cropEstimatesList.remove(getAdapterPosition());
                                     notifyItemRemoved(getAdapterPosition());
 
                                 }})

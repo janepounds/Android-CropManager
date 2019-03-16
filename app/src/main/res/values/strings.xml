@@ -83,6 +83,15 @@
         <item>Hectares</item>
         <item>Square Miles</item>
     </string-array>
+    <string-array name="invoice_terms_list">
+        <item>Select Unit</item>
+        <item>Due on Receipt</item>
+        <item>Net 7</item>
+        <item>Net 15</item>
+        <item>Net 30</item>
+        <item>Net 60</item>
+        <item>None</item>
+    </string-array>
     <string-array name="crop_field_soil_type">
         <item>Select Type</item>
         <item>Sand</item>
@@ -697,11 +706,37 @@
     <string name="per_not_selected">You must select pay rate</string>
     <string name="pay_type_not_selected">You must select the Pay Type</string>
     <string name="invoice_date">Invoice Date</string>
-    <string name="invoice_number">Order Number</string>
+    <string name="invoice_number">Invoice #</string>
+    <string name="invoice_order_number">Order Number</string>
     <string name="title_activity_crop_invoices_list">Invoices</string>
     <string name="title_activity_crop_invoice_manager">Invoice Manager</string>
     <string name="title_product_manager_activity">Product Manager</string>
     <string name="estimate_no_items_added">You must add Items to the estimate</string>
+    <string name="invoice_no_items_added">No Items added to the Invoice</string>
+    <string name="customer_not_selected">Customer not selected</string>
+    <string name="title_activity_crop_payment_manager">Payment Manager</string>
+    <string name="title_activity_crop_payments_list">Payments List</string>
+    <string name="financial_manager_menu_item">Financial Manager</string>
+    <string name="products_label">Products</string>
+    <string name="payment_mode_not_entered">Mode not entered</string>
+    <string name="label_delete">Delete</string>
+    <string name="label_dowloand_pdf">Download PDF</string>
+    <string name="label_preview_receipt">Preview Receipt</string>
+    <string name="label_email">Email</string>
+    <string name="label_share_link">Share Link</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_confirm">Confirm</string>
+    <string name="delete_prompt_message">Do you really want to delete</string>
+    <string name="invoice_payments_made_lbl">Amount Paid</string>
+    <string name="invoice_status_paid">PAID</string>
+    <string name="invoice_status_partially_paid">PARTIALLY PAID</string>
+    <string name="invoice_status_draft">DRAFT</string>
+    <string name="label_record_payment">Record Payment</string>
+    <string name="invoice_terms_label">Terms</string>
+    <string name="due_date">Due Date</string>
+    <string name="due_date_not_entered">The Invoice Due Date has no Value</string>
+    <string name="terms_not_selected">Terms not selected</string>
+    <string name="order_number_not_entered">Order Number not entered</string>
 
 
 </resources>

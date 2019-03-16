@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -38,12 +38,12 @@
 
                     <TextView
                         android:id="@+id/txt_crop_estimate_card_customer_name"
-                        android:textSize="14sp"
-                        android:textColor="#696666"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="Kleiner Parker Firm " />
+                        android:text="Kleiner Parker Firm "
+                        android:textColor="#696666"
+                        android:textSize="14sp" />
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -55,24 +55,26 @@
 
 
                         <ImageView
-                            android:id="@+id/img_crop_product_card_delete"
+                            android:id="@+id/img_crop_estimate_card_delete"
                             android:layout_width="25dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="2dp"
                             android:background="@drawable/ic_delete"
-                            android:textSize="22dp" />
+                            android:textSize="22dp"
+                            android:visibility="gone"/>
 
 
                         <ImageView
-                            android:id="@+id/img_crop_product_card_edit"
+                            android:id="@+id/img_crop_estimate_card_edit"
                             android:layout_width="25dp"
                             android:layout_height="match_parent"
                             android:src="@drawable/arrow_right_gray"
                             android:textColor="@color/darker_gray"
-                            android:textSize="22dp" />
+                            android:textSize="22dp"
+                            android:visibility="gone"/>
 
                         <ImageView
-                            android:id="@+id/img_crop_product_card_more"
+                            android:id="@+id/img_crop_estimate_card_more"
                             android:layout_width="25dp"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/black"
@@ -117,13 +119,14 @@
                             android:text="UGX"
                             android:textColor="#696666"
                             android:textSize="14dp" />
+
                         <TextView
-                            android:id="@+id/txt_crop_product_card_quantitty"
+                            android:id="@+id/txt_crop_estimate_card_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:text="300,000"
                             android:layout_marginRight="10dp"
+                            android:text="300,000"
                             android:textColor="#696666"
                             android:textSize="14dp" />
 
@@ -138,7 +141,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -152,10 +156,10 @@
                         android:id="@+id/txt_crop_estimate_card_reference_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="123456 "
-                        android:textColor="#696666"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:text="123456 "
+                        android:textColor="#696666"
                         android:textSize="14dp" />
 
 
@@ -188,6 +192,7 @@
 
 
                         <TextView
+                            android:id="@+id/txt_crop_estimate_card_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
@@ -199,6 +204,39 @@
 
 
                     </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone"
+                    android:id="@+id/layout_crop_estimate_card_order_number">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order # :"
+                        android:textColor="#696666"
+                        android:textStyle="bold"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/txt_crop_estimate_card_order_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="123456 "
+                        android:textColor="#696666"
+                        android:textSize="14dp" />
+
+
+
+
 
 
                 </LinearLayout>

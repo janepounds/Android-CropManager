@@ -1,16 +1,35 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropPayment {
+import java.io.Serializable;
+
+public class CropPayment implements Serializable {
     String  id;
     String  userId;
     String  customerId;
-    String  amount;
+    float  amount;
     String  date;
     String  mode;
     String  referenceNo;
     String  paymentNumber;
+    String  invoiceNumber;
     String  notes;
     String  invoiceId;
+    String customerName;
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 
     public String getId() {
         return id;
@@ -36,11 +55,11 @@ public class CropPayment {
         this.customerId = customerId;
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

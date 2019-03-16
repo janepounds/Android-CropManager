@@ -59,7 +59,6 @@ public class CropMachineManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateAcquiredTxt,this);
 
-
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -85,7 +84,6 @@ public class CropMachineManagerActivity extends AppCompatActivity {
     }
     public void saveMachines(){
         cropMachineToEdit = new CropMachine();
-        Log.d("ERROR", "SAVE MACHINES METHOD");
         cropMachineToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropMachineToEdit.setName(machineNameTxt.getText().toString());
         cropMachineToEdit.setBrand(brandTxt.getText().toString());
@@ -140,7 +138,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+
     public boolean validateEntries(){
         String message = null;
         if(machineNameTxt.getText().toString().isEmpty()){

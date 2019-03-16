@@ -9,32 +9,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.adapters.CropProductsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.CropPaymentsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
-public class CropProductsListActivity extends AppCompatActivity {
+public class CropPaymentsListActivity extends AppCompatActivity {
 
 
-    RecyclerView productListRecyclerView;
-    CropProductsListRecyclerAdapter cropProductsListRecyclerAdapter;
+    RecyclerView paymentListRecyclerView;
+    CropPaymentsListRecyclerAdapter cropPaymentsListRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
     MyFarmDbHandlerSingleton dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop_products_list);
+        setContentView(R.layout.activity_crop_payments_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        productListRecyclerView = findViewById(R.id.crop_product_recyc_view);
-        cropProductsListRecyclerAdapter = new CropProductsListRecyclerAdapter(this,dbHandler.getCropProducts(CropDashboardActivity.getPreferences("userId",this)));
-        productListRecyclerView.setAdapter(cropProductsListRecyclerAdapter);
+        paymentListRecyclerView = findViewById(R.id.crop_payment_recyc_view);
+        cropPaymentsListRecyclerAdapter = new CropPaymentsListRecyclerAdapter(this,dbHandler.getCropPayments(CropDashboardActivity.getPreferences("userId",this)));
+        paymentListRecyclerView.setAdapter(cropPaymentsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
-        productListRecyclerView.setLayoutManager(linearLayoutManager);
-
-
+        paymentListRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -47,11 +47,12 @@ public class CropProductsListActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add_new:
-                Intent intent = new Intent(this, CropProductManagerActivity.class);
+                Intent intent = new Intent(this, CropPaymentManagerActivity.class);
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

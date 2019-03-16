@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropEstimatesListActivity"
-    tools:showIn="@layout/activity_crop_estimates_list">
+    tools:context=".activities.CropPaymentsListActivity"
+    tools:showIn="@layout/activity_crop_payments_list">
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/crop_estimate_recyc_view"
+        android:id="@+id/crop_payment_recyc_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -21,5 +22,4 @@
         app:layout_constraintVertical_bias="0.0">
 
     </android.support.v7.widget.RecyclerView>
-
 </android.support.constraint.ConstraintLayout>

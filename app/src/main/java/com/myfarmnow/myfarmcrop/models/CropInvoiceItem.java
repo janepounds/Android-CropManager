@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropInvoiceItem implements CropProductItem {
+import java.io.Serializable;
+
+public class CropInvoiceItem implements CropProductItem, Serializable {
      String  id;
      String  productId;
      String  invoiceId;
