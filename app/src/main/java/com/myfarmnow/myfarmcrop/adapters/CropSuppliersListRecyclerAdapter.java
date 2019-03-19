@@ -7,15 +7,20 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropCustomerManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.util.ArrayList;
@@ -86,7 +91,7 @@ public class CropSuppliersListRecyclerAdapter extends RecyclerView.Adapter<CropS
     public class SupplierViewHolder extends RecyclerView.ViewHolder{
 
         TextView  quantityTextView, companyTxt, taxTextView, nameTextView,cityTextView, dateTextView;
-        ImageView editButton, deleteButton;
+        ImageView moreButton;
         public SupplierViewHolder(View itemView) {
             super(itemView);
 
@@ -96,41 +101,54 @@ public class CropSuppliersListRecyclerAdapter extends RecyclerView.Adapter<CropS
             companyTxt = itemView.findViewById(R.id.txt_crop_customer_card_company);
             taxTextView = itemView.findViewById(R.id.txt_crop_customer_card_phone);
             nameTextView = itemView.findViewById(R.id.txt_crop_customer_card_name);
-            deleteButton = itemView.findViewById(R.id.img_crop_customer_card_delete);
-            editButton = itemView.findViewById(R.id.img_crop_customer_card_edit);
+            moreButton = itemView.findViewById(R.id.img_crop_customer_card_more);
 
-
-            editButton.setOnClickListener(new View.OnClickListener() {
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropSupplier cropSupplier = cropSuppliersList.get(getAdapterPosition());
-                    Intent editSupplier = new Intent(mContext, CropSupplierManagerActivity.class);
-                    editSupplier.putExtra("cropSupplier",cropSupplier);
-                    mContext.startActivity(editSupplier);
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropSupplier cropSupplier = cropSuppliersList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete "+cropSupplier.getName()+" ?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSupplier(cropSupplier.getId());
+                                                cropSuppliersList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                                CropSupplier cropSupplier = cropSuppliersList.get(getAdapterPosition());
+                                Intent editSupplier = new Intent(mContext, CropSupplierManagerActivity.class);
+                                editSupplier.putExtra("cropSupplier",cropSupplier);
+                                mContext.startActivity(editSupplier);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
                 }
             });
-       
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final CropSupplier cropSupplier = cropSuppliersList.get(getAdapterPosition());
-                    new AlertDialog.Builder(mContext)
-                            .setTitle("Confirm")
-                            .setMessage("Do you really want to delete "+cropSupplier.getName()+" ?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
 
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSupplier(cropSupplier.getId());
-                                    cropSuppliersList.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
 
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
-            });
         }
 
     }

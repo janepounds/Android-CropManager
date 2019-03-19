@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -23,7 +24,8 @@ import com.myfarmnow.myfarmcrop.activities.CropEstimatePreviewActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
-import com.myfarmnow.myfarmcrop.models.CropEstimate;
+
+import java.text.NumberFormat;
 
 import java.util.ArrayList;
 
@@ -73,11 +75,12 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
         CropEstimate estimate = cropEstimatesList.get(position);
         holder.nameTextView.setText(estimate.getCustomerName());
         holder.dateTextView.setText(estimate.getDate());
+        holder.referenceNumberTxt.setText(estimate.getReferenceNumber());
         //holder.orderNumberTxt.setText(estimate.getCompany());
         holder.estimateNumberTextView.setText(estimate.getNumber());
-        //holder.dateTextView.setText(estimate.getD());
+        holder.referenceNumberTxtView.setVisibility(View.VISIBLE);
 
-        holder.amountTextView.setText(estimate.computeTotal()+"");
+        holder.amountTextView.setText(NumberFormat.getInstance().format(estimate.computeTotal()));
     }
 
 
@@ -90,8 +93,9 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
 
     public class EstimateViewHolder extends RecyclerView.ViewHolder{
 
-        TextView amountTextView, referenceNumberTxt, taxTextView, nameTextView, estimateNumberTextView, dateTextView;
+        TextView amountTextView, referenceNumberTxt, nameTextView, estimateNumberTextView, dateTextView;
         ImageView moreButton;
+        LinearLayout referenceNumberTxtView;
         public EstimateViewHolder(View itemView) {
             super(itemView);
 
@@ -99,6 +103,7 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
             estimateNumberTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_number);
             dateTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_date);
             referenceNumberTxt = itemView.findViewById(R.id.txt_crop_estimate_card_reference_number);
+            referenceNumberTxtView = itemView.findViewById(R.id.layout_crop_estimate_card_reference_number);
           //  taxTextView = itemView.findViewById(R.id.txt_crop_estimate_card_phone);
             nameTextView = itemView.findViewById(R.id.txt_crop_estimate_card_customer_name);
          

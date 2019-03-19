@@ -8,11 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -107,7 +110,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
     public class SoilAnalysisViewHolder extends RecyclerView.ViewHolder{
 
         TextView dateTextView, phTextView, organicMatterTextView, agronomistTextView, resultsTextView;
-        ImageView editButton, deleteButton;
+        ImageView moreButton, deleteButton;
         View verticalLineView;
         public SoilAnalysisViewHolder(View itemView) {
             super(itemView);
@@ -119,42 +122,56 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
             agronomistTextView = itemView.findViewById(R.id.txt_view_crop_soil_analysis_card_agronomist);
             resultsTextView = itemView.findViewById(R.id.txt_view_crop_soil_analysis_card_results);
 
-            deleteButton = itemView.findViewById(R.id.img_crop_soil_analysis_card_delete);
-            editButton = itemView.findViewById(R.id.img_crop_soil_analysis_card_edit);
-           
 
-            editButton.setOnClickListener(new View.OnClickListener() {
+            moreButton = itemView.findViewById(R.id.img_crop_soil_analysis_card_more);
+
+
+
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
-                    Intent editSoilAnalysis = new Intent(mContext, CropSoilAnalysisManagerActivity.class);
-                    editSoilAnalysis.putExtra("soilAnalysis",cropSoilAnalysis);
-                    editSoilAnalysis.putExtra("fieldId",cropSoilAnalysis.getFieldId());
-                    mContext.startActivity(editSoilAnalysis);
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete the soil_analysis on "+cropSoilAnalysis.getDate()+"?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSoilAnalysis(cropSoilAnalysis.getId());
+                                                cropsoilAnalysisList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+
+                                CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
+                                Intent editSoilAnalysis = new Intent(mContext, CropSoilAnalysisManagerActivity.class);
+                                editSoilAnalysis.putExtra("soilAnalysis",cropSoilAnalysis);
+                                editSoilAnalysis.putExtra("fieldId",cropSoilAnalysis.getFieldId());
+                                mContext.startActivity(editSoilAnalysis);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
                 }
             });
-           
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
-                    new AlertDialog.Builder(mContext)
-                            .setTitle("Confirm")
-                            .setMessage("Do you really want to delete the soil_analysis on "+cropSoilAnalysis.getDate()+"?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
-
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSoilAnalysis(cropSoilAnalysis.getId());
-                                    cropsoilAnalysisList.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
-            });
         }
 
     }

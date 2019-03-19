@@ -8,16 +8,21 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropProductManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 
 import java.util.ArrayList;
@@ -107,7 +112,7 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
     public class SprayingViewHolder extends RecyclerView.ViewHolder{
 
         TextView dateTextView,waterConditionTextView,windDirectionTextView, treatmentReasonTextView, operatorTextView, rateTextView, sprayNameTextView;
-        ImageView editButton, deleteButton,soilAnalysisButton;
+        ImageView moreButton, deleteButton,soilAnalysisButton;
         View verticalLineView;
         public SprayingViewHolder(View itemView) {
             super(itemView);
@@ -119,42 +124,56 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
             operatorTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_operator);
             rateTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_rate);
             sprayNameTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_spray_name);
-            deleteButton = itemView.findViewById(R.id.img_crop_spraying_card_delete);
-            editButton = itemView.findViewById(R.id.img_crop_spraying_card_edit);
+
+            moreButton = itemView.findViewById(R.id.img_crop_spraying_card_more);
 
 
-            editButton.setOnClickListener(new View.OnClickListener() {
+
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropSpraying cropSpraying = cropSprayingsList.get(getAdapterPosition());
-                    Intent editSpraying = new Intent(mContext, CropSprayingManagerActivity.class);
-                    editSpraying.putExtra("cropSpraying",cropSpraying);
-                    editSpraying.putExtra("cropId",cropSpraying.getCropId());
-                    mContext.startActivity(editSpraying);
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropSpraying cropSpraying = cropSprayingsList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete the spraying on "+cropSpraying.getDate()+"?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSpraying(cropSpraying.getId());
+                                                cropSprayingsList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+
+                                CropSpraying cropSpraying = cropSprayingsList.get(getAdapterPosition());
+                                Intent editSpraying = new Intent(mContext, CropSprayingManagerActivity.class);
+                                editSpraying.putExtra("cropSpraying",cropSpraying);
+                                editSpraying.putExtra("cropId",cropSpraying.getCropId());
+                                mContext.startActivity(editSpraying);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
                 }
             });
-           
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final CropSpraying cropSpraying = cropSprayingsList.get(getAdapterPosition());
-                    new AlertDialog.Builder(mContext)
-                            .setTitle("Confirm")
-                            .setMessage("Do you really want to delete the spraying on "+cropSpraying.getDate()+"?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
-
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSpraying(cropSpraying.getId());
-                                    cropSprayingsList.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
-            });
         }
 
     }

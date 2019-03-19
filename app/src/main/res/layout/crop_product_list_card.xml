@@ -54,23 +54,6 @@
 
 
                         <ImageView
-                            android:id="@+id/img_crop_product_card_delete"
-                            android:layout_width="25dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@drawable/ic_delete"
-                            android:textSize="22dp" />
-
-
-                        <ImageView
-                            android:id="@+id/img_crop_product_card_edit"
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/arrow_right_gray"
-                            android:textColor="@color/darker_gray"
-                            android:textSize="22dp" />
-
-                        <ImageView
                             android:id="@+id/img_crop_product_card_more"
                             android:layout_width="25dp"
                             android:layout_height="match_parent"

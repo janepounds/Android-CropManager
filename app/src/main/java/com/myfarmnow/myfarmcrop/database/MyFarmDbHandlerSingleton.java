@@ -509,7 +509,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT NOT NULL " + " ) ";
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
-                CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
+                CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
 
 
 
@@ -535,7 +535,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("FIELDS",crop_field_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);*/
 
-        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_INVOICE_TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_ESTIMATE_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -1077,6 +1077,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
         contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
         contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_REFERENCE_NO,estimate.getReferenceNumber());
         contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
         contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
         contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
@@ -1135,6 +1136,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
         contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
         contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_REFERENCE_NO,estimate.getReferenceNumber());
         contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
         contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
         contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
@@ -1197,6 +1199,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropEstimate.setUserId(res.getString(res.getColumnIndex(CROP_ESTIMATE_USER_ID)));
             cropEstimate.setCustomerId(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_ID)));
             cropEstimate.setNumber(res.getString(res.getColumnIndex(CROP_ESTIMATE_NO)));
+            cropEstimate.setReferenceNumber(res.getString(res.getColumnIndex(CROP_ESTIMATE_REFERENCE_NO)));
             cropEstimate.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropEstimate.setDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_DATE)));
             cropEstimate.setExpiryDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_EXP_DATE)));
@@ -2559,7 +2562,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void  insertCropTask(CropTask task){
         openDB();
         ContentValues contentValues = new ContentValues();
-
         contentValues.put(CROP_TASK_USER_ID, task.getUserId());
         contentValues.put(CROP_TASK_CROP_ID, task.getCropId());
         contentValues.put(CROP_TASK_DATE, task.getDate());
@@ -2570,6 +2572,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TASK_DESCRIPTION, task.getDescription());
         contentValues.put(CROP_TASK_RECURRENCE, task.getRecurrence());
         contentValues.put(CROP_TASK_REMINDERS, task.getReminders());
+        Log.d("INSERTED",contentValues.toString());
         database.insert(CROP_TASK_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -2602,15 +2605,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_TASK_TABLE_NAME+ " where " + CROP_TASK_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + CROP_TASK_TABLE_NAME+" LEFT JOIN "+CROP_EMPLOYEE_TABLE_NAME+" ON "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_EMPLOYEE_ID+" = "+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_ID+" where "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_USER_ID+" = "+ userId
+
+                /*+ " where " + CROP_TASK_USER_ID + " = " + userId*/, null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
+            Log.d("TASKS",array_list.size()+"");
             CropTask task = new CropTask();
             task.setId(res.getString(res.getColumnIndex(CROP_TASK_ID)));
             task.setUserId(res.getString(res.getColumnIndex(CROP_TASK_USER_ID)));
             task.setCropId(res.getString(res.getColumnIndex(CROP_TASK_CROP_ID)));
             task.setEmployeeId(res.getString(res.getColumnIndex(CROP_TASK_EMPLOYEE_ID)));
+            task.setEmployeeName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_FIRST_NAME))+res.getString(res.getColumnIndex(CROP_EMPLOYEE_LAST_NAME)));
             task.setDate(res.getString(res.getColumnIndex(CROP_TASK_DATE)));
             task.setTitle(res.getString(res.getColumnIndex(CROP_TASK_TITLE)));
             task.setType(res.getString(res.getColumnIndex(CROP_TASK_TYPE)));
@@ -2619,12 +2626,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
 
-
             array_list.add(task);
             res.moveToNext();
         }
 
         closeDB();
+
         return array_list;
     }
 

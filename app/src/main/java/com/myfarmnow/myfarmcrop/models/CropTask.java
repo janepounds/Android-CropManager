@@ -14,6 +14,7 @@ public class CropTask implements CropSpinnerItem, Serializable {
     String description="";
     String recurrence="";
     String reminders="";
+    String employeeName;
 
 
     public String getUserId() {
@@ -107,8 +108,14 @@ public class CropTask implements CropSpinnerItem, Serializable {
 
     @Override
     public String toString() {
-        return getEmployeeId();
+        return getEmployeeName();
     }
 
+    public String getEmployeeName() {
+        return employeeName;
+    }
 
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
 }

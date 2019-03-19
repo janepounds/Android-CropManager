@@ -119,10 +119,10 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
         if(cropCustomer == null){
             finish();
         }
-        subTotalTextView.setText(cropSalesOrder.computeSubTotal()+"");
-        totalTextView.setText( NumberFormat.getCurrencyInstance().format(cropSalesOrder.computeTotal()));
-        shippingChargesTextView.setText(cropSalesOrder.getShippingCharges()+"");
-        discountAmountTextView.setText(cropSalesOrder.computeDiscount()+"");
+        subTotalTextView.setText(NumberFormat.getInstance().format(cropSalesOrder.computeSubTotal()));
+        totalTextView.setText( NumberFormat.getInstance().format(cropSalesOrder.computeTotal()));
+        shippingChargesTextView.setText(NumberFormat.getInstance().format(cropSalesOrder.getShippingCharges()));
+        discountAmountTextView.setText(NumberFormat.getInstance().format(cropSalesOrder.computeDiscount()));
 
         numberTextView.setText("#"+cropSalesOrder.getNumber());
         dateTextView.setText(cropSalesOrder.getDate());

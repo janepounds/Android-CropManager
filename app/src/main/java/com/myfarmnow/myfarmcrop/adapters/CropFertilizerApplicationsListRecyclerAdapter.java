@@ -8,18 +8,23 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationManagerActivity;
+
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.Adapter<CropFertilizerApplicationsListRecyclerAdapter.FertilizerApplicationViewHolder> {
@@ -69,7 +74,7 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
 
         CropFertilizerApplication field = cropFertilizerApplicationsList.get(position);
 
-        holder.costTextView.setText(field.getCost()+"");
+        holder.costTextView.setText("UGX "+NumberFormat.getInstance().format(field.getCost())); //TODO replace currency
         holder.rateTextView.setText(field.getRate()+"Kg/ha");
         holder.methodTextView.setText(field.getMethod());
         holder.operationTextView.setText(field.getFertilizerName());
@@ -107,7 +112,7 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
     public class FertilizerApplicationViewHolder extends RecyclerView.ViewHolder{
 
         TextView dateTextView, operationTextView, methodTextView, costTextView, rateTextView;
-        ImageView editButton, deleteButton;
+        ImageView editButton, moreButton;
         View verticalLineView;
         public FertilizerApplicationViewHolder(View itemView) {
             super(itemView);
@@ -119,42 +124,54 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
             costTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_cost);
             rateTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_rate);
 
-            deleteButton = itemView.findViewById(R.id.img_crop_fertilizer_application_card_delete);
-            editButton = itemView.findViewById(R.id.img_crop_fertilizer_application_card_edit);
-           
+            moreButton = itemView.findViewById(R.id.img_crop_fertilizer_application_card_more);
 
-            editButton.setOnClickListener(new View.OnClickListener() {
+
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropFertilizerApplication cropFertilizerApplication = cropFertilizerApplicationsList.get(getAdapterPosition());
-                    Intent editFertilizerApplication = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
-                    editFertilizerApplication.putExtra("fertilizerApplication",cropFertilizerApplication);
-                    editFertilizerApplication.putExtra("cropId",cropFertilizerApplication.getCropId());
-                    mContext.startActivity(editFertilizerApplication);
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropFertilizerApplication cropFertilizerApplication = cropFertilizerApplicationsList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete the fertilizer application done on "+cropFertilizerApplication.getDate()+"?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropFertilizerApplication(cropFertilizerApplication.getId());
+                                                cropFertilizerApplicationsList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                                CropFertilizerApplication cropFertilizerApplication = cropFertilizerApplicationsList.get(getAdapterPosition());
+                                Intent editFertilizerApplication = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
+                                editFertilizerApplication.putExtra("fertilizerApplication",cropFertilizerApplication);
+                                editFertilizerApplication.putExtra("cropId",cropFertilizerApplication.getCropId());
+                                mContext.startActivity(editFertilizerApplication);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
                 }
             });
-           
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final CropFertilizerApplication cropFertilizerApplication = cropFertilizerApplicationsList.get(getAdapterPosition());
-                    new AlertDialog.Builder(mContext)
-                            .setTitle("Confirm")
-                            .setMessage("Do you really want to delete the fertilizer application done on "+cropFertilizerApplication.getDate()+"?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
 
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropFertilizerApplication(cropFertilizerApplication.getId());
-                                    cropFertilizerApplicationsList.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
-            });
         }
 
     }

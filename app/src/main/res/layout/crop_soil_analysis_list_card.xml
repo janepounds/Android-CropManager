@@ -85,7 +85,7 @@
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:layout_weight="1.3"
-                          android:text="Soil PH"
+                          android:text="Soil Ph"
                           android:textColor="@color/blackText"
                           android:textStyle="bold" />
 
@@ -105,14 +105,7 @@
                       android:orientation="horizontal">
 
                       <ImageView
-                          android:id="@+id/img_crop_soil_analysis_card_delete"
-                          android:layout_width="24dp"
-                          android:layout_height="24dp"
-                          android:scaleType="fitXY"
-                          android:src="@drawable/delete_btn_gray" />
-
-                      <ImageView
-                          android:id="@+id/img_crop_soil_analysis_card_edit"
+                          android:id="@+id/img_crop_soil_analysis_card_more"
                           android:layout_width="24dp"
                           android:layout_height="24dp"
                           android:src="@drawable/arrow_right_gray" />

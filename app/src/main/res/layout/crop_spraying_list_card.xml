@@ -85,18 +85,12 @@
                       android:layout_weight="0.1"
                       android:orientation="horizontal">
 
-                      <ImageView
-                          android:id="@+id/img_crop_spraying_card_delete"
-                          android:layout_width="24dp"
-                          android:layout_height="24dp"
-                          android:scaleType="fitXY"
-                          android:src="@drawable/delete_btn_gray" />
 
                       <ImageView
-                          android:id="@+id/img_crop_spraying_card_edit"
+                          android:id="@+id/img_crop_spraying_card_more"
                           android:layout_width="24dp"
                           android:layout_height="24dp"
-                          android:src="@drawable/arrow_right_gray" />
+                          android:src="@drawable/more_options_icon" />
                   </LinearLayout>
               </LinearLayout>
 

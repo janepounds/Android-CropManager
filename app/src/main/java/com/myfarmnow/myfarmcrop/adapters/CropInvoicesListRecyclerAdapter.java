@@ -170,7 +170,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
                             return true;
                         }
                     });
-                    popup.getMenu().add(R.string.label_preview_receipt);
+                    popup.getMenu().add(R.string.preview_invoice);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
                     popup.getMenu().add(R.string.label_share_link);

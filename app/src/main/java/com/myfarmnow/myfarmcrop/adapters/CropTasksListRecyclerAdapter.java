@@ -1,16 +1,26 @@
 package com.myfarmnow.myfarmcrop.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropTaskManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTasksListActivity;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropTask;
 import com.myfarmnow.myfarmcrop.models.CropTask;
 
 import java.util.ArrayList;
@@ -62,7 +72,7 @@ public class CropTasksListRecyclerAdapter extends RecyclerView.Adapter<CropTasks
         holder.titleTextView.setText(task.getTitle());
 
         holder.cropTextView.setText(task.getCropId());
-        holder.personnelTextView.setText(task.getEmployeeId());
+        holder.personnelTextView.setText(task.getEmployeeName());
         holder.recurrenceTextView.setText(task.getRecurrence());
         holder.statusTextView.setText(task.getStatus());
         holder.dateTextView.setText(task.getDate());
@@ -77,11 +87,9 @@ public class CropTasksListRecyclerAdapter extends RecyclerView.Adapter<CropTasks
 
     public class TaskViewHolder  extends RecyclerView.ViewHolder {
         TextView typeTextView, cropTextView, titleTextView,personnelTextView,recurrenceTextView, statusTextView,dateTextView;
-        Button moreButton;
+        ImageView moreButton;
         public TaskViewHolder(View itemView) {
             super(itemView);
-
-
             typeTextView = itemView.findViewById(R.id.txt_crop_task_card_type);
             cropTextView = itemView.findViewById(R.id.txt_crop_task_card_crop);
             titleTextView = itemView.findViewById(R.id.txt_crop_task_card_title);
@@ -91,7 +99,51 @@ public class CropTasksListRecyclerAdapter extends RecyclerView.Adapter<CropTasks
 
             dateTextView = itemView.findViewById(R.id.txt_crop_task_card_date);
 
-            moreButton = itemView.findViewById(R.id.img_crop_task_card_edit);
+            moreButton = itemView.findViewById(R.id.img_crop_task_card_more);
+            
+            moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropTask cropTask = cropTasksList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage(mContext.getString(R.string.delete_prompt_message)+cropTask.getTitle()+" ?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropTask(cropTask.getId());
+                                                cropTasksList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+
+                                CropTask cropTask = cropTasksList.get(getAdapterPosition());
+                                Intent editTask = new Intent(mContext, CropTaskManagerActivity.class);
+                                editTask.putExtra("cropTask",cropTask);
+                                mContext.startActivity(editTask);
+                            }
+                            return true;
+                        }
+                    });
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
+                }
+            });
+
 
         }
 
