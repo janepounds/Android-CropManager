@@ -859,6 +859,10 @@
     <string name="title_activity_crop_sales_order_manager">Sales Order Manager</string>
     <string name="title_activity_crop_sales_order_preview">Sales Order Preview</string>
     <string name="label_soil_analysis">Soil Analysis</string>
+    <string name="label_cultivate">Cultivate</string>
+    <string name="label_fertilizer">Fertilizer</string>
+    <string name="label_spray">Spray</string>
+    <string name="label_harvest">Harvest</string>
 
 
 </resources>
