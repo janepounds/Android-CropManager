@@ -142,7 +142,7 @@ public class CropCultivationsListRecyclerAdapter extends RecyclerView.Adapter<Cr
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                            public void onClick(DialogInterface dialog, int whichButton) {/
+                                            public void onClick(DialogInterface dialog, int whichButton) {
 
                                                 MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropCultivate(cropCultivation.getId());
                                                 cropCultivationsList.remove(getAdapterPosition());
