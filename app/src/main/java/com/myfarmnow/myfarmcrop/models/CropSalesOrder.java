@@ -1,30 +1,25 @@
 package com.myfarmnow.myfarmcrop.models;
 
-import android.content.Context;
-
-import com.myfarmnow.myfarmcrop.R;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CropInvoice implements Serializable,CropSpinnerItem {
+public class CropSalesOrder implements Serializable{
      String  id;
      String  userId;
      String  customerId;;
      String  number;
      String  date;
-     String  dueDate;
+     String  shippingDate;
      float  discount;
      float  shippingCharges;
      String  customerNotes;
      String  termsAndConditions;
-     String  terms;
-     String  orderNumber;
-     String customerName;
+     String  method;
+     String  referenceNumber;
 
-    CropPayment initialPayment;
-     ArrayList<CropInvoiceItem> items = new ArrayList<>();
-    private ArrayList<CropPayment> payments;
+     String customerName;
+     ArrayList<CropSalesOrderItem> items = new ArrayList<>();
+     ArrayList<String> deletedItemsId = new ArrayList<>();
 
     public String getCustomerName() {
         return customerName;
@@ -33,7 +28,6 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    private ArrayList<String> deletedItemsIds;
 
     public String getId() {
         return id;
@@ -75,12 +69,12 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         this.date = date;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public String getShippingDate() {
+        return shippingDate;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setShippingDate(String shippingDate) {
+        this.shippingDate = shippingDate;
     }
 
     public float getDiscount() {
@@ -115,17 +109,17 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         this.termsAndConditions = termsAndConditions;
     }
 
-    public ArrayList<CropInvoiceItem> getItems() {
+    public ArrayList<CropSalesOrderItem> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<CropInvoiceItem> items) {
+    public void setItems(ArrayList<CropSalesOrderItem> items) {
         this.items = items;
     }
 
     public float computeSubTotal(){
         float subTotal =0;
-        for(CropInvoiceItem x :items ){
+        for(CropSalesOrderItem x :items ){
             subTotal+=x.computeAmount();
         }
         return subTotal;
@@ -146,77 +140,29 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         return total;
 
     }
-    public float computeTotalPayments(){
-        float subTotal =0;
-        for(CropPayment x :payments ){
-            subTotal+=x.getAmount();
-        }
-        return subTotal;
+
+
+    public void setDeletedItemsIds(ArrayList<String> items) {
+        this.deletedItemsId =items;
     }
 
-    public void setDeletedItemsIds(ArrayList<String> deletedItemsIds) {
-        this.deletedItemsIds = deletedItemsIds;
+    public ArrayList<String>getDeletedItemsIds() {
+        return this.deletedItemsId;
     }
 
-    public ArrayList<String> getDeletedItemsIds() {
-        return deletedItemsIds;
+    public String getMethod() {
+        return method;
     }
 
-    public String toString(){
-        return getNumber();
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public CropPayment getInitialPayment() {
-        return initialPayment;
+    public String getReferenceNumber() {
+        return referenceNumber;
     }
 
-    public void setInitialPayment(CropPayment initialPayment) {
-        this.initialPayment = initialPayment;
+    public void setReferenceNumber(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
     }
-
-    public void setPayments(ArrayList<CropPayment> payments) {
-        this.payments = payments;
-    }
-
-    public ArrayList<CropPayment> getPayments() {
-        return payments;
-    }
-
-    public float computeBalance(){
-        return computeTotal()-computeTotalPayments();
-    }
-
-    public String determineStatus(Context context){
-        float balance = computeBalance();
-        float totalAmount = computeTotal();
-        if(balance>=totalAmount){
-            return context.getString(R.string.invoice_status_draft);
-        }
-        else if(balance<=0){
-            return context.getString(R.string.invoice_status_paid);
-        }
-        else if(balance<totalAmount){
-            return context.getString(R.string.invoice_status_partially_paid);
-        }
-
-        return  "";
-    }
-
-    public String getTerms() {
-        return terms;
-    }
-
-    public void setTerms(String terms) {
-        this.terms = terms;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-
 }

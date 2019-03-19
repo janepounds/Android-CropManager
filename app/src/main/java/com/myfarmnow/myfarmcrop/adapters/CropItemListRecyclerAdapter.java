@@ -23,6 +23,7 @@ import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
 import java.lang.reflect.Array;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemListRecyclerAdapter.ItemViewHolder> {
@@ -219,7 +220,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
                 currentItem.setTax(tax);
                 currentItem.setRate(price);
                 currentItem.setQuantity(quantity);
-                amountTextView.setText(currentItem.computeAmount()+"");
+                amountTextView.setText(NumberFormat.getInstance().format(currentItem.computeAmount()));
                 updateSum();
 
             }catch (Exception e){

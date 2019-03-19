@@ -41,11 +41,28 @@
                     android:layout_marginLeft="6dp"
                     >
 
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_marginLeft="5dp"
+                        android:text="UGX"
+                        android:textColor="#696666"
+                        android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/txt_crop_payment_card_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="300,000"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#696666"
+                        android:textSize="14dp" />
                     <ImageView
                         android:id="@+id/img_crop_payment_card_more"
                         android:layout_width="25dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="25dp"
                         app:srcCompat="@drawable/more_options_icon" />
 
 
@@ -74,29 +91,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="08-03-2019"
-
                         android:textColor="#696666"
                         android:textSize="14dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:layout_marginLeft="5dp"
-                        android:text="UGX"
-                        android:textColor="#696666"
-                        android:textSize="14dp" />
-                    <TextView
-                        android:id="@+id/txt_crop_payment_card_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="300,000"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#696666"
-                        android:textSize="14dp" />
-
-
                 </LinearLayout>
 
 
@@ -167,6 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Invoice Payment"
+                    android:textStyle="bold"
                     android:textColor="#696666"
                     android:textSize="14dp"
                     android:gravity="end"/>

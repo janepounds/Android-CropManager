@@ -621,7 +621,7 @@
 
 
     <string name="weight_label">Weight</string>
-    <string name="label_tax">Tax</string>
+    <string name="label_tax">Tax (%)</string>
     <string name="amount_label">Amount</string>
     <string name="item_details_label">Item Details</string>
     <string name="label_add_item">Add Item</string>
@@ -737,6 +737,21 @@
     <string name="due_date_not_entered">The Invoice Due Date has no Value</string>
     <string name="terms_not_selected">Terms not selected</string>
     <string name="order_number_not_entered">Order Number not entered</string>
+    <string name="title_activity_crop_invoice_preview">"Preview Invoice "</string>
+    <string name="title_activity_crop_estimate_preview">Estimate Preview</string>
+    <string name="payment_made_label">Payment Made</string>
+    <string name="invoice_due_date">Due Date :</string>
+    <string name="looking_forward_for_your_business">Looking forward for your business.</string>
+    <string name="thank_you_for_your_business">Thank you for your business</string>
+    <string name="sales_order_date">Sales Order Date</string>
+    <string name="shipping_date_label">Shipping Date</string>
+    <string name="shipping_method">Shipping Method</string>
+    <string name="sales_order_number">Sales Order #</string>
+    <string name="sales_order_no_items_added">No Items added to the sales Order</string>
+    <string name="title_activity_crop_sales_order_list">Sales Order List</string>
+    <string name="title_activity_crop_sales_order_manager">Sales Order Manager</string>
+    <string name="title_activity_crop_sales_order_preview">Sales Order Preview</string>
+    <string name="label_soil_analysis">Soil Analysis</string>
 
 
 </resources>

@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPaymentsListRecyclerAdapter.PaymentViewHolder> {
@@ -71,7 +72,7 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
         holder.modeTextView.setText(payment.getMode());
         holder.referenceNumberTxt.setText(payment.getInvoiceNumber());
         holder.paymentNumberTextView.setText(payment.getPaymentNumber());
-        holder.amountTextView.setText(payment.getAmount()+"");
+        holder.amountTextView.setText(NumberFormat.getInstance().format(payment.getAmount()));
         if (payment.getInvoiceId()==null){
             holder.invoicePaymentLayout.setVisibility(View.GONE);
         }

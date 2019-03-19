@@ -2,34 +2,34 @@ package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
 
-public class CropInvoiceItem implements CropProductItem, Serializable {
+public class CropSalesOrderItem implements CropProductItem,Serializable {
      String  id;
      String  productId;
-     String  invoiceId;
+     String  salesOrderId;
      float quantity;
      float rate;
      float tax;
      String productName;
 
-    public CropInvoiceItem(){
+    public CropSalesOrderItem(){
 
     }
 
-     public CropInvoiceItem(String  productId, String  estimateId, float quantity){
+     public CropSalesOrderItem(String  productId, String  salesOrderId, float quantity){
          setProductId(productId);
-         setInvoiceOrEstimateId(estimateId);
+         setInvoiceOrEstimateId(salesOrderId);
          setQuantity(quantity);
      }
-    public CropInvoiceItem(String id, String  productId, String  estimateId, float quantity){
+    public CropSalesOrderItem(String id, String  productId, String  salesOrderId, float quantity){
         setId(id);
         setProductId(productId);
-        setInvoiceOrEstimateId(estimateId);
+        setInvoiceOrEstimateId(salesOrderId);
         setQuantity(quantity);
     }
-    public CropInvoiceItem(String id, String  productId, String  estimateId, float quantity, float rate, float tax){
+    public CropSalesOrderItem(String id, String  productId, String  salesOrderId, float quantity, float rate, float tax){
         setId(id);
         setProductId(productId);
-        setInvoiceOrEstimateId(estimateId);
+        setInvoiceOrEstimateId(salesOrderId);
         setQuantity(quantity);
         setRate(rate);
         setTax(tax);
@@ -52,11 +52,11 @@ public class CropInvoiceItem implements CropProductItem, Serializable {
     }
 
     public String getInvoiceOrEstimateId() {
-        return invoiceId;
+        return salesOrderId;
     }
 
-    public void setInvoiceOrEstimateId(String estimateId) {
-        this.invoiceId = estimateId;
+    public void setInvoiceOrEstimateId(String salesOrderId) {
+        this.salesOrderId = salesOrderId;
     }
 
     public float getQuantity() {
@@ -89,6 +89,7 @@ public class CropInvoiceItem implements CropProductItem, Serializable {
 
          return total+tax;
     }
+
     @Override
     public void setProductName(String name) {
         this.productName = name;

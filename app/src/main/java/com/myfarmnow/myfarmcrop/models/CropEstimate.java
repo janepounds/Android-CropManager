@@ -15,6 +15,7 @@ public class CropEstimate  implements Serializable{
      String  customerNotes;
      String  termsAndConditions;
      String customerName;
+     String  referenceNumber;
      ArrayList<CropEstimateItem> items = new ArrayList<>();
      ArrayList<String> deletedItemsId = new ArrayList<>();
 
@@ -145,5 +146,13 @@ public class CropEstimate  implements Serializable{
 
     public ArrayList<String>getDeletedItemsIds() {
         return this.deletedItemsId;
+    }
+
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public void setReferenceNumber(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
     }
 }

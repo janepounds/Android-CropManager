@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myfarmnow.myfarmcrop">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -10,6 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <activity
             android:name=".activities.CropEmployeesListActivity"
             android:label="Employees List" />
@@ -135,7 +146,27 @@
         <activity
             android:name=".activities.CropPaymentsListActivity"
             android:label="@string/title_activity_crop_payments_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropInvoicePreviewActivity"
+            android:label="@string/title_activity_crop_invoice_preview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropEstimatePreviewActivity"
+            android:label="@string/title_activity_crop_estimate_preview"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.CropSalesOrdersListActivity"
+            android:label="@string/title_activity_crop_sales_order_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropSalesOrderManagerActivity"
+            android:label="@string/title_activity_crop_sales_order_manager"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.CropSalesOrderPreviewActivity"
+            android:label="@string/title_activity_crop_sales_order_preview"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

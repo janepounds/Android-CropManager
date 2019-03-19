@@ -27,6 +27,7 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NavigationAdapterExpand;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropField;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
@@ -187,6 +188,10 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
     public void openSupplierList(View view){
         Intent openList = new Intent(this, CropSuppliersListActivity.class);
+        startActivity(openList);
+    }
+    public void openSalesOrderList(View view){
+        Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
         startActivity(openList);
     }
     public void openProductsList(View view){

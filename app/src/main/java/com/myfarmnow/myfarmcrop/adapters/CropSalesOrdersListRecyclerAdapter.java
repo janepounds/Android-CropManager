@@ -6,110 +6,100 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInvoicePreviewActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSalesOrderManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSalesOrderPreviewActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropInvoice;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropInvoicesListRecyclerAdapter.InvoiceViewHolder> {
+public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<CropSalesOrdersListRecyclerAdapter.SalesOrderViewHolder> {
 
     LayoutInflater layoutInflater;
     Context mContext;
-    ArrayList<CropInvoice> cropInvoicesList = new ArrayList<>();
+    ArrayList<CropSalesOrder> cropSalesOrdersList = new ArrayList<>();
 
-    public CropInvoicesListRecyclerAdapter(Context context, ArrayList<CropInvoice> cropInvoices){
-        cropInvoicesList.addAll(cropInvoices);
+    public CropSalesOrdersListRecyclerAdapter(Context context, ArrayList<CropSalesOrder> cropSalesOrders){
+        cropSalesOrdersList.addAll(cropSalesOrders);
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
-
-        Log.d("CROP FIELDS",cropInvoicesList.size()+" ");
     }
     @NonNull
     @Override
-    public InvoiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SalesOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = layoutInflater.inflate(R.layout.crop_estimate_list_card,parent,false);
 
-        InvoiceViewHolder holder = new InvoiceViewHolder(view);
+        SalesOrderViewHolder holder = new SalesOrderViewHolder(view);
         return holder;
     }
 
-    public void appendList(ArrayList<CropInvoice> cropInvoices){
+    public void appendList(ArrayList<CropSalesOrder> cropSalesOrders){
 
-        this.cropInvoicesList.addAll(cropInvoices);
+        this.cropSalesOrdersList.addAll(cropSalesOrders);
         notifyDataSetChanged();
     }
 
-    public void addCropInvoice(CropInvoice cropInvoice){
-        this.cropInvoicesList.add(cropInvoice);
+    public void addCropSalesOrder(CropSalesOrder cropSalesOrder){
+        this.cropSalesOrdersList.add(cropSalesOrder);
         notifyItemChanged(getItemCount());
     }
-    public void changeList(ArrayList<CropInvoice> cropInvoices){
+    public void changeList(ArrayList<CropSalesOrder> cropSalesOrders){
 
-        this.cropInvoicesList.clear();
-        this.cropInvoicesList.addAll(cropInvoices);
+        this.cropSalesOrdersList.clear();
+        this.cropSalesOrdersList.addAll(cropSalesOrders);
 
         notifyDataSetChanged();
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull InvoiceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SalesOrderViewHolder holder, int position) {
 
-        CropInvoice estimate = cropInvoicesList.get(position);
+        CropSalesOrder estimate = cropSalesOrdersList.get(position);
         holder.nameTextView.setText(estimate.getCustomerName());
         holder.dateTextView.setText(estimate.getDate());
-        holder.statusTextView.setText(estimate.determineStatus(mContext));
+        //holder.orderNumberTxt.setText(estimate.getCompany());
         holder.estimateNumberTextView.setText(estimate.getNumber());
-        holder.orderNumberTxt.setText(estimate.getOrderNumber());
-        holder.orderNumberLayout.setVisibility(View.VISIBLE);
+        //holder.dateTextView.setText(estimate.getD());
 
-        holder.amountTextView.setText(NumberFormat.getInstance().format(estimate.computeBalance()));
+        holder.amountTextView.setText(estimate.computeTotal()+"");
     }
 
 
 
     @Override
     public int getItemCount() {
-        return cropInvoicesList.size();
+        return cropSalesOrdersList.size();
     }
 
 
-    public class InvoiceViewHolder extends RecyclerView.ViewHolder{
+    public class SalesOrderViewHolder extends RecyclerView.ViewHolder{
 
-        TextView amountTextView, orderNumberTxt, statusTextView, nameTextView, estimateNumberTextView, dateTextView;
-        ImageView moreButton, deleteButton;
-        LinearLayout orderNumberLayout;
-        public InvoiceViewHolder(View itemView) {
+        TextView amountTextView, referenceNumberTxt, taxTextView, nameTextView, estimateNumberTextView, dateTextView;
+        ImageView moreButton;
+        public SalesOrderViewHolder(View itemView) {
             super(itemView);
 
             amountTextView = itemView.findViewById(R.id.txt_crop_estimate_card_amount);
             estimateNumberTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_number);
             dateTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_date);
-            orderNumberTxt = itemView.findViewById(R.id.txt_crop_estimate_card_reference_number);
-            statusTextView = itemView.findViewById(R.id.txt_crop_estimate_card_status);
+            referenceNumberTxt = itemView.findViewById(R.id.txt_crop_estimate_card_reference_number);
           //  taxTextView = itemView.findViewById(R.id.txt_crop_estimate_card_phone);
             nameTextView = itemView.findViewById(R.id.txt_crop_estimate_card_customer_name);
-
+         
             moreButton = itemView.findViewById(R.id.img_crop_estimate_card_more);
-            orderNumberLayout = itemView.findViewById(R.id.layout_crop_estimate_card_order_number);
-
 
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,51 +111,51 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
                         public boolean onMenuItemClick(MenuItem item) {
 
                             if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))){
-                                final CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
+                                final CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete "+cropInvoice.getNumber()+" ?")
+                                        .setMessage("Do you really want to delete "+cropSalesOrder.getNumber()+" ?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropInvoice(cropInvoice.getId());
-                                                cropInvoicesList.remove(getAdapterPosition());
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSalesOrder(cropSalesOrder.getId());
+                                                cropSalesOrdersList.remove(getAdapterPosition());
                                                 notifyItemRemoved(getAdapterPosition());
 
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-                                CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
-                                Intent editInvoice = new Intent(mContext, CropInvoiceManagerActivity.class);
-                                editInvoice.putExtra("cropInvoice",cropInvoice);
-                                mContext.startActivity(editInvoice);
+                                CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
+                                Intent editSalesOrder = new Intent(mContext, CropSalesOrderManagerActivity.class);
+                                editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
+                                mContext.startActivity(editSalesOrder);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_record_payment))){
-                                CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
+                                CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
                                 Intent recordPayment = new Intent(mContext, CropPaymentManagerActivity.class);
-                                recordPayment.putExtra("invoiceId",cropInvoice.getId());
+                                recordPayment.putExtra("invoiceId",cropSalesOrder.getId());
                                 mContext.startActivity(recordPayment);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_receipt))){
-                                CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
-                                Intent editInvoice = new Intent(mContext, CropInvoicePreviewActivity.class);
-                                editInvoice.putExtra("cropInvoice",cropInvoice);
-                                editInvoice.putExtra("action",CropInvoicePreviewActivity.INVOICE_ACTION_PREVIEW);
-                                mContext.startActivity(editInvoice);
+                                CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
+                                Intent editSalesOrder = new Intent(mContext, CropSalesOrderPreviewActivity.class);
+                                editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
+                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.INVOICE_ACTION_PREVIEW);
+                                mContext.startActivity(editSalesOrder);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_dowloand_pdf))){
-                                CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
-                                Intent editInvoice = new Intent(mContext, CropInvoicePreviewActivity.class);
-                                editInvoice.putExtra("cropInvoice",cropInvoice);
-                                editInvoice.putExtra("action",CropInvoicePreviewActivity.INVOICE_ACTION_DOWNLOAD);
-                                mContext.startActivity(editInvoice);
+                                CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
+                                Intent editSalesOrder = new Intent(mContext, CropSalesOrderPreviewActivity.class);
+                                editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
+                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.INVOICE_ACTION_DOWNLOAD);
+                                mContext.startActivity(editSalesOrder);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_email))){
-                                CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
-                                Intent editInvoice = new Intent(mContext, CropInvoicePreviewActivity.class);
-                                editInvoice.putExtra("cropInvoice",cropInvoice);
-                                editInvoice.putExtra("action",CropInvoicePreviewActivity.INVOICE_ACTION_EMAIL);
-                                mContext.startActivity(editInvoice);
+                                CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
+                                Intent editSalesOrder = new Intent(mContext, CropSalesOrderPreviewActivity.class);
+                                editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
+                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.INVOICE_ACTION_EMAIL);
+                                mContext.startActivity(editSalesOrder);
                             }
                             return true;
                         }
@@ -182,8 +172,10 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
 
                 }
             });
-       
 
+
+
+            
         }
 
     }

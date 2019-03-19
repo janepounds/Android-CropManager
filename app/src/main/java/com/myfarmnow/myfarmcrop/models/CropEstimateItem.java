@@ -9,6 +9,7 @@ public class CropEstimateItem implements CropProductItem,Serializable {
      float quantity;
      float rate;
      float tax;
+     String productName;
 
     public CropEstimateItem(){
 
@@ -87,5 +88,15 @@ public class CropEstimateItem implements CropProductItem,Serializable {
          float tax = (this.tax/100)*total;
 
          return total+tax;
+    }
+
+    @Override
+    public void setProductName(String name) {
+        this.productName = name;
+    }
+
+    @Override
+    public String gettProductName() {
+        return this.productName;
     }
 }

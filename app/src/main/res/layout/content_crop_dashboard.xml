@@ -980,7 +980,7 @@
                                     android:orientation="horizontal"
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
-                                    android:onClick="openSupplierList"
+                                    android:onClick="openSalesOrderList"
                                     android:paddingTop="5dp">
 
                                     <ImageView

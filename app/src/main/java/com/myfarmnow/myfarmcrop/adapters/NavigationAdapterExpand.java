@@ -132,7 +132,7 @@ public class NavigationAdapterExpand extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
+
             NavDrawerItem headerInfo = (NavDrawerItem) getGroup(groupPosition);
 
             View vi = convertView;
