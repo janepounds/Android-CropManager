@@ -592,6 +592,7 @@
                         android:orientation="horizontal"
                        android:layout_marginStart="0dp"
                         android:paddingBottom="5dp"
+                        android:onClick="showHideFinancialManager"
                         android:paddingTop="5dp">
 
                         <ImageView
@@ -614,7 +615,7 @@
                             android:paddingBottom="5dp"
                             android:paddingLeft="5dp"
                             android:paddingTop="5dp"
-                            android:text="Financial Manager"
+                            android:text="@string/financial_manager_menu_item"
                             android:textColor="#ffffff"
                             android:textSize="15dp"/>
 
@@ -635,7 +636,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -792,7 +794,7 @@
                                 android:paddingBottom="5dp"
                                 android:paddingLeft="5dp"
                                 android:paddingTop="5dp"
-                                android:text="Products"
+                                android:text="@string/products_label"
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
                         </LinearLayout>
@@ -808,7 +810,8 @@
                                 android:orientation="horizontal"
                                 android:layout_marginStart="0dp"
                                 android:paddingBottom="5dp"
-                                android:paddingTop="5dp">
+                                android:paddingTop="5dp"
+                                android:onClick="showSalesManager">
 
                                 <ImageView
 
@@ -851,7 +854,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="gone">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -940,7 +944,7 @@
                                     android:orientation="horizontal"
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
-                                    android:onClick="openSupplierList"
+                                    android:onClick="openPaymentsList"
                                     android:paddingTop="5dp">
 
                                     <ImageView
@@ -976,7 +980,7 @@
                                     android:orientation="horizontal"
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
-                                    android:onClick="openSupplierList"
+                                    android:onClick="openSalesOrderList"
                                     android:paddingTop="5dp">
 
                                     <ImageView

@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NavigationAdapterExpand;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropField;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
@@ -196,6 +198,10 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropSuppliersListActivity.class);
         startActivity(openList);
     }
+    public void openSalesOrderList(View view){
+        Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
+        startActivity(openList);
+    }
     public void openProductsList(View view){
         Intent openList = new Intent(this, CropProductsListActivity.class);
         startActivity(openList);
@@ -207,6 +213,29 @@ public class CropDashboardActivity extends AppCompatActivity {
     public void openInvoicesList(View view){
         Intent openList = new Intent(this, CropInvoicesListActivity.class);
         startActivity(openList);
+    }
+    public void openPaymentsList(View view){
+        Intent openList = new Intent(this, CropPaymentsListActivity.class);
+        startActivity(openList);
+    }
+
+    public void showHideFinancialManager(View view){
+        LinearLayout financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
+
+        toggleVisibility(financialsSubMenu);
+    }
+    public void showSalesManager(View view){
+        LinearLayout slesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
+
+        toggleVisibility(slesSubMenu);
+    }
+
+    public void toggleVisibility(View view){
+        if(view.getVisibility() == View.GONE){
+            view.setVisibility(View.VISIBLE);
+        }else{
+            view.setVisibility(View.GONE);
+        }
     }
     private void SavePreferences(String key, String value) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",

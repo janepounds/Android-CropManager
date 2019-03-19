@@ -106,7 +106,7 @@ public class CropProductManagerActivity extends AppCompatActivity {
             cropProduct.setTaxRate(Float.parseFloat(rateTxt.getText().toString()));
             cropProduct.setOpeningQuantity(Float.parseFloat(openingQuantity.getText().toString()));
             cropProduct.setOpeningCost(Float.parseFloat(openingCostTxt.getText().toString()));
-            ;
+
             cropProduct.setType(typeSp.getSelectedItem().toString());
             if(unitsSp.getSelectedItemPosition() != 0){
                 cropProduct.setUnits(unitsSp.getSelectedItem().toString());

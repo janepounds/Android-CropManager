@@ -42,6 +42,7 @@
     <color name="dark_gray_mh">#868686</color>
     <color name="dark_green">#3d8e27</color>
     <color name="darker_gray">#b2b2b2</color>
+    <color name="light_gray">#eeeeee</color>
 
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
 

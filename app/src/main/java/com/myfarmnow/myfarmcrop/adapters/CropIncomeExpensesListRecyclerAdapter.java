@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -82,7 +83,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
     public class IncomeExpenseViewHolder extends RecyclerView.ViewHolder {
 
     TextView itemTextView, transactionTextView, categoryTextView,statusTextView,amountTextView,dateTextView;
-    Button deleteButton, editButton;
+    ImageView deleteButton, editButton;
         public IncomeExpenseViewHolder(View itemView) {
             super(itemView);
 

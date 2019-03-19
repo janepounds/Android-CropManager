@@ -28,6 +28,8 @@ import com.myfarmnow.myfarmcrop.models.CropInvoiceItem;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrderItem;
 import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
@@ -38,286 +40,312 @@ import java.util.ArrayList;
 
 public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
-
-    private static final String DATABASE_NAME = "myfarmdb";
-    private static int database_version = 1;
-    public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME = "crop_inventory_fertilizer";
-    public static final String CROP_INVENTORY_SEEDS_TABLE_NAME = "crop_inventory_seeds";
-    public static final String CROP_INVENTORY_SPRAY_TABLE_NAME = "crop_inventory_spray";
-    public static final String CROP_CROP_TABLE_NAME = "crop";
-    public static final String CROP_CULTIVATION_TABLE_NAME = "crop_cultivate";
-    public static final String CROP_FERTILIZER_APPLICATION_TABLE_NAME = "crop_fertilizer_application";
-    public static final String CROP_SPRAYING_TABLE_NAME = "crop_spraying";
-    public static final String CROP_FIELDS_TABLE_NAME = "crop_fields";
-    public static final String CROP_MACHINE_TABLE_NAME = "crop_machine";
-    public static final String CROP_SOIL_ANALYSIS_TABLE_NAME = "crop_soil_analysis";
-    public static final String CROP_EMPLOYEE_TABLE_NAME = "crop_employee";
-    public static final String CROP_CUSTOMER_TABLE_NAME = "crop_customer";
-    public static final String CROP_SUPPLIER_TABLE_NAME = "crop_supplier";
-    public static final String CROP_PRODUCT_TABLE_NAME = "crop_product";
-    public static final String CROP_ESTIMATE_TABLE_NAME = "crop_estimate";
-    public static final String CROP_ESTIMATE_ITEM_TABLE_NAME = "crop_estimate_items";
-    public static final String CROP_INVOICE_TABLE_NAME = "crop_invoice";
-    public static final String CROP_INVOICE_ITEM_TABLE_NAME = "crop_invoice_items";
-    public static final String CROP_PAYMENT_TABLE_NAME = "crop_payments";
-    public static final String CROP_INCOME_EXPENSE_TABLE_NAME = "crop_income_expense";
-    public static final String CROP_TASK_TABLE_NAME = "crop_task";
-
-
-    public static final String CROP_INVENTORY_FERTILIZER_ID = "id";
-    public static final String CROP_INVENTORY_FERTILIZER_USER_ID = "userId";
-    public static final String CROP_INVENTORY_FERTILIZER_DATE = "date";
-    public static final String CROP_INVENTORY_FERTILIZER_TYPE = "type";
-    public static final String CROP_INVENTORY_FERTILIZER_NAME = "name";
-    public static final String CROP_INVENTORY_FERTILIZER_N_PERCENTAGE = "nPercentage";
-    public static final String CROP_INVENTORY_FERTILIZER_P_PERCENTAGE = "pPercentage";
-    public static final String CROP_INVENTORY_FERTILIZER_K_PERCENTAGE = "kPercentage";
-    public static final String CROP_INVENTORY_FERTILIZER_QUANTITY = "quantity";
-    public static final String CROP_INVENTORY_FERTILIZER_BATCH_NUMBER = "batchNumber";
-    public static final String CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER = "serialNumber";
-    public static final String CROP_INVENTORY_FERTILIZER_SUPPLIER = "supplier";
-    public static final String CROP_INVENTORY_FERTILIZER_USAGE_UNIT = "usageUnit";
-    public static final String CROP_INVENTORY_FERTILIZER_COST = "cost";
-    public static final String CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA = "macronutrientsCa";
-    public static final String CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG = "macronutrientsMg";
-    public static final String CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_S = "macronutrientsS";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_B = "micronutrientsB";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MN = "micronutrientsMn";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CL = "micronutrientsCl";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MO = "micronutrientsMo";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CU = "micronutrientsCu";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN = "micronutrientsZn";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE = "micronutrientsFe";
-    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA = "micronutrientsNa";
-
-    public static final String CROP_INVENTORY_SEEDS_ID = "id";
-    public static final String CROP_INVENTORY_SEEDS_USER_ID = "userId";
-    public static final String CROP_INVENTORY_SEEDS_DATE = "date";
-
-    public static final String CROP_INVENTORY_SEEDS_NAME = "name";
-    public static final String CROP_INVENTORY_SEEDS_VARIETY = "variety";
-    public static final String CROP_INVENTORY_SEEDS_DRESSING = "dressing";
-    public static final String CROP_INVENTORY_SEEDS_QUANTITY = "quantity";
-    public static final String CROP_INVENTORY_SEEDS_COST = "cost";
-    public static final String CROP_INVENTORY_SEEDS_BATCH_NUMBER = "batchNumber";
-    public static final String CROP_INVENTORY_SEEDS_SUPPLIER = "supplier";
-    public static final String CROP_INVENTORY_SEEDS_TGW = "tgw";
-    public static final String CROP_INVENTORY_SEEDS_USAGE_UNIT = "usageUnit";
-
-    public static final String CROP_INVENTORY_SPRAY_ID = "id";
-    public static final String CROP_INVENTORY_SPRAY_USER_ID = "userId";
-    public static final String CROP_INVENTORY_SPRAY_DATE = "date";
-    public static final String CROP_INVENTORY_SPRAY_TYPE = "type";
-    public static final String CROP_INVENTORY_SPRAY_NAME = "name";
-    public static final String CROP_INVENTORY_SPRAY_VARIETY = "variety";
-    public static final String CROP_INVENTORY_SPRAY_ACTIVE_INGREDIENTS = "dressing";
-    public static final String CROP_INVENTORY_SPRAY_QUANTITY = "quantity";
-    public static final String CROP_INVENTORY_SPRAY_COST = "cost";
-    public static final String CROP_INVENTORY_SPRAY_BATCH_NUMBER = "batchNumber";
-    public static final String CROP_INVENTORY_SPRAY_SUPPLIER = "supplier";
-    public static final String CROP_INVENTORY_SPRAY_EXPIRY_DATE = "tgw";
-    public static final String CROP_INVENTORY_SPRAY_USAGE_UNIT = "usageUnit";
-    public static final String CROP_INVENTORY_SPRAY_HARVEST_INTERVAL = "harvestInterval";
+    private static final String DATABASE_NAME ="myfarmdb";
+    private static int database_version=1;
+    public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME ="crop_inventory_fertilizer";
+    public static final String CROP_INVENTORY_SEEDS_TABLE_NAME ="crop_inventory_seeds";
+    public static final String CROP_INVENTORY_SPRAY_TABLE_NAME ="crop_inventory_spray";
+    public static final String CROP_CROP_TABLE_NAME ="crop";
+    public static final String CROP_CULTIVATION_TABLE_NAME ="crop_cultivate";
+    public static final String CROP_FERTILIZER_APPLICATION_TABLE_NAME ="crop_fertilizer_application";
+    public static final String CROP_SPRAYING_TABLE_NAME ="crop_spraying";
+    public static final String CROP_FIELDS_TABLE_NAME ="crop_fields";
+    public static final String CROP_MACHINE_TABLE_NAME ="crop_machine";
+    public static final String CROP_SOIL_ANALYSIS_TABLE_NAME ="crop_soil_analysis";
+    public static final String CROP_EMPLOYEE_TABLE_NAME ="crop_employee";
+    public static final String CROP_CUSTOMER_TABLE_NAME ="crop_customer";
+    public static final String CROP_SUPPLIER_TABLE_NAME ="crop_supplier";
+    public static final String CROP_PRODUCT_TABLE_NAME ="crop_product";
+    public static final String CROP_ESTIMATE_TABLE_NAME ="crop_estimate";
+    public static final String CROP_ESTIMATE_ITEM_TABLE_NAME ="crop_estimate_items";
+    public static final String CROP_INVOICE_TABLE_NAME ="crop_invoice";
+    public static final String CROP_INVOICE_ITEM_TABLE_NAME ="crop_invoice_items";
+    public static final String CROP_INCOME_EXPENSE_TABLE_NAME ="crop_income_expense";
+    public static final String CROP_PAYMENT_TABLE_NAME ="crop_payments";
+    public static final String CROP_TASK_TABLE_NAME ="crop_task";
+    public static final String CROP_SALES_ORDER_TABLE_NAME ="crop_sales_order";
+    public static final String CROP_SALES_ORDER_ITEM_TABLE_NAME ="crop_sales_order_items";
 
 
-    public static final String CROP_CROP_ID = "id";
-    public static final String CROP_CROP_USER_ID = "userId";
-    public static final String CROP_CROP_NAME = "crop";
-    public static final String CROP_CROP_YEAR = "croppingYear";
-    public static final String CROP_CROP_FIELD_ID = "fieldId";
-    public static final String CROP_CROP_DATE_SOWN = "dateSown";
-    public static final String CROP_CROP_VARIETY = "variety";
-    public static final String CROP_CROP_GROWING_CYCLE = "growingCycle";
-    public static final String CROP_CROP_AREA = "area";
-    public static final String CROP_CROP_COST = "cost";
-    public static final String CROP_CROP_OPERATOR = "operator";
-    public static final String CROP_CROP_SEED_ID = "seedId";
-    public static final String CROP_CROP_RATE = "rate";
-    public static final String CROP_CROP_PLANTING_METHOD = "plantingMethod";
 
-    public static final String CROP_CULTIVATION_ID = "id";
-    public static final String CROP_CULTIVATION_USER_ID = "userId";
-    public static final String CROP_CULTIVATION_CROP_ID = "cropId";
-    public static final String CROP_CULTIVATION_DATE = "date";
-    public static final String CROP_CULTIVATION_OPERATION = "operation";
-    public static final String CROP_CULTIVATION_OPERATOR = "operator";
-    public static final String CROP_CULTIVATION_COST = "cost";
-    public static final String CROP_CULTIVATION_NOTES = "notes";
+    public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
+    public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
+    public static final String CROP_INVENTORY_FERTILIZER_DATE ="date";
+    public static final String CROP_INVENTORY_FERTILIZER_TYPE ="type";
+    public static final String CROP_INVENTORY_FERTILIZER_NAME ="name";
+    public static final String CROP_INVENTORY_FERTILIZER_N_PERCENTAGE ="nPercentage";
+    public static final String CROP_INVENTORY_FERTILIZER_P_PERCENTAGE ="pPercentage";
+    public static final String CROP_INVENTORY_FERTILIZER_K_PERCENTAGE ="kPercentage";
+    public static final String CROP_INVENTORY_FERTILIZER_QUANTITY ="quantity";
+    public static final String CROP_INVENTORY_FERTILIZER_BATCH_NUMBER ="batchNumber";
+    public static final String CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER ="serialNumber";
+    public static final String CROP_INVENTORY_FERTILIZER_SUPPLIER ="supplier";
+    public static final String CROP_INVENTORY_FERTILIZER_USAGE_UNIT ="usageUnit";
+    public static final String CROP_INVENTORY_FERTILIZER_COST ="cost";
+    public static final String CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA ="macronutrientsCa";
+    public static final String CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG ="macronutrientsMg";
+    public static final String CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_S ="macronutrientsS";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_B ="micronutrientsB";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MN ="micronutrientsMn";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CL ="micronutrientsCl";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MO ="micronutrientsMo";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CU ="micronutrientsCu";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN ="micronutrientsZn";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE ="micronutrientsFe";
+    public static final String CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA ="micronutrientsNa";
 
-    public static final String CROP_FERTILIZER_APPLICATION_ID = "id";
-    public static final String CROP_FERTILIZER_APPLICATION_USER_ID = "userId";
-    public static final String CROP_FERTILIZER_APPLICATION_DATE = "date";
-    public static final String CROP_FERTILIZER_APPLICATION_OPERATOR = "operator";
-    public static final String CROP_FERTILIZER_APPLICATION_METHOD = "method";
-    public static final String CROP_FERTILIZER_APPLICATION_REASON = "reason";
-    public static final String CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM = "fertilizerForm";
-    public static final String CROP_FERTILIZER_APPLICATION_FERTILIZER_ID = "fertilizerId";
-    public static final String CROP_FERTILIZER_APPLICATION_RATE = "rate";
-    public static final String CROP_FERTILIZER_APPLICATION_COST = "cost";
-    public static final String CROP_FERTILIZER_APPLICATION_CROP_ID = "cropId";
+    public static final String CROP_INVENTORY_SEEDS_ID ="id";
+    public static final String CROP_INVENTORY_SEEDS_USER_ID ="userId";
+    public static final String CROP_INVENTORY_SEEDS_DATE ="date";
 
-    public static final String CROP_SPRAYING_ID = "id";
-    public static final String CROP_SPRAYING_USER_ID = "userId";
-    public static final String CROP_SPRAYING_CROP_ID = "cropId";
-    public static final String CROP_SPRAYING_DATE = "date";
-    public static final String CROP_SPRAYING_START_TIME = "startTime";
-    public static final String CROP_SPRAYING_END_TIME = "endTime";
-    public static final String CROP_SPRAYING_OPERATOR = "operator";
-    public static final String CROP_SPRAYING_WATER_VOLUME = "waterVolume";
-    public static final String CROP_SPRAYING_WATER_CONDITION = "waterCondition";
-    public static final String CROP_SPRAYING_WIND_DIRECTION = "windDirection";
-    public static final String CROP_SPRAYING_EQUIPMENT_USED = "equipmentUsed";
-    public static final String CROP_SPRAYING_SPRAY_ID = "sprayId";
-    public static final String CROP_SPRAYING_RATE = "rate";
-    public static final String CROP_SPRAYING_TREATMENT_REASON = "treatmentReason";
-    public static final String CROP_SPRAYING_COST = "cost";
+    public static final String CROP_INVENTORY_SEEDS_NAME ="name";
+    public static final String CROP_INVENTORY_SEEDS_VARIETY ="variety";
+    public static final String CROP_INVENTORY_SEEDS_DRESSING ="dressing";
+    public static final String CROP_INVENTORY_SEEDS_QUANTITY ="quantity";
+    public static final String CROP_INVENTORY_SEEDS_COST ="cost";
+    public static final String CROP_INVENTORY_SEEDS_BATCH_NUMBER ="batchNumber";
+    public static final String CROP_INVENTORY_SEEDS_SUPPLIER ="supplier";
+    public static final String CROP_INVENTORY_SEEDS_TGW ="tgw";
+    public static final String CROP_INVENTORY_SEEDS_USAGE_UNIT ="usageUnit";
 
-
-    public static final String CROP_FIELD_ID = "id";
-    public static final String CROP_FIELD_USER_ID = "userId";
-    public static final String CROP_FIELD_NAME = "fieldName";
-    public static final String CROP_FIELD_SOIL_CATEGORY = "soilCategory";
-    public static final String CROP_FIELD_SOIL_TYPE = "soilType";
-    public static final String CROP_FIELD_WATERCOURSE = "watercourse";
-    public static final String CROP_FIELD_TOTAL_AREA = "totalArea";
-    public static final String CROP_FIELD_CROPPABLE_AREA = "croppableArea";
-    public static final String CROP_FIELD_UNITS = "units";
-
-    public static final String CROP_MACHINE_ID = "id";
-    public static final String CROP_MACHINE_USER_ID = "userId";
-    public static final String CROP_MACHINE_NAME = "name";
-    public static final String CROP_MACHINE_BRAND = "brand";
-    public static final String CROP_MACHINE_CATEGORY = "category";
-    public static final String CROP_MACHINE_MANUFACTURER = "manufacturer";
-    public static final String CROP_MACHINE_MODEL = "model";
-    public static final String CROP_MACHINE_REGISTRATION_NUMBER = "registrationNumber";
-    public static final String CROP_MACHINE_QUANTITY = "quantity";
-    public static final String CROP_MACHINE_DATE_ACQUIRED = "date";
-    public static final String CROP_MACHINE_PURCHASED_FROM = "purchasedFrom";
-    public static final String CROP_MACHINE_STORAGE_LOCATION = "storageLocation";
-    public static final String CROP_MACHINE_PURCHASE_PRICE = "purchasePrice";
-
-    public static final String CROP_SOIL_ANALYSIS_ID = "id";
-    public static final String CROP_SOIL_ANALYSIS_USER_ID = "userId";
-    public static final String CROP_SOIL_ANALYSIS_DATE = "date";
-    public static final String CROP_SOIL_ANALYSIS_PH = "ph";
-    public static final String CROP_SOIL_ANALYSIS_ORGANIC_MATTER = "organicMatter";
-    public static final String CROP_SOIL_ANALYSIS_AGRONOMIST = "agronomist";
-    public static final String CROP_SOIL_ANALYSIS_COST = "cost";
-    public static final String CROP_SOIL_ANALYSIS_RESULTS = "results";
-    public static final String CROP_SOIL_ANALYSIS_FIELD_ID = "fieldId";
-
-    public static final String CROP_EMPLOYEE_ID = "id";
-    public static final String CROP_EMPLOYEE_USER_ID = "userId";
-    public static final String CROP_EMPLOYEE_TITLE = "title";
-    public static final String CROP_EMPLOYEE_FIRST_NAME = "firstName";
-    public static final String CROP_EMPLOYEE_LAST_NAME = "lastName";
-    public static final String CROP_EMPLOYEE_PHONE = "phone";
-    public static final String CROP_EMPLOYEE_MOBILE = "mobile";
-    public static final String CROP_EMPLOYEE_EMP_ID = "employeeId";
-    public static final String CROP_EMPLOYEE_GENDER = "gender";
-    public static final String CROP_EMPLOYEE_ADDRESS = "address";
-    public static final String CROP_EMPLOYEE_EMAIL = "email";
-    public static final String CROP_EMPLOYEE_DOB = "dateOfBirth";
-    public static final String CROP_EMPLOYEE_HIRE_DATE = "hireDate";
-    public static final String CROP_EMPLOYEE_EMPLOYMENT_STATUS = "employmentStatus";
-    public static final String CROP_EMPLOYEE_PAY_AMOUNT = "payAmount";
-    public static final String CROP_EMPLOYEE_PAY_RATE = "payRate";
-    public static final String CROP_EMPLOYEE_PAY_TYPE = "payType";
-    public static final String CROP_EMPLOYEE_SUPERVISOR = "supervisor";
-
-    public static final String CROP_CUSTOMER_ID = "id";
-    public static final String CROP_CUSTOMER_USER_ID = "userId";
-    public static final String CROP_CUSTOMER_NAME = "name";
-    public static final String CROP_CUSTOMER_COMPANY = "company";
-    public static final String CROP_CUSTOMER_TAX_REG_NO = "taxRegNo";
-    public static final String CROP_CUSTOMER_PHONE = "phone";
-    public static final String CROP_CUSTOMER_MOBILE = "mobile";
-    public static final String CROP_CUSTOMER_EMAIL = "email";
-    public static final String CROP_CUSTOMER_OPENING_BALANCE = "openingBalance";
-    public static final String CROP_CUSTOMER_BILL_ADDRESS_STREET = "billingStreet";
-    public static final String CROP_CUSTOMER_BILL_ADDRESS_CITY = "billingCityOrTown";
-    public static final String CROP_CUSTOMER_BILL_ADDRESS_COUNTRY = "billingCountry";
-    public static final String CROP_CUSTOMER_SHIP_ADDRESS_STREET = "shippingStreet";
-    public static final String CROP_CUSTOMER_SHIP_ADDRESS_CITY = "shippingCityOrTown";
-    public static final String CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY = "shippingCountry";
+    public static final String CROP_INVENTORY_SPRAY_ID ="id";
+    public static final String CROP_INVENTORY_SPRAY_USER_ID ="userId";
+    public static final String CROP_INVENTORY_SPRAY_DATE ="date";
+    public static final String CROP_INVENTORY_SPRAY_TYPE ="type";
+    public static final String CROP_INVENTORY_SPRAY_NAME ="name";
+    public static final String CROP_INVENTORY_SPRAY_VARIETY ="variety";
+    public static final String CROP_INVENTORY_SPRAY_ACTIVE_INGREDIENTS ="dressing";
+    public static final String CROP_INVENTORY_SPRAY_QUANTITY ="quantity";
+    public static final String CROP_INVENTORY_SPRAY_COST ="cost";
+    public static final String CROP_INVENTORY_SPRAY_BATCH_NUMBER ="batchNumber";
+    public static final String CROP_INVENTORY_SPRAY_SUPPLIER ="supplier";
+    public static final String CROP_INVENTORY_SPRAY_EXPIRY_DATE ="tgw";
+    public static final String CROP_INVENTORY_SPRAY_USAGE_UNIT ="usageUnit";
+    public static final String CROP_INVENTORY_SPRAY_HARVEST_INTERVAL ="harvestInterval";
 
 
-    public static final String CROP_SUPPLIER_ID = "id";
-    public static final String CROP_SUPPLIER_USER_ID = "userId";
-    public static final String CROP_SUPPLIER_NAME = "name";
-    public static final String CROP_SUPPLIER_COMPANY = "company";
-    public static final String CROP_SUPPLIER_TAX_REG_NO = "taxRegNo";
-    public static final String CROP_SUPPLIER_PHONE = "phone";
-    public static final String CROP_SUPPLIER_MOBILE = "mobile";
-    public static final String CROP_SUPPLIER_EMAIL = "email";
-    public static final String CROP_SUPPLIER_OPENING_BALANCE = "openingBalance";
-    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_STREET = "invoiceStreet";
-    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_CITY = "invoiceCityOrTown";
-    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY = "invoiceCountry";
+    public static final String CROP_CROP_ID ="id";
+    public static final String CROP_CROP_USER_ID ="userId";
+    public static final String CROP_CROP_NAME ="crop";
+    public static final String CROP_CROP_YEAR ="croppingYear";
+    public static final String CROP_CROP_FIELD_ID ="fieldId";
+    public static final String CROP_CROP_DATE_SOWN ="dateSown";
+    public static final String CROP_CROP_VARIETY ="variety";
+    public static final String CROP_CROP_GROWING_CYCLE ="growingCycle";
+    public static final String CROP_CROP_AREA ="area";
+    public static final String CROP_CROP_COST ="cost";
+    public static final String CROP_CROP_OPERATOR ="operator";
+    public static final String CROP_CROP_SEED_ID ="seedId";
+    public static final String CROP_CROP_RATE ="rate";
+    public static final String CROP_CROP_PLANTING_METHOD ="plantingMethod";
 
-    public static final String CROP_PRODUCT_ID = "id";
-    public static final String CROP_PRODUCT_USER_ID = "userId";
-    public static final String CROP_PRODUCT_NAME = "name";
-    public static final String CROP_PRODUCT_TYPE = "type";
-    public static final String CROP_PRODUCT_CODE = "code";
-    public static final String CROP_PRODUCT_UNITS = "units";
-    public static final String CROP_PRODUCT_LINKED_ACCOUNT = "linkedAccount";
-    public static final String CROP_PRODUCT_OPENING_COST = "openingCost";
-    public static final String CROP_PRODUCT_OPENING_QUANTITY = "openingQuantity";
-    public static final String CROP_PRODUCT_SELLING_PRICE = "sellingPrice";
-    public static final String CROP_PRODUCT_TAX_RATE = "taxRate";
-    public static final String CROP_PRODUCT_DESCRIPTION = "description";
+    public static final String CROP_CULTIVATION_ID ="id";
+    public static final String CROP_CULTIVATION_USER_ID ="userId";
+    public static final String CROP_CULTIVATION_CROP_ID ="cropId";
+    public static final String CROP_CULTIVATION_DATE ="date";
+    public static final String CROP_CULTIVATION_OPERATION ="operation";
+    public static final String CROP_CULTIVATION_OPERATOR ="operator";
+    public static final String CROP_CULTIVATION_COST ="cost";
+    public static final String CROP_CULTIVATION_NOTES ="notes";
 
-    public static final String CROP_ESTIMATE_ID = "id";
-    public static final String CROP_ESTIMATE_USER_ID = "userId";
-    public static final String CROP_ESTIMATE_CUSTOMER_ID = "customerId";
-    public static final String CROP_ESTIMATE_NO = "number";
-    public static final String CROP_ESTIMATE_DATE = "date";
-    public static final String CROP_ESTIMATE_EXP_DATE = "expiryDate";
-    public static final String CROP_ESTIMATE_DISCOUNT = "discount";
-    public static final String CROP_ESTIMATE_SHIPPING_CHARGES = "shippingCharges";
-    public static final String CROP_ESTIMATE_CUSTOMER_NOTES = "customerNotes";
-    public static final String CROP_ESTIMATE_TERMS_AND_CONDITIONS = "termsAndConditions";
+    public static final String CROP_FERTILIZER_APPLICATION_ID ="id";
+    public static final String CROP_FERTILIZER_APPLICATION_USER_ID ="userId";
+    public static final String CROP_FERTILIZER_APPLICATION_DATE ="date";
+    public static final String CROP_FERTILIZER_APPLICATION_OPERATOR ="operator";
+    public static final String CROP_FERTILIZER_APPLICATION_METHOD ="method";
+    public static final String CROP_FERTILIZER_APPLICATION_REASON ="reason";
+    public static final String CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM ="fertilizerForm";
+    public static final String CROP_FERTILIZER_APPLICATION_FERTILIZER_ID ="fertilizerId";
+    public static final String CROP_FERTILIZER_APPLICATION_RATE ="rate";
+    public static final String CROP_FERTILIZER_APPLICATION_COST ="cost";
+    public static final String CROP_FERTILIZER_APPLICATION_CROP_ID ="cropId";
 
-
-    public static final String CROP_ESTIMATE_ITEM_ID = "id";
-    public static final String CROP_ESTIMATE_ITEM_PRODUCT_ID = "productId";
-    public static final String CROP_ESTIMATE_ITEM_ESTIMATE_ID = "estimateId";
-    public static final String CROP_ESTIMATE_ITEM_QUANTITY = "quantity";
-    public static final String CROP_ESTIMATE_ITEM_RATE = "rate";
-    public static final String CROP_ESTIMATE_ITEM_TAX = "tax";
-
-    public static final String CROP_INVOICE_ID = "id";
-    public static final String CROP_INVOICE_USER_ID = "userId";
-    public static final String CROP_INVOICE_CUSTOMER_ID = "customerId";
-    public static final String CROP_INVOICE_NO = "number";
-    public static final String CROP_INVOICE_DATE = "date";
-    public static final String CROP_INVOICE_EXP_DATE = "expiryDate";
-    public static final String CROP_INVOICE_DISCOUNT = "discount";
-    public static final String CROP_INVOICE_SHIPPING_CHARGES = "shippingCharges";
-    public static final String CROP_INVOICE_CUSTOMER_NOTES = "customerNotes";
-    public static final String CROP_INVOICE_TERMS_AND_CONDITIONS = "termsAndConditions";
+    public static final String CROP_SPRAYING_ID ="id";
+    public static final String CROP_SPRAYING_USER_ID ="userId";
+    public static final String CROP_SPRAYING_CROP_ID ="cropId";
+    public static final String CROP_SPRAYING_DATE ="date";
+    public static final String CROP_SPRAYING_START_TIME ="startTime";
+    public static final String CROP_SPRAYING_END_TIME ="endTime";
+    public static final String CROP_SPRAYING_OPERATOR ="operator";
+    public static final String CROP_SPRAYING_WATER_VOLUME ="waterVolume";
+    public static final String CROP_SPRAYING_WATER_CONDITION ="waterCondition";
+    public static final String CROP_SPRAYING_WIND_DIRECTION="windDirection";
+    public static final String CROP_SPRAYING_EQUIPMENT_USED="equipmentUsed";
+    public static final String CROP_SPRAYING_SPRAY_ID ="sprayId";
+    public static final String CROP_SPRAYING_RATE="rate";
+    public static final String CROP_SPRAYING_TREATMENT_REASON="treatmentReason";
+    public static final String CROP_SPRAYING_COST="cost";
 
 
-    public static final String CROP_INVOICE_ITEM_ID = "id";
-    public static final String CROP_INVOICE_ITEM_PRODUCT_ID = "productId";
-    public static final String CROP_INVOICE_ITEM_INVOICE_ID = "estimateId";
-    public static final String CROP_INVOICE_ITEM_QUANTITY = "quantity";
-    public static final String CROP_INVOICE_ITEM_RATE = "rate";
-    public static final String CROP_INVOICE_ITEM_TAX = "tax";
 
-    public static final String CROP_PAYMENT_ID = "id";
-    public static final String CROP_PAYMENT_USER_ID = "userId";
-    public static final String CROP_PAYMENT_CUSTOMER_ID = "customerId";
-    public static final String CROP_PAYMENT_AMOUNT = "amount";
-    public static final String CROP_PAYMENT_DATE = "date";
-    public static final String CROP_PAYMENT_MODE = "mode";
-    public static final String CROP_PAYMENT_REFERENCE_NO = "referenceNo";
-    public static final String CROP_PAYMENT_NUMBER = "paymentNumber";
-    public static final String CROP_PAYMENT_NOTES = "notes";
-    public static final String CROP_PAYMENT_INVOICE_ID = "invoiceId";
+    public static final String CROP_FIELD_ID ="id";
+    public static final String CROP_FIELD_USER_ID ="userId";
+    public static final String CROP_FIELD_NAME="fieldName";
+    public static final String CROP_FIELD_SOIL_CATEGORY="soilCategory";
+    public static final String CROP_FIELD_SOIL_TYPE="soilType";
+    public static final String CROP_FIELD_WATERCOURSE="watercourse";
+    public static final String CROP_FIELD_TOTAL_AREA="totalArea";
+    public static final String CROP_FIELD_CROPPABLE_AREA="croppableArea";
+    public static final String CROP_FIELD_UNITS="units";
 
+    public static final String CROP_MACHINE_ID ="id";
+    public static final String CROP_MACHINE_USER_ID ="userId";
+    public static final String CROP_MACHINE_NAME="name";
+    public static final String CROP_MACHINE_BRAND="brand";
+    public static final String CROP_MACHINE_CATEGORY="category";
+    public static final String CROP_MACHINE_MANUFACTURER="manufacturer";
+    public static final String CROP_MACHINE_MODEL="model";
+    public static final String CROP_MACHINE_REGISTRATION_NUMBER="registrationNumber";
+    public static final String CROP_MACHINE_QUANTITY="quantity";
+    public static final String CROP_MACHINE_DATE_ACQUIRED="date";
+    public static final String CROP_MACHINE_PURCHASED_FROM="purchasedFrom";
+    public static final String CROP_MACHINE_STORAGE_LOCATION="storageLocation";
+    public static final String CROP_MACHINE_PURCHASE_PRICE="purchasePrice";
+
+    public static final String CROP_SOIL_ANALYSIS_ID ="id";
+    public static final String CROP_SOIL_ANALYSIS_USER_ID ="userId";
+    public static final String CROP_SOIL_ANALYSIS_DATE="date";
+    public static final String CROP_SOIL_ANALYSIS_PH="ph";
+    public static final String CROP_SOIL_ANALYSIS_ORGANIC_MATTER="organicMatter";
+    public static final String CROP_SOIL_ANALYSIS_AGRONOMIST="agronomist";
+    public static final String CROP_SOIL_ANALYSIS_COST="cost";
+    public static final String CROP_SOIL_ANALYSIS_RESULTS="results";
+    public static final String CROP_SOIL_ANALYSIS_FIELD_ID="fieldId";
+
+    public static final String CROP_EMPLOYEE_ID ="id";
+    public static final String CROP_EMPLOYEE_USER_ID ="userId";
+    public static final String CROP_EMPLOYEE_TITLE ="title";
+    public static final String CROP_EMPLOYEE_FIRST_NAME ="firstName";
+    public static final String CROP_EMPLOYEE_LAST_NAME ="lastName";
+    public static final String CROP_EMPLOYEE_PHONE ="phone";
+    public static final String CROP_EMPLOYEE_MOBILE ="mobile";
+    public static final String CROP_EMPLOYEE_EMP_ID ="employeeId";
+    public static final String CROP_EMPLOYEE_GENDER ="gender";
+    public static final String CROP_EMPLOYEE_ADDRESS ="address";
+    public static final String CROP_EMPLOYEE_EMAIL ="email";
+    public static final String CROP_EMPLOYEE_DOB ="dateOfBirth";
+    public static final String CROP_EMPLOYEE_HIRE_DATE ="hireDate";
+    public static final String CROP_EMPLOYEE_EMPLOYMENT_STATUS ="employmentStatus";
+    public static final String CROP_EMPLOYEE_PAY_AMOUNT ="payAmount";
+    public static final String CROP_EMPLOYEE_PAY_RATE ="payRate";
+    public static final String CROP_EMPLOYEE_PAY_TYPE ="payType";
+    public static final String CROP_EMPLOYEE_SUPERVISOR ="supervisor";
+
+    public static final String CROP_CUSTOMER_ID ="id";
+    public static final String CROP_CUSTOMER_USER_ID ="userId";
+    public static final String CROP_CUSTOMER_NAME ="name";
+    public static final String CROP_CUSTOMER_COMPANY ="company";
+    public static final String CROP_CUSTOMER_TAX_REG_NO ="taxRegNo";
+    public static final String CROP_CUSTOMER_PHONE ="phone";
+    public static final String CROP_CUSTOMER_MOBILE ="mobile";
+    public static final String CROP_CUSTOMER_EMAIL ="email";
+    public static final String CROP_CUSTOMER_OPENING_BALANCE ="openingBalance";
+    public static final String CROP_CUSTOMER_BILL_ADDRESS_STREET ="billingStreet";
+    public static final String CROP_CUSTOMER_BILL_ADDRESS_CITY ="billingCityOrTown";
+    public static final String CROP_CUSTOMER_BILL_ADDRESS_COUNTRY ="billingCountry";
+    public static final String CROP_CUSTOMER_SHIP_ADDRESS_STREET ="shippingStreet";
+    public static final String CROP_CUSTOMER_SHIP_ADDRESS_CITY ="shippingCityOrTown";
+    public static final String CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY ="shippingCountry";
+
+
+    public static final String CROP_SUPPLIER_ID ="id";
+    public static final String CROP_SUPPLIER_USER_ID ="userId";
+    public static final String CROP_SUPPLIER_NAME ="name";
+    public static final String CROP_SUPPLIER_COMPANY ="company";
+    public static final String CROP_SUPPLIER_TAX_REG_NO ="taxRegNo";
+    public static final String CROP_SUPPLIER_PHONE ="phone";
+    public static final String CROP_SUPPLIER_MOBILE ="mobile";
+    public static final String CROP_SUPPLIER_EMAIL ="email";
+    public static final String CROP_SUPPLIER_OPENING_BALANCE ="openingBalance";
+    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_STREET ="invoiceStreet";
+    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_CITY ="invoiceCityOrTown";
+    public static final String CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY ="invoiceCountry";
+
+    public static final String CROP_PRODUCT_ID ="id";
+    public static final String CROP_PRODUCT_USER_ID ="userId";
+    public static final String CROP_PRODUCT_NAME ="name";
+    public static final String CROP_PRODUCT_TYPE ="type";
+    public static final String CROP_PRODUCT_CODE ="code";
+    public static final String CROP_PRODUCT_UNITS ="units";
+    public static final String CROP_PRODUCT_LINKED_ACCOUNT ="linkedAccount";
+    public static final String CROP_PRODUCT_OPENING_COST ="openingCost";
+    public static final String CROP_PRODUCT_OPENING_QUANTITY ="openingQuantity";
+    public static final String CROP_PRODUCT_SELLING_PRICE ="sellingPrice";
+    public static final String CROP_PRODUCT_TAX_RATE="taxRate";
+    public static final String CROP_PRODUCT_DESCRIPTION ="description";
+
+    public static final String CROP_ESTIMATE_ID ="id";
+    public static final String CROP_ESTIMATE_USER_ID ="userId";
+    public static final String CROP_ESTIMATE_CUSTOMER_ID ="customerId";
+    public static final String CROP_ESTIMATE_NO ="number";
+    public static final String CROP_ESTIMATE_DATE ="date";
+    public static final String CROP_ESTIMATE_EXP_DATE ="expiryDate";
+    public static final String CROP_ESTIMATE_REFERENCE_NO ="referenceNo";
+    public static final String CROP_ESTIMATE_DISCOUNT ="discount";
+    public static final String CROP_ESTIMATE_SHIPPING_CHARGES ="shippingCharges";
+    public static final String CROP_ESTIMATE_CUSTOMER_NOTES ="customerNotes";
+    public static final String CROP_ESTIMATE_TERMS_AND_CONDITIONS ="termsAndConditions";
+
+
+    public static final String CROP_ESTIMATE_ITEM_ID ="id";
+    public static final String CROP_ESTIMATE_ITEM_PRODUCT_ID ="productId";
+    public static final String CROP_ESTIMATE_ITEM_ESTIMATE_ID ="estimateId";
+    public static final String CROP_ESTIMATE_ITEM_QUANTITY="quantity";
+    public static final String CROP_ESTIMATE_ITEM_RATE="rate";
+    public static final String CROP_ESTIMATE_ITEM_TAX="tax";
+
+    public static final String CROP_INVOICE_ID ="id";
+    public static final String CROP_INVOICE_USER_ID ="userId";
+    public static final String CROP_INVOICE_CUSTOMER_ID ="customerId";
+    public static final String CROP_INVOICE_NO ="number";
+    public static final String CROP_INVOICE_DATE ="date";
+    public static final String CROP_INVOICE_ORDER_NUMBER ="orderNumber";
+    public static final String CROP_INVOICE_TERMS ="terms";
+    public static final String CROP_INVOICE_DUE_DATE ="dueDate";
+    public static final String CROP_INVOICE_DISCOUNT ="discount";
+    public static final String CROP_INVOICE_SHIPPING_CHARGES ="shippingCharges";
+    public static final String CROP_INVOICE_CUSTOMER_NOTES ="customerNotes";
+    public static final String CROP_INVOICE_TERMS_AND_CONDITIONS ="termsAndConditions";
+
+
+    public static final String CROP_INVOICE_ITEM_ID ="id";
+    public static final String CROP_INVOICE_ITEM_PRODUCT_ID ="productId";
+    public static final String CROP_INVOICE_ITEM_INVOICE_ID ="estimateId";
+    public static final String CROP_INVOICE_ITEM_QUANTITY="quantity";
+    public static final String CROP_INVOICE_ITEM_RATE="rate";
+    public static final String CROP_INVOICE_ITEM_TAX="tax";
+
+    public static final String CROP_PAYMENT_ID ="id";
+    public static final String CROP_PAYMENT_USER_ID ="userId";
+    public static final String CROP_PAYMENT_CUSTOMER_ID ="customerId";
+    public static final String CROP_PAYMENT_AMOUNT ="amount";
+    public static final String CROP_PAYMENT_DATE ="date";
+    public static final String CROP_PAYMENT_MODE ="mode";
+    public static final String CROP_PAYMENT_REFERENCE_NO ="referenceNo";
+    public static final String CROP_PAYMENT_NUMBER ="paymentNumber";
+    public static final String CROP_PAYMENT_NOTES ="notes";
+    public static final String CROP_PAYMENT_INVOICE_ID ="invoiceId";
+
+    public static final String CROP_SALES_ORDER_ID ="id";
+    public static final String CROP_SALES_ORDER_USER_ID ="userId";
+    public static final String CROP_SALES_ORDER_CUSTOMER_ID ="customerId";
+    public static final String CROP_SALES_ORDER_NO ="number";
+    public static final String CROP_SALES_ORDER_REFERENCE_NO ="referenceNumber";
+    public static final String CROP_SALES_ORDER_SHIPPING_METHOD ="shippingMethod";
+    public static final String CROP_SALES_ORDER_DATE ="date";
+    public static final String CROP_SALES_ORDER_SHIPPING_DATE ="shippingDate";
+    public static final String CROP_SALES_ORDER_DISCOUNT ="discount";
+    public static final String CROP_SALES_ORDER_SHIPPING_CHARGES ="shippingCharges";
+    public static final String CROP_SALES_ORDER_CUSTOMER_NOTES ="customerNotes";
+    public static final String CROP_SALES_ORDER_TERMS_AND_CONDITIONS ="termsAndConditions";
+
+
+    public static final String CROP_SALES_ORDER_ITEM_ID ="id";
+    public static final String CROP_SALES_ORDER_ITEM_PRODUCT_ID ="productId";
+    public static final String CROP_SALES_ORDER_ITEM_SALES_ORDER_ID ="estimateId";
+    public static final String CROP_SALES_ORDER_ITEM_QUANTITY="quantity";
+    public static final String CROP_SALES_ORDER_ITEM_RATE="rate";
+    public static final String CROP_SALES_ORDER_ITEM_TAX="tax";
     public static final String CROP_INCOME_EXPENSE_ID = "id";
     public static final String CROP_INCOME_EXPENSE_DATE = "date";
     public static final String CROP_INCOME_EXPENSE_TRANSACTION = "incomeExpenseTransaction";
@@ -368,113 +396,114 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         database = db;
-        String crop_inventory_fertilizer_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ( " + CROP_INVENTORY_FERTILIZER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_INVENTORY_FERTILIZER_USER_ID + " TEXT," + CROP_INVENTORY_FERTILIZER_DATE + " TEXT NOT NULL," + CROP_INVENTORY_FERTILIZER_TYPE + " TEXT NOT NULL," + CROP_INVENTORY_FERTILIZER_NAME + " TEXT NOT NULL," + CROP_INVENTORY_FERTILIZER_N_PERCENTAGE + " REAL," +
-                CROP_INVENTORY_FERTILIZER_P_PERCENTAGE + " REAL," + CROP_INVENTORY_FERTILIZER_K_PERCENTAGE + " REAL," + CROP_INVENTORY_FERTILIZER_QUANTITY + " REAL NOT NULL," + CROP_INVENTORY_FERTILIZER_BATCH_NUMBER + " TEXT NOT NULL," +
-                CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER + " TEXT," + CROP_INVENTORY_FERTILIZER_SUPPLIER + " TEXT," + CROP_INVENTORY_FERTILIZER_USAGE_UNIT + " TEXT ," + CROP_INVENTORY_FERTILIZER_COST + " REAL ," + CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA + " REAL ," +
-                CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG + " REAL ," + CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_S + " REAL ," + CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_B + " REAL ," +
-                CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MN + " REAL ," + CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CL + " REAL ," + CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MO + " REAL ," + CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CU + " REAL ," +
-                CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN + " REAL ," + CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE + " REAL ," + CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA + " REAL )";
 
-        String crop_seeds_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVENTORY_SEEDS_TABLE_NAME + " ( " + CROP_INVENTORY_SEEDS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_INVENTORY_SEEDS_USER_ID + " TEXT," + CROP_INVENTORY_SEEDS_DATE + " TEXT NOT NULL," + CROP_INVENTORY_SEEDS_NAME
-                + " TEXT NOT NULL," + CROP_INVENTORY_SEEDS_VARIETY + " TEXT," +
-                CROP_INVENTORY_SEEDS_DRESSING + " TEXT," + CROP_INVENTORY_FERTILIZER_QUANTITY + " REAL NOT NULL," + CROP_INVENTORY_SEEDS_BATCH_NUMBER + " TEXT NOT NULL," +
-                CROP_INVENTORY_SEEDS_COST + " REAL ," + CROP_INVENTORY_SEEDS_SUPPLIER + " TEXT ," + CROP_INVENTORY_SEEDS_TGW + " TEXT ," + CROP_INVENTORY_FERTILIZER_USAGE_UNIT + " TEXT )";
+        String crop_inventory_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+" ( "+CROP_INVENTORY_FERTILIZER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVENTORY_FERTILIZER_USER_ID+" TEXT,"+CROP_INVENTORY_FERTILIZER_DATE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_TYPE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_NAME+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_N_PERCENTAGE+" REAL,"+
+                CROP_INVENTORY_FERTILIZER_P_PERCENTAGE+" REAL,"+ CROP_INVENTORY_FERTILIZER_K_PERCENTAGE+" REAL,"+ CROP_INVENTORY_FERTILIZER_QUANTITY+" REAL NOT NULL,"+CROP_INVENTORY_FERTILIZER_BATCH_NUMBER+" TEXT NOT NULL,"+
+                CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER+" TEXT,"+CROP_INVENTORY_FERTILIZER_SUPPLIER+" TEXT,"+CROP_INVENTORY_FERTILIZER_USAGE_UNIT+" TEXT ,"+CROP_INVENTORY_FERTILIZER_COST+" REAL ,"+CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA+" REAL ,"+
+                CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG+" REAL ,"+CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_S+" REAL ,"+CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_B+" REAL ,"+
+                CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MN+" REAL ,"+ CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CL+" REAL ,"+ CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_MO+" REAL ,"+ CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_CU+" REAL ,"+
+                CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN+" REAL ,"+ CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE+" REAL ,"+ CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA+" REAL )";
 
-
-        String crop_inventory_spray_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVENTORY_SPRAY_TABLE_NAME + " ( " + CROP_INVENTORY_SPRAY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_INVENTORY_SPRAY_USER_ID + " TEXT," + CROP_INVENTORY_SPRAY_DATE + " TEXT NOT NULL," + CROP_INVENTORY_SPRAY_TYPE + " TEXT NOT NULL," + CROP_INVENTORY_SPRAY_NAME
-                + " TEXT NOT NULL," + CROP_INVENTORY_SPRAY_VARIETY + " TEXT," +
-                CROP_INVENTORY_SPRAY_ACTIVE_INGREDIENTS + " TEXT," + CROP_INVENTORY_SPRAY_QUANTITY + " REAL NOT NULL," + CROP_INVENTORY_SPRAY_BATCH_NUMBER + " TEXT NOT NULL," +
-                CROP_INVENTORY_SPRAY_COST + " REAL ," + CROP_INVENTORY_SPRAY_SUPPLIER + " TEXT ," + CROP_INVENTORY_SPRAY_EXPIRY_DATE + " TEXT ," + CROP_INVENTORY_SPRAY_HARVEST_INTERVAL + " TEXT ," + CROP_INVENTORY_SPRAY_USAGE_UNIT + " TEXT )";
-
-        String crop_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_CROP_TABLE_NAME + " ( " + CROP_CROP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_CROP_USER_ID + " TEXT," + CROP_CROP_VARIETY + " TEXT ," + CROP_CROP_YEAR + " INTEGER," + CROP_CROP_NAME + " TEXT NOT NULL," +
-                CROP_CROP_FIELD_ID + " TEXT NOT NULL," + CROP_CROP_GROWING_CYCLE + " TEXT," + CROP_CROP_DATE_SOWN + " TEXT NOT NULL," +
-                CROP_CROP_AREA + " REAL," + CROP_CROP_OPERATOR + " TEXT NOT NULL," +
-                CROP_CROP_COST + " REAL NOT NULL," + CROP_CROP_SEED_ID + " TEXT ," + CROP_CROP_RATE + " REAL ," + CROP_CROP_PLANTING_METHOD + " TEXT NOT NULL )";
-
-        String crop_cultivate_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_CULTIVATION_TABLE_NAME + " ( " + CROP_CULTIVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_CULTIVATION_USER_ID + " TEXT," + CROP_CULTIVATION_CROP_ID + " TEXT NOT NULL," + CROP_CULTIVATION_DATE + " TEXT NOT NULL," + CROP_CULTIVATION_OPERATION + " TEXT NOT NULL," + CROP_CULTIVATION_OPERATOR + " TEXT NOT NULL," +
-                CROP_CULTIVATION_COST + " REAL," + CROP_CULTIVATION_NOTES + " TEXT )";
-
-        String crop_fertilizer_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ( " + CROP_FERTILIZER_APPLICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_FERTILIZER_APPLICATION_USER_ID + " TEXT," + CROP_FERTILIZER_APPLICATION_CROP_ID + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_DATE + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_OPERATOR + " TEXT," +
-                CROP_FERTILIZER_APPLICATION_METHOD + " REAL NOT NULL," + CROP_FERTILIZER_APPLICATION_REASON + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_ID + " TEXT NOT NULL," +
-                CROP_FERTILIZER_APPLICATION_RATE + " REAL NOT NULL ," + CROP_FERTILIZER_APPLICATION_COST + " REAL )";
+        String crop_seeds_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_SEEDS_TABLE_NAME+" ( "+CROP_INVENTORY_SEEDS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVENTORY_SEEDS_USER_ID+" TEXT,"+CROP_INVENTORY_SEEDS_DATE+" TEXT NOT NULL,"+  CROP_INVENTORY_SEEDS_NAME
+                +" TEXT NOT NULL,"+ CROP_INVENTORY_SEEDS_VARIETY+" TEXT,"+
+                CROP_INVENTORY_SEEDS_DRESSING+" TEXT,"+CROP_INVENTORY_FERTILIZER_QUANTITY+" REAL NOT NULL,"+CROP_INVENTORY_SEEDS_BATCH_NUMBER+" TEXT NOT NULL,"+
+               CROP_INVENTORY_SEEDS_COST+" REAL ,"+CROP_INVENTORY_SEEDS_SUPPLIER+" TEXT ,"+CROP_INVENTORY_SEEDS_TGW+" TEXT ,"+CROP_INVENTORY_FERTILIZER_USAGE_UNIT+" TEXT )";
 
 
-        String crop_spraying_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_SPRAYING_TABLE_NAME + " ( " + CROP_SPRAYING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_SPRAYING_USER_ID + " TEXT," + CROP_SPRAYING_CROP_ID + " TEXT NOT NULL," + CROP_SPRAYING_DATE + " TEXT NOT NULL," + CROP_SPRAYING_START_TIME + " TEXT," +
-                CROP_SPRAYING_END_TIME + " TEXT," + CROP_SPRAYING_OPERATOR + " TEXT NOT NULL," +
-                CROP_SPRAYING_WATER_VOLUME + " REAL ," + CROP_SPRAYING_WATER_CONDITION + " TEXT," + CROP_SPRAYING_WIND_DIRECTION + " TEXT, " + CROP_SPRAYING_EQUIPMENT_USED + " TEXT ," +
-                CROP_SPRAYING_SPRAY_ID + " TEXT NOT NULL," + CROP_SPRAYING_RATE + " REAL NOT NULL ," + CROP_SPRAYING_TREATMENT_REASON + " TEXT ," + CROP_SPRAYING_COST + " REAL )";
+        String crop_inventory_spray_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_SPRAY_TABLE_NAME+" ( "+CROP_INVENTORY_SPRAY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVENTORY_SPRAY_USER_ID+" TEXT,"+CROP_INVENTORY_SPRAY_DATE+" TEXT NOT NULL,"+ CROP_INVENTORY_SPRAY_TYPE+" TEXT NOT NULL,"+ CROP_INVENTORY_SPRAY_NAME
+                +" TEXT NOT NULL,"+ CROP_INVENTORY_SPRAY_VARIETY+" TEXT,"+
+                CROP_INVENTORY_SPRAY_ACTIVE_INGREDIENTS+" TEXT,"+CROP_INVENTORY_SPRAY_QUANTITY+" REAL NOT NULL,"+CROP_INVENTORY_SPRAY_BATCH_NUMBER+" TEXT NOT NULL,"+
+                CROP_INVENTORY_SPRAY_COST+" REAL ,"+CROP_INVENTORY_SPRAY_SUPPLIER+" TEXT ,"+CROP_INVENTORY_SPRAY_EXPIRY_DATE+" TEXT ,"+CROP_INVENTORY_SPRAY_HARVEST_INTERVAL+" TEXT ,"+CROP_INVENTORY_SPRAY_USAGE_UNIT+" TEXT )";
 
-        String crop_field_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_FIELDS_TABLE_NAME + " ( " + CROP_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_FIELD_USER_ID + " TEXT," + CROP_FIELD_NAME + " TEXT NOT NULL," + CROP_FIELD_SOIL_CATEGORY + " TEXT," + CROP_FIELD_SOIL_TYPE + " TEXT," + CROP_FIELD_WATERCOURSE + " TEXT," +
-                CROP_FIELD_TOTAL_AREA + " REAL NOT NULL ," + CROP_FIELD_CROPPABLE_AREA + " REAL ," + CROP_FIELD_UNITS + " TEXT NOT NULL)";
+        String crop_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CROP_TABLE_NAME+" ( "+CROP_CROP_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_CROP_USER_ID+" TEXT,"+ CROP_CROP_VARIETY+" TEXT ,"+ CROP_CROP_YEAR +" INTEGER,"+ CROP_CROP_NAME +" TEXT NOT NULL,"+
+                CROP_CROP_FIELD_ID+" TEXT NOT NULL," +CROP_CROP_GROWING_CYCLE+" TEXT,"+CROP_CROP_DATE_SOWN+" TEXT NOT NULL,"+
+                CROP_CROP_AREA+" REAL,"+CROP_CROP_OPERATOR+" TEXT NOT NULL,"+
+                CROP_CROP_COST+" REAL NOT NULL,"+CROP_CROP_SEED_ID+" TEXT ,"+CROP_CROP_RATE+" REAL ,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL )";
 
-        String crop_soil_analysis_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_SOIL_ANALYSIS_TABLE_NAME + " ( " + CROP_SOIL_ANALYSIS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_SOIL_ANALYSIS_USER_ID + " TEXT ," + CROP_SOIL_ANALYSIS_FIELD_ID + " TEXT," + CROP_SOIL_ANALYSIS_DATE + " TEXT NOT NULL," + CROP_SOIL_ANALYSIS_PH + " REAL," + CROP_SOIL_ANALYSIS_ORGANIC_MATTER + " TEXT," +
-                CROP_SOIL_ANALYSIS_AGRONOMIST + " TEXT NOT NULL ," + CROP_SOIL_ANALYSIS_COST + " REAL  NOT NULL  ," + CROP_SOIL_ANALYSIS_RESULTS + " TEXT NOT NULL)";
+        String crop_cultivate_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CULTIVATION_TABLE_NAME+" ( "+CROP_CULTIVATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_CULTIVATION_USER_ID+" TEXT,"+CROP_CULTIVATION_CROP_ID+" TEXT NOT NULL,"+ CROP_CULTIVATION_DATE+" TEXT NOT NULL,"+ CROP_CULTIVATION_OPERATION+" TEXT NOT NULL,"+CROP_CULTIVATION_OPERATOR+" TEXT NOT NULL,"+
+                CROP_CULTIVATION_COST+" REAL,"+CROP_CULTIVATION_NOTES+" TEXT )";
 
-        String crop_machine_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_MACHINE_TABLE_NAME + " ( " + CROP_MACHINE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_MACHINE_USER_ID + " TEXT," + CROP_MACHINE_NAME + " TEXT NOT NULL," + CROP_MACHINE_BRAND + " TEXT ," + CROP_MACHINE_CATEGORY + " TEXT NOT NULL," + CROP_MACHINE_MANUFACTURER + " TEXT ," + CROP_MACHINE_MODEL + " TEXT ," +
-                CROP_MACHINE_REGISTRATION_NUMBER + " REAL," + CROP_MACHINE_QUANTITY + " REAL NOT NULL," + CROP_MACHINE_DATE_ACQUIRED + " TEXT NOT NULL," +
-                CROP_MACHINE_PURCHASED_FROM + " TEXT NOT NULL," + CROP_MACHINE_STORAGE_LOCATION + " TEXT," + CROP_MACHINE_PURCHASE_PRICE + " REAL NOT NULL )";
-
-        String crop_employee_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_EMPLOYEE_TABLE_NAME + " ( " + CROP_EMPLOYEE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_EMPLOYEE_USER_ID + " TEXT," + CROP_EMPLOYEE_FIRST_NAME + " TEXT NOT NULL," + CROP_EMPLOYEE_LAST_NAME + " TEXT NOT NULL," + CROP_EMPLOYEE_TITLE + " TEXT NOT NULL ," +
-                CROP_EMPLOYEE_PHONE + " TEXT NOT NULL," + CROP_EMPLOYEE_MOBILE + " TEXT ," + CROP_EMPLOYEE_EMP_ID + " TEXT ," +
-                CROP_EMPLOYEE_GENDER + " TEXT NOT NULL," + CROP_EMPLOYEE_ADDRESS + " TEXT ," + CROP_EMPLOYEE_EMAIL + " TEXT ," +
-                CROP_EMPLOYEE_DOB + " TEXT," + CROP_EMPLOYEE_HIRE_DATE + " TEXT," + CROP_EMPLOYEE_EMPLOYMENT_STATUS + " TEXT NOT NULL," +
-                CROP_EMPLOYEE_PAY_AMOUNT + " REAL NOT NULL," + CROP_EMPLOYEE_PAY_RATE + " TEXT ," + CROP_EMPLOYEE_PAY_TYPE + " TEXT NOT NULL," + CROP_EMPLOYEE_SUPERVISOR + " TEXT " + " )";
-
-        String crop_customer_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_CUSTOMER_TABLE_NAME + " ( " + CROP_CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_CUSTOMER_USER_ID + " TEXT," + CROP_CUSTOMER_NAME + " TEXT NOT NULL," + CROP_CUSTOMER_COMPANY + " TEXT NOT NULL," + CROP_CUSTOMER_TAX_REG_NO + " TEXT ," +
-                CROP_CUSTOMER_PHONE + " TEXT NOT NULL," + CROP_CUSTOMER_MOBILE + " TEXT ," + CROP_CUSTOMER_EMAIL + " TEXT ," +
-                CROP_CUSTOMER_OPENING_BALANCE + " REAL NOT NULL," + CROP_CUSTOMER_BILL_ADDRESS_STREET + " TEXT NOT NULL ," + CROP_CUSTOMER_BILL_ADDRESS_CITY + " TEXT NOT NULL ," +
-                CROP_CUSTOMER_BILL_ADDRESS_COUNTRY + " TEXT NOT NULL," + CROP_CUSTOMER_SHIP_ADDRESS_STREET + " TEXT NOT NULL," + CROP_CUSTOMER_SHIP_ADDRESS_CITY + " TEXT NOT NULL," +
-                CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY + " TEXT NOT NULL " + " )";
-        String crop_supplier_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_SUPPLIER_TABLE_NAME + " ( " + CROP_SUPPLIER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_SUPPLIER_USER_ID + " TEXT," + CROP_SUPPLIER_NAME + " TEXT NOT NULL," + CROP_SUPPLIER_COMPANY + " TEXT NOT NULL," + CROP_SUPPLIER_TAX_REG_NO + " TEXT ," +
-                CROP_SUPPLIER_PHONE + " TEXT NOT NULL," + CROP_SUPPLIER_MOBILE + " TEXT ," + CROP_SUPPLIER_EMAIL + " TEXT ," + CROP_SUPPLIER_OPENING_BALANCE + " REAL ," + CROP_SUPPLIER_INVOICE_ADDRESS_STREET + " TEXT NOT NULL," + CROP_SUPPLIER_INVOICE_ADDRESS_CITY + " TEXT NOT NULL," +
-                CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY + " TEXT NOT NULL " + " )";
-        String crop_product_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_PRODUCT_TABLE_NAME + " ( " + CROP_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_PRODUCT_USER_ID + " TEXT NOT NULL," + CROP_PRODUCT_NAME + " TEXT NOT NULL," + CROP_PRODUCT_TYPE + " TEXT NOT NULL," + CROP_PRODUCT_CODE + " TEXT ," +
-                CROP_PRODUCT_UNITS + " TEXT," + CROP_PRODUCT_LINKED_ACCOUNT + " TEXT ," + CROP_PRODUCT_OPENING_COST + " REAL  ," + CROP_PRODUCT_OPENING_QUANTITY + " REAL ," +
-                CROP_PRODUCT_SELLING_PRICE + " REAL ," + CROP_PRODUCT_TAX_RATE + " REAL ," +
-                CROP_PRODUCT_DESCRIPTION + " TEXT " + " )";
-
-        String crop_estimates_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_ESTIMATE_TABLE_NAME + " ( " + CROP_ESTIMATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_ESTIMATE_USER_ID + " TEXT NOT NULL," + CROP_ESTIMATE_CUSTOMER_ID + " TEXT NOT NULL," + CROP_ESTIMATE_NO + " TEXT NOT NULL," + CROP_ESTIMATE_DATE + " TEXT NOT NULL," +
-                CROP_ESTIMATE_EXP_DATE + " TEXT," + CROP_ESTIMATE_DISCOUNT + " REAL DEFAULT 0," + CROP_ESTIMATE_SHIPPING_CHARGES + " REAL DEFAULT 0  ," +
-                CROP_ESTIMATE_CUSTOMER_NOTES + " TEXT ," + CROP_ESTIMATE_TERMS_AND_CONDITIONS + " TEXT " + " )";
+        String crop_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" ( "+CROP_FERTILIZER_APPLICATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_FERTILIZER_APPLICATION_USER_ID+" TEXT,"+CROP_FERTILIZER_APPLICATION_CROP_ID+" TEXT NOT NULL,"+ CROP_FERTILIZER_APPLICATION_DATE+" TEXT NOT NULL,"+CROP_FERTILIZER_APPLICATION_OPERATOR+" TEXT,"+
+                CROP_FERTILIZER_APPLICATION_METHOD+" REAL NOT NULL,"+CROP_FERTILIZER_APPLICATION_REASON+" TEXT, "+CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM+" TEXT NOT NULL, "+CROP_FERTILIZER_APPLICATION_FERTILIZER_ID+" TEXT NOT NULL,"+
+                 CROP_FERTILIZER_APPLICATION_RATE+" REAL NOT NULL ,"+CROP_FERTILIZER_APPLICATION_COST+" REAL )";
 
 
-        String crop_estimate_item_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_ESTIMATE_ITEM_TABLE_NAME + " ( " + CROP_ESTIMATE_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_ESTIMATE_ITEM_PRODUCT_ID + " TEXT NOT NULL," + CROP_ESTIMATE_ITEM_ESTIMATE_ID + " TEXT NOT NULL," + CROP_ESTIMATE_ITEM_QUANTITY + " REAL NOT NULL, " + CROP_ESTIMATE_ITEM_TAX + " REAL NOT NULL, " +
-                CROP_ESTIMATE_ITEM_RATE + " REAL NOT NULL, " + " FOREIGN KEY ( " + CROP_ESTIMATE_ITEM_ESTIMATE_ID + ") REFERENCES  " + CROP_ESTIMATE_TABLE_NAME + " ( " + CROP_ESTIMATE_ID + " ), " +
-                "FOREIGN KEY( " + CROP_ESTIMATE_ITEM_PRODUCT_ID + ") REFERENCES  " + CROP_PRODUCT_TABLE_NAME + " ( " + CROP_PRODUCT_ID + " ) )";
+        String crop_spraying_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SPRAYING_TABLE_NAME+" ( "+CROP_SPRAYING_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SPRAYING_USER_ID+" TEXT,"+CROP_SPRAYING_CROP_ID+" TEXT NOT NULL,"+ CROP_SPRAYING_DATE +" TEXT NOT NULL,"+CROP_SPRAYING_START_TIME+" TEXT,"+
+                CROP_SPRAYING_END_TIME+" TEXT,"+CROP_SPRAYING_OPERATOR+" TEXT NOT NULL,"+
+                CROP_SPRAYING_WATER_VOLUME+" REAL ,"+ CROP_SPRAYING_WATER_CONDITION+" TEXT,"+CROP_SPRAYING_WIND_DIRECTION+" TEXT, "+CROP_SPRAYING_EQUIPMENT_USED+" TEXT ,"+
+                CROP_SPRAYING_SPRAY_ID +" TEXT NOT NULL,"+ CROP_SPRAYING_RATE+" REAL NOT NULL ,"+CROP_SPRAYING_TREATMENT_REASON+" TEXT ,"+CROP_SPRAYING_COST+" REAL )";
+
+        String crop_field_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_FIELDS_TABLE_NAME +" ( "+ CROP_FIELD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
+                CROP_FIELD_TOTAL_AREA +" REAL NOT NULL ,"+ CROP_FIELD_CROPPABLE_AREA+" REAL ,"+ CROP_FIELD_UNITS+" TEXT NOT NULL)";
+
+        String crop_soil_analysis_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_SOIL_ANALYSIS_TABLE_NAME +" ( "+ CROP_SOIL_ANALYSIS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SOIL_ANALYSIS_USER_ID+" TEXT ,"+CROP_SOIL_ANALYSIS_FIELD_ID+" TEXT,"+CROP_SOIL_ANALYSIS_DATE+" TEXT NOT NULL,"+ CROP_SOIL_ANALYSIS_PH+" REAL,"+ CROP_SOIL_ANALYSIS_ORGANIC_MATTER+" TEXT,"+
+                CROP_SOIL_ANALYSIS_AGRONOMIST +" TEXT NOT NULL ,"+ CROP_SOIL_ANALYSIS_COST+" REAL  NOT NULL  ,"+ CROP_SOIL_ANALYSIS_RESULTS+" TEXT NOT NULL)";
+
+        String crop_machine_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_MACHINE_TABLE_NAME+" ( "+CROP_MACHINE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_MACHINE_USER_ID+" TEXT,"+CROP_MACHINE_NAME+" TEXT NOT NULL,"+CROP_MACHINE_BRAND+" TEXT ,"+CROP_MACHINE_CATEGORY+" TEXT NOT NULL,"+CROP_MACHINE_MANUFACTURER+" TEXT ,"+ CROP_MACHINE_MODEL+" TEXT ,"+
+                CROP_MACHINE_REGISTRATION_NUMBER+" REAL,"+ CROP_MACHINE_QUANTITY+" REAL NOT NULL,"+CROP_MACHINE_DATE_ACQUIRED+" TEXT NOT NULL,"+
+                CROP_MACHINE_PURCHASED_FROM+" TEXT NOT NULL,"+CROP_MACHINE_STORAGE_LOCATION+" TEXT,"+CROP_MACHINE_PURCHASE_PRICE+" REAL NOT NULL )";
+
+        String crop_employee_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_EMPLOYEE_TABLE_NAME+" ( "+CROP_EMPLOYEE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_EMPLOYEE_USER_ID+" TEXT,"+CROP_EMPLOYEE_FIRST_NAME+" TEXT NOT NULL,"+CROP_EMPLOYEE_LAST_NAME+" TEXT NOT NULL,"+CROP_EMPLOYEE_TITLE+" TEXT NOT NULL ,"+
+                CROP_EMPLOYEE_PHONE+" TEXT NOT NULL,"+CROP_EMPLOYEE_MOBILE+" TEXT ,"+ CROP_EMPLOYEE_EMP_ID+" TEXT ,"+
+                CROP_EMPLOYEE_GENDER+" TEXT NOT NULL,"+ CROP_EMPLOYEE_ADDRESS+" TEXT ,"+CROP_EMPLOYEE_EMAIL+" TEXT ,"+
+                CROP_EMPLOYEE_DOB+" TEXT,"+CROP_EMPLOYEE_HIRE_DATE+" TEXT,"+CROP_EMPLOYEE_EMPLOYMENT_STATUS+" TEXT NOT NULL,"+
+                CROP_EMPLOYEE_PAY_AMOUNT+" REAL NOT NULL,"+ CROP_EMPLOYEE_PAY_RATE+" TEXT ,"+CROP_EMPLOYEE_PAY_TYPE+" TEXT NOT NULL,"+CROP_EMPLOYEE_SUPERVISOR+" TEXT "+" )";
+
+        String crop_customer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CUSTOMER_TABLE_NAME+" ( "+CROP_CUSTOMER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_CUSTOMER_USER_ID+" TEXT,"+CROP_CUSTOMER_NAME+" TEXT NOT NULL,"+CROP_CUSTOMER_COMPANY+" TEXT NOT NULL,"+CROP_CUSTOMER_TAX_REG_NO+" TEXT ,"+
+                CROP_CUSTOMER_PHONE+" TEXT NOT NULL,"+CROP_CUSTOMER_MOBILE+" TEXT ,"+ CROP_CUSTOMER_EMAIL+" TEXT ,"+
+                CROP_CUSTOMER_OPENING_BALANCE+" REAL NOT NULL,"+ CROP_CUSTOMER_BILL_ADDRESS_STREET+" TEXT NOT NULL ,"+CROP_CUSTOMER_BILL_ADDRESS_CITY+" TEXT NOT NULL ,"+
+                CROP_CUSTOMER_BILL_ADDRESS_COUNTRY+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_CUSTOMER_SHIP_ADDRESS_CITY+" TEXT NOT NULL,"+
+                CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
+        String crop_supplier_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SUPPLIER_TABLE_NAME+" ( "+CROP_SUPPLIER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SUPPLIER_USER_ID+" TEXT,"+CROP_SUPPLIER_NAME+" TEXT NOT NULL,"+CROP_SUPPLIER_COMPANY+" TEXT NOT NULL,"+CROP_SUPPLIER_TAX_REG_NO+" TEXT ,"+
+                CROP_SUPPLIER_PHONE+" TEXT NOT NULL,"+CROP_SUPPLIER_MOBILE+" TEXT ,"+ CROP_SUPPLIER_EMAIL+" TEXT ,"+CROP_SUPPLIER_OPENING_BALANCE+" REAL ,"+CROP_SUPPLIER_INVOICE_ADDRESS_STREET+" TEXT NOT NULL,"+CROP_SUPPLIER_INVOICE_ADDRESS_CITY+" TEXT NOT NULL,"+
+                CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY+" TEXT NOT NULL "+" )";
+        String crop_product_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_PRODUCT_USER_ID+" TEXT NOT NULL,"+CROP_PRODUCT_NAME+" TEXT NOT NULL,"+CROP_PRODUCT_TYPE+" TEXT NOT NULL,"+CROP_PRODUCT_CODE+" TEXT ,"+
+                CROP_PRODUCT_UNITS+" TEXT,"+CROP_PRODUCT_LINKED_ACCOUNT+" TEXT ,"+ CROP_PRODUCT_OPENING_COST+" REAL  ,"+CROP_PRODUCT_OPENING_QUANTITY+" REAL ,"+
+                CROP_PRODUCT_SELLING_PRICE+" REAL ,"+CROP_PRODUCT_TAX_RATE+" REAL ,"+
+                CROP_PRODUCT_DESCRIPTION+" TEXT "+" )";
+
+        String crop_estimates_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_ESTIMATE_USER_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_NO+" TEXT NOT NULL,"+CROP_ESTIMATE_DATE+" TEXT NOT NULL,"+
+                CROP_ESTIMATE_REFERENCE_NO+" TEXT NOT NULL,"+ CROP_ESTIMATE_EXP_DATE+" TEXT,"+CROP_ESTIMATE_DISCOUNT+" REAL DEFAULT 0,"+ CROP_ESTIMATE_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
+                CROP_ESTIMATE_CUSTOMER_NOTES+" TEXT ,"+ CROP_ESTIMATE_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
 
-        String crop_invoices_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVOICE_TABLE_NAME + " ( " + CROP_INVOICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_INVOICE_USER_ID + " TEXT NOT NULL," + CROP_INVOICE_CUSTOMER_ID + " TEXT NOT NULL," + CROP_INVOICE_NO + " TEXT NOT NULL," + CROP_INVOICE_DATE + " TEXT NOT NULL," +
-                CROP_INVOICE_EXP_DATE + " TEXT," + CROP_INVOICE_DISCOUNT + " REAL DEFAULT 0," + CROP_INVOICE_SHIPPING_CHARGES + " REAL DEFAULT 0  ," +
-                CROP_INVOICE_CUSTOMER_NOTES + " TEXT ," + CROP_INVOICE_TERMS_AND_CONDITIONS + " TEXT " + " )";
+        String crop_estimate_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_ESTIMATE_ITEM_TABLE_NAME+" ( "+CROP_ESTIMATE_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_ESTIMATE_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_ITEM_ESTIMATE_ID+" TEXT NOT NULL,"+ CROP_ESTIMATE_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_ESTIMATE_ITEM_TAX+" REAL NOT NULL, "+
+                CROP_ESTIMATE_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_ESTIMATE_ITEM_ESTIMATE_ID+") REFERENCES  "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_ESTIMATE_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
 
 
-        String crop_invoice_item_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVOICE_ITEM_TABLE_NAME + " ( " + CROP_INVOICE_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_INVOICE_ITEM_PRODUCT_ID + " TEXT NOT NULL," + CROP_INVOICE_ITEM_INVOICE_ID + " TEXT NOT NULL," + CROP_INVOICE_ITEM_QUANTITY + " REAL NOT NULL, " + CROP_INVOICE_ITEM_TAX + " REAL NOT NULL, " +
-                CROP_INVOICE_ITEM_RATE + " REAL NOT NULL, " + " FOREIGN KEY ( " + CROP_INVOICE_ITEM_INVOICE_ID + ") REFERENCES  " + CROP_INVOICE_TABLE_NAME + " ( " + CROP_INVOICE_ID + " ), " +
-                "FOREIGN KEY( " + CROP_INVOICE_ITEM_PRODUCT_ID + ") REFERENCES  " + CROP_PRODUCT_TABLE_NAME + " ( " + CROP_PRODUCT_ID + " ) )";
+        String crop_invoices_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVOICE_USER_ID+" TEXT NOT NULL,"+CROP_INVOICE_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_INVOICE_NO+" TEXT NOT NULL,"+CROP_INVOICE_TERMS+" TEXT NOT NULL,"+
+                CROP_INVOICE_ORDER_NUMBER+" TEXT NOT NULL,"+CROP_INVOICE_DATE+" TEXT NOT NULL,"+
+                CROP_INVOICE_DUE_DATE+" TEXT,"+CROP_INVOICE_DISCOUNT+" REAL DEFAULT 0,"+ CROP_INVOICE_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
+                CROP_INVOICE_CUSTOMER_NOTES+" TEXT ,"+ CROP_INVOICE_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
-        String crop_payment_item_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_PAYMENT_TABLE_NAME + " ( " + CROP_PAYMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                CROP_PAYMENT_CUSTOMER_ID + " TEXT NOT NULL," + CROP_PAYMENT_DATE + " TEXT NOT NULL," + CROP_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_PAYMENT_AMOUNT + " REAL NOT NULL, " +
-                CROP_PAYMENT_REFERENCE_NO + " TEXT , " + CROP_PAYMENT_NUMBER + " TEXT , " + CROP_PAYMENT_NOTES + " TEXT , " + CROP_PAYMENT_INVOICE_ID + " TEXT , " + " FOREIGN KEY ( " + CROP_PAYMENT_INVOICE_ID + ") REFERENCES  " + CROP_INVOICE_TABLE_NAME + " ( " + CROP_INVOICE_ID + " ), " +
-                "FOREIGN KEY( " + CROP_PAYMENT_CUSTOMER_ID + ") REFERENCES  " + CROP_CUSTOMER_TABLE_NAME + " ( " + CROP_CUSTOMER_ID + " ) )";
 
+        String crop_invoice_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVOICE_ITEM_TABLE_NAME+" ( "+CROP_INVOICE_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_INVOICE_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_INVOICE_ITEM_INVOICE_ID+" TEXT NOT NULL,"+ CROP_INVOICE_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_INVOICE_ITEM_TAX+" REAL NOT NULL, "+
+                CROP_INVOICE_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_INVOICE_ITEM_INVOICE_ID+") REFERENCES  "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_INVOICE_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
+
+        String crop_payment_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PAYMENT_TABLE_NAME+" ( "+CROP_PAYMENT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_PAYMENT_USER_ID+" TEXT NOT NULL,"+CROP_PAYMENT_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_PAYMENT_DATE+" TEXT NOT NULL,"+ CROP_PAYMENT_MODE+" TEXT NOT NULL, "+CROP_PAYMENT_AMOUNT+" REAL NOT NULL, "+
+                CROP_PAYMENT_REFERENCE_NO+" TEXT , "+CROP_PAYMENT_NUMBER+" TEXT , "+CROP_PAYMENT_NOTES+" TEXT , "+CROP_PAYMENT_INVOICE_ID+" TEXT , "+" FOREIGN KEY ( "+CROP_PAYMENT_INVOICE_ID+") REFERENCES  "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_PAYMENT_CUSTOMER_ID+") REFERENCES  "+CROP_CUSTOMER_TABLE_NAME+" ( "+CROP_CUSTOMER_ID+" ) )";
         String crop_income_expense_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME + " ( " + CROP_INCOME_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CROP_INCOME_EXPENSE_DATE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_USER_ID + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_TRANSACTION + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_ITEM +
                 " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CATEGORY + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_QUANTITY + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_GROSS_AMOUNT + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_UNIT_PRICE + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_TAXES + " REAL, "
                 + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT NOT NULL " + " ) ";
@@ -482,6 +511,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
 
+
+
+
+        String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
+                CROP_SALES_ORDER_SHIPPING_DATE +" TEXT,"+CROP_SALES_ORDER_SHIPPING_METHOD +" TEXT,"+CROP_SALES_ORDER_DISCOUNT+" REAL DEFAULT 0,"+ CROP_SALES_ORDER_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
+                CROP_SALES_ORDER_CUSTOMER_NOTES+" TEXT ,"+ CROP_SALES_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";//
+
+
+        String crop_sales_order_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_ITEM_TABLE_NAME+" ( "+CROP_SALES_ORDER_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_SALES_ORDER_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+" TEXT NOT NULL,"+ CROP_SALES_ORDER_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_SALES_ORDER_ITEM_TAX+" REAL NOT NULL, "+
+                CROP_SALES_ORDER_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+") REFERENCES  "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" ), " +
+                "FOREIGN KEY( "+CROP_SALES_ORDER_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
 
         /*Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
@@ -493,7 +535,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("FIELDS",crop_field_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);*/
 
-        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_SUPPLIER_TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_INVOICE_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -513,8 +555,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_invoices_insert_query);
         database.execSQL(crop_invoice_item_insert_query);
         database.execSQL(crop_payment_item_insert_query);
+
         database.execSQL(crop_income_expense_insert_query);
         database.execSQL(crop_task_insert_query);
+
+        database.execSQL(crop_sales_order_insert_query);
+        database.execSQL(crop_sales_order_item_insert_query);
 
     }
 
@@ -558,7 +604,160 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         this.close();
     }
 
-    public void insertCropPayment(CropPayment cropPayment) {
+
+    public String getNextSalesOrderNumber(){
+        openDB();
+        Cursor res =  database.rawQuery( "select "+CROP_SALES_ORDER_ID+" from "+CROP_SALES_ORDER_TABLE_NAME+" ORDER BY "+CROP_SALES_ORDER_ID+" DESC LIMIT 1",null);
+        int lastId = 0;
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            lastId = res.getInt(res.getColumnIndex(CROP_SALES_ORDER_ID));
+        }
+        int id=lastId+1;
+        closeDB();
+
+        return "SO-"+String.format("%03d", id);
+    }
+    public void  insertCropSalesOrder(CropSalesOrder estimate){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_SALES_ORDER_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_SALES_ORDER_CUSTOMER_ID,estimate.getCustomerId());
+        contentValues.put(CROP_SALES_ORDER_NO,estimate.getNumber());
+        contentValues.put(CROP_SALES_ORDER_DATE,estimate.getDate());
+        contentValues.put(CROP_SALES_ORDER_SHIPPING_METHOD,estimate.getMethod());
+        contentValues.put(CROP_SALES_ORDER_REFERENCE_NO,estimate.getReferenceNumber());
+        contentValues.put(CROP_SALES_ORDER_SHIPPING_DATE,estimate.getShippingDate());
+        contentValues.put(CROP_SALES_ORDER_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_SALES_ORDER_SHIPPING_CHARGES,estimate.getShippingCharges());
+        contentValues.put(CROP_SALES_ORDER_CUSTOMER_NOTES,estimate.getCustomerNotes());
+        contentValues.put(CROP_SALES_ORDER_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+
+        database.insert(CROP_SALES_ORDER_TABLE_NAME,null,contentValues);
+
+        Cursor res =  database.rawQuery( "select "+CROP_SALES_ORDER_ID+" from "+CROP_SALES_ORDER_TABLE_NAME+" where "+CROP_SALES_ORDER_CUSTOMER_ID+" = '"+estimate.getCustomerId()+"' AND "+CROP_SALES_ORDER_NO+" = '"+estimate.getNumber()+"'", null );
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            String estimateId = res.getString(res.getColumnIndex(CROP_SALES_ORDER_ID));
+
+            ArrayList<CropSalesOrderItem> items = estimate.getItems();
+
+            for(CropSalesOrderItem x: items){
+                contentValues.clear();
+                contentValues.put(CROP_SALES_ORDER_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_SALES_ORDER_ITEM_SALES_ORDER_ID,estimateId);
+                contentValues.put(CROP_SALES_ORDER_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_SALES_ORDER_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_SALES_ORDER_ITEM_RATE,x.getRate());
+                database.insert(CROP_SALES_ORDER_ITEM_TABLE_NAME,null,contentValues);
+            }
+        }
+        closeDB();
+    }
+    public void  updateCropSalesOrder(CropSalesOrder estimate){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_SALES_ORDER_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_SALES_ORDER_CUSTOMER_ID,estimate.getCustomerId());
+        contentValues.put(CROP_SALES_ORDER_NO,estimate.getNumber());
+        contentValues.put(CROP_SALES_ORDER_DATE,estimate.getDate());
+        contentValues.put(CROP_SALES_ORDER_SHIPPING_METHOD,estimate.getMethod());
+        contentValues.put(CROP_SALES_ORDER_REFERENCE_NO,estimate.getReferenceNumber());
+        contentValues.put(CROP_SALES_ORDER_SHIPPING_DATE,estimate.getShippingDate());
+        contentValues.put(CROP_SALES_ORDER_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_SALES_ORDER_SHIPPING_CHARGES,estimate.getShippingCharges());
+        contentValues.put(CROP_SALES_ORDER_CUSTOMER_NOTES,estimate.getCustomerNotes());
+        contentValues.put(CROP_SALES_ORDER_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+
+        database.update(CROP_SALES_ORDER_TABLE_NAME,contentValues,CROP_SALES_ORDER_ID+" = ?", new String[]{estimate.getId()});
+
+        String estimateId = estimate.getId();
+
+        ArrayList<CropSalesOrderItem> items = estimate.getItems();
+
+        for(CropSalesOrderItem x: items){
+            contentValues.clear();
+            contentValues.put(CROP_SALES_ORDER_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_SALES_ORDER_ITEM_SALES_ORDER_ID,estimateId);
+            contentValues.put(CROP_SALES_ORDER_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_SALES_ORDER_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_SALES_ORDER_ITEM_RATE,x.getRate());
+            if(x.getId() !=null){
+                database.update(CROP_SALES_ORDER_ITEM_TABLE_NAME,contentValues,CROP_SALES_ORDER_ITEM_ID+" = ?", new String[]{x.getId()});
+            }
+            else{
+                database.insert(CROP_SALES_ORDER_ITEM_TABLE_NAME,null,contentValues);
+            }
+
+        }
+
+        for(String id: estimate.getDeletedItemsIds()){
+            database.delete(CROP_SALES_ORDER_ITEM_TABLE_NAME,CROP_SALES_ORDER_ITEM_ID+" = ?", new String[]{id});
+        }
+
+        closeDB();
+    }
+    public boolean deleteCropSalesOrder(String id){
+        openDB();
+        database.delete(CROP_SALES_ORDER_ITEM_TABLE_NAME,CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+" = ?", new String[]{id});
+        database.delete(CROP_SALES_ORDER_TABLE_NAME,CROP_SALES_ORDER_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropSalesOrder> getCropSalesOrders(String userId){
+        openDB();
+        ArrayList<CropSalesOrder> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select "+CROP_SALES_ORDER_TABLE_NAME+".*,"+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_NAME+" from "+CROP_SALES_ORDER_TABLE_NAME+" LEFT JOIN "+CROP_CUSTOMER_TABLE_NAME+" ON "+CROP_SALES_ORDER_TABLE_NAME+"."+CROP_SALES_ORDER_CUSTOMER_ID+" = "+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_ID+" where "+CROP_SALES_ORDER_TABLE_NAME+"."+CROP_SALES_ORDER_USER_ID+" = "+ userId, null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            CropSalesOrder cropSalesOrder = new CropSalesOrder();
+            cropSalesOrder.setId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ID)));
+            cropSalesOrder.setUserId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_USER_ID)));
+            cropSalesOrder.setCustomerId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_CUSTOMER_ID)));
+            cropSalesOrder.setNumber(res.getString(res.getColumnIndex(CROP_SALES_ORDER_NO)));
+            cropSalesOrder.setMethod(res.getString(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_METHOD)));
+            cropSalesOrder.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
+            cropSalesOrder.setReferenceNumber(res.getString(res.getColumnIndex(CROP_SALES_ORDER_REFERENCE_NO)));
+            cropSalesOrder.setDate(res.getString(res.getColumnIndex(CROP_SALES_ORDER_DATE)));
+            cropSalesOrder.setShippingDate(res.getString(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_DATE)));
+            cropSalesOrder.setDiscount(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_DISCOUNT)));
+            cropSalesOrder.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_CHARGES)));
+            cropSalesOrder.setCustomerNotes(res.getString(res.getColumnIndex(CROP_SALES_ORDER_CUSTOMER_NOTES)));
+            cropSalesOrder.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_SALES_ORDER_TERMS_AND_CONDITIONS)));
+            array_list.add(cropSalesOrder);
+            res.moveToNext();
+        }
+
+
+        for(CropSalesOrder cropSalesOrder: array_list){
+            ArrayList<CropSalesOrderItem> items_list = new ArrayList();
+            res = db.rawQuery( "select * from "+CROP_SALES_ORDER_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_SALES_ORDER_ITEM_TABLE_NAME+"."+CROP_SALES_ORDER_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+" = "+ cropSalesOrder.getId(), null );
+            res.moveToFirst();
+            while(!res.isAfterLast()) {
+                CropSalesOrderItem item = new CropSalesOrderItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ITEM_ID)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ITEM_PRODUCT_ID)));
+                item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ITEM_SALES_ORDER_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_ITEM_RATE)));
+                items_list.add(item);
+                res.moveToNext();
+            }
+            cropSalesOrder.setItems(items_list);
+        }
+
+        closeDB();
+        return array_list;
+    }
+    public void  insertCropPayment(CropPayment cropPayment){
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_PAYMENT_USER_ID, cropPayment.getUserId());
@@ -579,17 +778,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateCropPayment(CropPayment cropPayment) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_PAYMENT_USER_ID, cropPayment.getUserId());
-        contentValues.put(CROP_PAYMENT_AMOUNT, cropPayment.getAmount());
-        contentValues.put(CROP_PAYMENT_DATE, cropPayment.getDate());
-        contentValues.put(CROP_PAYMENT_MODE, cropPayment.getMode());
-        contentValues.put(CROP_PAYMENT_NUMBER, cropPayment.getPaymentNumber());
-        contentValues.put(CROP_PAYMENT_NOTES, cropPayment.getNotes());
-        contentValues.put(CROP_PAYMENT_CUSTOMER_ID, cropPayment.getCustomerId());
-        contentValues.put(CROP_PAYMENT_REFERENCE_NO, cropPayment.getReferenceNo());
-        contentValues.put(CROP_PAYMENT_INVOICE_ID, cropPayment.getInvoiceId());
-        contentValues.put(CROP_PAYMENT_CUSTOMER_ID, cropPayment.getCustomerId());
-        database.update(CROP_PAYMENT_TABLE_NAME, contentValues, CROP_PAYMENT_ID + " = ?", new String[]{cropPayment.getId()});
+
+        contentValues.put(CROP_PAYMENT_USER_ID,cropPayment.getUserId());
+        contentValues.put(CROP_PAYMENT_AMOUNT,cropPayment.getAmount());
+        contentValues.put(CROP_PAYMENT_DATE,cropPayment.getDate());
+        contentValues.put(CROP_PAYMENT_MODE,cropPayment.getMode());
+        contentValues.put(CROP_PAYMENT_NUMBER,cropPayment.getPaymentNumber());
+        contentValues.put(CROP_PAYMENT_NOTES,cropPayment.getNotes());
+        contentValues.put(CROP_PAYMENT_CUSTOMER_ID,cropPayment.getCustomerId());
+        contentValues.put(CROP_PAYMENT_REFERENCE_NO,cropPayment.getReferenceNo());
+        contentValues.put(CROP_PAYMENT_INVOICE_ID,cropPayment.getInvoiceId());
+        contentValues.put(CROP_PAYMENT_CUSTOMER_ID,cropPayment.getCustomerId());
+        contentValues.put(CROP_PAYMENT_DATE,cropPayment.getDate());
+        database.update(CROP_PAYMENT_TABLE_NAME,contentValues,CROP_PAYMENT_ID+" = ?", new String[]{cropPayment.getId()});
+
 
         closeDB();
 
@@ -602,13 +804,51 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<CropPayment> getCropPayments(String fieldId) {
+    public ArrayList<CropPayment> getCropPaymentsByInvoice(String invoiceId){
         openDB();
         ArrayList<CropPayment> array_list = new ArrayList();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_EMPLOYEE_TABLE_NAME + " where " + CROP_EMPLOYEE_USER_ID + " = " + fieldId, null);
+        Cursor res =  db.rawQuery( "select "+CROP_PAYMENT_TABLE_NAME+".*,"+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_NAME+", "+CROP_INVOICE_TABLE_NAME+"."+CROP_INVOICE_NO+" from "+CROP_PAYMENT_TABLE_NAME+" LEFT JOIN "+CROP_CUSTOMER_TABLE_NAME+" ON "+CROP_PAYMENT_TABLE_NAME+"."+CROP_PAYMENT_CUSTOMER_ID+" = "+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_ID+
+                " JOIN "+CROP_INVOICE_TABLE_NAME+" ON "+CROP_PAYMENT_TABLE_NAME+"."+CROP_PAYMENT_INVOICE_ID+" = "+CROP_INVOICE_TABLE_NAME+"."+CROP_INVOICE_ID+
+                " where "+CROP_PAYMENT_TABLE_NAME+"."+CROP_PAYMENT_INVOICE_ID+" = "+invoiceId, null );
+        res.moveToFirst();
+
+
+        while(!res.isAfterLast()){
+            CropPayment cropPayment = new CropPayment();
+            cropPayment.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_ID)));
+            cropPayment.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_USER_ID)));
+            cropPayment.setAmount(res.getFloat(res.getColumnIndex(CROP_PAYMENT_AMOUNT)));
+            cropPayment.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_MODE)));
+            cropPayment.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_DATE)));
+            cropPayment.setReferenceNo(res.getString(res.getColumnIndex(CROP_PAYMENT_REFERENCE_NO)));
+            cropPayment.setPaymentNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_NUMBER)));
+            cropPayment.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_NOTES)));
+            cropPayment.setCustomerId(res.getString(res.getColumnIndex(CROP_PAYMENT_CUSTOMER_ID)));
+            cropPayment.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
+            cropPayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
+            cropPayment.setInvoiceNumber(res.getString(res.getColumnIndex(CROP_INVOICE_NO)));
+            array_list.add(cropPayment);
+            res.moveToNext();
+        }
+
+        closeDB();
+        return array_list;
+
+    }
+    public ArrayList<CropPayment> getCropPayments(String fieldId){
+
+        openDB();
+        ArrayList<CropPayment> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res =  db.rawQuery( "select "+CROP_PAYMENT_TABLE_NAME+".*,"+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_NAME+", "+CROP_INVOICE_TABLE_NAME+"."+CROP_INVOICE_NO+" from "+CROP_PAYMENT_TABLE_NAME+" LEFT JOIN "+CROP_CUSTOMER_TABLE_NAME+" ON "+CROP_PAYMENT_TABLE_NAME+"."+CROP_PAYMENT_CUSTOMER_ID+" = "+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_ID+
+                        " JOIN "+CROP_INVOICE_TABLE_NAME+" ON "+CROP_PAYMENT_TABLE_NAME+"."+CROP_PAYMENT_INVOICE_ID+" = "+CROP_INVOICE_TABLE_NAME+"."+CROP_INVOICE_ID+
+                " where "+CROP_PAYMENT_TABLE_NAME+"."+CROP_PAYMENT_USER_ID+" = "+fieldId, null );
         res.moveToFirst();
 
 
@@ -616,14 +856,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             CropPayment cropPayment = new CropPayment();
             cropPayment.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_ID)));
             cropPayment.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_USER_ID)));
-            cropPayment.setAmount(res.getString(res.getColumnIndex(CROP_PAYMENT_AMOUNT)));
+            cropPayment.setAmount(res.getFloat(res.getColumnIndex(CROP_PAYMENT_AMOUNT)));
             cropPayment.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_MODE)));
             cropPayment.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_DATE)));
             cropPayment.setReferenceNo(res.getString(res.getColumnIndex(CROP_PAYMENT_REFERENCE_NO)));
             cropPayment.setPaymentNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_NUMBER)));
             cropPayment.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_NOTES)));
             cropPayment.setCustomerId(res.getString(res.getColumnIndex(CROP_PAYMENT_CUSTOMER_ID)));
+            cropPayment.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropPayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
+            cropPayment.setInvoiceNumber(res.getString(res.getColumnIndex(CROP_INVOICE_NO)));
             array_list.add(cropPayment);
             res.moveToNext();
         }
@@ -634,24 +876,43 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
-    public void insertCropInvoice(CropInvoice invoice) {
+
+    public String getNextPaymentNumber(){
+        openDB();
+        Cursor res =  database.rawQuery( "select "+CROP_PAYMENT_ID+" from "+CROP_PAYMENT_TABLE_NAME+" ORDER BY "+CROP_PAYMENT_ID+" DESC LIMIT 1",null);
+        int lastId = 0;
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            lastId = res.getInt(res.getColumnIndex(CROP_PAYMENT_ID));
+        }
+        int id=lastId+1;
+        closeDB();
+
+        return String.format("%03d", id);
+    }
+    public void  insertCropInvoice(CropInvoice invoice){
         openDB();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(CROP_INVOICE_USER_ID, invoice.getUserId());
-        contentValues.put(CROP_INVOICE_CUSTOMER_ID, invoice.getCustomerId());
-        contentValues.put(CROP_INVOICE_NO, invoice.getNumber());
-        contentValues.put(CROP_INVOICE_DATE, invoice.getDate());
-        contentValues.put(CROP_INVOICE_EXP_DATE, invoice.getExpiryDate());
-        contentValues.put(CROP_INVOICE_DISCOUNT, invoice.getDiscount());
-        contentValues.put(CROP_INVOICE_SHIPPING_CHARGES, invoice.getShippingCharges());
-        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES, invoice.getCustomerNotes());
-        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES, invoice.getTermsAndConditions());
+        contentValues.put(CROP_INVOICE_USER_ID,invoice.getUserId());
+        contentValues.put(CROP_INVOICE_CUSTOMER_ID,invoice.getCustomerId());
+        contentValues.put(CROP_INVOICE_NO,invoice.getNumber());
+        contentValues.put(CROP_INVOICE_DATE,invoice.getDate());
+        contentValues.put(CROP_INVOICE_DUE_DATE,invoice.getDueDate());
+        contentValues.put(CROP_INVOICE_ORDER_NUMBER,invoice.getOrderNumber());
+        contentValues.put(CROP_INVOICE_TERMS,invoice.getTerms());
+        contentValues.put(CROP_INVOICE_DISCOUNT,invoice.getDiscount());
+        contentValues.put(CROP_INVOICE_SHIPPING_CHARGES,invoice.getShippingCharges());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getCustomerNotes());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getTermsAndConditions());
 
         database.insert(CROP_INVOICE_TABLE_NAME, null, contentValues);
 
-        Cursor res = database.rawQuery("select " + CROP_INVOICE_ID + " from " + CROP_INVOICE_TABLE_NAME + " where " + CROP_INVOICE_CUSTOMER_ID + " = '" + invoice.getCustomerId() + "' AND " + CROP_INVOICE_NO + " = '" + invoice.getNumber() + "'", null);
-        if (!res.isAfterLast()) {
+
+        Cursor res =  database.rawQuery( "select "+CROP_INVOICE_ID+" from "+CROP_INVOICE_TABLE_NAME+" where "+CROP_INVOICE_CUSTOMER_ID+" = '"+invoice.getCustomerId()+"' AND "+CROP_INVOICE_NO+" = '"+invoice.getNumber()+"'", null );
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+
             String invoiceId = res.getString(res.getColumnIndex(CROP_INVOICE_ID));
 
             ArrayList<CropInvoiceItem> items = invoice.getItems();
@@ -665,23 +926,34 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 contentValues.put(CROP_INVOICE_ITEM_RATE, x.getRate());
                 database.insert(CROP_INVOICE_ITEM_TABLE_NAME, null, contentValues);
             }
+            //save payments if there are any
+
+            CropPayment cropPayment = invoice.getInitialPayment();
+            if(cropPayment != null){
+                cropPayment.setInvoiceId(invoiceId);
+                this.insertCropPayment(cropPayment);
+
+            }
         }
+
         closeDB();
     }
 
     public void updateCropInvoice(CropInvoice invoice) {
         openDB();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_INVOICE_USER_ID,invoice.getUserId());
+        contentValues.put(CROP_INVOICE_CUSTOMER_ID,invoice.getCustomerId());
+        contentValues.put(CROP_INVOICE_NO,invoice.getNumber());
+        contentValues.put(CROP_INVOICE_DATE,invoice.getDate());
+        contentValues.put(CROP_INVOICE_DUE_DATE,invoice.getDueDate());
+        contentValues.put(CROP_INVOICE_ORDER_NUMBER,invoice.getOrderNumber());
+        contentValues.put(CROP_INVOICE_TERMS,invoice.getTerms());
+        contentValues.put(CROP_INVOICE_DISCOUNT,invoice.getDiscount());
+        contentValues.put(CROP_INVOICE_SHIPPING_CHARGES,invoice.getShippingCharges());
+        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getCustomerNotes());
+        contentValues.put(CROP_INVOICE_TERMS_AND_CONDITIONS,invoice.getTermsAndConditions());
 
-        contentValues.put(CROP_INVOICE_USER_ID, invoice.getUserId());
-        contentValues.put(CROP_INVOICE_CUSTOMER_ID, invoice.getCustomerId());
-        contentValues.put(CROP_INVOICE_NO, invoice.getNumber());
-        contentValues.put(CROP_INVOICE_DATE, invoice.getDate());
-        contentValues.put(CROP_INVOICE_EXP_DATE, invoice.getExpiryDate());
-        contentValues.put(CROP_INVOICE_DISCOUNT, invoice.getDiscount());
-        contentValues.put(CROP_INVOICE_SHIPPING_CHARGES, invoice.getShippingCharges());
-        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES, invoice.getCustomerNotes());
-        contentValues.put(CROP_INVOICE_CUSTOMER_NOTES, invoice.getTermsAndConditions());
 
         database.update(CROP_INVOICE_TABLE_NAME, contentValues, CROP_INVOICE_ID + " = ?", new String[]{invoice.getId()});
 
@@ -691,15 +963,27 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for (CropInvoiceItem x : items) {
             contentValues.clear();
-            if (x.getId() == null) {
-                contentValues.put(CROP_INVOICE_ITEM_PRODUCT_ID, x.getProductId());
-                contentValues.put(CROP_INVOICE_ITEM_INVOICE_ID, invoiceId);
-                contentValues.put(CROP_INVOICE_ITEM_QUANTITY, x.getQuantity());
-                contentValues.put(CROP_INVOICE_ITEM_TAX, x.getTax());
-                contentValues.put(CROP_INVOICE_ITEM_RATE, x.getRate());
-                database.update(CROP_INVOICE_ITEM_TABLE_NAME, contentValues, CROP_INVOICE_ITEM_ID + " = ?", new String[]{x.getId()});
+            contentValues.put(CROP_INVOICE_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_INVOICE_ITEM_INVOICE_ID,invoiceId);
+            contentValues.put(CROP_INVOICE_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_INVOICE_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_INVOICE_ITEM_RATE,x.getRate());
+            if(x.getId() !=null){
+                database.update(CROP_INVOICE_ITEM_TABLE_NAME,contentValues,CROP_INVOICE_ITEM_ID+" = ?", new String[]{x.getId()});
+            }
+            else{
+                database.insert(CROP_INVOICE_ITEM_TABLE_NAME,null,contentValues);
             }
 
+        }
+        CropPayment cropPayment = invoice.getInitialPayment();
+        if(cropPayment != null){
+            cropPayment.setInvoiceId(invoiceId);
+            this.insertCropPayment(cropPayment);
+        }
+
+        for(String id: invoice.getDeletedItemsIds()){
+            database.delete(CROP_INVOICE_ITEM_TABLE_NAME,CROP_INVOICE_ITEM_ID+" = ?", new String[]{id});
         }
         closeDB();
     }
@@ -712,13 +996,27 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<CropInvoice> getCropInvoices(String userId) {
+    public String getNextInvoiceNumber(){
+        openDB();
+        Cursor res =  database.rawQuery( "select "+CROP_INVOICE_ID+" from "+ CROP_INVOICE_TABLE_NAME+" ORDER BY "+CROP_INVOICE_ID+" DESC LIMIT 1",null);
+        int lastId = 0;
+        res.moveToFirst();
+        Log.d("TESTING",res.getCount()+"");
+        if(!res.isAfterLast()){
+            Log.d("TESTING",res.getColumnCount()+" columns "+res.getColumnNames().toString());
+            lastId = res.getInt(res.getColumnIndex(CROP_INVOICE_ID));
+        }
+        int id=lastId+1;
+        closeDB();
+
+        return "INV-"+String.format("%04d", id);
+    }
+    public ArrayList<CropInvoice> getCropInvoices(String userId){
         openDB();
         ArrayList<CropInvoice> array_list = new ArrayList();
 
-        //hp = new HashMap();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVOICE_TABLE_NAME + " where " + CROP_INVOICE_USER_ID + " = " + userId, null);
+        SQLiteDatabase db = database;
+        Cursor res =  db.rawQuery( "select "+CROP_INVOICE_TABLE_NAME+".*,"+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_NAME+" from "+CROP_INVOICE_TABLE_NAME+" LEFT JOIN "+CROP_CUSTOMER_TABLE_NAME+" ON "+CROP_INVOICE_TABLE_NAME+"."+CROP_INVOICE_CUSTOMER_ID+" = "+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_ID+" where "+CROP_INVOICE_TABLE_NAME+"."+CROP_INVOICE_USER_ID+" = "+ userId, null );
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -727,8 +1025,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropInvoice.setUserId(res.getString(res.getColumnIndex(CROP_INVOICE_USER_ID)));
             cropInvoice.setCustomerId(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_ID)));
             cropInvoice.setNumber(res.getString(res.getColumnIndex(CROP_INVOICE_NO)));
+            cropInvoice.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropInvoice.setDate(res.getString(res.getColumnIndex(CROP_INVOICE_DATE)));
-            cropInvoice.setExpiryDate(res.getString(res.getColumnIndex(CROP_INVOICE_EXP_DATE)));
+            cropInvoice.setDueDate(res.getString(res.getColumnIndex(CROP_INVOICE_DUE_DATE)));
+            cropInvoice.setOrderNumber(res.getString(res.getColumnIndex(CROP_INVOICE_ORDER_NUMBER)));
+            cropInvoice.setTerms(res.getString(res.getColumnIndex(CROP_INVOICE_TERMS)));
             cropInvoice.setDiscount(res.getFloat(res.getColumnIndex(CROP_INVOICE_DISCOUNT)));
             cropInvoice.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_INVOICE_SHIPPING_CHARGES)));
             cropInvoice.setCustomerNotes(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_NOTES)));
@@ -740,19 +1041,28 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for (CropInvoice invoice : array_list) {
             ArrayList<CropInvoiceItem> items_list = new ArrayList();
-            res = db.rawQuery("select * from " + CROP_INVOICE_ITEM_TABLE_NAME + " where " + CROP_INVOICE_ITEM_INVOICE_ID + " = " + invoice.getId(), null);
+
+            res = db.rawQuery( "select * from "+CROP_INVOICE_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_INVOICE_ITEM_TABLE_NAME+"."+CROP_INVOICE_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_INVOICE_ITEM_INVOICE_ID+" = "+ invoice.getId(), null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
                 CropInvoiceItem item = new CropInvoiceItem();
                 item.setId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_ID)));
+                item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
                 item.setProductId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_PRODUCT_ID)));
                 item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_INVOICE_ID)));
                 item.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_QUANTITY)));
                 item.setTax(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_TAX)));
                 item.setRate(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_RATE)));
                 items_list.add(item);
+                res.moveToNext();
             }
+            res.close();
+
             invoice.setItems(items_list);
+        }
+
+        for(CropInvoice invoice: array_list){
+            invoice.setPayments(this.getCropPaymentsByInvoice(invoice.getId()));
         }
 
         closeDB();
@@ -763,21 +1073,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertCropEstimate(CropEstimate estimate) {
         openDB();
         ContentValues contentValues = new ContentValues();
-
-        contentValues.put(CROP_ESTIMATE_USER_ID, estimate.getUserId());
-        contentValues.put(CROP_ESTIMATE_CUSTOMER_ID, estimate.getCustomerId());
-        contentValues.put(CROP_ESTIMATE_NO, estimate.getNumber());
-        contentValues.put(CROP_ESTIMATE_DATE, estimate.getDate());
-        contentValues.put(CROP_ESTIMATE_EXP_DATE, estimate.getExpiryDate());
-        contentValues.put(CROP_ESTIMATE_DISCOUNT, estimate.getDiscount());
-        contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES, estimate.getShippingCharges());
-        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES, estimate.getCustomerNotes());
-        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES, estimate.getTermsAndConditions());
-
+        contentValues.put(CROP_ESTIMATE_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
+        contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
+        contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
+        contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
+        contentValues.put(CROP_ESTIMATE_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
         database.insert(CROP_ESTIMATE_TABLE_NAME, null, contentValues);
 
-        Cursor res = database.rawQuery("select " + CROP_ESTIMATE_ID + " from " + CROP_ESTIMATE_TABLE_NAME + " where " + CROP_ESTIMATE_CUSTOMER_ID + " = '" + estimate.getCustomerId() + "' AND " + CROP_ESTIMATE_NO + " = '" + estimate.getNumber() + "'", null);
-        if (!res.isAfterLast()) {
+        Cursor res =  database.rawQuery( "select "+CROP_ESTIMATE_ID+" from "+CROP_ESTIMATE_TABLE_NAME+" where "+CROP_ESTIMATE_CUSTOMER_ID+" = '"+estimate.getCustomerId()+"' AND "+CROP_ESTIMATE_NO+" = '"+estimate.getNumber()+"'", null );
+        res.moveToFirst();
+        if(!res.isAfterLast()){
             String estimateId = res.getString(res.getColumnIndex(CROP_ESTIMATE_ID));
 
             ArrayList<CropEstimateItem> items = estimate.getItems();
@@ -799,27 +1108,39 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         Cursor res = database.rawQuery("select " + CROP_ESTIMATE_ID + " from " + CROP_ESTIMATE_TABLE_NAME + " ORDER BY " + CROP_ESTIMATE_ID + " DESC LIMIT 1", null);
         int lastId = 0;
+
         if (!res.isAfterLast()) {
-            lastId = res.getInt(res.getColumnIndex(CROP_ESTIMATE_ID));
+            res.moveToFirst();
+            Log.d("TESTING", res.getCount() + "");
+            if (!res.isAfterLast()) {
+                Log.d("TESTING", res.getColumnCount() + " columns " + res.getColumnNames().toString());
+
+                lastId = res.getInt(res.getColumnIndex(CROP_ESTIMATE_ID));
+            }
         }
         int id = lastId + 1;
         closeDB();
-        return "EST-" + id;
+
+
+
+        return "EST-"+String.format("%03d", id);
     }
 
     public void updateCropEstimate(CropEstimate estimate) {
         openDB();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(CROP_ESTIMATE_USER_ID, estimate.getUserId());
-        contentValues.put(CROP_ESTIMATE_CUSTOMER_ID, estimate.getCustomerId());
-        contentValues.put(CROP_ESTIMATE_NO, estimate.getNumber());
-        contentValues.put(CROP_ESTIMATE_DATE, estimate.getDate());
-        contentValues.put(CROP_ESTIMATE_EXP_DATE, estimate.getExpiryDate());
-        contentValues.put(CROP_ESTIMATE_DISCOUNT, estimate.getDiscount());
-        contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES, estimate.getShippingCharges());
-        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES, estimate.getCustomerNotes());
-        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES, estimate.getTermsAndConditions());
+
+        contentValues.put(CROP_ESTIMATE_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
+        contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
+        contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
+        contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
+        contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
+        contentValues.put(CROP_ESTIMATE_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+
 
         database.update(CROP_ESTIMATE_TABLE_NAME, contentValues, CROP_ESTIMATE_ID + " = ?", new String[]{estimate.getId()});
 
@@ -829,16 +1150,26 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for (CropEstimateItem x : items) {
             contentValues.clear();
-            if (x.getId() == null) {
-                contentValues.put(CROP_ESTIMATE_ITEM_PRODUCT_ID, x.getProductId());
-                contentValues.put(CROP_ESTIMATE_ITEM_ESTIMATE_ID, estimateId);
-                contentValues.put(CROP_ESTIMATE_ITEM_QUANTITY, x.getQuantity());
-                contentValues.put(CROP_ESTIMATE_ITEM_TAX, x.getTax());
-                contentValues.put(CROP_ESTIMATE_ITEM_RATE, x.getRate());
-                database.update(CROP_ESTIMATE_ITEM_TABLE_NAME, contentValues, CROP_ESTIMATE_ITEM_ID + " = ?", new String[]{x.getId()});
+
+            contentValues.put(CROP_ESTIMATE_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_ESTIMATE_ITEM_ESTIMATE_ID,estimateId);
+            contentValues.put(CROP_ESTIMATE_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_ESTIMATE_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_ESTIMATE_ITEM_RATE,x.getRate());
+            if(x.getId() !=null){
+                database.update(CROP_ESTIMATE_ITEM_TABLE_NAME,contentValues,CROP_ESTIMATE_ITEM_ID+" = ?", new String[]{x.getId()});
+
+            }
+            else{
+                database.insert(CROP_ESTIMATE_ITEM_TABLE_NAME,null,contentValues);
             }
 
         }
+
+        for(String id: estimate.getDeletedItemsIds()){
+            database.delete(CROP_ESTIMATE_ITEM_TABLE_NAME,CROP_ESTIMATE_ITEM_ID+" = ?", new String[]{id});
+        }
+
         closeDB();
     }
 
@@ -856,7 +1187,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_ESTIMATE_TABLE_NAME + " where " + CROP_ESTIMATE_USER_ID + " = " + userId, null);
+
+        Cursor res =  db.rawQuery( "select "+CROP_ESTIMATE_TABLE_NAME+".*,"+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_NAME+" from "+CROP_ESTIMATE_TABLE_NAME+" LEFT JOIN "+CROP_CUSTOMER_TABLE_NAME+" ON "+CROP_ESTIMATE_TABLE_NAME+"."+CROP_ESTIMATE_CUSTOMER_ID+" = "+CROP_CUSTOMER_TABLE_NAME+"."+CROP_CUSTOMER_ID+" where "+CROP_ESTIMATE_TABLE_NAME+"."+CROP_ESTIMATE_USER_ID+" = "+ userId, null );
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -865,6 +1197,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropEstimate.setUserId(res.getString(res.getColumnIndex(CROP_ESTIMATE_USER_ID)));
             cropEstimate.setCustomerId(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_ID)));
             cropEstimate.setNumber(res.getString(res.getColumnIndex(CROP_ESTIMATE_NO)));
+            cropEstimate.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropEstimate.setDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_DATE)));
             cropEstimate.setExpiryDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_EXP_DATE)));
             cropEstimate.setDiscount(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_DISCOUNT)));
@@ -878,23 +1211,26 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for (CropEstimate estimate : array_list) {
             ArrayList<CropEstimateItem> items_list = new ArrayList();
-            res = db.rawQuery("select * from " + CROP_ESTIMATE_ITEM_TABLE_NAME + " where " + CROP_ESTIMATE_ITEM_ESTIMATE_ID + " = " + estimate.getId(), null);
+
+            res = db.rawQuery( "select * from "+CROP_ESTIMATE_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_ESTIMATE_ITEM_TABLE_NAME+"."+CROP_ESTIMATE_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_ESTIMATE_ITEM_ESTIMATE_ID+" = "+ estimate.getId(), null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
                 CropEstimateItem item = new CropEstimateItem();
                 item.setId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ID)));
                 item.setProductId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_PRODUCT_ID)));
+                item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
                 item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ESTIMATE_ID)));
                 item.setQuantity(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_QUANTITY)));
                 item.setTax(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_TAX)));
                 item.setRate(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_RATE)));
                 items_list.add(item);
+                res.moveToNext();
             }
             estimate.setItems(items_list);
         }
 
         closeDB();
-        Log.d("Crop Product", array_list.toString());
+
         return array_list;
     }
 
@@ -1143,7 +1479,45 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
-    public void insertCropEmployee(CropEmployee spraying) {
+
+
+    public CropCustomer getCropCustomer(String customerId){
+        openDB();
+        ArrayList<CropCustomer> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+CROP_CUSTOMER_ID+" = "+customerId, null );
+        res.moveToFirst();
+        
+        if(!res.isAfterLast()){
+            CropCustomer cropCustomer = new CropCustomer();
+            cropCustomer.setId(res.getString(res.getColumnIndex(CROP_CUSTOMER_ID)));
+            cropCustomer.setUserId(res.getString(res.getColumnIndex(CROP_CUSTOMER_USER_ID)));
+            cropCustomer.setName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
+            cropCustomer.setCompany(res.getString(res.getColumnIndex(CROP_CUSTOMER_COMPANY)));
+            cropCustomer.setTaxRegNo(res.getString(res.getColumnIndex(CROP_CUSTOMER_TAX_REG_NO)));
+            cropCustomer.setPhone(res.getString(res.getColumnIndex(CROP_CUSTOMER_PHONE)));
+            cropCustomer.setMobile(res.getString(res.getColumnIndex(CROP_CUSTOMER_MOBILE)));
+            cropCustomer.setEmail(res.getString(res.getColumnIndex(CROP_CUSTOMER_EMAIL)));
+            cropCustomer.setOpeningBalance(res.getFloat(res.getColumnIndex(CROP_CUSTOMER_OPENING_BALANCE)));
+            cropCustomer.setBillingStreet(res.getString(res.getColumnIndex(CROP_CUSTOMER_BILL_ADDRESS_STREET)));
+            cropCustomer.setBillingCityOrTown(res.getString(res.getColumnIndex(CROP_CUSTOMER_BILL_ADDRESS_CITY)));
+            cropCustomer.setBillingCountry(res.getString(res.getColumnIndex(CROP_CUSTOMER_BILL_ADDRESS_COUNTRY)));
+            cropCustomer.setShippingStreet(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_STREET)));
+            cropCustomer.setShippingCityOrTown(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_CITY)));
+            cropCustomer.setShippingCountry(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY)));
+
+            return cropCustomer;
+         
+        }
+
+        closeDB();
+        return null;
+
+    }
+    public void  insertCropEmployee(CropEmployee spraying){
+
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_EMPLOYEE_USER_ID, spraying.getUserId());
@@ -1602,7 +1976,41 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<Crop> getCrops(String userId) {
+    public ArrayList<Crop> getCropsInField(String fieldId){
+        openDB();
+        ArrayList<Crop> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+CROP_CROP_TABLE_NAME+" where "+CROP_CROP_FIELD_ID+" = "+fieldId, null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            Crop crop = new Crop();
+            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
+            crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
+            crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
+            crop.setArea(res.getFloat(res.getColumnIndex(CROP_CROP_AREA)));
+            crop.setCost(res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
+            crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
+            crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
+            crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
+            crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
+            crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
+            array_list.add(crop);
+            res.moveToNext();
+        }
+
+        closeDB();
+        Log.d("TESTING",array_list.toString());
+        return array_list;
+
+    }
+    public ArrayList<Crop> getCrops(String userId){
+
         openDB();
         ArrayList<Crop> array_list = new ArrayList();
 
@@ -1780,7 +2188,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
             inventorySeeds.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USAGE_UNIT)));
             array_list.add(inventorySeeds);
-
             res.moveToNext();
         }
 
@@ -1930,15 +2337,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         ContentValues contentValues = new ContentValues();
 
-
-        contentValues.put(CROP_FIELD_USER_ID, field.getUserId());
-        contentValues.put(CROP_FIELD_NAME, field.getFieldName());
-        contentValues.put(CROP_FIELD_SOIL_CATEGORY, field.getSoilCategory());
-        contentValues.put(CROP_FIELD_SOIL_TYPE, field.getSoilType());
-        contentValues.put(CROP_FIELD_WATERCOURSE, field.getWatercourse());
-        contentValues.put(CROP_FIELD_TOTAL_AREA, field.getTotalArea());
-        contentValues.put(CROP_FIELD_CROPPABLE_AREA, field.getCroppableArea());
-
+        contentValues.put(CROP_FIELD_USER_ID,field.getUserId());
+        contentValues.put(CROP_FIELD_NAME,field.getFieldName());
+        contentValues.put(CROP_FIELD_SOIL_CATEGORY,field.getSoilCategory());
+        contentValues.put(CROP_FIELD_SOIL_TYPE,field.getSoilType());
+        contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
+        contentValues.put(CROP_FIELD_UNITS,field.getUnits());
+        contentValues.put(CROP_FIELD_TOTAL_AREA,field.getTotalArea());
+        contentValues.put(CROP_FIELD_CROPPABLE_AREA,field.getCroppableArea());
 
         database.update(CROP_FIELDS_TABLE_NAME, contentValues, CROP_FIELD_ID + " = ?", new String[]{field.getId()});
         closeDB();
@@ -1979,6 +2385,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("FIELDS SIZE", array_list.size() + "");
         return array_list;
     }
+
 
     public void insertCropMachine(CropMachine machine) {
         openDB();
@@ -2222,3 +2629,4 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
 }
+

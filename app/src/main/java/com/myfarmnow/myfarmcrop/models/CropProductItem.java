@@ -14,4 +14,7 @@ public interface CropProductItem {
     float getQuantity();
     void setQuantity(float quantity);
     float computeAmount();
+
+    void setProductName(String name);
+    String gettProductName();
 }

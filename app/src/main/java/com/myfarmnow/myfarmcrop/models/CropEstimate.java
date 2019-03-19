@@ -14,7 +14,19 @@ public class CropEstimate  implements Serializable{
      float  shippingCharges;
      String  customerNotes;
      String  termsAndConditions;
+     String customerName;
+     String  referenceNumber;
      ArrayList<CropEstimateItem> items = new ArrayList<>();
+     ArrayList<String> deletedItemsId = new ArrayList<>();
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
     public String getId() {
         return id;
     }
@@ -125,5 +137,22 @@ public class CropEstimate  implements Serializable{
         float total = (subTotal-computeDiscount())+shippingCharges;
         return total;
 
+    }
+
+
+    public void setDeletedItemsIds(ArrayList<String> items) {
+        this.deletedItemsId =items;
+    }
+
+    public ArrayList<String>getDeletedItemsIds() {
+        return this.deletedItemsId;
+    }
+
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public void setReferenceNumber(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
     }
 }

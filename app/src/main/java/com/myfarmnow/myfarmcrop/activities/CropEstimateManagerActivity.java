@@ -52,7 +52,9 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_estimate_manager);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        if(getIntent().hasExtra("cropEstimate")){
+            cropEstimate = (CropEstimate)getIntent().getSerializableExtra("cropEstimate");
+        }
         initializeForm();
 
     }
@@ -183,6 +185,8 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropEstimate.setCustomerNotes(notesTxt.getText().toString());
         cropEstimate.setExpiryDate(expiryDateTxt.getText().toString());
+        cropEstimate.setDiscount(Float.parseFloat(discountPercentageTxt.getText().toString()));
+        cropEstimate.setShippingCharges(Float.parseFloat(shippingChargesTxt.getText().toString()));
         cropEstimate.setDate(estimateDateTxt.getText().toString());
         cropEstimate.setNumber(estimateNumberTextView.getText().toString());
         cropEstimate.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
@@ -203,6 +207,8 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
             cropEstimate.setCustomerNotes(notesTxt.getText().toString());
             cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
             cropEstimate.setExpiryDate(expiryDateTxt.getText().toString());
+            cropEstimate.setDiscount(Float.parseFloat(discountPercentageTxt.getText().toString()));
+            cropEstimate.setShippingCharges(Float.parseFloat(shippingChargesTxt.getText().toString()));
             cropEstimate.setDate(estimateDateTxt.getText().toString());
             cropEstimate.setNumber(estimateNumberTextView.getText().toString());
             cropEstimate.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
@@ -210,6 +216,8 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
             for(CropProductItem x:itemListRecyclerAdapter.getItems()){
                 estimateItems.add((CropEstimateItem)x);
             }
+            cropEstimate.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
+            Log.d("TEST",cropEstimate.getDeletedItemsIds().toString());
             cropEstimate.setItems(estimateItems);
             dbHandler.updateCropEstimate(cropEstimate);
         }
@@ -226,6 +234,8 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
             termsAndConditionsTxt.setText(cropEstimate.getTermsAndConditions());
             notesTxt.setText(cropEstimate.getCustomerNotes());
             expiryDateTxt.setText(cropEstimate.getExpiryDate());
+            shippingChargesTxt.setText(cropEstimate.getShippingCharges()+"");
+            discountPercentageTxt.setText(cropEstimate.getDiscount()+"");
             estimateNumberTextView.setText(cropEstimate.getNumber());
             estimateDateTxt.setText(cropEstimate.getDate());
         }

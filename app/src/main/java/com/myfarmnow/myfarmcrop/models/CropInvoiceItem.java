@@ -1,12 +1,15 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropInvoiceItem implements CropProductItem {
+import java.io.Serializable;
+
+public class CropInvoiceItem implements CropProductItem, Serializable {
      String  id;
      String  productId;
      String  invoiceId;
      float quantity;
      float rate;
      float tax;
+     String productName;
 
     public CropInvoiceItem(){
 
@@ -85,5 +88,14 @@ public class CropInvoiceItem implements CropProductItem {
          float tax = (this.tax/100)*total;
 
          return total+tax;
+    }
+    @Override
+    public void setProductName(String name) {
+        this.productName = name;
+    }
+
+    @Override
+    public String gettProductName() {
+        return this.productName;
     }
 }

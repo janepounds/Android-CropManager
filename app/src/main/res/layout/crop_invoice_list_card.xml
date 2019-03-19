@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
@@ -46,25 +46,6 @@
                         android:gravity="right"
                         android:layout_marginLeft="6dp"
                         >
-
-
-
-                        <ImageView
-                            android:id="@+id/img_crop_product_card_delete"
-                            android:layout_width="25dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="2dp"
-                            android:background="@drawable/ic_delete"
-                            android:textSize="22dp" />
-
-
-                        <ImageView
-                            android:id="@+id/img_crop_product_card_edit"
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/arrow_right_gray"
-                            android:textColor="@color/darker_gray"
-                            android:textSize="22dp" />
 
                         <ImageView
                             android:id="@+id/img_crop_product_card_more"

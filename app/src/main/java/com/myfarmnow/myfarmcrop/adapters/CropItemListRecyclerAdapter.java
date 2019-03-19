@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
 import java.lang.reflect.Array;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemListRecyclerAdapter.ItemViewHolder> {
@@ -30,6 +32,10 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
     Context mContext;
     ArrayList<CropProductItem> cropItemsList = new ArrayList<>();
     ArrayList<CropSpinnerItem> productArrayList = new ArrayList<>();
+
+
+
+    ArrayList<String> deleteItemsId= new ArrayList<>();
 
     TextView subTotalTextView;
 
@@ -70,19 +76,21 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
         notifyDataSetChanged();
     }
 
+    public ArrayList<String> getDeleteItemsId() {
+        return deleteItemsId;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull final ItemViewHolder holder, int position) {
 
         CropProductItem item = cropItemsList.get(position);
 
+        if(item.getProductId() != null){
+            holder.qtyTxt.setText(item.getQuantity()+"");
+            holder.taxTxt.setText(item.getTax()+"");
+            holder.rateTxt.setText(item.getRate()+"");
+            CropDashboardActivity.selectSpinnerItemById(holder.productSpinner,item.getProductId());
 
-        holder.qtyTxt.setText(item.getQuantity()+"");
-        holder.taxTxt.setText(item.getTax()+"");
-        holder.rateTxt.setText(item.getRate()+"");
-
-        if(item.getId() != null){
-            CropDashboardActivity.selectSpinnerItemById(holder.productSpinner,item.getId());
         }
 
 
@@ -101,7 +109,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
     public ArrayList<CropProductItem> getItems() {
         ArrayList<CropProductItem> items = new ArrayList<>();
         for(CropProductItem y:cropItemsList){
-            if(y.getId() != null){
+            if(y.getProductId() != null){
                 items.add(y);
             }
         }
@@ -135,16 +143,27 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if(position != 0){
+
                         CropSpinnerItem x= (CropSpinnerItem)productSpinner.getSelectedItem();
+
+
                         CropProduct product = (CropProduct) x;
 
                         CropProductItem currentItem = cropItemsList.get(getAdapterPosition());
-                        currentItem.setRate(product.getSellingPrice());
-                        currentItem.setTax(product.getTaxRate());
-                        currentItem.setId(product.getId());
-                        taxTxt.setText(currentItem.getTax()+"");
-                        rateTxt.setText(currentItem.getRate()+"");
-                        updateAmount();
+                        if(!product.getId().equals(currentItem.getProductId())){
+                            currentItem.setRate(product.getSellingPrice());
+                            currentItem.setTax(product.getTaxRate());
+                            currentItem.setProductId(product.getId());
+                            currentItem.setQuantity(1);
+                            taxTxt.setText(currentItem.getTax()+"");
+                            rateTxt.setText(currentItem.getRate()+"");
+                            qtyTxt.setText(currentItem.getQuantity()+"");
+
+                            Log.d("RATE",product.getSellingPrice()+ "=="+currentItem.getRate());
+                            updateAmount();
+                        }
+
+
                         taxTxt.setEnabled(true);
                         rateTxt.setEnabled(true);
                         qtyTxt.setEnabled(true);
@@ -179,8 +198,15 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    cropItemsList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
+                    try{
+                        deleteItemsId.add(cropItemsList.get(getAdapterPosition()).getId());
+                        cropItemsList.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        updateSum();
+                    }catch (Exception e){
+
+                    }
+
                 }
             });
         }
@@ -194,13 +220,9 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
                 currentItem.setTax(tax);
                 currentItem.setRate(price);
                 currentItem.setQuantity(quantity);
-                amountTextView.setText(currentItem.computeAmount()+"");
+                amountTextView.setText(NumberFormat.getInstance().format(currentItem.computeAmount()));
+                updateSum();
 
-                float sum =0;
-                for(CropProductItem x: cropItemsList){
-                    sum+=x.computeAmount();
-                }
-                subTotalTextView.setText(sum+"");
             }catch (Exception e){
                 //do nothing
                 e.printStackTrace();
@@ -209,5 +231,12 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
 
         }
 
+    }
+    public void updateSum(){
+        float sum =0;
+        for(CropProductItem x: cropItemsList){
+            sum+=x.computeAmount();
+        }
+        subTotalTextView.setText(sum+"");
     }
 }
