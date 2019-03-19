@@ -16,12 +16,10 @@ import android.widget.TextView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
-import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 
 
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.cropVarietyTextView.setText("("+curCrop.getVariety()+")");
         holder.cropAge.setText("("+curCrop.computeAge()+")");
         holder.datePlantedTxt.setText(curCrop.getDateSown());
-        holder.croppableAreaTxtView.setText(curCrop.getArea()+"ha");
+        holder.rateTextView.setText(curCrop.getRate()+"");
 
     }
 
@@ -89,14 +87,14 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView editButton, deleteButton,cultivateButton,fertilizerApplicationButton,soilAnalysisButton,sprayingButton;
-        TextView cropNameTxtView, cropVarietyTextView, croppableAreaTxtView, cropAge;
+        TextView cropNameTxtView, cropVarietyTextView, rateTextView, cropAge;
 
         TextView datePlantedTxt;
         public CropCardViewHolder(View itemView) {
             super(itemView);
             cropNameTxtView = itemView.findViewById(R.id.txt_crop_card_name);
             cropVarietyTextView = itemView.findViewById(R.id.txt_crop_card_variety);
-            croppableAreaTxtView = itemView.findViewById(R.id.txt_crop_card_area);
+            rateTextView = itemView.findViewById(R.id.txt_crop_card_rate);
             datePlantedTxt = itemView.findViewById(R.id.txt_crop_card_actual_date_planted);
             cropAge = itemView.findViewById(R.id.txt_crop_card_age);
             editButton = itemView.findViewById(R.id.img_crop_card_edit);

@@ -97,17 +97,13 @@
                             android:padding="5dp"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/img_crop_card"
-                                android:layout_width="60dp"
-                                android:layout_height="80dp"
-                                android:layout_margin="10dp"
-                                tools:srcCompat="@drawable/barcode" />
+
 
                             <LinearLayout
                                 android:orientation="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
 
 
                                 <LinearLayout
@@ -135,14 +131,33 @@
                                         android:textColor="#696666"
                                         android:textSize="14dp" />
 
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="6dp"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginTop="3dp"
+                                    android:orientation="horizontal">
+
                                     <TextView
-                                        android:id="@+id/txt_crop_card_area"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Field : "
+                                        android:textColor="#696666"
+                                        android:textStyle="bold"
+                                        android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_card_field"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="3.5ha"
+                                        android:text="Field 1"
                                         android:textColor="#696666"
                                         android:textSize="14dp" />
+
 
                                 </LinearLayout>
 
@@ -156,26 +171,78 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="6dp"
                                         android:layout_marginLeft="6dp"
-                                        android:layout_marginTop="3dp"
+
                                         android:orientation="horizontal">
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_date_planted"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Date Planted : "
+                                            android:text="Date Sown : "
                                             android:textColor="#696666"
                                             android:textStyle="bold"
                                             android:textSize="14dp" />
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_actual_date_planted"
-                                            android:layout_width="match_parent"
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1"
+
                                             android:text="2019-12-24"
                                             android:textColor="#696666"
                                             android:textSize="14dp" />
+
+                                        <TextView
+                                            android:id="@+id/txt_crop_card_age"
+                                            android:textSize="14dp"
+                                            android:layout_marginLeft="10dp"
+                                            android:textColor="#696666"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="4m 20d" />
+
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="6dp"
+                                        android:layout_marginLeft="6dp"
+
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rate : "
+                                            android:textColor="#696666"
+                                            android:textStyle="bold"
+                                            android:textSize="14dp" />
+
+                                        <TextView
+                                            android:id="@+id/txt_crop_card_rate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+
+                                            android:text="2.5"
+                                            android:textColor="#696666"
+                                            android:textSize="14dp" />
+                                        <TextView
+                                            android:textSize="16dp"
+                                            android:textColor="#696666"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Kg/ha "
+                                            android:textStyle="bold"/>
 
 
                                     </LinearLayout>
@@ -183,25 +250,46 @@
 
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
-
-                                    <TextView
-                                        android:id="@+id/txt_crop_card_age"
-                                        android:textSize="14dp"
-                                        android:textColor="#696666"
-                                        android:layout_width="wrap_content"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="( 4m 20d ) " />
+                                        android:layout_marginBottom="6dp"
+                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginTop="3dp"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Planting Method : "
+                                            android:textColor="#696666"
+                                            android:textStyle="bold"
+                                            android:textSize="14dp" />
+
+                                        <TextView
+                                            android:id="@+id/txt_crop_card_planting_method"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="Drill Sow"
+                                            android:textColor="#696666"
+                                            android:textSize="14dp" />
 
 
-                                </LinearLayout>
+                                    </LinearLayout>
+
+
+
+
+
 
                             </LinearLayout>
+                            <ImageView
+                                android:id="@+id/img_crop_card"
+                                android:layout_width="60dp"
+                                android:layout_height="90dp"
+                                android:layout_margin="5dp"
+                                tools:srcCompat="@drawable/barcode" />
 
                         </LinearLayout>
                     </LinearLayout>

@@ -514,6 +514,87 @@
         <item>m</item>
         <item>pcs</item>
     </string-array>
+    <string-array name="sp_crop_income_expense_transaction">
+        <item>Select Transaction</item>
+        <item>Income</item>
+        <item>Expenses</item>
+    </string-array>
+    <string-array name="sp_crop_income_category">
+
+        <item>Fertilizer</item>
+        <item>Pesticide</item>
+        <item>Fuel</item>
+        <item>Crop</item>
+        <item>Seed</item>
+        <item>Field</item>
+        <item>Machinery</item>
+        <item>Service</item>
+        <item>General Income</item>
+    </string-array>
+    <string-array name="sp_crop_expenses_category">
+        <item>All in Income</item>
+        <item>Biological Assets</item>
+        <item>Buildings</item>
+        <item>Electricity</item>
+        <item>Equipment</item>
+        <item>Financial Costs</item>
+        <item>Insurance</item>
+        <item>Maintenance</item>
+        <item>Marketing</item>
+        <item>Rental Costs</item>
+        <item>Taxes</item>
+        <item>Transport</item>
+        <item>General Income</item>
+    </string-array>
+    <string-array name="sp_crop_income_expense_payment_mode">
+        <item>Select Mode</item>
+        <item>Cash</item>
+        <item>Bank Deposit</item>
+        <item>Credit Card</item>
+        <item>Over Draft</item>
+        <item>Cheque</item>
+        <item>Internet Banking</item>
+        <item>Mobile Money</item>
+
+    </string-array>
+    <string-array name="sp_crop_income_expense_payment_status">
+        <item>Select Status</item>
+        <item>Pending</item>
+        <item>Partial</item>
+        <item>Full</item>
+    </string-array>
+    <string-array name="sp_crop_task_type">
+        <item>Select Type</item>
+        <item>Soil Analysis</item>
+        <item>Fertilizer Application</item>
+        <item>Planting</item>
+        <item>Scouting</item>
+        <item>Irrigation</item>
+        <item>Harvesting</item>
+        <item>Storage</item>
+        <item>Tillage</item>
+        <item>Prunning</item>
+        <item>General</item>
+    </string-array>
+    <string-array name="sp_crop_task_status">
+        <item>Select Status</item>
+        <item>Pending</item>
+        <item>In-Progress</item>
+        <item>Finished</item>
+    </string-array>
+    <string-array name="sp_crop_task_recurrence">
+        <item>Select</item>
+        <item>Once</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Annually</item>
+    </string-array>
+    <string-array name="sp_crop_task_reminders">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
     <string name="title_activity_crop_fields_list">Fields List</string>
     <string name="field_name">Field Name</string>
@@ -702,6 +783,30 @@
     <string name="title_activity_crop_invoice_manager">Invoice Manager</string>
     <string name="title_product_manager_activity">Product Manager</string>
     <string name="estimate_no_items_added">You must add Items to the estimate</string>
+    <string name="date">Date</string>
+    <string name="transaction">Transaction</string>
+    <string name="item">Item</string>
+    <string name="gross_amount">Gross Amount</string>
+    <string name="unit_price">Unit Price</string>
+    <string name="taxes">Taxes</string>
+    <string name="payment_status">Payment Status</string>
+    <string name="customer_supplier">Customer / Supplier</string>
+    <string name="transaction_not_selected_message">You must select a Transaction</string>
+    <string name="payment_mode_not_selected">You must select Payment Mode</string>
+    <string name="payment_status_not_selected">You must select the Payment Status</string>
+    <string name="item_not_entered_message">You must enter Item</string>
+    <string name="gross_amount_not_entered_message">You must enter Gross Amount</string>
+    <string name="unit_price_not_entered_message">You must enter the Unit Price</string>
+    <string name="customer_supplier_not_entered_message">You must enter the Customer / Supplier</string>
+    <string name="personnel">Personnel</string>
+    <string name="status">Status</string>
+    <string name="recurrence">Recurrence</string>
+    <string name="reminders">Reminders</string>
+    <string name="description_not_entered_message">You must enter Description</string>
+    <string name="personnel_not_selected">You must select Personnel</string>
+    <string name="status_not_selected">You must select Status</string>
+    <string name="recurrence_not_selected">You must select Recurrence</string>
+    <string name="reminders_not_selected">You must select Reminders</string>
 
 
 </resources>

@@ -82,7 +82,7 @@ public class CropProductManagerActivity extends AppCompatActivity {
         cropProduct.setTaxRate(Float.parseFloat(rateTxt.getText().toString()));
         cropProduct.setOpeningQuantity(Float.parseFloat(openingQuantity.getText().toString()));
         cropProduct.setOpeningCost(Float.parseFloat(openingCostTxt.getText().toString()));
-;
+
         cropProduct.setType(typeSp.getSelectedItem().toString());
         if(unitsSp.getSelectedItemPosition() != 0){
             cropProduct.setUnits(unitsSp.getSelectedItem().toString());
@@ -124,7 +124,7 @@ public class CropProductManagerActivity extends AppCompatActivity {
         if(cropProduct !=null){
             nameTxt.setText(cropProduct.getName());
             CropDashboardActivity.selectSpinnerItemByValue(typeSp,cropProduct.getType());
-            CropDashboardActivity.selectSpinnerItemByValue(unitsSp,cropProduct.getType());
+            CropDashboardActivity.selectSpinnerItemByValue(unitsSp,cropProduct.getUnits());
             CropDashboardActivity.selectSpinnerItemByValue(linkedAccountSp,cropProduct.getLinkedAccount());
             codeTxt.setText(cropProduct.getCode()+"");
             openingQuantity.setText(cropProduct.getOpeningQuantity()+"");

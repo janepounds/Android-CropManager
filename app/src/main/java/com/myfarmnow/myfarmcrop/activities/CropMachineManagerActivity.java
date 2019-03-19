@@ -135,7 +135,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
             purchasedFromTxt.setText(cropMachineToEdit.getPurchasedFrom());
             storageLocationTxt.setText(cropMachineToEdit.getStorageLocation());
             purchasePriceTxt.setText(cropMachineToEdit.getPurchasePrice()+"");
-}
+        }
 
     }
 

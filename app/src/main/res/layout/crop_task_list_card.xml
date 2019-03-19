@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="3dp">
+
+                    <TextView
+                        android:id="@+id/txt_crop_task_card_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="Fertilizer Application"
+                        android:textColor="#696666"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="("
+                        android:textColor="#696666"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/txt_crop_task_card_crop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="Tomatoes"
+                        android:textColor="#696666"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text=")"
+                        android:textColor="#696666"
+                        android:textSize="16sp" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_marginLeft="6dp"
+                        >
+
+
+
+                        <ImageView
+                            android:id="@+id/img_crop_task_card_delete"
+                            android:layout_width="25dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/ic_delete"
+                            android:textSize="22dp" />
+
+
+                        <ImageView
+                            android:id="@+id/img_crop_task_card_edit"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/arrow_right_gray"
+                            android:textColor="@color/darker_gray"
+                            android:textSize="22dp" />
+
+                        <ImageView
+                            android:id="@+id/img_crop_task_card_more"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/black"
+                            android:textColor="@color/darker_gray"
+                            app:srcCompat="@drawable/more_options_icon" />
+
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/txt_crop_task_card_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Application Of NPK"
+                            android:textColor="#696666"
+                            android:textSize="16dp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Personnel :"
+                            android:textStyle="bold"
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/txt_crop_task_card_personnel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginLeft="5dp"
+                            android:text="John Kiwanuka"
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reurrence :"
+                            android:textStyle="bold"
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/txt_crop_task_card_recurrence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginLeft="5dp"
+                            android:text="Monthly"
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/input_shapes">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status :"
+                        android:textColor="#696666"
+                        android:textStyle="bold"
+                        android:textSize="14dp" />
+
+
+
+                    <TextView
+                        android:id="@+id/txt_crop_task_card_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Pending"
+                        android:textColor="#696666"
+
+                        android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Due Date :"
+                            android:textColor="#696666"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"/>
+
+                        <TextView
+                            android:id="@+id/txt_crop_task_card_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12-03-2019"
+                            android:gravity="end"
+
+                            android:textColor="#696666"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</LinearLayout>

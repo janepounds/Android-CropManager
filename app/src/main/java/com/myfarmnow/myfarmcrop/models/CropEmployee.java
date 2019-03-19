@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropEmployee {
+public class CropEmployee implements CropSpinnerItem {
     String id;
     String userId;
     String title;

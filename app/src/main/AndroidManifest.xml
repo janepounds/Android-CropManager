@@ -10,18 +10,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".activities.CropEmployeesListActivity"
-            android:label="Employees List"/>
+        <activity android:name=".activities.CropTasksListActivity"
+            android:label="Tasks"/>
+        <activity android:name=".activities.CropTaskManagerActivity"
+            android:label="Task Manager"/>
+        <activity
+            android:name=".activities.CropIncomeExpensesListActivity"
+            android:label="Income / Expenses List" />
+        <activity
+            android:name=".activities.CropIncomeExpenseManagerActivity"
+            android:label="Income / Expenses Manager" />
+        <activity
+            android:name=".activities.CropEmployeesListActivity"
+            android:label="Employees List" />
         <activity android:name=".activities.CropProductManagerActivity" />
-
-
-
         <activity
             android:name=".activities.CropCustomerManagerActivity"
             android:label="@string/activity_crop_customer_manager_title" />
-        <activity android:name=".activities.CropEmployeeManagerActivity"
-            android:label="Employee Manager"/>
+        <activity
+            android:name=".activities.CropEmployeeManagerActivity"
+            android:label="Employee Manager" />
         <activity
             android:name=".activities.CropsListActivity"
             android:label="@string/activity_crops_list" />
@@ -117,8 +125,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropSupplierManagerActivity"
-            android:label="@string/title_activity_crop_supplier_manager"
-            />
+            android:label="@string/title_activity_crop_supplier_manager" />
         <activity
             android:name=".activities.CropEstimatesListActivity"
             android:label="@string/title_activity_crop_estimates_list"
@@ -127,11 +134,10 @@
             android:name=".activities.CropInvoiceManagerActivity"
             android:label="@string/title_activity_crop_invoice_manager"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.CropInvoicesListActivity"
             android:label="@string/title_activity_crop_invoices_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

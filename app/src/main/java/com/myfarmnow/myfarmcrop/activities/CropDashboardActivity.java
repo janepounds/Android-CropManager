@@ -42,7 +42,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     ExpandableListView expandableListView;
     NavigationAdapterExpand expandableMenuAdapter;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout;
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +63,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
         incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
+        tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
 
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
@@ -121,8 +122,15 @@ public class CropDashboardActivity extends AppCompatActivity {
         incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openCrops = new Intent(CropDashboardActivity.this, CropEstimateManagerActivity.class);
-                startActivity(openCrops);
+                Intent openIncomeExpense = new Intent(CropDashboardActivity.this, CropIncomeExpensesListActivity.class);
+                startActivity(openIncomeExpense);
+            }
+        });
+        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openTasks = new Intent(CropDashboardActivity.this, CropTasksListActivity.class);
+                startActivity(openTasks);
             }
         });
 

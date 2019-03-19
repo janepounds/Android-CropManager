@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class Crop implements Serializable {
+public class Crop implements Serializable, CropSpinnerItem {
  private String id;
  private String userId;
  private int croppingYear;
@@ -193,4 +193,10 @@ public class Crop implements Serializable {
 
   return cal;                                  // return the date part
  }
+
+ @Override
+ public String toString() {
+  return getName();
+ }
+
 }

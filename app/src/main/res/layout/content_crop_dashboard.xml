@@ -238,13 +238,13 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_machines"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:id="@+id/weaner_check"
+                                android:id="@+id/layout_crop_dashboard_machines"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
@@ -331,7 +331,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/income_check"
+                                android:id="@+id/layout_crop_dashboard_tasks"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
