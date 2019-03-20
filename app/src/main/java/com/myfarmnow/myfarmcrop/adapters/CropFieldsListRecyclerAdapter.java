@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -73,11 +75,11 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
     public void onBindViewHolder(@NonNull final FieldViewHolder holder, int position) {
 
         CropField field = cropFieldsList.get(position);
-        holder.croppableAreaTextView.setText(field.getCroppableArea()+field.getUnits());
+        holder.croppableAreaTextView.setText(field.getCroppableArea()+" "+field.getUnits().toLowerCase());
         holder.soilTypeTextView.setText(field.getSoilType());
         holder.soilCategoryTextView.setText(field.getSoilCategory());
         holder.fieldNameTextView.setText(field.getFieldName());
-        holder.fieldAreaTextView.setText("("+field.getTotalArea()+field.getUnits()+")");
+        holder.fieldAreaTextView.setText("("+field.getTotalArea()+" "+field.getUnits().toLowerCase()+")");
 
         ArrayList<Crop> crops = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropsInField(field.getId());
 
@@ -97,6 +99,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             holder.expandContentLayout.addView(view);
         }
         holder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 if (holder.expandContentLayout.getVisibility()==View.VISIBLE){

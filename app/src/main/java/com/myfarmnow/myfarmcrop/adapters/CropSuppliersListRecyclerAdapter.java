@@ -23,6 +23,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropSuppliersListRecyclerAdapter extends RecyclerView.Adapter<CropSuppliersListRecyclerAdapter.SupplierViewHolder> {
@@ -77,7 +78,7 @@ public class CropSuppliersListRecyclerAdapter extends RecyclerView.Adapter<CropS
         holder.cityTextView.setText(supplier.getInvoiceCityOrTown());
         //holder.dateTextView.setText(supplier.getD());
 
-        holder.quantityTextView.setText(supplier.getOpeningBalance()+"");
+        holder.quantityTextView.setText("UGX "+ NumberFormat.getInstance().format(supplier.getOpeningBalance()));
     }
 
 

@@ -179,9 +179,10 @@
             <EditText
                 android:id="@+id/txt_crop_cultivate_notes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:ems="10"
                 android:inputType="textMultiLine"
+                android:gravity="start"
                 android:background="@drawable/input_shapes"
                 android:hint="Enter.."
                 android:textSize="14sp"

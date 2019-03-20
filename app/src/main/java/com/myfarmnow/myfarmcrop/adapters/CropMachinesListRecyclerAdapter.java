@@ -7,19 +7,24 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
+import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.util.ArrayList;
 
@@ -84,7 +89,7 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
 
     public class MachineViewHolder extends RecyclerView.ViewHolder {
         TextView machineNameTextView,categoryTextView, modelTextView, registrationNumberTextView,locationTextView;
-        ImageView editButton,deleteButton ;
+        ImageView moreButton ;
 
         public MachineViewHolder(View itemView) {
             super(itemView);
@@ -93,39 +98,54 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
             modelTextView = itemView.findViewById(R.id.txt_crop_machine_card_model);
             registrationNumberTextView = itemView.findViewById(R.id.txt_crop_machine_card_registration_number);
             locationTextView = itemView.findViewById(R.id.txt_crop_machine_card_storage_location);
-            editButton = itemView.findViewById(R.id.img_crop_machine_card_edit);
-            deleteButton = itemView.findViewById(R.id.img_crop_machine_card_delete);
+            moreButton = itemView.findViewById(R.id.img_crop_machine_card_more);
 
-            editButton.setOnClickListener(new View.OnClickListener() {
+
+
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                    Intent editMachine = new Intent(mContext, CropMachineManagerActivity.class);
-                    editMachine.putExtra("cropMachine",cropMachine);
-                    mContext.startActivity(editMachine);
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete "+cropMachine.getName()+" machine?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropMachine(cropMachine.getId());
+                                                cropMachinesList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                                Intent editMachine = new Intent(mContext, CropMachineManagerActivity.class);
+                                editMachine.putExtra("cropMachine",cropMachine);
+                                mContext.startActivity(editMachine);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
                 }
             });
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                    new AlertDialog.Builder(mContext)
-                            .setTitle("Confirm")
-                            .setMessage("Do you really want to delete "+cropMachine.getName()+" machine?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
-
-                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropMachine(cropMachine.getId());
-                                    cropMachinesList.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
-            });
 
 
         }

@@ -14,36 +14,24 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp">
+          >
 
-
-
-            <ImageView
-                android:id="@+id/img_crop_machine_card_delete"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/ic_delete"
-                android:textSize="22dp" />
-
-
-            <ImageView
-                android:id="@+id/img_crop_machine_card_edit"
-                android:layout_width="25dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/arrow_right_gray"
-                android:textColor="@color/darker_gray"
-                android:textSize="22dp" />
+            <TextView
+                android:textSize="14dp"
+                android:textColor="#696666"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_weight="0.1"
+                android:layout_marginRight="5dp"
+                android:text="Name : " />
 
             <ImageView
                 android:id="@+id/img_crop_machine_card_more"
                 android:layout_width="25dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:textColor="@color/darker_gray"
                 app:srcCompat="@drawable/more_options_icon" />
@@ -71,17 +59,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:layout_marginTop="3dp">
-
-                    <TextView
-                        android:textSize="14dp"
-                        android:textColor="#696666"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:layout_marginRight="5dp"
-                        android:text="Name : " />
-
-
 
                     <TextView
                         android:id="@+id/txt_crop_machine_card_name"

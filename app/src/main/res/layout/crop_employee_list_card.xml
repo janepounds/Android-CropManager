@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+       >
 
         <LinearLayout
             android:orientation="horizontal"
@@ -45,7 +46,6 @@
                                 android:layout_width="60dp"
                                 android:layout_height="80dp"
                                 android:layout_margin="10dp"
-                                android:backgroundTint="@color/black"
                                 tools:src="@drawable/profile" />
 
                             <LinearLayout
@@ -93,7 +93,7 @@
 
 
                                         <ImageView
-                                            android:id="@+id/img_crop_card_more"
+                                            android:id="@+id/img_crop_employee_card_more"
                                             android:layout_width="25dp"
                                             android:layout_height="20dp"
                                             android:backgroundTint="@color/black"

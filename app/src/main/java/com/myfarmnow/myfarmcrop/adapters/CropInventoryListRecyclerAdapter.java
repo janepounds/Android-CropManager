@@ -8,11 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.activities.CropInventoryFertilizerManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInventorySeedsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInventorySprayManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
@@ -33,6 +37,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
+import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,6 +72,7 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
         holder.batchNumberTxtView.setText(curInventory.getBatchNumber());
         holder.consumptionProgressBar.setMax((int)curInventory.getInitialQuantity());
         holder.consumptionProgressBar.setProgress((int)curInventory.calculateAmountLeft());
+        holder.consumptionProgressBar.setScaleY(0.5f);
         holder.curInventoryTxtView.setText(curInventory.calculateAmountLeft()+"/"+curInventory.getInitialQuantity()+" "+curInventory.getUsageUnits());
 
     }
@@ -102,9 +108,7 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
 
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
-        ImageView sheepPhotoImageView;
-        ImageView editButton, deleteButton;
+        ImageView  moreButton;
         TextView inventoryNameTxtView,batchNumberTxtView,curInventoryTxtView, batchNumberlblTxtView;
         ProgressBar consumptionProgressBar;
         LinearLayout batchNumberLayout;
@@ -116,66 +120,77 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
             consumptionProgressBar = itemView.findViewById(R.id.progress_bar_consumption);
             batchNumberLayout = itemView.findViewById(R.id.layout_batch_number);
             batchNumberlblTxtView = itemView.findViewById(R.id.txt_view_batch_lbl);
-            editButton = itemView.findViewById(R.id.img_crop_inventory_edit);
-            deleteButton = itemView.findViewById(R.id.img_crop_inventory_delete);
+            moreButton = itemView.findViewById(R.id.img_crop_inventory_more);
             //layout_batch_number txt_view_batch_lbl
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final CropInventory inventory = inventoryList.get(getAdapterPosition());
-                    new AlertDialog.Builder(mContext)
-                            .setTitle("Confirm")
-                            .setMessage("Do you really want to delete "+inventory.getInventoryType()+" inventory?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
-
-
-                                    CropInventory inventory = inventoryList.get(getAdapterPosition());
-
-                                    if(inventory.getInventoryType().equals(CropInventory.CONST_SEEDS_INVENTORY)){
-                                        MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSeeds(inventory.getId());
-                                    }else if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
-                                        MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSpray(inventory.getId());
-                                    }else if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
-                                        MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropFertilizer(inventory.getId());
-                                    }
-
-                                    inventoryList.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-
-
-
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                }
-            });
-
-
-            editButton.setOnClickListener(new View.OnClickListener() {
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    CropInventory inventory = inventoryList.get(getAdapterPosition());
-                    //
-                    if(inventory.getInventoryType().equals(CropInventory.CONST_SEEDS_INVENTORY)){
-                        Intent editInventory = new Intent(mContext, CropInventorySeedsManagerActivity.class);
-                        editInventory.putExtra("seedsInventory", (CropInventorySeeds)inventory);
-                        mContext.startActivity(editInventory);
-                    }else  if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
-                        Intent editInventory = new Intent(mContext, CropInventoryFertilizerManagerActivity.class);
-                        editInventory.putExtra("fertilizerInventory", (CropInventoryFertilizer)inventory);
-                        mContext.startActivity(editInventory);
-                    }
-                    else  if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
-                        Intent editInventory = new Intent(mContext, CropInventorySprayManagerActivity.class);
-                        editInventory.putExtra("sprayInventory", (CropInventorySpray)inventory);
-                        mContext.startActivity(editInventory);
-                    }
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropInventory inventory = inventoryList.get(getAdapterPosition());
+                                new AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete "+inventory.getInventoryType()+" inventory?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+
+                                                CropInventory inventory = inventoryList.get(getAdapterPosition());
+
+                                                if(inventory.getInventoryType().equals(CropInventory.CONST_SEEDS_INVENTORY)){
+                                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSeeds(inventory.getId());
+                                                }else if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
+                                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSpray(inventory.getId());
+                                                }else if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
+                                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropFertilizer(inventory.getId());
+                                                }
+
+                                                inventoryList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                                CropInventory inventory = inventoryList.get(getAdapterPosition());
+                                //
+                                if(inventory.getInventoryType().equals(CropInventory.CONST_SEEDS_INVENTORY)){
+                                    Intent editInventory = new Intent(mContext, CropInventorySeedsManagerActivity.class);
+                                    editInventory.putExtra("seedsInventory", (CropInventorySeeds)inventory);
+                                    mContext.startActivity(editInventory);
+                                }else  if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
+                                    Intent editInventory = new Intent(mContext, CropInventoryFertilizerManagerActivity.class);
+                                    editInventory.putExtra("fertilizerInventory", (CropInventoryFertilizer)inventory);
+                                    mContext.startActivity(editInventory);
+                                }
+                                else  if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
+                                    Intent editInventory = new Intent(mContext, CropInventorySprayManagerActivity.class);
+                                    editInventory.putExtra("sprayInventory", (CropInventorySpray)inventory);
+                                    mContext.startActivity(editInventory);
+                                }
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
 
                 }
             });
+
 
 
         }

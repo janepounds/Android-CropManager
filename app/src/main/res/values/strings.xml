@@ -863,6 +863,8 @@
     <string name="reference_number_not_entered">Reference Number Not Entered</string>
     <string name="enter_hint">Enter...</string>
     <string name="preview_invoice">Preview Invoice</string>
-
-
+    <string name="label_cultivate">Cultivate</string>
+    <string name="label_fertilizer">Fertilizer</string>
+    <string name="label_spray">Spray</string>
+    <string name="label_harvest">Harvest</string>
 </resources>
