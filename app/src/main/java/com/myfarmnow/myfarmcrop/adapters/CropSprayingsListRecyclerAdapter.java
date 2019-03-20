@@ -76,8 +76,8 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
         holder.sprayNameTextView.setText(field.getSprayName());
         holder.operatorTextView.setText(field.getOperator());
         holder.rateTextView.setText(field.getRate()+"Kg/ha");
-        holder.windDirectionTextView.setText("W.D : "+field.getWindDirection());
-        holder.waterConditionTextView.setText("W.C : "+field.getWaterCondition());
+        holder.windDirectionTextView.setText(field.getWindDirection());
+        holder.waterConditionTextView.setText(field.getWaterCondition());
         holder.treatmentReasonTextView.setText(field.getTreatmentReason());
 
         final ViewTreeObserver observer = holder.treatmentReasonTextView.getViewTreeObserver();

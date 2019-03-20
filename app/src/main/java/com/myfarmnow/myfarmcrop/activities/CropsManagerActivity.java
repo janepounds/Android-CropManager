@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class CropsManagerActivity extends AppCompatActivity {
    EditText dateTxt, varietyTxt, yearTxt,areaTxt,operatorTxt,costTxt,rateTxt;
-   Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp;
+   Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
    Button saveBtn;
@@ -48,6 +48,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         costTxt  = findViewById(R.id.txt_crops_operator_cost);
         cropSP  = findViewById(R.id.sp_crop_crop);
         growingCycleSp  = findViewById(R.id.sp_crops_growing_cycle);
+        seasonSp  = findViewById(R.id.sp_crops_season);
         seedSp  = findViewById(R.id.sp_crops_seed_name);
         fieldSp  = findViewById(R.id.sp_crops_field);
         plantingMethodSp  = findViewById(R.id.sp_crops_planting_method);
@@ -100,6 +101,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         crop.setCroppingYear(Integer.parseInt(yearTxt.getText().toString()));
         crop.setFieldId(((CropField)fieldSp.getSelectedItem()).getId());
         crop.setGrowingCycle(growingCycleSp.getSelectedItem().toString());
+        crop.setSeason(seasonSp.getSelectedItem().toString());
         crop.setDateSown(dateTxt.getText().toString());
         crop.setArea(Float.parseFloat(areaTxt.getText().toString()));
         crop.setOperator(operatorTxt.getText().toString());
@@ -118,6 +120,7 @@ public class CropsManagerActivity extends AppCompatActivity {
             crop.setCroppingYear(Integer.parseInt(yearTxt.getText().toString()));
             crop.setFieldId(((CropField)fieldSp.getSelectedItem()).getId());
             crop.setGrowingCycle(growingCycleSp.getSelectedItem().toString());
+            crop.setSeason(seasonSp.getSelectedItem().toString());
             crop.setDateSown(dateTxt.getText().toString());
             crop.setArea(Float.parseFloat(areaTxt.getText().toString()));
             crop.setOperator(operatorTxt.getText().toString());
@@ -139,6 +142,7 @@ public class CropsManagerActivity extends AppCompatActivity {
             varietyTxt.setText(crop.getVariety());
             yearTxt.setText(crop.getCroppingYear()+"");
             CropDashboardActivity.selectSpinnerItemByValue(growingCycleSp,crop.getGrowingCycle());
+            CropDashboardActivity.selectSpinnerItemByValue(seasonSp,crop.getSeason());
             CropDashboardActivity.selectSpinnerItemByValue(plantingMethodSp,crop.getPlantingMethod());
             dateTxt.setText(crop.getDateSown());
             areaTxt.setText(crop.getArea()+"");

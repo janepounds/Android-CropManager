@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
     CropIncomeExpense cropIncomeExpense =null;
-    EditText  dateTxt, itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt,customerSupplierTxt ;
+    EditText  dateTxt,sellingPriceTxt, itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt,customerSupplierTxt ;
     Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner;
     Button saveBtn;
     CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter;
@@ -56,6 +56,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt = findViewById(R.id.txt_crop_income_expense_gross_amount);
         unitPriceTxt = findViewById(R.id.txt_crop_income_expense_unit_price);
         taxesTxt = findViewById(R.id.txt_crop_income_expense_taxes);
+        sellingPriceTxt = findViewById(R.id.txt_crop_income_expense_selling_price);
         customerSupplierTxt = findViewById(R.id.txt_crop_income_expense_customer_supplier);
         paymentStatusSpinner = findViewById(R.id.sp_crop_income_expense_payment_status);
         transactionSpinner = findViewById(R.id.sp_crop_income_expense_transaction);
@@ -146,6 +147,8 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
         cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
         cropIncomeExpense.setCustomerSupplier(customerSupplierTxt.getText().toString());
+        cropIncomeExpense.setSellingPrice(Float.parseFloat(customerSupplierTxt.getText().toString()));
+
         cropIncomeExpense.setItem(itemTxt.getText().toString());
 
 
@@ -167,6 +170,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
             cropIncomeExpense.setCustomerSupplier(customerSupplierTxt.getText().toString());
+            cropIncomeExpense.setSellingPrice(Float.parseFloat(customerSupplierTxt.getText().toString()));
             cropIncomeExpense.setItem(itemTxt.getText().toString());
 
             dbHandler.updateCropIncomeExpense(cropIncomeExpense);
@@ -184,6 +188,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
             dateTxt.setText(cropIncomeExpense.getDate());
             itemTxt.setText(cropIncomeExpense.getItem());
+           sellingPriceTxt.setText(cropIncomeExpense.getSellingPrice()+"");
             quantityTxt.setText(cropIncomeExpense.getQuantity()+"");
             grossAmountTxt.setText(cropIncomeExpense.getGrossAmount());
             unitPriceTxt.setText(cropIncomeExpense.getUnitPrice()+"");

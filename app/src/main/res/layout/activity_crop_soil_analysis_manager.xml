@@ -59,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp">
 
@@ -92,12 +93,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_weight="1"
                 android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -110,7 +111,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:background="@color/gray_mh"
@@ -118,10 +119,10 @@
 
                     <EditText
                         android:id="@+id/txt_crop_soil_analysis_organic_matter"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:ems="10"
+                        android:layout_weight="0.8"
                         android:hint="Enter.."
                         android:inputType="numberDecimal"
                         android:textSize="14sp"
@@ -131,9 +132,9 @@
 
                     <TextView
 
-                        android:layout_width="76dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
+                        android:layout_weight="0.2"
                         android:textAlignment="center"
                         android:labelFor="@+id/txt_crop_soil_analysis_organic_matter"
                         android:text="%"

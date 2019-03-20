@@ -132,6 +132,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_CROP_DATE_SOWN ="dateSown";
     public static final String CROP_CROP_VARIETY ="variety";
     public static final String CROP_CROP_GROWING_CYCLE ="growingCycle";
+    public static final String CROP_CROP_SEASON ="season";
+
     public static final String CROP_CROP_AREA ="area";
     public static final String CROP_CROP_COST ="cost";
     public static final String CROP_CROP_OPERATOR ="operator";
@@ -338,14 +340,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SALES_ORDER_SHIPPING_CHARGES ="shippingCharges";
     public static final String CROP_SALES_ORDER_CUSTOMER_NOTES ="customerNotes";
     public static final String CROP_SALES_ORDER_TERMS_AND_CONDITIONS ="termsAndConditions";
-
-
     public static final String CROP_SALES_ORDER_ITEM_ID ="id";
     public static final String CROP_SALES_ORDER_ITEM_PRODUCT_ID ="productId";
     public static final String CROP_SALES_ORDER_ITEM_SALES_ORDER_ID ="estimateId";
     public static final String CROP_SALES_ORDER_ITEM_QUANTITY="quantity";
     public static final String CROP_SALES_ORDER_ITEM_RATE="rate";
     public static final String CROP_SALES_ORDER_ITEM_TAX="tax";
+
     public static final String CROP_INCOME_EXPENSE_ID = "id";
     public static final String CROP_INCOME_EXPENSE_DATE = "date";
     public static final String CROP_INCOME_EXPENSE_TRANSACTION = "incomeExpenseTransaction";
@@ -357,6 +358,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_INCOME_EXPENSE_TAXES = "taxes";
     public static final String CROP_INCOME_EXPENSE_PAYMENT_MODE = "paymentMode";
     public static final String CROP_INCOME_EXPENSE_PAYMENT_STATUS = "paymentStatus";
+    public static final String CROP_INCOME_EXPENSE_SELLING_PRICE = "sellingPrice";
     public static final String CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER = "customerSupplier";
     public static final String CROP_INCOME_EXPENSE_USER_ID = "userId";
     public static final String CROP_INCOME_EXPENSE_CROP_ID = "cropId";
@@ -420,7 +422,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CROP_TABLE_NAME+" ( "+CROP_CROP_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CROP_USER_ID+" TEXT,"+ CROP_CROP_VARIETY+" TEXT ,"+ CROP_CROP_YEAR +" INTEGER,"+ CROP_CROP_NAME +" TEXT NOT NULL,"+
-                CROP_CROP_FIELD_ID+" TEXT NOT NULL," +CROP_CROP_GROWING_CYCLE+" TEXT,"+CROP_CROP_DATE_SOWN+" TEXT NOT NULL,"+
+                CROP_CROP_FIELD_ID+" TEXT NOT NULL," +CROP_CROP_GROWING_CYCLE+" TEXT," +CROP_CROP_SEASON +" TEXT,"+CROP_CROP_DATE_SOWN+" TEXT NOT NULL,"+
                 CROP_CROP_AREA+" REAL,"+CROP_CROP_OPERATOR+" TEXT NOT NULL,"+
                 CROP_CROP_COST+" REAL NOT NULL,"+CROP_CROP_SEED_ID+" TEXT ,"+CROP_CROP_RATE+" REAL ,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL )";
 
@@ -506,7 +508,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 "FOREIGN KEY( "+CROP_PAYMENT_CUSTOMER_ID+") REFERENCES  "+CROP_CUSTOMER_TABLE_NAME+" ( "+CROP_CUSTOMER_ID+" ) )";
         String crop_income_expense_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME + " ( " + CROP_INCOME_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CROP_INCOME_EXPENSE_DATE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_USER_ID + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_TRANSACTION + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_ITEM +
                 " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CATEGORY + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_QUANTITY + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_GROSS_AMOUNT + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_UNIT_PRICE + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_TAXES + " REAL, "
-                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT NOT NULL " + " ) ";
+                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT " + " ) ";
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
@@ -1943,6 +1945,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_OPERATOR, inventorySpray.getOperator());
         contentValues.put(CROP_CROP_FIELD_ID, inventorySpray.getFieldId());
         contentValues.put(CROP_CROP_GROWING_CYCLE, inventorySpray.getGrowingCycle());
+        contentValues.put(CROP_CROP_SEASON, inventorySpray.getSeason());
         contentValues.put(CROP_CROP_COST, inventorySpray.getCost());
         contentValues.put(CROP_CROP_SEED_ID, inventorySpray.getSeedId());
         contentValues.put(CROP_CROP_RATE, inventorySpray.getRate());
@@ -1963,6 +1966,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_OPERATOR, inventorySpray.getOperator());
         contentValues.put(CROP_CROP_FIELD_ID, inventorySpray.getFieldId());
         contentValues.put(CROP_CROP_GROWING_CYCLE, inventorySpray.getGrowingCycle());
+        contentValues.put(CROP_CROP_SEASON, inventorySpray.getSeason());
         contentValues.put(CROP_CROP_COST, inventorySpray.getCost());
         contentValues.put(CROP_CROP_SEED_ID, inventorySpray.getSeedId());
         contentValues.put(CROP_CROP_RATE, inventorySpray.getRate());
@@ -2001,6 +2005,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
             crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
             crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
+            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
             crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
             array_list.add(crop);
@@ -2035,6 +2041,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
             crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
             crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
+            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
             crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
             array_list.add(crop);
@@ -2491,6 +2499,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_TAXES, incomeExpense.getTaxes());
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_MODE, incomeExpense.getPaymentMode());
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
+        contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
         database.insert(CROP_INCOME_EXPENSE_TABLE_NAME,null,contentValues);
         closeDB();
@@ -2510,6 +2519,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_TAXES, incomeExpense.getTaxes());
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_MODE, incomeExpense.getPaymentMode());
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
+        contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
 
         database.update(CROP_INCOME_EXPENSE_TABLE_NAME,contentValues,CROP_INCOME_EXPENSE_ID+" = ?", new String[]{incomeExpense.getId()});
@@ -2546,6 +2556,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             incomeExpense.setTaxes(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_TAXES)));
             incomeExpense.setPaymentMode(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_MODE)));
             incomeExpense.setPaymentStatus(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_STATUS)));
+            incomeExpense.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_SELLING_PRICE)));
             incomeExpense.setCustomerSupplier(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER)));
 
 
