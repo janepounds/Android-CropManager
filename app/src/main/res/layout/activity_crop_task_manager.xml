@@ -49,7 +49,7 @@
                         android:hint="Enter.."
                         android:background="@drawable/input_shapes"
                         android:inputType="none"
-                        android:textColor="@color/colorPrimary"
+
                         android:textSize="14sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -137,7 +137,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:textColor="@color/colorPrimary"
                         android:entries="@array/sp_crop_task_type"
                         android:textSize="14sp"
 
@@ -201,7 +200,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
                         android:entries="@array/sp_crop_task_status"
                         />
@@ -305,7 +303,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
                         android:entries="@array/sp_crop_task_reminders"
                         />
