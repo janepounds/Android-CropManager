@@ -37,7 +37,7 @@ CropTask cropTask=null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_task_manager);
 
-        if(getIntent().hasExtra("cropTaskProduct")){
+        if(getIntent().hasExtra("cropTask")){
             cropTask = (CropTask)getIntent().getSerializableExtra("cropTask");
         }
         initializeForm();
@@ -60,7 +60,7 @@ CropTask cropTask=null;
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateTxt,this);
 
-        fillViews();
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -97,6 +97,7 @@ CropTask cropTask=null;
         personnelSp.setAdapter(employeesSpinnerAdapter);
 
 
+        fillViews();
     }
 
 
@@ -104,8 +105,9 @@ CropTask cropTask=null;
     public void saveFields(){
         cropTask = new CropTask();
         cropTask.setUserId(CropDashboardActivity.getPreferences("userId",this));
-        cropTask.setCropId(cropSp.getSelectedItem().toString());
+        cropTask.setCropId(((CropSpinnerItem)cropSp.getSelectedItem()).getId());
         cropTask.setTitle(titleTxt.getText().toString());
+        cropTask.setDate(dateTxt.getText().toString());
         cropTask.setType(typeSp.getSelectedItem().toString());
         cropTask.setEmployeeId(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
         cropTask.setStatus(statusSp.getSelectedItem().toString());
@@ -121,8 +123,9 @@ CropTask cropTask=null;
     public void updateField(){
         if(cropTask != null){
             cropTask.setUserId(CropDashboardActivity.getPreferences("userId",this));
-            cropTask.setCropId(cropSp.getSelectedItem().toString());
+            cropTask.setCropId(((CropSpinnerItem)cropSp.getSelectedItem()).getId());
             cropTask.setTitle(titleTxt.getText().toString());
+            cropTask.setDate(dateTxt.getText().toString());
             cropTask.setType(typeSp.getSelectedItem().toString());
             cropTask.setEmployeeId(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
             cropTask.setStatus(statusSp.getSelectedItem().toString());
@@ -135,9 +138,9 @@ CropTask cropTask=null;
 
     public void fillViews(){
         if(cropTask != null){
-            CropDashboardActivity.selectSpinnerItemByValue(cropSp, cropTask.getCropId());
+            CropDashboardActivity.selectSpinnerItemById(cropSp, cropTask.getCropId());
             CropDashboardActivity.selectSpinnerItemByValue(typeSp, cropTask.getType());
-            CropDashboardActivity.selectSpinnerItemByValue(personnelSp, cropTask.getEmployeeId());
+            CropDashboardActivity.selectSpinnerItemById(personnelSp, cropTask.getEmployeeId());
             CropDashboardActivity.selectSpinnerItemByValue(statusSp, cropTask.getStatus());
             CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropTask.getRecurrence());
             CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropTask.getReminders());

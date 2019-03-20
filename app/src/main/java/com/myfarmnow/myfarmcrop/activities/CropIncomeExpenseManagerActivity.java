@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,8 +27,8 @@ import java.util.ArrayList;
 public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
     CropIncomeExpense cropIncomeExpense =null;
-    EditText  dateTxt, itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt,customerSupplierTxt ;
-    Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner;
+    EditText  dateTxt, itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt;
+    Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner, customerSupplierSp;
     Button saveBtn;
     CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter;
     MyFarmDbHandlerSingleton dbHandler;
@@ -56,12 +58,13 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt = findViewById(R.id.txt_crop_income_expense_gross_amount);
         unitPriceTxt = findViewById(R.id.txt_crop_income_expense_unit_price);
         taxesTxt = findViewById(R.id.txt_crop_income_expense_taxes);
-        customerSupplierTxt = findViewById(R.id.txt_crop_income_expense_customer_supplier);
+        customerSupplierSp = findViewById(R.id.spinner_crop_income_expense_customer_supplier);
         paymentStatusSpinner = findViewById(R.id.sp_crop_income_expense_payment_status);
         transactionSpinner = findViewById(R.id.sp_crop_income_expense_transaction);
         categoryAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Category",this);
         categorySpinner.setAdapter(categoryAdapter);
         //transactionSpinner.setEnabled(false);
+        unitPriceTxt.setEnabled(false);
 
 
         saveBtn = findViewById(R.id.btn_save);
@@ -103,7 +106,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         });
 
 
-        fillViews();
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -131,6 +134,38 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropsSpinnerAdapter = new CropSpinnerAdapter(cropsItems,"Crops",this);
         cropSpinner.setAdapter(cropsSpinnerAdapter);
 
+        cropsSpinnerAdapter.changeDefaultItem(new CropSpinnerItem() {
+            @Override
+            public String getId() {
+                return null;
+            }
+            public String toString(){
+                return "All Crops";
+            }
+        });
+
+        TextWatcher watcher =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                computeUnitPrice();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                computeUnitPrice();
+            }
+        };
+
+        grossAmountTxt.addTextChangedListener(watcher);
+        quantityTxt.addTextChangedListener(watcher);
+
+        fillViews();
+
     }
 
     public void saveFields() {
@@ -145,7 +180,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
         cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
         cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
-        cropIncomeExpense.setCustomerSupplier(customerSupplierTxt.getText().toString());
+        cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
         cropIncomeExpense.setItem(itemTxt.getText().toString());
 
 
@@ -166,7 +201,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
             cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
-            cropIncomeExpense.setCustomerSupplier(customerSupplierTxt.getText().toString());
+            cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
             cropIncomeExpense.setItem(itemTxt.getText().toString());
 
             dbHandler.updateCropIncomeExpense(cropIncomeExpense);
@@ -188,10 +223,22 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             grossAmountTxt.setText(cropIncomeExpense.getGrossAmount());
             unitPriceTxt.setText(cropIncomeExpense.getUnitPrice()+"");
             taxesTxt.setText(cropIncomeExpense.getTaxes()+"");
-            customerSupplierTxt.setText(cropIncomeExpense.getCustomerSupplier());
-
+            //customerSupplierSp.setText(cropIncomeExpense.getCustomerSupplier());
         }
 
+    }
+
+    public float computeUnitPrice(){
+        try{
+            float grossAmount = Float.parseFloat(grossAmountTxt.getText().toString());
+            float quantity = Float.parseFloat(quantityTxt.getText().toString());
+            float unitPrice = (grossAmount/quantity);
+            unitPriceTxt.setText(unitPrice+"");
+            return unitPrice;
+        }catch (Exception e){
+
+        }
+        return 0;
     }
 
 
@@ -220,9 +267,9 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             message = getString(R.string.unit_price_not_entered_message);
             unitPriceTxt.requestFocus();
         }
-        else if(customerSupplierTxt.getText().toString().isEmpty()){
+        else if(customerSupplierSp.getSelectedItemPosition()==0){
             message = getString(R.string.customer_supplier_not_entered_message);
-            customerSupplierTxt.requestFocus();
+            customerSupplierSp.requestFocus();
         }
         else if(transactionSpinner.getSelectedItemPosition()==0){
             message = getString(R.string.transaction_not_selected_message);

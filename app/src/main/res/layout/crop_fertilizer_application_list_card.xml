@@ -25,7 +25,7 @@
             android:orientation="vertical">
             <View
                 android:layout_width="1dp"
-                android:layout_height="25dp"
+                android:layout_height="19dp"
                 android:textAlignment="center"
                 android:layout_marginStart="16dp"
                 android:background="@color/black" />
@@ -56,7 +56,7 @@
                 android:id="@+id/txt_view_crop_fertilizer_application_card_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
                 android:text="20-08-2018"
                 android:textColor="@color/blackText" />
 
@@ -78,17 +78,16 @@
                       android:id="@+id/txt_view_crop_fertilizer_application_card_operation"
                       android:layout_width="0dp"
                       android:layout_height="match_parent"
-                      android:layout_weight="1"
+                      android:layout_weight="0.1"
                       android:text="Field Preparation"
-                      android:textStyle="bold"
-                      android:textColor="@color/blackText" />
+                      android:textColor="@color/blackText"
+                      android:textStyle="bold" />
+
                   <LinearLayout
-                      android:layout_width="0dp"
+                      android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_gravity="right"
-                      android:layout_weight="0.2"
                       android:orientation="horizontal">
-
 
 
                       <ImageView

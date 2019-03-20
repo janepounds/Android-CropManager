@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -29,6 +31,8 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner windDirectionSp,waterConditionSp,sprayIdSp;
+
+    TextView rateUnitsTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +63,16 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         rateTxt =findViewById(R.id.txt_crop_spraying_rate);
         reasonTxt =findViewById(R.id.txt_crop_spraying_treatment_reason);
         equipmentUsedTxt =findViewById(R.id.txt_crop_spraying_equipment_used);
+        rateUnitsTextView =findViewById(R.id.txt_crop_spraying_rate_units);
         sprayIdSp =findViewById(R.id.sp_crop_spraying_name);
         windDirectionSp =findViewById(R.id.sp_crop_spraying_wind_direction);
         waterConditionSp =findViewById(R.id.sp_crop_spraying_weather_condition);
 
         btn_save = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(dateTxt,this);
+        CropDashboardActivity.addTimePicker(startTimeTxt,this);
+        CropDashboardActivity.addTimePicker(endTimeTxt,this);
+
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +100,25 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         }
         CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",this);
         sprayIdSp.setAdapter(fertilizerAdapter);
+
+        sprayIdSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    return;
+                }
+                CropInventorySpray inventorySpray = (CropInventorySpray) ((CropSpinnerItem)sprayIdSp.getSelectedItem());
+                if(inventorySpray.getUsageUnits() != null){
+                    rateUnitsTextView.setText(inventorySpray.getUsageUnits()+"/ha");
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         fillViews();
     }
 

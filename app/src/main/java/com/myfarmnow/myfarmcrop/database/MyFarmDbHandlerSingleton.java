@@ -511,9 +511,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
 
-
-
-
         String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
                 CROP_SALES_ORDER_SHIPPING_DATE +" TEXT,"+CROP_SALES_ORDER_SHIPPING_METHOD +" TEXT,"+CROP_SALES_ORDER_DISCOUNT+" REAL DEFAULT 0,"+ CROP_SALES_ORDER_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
@@ -525,7 +522,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SALES_ORDER_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+") REFERENCES  "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" ), " +
                 "FOREIGN KEY( "+CROP_SALES_ORDER_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
 
-        /*Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
+       /* Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
         Log.d("SPRAY INVENTORY",crop_inventory_spray_insert_query);
         Log.d("SPRAY INVENTORY",crop_spraying_insert_query);
@@ -533,6 +530,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("CULTIVATE",crop_cultivate_insert_query);
         Log.d("FERTILIZER",crop_fertilizer_insert_query);
         Log.d("FIELDS",crop_field_insert_query);
+        Log.d("MACHINE",crop_machine_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);*/
 
         //db.execSQL("DROP TABLE IF EXISTS "+ CROP_ESTIMATE_TABLE_NAME);
@@ -561,6 +559,32 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         database.execSQL(crop_sales_order_insert_query);
         database.execSQL(crop_sales_order_item_insert_query);
+
+        /*System.out.println(crop_inventory_fertilizer_insert_query+
+                ";"+crop_seeds_insert_query+
+                ";"+crop_inventory_spray_insert_query+
+                ";"+crop_insert_query+
+                ";"+crop_cultivate_insert_query+
+                ";"+crop_fertilizer_insert_query+
+                ";"+crop_spraying_insert_query+
+                ";"+crop_field_insert_query+
+                ";"+crop_machine_insert_query+
+                ";"+crop_soil_analysis_insert_query+
+                ";"+crop_employee_insert_query+
+                ";"+crop_customer_insert_query+
+                ";"+crop_supplier_insert_query+
+                ";"+crop_product_insert_query+
+                ";"+crop_estimates_insert_query+
+                ";"+crop_estimate_item_insert_query+
+                ";"+crop_invoices_insert_query+
+                ";"+crop_invoice_item_insert_query+
+                ";"+crop_payment_item_insert_query+
+
+                ";"+crop_income_expense_insert_query+
+                ";"+crop_task_insert_query+
+
+                ";"+crop_sales_order_insert_query+
+                ";"+crop_sales_order_item_insert_query);*/
 
     }
 
@@ -2093,6 +2117,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
+
     public ArrayList<CropInventorySpray> getCropSpray(String userId) {
         openDB();
         ArrayList<CropInventorySpray> array_list = new ArrayList();
@@ -2605,9 +2630,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_TASK_TABLE_NAME+" LEFT JOIN "+CROP_EMPLOYEE_TABLE_NAME+" ON "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_EMPLOYEE_ID+" = "+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_ID+" where "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_USER_ID+" = "+ userId
-
-                /*+ " where " + CROP_TASK_USER_ID + " = " + userId*/, null);
+        Cursor res = db.rawQuery("select "+CROP_TASK_TABLE_NAME+".*,"+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_FIRST_NAME+","+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_LAST_NAME+","+CROP_CROP_TABLE_NAME+"."+CROP_CROP_NAME+
+                        " from " + CROP_TASK_TABLE_NAME+
+                        " LEFT JOIN "+CROP_EMPLOYEE_TABLE_NAME+" ON "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_EMPLOYEE_ID+" = "+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_ID+
+                        " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_CROP_ID+" = "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+
+                        " where "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_USER_ID+" = "+ userId, null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -2616,6 +2643,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setId(res.getString(res.getColumnIndex(CROP_TASK_ID)));
             task.setUserId(res.getString(res.getColumnIndex(CROP_TASK_USER_ID)));
             task.setCropId(res.getString(res.getColumnIndex(CROP_TASK_CROP_ID)));
+            task.setCropName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
             task.setEmployeeId(res.getString(res.getColumnIndex(CROP_TASK_EMPLOYEE_ID)));
             task.setEmployeeName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_FIRST_NAME))+res.getString(res.getColumnIndex(CROP_EMPLOYEE_LAST_NAME)));
             task.setDate(res.getString(res.getColumnIndex(CROP_TASK_DATE)));

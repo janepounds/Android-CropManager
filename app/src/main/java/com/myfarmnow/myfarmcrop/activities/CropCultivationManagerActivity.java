@@ -60,7 +60,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                     }
                     Intent toCropsList = new Intent(CropCultivationManagerActivity.this, CropCultivationsListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    toCropsList.putExtra("fieldId",cropId);
+                    toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);
                 }else{
                     Log.d("ERROR","Testing");

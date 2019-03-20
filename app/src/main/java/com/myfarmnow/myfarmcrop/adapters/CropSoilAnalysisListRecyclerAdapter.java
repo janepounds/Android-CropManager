@@ -87,7 +87,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
                     holder.resultsTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
 
-                int containerHeight = holder.resultsTextView.getHeight()+holder.phTextView.getHeight()+holder.organicMatterTextView.getHeight()+holder.agronomistTextView.getHeight()+holder.agronomistTextView.getHeight();
+                int containerHeight = holder.resultsTextView.getHeight()+holder.organicMatterTextView.getHeight()+holder.agronomistTextView.getHeight()+holder.agronomistTextView.getHeight();
                 ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
                 params.height = containerHeight;
                 Log.d("LENGTH",containerHeight+"");

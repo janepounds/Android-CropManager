@@ -89,10 +89,10 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
                     holder.operationTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
 
-                int containerHeight = holder.rateTextView.getHeight()+holder.operationTextView.getHeight()+holder.costTextView.getHeight()+holder.methodTextView.getHeight();
+                int containerHeight = holder.rateTextView.getHeight()+holder.operationTextView.getHeight()+holder.methodTextView.getHeight();
                 ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
                 params.height = containerHeight;
-                Log.d("LENGTH",containerHeight+"");
+
                 holder.verticalLineView.requestLayout();
 
 

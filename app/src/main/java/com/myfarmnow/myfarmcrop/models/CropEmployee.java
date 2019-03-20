@@ -165,4 +165,12 @@ public class CropEmployee implements CropSpinnerItem, Serializable {
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
     }
+
+    public String getFullName(){
+        return getFirstName()+" "+getLastName();
+    }
+    @Override
+    public String toString() {
+        return getFullName();
+    }
 }

@@ -24,7 +24,7 @@
             android:orientation="vertical">
             <View
                 android:layout_width="1dp"
-                android:layout_height="25dp"
+                android:layout_height="19dp"
                 android:textAlignment="center"
                 android:layout_marginStart="16dp"
                 android:background="@color/black" />
@@ -55,7 +55,7 @@
                 android:id="@+id/txt_view_crop_cultivation_card_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
                 android:text="20-08-2018"
                 android:textColor="@color/blackText" />
 

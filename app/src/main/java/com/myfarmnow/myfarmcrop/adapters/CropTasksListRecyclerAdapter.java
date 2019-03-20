@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -71,11 +72,13 @@ public class CropTasksListRecyclerAdapter extends RecyclerView.Adapter<CropTasks
         holder.typeTextView.setText(task.getType());
         holder.titleTextView.setText(task.getTitle());
 
-        holder.cropTextView.setText(task.getCropId());
+        holder.cropTextView.setText(task.getCropName());
         holder.personnelTextView.setText(task.getEmployeeName());
         holder.recurrenceTextView.setText(task.getRecurrence());
         holder.statusTextView.setText(task.getStatus());
         holder.dateTextView.setText(task.getDate());
+
+//        Log.d("DUE DATE",task.getEmployeeId());
 
 
     }

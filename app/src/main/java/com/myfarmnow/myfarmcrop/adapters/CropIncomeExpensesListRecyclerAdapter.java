@@ -28,6 +28,7 @@ import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<CropIncomeExpensesListRecyclerAdapter.IncomeExpenseViewHolder> {
@@ -80,7 +81,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
         holder.transactionTextView.setText(incomeExpense.getTransaction());
         holder.categoryTextView.setText(incomeExpense.getCategory());
         holder.statusTextView.setText(incomeExpense.getPaymentStatus());
-        holder.amountTextView.setText(incomeExpense.getGrossAmount()+"");
+        holder.amountTextView.setText(NumberFormat.getInstance().format(incomeExpense.getGrossAmount()));
         holder.dateTextView.setText(incomeExpense.getDate());
 
     }

@@ -29,6 +29,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner methodSp, fertilizerFormSp, fertilizerId;
+    boolean applicationMethodSet = false;//
 
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
     ArrayList<CropSpinnerItem> solidMethodsArrayList=new ArrayList<CropSpinnerItem>();
@@ -92,6 +93,11 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                    methodSp.setEnabled(false);
                }
 
+               if(!applicationMethodSet && fertilizerApplication != null){
+                   CropDashboardActivity.selectSpinnerItemById(methodSp, fertilizerApplication.getMethod());
+                   applicationMethodSet =true;
+               }
+
             }
 
             @Override
@@ -126,8 +132,9 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         for(CropInventoryFertilizer x: dbHandler.getCropFertilizers(CropDashboardActivity.getPreferences("userId",this))){
             fertlizersList.add(x);
         }
-        fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Method",this);
+        fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",this);
         fertilizerId.setAdapter(fertilizerAdapter);
+
         fillViews();
     }
 
@@ -163,19 +170,15 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
     }
     public void fillViews(){
         if(fertilizerApplication != null){
+            CropDashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());
             rateTxt.setText(fertilizerApplication.getRate()+"");
             dateTxt.setText(fertilizerApplication.getDate());
             reasonTxt.setText(fertilizerApplication.getReason());
             operatorTxt.setText(fertilizerApplication.getOperator());
             costTxt.setText(fertilizerApplication.getCost()+"");
             rateTxt.setText(fertilizerApplication.getRate()+"");
-
-            CropDashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getId());
-            CropDashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());
-
-            CropDashboardActivity.selectSpinnerItemById(methodSp, fertilizerApplication.getMethod());
+            CropDashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getFertilizerId());
         }
-
     }
 
     public boolean validateEntries(){

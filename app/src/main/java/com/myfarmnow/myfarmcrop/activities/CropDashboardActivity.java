@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
@@ -31,6 +35,8 @@ import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -176,13 +182,39 @@ public class CropDashboardActivity extends AppCompatActivity {
                 final DatePickerDialog mDatePicker = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         int month = selectedmonth + 1;
-                        ed_.setText( selectedyear+ "-" + month + "-" +selectedday );
+                        NumberFormat formatter = new DecimalFormat("00");
+                        ed_.setText( selectedyear+ "-" + formatter.format(month) + "-" +formatter.format(selectedday) );
                     }
                 }, mYear, mMonth, mDay);
                 mDatePicker.show();
 
             }
         });
+        ed_.setInputType(InputType.TYPE_NULL);
+    }
+    public static  void addTimePicker(final EditText ed_, final Context context){
+        ed_.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        NumberFormat formatter = new DecimalFormat("00");
+                        ed_.setText( formatter.format(selectedHour) + ":" + formatter.format(selectedMinute));
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+        ed_.setInputType(InputType.TYPE_NULL);
     }
 
     public void openEmployeeList(View view){
@@ -256,6 +288,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         if(value==null){
             return;
         }
+
         for (int position = 0; position < adapter.getCount(); position++) {
             String item =(String)adapter.getItem(position);
             if(item.toLowerCase().equals(value.toLowerCase())){
@@ -271,12 +304,15 @@ public class CropDashboardActivity extends AppCompatActivity {
         if(id==null || adapter==null){
             return;
         }
+
         for (int position = 0; position < adapter.getCount(); position++) {
             String item =adapter.getItem(position).getId();
             if(item==null){
                 continue;//this occurs for the first element
             }
-            if(item.toLowerCase().equals(id)){
+
+            if(item.toLowerCase().equals(id.toLowerCase())){
+                Log.d("ITEMS ",item+" "+id);
                 spnr.setSelection(position);
                 return;
             }
