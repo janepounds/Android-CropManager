@@ -13,15 +13,22 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
     String transaction="";
     String item="";
     String category="";
-
-
-
     float quantity=0;
     Integer grossAmount=0;
     float unitPrice=0;
     float taxes=0;
     String paymentMode="";
     String paymentStatus="";
+
+    public float getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(float sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    float sellingPrice=0;
     String customerSupplier="";
 
 
@@ -126,6 +133,7 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
 
     public String getCustomerSupplier() {
         return customerSupplier;

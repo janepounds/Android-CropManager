@@ -2,7 +2,7 @@ package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
 
-public class CropSupplier implements Serializable{
+public class CropSupplier implements Serializable,CropSpinnerItem{
     String id;
     String userId;
     String name;

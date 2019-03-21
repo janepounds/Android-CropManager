@@ -98,7 +98,6 @@
                 android:id="@+id/sp_crop_fertilizer_application_fertilizer_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:entries="@array/crop_fertilizer_form"
                 android:background="@drawable/input_shapes"
@@ -241,7 +240,6 @@
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
                 android:labelFor="@+id/txt_crop_spray_rate"
                 />
         </LinearLayout>
@@ -283,7 +281,7 @@
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"
+
                         android:labelFor="@+id/txt_crop_spray_rate"
                         />
 
@@ -292,6 +290,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="5"
+                        android:layout_weight="0.8"
                         android:hint="Enter.."
                         android:textSize="14sp"
                         android:inputType="numberDecimal"

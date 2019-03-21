@@ -604,6 +604,11 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
+    <string-array name="sp_crops_season">
+        <item>Select</item>
+        <item>First Season</item>
+        <item>Second Season</item>
+    </string-array>
 
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
@@ -867,4 +872,5 @@
     <string name="label_fertilizer">Fertilizer</string>
     <string name="label_spray">Spray</string>
     <string name="label_harvest">Harvest</string>
+    <string name="season">Season</string>
 </resources>

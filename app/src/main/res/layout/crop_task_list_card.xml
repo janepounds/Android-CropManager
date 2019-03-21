@@ -8,7 +8,6 @@
         android:orientation="vertical"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
 
@@ -17,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
+
             android:orientation="horizontal">
 
 
@@ -177,7 +176,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Reurrence :"
+                            android:text="Recurrence :"
                             android:textStyle="bold"
                             android:textColor="#696666"
                             android:textSize="14dp" />
@@ -202,9 +201,8 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/input_shapes">
+                    android:background="@drawable/input_shapes_green">
 
                     <TextView
                         android:layout_width="wrap_content"

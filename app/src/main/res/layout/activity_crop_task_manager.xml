@@ -45,7 +45,7 @@
                         android:id="@+id/txt_crop_task_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:textColor="@color/black"
                         android:hint="Enter.."
                         android:background="@drawable/input_shapes"
                         android:inputType="none"
@@ -243,6 +243,7 @@
                     android:layout_height="100dp"
                     android:hint="Enter.."
                     android:gravity="start"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:inputType="textMultiLine"
                     android:background="@drawable/input_shapes"

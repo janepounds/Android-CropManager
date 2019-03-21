@@ -18,6 +18,7 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String dateSown;
  private String variety;
  private String growingCycle;
+ private String season;
  private float area;
  private float cost;
  private String operator;
@@ -66,6 +67,8 @@ public class Crop implements Serializable, CropSpinnerItem {
  public String getGrowingCycle() {
   return growingCycle;
  }
+
+ public String getSeason() {  return season; }
 
  public float getArea() {
   return area;
@@ -119,6 +122,8 @@ public class Crop implements Serializable, CropSpinnerItem {
  public void setGrowingCycle(String growingCycle) {
   this.growingCycle = growingCycle;
  }
+
+ public void setSeason(String season) {  this.season = season; }
 
  public void setArea(float area) {
   this.area = area;

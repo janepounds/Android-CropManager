@@ -90,7 +90,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
         cropMachineToEdit.setCategory(categorySpinner.getSelectedItem().toString());
         cropMachineToEdit.setManufacturer(manufacturerTxt.getText().toString());
         cropMachineToEdit.setModel(modelTxt.getText().toString());
-        cropMachineToEdit.setRegistrationNumber(Integer.parseInt(regNumberTxt.getText().toString()));
+        cropMachineToEdit.setRegistrationNumber(regNumberTxt.getText().toString());
         cropMachineToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         cropMachineToEdit.setDate(dateAcquiredTxt.getText().toString());
         cropMachineToEdit.setPurchasedFrom(purchasedFromTxt.getText().toString());
@@ -110,7 +110,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
             cropMachineToEdit.setCategory(categorySpinner.getSelectedItem().toString());
             cropMachineToEdit.setManufacturer(manufacturerTxt.getText().toString());
             cropMachineToEdit.setModel(modelTxt.getText().toString());
-            cropMachineToEdit.setRegistrationNumber(Integer.parseInt(regNumberTxt.getText().toString()));
+            cropMachineToEdit.setRegistrationNumber(regNumberTxt.getText().toString());
             cropMachineToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
             cropMachineToEdit.setDate(dateAcquiredTxt.getText().toString());
             cropMachineToEdit.setPurchasedFrom(purchasedFromTxt.getText().toString());

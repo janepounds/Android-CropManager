@@ -151,18 +151,36 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/txt_crop_spraying_water_volume"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:hint="Enter.."
-                android:textSize="14sp"
-                android:background="@drawable/input_shapes"
+                android:orientation="horizontal"
+                android:background="@color/gray_mh"
+                >
+                <EditText
+                    android:id="@+id/txt_crop_spraying_water_volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter.."
+                    android:layout_weight="0.9"
+                    android:textSize="14sp"
+                    android:inputType="numberDecimal"
+                    android:background="@drawable/input_shapes"
 
+                    />
+                <TextView
 
-                />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="mm"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:labelFor="@+id/txt_crop_spray_rate"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 <LinearLayout
@@ -339,7 +357,6 @@
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"
                         android:labelFor="@+id/txt_crop_spray_rate"
                         />
                 </LinearLayout>
@@ -381,7 +398,6 @@
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"
                         android:labelFor="@+id/txt_crop_spray_rate"
                         />
 
@@ -391,6 +407,7 @@
                         android:layout_height="wrap_content"
                         android:ems="5"
                         android:hint="Enter.."
+                        android:layout_weight="0.8"
                         android:textSize="14sp"
                         android:inputType="numberDecimal"
                         android:background="@drawable/input_shapes"

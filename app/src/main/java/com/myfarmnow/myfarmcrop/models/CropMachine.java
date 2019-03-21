@@ -11,7 +11,7 @@ public class CropMachine implements CropSpinnerItem, Serializable {
     String category="";
     String manufacturer="";
     String model="";
-    int registrationNumber=0;
+    String registrationNumber="";
     float quantity=0;
     String date="";
     String purchasedFrom="";
@@ -79,11 +79,11 @@ public class CropMachine implements CropSpinnerItem, Serializable {
         this.model = model;
     }
 
-    public Integer getRegistrationNumber() {
+    public String getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(int registrationNumber) {
+    public void setRegistrationNumber(String registrationNumber) {
         this.registrationNumber = registrationNumber;
     }
 

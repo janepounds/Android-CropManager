@@ -49,7 +49,6 @@
                         android:hint="Select"
                         android:background="@drawable/input_shapes"
                         android:inputType="none"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -136,7 +135,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
 
                         />
@@ -241,7 +239,6 @@
                             android:padding="4dp"
                             android:text="@string/ugx"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorPrimary"
                             android:textStyle="bold"
 
                             />
@@ -290,7 +287,6 @@
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="@string/ugx"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorPrimary"
                             android:textStyle="bold"
 
                             />
@@ -358,7 +354,6 @@
                             android:padding="4dp"
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="%"
-                            android:textColor="@color/colorPrimary"
                             android:textStyle="bold"
                             android:textSize="16dp"
 
@@ -417,7 +412,6 @@
                     android:id="@+id/sp_crop_income_expense_payment_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     android:entries="@array/sp_crop_income_expense_payment_status"
                     android:background="@drawable/input_shapes"
@@ -471,7 +465,6 @@
                                 android:padding="4dp"
                                 android:text="@string/ugx"
                                 android:gravity="center_vertical"
-                                android:textColor="@color/colorPrimary"
                                 android:textStyle="bold"
 
                                 />
@@ -528,7 +521,6 @@
                     android:id="@+id/spinner_crop_income_expense_customer_supplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                    android:hint="Enter.."
                     android:background="@drawable/input_shapes"

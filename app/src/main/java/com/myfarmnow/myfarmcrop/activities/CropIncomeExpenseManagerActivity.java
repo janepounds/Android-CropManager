@@ -19,28 +19,34 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.util.ArrayList;
 
 public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
     CropIncomeExpense cropIncomeExpense =null;
-    EditText  dateTxt, itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt;
+
+    EditText  dateTxt, sellingPriceTxt,itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt;
     Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner, customerSupplierSp;
+
     Button saveBtn;
-    CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter;
+    CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter,customerSupplierAdapter;
     MyFarmDbHandlerSingleton dbHandler;
 
     ArrayList<CropSpinnerItem> incomeArrayList=new ArrayList<CropSpinnerItem>();
     ArrayList<CropSpinnerItem> expensesArrayList=new ArrayList<CropSpinnerItem>();
 
+    ArrayList<CropSpinnerItem>  customersList = new ArrayList<>();
+    ArrayList<CropSpinnerItem>  suppliersList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_income__expense_manager);
-
         if (getIntent().hasExtra("cropIncomeExpense")) {
             cropIncomeExpense = (CropIncomeExpense) getIntent().getSerializableExtra("cropIncomeExpense");
         }
@@ -58,7 +64,11 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt = findViewById(R.id.txt_crop_income_expense_gross_amount);
         unitPriceTxt = findViewById(R.id.txt_crop_income_expense_unit_price);
         taxesTxt = findViewById(R.id.txt_crop_income_expense_taxes);
+
         customerSupplierSp = findViewById(R.id.spinner_crop_income_expense_customer_supplier);
+
+        sellingPriceTxt = findViewById(R.id.txt_crop_income_expense_selling_price);
+
         paymentStatusSpinner = findViewById(R.id.sp_crop_income_expense_payment_status);
         transactionSpinner = findViewById(R.id.sp_crop_income_expense_transaction);
         categoryAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Category",this);
@@ -164,6 +174,38 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt.addTextChangedListener(watcher);
         quantityTxt.addTextChangedListener(watcher);
 
+        customersList = new ArrayList<>();
+        for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
+            customersList.add(x);
+        }
+        suppliersList = new ArrayList<>();
+        for(CropSupplier x: dbHandler.getCropSuppliers(CropDashboardActivity.getPreferences("userId",this))){
+            suppliersList.add(x);
+        }
+        customerSupplierAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Customer/Supplier",this);
+
+        customerSupplierSp.setAdapter(customerSupplierAdapter);
+        transactionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    return;
+                }
+                String choice =transactionSpinner.getSelectedItem().toString();
+                if(choice.toLowerCase().equals("income")){
+                    customerSupplierAdapter.changeItems(customersList);
+                }
+                else if(choice.toLowerCase().equals("supplier")){
+                    customerSupplierAdapter.changeItems(suppliersList);
+                }
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         fillViews();
 
     }
@@ -180,7 +222,13 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
         cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
         cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
+
         cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
+
+
+        cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
+
+
         cropIncomeExpense.setItem(itemTxt.getText().toString());
 
 
@@ -202,6 +250,9 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
             cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
+
+            cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
+
             cropIncomeExpense.setItem(itemTxt.getText().toString());
 
             dbHandler.updateCropIncomeExpense(cropIncomeExpense);
@@ -219,6 +270,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
             dateTxt.setText(cropIncomeExpense.getDate());
             itemTxt.setText(cropIncomeExpense.getItem());
+           sellingPriceTxt.setText(cropIncomeExpense.getSellingPrice()+"");
             quantityTxt.setText(cropIncomeExpense.getQuantity()+"");
             grossAmountTxt.setText(cropIncomeExpense.getGrossAmount());
             unitPriceTxt.setText(cropIncomeExpense.getUnitPrice()+"");
