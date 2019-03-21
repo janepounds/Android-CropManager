@@ -37,8 +37,8 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter,customerSupplierAdapter;
     MyFarmDbHandlerSingleton dbHandler;
 
-    ArrayList<CropSpinnerItem> incomeArrayList=new ArrayList<CropSpinnerItem>();
-    ArrayList<CropSpinnerItem> expensesArrayList=new ArrayList<CropSpinnerItem>();
+    ArrayList<CropSpinnerItem> incomeArrayList= new ArrayList<>();
+    ArrayList<CropSpinnerItem> expensesArrayList= new ArrayList<>();
 
     ArrayList<CropSpinnerItem>  customersList = new ArrayList<>();
     ArrayList<CropSpinnerItem>  suppliersList = new ArrayList<>();
@@ -98,10 +98,13 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
                 if(selection.toLowerCase().equals("income")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(incomeArrayList);
+                    customerSupplierAdapter.changeItems(customersList);
                 }
                 else if(selection.toLowerCase().equals("expenses")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(expensesArrayList);
+                    customerSupplierAdapter.changeItems(suppliersList);
+
                 }
                 else{
                     categorySpinner.setEnabled(false);
@@ -174,6 +177,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt.addTextChangedListener(watcher);
         quantityTxt.addTextChangedListener(watcher);
 
+
         customersList = new ArrayList<>();
         for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
             customersList.add(x);
@@ -185,27 +189,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         customerSupplierAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Customer/Supplier",this);
 
         customerSupplierSp.setAdapter(customerSupplierAdapter);
-        transactionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0){
-                    return;
-                }
-                String choice =transactionSpinner.getSelectedItem().toString();
-                if(choice.toLowerCase().equals("income")){
-                    customerSupplierAdapter.changeItems(customersList);
-                }
-                else if(choice.toLowerCase().equals("supplier")){
-                    customerSupplierAdapter.changeItems(suppliersList);
-                }
-            }
 
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         fillViews();
 
     }

@@ -452,7 +452,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_machine_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_MACHINE_TABLE_NAME+" ( "+CROP_MACHINE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_MACHINE_USER_ID+" TEXT,"+CROP_MACHINE_NAME+" TEXT NOT NULL,"+CROP_MACHINE_BRAND+" TEXT ,"+CROP_MACHINE_CATEGORY+" TEXT NOT NULL,"+CROP_MACHINE_MANUFACTURER+" TEXT ,"+ CROP_MACHINE_MODEL+" TEXT ,"+
-                CROP_MACHINE_REGISTRATION_NUMBER+" REAL,"+ CROP_MACHINE_QUANTITY+" REAL NOT NULL,"+CROP_MACHINE_DATE_ACQUIRED+" TEXT NOT NULL,"+
+                CROP_MACHINE_REGISTRATION_NUMBER+" TEXT,"+ CROP_MACHINE_QUANTITY+" REAL NOT NULL,"+CROP_MACHINE_DATE_ACQUIRED+" TEXT NOT NULL,"+
                 CROP_MACHINE_PURCHASED_FROM+" TEXT NOT NULL,"+CROP_MACHINE_STORAGE_LOCATION+" TEXT,"+CROP_MACHINE_PURCHASE_PRICE+" REAL NOT NULL )";
 
         String crop_employee_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_EMPLOYEE_TABLE_NAME+" ( "+CROP_EMPLOYEE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -535,7 +535,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("MACHINE",crop_machine_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);*/
 
-        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_CROP_TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
