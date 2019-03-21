@@ -1,19 +1,16 @@
 package com.myfarmnow.myfarmcrop.fragments;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
@@ -24,10 +21,11 @@ import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
 
 public class CropPaymentDialog extends DialogFragment {
     MyFarmDbHandlerSingleton dbHandler;
-    EditText dateTxt,amountTxt, paymentModeTxt,referenceNumberTxt,notesTxt;
+    EditText dateTxt,amountTxt,referenceNumberTxt,notesTxt;
     TextView paymentNumberTxt;
     Button saveBtn;
     Dialog dialog;
+    Spinner paymentModeSp;
     CropPayment cropPayment;
     LinearLayout customerLayout, invoiceLayout;
     @Override
@@ -39,7 +37,7 @@ public class CropPaymentDialog extends DialogFragment {
         amountTxt = view.findViewById(R.id.txt_crop_record_payment_received_amount);
         dateTxt = view.findViewById(R.id.txt_crop_record_payment_received_date);
         paymentNumberTxt = view.findViewById(R.id.txt_crop_record_payment_received_payment_number);
-        paymentModeTxt = view.findViewById(R.id.txt_crop_record_payment_received_payment_mode);
+        paymentModeSp = view.findViewById(R.id.txt_crop_record_payment_received_payment_mode);
         referenceNumberTxt = view.findViewById(R.id.txt_crop_record_payment_received_reference_number);
         notesTxt = view.findViewById(R.id.txt_crop_record_payment_received_notes);
         customerLayout = view.findViewById(R.id.layout_record_payment_received_customer);
@@ -75,7 +73,7 @@ public class CropPaymentDialog extends DialogFragment {
         cropPayment.setUserId(CropDashboardActivity.getPreferences("userId",getActivity()));
         cropPayment.setPaymentNumber(paymentNumberTxt.getText().toString());
         cropPayment.setReferenceNo(referenceNumberTxt.getText().toString());
-        cropPayment.setMode(paymentModeTxt.getText().toString());
+        cropPayment.setMode(paymentModeSp.getSelectedItem().toString());
         cropPayment.setDate(dateTxt.getText().toString());
         cropPayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
         cropPayment.setNotes(notesTxt.getText().toString());
@@ -88,9 +86,9 @@ public class CropPaymentDialog extends DialogFragment {
             message = getString(R.string.date_not_entered_message);
             dateTxt.requestFocus();
         }
-        else if(paymentModeTxt.getText().toString().isEmpty()){
+        else if(paymentModeSp.getSelectedItemPosition()==0){
             message =getString(R.string.payment_mode_not_entered);
-            paymentModeTxt.requestFocus();
+            paymentModeSp.requestFocus();
         }
 
 

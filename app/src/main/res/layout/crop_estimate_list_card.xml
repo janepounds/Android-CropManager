@@ -9,22 +9,11 @@
         android:orientation="vertical"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="4dp">
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
 
                 <LinearLayout
@@ -39,6 +28,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
+                        android:textStyle="bold"
                         android:text="Kleiner Parker Firm "
                         android:textColor="#696666"
                         android:textSize="14sp" />
@@ -58,7 +48,7 @@
                             android:gravity="right"
                             android:layout_marginLeft="5dp"
                             android:text="UGX"
-                            android:textColor="#696666"
+                            android:textColor="@color/red"
                             android:textSize="14dp" />
 
                         <TextView
@@ -68,7 +58,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
                             android:text="300,000"
-                            android:textColor="#696666"
+                            android:textColor="@color/red"
                             android:textSize="14dp" />
 
 
@@ -218,8 +208,8 @@
 
 
 
-            </LinearLayout>
-        </LinearLayout>
+
+
 
 
 
