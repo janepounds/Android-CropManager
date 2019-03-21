@@ -208,7 +208,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Status :"
-                        android:textColor="#696666"
+                        android:textColor="@color/whiteColor"
                         android:textStyle="bold"
                         android:textSize="14dp" />
 
@@ -220,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="Pending"
-                        android:textColor="#696666"
+                        android:textColor="@color/whiteColor"
 
                         android:textSize="14sp" />
                     <LinearLayout
@@ -232,7 +232,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Due Date :"
-                            android:textColor="#696666"
+                            android:textColor="@color/whiteColor"
                             android:textStyle="bold"
                             android:textSize="14dp"
                             android:layout_marginLeft="4dp"
@@ -245,7 +245,7 @@
                             android:text="12-03-2019"
                             android:gravity="end"
 
-                            android:textColor="#696666"
+                            android:textColor="@color/whiteColor"
                             android:textSize="14dp" />
 
                     </LinearLayout>

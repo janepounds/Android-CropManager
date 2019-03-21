@@ -142,4 +142,6 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
     public void setCustomerSupplier(String customerSupplier) {
         this.customerSupplier = customerSupplier;
     }
+
 }
+

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -61,6 +62,13 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(date0fBirthTxt,this);
         CropDashboardActivity.addDatePicker(hireDateTxt,this);
+
+        ((ArrayAdapter)genderTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)employeeStatusTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)perTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)payTypeTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+
         fillViews();
         saveBtn.setOnClickListener(new View.OnClickListener() {
 

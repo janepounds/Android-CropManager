@@ -37,7 +37,6 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
         cropInvoicesList.addAll(cropInvoices);
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
-
         Log.d("CROP FIELDS",cropInvoicesList.size()+" ");
     }
     @NonNull
@@ -45,7 +44,6 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
     public InvoiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = layoutInflater.inflate(R.layout.crop_estimate_list_card,parent,false);
-
         InvoiceViewHolder holder = new InvoiceViewHolder(view);
         return holder;
     }
@@ -95,6 +93,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
 
         TextView amountTextView, orderNumberTxt, statusTextView, nameTextView, estimateNumberTextView, dateTextView;
         ImageView moreButton, deleteButton;
+        LinearLayout duePaymentLayout;
         LinearLayout orderNumberLayout;
         public InvoiceViewHolder(View itemView) {
             super(itemView);
@@ -106,6 +105,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
             statusTextView = itemView.findViewById(R.id.txt_crop_estimate_card_status);
           //  taxTextView = itemView.findViewById(R.id.txt_crop_estimate_card_phone);
             nameTextView = itemView.findViewById(R.id.txt_crop_estimate_card_customer_name);
+
 
             moreButton = itemView.findViewById(R.id.img_crop_estimate_card_more);
             orderNumberLayout = itemView.findViewById(R.id.layout_crop_estimate_card_order_number);

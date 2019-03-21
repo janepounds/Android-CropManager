@@ -40,11 +40,12 @@
 
                 <TextView
 
+                    android:id="@+id/img_crop_customer_card_unpaid_invoices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="25dp"
                     android:gravity="end"
-                    android:text="1/1 unpaid"
+                    android:text="0/0 unpaid"
                     android:textColor="#696666"
                     android:textSize="14dp" />
 
@@ -154,8 +155,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_crop_customer_card_due_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -164,6 +167,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="6dp"
+
                         android:orientation="horizontal">
 
                         <TextView
@@ -175,7 +179,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/txt_crop_customer_card_storage_location"
+                            android:id="@+id/txt_crop_customer_card_due_payment_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"

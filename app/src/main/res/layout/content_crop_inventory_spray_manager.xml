@@ -170,7 +170,6 @@
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="@string/ugx"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorPrimary"
                             android:textStyle="bold"
 
                             />
@@ -323,7 +322,6 @@
                         android:textAlignment="center"
                         android:padding="2dp"
                         android:layout_weight="0.1"
-                        android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                 </LinearLayout>

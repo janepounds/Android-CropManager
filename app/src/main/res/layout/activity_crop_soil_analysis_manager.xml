@@ -138,7 +138,6 @@
                         android:textAlignment="center"
                         android:labelFor="@+id/txt_crop_soil_analysis_organic_matter"
                         android:text="%"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>

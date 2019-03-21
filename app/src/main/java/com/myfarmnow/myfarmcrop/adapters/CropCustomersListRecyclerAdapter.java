@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -22,9 +23,14 @@ import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationManagerActiv
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
+import com.myfarmnow.myfarmcrop.models.CropInvoice;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CropCustomersListRecyclerAdapter extends RecyclerView.Adapter<CropCustomersListRecyclerAdapter.CustomerViewHolder> {
 
@@ -76,8 +82,27 @@ public class CropCustomersListRecyclerAdapter extends RecyclerView.Adapter<CropC
         holder.taxTextView.setText(customer.getPhone()+"");
         holder.companyTxt.setText(customer.getCompany());
         holder.cityTextView.setText(customer.getShippingCityOrTown());
-        //holder.dateTextView.setText(customer.getD());
-        holder.quantityTextView.setText("UGX "+ NumberFormat.getInstance().format(customer.getOpeningBalance()));
+       //holder.dateTextView.setText(customer.getD());
+
+
+        ArrayList<CropInvoice> invoices = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropInvoicesByCustomer(customer.getId());
+
+        int unpaid =0;
+        float balance = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<Date> dueDates = new ArrayList<>();
+        for(CropInvoice x : invoices){
+            if(!x.determineStatus(mContext).equals(mContext.getString(R.string.invoice_status_paid))){
+                unpaid++;
+                balance += x.computeBalance();
+                holder.dateTextView.setText(x.getDueDate());
+                holder.duePaymentLayout.setVisibility(View.VISIBLE);
+            }
+        }
+        holder.quantityTextView.setText("UGX "+ NumberFormat.getInstance().format(customer.getOpeningBalance()+balance));
+        holder.unpaidInvoicesTextView.setText(unpaid+"/"+invoices.size()+" Unpaid");
+
+
     }
 
 
@@ -90,18 +115,21 @@ public class CropCustomersListRecyclerAdapter extends RecyclerView.Adapter<CropC
 
     public class CustomerViewHolder extends RecyclerView.ViewHolder{
 
-        TextView  quantityTextView, companyTxt, taxTextView, nameTextView,cityTextView, dateTextView;
+        TextView  quantityTextView, companyTxt, taxTextView, nameTextView,cityTextView, dateTextView,unpaidInvoicesTextView;
         ImageView  moreButton;
+        LinearLayout duePaymentLayout;
         public CustomerViewHolder(View itemView) {
             super(itemView);
 
             quantityTextView = itemView.findViewById(R.id.txt_crop_customer_card_opening_balance);
+            unpaidInvoicesTextView = itemView.findViewById(R.id.img_crop_customer_card_unpaid_invoices);
             cityTextView = itemView.findViewById(R.id.txt_crop_customer_card_city_town);
-            dateTextView = itemView.findViewById(R.id.txt_crop_customer_card_opening_balance);
+            dateTextView = itemView.findViewById(R.id.txt_crop_customer_card_due_payment_date);
             companyTxt = itemView.findViewById(R.id.txt_crop_customer_card_company);
             taxTextView = itemView.findViewById(R.id.txt_crop_customer_card_phone);
             nameTextView = itemView.findViewById(R.id.txt_crop_customer_card_name);
             moreButton = itemView.findViewById(R.id.img_crop_customer_card_more);
+            duePaymentLayout = itemView.findViewById(R.id.layout_crop_customer_card_due_payment);
 
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override

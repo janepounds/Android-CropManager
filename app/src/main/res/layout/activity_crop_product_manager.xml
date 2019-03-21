@@ -48,7 +48,6 @@
                        android:hint="Enter.."
                         android:background="@drawable/input_shapes"
 
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -229,7 +228,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:textColor="@color/colorPrimary"
                         android:inputType="numberDecimal"
                         android:textSize="14sp"
 
@@ -346,7 +344,7 @@
                             android:padding="4dp"
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="%"
-                            android:textColor="@color/colorPrimary"
+                            android:gravity="center_vertical"
                             android:textStyle="bold"
                             android:textSize="16dp"
 

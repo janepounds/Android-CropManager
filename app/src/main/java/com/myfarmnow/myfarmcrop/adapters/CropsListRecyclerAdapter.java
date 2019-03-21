@@ -51,7 +51,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     public void onBindViewHolder(@NonNull CropCardViewHolder holder, int position) {
         Crop curCrop = cropsList.get(position);
         holder.cropNameTxtView.setText(curCrop.getName());
-        holder.cropVarietyTextView.setText("(" + curCrop.getVariety() + ")");
+        holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
         holder.cropAge.setText("(" + curCrop.computeAge() + ")");
         holder.datePlantedTxt.setText(curCrop.getDateSown());
         holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");

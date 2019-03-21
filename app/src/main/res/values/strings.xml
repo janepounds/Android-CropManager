@@ -12,12 +12,8 @@
     <string name="label_weather_forecast">Weather Forecast</string>
     <string name="label_basic_practices">Basic Practices</string>
     <string name="label_financial_summary">Financial Summary</string>
-    <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager
-    </string>
-
+    <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager</string>
     <string name="units">Units</string>
-
-
     <string name="label_inventory_list">Inventory </string>
     <string name="date_not_entered_message">The date has not been entered</string>
     <string name="seed_name_not_entered_message">You must enter a seed Name</string>
@@ -25,7 +21,6 @@
     <string name="batch_number_entered_message">You must enter a batch number</string>
     <string name="missing_fields_message">Missing Fields:</string>
     <string name="usage_units_not_selected">Usage Units not selected</string>
-
     <string-array name="crop_seeds_usage_units">
         <item>Select unit</item>
         <item>g</item>
@@ -75,8 +70,6 @@
     <string name="fertilizer_type_not_selected">Fertilizer type not selected</string>
     <string name="default_numeric_value">0</string>
     <string name="title_activity_crop_inventory_spray_manager">Spray Manager</string>
-
-
     <string-array name="crop_field_units">
         <item>Select Unit</item>
         <item>Acres</item>
@@ -193,7 +186,6 @@
         <item>Irish Potatoes</item>
         <item>Sweet Potatoes</item>
     </string-array>
-
     <string-array name="crop_machine_category">
         <item>Select</item>
         <item>Plow</item>
@@ -609,7 +601,6 @@
         <item>First Season</item>
         <item>Second Season</item>
     </string-array>
-
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
@@ -691,21 +682,15 @@
     <string name="application_method_not_entered">Application Method not selected</string>
     <string name="fertilizer_form_not_selected">Fertilizer Form not selected</string>
     <string name="operation_not_selected">Operation has not been selected</string>
-
     <string name="activity_soil_analysis_list_label">Soil Analysis </string>
     <string name="activity_soil_analysis_manager_label">Soil Analysis Manager</string>
-
     <string name="field_name_not_entered_message">You must enter a field name</string>
     <string name="total_area_not_entered_message">You must enter the total area</string>
     <string name="units_not_selected">You must select units</string>
-
     <string name="machines_list">Machines </string>
     <string name="activity_crop_machine_manager">Machine Manager</string>
-
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
-
-
     <string name="weight_label">Weight</string>
     <string name="label_tax">Tax (%)</string>
     <string name="amount_label">Amount</string>
@@ -713,7 +698,6 @@
     <string name="label_add_item">Add Item</string>
     <string name="activity_cultivate_manage">Cultivate Manager</string>
     <string name="ugx">UGX</string>
-
     <string name="title_activity_crop_estimate_manager">Estimate Manager</string>
     <string name="title">Title</string>
     <string name="first_name">First Name</string>
@@ -750,7 +734,6 @@
     <string name="selling_price">Selling Price</string>
     <string name="tax_rate">Tax Rate</string>
     <string name="description">Description</string>
-
     <string name="sub_total">Sub Total</string>
     <string name="discount">Discount</string>
     <string name="shipping_charges">Shipping Charges</string>
@@ -761,7 +744,6 @@
     <string name="estimate_number">Estimate #</string>
     <string name="estimate_date">Estimate Date</string>
     <string name="expiry_date">Expiry Date</string>
-
     <string name="title_activity_crop_customers_list">Customers </string>
     <string name="phone_number_not_entered">Phone Number is not entered</string>
     <string name="shipping_address_not_complete">Shipping address not complete</string>
@@ -798,7 +780,6 @@
     <string name="title_activity_crop_invoice_manager">Invoice Manager</string>
     <string name="title_product_manager_activity">Product Manager</string>
     <string name="estimate_no_items_added">You must add Items to the estimate</string>
-
     <string name="date">Date</string>
     <string name="transaction">Transaction</string>
     <string name="item">Item</string>
@@ -823,7 +804,6 @@
     <string name="status_not_selected">You must select Status</string>
     <string name="recurrence_not_selected">You must select Recurrence</string>
     <string name="reminders_not_selected">You must select Reminders</string>
-
     <string name="invoice_no_items_added">No Items added to the Invoice</string>
     <string name="customer_not_selected">Customer not selected</string>
     <string name="title_activity_crop_payment_manager">Payment Manager</string>
@@ -877,4 +857,6 @@
     <string name="label_convert_to_invoice">Convert to Invoice</string>
     <string name="label_preview_estimate">Preview Estimate</string>
     <string name="estimate_expiry_date">Expiry Date</string>
+    <string name="product_manager">Product Manager</string>
+
 </resources>

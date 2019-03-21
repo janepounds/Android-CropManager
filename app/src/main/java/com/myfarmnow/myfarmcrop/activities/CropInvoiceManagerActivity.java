@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,6 +34,8 @@ import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -102,6 +105,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         saveBtn = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(invoiceDateTxt,this);
         CropDashboardActivity.addDatePicker(dueDateTxt,this);
+        ((ArrayAdapter)termsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
@@ -484,7 +488,8 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
                     dueDateTxt.setEnabled(true);
                 }
                 cal.add(Calendar.DAY_OF_MONTH,days);
-                dueDateTxt.setText(cal.get(Calendar.YEAR)+"-"+(cal.get(Calendar.MONTH)+1)+"-"+cal.get(Calendar.DAY_OF_MONTH));
+                NumberFormat formatter = new DecimalFormat("00");
+                dueDateTxt.setText(cal.get(Calendar.YEAR)+"-"+formatter.format(cal.get(Calendar.MONTH)+1)+"-"+formatter.format(cal.get(Calendar.DAY_OF_MONTH)));
             }
         } catch (ParseException e) {
 

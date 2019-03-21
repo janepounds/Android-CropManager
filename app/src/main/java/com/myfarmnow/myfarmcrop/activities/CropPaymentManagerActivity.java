@@ -80,6 +80,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
                     Intent toCropPaymentsList = new Intent(CropPaymentManagerActivity.this, CropPaymentsListActivity.class);
                     toCropPaymentsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropPaymentsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

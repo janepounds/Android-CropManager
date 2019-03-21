@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,8 +38,8 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter,customerSupplierAdapter;
     MyFarmDbHandlerSingleton dbHandler;
 
-    ArrayList<CropSpinnerItem> incomeArrayList=new ArrayList<CropSpinnerItem>();
-    ArrayList<CropSpinnerItem> expensesArrayList=new ArrayList<CropSpinnerItem>();
+    ArrayList<CropSpinnerItem> incomeArrayList= new ArrayList<>();
+    ArrayList<CropSpinnerItem> expensesArrayList= new ArrayList<>();
 
     ArrayList<CropSpinnerItem>  customersList = new ArrayList<>();
     ArrayList<CropSpinnerItem>  suppliersList = new ArrayList<>();
@@ -79,6 +80,11 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        ((ArrayAdapter)paymentModeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)paymentStatusSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)transactionSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+
         CropDashboardActivity.addDatePicker(dateTxt,this);
 
         String income [] = getResources().getStringArray(R.array.sp_crop_income_category);
@@ -98,10 +104,13 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
                 if(selection.toLowerCase().equals("income")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(incomeArrayList);
+                    customerSupplierAdapter.changeItems(customersList);
                 }
                 else if(selection.toLowerCase().equals("expenses")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(expensesArrayList);
+                    customerSupplierAdapter.changeItems(suppliersList);
+
                 }
                 else{
                     categorySpinner.setEnabled(false);
@@ -174,6 +183,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt.addTextChangedListener(watcher);
         quantityTxt.addTextChangedListener(watcher);
 
+
         customersList = new ArrayList<>();
         for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
             customersList.add(x);
@@ -185,27 +195,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         customerSupplierAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Customer/Supplier",this);
 
         customerSupplierSp.setAdapter(customerSupplierAdapter);
-        transactionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0){
-                    return;
-                }
-                String choice =transactionSpinner.getSelectedItem().toString();
-                if(choice.toLowerCase().equals("income")){
-                    customerSupplierAdapter.changeItems(customersList);
-                }
-                else if(choice.toLowerCase().equals("supplier")){
-                    customerSupplierAdapter.changeItems(suppliersList);
-                }
-            }
 
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         fillViews();
 
     }
@@ -223,7 +213,9 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
         cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
 
-        cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
+        if(customerSupplierSp.getSelectedItemPosition()!=0){
+            cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
+        }
 
 
         cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
@@ -249,7 +241,9 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
             cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
-            cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
+            if(customerSupplierSp.getSelectedItemPosition()!=0){
+                cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
+            }
 
             cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
 
@@ -371,4 +365,6 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             return value;
         }
     }
+
+
 }
