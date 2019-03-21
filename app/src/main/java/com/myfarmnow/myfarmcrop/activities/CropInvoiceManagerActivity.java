@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -91,6 +92,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         saveBtn = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(invoiceDateTxt,this);
         CropDashboardActivity.addDatePicker(dueDateTxt,this);
+        ((ArrayAdapter)termsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);

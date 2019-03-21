@@ -873,4 +873,5 @@
     <string name="label_spray">Spray</string>
     <string name="label_harvest">Harvest</string>
     <string name="season">Season</string>
+    <string name="product_manager">Product Manager</string>
 </resources>

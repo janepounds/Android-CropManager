@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -79,6 +80,11 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        ((ArrayAdapter)paymentModeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)paymentStatusSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)transactionSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+
         CropDashboardActivity.addDatePicker(dateTxt,this);
 
         String income [] = getResources().getStringArray(R.array.sp_crop_income_category);
@@ -207,7 +213,9 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
         cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
 
-        cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
+        if(customerSupplierSp.getSelectedItemPosition()!=0){
+            cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
+        }
 
 
         cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
@@ -233,7 +241,9 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
             cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
-            cropIncomeExpense.setCustomerSupplier(((CropSpinnerItem)customerSupplierSp.getSelectedItem()).getId());
+            if(customerSupplierSp.getSelectedItemPosition()!=0){
+                cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
+            }
 
             cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
 
@@ -355,4 +365,6 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             return value;
         }
     }
+
+
 }

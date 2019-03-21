@@ -37,7 +37,8 @@
         <activity
             android:name=".activities.CropEmployeesListActivity"
             android:label="Employees List" />
-        <activity android:name=".activities.CropProductManagerActivity" />
+        <activity android:name=".activities.CropProductManagerActivity"
+            android:label="@string/product_manager"/>
         <activity
             android:name=".activities.CropCustomerManagerActivity"
             android:label="@string/activity_crop_customer_manager_title" />

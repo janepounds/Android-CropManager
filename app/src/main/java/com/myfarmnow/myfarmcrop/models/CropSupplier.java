@@ -111,4 +111,10 @@ public class CropSupplier implements Serializable,CropSpinnerItem{
     public void setInvoiceCountry(String invoiceCountry) {
         this.invoiceCountry = invoiceCountry;
     }
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+
 }

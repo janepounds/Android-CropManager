@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -49,6 +50,9 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(purchaseDatTxt,this);
+
+        ((ArrayAdapter)usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
         fillViews();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -72,6 +73,8 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(dateTxt,this);
         CropDashboardActivity.addTimePicker(startTimeTxt,this);
         CropDashboardActivity.addTimePicker(endTimeTxt,this);
+        ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
         btn_save.setOnClickListener(new View.OnClickListener() {
