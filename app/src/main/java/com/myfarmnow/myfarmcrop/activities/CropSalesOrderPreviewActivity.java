@@ -34,7 +34,6 @@ import com.myfarmnow.myfarmcrop.adapters.CropPreviewItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
-import com.myfarmnow.myfarmcrop.models.CropSalesOrderItem;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 
 import java.io.File;
@@ -107,7 +106,7 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
 
         ArrayList<CropProductItem> customersList = new ArrayList<>();
-        for(CropSalesOrderItem x: cropSalesOrder.getItems()){
+        for(CropProductItem x: cropSalesOrder.getItems()){
             customersList.add(x);
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);

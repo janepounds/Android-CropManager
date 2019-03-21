@@ -21,9 +21,11 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropEstimateManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEstimateManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEstimatePreviewActivity;
+import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
+import com.myfarmnow.myfarmcrop.models.CropInvoice;
 
 import java.text.NumberFormat;
 
@@ -76,7 +78,7 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
         holder.nameTextView.setText(estimate.getCustomerName());
         holder.dateTextView.setText(estimate.getDate());
         holder.referenceNumberTxt.setText(estimate.getReferenceNumber());
-        //holder.orderNumberTxt.setText(estimate.getCompany());
+        holder.statusTextView.setText(estimate.getStatus());
         holder.estimateNumberTextView.setText(estimate.getNumber());
         holder.referenceNumberTxtView.setVisibility(View.VISIBLE);
 
@@ -93,11 +95,12 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
 
     public class EstimateViewHolder extends RecyclerView.ViewHolder{
 
-        TextView amountTextView, referenceNumberTxt, nameTextView, estimateNumberTextView, dateTextView;
+        TextView amountTextView, referenceNumberTxt, nameTextView,statusTextView,estimateNumberTextView, dateTextView;
         ImageView moreButton;
         LinearLayout referenceNumberTxtView;
         public EstimateViewHolder(View itemView) {
             super(itemView);
+            statusTextView = itemView.findViewById(R.id.txt_crop_estimate_card_status);
 
             amountTextView = itemView.findViewById(R.id.txt_crop_estimate_card_amount);
             estimateNumberTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_number);
@@ -140,12 +143,12 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
                                 editEstimate.putExtra("cropEstimate",cropEstimate);
                                 mContext.startActivity(editEstimate);
                             }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_record_payment))){
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_convert_to_invoice))){
                                 CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
-                                Intent recordPayment = new Intent(mContext, CropPaymentManagerActivity.class);
-                                recordPayment.putExtra("invoiceId",cropEstimate.getId());
+                                Intent recordPayment = new Intent(mContext, CropInvoiceManagerActivity.class);
+                                recordPayment.putExtra("cropEstimate",cropEstimate);
                                 mContext.startActivity(recordPayment);
-                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_receipt))){
+                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_estimate))){
                                 CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
                                 Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
                                 editEstimate.putExtra("cropEstimate",cropEstimate);
@@ -160,19 +163,24 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_email))){
                                 CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
+                                cropEstimate.setStatus("SENT");
+                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).updateCropEstimate(cropEstimate);
                                 Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
                                 editEstimate.putExtra("cropEstimate",cropEstimate);
                                 editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_EMAIL);
                                 mContext.startActivity(editEstimate);
+                                cropEstimate.setStatus("SENT");
+                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).updateCropEstimate(cropEstimate);
+
                             }
                             return true;
                         }
                     });
-                    popup.getMenu().add(R.string.label_preview_receipt);
+                    popup.getMenu().add(R.string.label_preview_estimate);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
                     popup.getMenu().add(R.string.label_share_link);
-                    popup.getMenu().add(R.string.label_record_payment);
+                    popup.getMenu().add(R.string.label_convert_to_invoice);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

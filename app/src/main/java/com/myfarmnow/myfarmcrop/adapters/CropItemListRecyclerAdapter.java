@@ -17,12 +17,10 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
-import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
-import java.lang.reflect.Array;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 

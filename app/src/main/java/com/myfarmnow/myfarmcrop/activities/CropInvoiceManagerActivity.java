@@ -24,11 +24,12 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.CropPaymentDialog;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
+import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
-import com.myfarmnow.myfarmcrop.models.CropInvoiceItem;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
 
@@ -36,7 +37,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CropInvoiceManagerActivity extends AppCompatActivity implements PaymentDialogActivity {
 
@@ -53,7 +53,9 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
     Spinner customersSp,termsSp;
     Button saveBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
-    ArrayList <CropInvoiceItem> invoiceItems = new ArrayList<>();
+    ArrayList <CropProductItem> invoiceItems = new ArrayList<>();
+    CropEstimate sourceCropEstimate = null;
+    CropSalesOrder sourceCropSalesOrder;
     CropSpinnerAdapter customersSpinnerAdapter;
     CropPayment cropPayment;
     @Override
@@ -67,6 +69,15 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             cropInvoice = (CropInvoice)getIntent().getSerializableExtra("cropInvoice");
         }
         initializeForm();
+
+        if(getIntent().hasExtra("cropEstimate")){
+            loadEstimateAsInvoice((CropEstimate) getIntent().getSerializableExtra("cropEstimate"));
+            cropInvoice=null; //just incase an invoice was submitted as well. ignore it
+        }
+        if(getIntent().hasExtra("cropSalesOrder")){
+            loadSalesOrderAsInvoice((CropSalesOrder) getIntent().getSerializableExtra("cropSalesOrder"));
+            cropInvoice=null; //just incase an invoice was submitted as well. ignore it
+        }
 
 
     }
@@ -114,7 +125,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropInvoiceItem item = new CropInvoiceItem();
+                CropProductItem item = new CropProductItem();
                 itemListRecyclerAdapter.addCropProductItem(item);
             }
         });
@@ -222,9 +233,15 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
                         updateInvoice();
                     }
 
+                    if(sourceCropEstimate != null){
+                        sourceCropEstimate.setStatus(getString(R.string.estimate_status_invoiced));
+                        dbHandler.updateCropEstimate(sourceCropEstimate);
+                    }
+
                     Intent toCropEmployeesList = new Intent(CropInvoiceManagerActivity.this, CropInvoicesListActivity.class);
                     toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropEmployeesList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }
@@ -233,6 +250,52 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         fillViews();
 
 
+    }
+
+
+
+    public void loadEstimateAsInvoice(CropEstimate estimate){
+        if(estimate != null){
+            sourceCropEstimate = estimate;
+            CropDashboardActivity.selectSpinnerItemById(customersSp,estimate.getCustomerId());
+            ArrayList <CropProductItem> items = new ArrayList<>();
+            for(CropProductItem x: estimate.getItems()){
+                x.setInvoiceOrEstimateId(null); //remove any associated Estimate
+               
+                items.add(x);
+            }
+            itemListRecyclerAdapter.appendList(items);
+            termsAndConditionsTxt.setText(estimate.getTermsAndConditions());
+            notesTxt.setText(estimate.getCustomerNotes());
+            //dueDateTxt.setText(cropInvoice.getDueDate());
+            shippingChargesTxt.setText(estimate.getShippingCharges()+"");
+            discountPercentageTxt.setText(estimate.getDiscount()+"");
+            invoiceNumberTextView.setText(estimate.getNumber());
+            //orderNumberTxt.setText(cropInvoice.getOrderNumber());
+            //invoiceDateTxt.setText(cropInvoice.getDate());
+        }
+    }
+
+    public void loadSalesOrderAsInvoice(CropSalesOrder estimate){
+        if(estimate != null){
+            sourceCropSalesOrder = estimate;
+            CropDashboardActivity.selectSpinnerItemById(customersSp,estimate.getCustomerId());
+            ArrayList <CropProductItem> items = new ArrayList<>();
+            for(CropProductItem x: estimate.getItems()){
+                x.setInvoiceOrEstimateId(null); //remove any associated Estimate
+
+                items.add(x);
+            }
+            itemListRecyclerAdapter.appendList(items);
+            termsAndConditionsTxt.setText(estimate.getTermsAndConditions());
+            notesTxt.setText(estimate.getCustomerNotes());
+            //dueDateTxt.setText(cropInvoice.getDueDate());
+            shippingChargesTxt.setText(estimate.getShippingCharges()+"");
+            discountPercentageTxt.setText(estimate.getDiscount()+"");
+            invoiceNumberTextView.setText(estimate.getNumber());
+            orderNumberTxt.setText(estimate.getReferenceNumber());
+            //invoiceDateTxt.setText(cropInvoice.getDate());
+        }
     }
 
     public void savePayment(){
@@ -252,7 +315,10 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         invoiceItems.clear();
 
         for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-            invoiceItems.add((CropInvoiceItem)x);
+            
+                invoiceItems.add(x);
+            
+           
         }
         cropInvoice.setItems(invoiceItems);
 
@@ -279,7 +345,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             cropInvoice.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             invoiceItems.clear();
             for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-                invoiceItems.add((CropInvoiceItem)x);
+                invoiceItems.add((CropProductItem)x);
             }
             cropInvoice.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
             cropInvoice.setItems(invoiceItems);

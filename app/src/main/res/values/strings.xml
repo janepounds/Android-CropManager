@@ -873,4 +873,8 @@
     <string name="label_spray">Spray</string>
     <string name="label_harvest">Harvest</string>
     <string name="season">Season</string>
+    <string name="estimate_status_invoiced">INVOICED</string>
+    <string name="label_convert_to_invoice">Convert to Invoice</string>
+    <string name="label_preview_estimate">Preview Estimate</string>
+    <string name="estimate_expiry_date">Expiry Date</string>
 </resources>

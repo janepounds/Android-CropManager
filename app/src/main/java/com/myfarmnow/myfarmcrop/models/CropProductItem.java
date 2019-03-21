@@ -1,20 +1,103 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public interface CropProductItem {
-    float getTax();
-    void setTax(float tax);
-    float getRate();
-    void setRate(float rate);
-    String getId();
-    void setId(String id);
-    String getProductId();
-    void setProductId(String productId);
-    String getInvoiceOrEstimateId();
-    void setInvoiceOrEstimateId(String id);
-    float getQuantity();
-    void setQuantity(float quantity);
-    float computeAmount();
+import java.io.Serializable;
+import java.util.ArrayList;
 
-    void setProductName(String name);
-    String gettProductName();
+public class CropProductItem implements Serializable {
+    String  id;
+    String  productId;
+    String  estimateId;
+    float quantity;
+    float rate;
+    float tax;
+    String productName;
+
+    public CropProductItem(){
+
+    }
+
+    public CropProductItem( String  productId, String  estimateId, float quantity){
+        setProductId(productId);
+        setInvoiceOrEstimateId(estimateId);
+        setQuantity(quantity);
+    }
+    public CropProductItem( String id, String  productId, String  estimateId, float quantity){
+        setId(id);
+        setProductId(productId);
+        setInvoiceOrEstimateId(estimateId);
+        setQuantity(quantity);
+    }
+    public CropProductItem( String id, String  productId, String  estimateId, float quantity,float rate,float tax){
+        setId(id);
+        setProductId(productId);
+        setInvoiceOrEstimateId(estimateId);
+        setQuantity(quantity);
+        setRate(rate);
+        setTax(tax);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getInvoiceOrEstimateId() {
+        return estimateId;
+    }
+
+    public void setInvoiceOrEstimateId(String estimateId) {
+        this.estimateId = estimateId;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    public float getTax() {
+        return tax;
+    }
+
+    public void setTax(float tax) {
+        this.tax = tax;
+    }
+
+    public float computeAmount(){
+        float total  = rate*quantity;
+        float tax = (this.tax/100)*total;
+
+        return total+tax;
+    }
+
+
+    public void setProductName(String name) {
+        this.productName = name;
+    }
+
+
+    public String gettProductName() {
+        return this.productName;
+    }
 }

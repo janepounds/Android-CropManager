@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.activities;
 
-import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +23,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ScrollView;
@@ -36,7 +34,6 @@ import com.myfarmnow.myfarmcrop.adapters.CropPreviewItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
-import com.myfarmnow.myfarmcrop.models.CropInvoiceItem;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 
 import java.io.File;
@@ -56,7 +53,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
     CropCustomer cropCustomer;
     Bitmap bitmap;
     TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
-    termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,
+    termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,referenceTextView,
     customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int INVOICE_ACTION_DOWNLOAD = 134;
@@ -110,7 +107,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
 
         ArrayList<CropProductItem> customersList = new ArrayList<>();
-        for(CropInvoiceItem x: cropInvoice.getItems()){
+        for(CropProductItem x: cropInvoice.getItems()){
             customersList.add(x);
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -135,7 +132,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         termsTextView.setText(cropInvoice.getTerms());
         orderNumberTextView.setText(cropInvoice.getOrderNumber());
         customerNameTextView.setText(cropCustomer.getName());
-        cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+","+cropCustomer.getBillingCountry());
+        cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+" , "+cropCustomer.getBillingCountry());
         streetTextView.setText(cropCustomer.getBillingStreet());
         customerCompanyTextView.setText(cropCustomer.getCompany());
 

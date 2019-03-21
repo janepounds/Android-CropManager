@@ -13,8 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -36,7 +34,6 @@ import com.myfarmnow.myfarmcrop.adapters.CropPreviewItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
-import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 
 import java.io.File;
@@ -55,7 +52,7 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
     CropCustomer cropCustomer;
     Bitmap bitmap;
     TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
-            termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,
+            termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,referenceTextView,
             customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int INVOICE_ACTION_DOWNLOAD = 134;
@@ -105,11 +102,12 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
         paymentMadeTextView = findViewById(R.id.txt_view_crop_invoice_payment_made);
         dueDateTextView = findViewById(R.id.text_view_crop_invoice_due_date);
         orderNumberTextView = findViewById(R.id.text_view_crop_invoice_order_number);
+        referenceTextView = findViewById(R.id.text_view_crop_invoice_reference_number);
         summaryScrollView = findViewById(R.id.scroll_view_invoice_summary);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
 
         ArrayList<CropProductItem> customersList = new ArrayList<>();
-        for(CropEstimateItem x: cropEstimate.getItems()){
+        for(CropProductItem x: cropEstimate.getItems()){
             customersList.add(x);
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -128,11 +126,12 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
 
         numberTextView.setText("#"+cropEstimate.getNumber());
         dateTextView.setText(cropEstimate.getDate());
+        referenceTextView.setText(cropEstimate.getReferenceNumber());
         dueDateTextView.setText(cropEstimate.getExpiryDate());
         //termsTextView.setText(cropEstimate.getR());
         //orderNumberTextView.setText(cropEstimate.getOrderNumber());
         customerNameTextView.setText(cropCustomer.getName());
-        cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+","+cropCustomer.getBillingCountry());
+        cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+" , "+cropCustomer.getBillingCountry());
         streetTextView.setText(cropCustomer.getBillingStreet());
         customerCompanyTextView.setText(cropCustomer.getCompany());
 
@@ -238,7 +237,7 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
             Uri contentUri = Uri.fromFile(file);
             Intent mailIntent = new Intent(Intent.ACTION_SEND);
             mailIntent.setType("message/rfc822");
-            mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"robein@ymail.com"});
+            mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{cropCustomer.getEmail()});
 
             mailIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Estimate : "+cropEstimate.getNumber());
@@ -254,7 +253,7 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
                     mailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 } else {
-                    mailIntent.setDataAndType(contentUri, "application/pdf");
+                    mailIntent.setDataAndType(contentUri, "message/rfc822");
                 }
                 startActivity(Intent.createChooser(mailIntent, "Send email.."));
             } catch (android.content.ActivityNotFoundException ex) {

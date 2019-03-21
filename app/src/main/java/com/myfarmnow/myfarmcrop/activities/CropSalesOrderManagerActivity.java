@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,7 +21,6 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
-import com.myfarmnow.myfarmcrop.models.CropSalesOrderItem;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -44,7 +42,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
     Spinner customersSp;
     Button saveBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
-    ArrayList <CropSalesOrderItem> sales_orderItems = new ArrayList<>();
+    ArrayList <CropProductItem> sales_orderItems = new ArrayList<>();
     CropSpinnerAdapter customersSpinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +97,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropSalesOrderItem item = new CropSalesOrderItem();
+                CropProductItem item = new CropProductItem();
                 itemListRecyclerAdapter.addCropProductItem(item);
             }
         });
@@ -186,6 +184,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         cropSalesOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropSalesOrder.setCustomerNotes(notesTxt.getText().toString());
         cropSalesOrder.setShippingDate(expiryDateTxt.getText().toString());
+        cropSalesOrder.setStatus("DRAFT");
         cropSalesOrder.setReferenceNumber(referenceNoTxt.getText().toString());
         cropSalesOrder.setDiscount(Float.parseFloat(discountPercentageTxt.getText().toString()));
         cropSalesOrder.setShippingCharges(Float.parseFloat(shippingChargesTxt.getText().toString()));
@@ -196,7 +195,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         sales_orderItems.clear();
 
         for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-            sales_orderItems.add((CropSalesOrderItem)x);
+            sales_orderItems.add((CropProductItem)x);
         }
         cropSalesOrder.setItems(sales_orderItems);
 
@@ -217,7 +216,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
             cropSalesOrder.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             sales_orderItems.clear();
             for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-                sales_orderItems.add((CropSalesOrderItem)x);
+                sales_orderItems.add((CropProductItem)x);
             }
             cropSalesOrder.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
             Log.d("TEST",cropSalesOrder.getDeletedItemsIds().toString());

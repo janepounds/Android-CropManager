@@ -17,10 +17,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSalesOrderManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSalesOrderPreviewActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 
 import java.text.NumberFormat;
@@ -73,7 +75,7 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
         holder.nameTextView.setText(estimate.getCustomerName());
         holder.dateTextView.setText(estimate.getDate());
         holder.referenceNumberTxt.setText(estimate.getReferenceNumber());
-        //holder.orderNumberTxt.setText(estimate.getCompany());
+        holder.statusTextView.setText(estimate.getStatus());
         holder.estimateNumberTextView.setText(estimate.getNumber());
         holder.referenceNumberTxtView.setVisibility(View.VISIBLE);
 
@@ -90,12 +92,13 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
 
     public class SalesOrderViewHolder extends RecyclerView.ViewHolder{
 
-        TextView amountTextView, referenceNumberTxt, taxTextView, nameTextView, estimateNumberTextView, dateTextView;
+        TextView amountTextView, referenceNumberTxt, statusTextView, nameTextView, estimateNumberTextView, dateTextView;
         ImageView moreButton;
         LinearLayout referenceNumberTxtView;
         public SalesOrderViewHolder(View itemView) {
             super(itemView);
 
+            statusTextView = itemView.findViewById(R.id.txt_crop_estimate_card_status);
             amountTextView = itemView.findViewById(R.id.txt_crop_estimate_card_amount);
             estimateNumberTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_number);
             dateTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_date);
@@ -137,10 +140,10 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
                                 editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
                                 mContext.startActivity(editSalesOrder);
                             }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_record_payment))){
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_convert_to_invoice))){
                                 CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
-                                Intent recordPayment = new Intent(mContext, CropPaymentManagerActivity.class);
-                                recordPayment.putExtra("invoiceId",cropSalesOrder.getId());
+                                Intent recordPayment = new Intent(mContext, CropInvoiceManagerActivity.class);
+                                recordPayment.putExtra("cropSalesOrder",cropSalesOrder);
                                 mContext.startActivity(recordPayment);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_receipt))){
                                 CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
@@ -169,7 +172,7 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
                     popup.getMenu().add(R.string.label_share_link);
-                    popup.getMenu().add(R.string.label_record_payment);
+                    popup.getMenu().add(R.string.label_convert_to_invoice);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

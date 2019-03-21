@@ -18,8 +18,9 @@ public class CropSalesOrder implements Serializable{
      String  referenceNumber;
 
      String customerName;
-     ArrayList<CropSalesOrderItem> items = new ArrayList<>();
+     ArrayList<CropProductItem> items = new ArrayList<>();
      ArrayList<String> deletedItemsId = new ArrayList<>();
+    private String status="DRAFT";
 
     public String getCustomerName() {
         return customerName;
@@ -109,17 +110,17 @@ public class CropSalesOrder implements Serializable{
         this.termsAndConditions = termsAndConditions;
     }
 
-    public ArrayList<CropSalesOrderItem> getItems() {
+    public ArrayList<CropProductItem> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<CropSalesOrderItem> items) {
+    public void setItems(ArrayList<CropProductItem> items) {
         this.items = items;
     }
 
     public float computeSubTotal(){
         float subTotal =0;
-        for(CropSalesOrderItem x :items ){
+        for(CropProductItem x :items ){
             subTotal+=x.computeAmount();
         }
         return subTotal;
@@ -164,5 +165,13 @@ public class CropSalesOrder implements Serializable{
 
     public void setReferenceNumber(String referenceNumber) {
         this.referenceNumber = referenceNumber;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

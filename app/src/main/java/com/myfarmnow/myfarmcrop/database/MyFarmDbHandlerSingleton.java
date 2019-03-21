@@ -14,7 +14,6 @@ import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
-import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -24,12 +23,11 @@ import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
-import com.myfarmnow.myfarmcrop.models.CropInvoiceItem;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
+import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
-import com.myfarmnow.myfarmcrop.models.CropSalesOrderItem;
 import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
@@ -57,14 +55,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SUPPLIER_TABLE_NAME ="crop_supplier";
     public static final String CROP_PRODUCT_TABLE_NAME ="crop_product";
     public static final String CROP_ESTIMATE_TABLE_NAME ="crop_estimate";
-    public static final String CROP_ESTIMATE_ITEM_TABLE_NAME ="crop_estimate_items";
+    public static final String CROP_PRODUCT_ITEM_TABLE_NAME ="crop_product_items";
     public static final String CROP_INVOICE_TABLE_NAME ="crop_invoice";
-    public static final String CROP_INVOICE_ITEM_TABLE_NAME ="crop_invoice_items";
     public static final String CROP_INCOME_EXPENSE_TABLE_NAME ="crop_income_expense";
     public static final String CROP_PAYMENT_TABLE_NAME ="crop_payments";
     public static final String CROP_TASK_TABLE_NAME ="crop_task";
     public static final String CROP_SALES_ORDER_TABLE_NAME ="crop_sales_order";
-    public static final String CROP_SALES_ORDER_ITEM_TABLE_NAME ="crop_sales_order_items";
 
 
 
@@ -287,14 +283,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_ESTIMATE_SHIPPING_CHARGES ="shippingCharges";
     public static final String CROP_ESTIMATE_CUSTOMER_NOTES ="customerNotes";
     public static final String CROP_ESTIMATE_TERMS_AND_CONDITIONS ="termsAndConditions";
+    public static final String CROP_ESTIMATE_STATUS ="status";
 
 
-    public static final String CROP_ESTIMATE_ITEM_ID ="id";
-    public static final String CROP_ESTIMATE_ITEM_PRODUCT_ID ="productId";
-    public static final String CROP_ESTIMATE_ITEM_ESTIMATE_ID ="estimateId";
-    public static final String CROP_ESTIMATE_ITEM_QUANTITY="quantity";
-    public static final String CROP_ESTIMATE_ITEM_RATE="rate";
-    public static final String CROP_ESTIMATE_ITEM_TAX="tax";
+    public static final String CROP_PRODUCT_ITEM_ID ="id";
+    public static final String CROP_PRODUCT_ITEM_PRODUCT_ID ="productId";
+    public static final String CROP_PRODUCT_ITEM_ESTIMATE_ID ="estimateId";
+    public static final String CROP_PRODUCT_ITEM_QUANTITY="quantity";
+    public static final String CROP_PRODUCT_ITEM_RATE="rate";
+    public static final String CROP_PRODUCT_ITEM_TAX="tax";
+    public static final String CROP_PRODUCT_ITEM_TYPE="type";
 
     public static final String CROP_INVOICE_ID ="id";
     public static final String CROP_INVOICE_USER_ID ="userId";
@@ -310,12 +308,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_INVOICE_TERMS_AND_CONDITIONS ="termsAndConditions";
 
 
-    public static final String CROP_INVOICE_ITEM_ID ="id";
-    public static final String CROP_INVOICE_ITEM_PRODUCT_ID ="productId";
-    public static final String CROP_INVOICE_ITEM_INVOICE_ID ="estimateId";
-    public static final String CROP_INVOICE_ITEM_QUANTITY="quantity";
-    public static final String CROP_INVOICE_ITEM_RATE="rate";
-    public static final String CROP_INVOICE_ITEM_TAX="tax";
+
 
     public static final String CROP_PAYMENT_ID ="id";
     public static final String CROP_PAYMENT_USER_ID ="userId";
@@ -340,12 +333,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SALES_ORDER_SHIPPING_CHARGES ="shippingCharges";
     public static final String CROP_SALES_ORDER_CUSTOMER_NOTES ="customerNotes";
     public static final String CROP_SALES_ORDER_TERMS_AND_CONDITIONS ="termsAndConditions";
-    public static final String CROP_SALES_ORDER_ITEM_ID ="id";
-    public static final String CROP_SALES_ORDER_ITEM_PRODUCT_ID ="productId";
-    public static final String CROP_SALES_ORDER_ITEM_SALES_ORDER_ID ="estimateId";
-    public static final String CROP_SALES_ORDER_ITEM_QUANTITY="quantity";
-    public static final String CROP_SALES_ORDER_ITEM_RATE="rate";
-    public static final String CROP_SALES_ORDER_ITEM_TAX="tax";
+    public static final String CROP_SALES_ORDER_STATUS ="status";
+    
+
+    
 
     public static final String CROP_INCOME_EXPENSE_ID = "id";
     public static final String CROP_INCOME_EXPENSE_DATE = "date";
@@ -374,6 +365,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_TASK_DESCRIPTION = "description";
     public static final String CROP_TASK_RECURRENCE = "recurrence";
     public static final String CROP_TASK_REMINDERS = "reminders";
+
+    public static final String CROP_PRODUCT_ITEM_TYPE_SALES_ORDER = "salesOrder";
+    public static final String CROP_PRODUCT_ITEM_TYPE_ESTIMATE = "estimate";
+    public static final String CROP_PRODUCT_ITEM_TYPE_INVOICE = "estimate";
+
+
 
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
@@ -481,13 +478,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_estimates_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_ESTIMATE_USER_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_NO+" TEXT NOT NULL,"+CROP_ESTIMATE_DATE+" TEXT NOT NULL,"+
                 CROP_ESTIMATE_REFERENCE_NO+" TEXT NOT NULL,"+ CROP_ESTIMATE_EXP_DATE+" TEXT,"+CROP_ESTIMATE_DISCOUNT+" REAL DEFAULT 0,"+ CROP_ESTIMATE_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
-                CROP_ESTIMATE_CUSTOMER_NOTES+" TEXT ,"+ CROP_ESTIMATE_TERMS_AND_CONDITIONS+" TEXT "+" )";
+                CROP_ESTIMATE_CUSTOMER_NOTES+" TEXT ,"+  CROP_ESTIMATE_STATUS+" TEXT DEFAULT 'DRAFT' ,"+ CROP_ESTIMATE_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
 
-        String crop_estimate_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_ESTIMATE_ITEM_TABLE_NAME+" ( "+CROP_ESTIMATE_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                CROP_ESTIMATE_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_ESTIMATE_ITEM_ESTIMATE_ID+" TEXT NOT NULL,"+ CROP_ESTIMATE_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_ESTIMATE_ITEM_TAX+" REAL NOT NULL, "+
-                CROP_ESTIMATE_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_ESTIMATE_ITEM_ESTIMATE_ID+") REFERENCES  "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" ), " +
-                "FOREIGN KEY( "+CROP_ESTIMATE_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
+        String crop_estimate_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PRODUCT_ITEM_TABLE_NAME+" ( "+CROP_PRODUCT_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_PRODUCT_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_PRODUCT_ITEM_ESTIMATE_ID+" TEXT NOT NULL,"+ CROP_PRODUCT_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_PRODUCT_ITEM_TAX+" REAL NOT NULL, "+
+                CROP_PRODUCT_ITEM_RATE+" REAL NOT NULL, "+ CROP_PRODUCT_ITEM_TYPE+" TEXT NOT NULL, "+
+                " FOREIGN KEY ( "+CROP_PRODUCT_ITEM_ESTIMATE_ID+") REFERENCES  "+CROP_ESTIMATE_TABLE_NAME+" ( "+CROP_ESTIMATE_ID+" ), " +
+                "FOREIGN KEY( "+CROP_PRODUCT_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
 
 
         String crop_invoices_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -497,10 +495,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_INVOICE_CUSTOMER_NOTES+" TEXT ,"+ CROP_INVOICE_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
 
-        String crop_invoice_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVOICE_ITEM_TABLE_NAME+" ( "+CROP_INVOICE_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                CROP_INVOICE_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_INVOICE_ITEM_INVOICE_ID+" TEXT NOT NULL,"+ CROP_INVOICE_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_INVOICE_ITEM_TAX+" REAL NOT NULL, "+
-                CROP_INVOICE_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_INVOICE_ITEM_INVOICE_ID+") REFERENCES  "+CROP_INVOICE_TABLE_NAME+" ( "+CROP_INVOICE_ID+" ), " +
-                "FOREIGN KEY( "+CROP_INVOICE_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
 
         String crop_payment_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PAYMENT_TABLE_NAME+" ( "+CROP_PAYMENT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_PAYMENT_USER_ID+" TEXT NOT NULL,"+CROP_PAYMENT_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_PAYMENT_DATE+" TEXT NOT NULL,"+ CROP_PAYMENT_MODE+" TEXT NOT NULL, "+CROP_PAYMENT_AMOUNT+" REAL NOT NULL, "+
@@ -516,13 +510,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
                 CROP_SALES_ORDER_SHIPPING_DATE +" TEXT,"+CROP_SALES_ORDER_SHIPPING_METHOD +" TEXT,"+CROP_SALES_ORDER_DISCOUNT+" REAL DEFAULT 0,"+ CROP_SALES_ORDER_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
-                CROP_SALES_ORDER_CUSTOMER_NOTES+" TEXT ,"+ CROP_SALES_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";//
+                CROP_SALES_ORDER_CUSTOMER_NOTES+" TEXT ,"+ CROP_SALES_ORDER_STATUS+" TEXT DEFAULT 'DRAFT' ,"+ CROP_SALES_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";//
 
 
-        String crop_sales_order_item_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_ITEM_TABLE_NAME+" ( "+CROP_SALES_ORDER_ITEM_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                CROP_SALES_ORDER_ITEM_PRODUCT_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+" TEXT NOT NULL,"+ CROP_SALES_ORDER_ITEM_QUANTITY+" REAL NOT NULL, "+CROP_SALES_ORDER_ITEM_TAX+" REAL NOT NULL, "+
-                CROP_SALES_ORDER_ITEM_RATE+" REAL NOT NULL, "+" FOREIGN KEY ( "+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+") REFERENCES  "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" ), " +
-                "FOREIGN KEY( "+CROP_SALES_ORDER_ITEM_PRODUCT_ID+") REFERENCES  "+CROP_PRODUCT_TABLE_NAME+" ( "+CROP_PRODUCT_ID+" ) )";
 
        /* Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
@@ -553,14 +543,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_estimates_insert_query);
         database.execSQL(crop_estimate_item_insert_query);
         database.execSQL(crop_invoices_insert_query);
-        database.execSQL(crop_invoice_item_insert_query);
         database.execSQL(crop_payment_item_insert_query);
 
         database.execSQL(crop_income_expense_insert_query);
         database.execSQL(crop_task_insert_query);
 
         database.execSQL(crop_sales_order_insert_query);
-        database.execSQL(crop_sales_order_item_insert_query);
+
 
         System.out.println(
 
@@ -572,11 +561,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 ";"+crop_estimates_insert_query+
                 ";"+crop_estimate_item_insert_query+
                 ";"+crop_invoices_insert_query+
-                ";"+crop_invoice_item_insert_query+
+
                 ";"+crop_payment_item_insert_query+
 
-                ";"+crop_sales_order_insert_query+
-                ";"+crop_sales_order_item_insert_query);
+                ";"+crop_sales_order_insert_query);
 
     }
 
@@ -597,8 +585,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CROP_SUPPLIER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_PRODUCT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_ESTIMATE_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + CROP_ESTIMATE_ITEM_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + CROP_INVOICE_ITEM_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_PRODUCT_ITEM_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_PRODUCT_ITEM_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_PAYMENT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_TASK_TABLE_NAME);
@@ -642,9 +630,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SALES_ORDER_CUSTOMER_ID,estimate.getCustomerId());
         contentValues.put(CROP_SALES_ORDER_NO,estimate.getNumber());
         contentValues.put(CROP_SALES_ORDER_DATE,estimate.getDate());
+        contentValues.put(CROP_SALES_ORDER_STATUS,estimate.getStatus());
         contentValues.put(CROP_SALES_ORDER_SHIPPING_METHOD,estimate.getMethod());
         contentValues.put(CROP_SALES_ORDER_REFERENCE_NO,estimate.getReferenceNumber());
         contentValues.put(CROP_SALES_ORDER_SHIPPING_DATE,estimate.getShippingDate());
+        contentValues.put(CROP_SALES_ORDER_STATUS,estimate.getStatus());
         contentValues.put(CROP_SALES_ORDER_DISCOUNT,estimate.getDiscount());
         contentValues.put(CROP_SALES_ORDER_SHIPPING_CHARGES,estimate.getShippingCharges());
         contentValues.put(CROP_SALES_ORDER_CUSTOMER_NOTES,estimate.getCustomerNotes());
@@ -657,16 +647,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         if(!res.isAfterLast()){
             String estimateId = res.getString(res.getColumnIndex(CROP_SALES_ORDER_ID));
 
-            ArrayList<CropSalesOrderItem> items = estimate.getItems();
+            ArrayList<CropProductItem> items = estimate.getItems();
 
-            for(CropSalesOrderItem x: items){
+            for(CropProductItem x: items){
                 contentValues.clear();
-                contentValues.put(CROP_SALES_ORDER_ITEM_PRODUCT_ID,x.getProductId());
-                contentValues.put(CROP_SALES_ORDER_ITEM_SALES_ORDER_ID,estimateId);
-                contentValues.put(CROP_SALES_ORDER_ITEM_QUANTITY,x.getQuantity());
-                contentValues.put(CROP_SALES_ORDER_ITEM_TAX,x.getTax());
-                contentValues.put(CROP_SALES_ORDER_ITEM_RATE,x.getRate());
-                database.insert(CROP_SALES_ORDER_ITEM_TABLE_NAME,null,contentValues);
+                contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID,estimateId);
+                contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
         }
         closeDB();
@@ -679,7 +669,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SALES_ORDER_CUSTOMER_ID,estimate.getCustomerId());
         contentValues.put(CROP_SALES_ORDER_NO,estimate.getNumber());
         contentValues.put(CROP_SALES_ORDER_DATE,estimate.getDate());
+        contentValues.put(CROP_SALES_ORDER_STATUS,estimate.getStatus());
         contentValues.put(CROP_SALES_ORDER_SHIPPING_METHOD,estimate.getMethod());
+        contentValues.put(CROP_SALES_ORDER_STATUS,estimate.getStatus());
         contentValues.put(CROP_SALES_ORDER_REFERENCE_NO,estimate.getReferenceNumber());
         contentValues.put(CROP_SALES_ORDER_SHIPPING_DATE,estimate.getShippingDate());
         contentValues.put(CROP_SALES_ORDER_DISCOUNT,estimate.getDiscount());
@@ -691,33 +683,34 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String estimateId = estimate.getId();
 
-        ArrayList<CropSalesOrderItem> items = estimate.getItems();
+        ArrayList<CropProductItem> items = estimate.getItems();
 
-        for(CropSalesOrderItem x: items){
+        for(CropProductItem x: items){
             contentValues.clear();
-            contentValues.put(CROP_SALES_ORDER_ITEM_PRODUCT_ID,x.getProductId());
-            contentValues.put(CROP_SALES_ORDER_ITEM_SALES_ORDER_ID,estimateId);
-            contentValues.put(CROP_SALES_ORDER_ITEM_QUANTITY,x.getQuantity());
-            contentValues.put(CROP_SALES_ORDER_ITEM_TAX,x.getTax());
-            contentValues.put(CROP_SALES_ORDER_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID,estimateId);
+            contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER);
             if(x.getId() !=null){
-                database.update(CROP_SALES_ORDER_ITEM_TABLE_NAME,contentValues,CROP_SALES_ORDER_ITEM_ID+" = ?", new String[]{x.getId()});
+                database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
             }
             else{
-                database.insert(CROP_SALES_ORDER_ITEM_TABLE_NAME,null,contentValues);
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
 
         }
 
         for(String id: estimate.getDeletedItemsIds()){
-            database.delete(CROP_SALES_ORDER_ITEM_TABLE_NAME,CROP_SALES_ORDER_ITEM_ID+" = ?", new String[]{id});
+            database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{id});
         }
 
         closeDB();
     }
     public boolean deleteCropSalesOrder(String id){
         openDB();
-        database.delete(CROP_SALES_ORDER_ITEM_TABLE_NAME,CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+" = ?", new String[]{id});
+        database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ? AND "+CROP_PRODUCT_ITEM_TYPE+" = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER});
         database.delete(CROP_SALES_ORDER_TABLE_NAME,CROP_SALES_ORDER_ID+" = ?", new String[]{id});
         closeDB();
         return true;
@@ -741,6 +734,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSalesOrder.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropSalesOrder.setReferenceNumber(res.getString(res.getColumnIndex(CROP_SALES_ORDER_REFERENCE_NO)));
             cropSalesOrder.setDate(res.getString(res.getColumnIndex(CROP_SALES_ORDER_DATE)));
+            cropSalesOrder.setStatus(res.getString(res.getColumnIndex(CROP_SALES_ORDER_STATUS)));
             cropSalesOrder.setShippingDate(res.getString(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_DATE)));
             cropSalesOrder.setDiscount(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_DISCOUNT)));
             cropSalesOrder.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_CHARGES)));
@@ -752,18 +746,18 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         for(CropSalesOrder cropSalesOrder: array_list){
-            ArrayList<CropSalesOrderItem> items_list = new ArrayList();
-            res = db.rawQuery( "select * from "+CROP_SALES_ORDER_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_SALES_ORDER_ITEM_TABLE_NAME+"."+CROP_SALES_ORDER_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_SALES_ORDER_ITEM_SALES_ORDER_ID+" = "+ cropSalesOrder.getId(), null );
+            ArrayList<CropProductItem> items_list = new ArrayList();
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ cropSalesOrder.getId(), null );
             res.moveToFirst();
             while(!res.isAfterLast()) {
-                CropSalesOrderItem item = new CropSalesOrderItem();
-                item.setId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ITEM_ID)));
-                item.setProductId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ITEM_PRODUCT_ID)));
+                CropProductItem item = new CropProductItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ID)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_PRODUCT_ID)));
                 item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
-                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_SALES_ORDER_ITEM_SALES_ORDER_ID)));
-                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_ITEM_QUANTITY)));
-                item.setTax(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_ITEM_TAX)));
-                item.setRate(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_ITEM_RATE)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ESTIMATE_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_RATE)));
                 items_list.add(item);
                 res.moveToNext();
             }
@@ -931,16 +925,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
             String invoiceId = res.getString(res.getColumnIndex(CROP_INVOICE_ID));
 
-            ArrayList<CropInvoiceItem> items = invoice.getItems();
+            ArrayList<CropProductItem> items = invoice.getItems();
 
-            for (CropInvoiceItem x : items) {
+            for (CropProductItem x : items) {
                 contentValues.clear();
-                contentValues.put(CROP_INVOICE_ITEM_PRODUCT_ID, x.getProductId());
-                contentValues.put(CROP_INVOICE_ITEM_INVOICE_ID, invoiceId);
-                contentValues.put(CROP_INVOICE_ITEM_QUANTITY, x.getQuantity());
-                contentValues.put(CROP_INVOICE_ITEM_TAX, x.getTax());
-                contentValues.put(CROP_INVOICE_ITEM_RATE, x.getRate());
-                database.insert(CROP_INVOICE_ITEM_TABLE_NAME, null, contentValues);
+                contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID, x.getProductId());
+                contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID, invoiceId);
+                contentValues.put(CROP_PRODUCT_ITEM_QUANTITY, x.getQuantity());
+                contentValues.put(CROP_PRODUCT_ITEM_TAX, x.getTax());
+                contentValues.put(CROP_PRODUCT_ITEM_RATE, x.getRate());
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME, null, contentValues);
             }
             //save payments if there are any
 
@@ -975,20 +969,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String invoiceId = invoice.getId();
 
-        ArrayList<CropInvoiceItem> items = invoice.getItems();
+        ArrayList<CropProductItem> items = invoice.getItems();
 
-        for (CropInvoiceItem x : items) {
+        for (CropProductItem x : items) {
             contentValues.clear();
-            contentValues.put(CROP_INVOICE_ITEM_PRODUCT_ID,x.getProductId());
-            contentValues.put(CROP_INVOICE_ITEM_INVOICE_ID,invoiceId);
-            contentValues.put(CROP_INVOICE_ITEM_QUANTITY,x.getQuantity());
-            contentValues.put(CROP_INVOICE_ITEM_TAX,x.getTax());
-            contentValues.put(CROP_INVOICE_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID,invoiceId);
+            contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER);
             if(x.getId() !=null){
-                database.update(CROP_INVOICE_ITEM_TABLE_NAME,contentValues,CROP_INVOICE_ITEM_ID+" = ?", new String[]{x.getId()});
+                database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
             }
             else{
-                database.insert(CROP_INVOICE_ITEM_TABLE_NAME,null,contentValues);
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
 
         }
@@ -999,14 +994,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
         for(String id: invoice.getDeletedItemsIds()){
-            database.delete(CROP_INVOICE_ITEM_TABLE_NAME,CROP_INVOICE_ITEM_ID+" = ?", new String[]{id});
+            database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{id});
         }
         closeDB();
     }
 
     public boolean deleteCropInvoice(String id) {
         openDB();
-        database.delete(CROP_INVOICE_ITEM_TABLE_NAME, CROP_INVOICE_ITEM_INVOICE_ID + " = ?", new String[]{id});
+        database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_ESTIMATE_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_INVOICE});
         database.delete(CROP_INVOICE_TABLE_NAME, CROP_INVOICE_ID + " = ?", new String[]{id});
         closeDB();
         return true;
@@ -1056,19 +1051,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         for (CropInvoice invoice : array_list) {
-            ArrayList<CropInvoiceItem> items_list = new ArrayList();
+            ArrayList<CropProductItem> items_list = new ArrayList();
 
-            res = db.rawQuery( "select * from "+CROP_INVOICE_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_INVOICE_ITEM_TABLE_NAME+"."+CROP_INVOICE_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_INVOICE_ITEM_INVOICE_ID+" = "+ invoice.getId(), null );
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ invoice.getId(), null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
-                CropInvoiceItem item = new CropInvoiceItem();
-                item.setId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_ID)));
+                CropProductItem item = new CropProductItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ID)));
                 item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
-                item.setProductId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_PRODUCT_ID)));
-                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_INVOICE_ITEM_INVOICE_ID)));
-                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_QUANTITY)));
-                item.setTax(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_TAX)));
-                item.setRate(res.getFloat(res.getColumnIndex(CROP_INVOICE_ITEM_RATE)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_PRODUCT_ID)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ESTIMATE_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_RATE)));
                 items_list.add(item);
                 res.moveToNext();
             }
@@ -1093,6 +1088,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ESTIMATE_CUSTOMER_ID,estimate.getCustomerId());
         contentValues.put(CROP_ESTIMATE_NO,estimate.getNumber());
         contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
+        contentValues.put(CROP_ESTIMATE_STATUS,estimate.getStatus());
         contentValues.put(CROP_ESTIMATE_REFERENCE_NO,estimate.getReferenceNumber());
         contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
         contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
@@ -1106,16 +1102,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         if(!res.isAfterLast()){
             String estimateId = res.getString(res.getColumnIndex(CROP_ESTIMATE_ID));
 
-            ArrayList<CropEstimateItem> items = estimate.getItems();
+            ArrayList<CropProductItem> items = estimate.getItems();
 
-            for (CropEstimateItem x : items) {
+            for (CropProductItem x : items) {
                 contentValues.clear();
-                contentValues.put(CROP_ESTIMATE_ITEM_PRODUCT_ID, x.getProductId());
-                contentValues.put(CROP_ESTIMATE_ITEM_ESTIMATE_ID, estimateId);
-                contentValues.put(CROP_ESTIMATE_ITEM_QUANTITY, x.getQuantity());
-                contentValues.put(CROP_ESTIMATE_ITEM_TAX, x.getTax());
-                contentValues.put(CROP_ESTIMATE_ITEM_RATE, x.getRate());
-                database.insert(CROP_ESTIMATE_ITEM_TABLE_NAME, null, contentValues);
+                contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID, x.getProductId());
+                contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID, estimateId);
+                contentValues.put(CROP_PRODUCT_ITEM_QUANTITY, x.getQuantity());
+                contentValues.put(CROP_PRODUCT_ITEM_TAX, x.getTax());
+                contentValues.put(CROP_PRODUCT_ITEM_RATE, x.getRate());
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME, null, contentValues);
             }
         }
         closeDB();
@@ -1154,6 +1150,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ESTIMATE_DATE,estimate.getDate());
         contentValues.put(CROP_ESTIMATE_REFERENCE_NO,estimate.getReferenceNumber());
         contentValues.put(CROP_ESTIMATE_EXP_DATE,estimate.getExpiryDate());
+        contentValues.put(CROP_ESTIMATE_STATUS,estimate.getStatus());
         contentValues.put(CROP_ESTIMATE_DISCOUNT,estimate.getDiscount());
         contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
         contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
@@ -1164,28 +1161,29 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String estimateId = estimate.getId();
 
-        ArrayList<CropEstimateItem> items = estimate.getItems();
+        ArrayList<CropProductItem> items = estimate.getItems();
 
-        for (CropEstimateItem x : items) {
+        for (CropProductItem x : items) {
             contentValues.clear();
 
-            contentValues.put(CROP_ESTIMATE_ITEM_PRODUCT_ID,x.getProductId());
-            contentValues.put(CROP_ESTIMATE_ITEM_ESTIMATE_ID,estimateId);
-            contentValues.put(CROP_ESTIMATE_ITEM_QUANTITY,x.getQuantity());
-            contentValues.put(CROP_ESTIMATE_ITEM_TAX,x.getTax());
-            contentValues.put(CROP_ESTIMATE_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID,estimateId);
+            contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER);
             if(x.getId() !=null){
-                database.update(CROP_ESTIMATE_ITEM_TABLE_NAME,contentValues,CROP_ESTIMATE_ITEM_ID+" = ?", new String[]{x.getId()});
+                database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
 
             }
             else{
-                database.insert(CROP_ESTIMATE_ITEM_TABLE_NAME,null,contentValues);
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
 
         }
 
         for(String id: estimate.getDeletedItemsIds()){
-            database.delete(CROP_ESTIMATE_ITEM_TABLE_NAME,CROP_ESTIMATE_ITEM_ID+" = ?", new String[]{id});
+            database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{id});
         }
 
         closeDB();
@@ -1193,7 +1191,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public boolean deleteCropEstimate(String id) {
         openDB();
-        database.delete(CROP_ESTIMATE_ITEM_TABLE_NAME, CROP_ESTIMATE_ITEM_ESTIMATE_ID + " = ?", new String[]{id});
+        database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_ESTIMATE_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_ESTIMATE});
         database.delete(CROP_ESTIMATE_TABLE_NAME, CROP_ESTIMATE_ID + " = ?", new String[]{id});
         closeDB();
         return true;
@@ -1219,6 +1217,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropEstimate.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropEstimate.setDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_DATE)));
             cropEstimate.setExpiryDate(res.getString(res.getColumnIndex(CROP_ESTIMATE_EXP_DATE)));
+            cropEstimate.setStatus(res.getString(res.getColumnIndex(CROP_ESTIMATE_STATUS)));
             cropEstimate.setDiscount(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_DISCOUNT)));
             cropEstimate.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_SHIPPING_CHARGES)));
             cropEstimate.setCustomerNotes(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_NOTES)));
@@ -1229,19 +1228,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         for (CropEstimate estimate : array_list) {
-            ArrayList<CropEstimateItem> items_list = new ArrayList();
+            ArrayList<CropProductItem> items_list = new ArrayList();
 
-            res = db.rawQuery( "select * from "+CROP_ESTIMATE_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_ESTIMATE_ITEM_TABLE_NAME+"."+CROP_ESTIMATE_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_ESTIMATE_ITEM_ESTIMATE_ID+" = "+ estimate.getId(), null );
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ estimate.getId(), null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
-                CropEstimateItem item = new CropEstimateItem();
-                item.setId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ID)));
-                item.setProductId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_PRODUCT_ID)));
+                CropProductItem item = new CropProductItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ID)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_PRODUCT_ID)));
                 item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
-                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_ESTIMATE_ITEM_ESTIMATE_ID)));
-                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_QUANTITY)));
-                item.setTax(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_TAX)));
-                item.setRate(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_ITEM_RATE)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ESTIMATE_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_RATE)));
                 items_list.add(item);
                 res.moveToNext();
             }
@@ -2687,6 +2686,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         return array_list;
     }
+
 
 }
 

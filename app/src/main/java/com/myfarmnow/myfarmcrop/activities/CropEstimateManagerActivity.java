@@ -22,7 +22,6 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
-import com.myfarmnow.myfarmcrop.models.CropEstimateItem;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -44,7 +43,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
     Spinner customersSp;
     Button saveBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
-    ArrayList <CropEstimateItem> estimateItems = new ArrayList<>();
+    ArrayList <CropProductItem> estimateItems = new ArrayList<>();
     CropSpinnerAdapter customersSpinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +98,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropEstimateItem item = new CropEstimateItem();
+                CropProductItem item = new CropProductItem();
                 itemListRecyclerAdapter.addCropProductItem(item);
             }
         });
@@ -196,7 +195,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         estimateItems.clear();
 
         for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-            estimateItems.add((CropEstimateItem)x);
+            estimateItems.add((CropProductItem)x);
         }
         cropEstimate.setItems(estimateItems);
 
@@ -217,7 +216,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
             cropEstimate.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             estimateItems.clear();
             for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-                estimateItems.add((CropEstimateItem)x);
+                estimateItems.add((CropProductItem)x);
             }
             cropEstimate.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
             Log.d("TEST",cropEstimate.getDeletedItemsIds().toString());
