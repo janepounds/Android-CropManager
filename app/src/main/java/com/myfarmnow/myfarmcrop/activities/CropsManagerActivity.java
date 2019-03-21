@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -89,6 +90,8 @@ public class CropsManagerActivity extends AppCompatActivity {
         }
         seedsSpinnerAdapter = new CropSpinnerAdapter(seedItems,"Seed",this);
         seedSp.setAdapter(seedsSpinnerAdapter);
+
+        ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         fillViews();
     }
