@@ -33,8 +33,8 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
 
     CropSpinnerAdapter customersSpinnerAdapter,invoicesSpinnerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner customersSp,invoiceSp;
-    EditText dateTxt,amountTxt, paymentModeTxt,referenceNumberTxt,notesTxt;
+    Spinner customersSp,invoiceSp, paymentModeTxt;
+    EditText dateTxt,amountTxt, referenceNumberTxt,notesTxt;
     TextView paymentNumberTxt;
     CropPayment cropPayment;
     Button saveBtn;
@@ -110,7 +110,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             cropPayment.setPaymentNumber(paymentNumberTxt.getText().toString());
             cropPayment.setReferenceNo(referenceNumberTxt.getText().toString());
             cropPayment.setDate(dateTxt.getText().toString());
-            cropPayment.setMode(paymentModeTxt.getText().toString());
+            cropPayment.setMode(paymentModeTxt.getSelectedItem().toString());
             cropPayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
             cropPayment.setNotes(notesTxt.getText().toString());
             dbHandler.insertCropPayment(cropPayment);
@@ -123,7 +123,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             cropPayment.setPaymentNumber(paymentNumberTxt.getText().toString());
             cropPayment.setReferenceNo(referenceNumberTxt.getText().toString());
             cropPayment.setDate(dateTxt.getText().toString());
-            cropPayment.setMode(paymentModeTxt.getText().toString());
+            cropPayment.setMode(paymentModeTxt.getSelectedItem().toString());
             cropPayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
             cropPayment.setNotes(notesTxt.getText().toString());
             dbHandler.updateCropPayment(cropPayment);
@@ -138,8 +138,8 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             dateTxt.setText(cropPayment.getDate());
             CropDashboardActivity.selectSpinnerItemById(customersSp,cropPayment.getCustomerId());
             CropDashboardActivity.selectSpinnerItemById(invoiceSp,cropPayment.getInvoiceId());
+            CropDashboardActivity.selectSpinnerItemById(paymentModeTxt,cropPayment.getMode());
             paymentNumberTxt.setText(cropPayment.getPaymentNumber());
-            paymentModeTxt.setText(cropPayment.getMode());
             referenceNumberTxt.setText(cropPayment.getReferenceNo());
             notesTxt.setText(cropPayment.getNotes());
             amountTxt.setText(cropPayment.getAmount()+"");
@@ -156,7 +156,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             message = getString(R.string.date_not_entered_message);
             dateTxt.requestFocus();
         }
-        else if(paymentModeTxt.getText().toString().isEmpty()){
+        else if(paymentModeTxt.getSelectedItem().toString().isEmpty()){
             message =getString(R.string.payment_mode_not_entered);
             paymentModeTxt.requestFocus();
         }

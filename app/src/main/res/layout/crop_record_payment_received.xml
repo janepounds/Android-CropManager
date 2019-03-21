@@ -225,12 +225,11 @@
                     android:layout_weight="1"
                     />
 
-                <EditText
+                <Spinner
                     android:id="@+id/txt_crop_record_payment_received_payment_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Enter.."
+                    android:entries="@array/sp_crop_income_expense_payment_mode"
                     android:textSize="14sp"
                     android:background="@drawable/input_shapes"
                     android:layout_weight="1"

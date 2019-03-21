@@ -313,10 +313,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             message = getString(R.string.unit_price_not_entered_message);
             unitPriceTxt.requestFocus();
         }
-        else if(customerSupplierSp.getSelectedItemPosition()==0){
-            message = getString(R.string.customer_supplier_not_entered_message);
-            customerSupplierSp.requestFocus();
-        }
+
         else if(transactionSpinner.getSelectedItemPosition()==0){
             message = getString(R.string.transaction_not_selected_message);
             transactionSpinner.requestFocus();
