@@ -858,5 +858,9 @@
     <string name="label_preview_estimate">Preview Estimate</string>
     <string name="estimate_expiry_date">Expiry Date</string>
     <string name="product_manager">Product Manager</string>
+    <string name="field_manager_menu_item">Fields</string>
+    <string name="crop_manager_menu_item">Crops</string>
+    <string name="invetory_manager_menu_item">Invetory</string>
+    <string name="contact_manager_menu_item">Contacts</string>
 
 </resources>

@@ -185,12 +185,6 @@
             android:layout_marginRight="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UGX"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold"/>
-        <TextView
             android:id="@+id/txt_crop_employee_card_pay_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

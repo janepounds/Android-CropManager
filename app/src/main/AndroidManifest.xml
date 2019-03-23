@@ -19,7 +19,7 @@
             android:label="Task Manager"/>
         <activity
             android:name=".activities.CropIncomeExpensesListActivity"
-            android:label="Income / Expenses List" />
+            android:label="Income / Expenses " />
         <activity
             android:name=".activities.CropIncomeExpenseManagerActivity"
             android:label="Income / Expenses Manager" />

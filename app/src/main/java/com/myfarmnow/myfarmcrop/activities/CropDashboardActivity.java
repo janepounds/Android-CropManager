@@ -59,6 +59,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         initializeDashboard();
+
     }
 
     public void initializeDashboard(){
@@ -148,11 +149,14 @@ public class CropDashboardActivity extends AppCompatActivity {
         SavePreferences("Firmname", "Crop Farm");
         SavePreferences("firstname", "Georgia" );
 
-        NavDrawerItem fieldsItem = new NavDrawerItem(true,"Fields","1",R.drawable.finance);
         NavDrawerItem reportsItem = new NavDrawerItem(true,"Reports","2",R.drawable.finance);
         NavDrawerItem helpItem = new NavDrawerItem(true,"Help","3",R.drawable.help);
         NavDrawerItem logoutItem = new NavDrawerItem(true,"Logout","4",R.drawable.logout);
         NavDrawerItem financialManagerItem = new NavDrawerItem(true,"Financial Manager","5",R.drawable.finance);
+        NavDrawerItem fieldManagerItem = new NavDrawerItem(true,"Field Manager","6",R.drawable.fields);
+        NavDrawerItem cropManagerItem = new NavDrawerItem(true,"Crops Manager","7",R.drawable.crops);
+        NavDrawerItem inventoryManagerItem = new NavDrawerItem(true,"Inventory Manager","8",R.drawable.inventory);
+        NavDrawerItem contactsManagerItem = new NavDrawerItem(true,"Contacts Manager","9",R.drawable.contacts);
 
         NavDrawerItemchild customerSubItem = new NavDrawerItemchild(true,"Customer",financialManagerItem.getId()+"1",R.drawable.finance);
         NavDrawerItemchild supplierSubItem = new NavDrawerItemchild(true,"Supplier",financialManagerItem.getId()+"2",R.drawable.finance);
@@ -160,11 +164,17 @@ public class CropDashboardActivity extends AppCompatActivity {
         financialManagerItem.addChildItem(customerSubItem);
         financialManagerItem.addChildItem(supplierSubItem);
 
-        menuList.add(fieldsItem);
+
         menuList.add(financialManagerItem);
         menuList.add(reportsItem);
         menuList.add(helpItem);
         menuList.add(logoutItem);
+        menuList.add(fieldManagerItem);
+        menuList.add(cropManagerItem);
+        menuList.add(inventoryManagerItem);
+        menuList.add(contactsManagerItem);
+
+
         //expandableMenuAdapter = new NavigationAdapterExpand(this,menuList,1);
         //expandableListView.setAdapter(expandableMenuAdapter);
 
@@ -221,6 +231,35 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropEmployeesListActivity.class);
         startActivity(openList);
     }
+    public void openFieldList(View view){
+        Intent openList = new Intent(this, CropFieldsListActivity.class);
+        startActivity(openList);
+    }
+
+    public void openFieldManager(View view){
+        Intent openList = new Intent(this, CropFieldManagerActivity.class);
+        startActivity(openList);
+    }
+    public void openCropList(View view){
+        Intent openList = new Intent(this, CropsListActivity.class);
+        startActivity(openList);
+    }
+    public void openCropManager(View view){
+        Intent openList = new Intent(this, CropsManagerActivity.class);
+        startActivity(openList);
+    }
+    public void openInventoryList(View view){
+        Intent openList = new Intent(this, CropInventoryListActivity.class);
+        startActivity(openList);
+    }
+    public void openInventoryManager(View view){
+        Intent openList = new Intent(this, CropInventoryListActivity.class);
+        startActivity(openList);
+    }
+    public void openContactList(View view){
+        Intent openList = new Intent(this, CropsListActivity.class);
+        startActivity(openList);
+    }
 
     public void openCustomerList(View view){
         Intent openList = new Intent(this, CropCustomersListActivity.class);
@@ -261,6 +300,27 @@ public class CropDashboardActivity extends AppCompatActivity {
 
         toggleVisibility(slesSubMenu);
     }
+    public void showHideFieldManager(View view){
+        LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);
+
+        toggleVisibility(fieldsSubMenu);
+    }
+    public void showHideCropManager(View view){
+        LinearLayout cropsSubMenu = findViewById(R.id.layout_crop_dashboard_crops_submenus);
+
+        toggleVisibility(cropsSubMenu);
+    }
+    public void showHideInventoryManager(View view){
+        LinearLayout inventorySubMenu = findViewById(R.id.layout_crop_dashboard_inventory_submenus);
+
+        toggleVisibility(inventorySubMenu);
+    }
+    public void showHideContactsManager(View view){
+        LinearLayout contactsSubMenu = findViewById(R.id.layout_crop_dashboard_contact_submenus);
+
+        toggleVisibility(contactsSubMenu);
+    }
+
 
     public void toggleVisibility(View view){
         if(view.getVisibility() == View.GONE){
@@ -290,7 +350,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         }
 
         for (int position = 0; position < adapter.getCount(); position++) {
-            String item =(String)adapter.getItem(position);
+            String item = adapter.getItem(position);
             if(item.toLowerCase().equals(value.toLowerCase())){
                 spnr.setSelection(position);
                 return;

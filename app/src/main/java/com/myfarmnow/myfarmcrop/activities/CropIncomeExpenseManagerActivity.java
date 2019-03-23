@@ -217,13 +217,8 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
         }
 
-
         cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
-
-
         cropIncomeExpense.setItem(itemTxt.getText().toString());
-
-
         dbHandler.insertCropIncomeExpense(cropIncomeExpense);
 
 
@@ -255,8 +250,8 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropIncomeExpense != null){
-            CropDashboardActivity.selectSpinnerItemByValue(categorySpinner, cropIncomeExpense.getCategory());
-            CropDashboardActivity.selectSpinnerItemByValue(cropSpinner, cropIncomeExpense.getCropId());
+           // CropDashboardActivity.selectSpinnerItemByValue(categorySpinner, cropIncomeExpense.getCategory());
+            // CropDashboardActivity.selectSpinnerItemByValue(cropSpinner, cropIncomeExpense.getCropId());
             CropDashboardActivity.selectSpinnerItemByValue(paymentModeSpinner, cropIncomeExpense.getPaymentMode());
             CropDashboardActivity.selectSpinnerItemByValue(paymentStatusSpinner, cropIncomeExpense.getPaymentStatus());
             CropDashboardActivity.selectSpinnerItemByValue(transactionSpinner, cropIncomeExpense.getTransaction());
@@ -266,7 +261,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             itemTxt.setText(cropIncomeExpense.getItem());
            sellingPriceTxt.setText(cropIncomeExpense.getSellingPrice()+"");
             quantityTxt.setText(cropIncomeExpense.getQuantity()+"");
-            grossAmountTxt.setText(cropIncomeExpense.getGrossAmount());
+            grossAmountTxt.setText(cropIncomeExpense.getGrossAmount()+"");
             unitPriceTxt.setText(cropIncomeExpense.getUnitPrice()+"");
             taxesTxt.setText(cropIncomeExpense.getTaxes()+"");
             //customerSupplierSp.setText(cropIncomeExpense.getCustomerSupplier());

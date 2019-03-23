@@ -203,7 +203,6 @@
                                 android:labelFor="@+id/txt_crop_spray_rate"
                                 android:text="@string/ugx"
                                 android:gravity="center_vertical"
-                                android:textColor="@color/colorPrimary"
                                 android:textStyle="bold"
 
                                 />
