@@ -499,6 +499,9 @@
             android:background="#1E282C"
             android:fitsSystemWindows="true">
 
+           <ScrollView
+               android:layout_height="match_parent"
+               android:layout_width="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -1409,6 +1412,79 @@
 
 
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:visibility="visible" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Farm Reports"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"></TextView>
+
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/leftarrow1"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/arrow_left_black"
+                        android:visibility="gone" />
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/group_indicator_selector"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                    <ImageView
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:src="@drawable/downarrow"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1486,6 +1562,7 @@
                 </RelativeLayout>
 
             </LinearLayout>
+           </ScrollView>
         </android.support.design.widget.NavigationView>
 
     </android.support.v4.widget.DrawerLayout>
