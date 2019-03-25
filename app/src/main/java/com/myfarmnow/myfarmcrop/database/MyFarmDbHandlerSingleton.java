@@ -25,6 +25,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.models.CropPaymentBill;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
@@ -63,6 +64,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_TASK_TABLE_NAME ="crop_task";
     public static final String CROP_SALES_ORDER_TABLE_NAME ="crop_sales_order";
     public static final String CROP_PURCHASE_ORDER_TABLE_NAME ="crop_purchase_order";
+    public static final String CROP_PAYMENT_BILL_TABLE_NAME ="crop_payment_bill";
 
 
 
@@ -386,6 +388,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS ="termsAndConditions";
     public static final String CROP_PURCHASE_ORDER_STATUS ="status";
 
+    public static final String CROP_PAYMENT_BILL_ID ="id";
+    public static final String CROP_PAYMENT_BILL_USER_ID ="userId";
+    public static final String CROP_PAYMENT_BILL_DATE ="date";
+    public static final String CROP_PAYMENT_BILL_PAYMENT_MADE ="amount";
+    public static final String CROP_PAYMENT_BILL_PAYMENT_MODE="mode";
+    public static final String CROP_PAYMENT_BILL_PAID_THROUGH ="paidThrough";
+    public static final String CROP_PAYMENT_BILL_REFERENCE_NUMBER ="referenceNumber";
+    public static final String CROP_PAYMENT_BILL_NOTES ="notes";
+
 
 
 
@@ -533,6 +544,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_PURCHASE_ORDER_DELIVERY_DATE +" TEXT NOT NULL,"+CROP_PURCHASE_ORDER_DELIVERY_METHOD +" TEXT,"+CROP_PURCHASE_ORDER_DISCOUNT+" REAL DEFAULT 0,"+
                 CROP_PURCHASE_ORDER_NOTES+" TEXT ,"+ CROP_PURCHASE_ORDER_STATUS+" TEXT DEFAULT 'DRAFT' ,"+ CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
+        String crop_payment_bill_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PAYMENT_BILL_TABLE_NAME+" ( "+ CROP_PAYMENT_BILL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT ," + CROP_PAYMENT_BILL_USER_ID + "TEXT NOT NULL,"  + CROP_PAYMENT_BILL_DATE + "TEXT NOT NULL," +
+                CROP_PAYMENT_BILL_PAYMENT_MADE + "REAL NOT NULL," + CROP_PAYMENT_BILL_PAYMENT_MODE + "TEXT NOT NULL," + CROP_PAYMENT_BILL_PAID_THROUGH + "TEXT," + CROP_PAYMENT_BILL_REFERENCE_NUMBER + "TEXT," + CROP_PAYMENT_BILL_NOTES + "TEXT" + " )";
+
+
 
 
        /* Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
@@ -571,6 +586,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         database.execSQL(crop_sales_order_insert_query);
         database.execSQL(crop_purchase_order_insert_query);
+        database.execSQL(crop_payment_bill_insert_query);
 
         System.out.println(
 
@@ -613,6 +629,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_TASK_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_PURCHASE_ORDER_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_PAYMENT_BILL_TABLE_NAME);
 
 
         onCreate(db);
@@ -2916,6 +2933,74 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 res.moveToNext();
             }
             cropPurchaseOrder.setItems(items_list);
+        }
+
+        closeDB();
+        return array_list;
+    }
+
+    public void  insertCropPaymentBill(CropPaymentBill cropPaymentBill){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PAYMENT_BILL_USER_ID, cropPaymentBill.getUserId());
+        contentValues.put(CROP_PAYMENT_BILL_PAYMENT_MADE, cropPaymentBill.getAmount());
+        contentValues.put(CROP_PAYMENT_BILL_DATE, cropPaymentBill.getDate());
+        contentValues.put(CROP_PAYMENT_BILL_PAYMENT_MODE, cropPaymentBill.getMode());
+        contentValues.put(CROP_PAYMENT_BILL_NOTES, cropPaymentBill.getNotes());
+        contentValues.put(CROP_PAYMENT_BILL_PAID_THROUGH, cropPaymentBill.getPaidThrough());
+        contentValues.put(CROP_PAYMENT_BILL_REFERENCE_NUMBER, cropPaymentBill.getReferenceNumber());
+        database.insert(CROP_PAYMENT_BILL_TABLE_NAME, null, contentValues);
+
+        closeDB();
+    }
+
+    public void updateCropPaymentBill(CropPaymentBill cropPaymentBill) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_PAYMENT_BILL_USER_ID, cropPaymentBill.getUserId());
+        contentValues.put(CROP_PAYMENT_BILL_PAYMENT_MADE, cropPaymentBill.getAmount());
+        contentValues.put(CROP_PAYMENT_BILL_DATE, cropPaymentBill.getDate());
+        contentValues.put(CROP_PAYMENT_BILL_PAYMENT_MODE, cropPaymentBill.getMode());
+        contentValues.put(CROP_PAYMENT_BILL_NOTES, cropPaymentBill.getNotes());
+        contentValues.put(CROP_PAYMENT_BILL_PAID_THROUGH, cropPaymentBill.getPaidThrough());
+        contentValues.put(CROP_PAYMENT_BILL_REFERENCE_NUMBER, cropPaymentBill.getReferenceNumber());
+        database.update(CROP_PAYMENT_BILL_TABLE_NAME,contentValues,CROP_PAYMENT_ID+" = ?", new String[]{cropPaymentBill.getId()});
+
+
+        closeDB();
+
+    }
+    public boolean deleteCropPaymentBill(String id) {
+        openDB();
+        database.delete(CROP_PAYMENT_BILL_TABLE_NAME, CROP_PAYMENT_BILL_ID + " = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+
+    public ArrayList<CropPaymentBill> getCropPaymentBills(String userId) {
+        openDB();
+        ArrayList<CropPaymentBill> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_PAYMENT_BILL_TABLE_NAME + " where " + CROP_PAYMENT_BILL_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropPaymentBill paymentBill = new CropPaymentBill();
+            paymentBill.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_ID)));
+            paymentBill.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_USER_ID)));
+            paymentBill.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_DATE)));
+            paymentBill.setAmount(Float.parseFloat(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MADE))));
+            paymentBill.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MODE)));
+            paymentBill.setPaidThrough(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAID_THROUGH)));
+            paymentBill.setReferenceNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_REFERENCE_NUMBER)));
+            paymentBill.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_NOTES)));
+
+
+            array_list.add(paymentBill);
+            res.moveToNext();
         }
 
         closeDB();

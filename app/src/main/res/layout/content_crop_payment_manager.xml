@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropPaymentManagerActivity"
-    tools:showIn="@layout/activity_crop_payment_manager">
+   >
 
 </android.support.constraint.ConstraintLayout>
