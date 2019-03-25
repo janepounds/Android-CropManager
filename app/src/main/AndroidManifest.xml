@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myfarmnow.myfarmcrop">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -12,11 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".activities.CropTasksListActivity"
-            android:label="Tasks"/>
-        <activity android:name=".activities.CropTaskManagerActivity"
-            android:label="Task Manager"/>
+        <activity android:name=".activities.CropPurchaseOrdersListActivity"></activity>
+        <activity android:name=".activities.CropPurchaseOrderManagerActivity" />
+        <activity
+            android:name=".activities.CropTasksListActivity"
+            android:label="Tasks" />
+        <activity
+            android:name=".activities.CropTaskManagerActivity"
+            android:label="Task Manager" />
         <activity
             android:name=".activities.CropIncomeExpensesListActivity"
             android:label="Income / Expenses " />
@@ -31,14 +35,15 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <activity
             android:name=".activities.CropEmployeesListActivity"
             android:label="Employees List" />
-        <activity android:name=".activities.CropProductManagerActivity"
-            android:label="@string/product_manager"/>
+        <activity
+            android:name=".activities.CropProductManagerActivity"
+            android:label="@string/product_manager" />
         <activity
             android:name=".activities.CropCustomerManagerActivity"
             android:label="@string/activity_crop_customer_manager_title" />
@@ -153,7 +158,6 @@
             android:name=".activities.CropInvoicesListActivity"
             android:label="@string/title_activity_crop_invoices_list"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.CropPaymentManagerActivity"
             android:label="@string/title_activity_crop_payment_manager"
@@ -169,7 +173,7 @@
         <activity
             android:name=".activities.CropEstimatePreviewActivity"
             android:label="@string/title_activity_crop_estimate_preview"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropSalesOrdersListActivity"
             android:label="@string/title_activity_crop_sales_order_list"
@@ -177,12 +181,11 @@
         <activity
             android:name=".activities.CropSalesOrderManagerActivity"
             android:label="@string/title_activity_crop_sales_order_manager"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropSalesOrderPreviewActivity"
             android:label="@string/title_activity_crop_sales_order_preview"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
