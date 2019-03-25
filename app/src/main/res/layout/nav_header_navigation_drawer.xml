@@ -43,7 +43,7 @@
 
 
             <TextView
-                android:id="@+id/tvusername"
+                android:id="@+id/text_view_crop_dashboard_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="afadsfcvce"
@@ -52,7 +52,7 @@
                 android:visibility="visible" />
 
             <TextView
-                android:id="@+id/tvemaiil"
+                android:id="@+id/text_view_crop_dashboard_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

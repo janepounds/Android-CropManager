@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -34,6 +35,9 @@ import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -51,6 +55,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     NavigationAdapterExpand expandableMenuAdapter;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
     LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout;
+    TextView textViewUserEmail, textViewUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,9 @@ public class CropDashboardActivity extends AppCompatActivity {
         incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
+        textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
+        textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
+
 
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
@@ -144,10 +152,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         });
 
 
-        SavePreferences("userId", "1");
-        SavePreferences("email", "georgia@gmail.com");
-        SavePreferences("Firmname", "Crop Farm");
-        SavePreferences("firstname", "Georgia" );
+
 
         NavDrawerItem reportsItem = new NavDrawerItem(true,"Reports","2",R.drawable.finance);
         NavDrawerItem helpItem = new NavDrawerItem(true,"Help","3",R.drawable.help);
@@ -177,6 +182,9 @@ public class CropDashboardActivity extends AppCompatActivity {
 
         //expandableMenuAdapter = new NavigationAdapterExpand(this,menuList,1);
         //expandableListView.setAdapter(expandableMenuAdapter);
+
+        textViewUserName.setText(getPreferences("firstname",this)+" "+getPreferences("lastname",this));
+        textViewUserEmail.setText(getPreferences("email",this));
 
 
     }
@@ -378,6 +386,32 @@ public class CropDashboardActivity extends AppCompatActivity {
             }
 
         }
+    }
+    public static void  savePreferences(String key, String value, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
+                0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public static void saveUser(JSONObject user, Context context) throws JSONException{
+        CropDashboardActivity.savePreferences("Firmname", user.getString("farmname"), context);
+        CropDashboardActivity.savePreferences("firstname", user.getString("firstname"), context);
+        CropDashboardActivity.savePreferences("email", user.getString("email"), context);
+        CropDashboardActivity.savePreferences("userId", user.getString("id"), context);
+        CropDashboardActivity.savePreferences("lastname", user.getString("lastname"), context);
+        CropDashboardActivity.savePreferences("country", user.getString("country"), context);
+        CropDashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
+        CropDashboardActivity.savePreferences("email", user.getString("email"), context);
+        CropDashboardActivity.savePreferences("addressStreet", user.getString("addressStreet"), context);
+        CropDashboardActivity.savePreferences("addressCityOrTown", user.getString("addressCityOrTown"), context);
+        CropDashboardActivity.savePreferences("addressCountry", user.getString("addressCountry"), context);
+        CropDashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
+        CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
+        CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
+       // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), context);
+
     }
 
 

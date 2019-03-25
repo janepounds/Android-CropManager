@@ -862,5 +862,7 @@
     <string name="crop_manager_menu_item">Crops</string>
     <string name="invetory_manager_menu_item">Invetory</string>
     <string name="contact_manager_menu_item">Contacts</string>
+    <string name="title_activity_crop_verify_phone_number">Verify Account</string>
+    <string name="didn_t_receive_code_resend">Didn\'t Receive Code? <u>Resend.</u></string>
 
 </resources>
