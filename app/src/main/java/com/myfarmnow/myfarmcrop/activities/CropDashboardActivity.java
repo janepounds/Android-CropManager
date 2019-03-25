@@ -154,7 +154,7 @@ public class CropDashboardActivity extends AppCompatActivity {
 
 
 
-        NavDrawerItem reportsItem = new NavDrawerItem(true,"Reports","2",R.drawable.finance);
+        NavDrawerItem reportsItem = new NavDrawerItem(true,"Farm Reports","2",R.drawable.finance);
         NavDrawerItem helpItem = new NavDrawerItem(true,"Help","3",R.drawable.help);
         NavDrawerItem logoutItem = new NavDrawerItem(true,"Logout","4",R.drawable.logout);
         NavDrawerItem financialManagerItem = new NavDrawerItem(true,"Financial Manager","5",R.drawable.finance);

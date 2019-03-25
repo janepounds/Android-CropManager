@@ -27,6 +27,7 @@ import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
@@ -61,6 +62,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_PAYMENT_TABLE_NAME ="crop_payments";
     public static final String CROP_TASK_TABLE_NAME ="crop_task";
     public static final String CROP_SALES_ORDER_TABLE_NAME ="crop_sales_order";
+    public static final String CROP_PURCHASE_ORDER_TABLE_NAME ="crop_purchase_order";
 
 
 
@@ -369,6 +371,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_PRODUCT_ITEM_TYPE_SALES_ORDER = "salesOrder";
     public static final String CROP_PRODUCT_ITEM_TYPE_ESTIMATE = "estimate";
     public static final String CROP_PRODUCT_ITEM_TYPE_INVOICE = "estimate";
+    public static final String CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER = "purchaseOrder";
+
+    public static final String CROP_PURCHASE_ORDER_ID ="id";
+    public static final String CROP_PURCHASE_ORDER_USER_ID ="userId";
+    public static final String CROP_PURCHASE_ORDER_SUPPLIER_ID ="supplierId";
+    public static final String CROP_PURCHASE_ORDER_NUMBER ="number";
+    public static final String CROP_PURCHASE_ORDER_REFERENCE_NUMBER ="userId";
+    public static final String CROP_PURCHASE_ORDER_DELIVERY_METHOD ="deliveryMethod";
+    public static final String CROP_PURCHASE_ORDER_DELIVERY_DATE ="deliveryDate";
+    public static final String CROP_PURCHASE_ORDER_PURCHASE_DATE ="purchaseDate";
+    public static final String CROP_PURCHASE_ORDER_DISCOUNT ="discount";
+    public static final String CROP_PURCHASE_ORDER_NOTES ="notes";
+    public static final String CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS ="termsAndConditions";
+    public static final String CROP_PURCHASE_ORDER_STATUS ="status";
 
 
 
@@ -510,7 +526,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
                 CROP_SALES_ORDER_SHIPPING_DATE +" TEXT,"+CROP_SALES_ORDER_SHIPPING_METHOD +" TEXT,"+CROP_SALES_ORDER_DISCOUNT+" REAL DEFAULT 0,"+ CROP_SALES_ORDER_SHIPPING_CHARGES+" REAL DEFAULT 0  ,"+
-                CROP_SALES_ORDER_CUSTOMER_NOTES+" TEXT ,"+ CROP_SALES_ORDER_STATUS+" TEXT DEFAULT 'DRAFT' ,"+ CROP_SALES_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";//
+                CROP_SALES_ORDER_CUSTOMER_NOTES+" TEXT ,"+ CROP_SALES_ORDER_STATUS+" TEXT DEFAULT 'DRAFT' ,"+ CROP_SALES_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";
+
+        String crop_purchase_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_PURCHASE_ORDER_TABLE_NAME+" ( "+CROP_PURCHASE_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_PURCHASE_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_PURCHASE_ORDER_SUPPLIER_ID+" TEXT NOT NULL,"+CROP_PURCHASE_ORDER_NUMBER+" TEXT NOT NULL,"+CROP_PURCHASE_ORDER_REFERENCE_NUMBER+" TEXT NOT NULL,"+CROP_PURCHASE_ORDER_PURCHASE_DATE+" TEXT NOT NULL,"+
+                CROP_PURCHASE_ORDER_DELIVERY_DATE +" TEXT NOT NULL,"+CROP_PURCHASE_ORDER_DELIVERY_METHOD +" TEXT,"+CROP_PURCHASE_ORDER_DISCOUNT+" REAL DEFAULT 0,"+
+                CROP_PURCHASE_ORDER_NOTES+" TEXT ,"+ CROP_PURCHASE_ORDER_STATUS+" TEXT DEFAULT 'DRAFT' ,"+ CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS+" TEXT "+" )";
 
 
 
@@ -549,7 +570,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_task_insert_query);
 
         database.execSQL(crop_sales_order_insert_query);
-
+        database.execSQL(crop_purchase_order_insert_query);
 
         System.out.println(
 
@@ -564,7 +585,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
                 ";"+crop_payment_item_insert_query+
 
-                ";"+crop_sales_order_insert_query);
+                ";"+crop_sales_order_insert_query +
+                        ";"+crop_purchase_order_insert_query);
 
     }
 
@@ -590,6 +612,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CROP_PAYMENT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_TASK_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_PURCHASE_ORDER_TABLE_NAME);
 
 
         onCreate(db);
@@ -2745,6 +2768,159 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
     }
 
+    public String getNextPurchaseOrderNumber(){
+        openDB();
+        Cursor res =  database.rawQuery( "select "+CROP_PURCHASE_ORDER_ID+" from "+CROP_PURCHASE_ORDER_TABLE_NAME+" ORDER BY "+CROP_PURCHASE_ORDER_ID+" DESC LIMIT 1",null);
+        int lastId = 0;
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            lastId = res.getInt(res.getColumnIndex(CROP_PURCHASE_ORDER_ID));
+        }
+        int id=lastId+1;
+        closeDB();
+
+        return "PO-"+String.format("%03d", id);
+    }
+    public void  insertCropPurchaseOrder(CropPurchaseOrder estimate){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_PURCHASE_ORDER_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_PURCHASE_ORDER_SUPPLIER_ID,estimate.getSupplierId());
+        contentValues.put(CROP_PURCHASE_ORDER_NUMBER,estimate.getNumber());
+        contentValues.put(CROP_PURCHASE_ORDER_PURCHASE_DATE,estimate.getPurchaseDate());
+        contentValues.put(CROP_PURCHASE_ORDER_DELIVERY_METHOD,estimate.getMethod());
+        contentValues.put(CROP_PURCHASE_ORDER_REFERENCE_NUMBER,estimate.getReferenceNumber());
+        contentValues.put(CROP_PURCHASE_ORDER_DELIVERY_DATE,estimate.getDeliveryDate());
+        contentValues.put(CROP_PURCHASE_ORDER_STATUS,estimate.getStatus());
+        contentValues.put(CROP_PURCHASE_ORDER_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_PURCHASE_ORDER_NOTES,estimate.getNotes());
+        contentValues.put(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+
+        database.insert(CROP_PURCHASE_ORDER_TABLE_NAME,null,contentValues);
+
+        Cursor res =  database.rawQuery( "select "+CROP_PURCHASE_ORDER_ID+" from "+CROP_PURCHASE_ORDER_TABLE_NAME+" where "+CROP_PURCHASE_ORDER_SUPPLIER_ID+" = '"+estimate.getSupplierId()+"' AND "+CROP_PURCHASE_ORDER_NUMBER+" = '"+estimate.getNumber()+"'", null );
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            String estimateId = res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_ID));
+
+            ArrayList<CropProductItem> items = estimate.getItems();
+
+            for(CropProductItem x: items){
+                contentValues.clear();
+                contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+                contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID,estimateId);
+                contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+                contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+                contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
+            }
+        }
+        closeDB();
+    }
+    public void  updateCropPurchaseOrder(CropPurchaseOrder estimate){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_PURCHASE_ORDER_USER_ID,estimate.getUserId());
+        contentValues.put(CROP_PURCHASE_ORDER_SUPPLIER_ID,estimate.getSupplierId());
+        contentValues.put(CROP_PURCHASE_ORDER_NUMBER,estimate.getNumber());
+        contentValues.put(CROP_PURCHASE_ORDER_PURCHASE_DATE,estimate.getPurchaseDate());
+        contentValues.put(CROP_PURCHASE_ORDER_DELIVERY_METHOD,estimate.getMethod());
+        contentValues.put(CROP_PURCHASE_ORDER_REFERENCE_NUMBER,estimate.getReferenceNumber());
+        contentValues.put(CROP_PURCHASE_ORDER_DELIVERY_DATE,estimate.getDeliveryDate());
+        contentValues.put(CROP_PURCHASE_ORDER_STATUS,estimate.getStatus());
+        contentValues.put(CROP_PURCHASE_ORDER_DISCOUNT,estimate.getDiscount());
+        contentValues.put(CROP_PURCHASE_ORDER_NOTES,estimate.getNotes());
+        contentValues.put(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+
+        database.update(CROP_PURCHASE_ORDER_TABLE_NAME,contentValues,CROP_PURCHASE_ORDER_ID+" = ?", new String[]{estimate.getId()});
+
+        String estimateId = estimate.getId();
+
+        ArrayList<CropProductItem> items = estimate.getItems();
+
+        for(CropProductItem x: items){
+            contentValues.clear();
+            contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+            contentValues.put(CROP_PRODUCT_ITEM_ESTIMATE_ID,estimateId);
+            contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+            contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+            contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER);
+            if(x.getId() !=null){
+                database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
+            }
+            else{
+                database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
+            }
+
+        }
+
+        for(String id: estimate.getDeletedItemsIds()){
+            database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{id});
+        }
+
+        closeDB();
+    }
+    public boolean deleteCropPurchaseOrder(String id){
+        openDB();
+        database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ? AND "+CROP_PRODUCT_ITEM_TYPE+" = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER});
+        database.delete(CROP_PURCHASE_ORDER_TABLE_NAME,CROP_PURCHASE_ORDER_ID+" = ?", new String[]{id});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropPurchaseOrder> getCropPurchaseOrders(String userId){
+        openDB();
+        ArrayList<CropPurchaseOrder> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select "+CROP_PURCHASE_ORDER_TABLE_NAME+".*,"+CROP_SUPPLIER_TABLE_NAME+"."+CROP_SUPPLIER_NAME+" from "+CROP_PURCHASE_ORDER_TABLE_NAME+" LEFT JOIN "+CROP_SUPPLIER_TABLE_NAME+" ON "+CROP_PURCHASE_ORDER_TABLE_NAME+"."+CROP_PURCHASE_ORDER_SUPPLIER_ID+" = "+CROP_SUPPLIER_TABLE_NAME+"."+CROP_SUPPLIER_ID+" where "+CROP_PURCHASE_ORDER_TABLE_NAME+"."+CROP_PURCHASE_ORDER_USER_ID+" = "+ userId, null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            CropPurchaseOrder cropPurchaseOrder = new CropPurchaseOrder();
+            cropPurchaseOrder.setId(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_ID)));
+            cropPurchaseOrder.setUserId(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_USER_ID)));
+            cropPurchaseOrder.setSupplierId(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_SUPPLIER_ID)));
+            cropPurchaseOrder.setNumber(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_NUMBER)));
+            cropPurchaseOrder.setMethod(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_DELIVERY_METHOD)));
+            cropPurchaseOrder.setSupplierName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            cropPurchaseOrder.setReferenceNumber(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_REFERENCE_NUMBER)));
+            cropPurchaseOrder.setPurchaseDate(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_PURCHASE_DATE)));
+            cropPurchaseOrder.setStatus(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_STATUS)));
+            cropPurchaseOrder.setDeliveryDate(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_DELIVERY_DATE)));
+            cropPurchaseOrder.setDiscount(res.getFloat(res.getColumnIndex(CROP_PURCHASE_ORDER_DISCOUNT)));
+            cropPurchaseOrder.setNotes(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_NOTES)));
+            cropPurchaseOrder.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS)));
+            array_list.add(cropPurchaseOrder);
+            res.moveToNext();
+        }
+
+
+        for(CropPurchaseOrder cropPurchaseOrder: array_list){
+            ArrayList<CropProductItem> items_list = new ArrayList();
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ cropPurchaseOrder.getId(), null );
+            res.moveToFirst();
+            while(!res.isAfterLast()) {
+                CropProductItem item = new CropProductItem();
+                item.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ID)));
+                item.setProductId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_PRODUCT_ID)));
+                item.setProductName(res.getString(res.getColumnIndex(CROP_PRODUCT_NAME)));
+                item.setInvoiceOrEstimateId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ESTIMATE_ID)));
+                item.setQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_QUANTITY)));
+                item.setTax(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_TAX)));
+                item.setRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_RATE)));
+                items_list.add(item);
+                res.moveToNext();
+            }
+            cropPurchaseOrder.setItems(items_list);
+        }
+
+        closeDB();
+        return array_list;
+    }
 
 }
 
