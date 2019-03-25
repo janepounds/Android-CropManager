@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/text_view_crop_register_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10.0dip"
@@ -33,6 +34,21 @@
                 android:layout_marginRight="20.0dip"
                 android:orientation="vertical">
 
+                <EditText
+                    android:id="@+id/txt_crop_user_current_password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45.0dip"
+                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:drawableLeft="@drawable/user"
+                    android:drawablePadding="20.0dip"
+                    android:hint="Current Password"
+                    android:padding="10.0dip"
+                    android:singleLine="true"
+                    android:textColor="@color/whiteColor"
+                    android:visibility="gone"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/hintColor"
+                    android:textCursorDrawable="@drawable/color_cursor" />
                 <EditText
                     android:id="@+id/edtfirstname"
                     android:layout_width="fill_parent"
@@ -323,7 +339,7 @@
 
                         android:hint="Code"
                         android:inputType="phone"
-
+                        android:maxLength="3"
                         android:singleLine="true"
                         android:textColor="@color/whiteColor"
                         android:textColorHint="@color/hintColor"

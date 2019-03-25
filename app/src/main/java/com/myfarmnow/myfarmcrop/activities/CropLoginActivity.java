@@ -47,11 +47,8 @@ public class CropLoginActivity extends AppCompatActivity {
 
 
 
-        if (getpreferences("id").equalsIgnoreCase("0") || getpreferences("id").equalsIgnoreCase("")) {
-
-        } else {
-
-            //startActivity(new Intent(CropLoginActivity.this, NavigationDrawer.class));
+        if (!CropDashboardActivity.getPreferences("userId",this).isEmpty() ) {
+            startActivity(new Intent(CropLoginActivity.this, CropDashboardActivity.class));
             finish();
         }
 
@@ -81,7 +78,7 @@ public class CropLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(CropLoginActivity.this, Forget_Pass_Activity.class));
+                startActivity(new Intent(CropLoginActivity.this, CropForgotPasswordRequestCode.class));
             }
         });
     }
@@ -157,7 +154,6 @@ public class CropLoginActivity extends AppCompatActivity {
                             verifyPhoneNumber.putExtra("phoneNumber",data.getString("phoneNumber"));
                             verifyPhoneNumber.putExtra("countryCode",data.getString("countryCode"));
                             verifyPhoneNumber.putExtra("resendCode","yes");
-                           // ((AppCompatActivity)context).finish();
                             context.startActivity(verifyPhoneNumber);
                         }
                     }

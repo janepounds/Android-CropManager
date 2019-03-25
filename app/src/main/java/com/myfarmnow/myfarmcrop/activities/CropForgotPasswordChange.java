@@ -15,16 +15,17 @@ import com.myfarmnow.myfarmcrop.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.myfarmnow.myfarmcrop.models.ApiPaths;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Forgotpass_last_Activity extends AppCompatActivity {
+public class CropForgotPasswordChange extends AppCompatActivity {
 
 
-    EditText edt_otp;
+    EditText codeTxt;
     EditText edt_pass,edt_confirm_pass;
     Button btn_submit;
 
@@ -37,28 +38,35 @@ public class Forgotpass_last_Activity extends AppCompatActivity {
 
 
 
-
-
-
-        edt_otp = (EditText) findViewById(R.id.edtotp);
+        codeTxt = (EditText) findViewById(R.id.edtotp);
         edt_pass = (EditText) findViewById(R.id.edtpwd);
         edt_confirm_pass = (EditText) findViewById(R.id.edtconfirmpwd);
 
+
         btn_submit = (Button) findViewById(R.id.btnsubmit);
+        if(getIntent().hasExtra("phoneNumber")&& getIntent().hasExtra("countryCode")){
+
+        }else{
+            finish();
+        }
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (edt_otp.getText().toString().equals("") || edt_otp.getText().toString().equals(null) ||edt_otp.getText().toString().equals(" ")||
+                if (codeTxt.getText().toString().equals("") || codeTxt.getText().toString().equals(null) || codeTxt.getText().toString().equals(" ")||
                         edt_pass.getText().toString().equals("") || edt_pass.getText().toString().equals(null) ||edt_pass.getText().toString().equals(" ")||
                         edt_confirm_pass.getText().toString().equals("") || edt_confirm_pass.getText().toString().equals(null) ||edt_confirm_pass.getText().toString().equals(" ")){
 
-                        Toast.makeText(Forgotpass_last_Activity.this, "Required field(s) missing.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CropForgotPasswordChange.this, "Required field(s) missing.", Toast.LENGTH_SHORT).show();
+                }
+                else if(!edt_pass.getText().toString().equals(edt_confirm_pass.getText().toString())){
+                    edt_confirm_pass.requestFocus();
+                    Toast.makeText(CropForgotPasswordChange.this, "Password Mismatch", Toast.LENGTH_SHORT).show();
 
                 }
                 else {
-                    sendotp();
+                    changePassword();
                 }
 
             }
@@ -66,7 +74,7 @@ public class Forgotpass_last_Activity extends AppCompatActivity {
 
     }
 
-    public void   sendotp() {
+    public void changePassword() {
 
 
 
@@ -75,19 +83,19 @@ public class Forgotpass_last_Activity extends AppCompatActivity {
 
 
 
-        params.put("userid", getIntent().getStringExtra("userid"));
-        params.put("otp", edt_otp.getText().toString());
-        params.put("password", edt_pass.getText().toString());
-        params.put("conf_pass", edt_confirm_pass.getText().toString());
+        params.put("phoneNumber", getIntent().getStringExtra("phoneNumber"));
+        params.put("countryCode", getIntent().getStringExtra("countryCode"));
+        params.put("code", codeTxt.getText().toString());
+        params.put("newPassword", edt_pass.getText().toString());
 
 
-        client.post("http://myfarmnow.info/new_password.php?", params, new JsonHttpResponseHandler() {
+
+        client.post(ApiPaths.CROP_FORGOT_PASSWORD_CHANGE, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
 
             @Override
             public void onStart() {
-                Log.e("params", "" + "http://myfarmnow.info/new_password.php?" + params);
-                dialog = new ProgressDialog(Forgotpass_last_Activity.this);
+                dialog = new ProgressDialog(CropForgotPasswordChange.this);
                 dialog.setIndeterminate(true);
                 dialog.setMessage("Please Wait..");
 
@@ -100,26 +108,17 @@ public class Forgotpass_last_Activity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
                 try {
-                    if (response.getInt("success") == 0) {
-                        Toast.makeText(Forgotpass_last_Activity.this, "Required field(s) missing.", Toast.LENGTH_SHORT).show();
+                    Log.d("USER",response.toString());
+                    JSONObject user = response.getJSONObject("user");
 
-                    } else {
-
-
-                        Log.e("response", "" + response.toString());
-
-                        Toast.makeText(Forgotpass_last_Activity.this, "Password Change Successfully...", Toast.LENGTH_SHORT).show();
-
-                        finish();
-                        startActivity(new Intent(Forgotpass_last_Activity.this, CropLoginActivity.class));
-
-
-                    }
-                    dialog.dismiss();
-
+                    CropDashboardActivity.saveUser(user,CropForgotPasswordChange.this);
+                    Intent verifyPhoneNumber = new Intent(CropForgotPasswordChange.this, CropDashboardActivity.class);
+                    startActivity(verifyPhoneNumber);
+                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                dialog.dismiss();
             }
 
             @Override
