@@ -61,7 +61,6 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(dateTxt,this);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
             public void onClick(View v) {
                 if(validateEntries()){
@@ -71,7 +70,6 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
                     else{
                         updatePayment();
                     }
-
                     Intent toCropPaymentsList = new Intent(CropPaymentManagerActivity.this, CropPaymentsListActivity.class);
                     toCropPaymentsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropPaymentsList);
