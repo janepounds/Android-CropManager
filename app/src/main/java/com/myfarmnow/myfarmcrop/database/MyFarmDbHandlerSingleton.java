@@ -1507,6 +1507,39 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
+    public CropSupplier getCropSupplier(String id) {
+        openDB();
+        ArrayList<CropSupplier> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + CROP_SUPPLIER_USER_ID + " = " + id, null);
+        res.moveToFirst();
+
+
+        while (!res.isAfterLast()) {
+            CropSupplier cropSupplier = new CropSupplier();
+            cropSupplier.setId(res.getString(res.getColumnIndex(CROP_SUPPLIER_ID)));
+            cropSupplier.setUserId(res.getString(res.getColumnIndex(CROP_SUPPLIER_USER_ID)));
+            cropSupplier.setName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            cropSupplier.setCompany(res.getString(res.getColumnIndex(CROP_SUPPLIER_COMPANY)));
+            cropSupplier.setTaxRegNo(res.getString(res.getColumnIndex(CROP_SUPPLIER_TAX_REG_NO)));
+            cropSupplier.setPhone(res.getString(res.getColumnIndex(CROP_SUPPLIER_PHONE)));
+            cropSupplier.setMobile(res.getString(res.getColumnIndex(CROP_SUPPLIER_MOBILE)));
+            cropSupplier.setEmail(res.getString(res.getColumnIndex(CROP_SUPPLIER_EMAIL)));
+            cropSupplier.setOpeningBalance(res.getFloat(res.getColumnIndex(CROP_SUPPLIER_OPENING_BALANCE)));
+            cropSupplier.setInvoiceStreet(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_STREET)));
+            cropSupplier.setInvoiceCityOrTown(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_CITY)));
+            cropSupplier.setInvoiceCountry(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY)));
+            return cropSupplier;
+        }
+
+        closeDB();
+
+        return null;
+
+    }
+
 
     public void insertCropCustomer(CropCustomer spraying) {
         openDB();
@@ -3006,6 +3039,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return array_list;
     }
+
 
 }
 

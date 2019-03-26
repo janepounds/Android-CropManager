@@ -54,7 +54,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     ExpandableListView expandableListView;
     NavigationAdapterExpand expandableMenuAdapter;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout;
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout, weatherForecastLinearLayout;
     TextView textViewUserEmail, textViewUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
+        weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
         textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
         textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
@@ -147,6 +148,13 @@ public class CropDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent openTasks = new Intent(CropDashboardActivity.this, CropTasksListActivity.class);
+                startActivity(openTasks);
+            }
+        });
+        weatherForecastLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openTasks = new Intent(CropDashboardActivity.this, CropPurchaseOrderManagerActivity.class);
                 startActivity(openTasks);
             }
         });
