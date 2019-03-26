@@ -51,10 +51,10 @@ public class CropDashboardActivity extends AppCompatActivity {
     ImageView imgdrawer;
     RelativeLayout mainlayout;
     Toolbar toolbar;
-    ExpandableListView expandableListView;
-    NavigationAdapterExpand expandableMenuAdapter;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout, weatherForecastLinearLayout;
+
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout;
+
     TextView textViewUserEmail, textViewUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,8 @@ public class CropDashboardActivity extends AppCompatActivity {
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
         weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
+
+        userProfileLayout =findViewById(R.id.layout_user_profile);
         textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
         textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
@@ -161,39 +163,18 @@ public class CropDashboardActivity extends AppCompatActivity {
 
 
 
-
-        NavDrawerItem reportsItem = new NavDrawerItem(true,"Farm Reports","2",R.drawable.finance);
-        NavDrawerItem helpItem = new NavDrawerItem(true,"Help","3",R.drawable.help);
-        NavDrawerItem logoutItem = new NavDrawerItem(true,"Logout","4",R.drawable.logout);
-        NavDrawerItem financialManagerItem = new NavDrawerItem(true,"Financial Manager","5",R.drawable.finance);
-        NavDrawerItem fieldManagerItem = new NavDrawerItem(true,"Field Manager","6",R.drawable.fields);
-        NavDrawerItem cropManagerItem = new NavDrawerItem(true,"Crops Manager","7",R.drawable.crops);
-        NavDrawerItem inventoryManagerItem = new NavDrawerItem(true,"Inventory Manager","8",R.drawable.inventory);
-        NavDrawerItem contactsManagerItem = new NavDrawerItem(true,"Contacts Manager","9",R.drawable.contacts);
-
-        NavDrawerItemchild customerSubItem = new NavDrawerItemchild(true,"Customer",financialManagerItem.getId()+"1",R.drawable.finance);
-        NavDrawerItemchild supplierSubItem = new NavDrawerItemchild(true,"Supplier",financialManagerItem.getId()+"2",R.drawable.finance);
-
-        financialManagerItem.addChildItem(customerSubItem);
-        financialManagerItem.addChildItem(supplierSubItem);
-
-
-        menuList.add(financialManagerItem);
-        menuList.add(reportsItem);
-        menuList.add(helpItem);
-        menuList.add(logoutItem);
-        menuList.add(fieldManagerItem);
-        menuList.add(cropManagerItem);
-        menuList.add(inventoryManagerItem);
-        menuList.add(contactsManagerItem);
-
-
-        //expandableMenuAdapter = new NavigationAdapterExpand(this,menuList,1);
-        //expandableListView.setAdapter(expandableMenuAdapter);
-
         textViewUserName.setText(getPreferences("firstname",this)+" "+getPreferences("lastname",this));
         textViewUserEmail.setText(getPreferences("email",this));
 
+        userProfileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editUser = new Intent(CropDashboardActivity.this, CropRegisterActivity.class);
+                editUser.putExtra("editUser","yes");
+                startActivity(editUser);
+            }
+        });
+        //
 
     }
     public static  void addDatePicker(final EditText ed_, final Context context){

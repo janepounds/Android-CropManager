@@ -3,15 +3,12 @@ package com.myfarmnow.myfarmcrop.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,7 +49,7 @@ public class CropRegisterActivity extends PermisoActivity implements
         GoogleApiClient.OnConnectionFailedListener {
     Spinner  spinnercountry,addressCountrySp;
     EditText edtfirstname, edtlastname, edtcountry, edtemail, edtconemail, edtpassword, edtconpwd, edtfarmname, edtAddress, edtContact,
-    edtAdressTownorCity,edtCountryCode;
+    edtAdressTownorCity,edtCountryCode,currentPasswordTxt;
     Button btnSignUp;
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -60,7 +57,7 @@ public class CropRegisterActivity extends PermisoActivity implements
     Integer random;
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
-    TextView tvlogin;
+    TextView tvlogin, titleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +65,21 @@ public class CropRegisterActivity extends PermisoActivity implements
         setContentView(R.layout.activity_register);
 
         spinnercountry = (Spinner) findViewById(R.id.spinnercountry);
-        edtfirstname = (EditText) findViewById(R.id.edtfirstname);
-        edtlastname = (EditText) findViewById(R.id.edtlastname);
-        edtcountry = (EditText) findViewById(R.id.edtcountry);
-        edtemail = (EditText) findViewById(R.id.edtemail);
-        edtconemail = (EditText) findViewById(R.id.edtconemail);
-        edtpassword = (EditText) findViewById(R.id.edtpassword);
-        edtconpwd = (EditText) findViewById(R.id.edtconpwd);
-        edtfarmname = (EditText) findViewById(R.id.edtfarmname);
-        edtAddress = (EditText) findViewById(R.id.edtAddress);
-        edtContact = (EditText) findViewById(R.id.edtContact);
+        edtfirstname =  findViewById(R.id.edtfirstname);
+        edtlastname =  findViewById(R.id.edtlastname);
+        edtcountry =  findViewById(R.id.edtcountry);
+        edtemail =  findViewById(R.id.edtemail);
+        edtconemail =  findViewById(R.id.edtconemail);
+        edtpassword =  findViewById(R.id.edtpassword);
+        edtconpwd =  findViewById(R.id.edtconpwd);
+        edtfarmname =  findViewById(R.id.edtfarmname);
+        edtAddress =  findViewById(R.id.edtAddress);
+        edtContact =  findViewById(R.id.edtContact);
         edtCountryCode = findViewById(R.id.edtCountryCode);
         edtAdressTownorCity =  findViewById(R.id.editAdressTownorCity);
+        currentPasswordTxt =  findViewById(R.id.txt_crop_user_current_password);
         addressCountrySp =  findViewById(R.id.spinnerAdressCountry);
+        titleTextView =  findViewById(R.id.text_view_crop_register_title);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         tvlogin = (TextView) findViewById(R.id.tvlogin);
 
@@ -125,37 +124,40 @@ public class CropRegisterActivity extends PermisoActivity implements
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edtfirstname.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter FirstName..", Toast.LENGTH_SHORT).show();
-                } else if (edtlastname.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter LastName..", Toast.LENGTH_SHORT).show();
-                } else if (edtemail.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter Email..", Toast.LENGTH_SHORT).show();
+                if(getIntent().hasExtra("editUser")){
+                    updateUser();
                 }
-//               else if (edtconemail.getText().toString().length() <= 0) {
-//                    Toast.makeText(CropRegisterActivity.this, "Enter Confirm Email..", Toast.LENGTH_SHORT).show();
-//                } else if (!edtemail.getText().toString().equalsIgnoreCase(edtconemail.getText().toString())) {
-//                    Toast.makeText(CropRegisterActivity.this, "Email Mismatch..", Toast.LENGTH_SHORT).show();
-//                }
-                else if (edtpassword.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter Password..", Toast.LENGTH_SHORT).show();
-                } else if (edtconpwd.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter Confirm Password..", Toast.LENGTH_SHORT).show();
-                } else if (!edtpassword.getText().toString().equalsIgnoreCase(edtconpwd.getText().toString())) {
-                    Toast.makeText(CropRegisterActivity.this, "Password Mismatch..", Toast.LENGTH_SHORT).show();
-                } else if (edtfarmname.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter Firm Name", Toast.LENGTH_SHORT).show();
-                } else if (edtAddress.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter Address", Toast.LENGTH_SHORT).show();
-                } else if (edtContact.getText().toString().length() <= 0) {
-                    Toast.makeText(CropRegisterActivity.this, "Enter Contact", Toast.LENGTH_SHORT).show();
-                }else {
-                    userregister();
+                else {
+                    if (edtfirstname.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter FirstName..", Toast.LENGTH_SHORT).show();
+                    } else if (edtlastname.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter LastName..", Toast.LENGTH_SHORT).show();
+                    } else if (edtemail.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter Email..", Toast.LENGTH_SHORT).show();
+                    } else if (edtpassword.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter Password..", Toast.LENGTH_SHORT).show();
+                    } else if (edtconpwd.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter Confirm Password..", Toast.LENGTH_SHORT).show();
+                    } else if (!edtpassword.getText().toString().equalsIgnoreCase(edtconpwd.getText().toString())) {
+                        Toast.makeText(CropRegisterActivity.this, "Password Mismatch..", Toast.LENGTH_SHORT).show();
+                    } else if (edtfarmname.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter Firm Name", Toast.LENGTH_SHORT).show();
+                    } else if (edtAddress.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter Address", Toast.LENGTH_SHORT).show();
+                    } else if (edtContact.getText().toString().length() <= 0) {
+                        Toast.makeText(CropRegisterActivity.this, "Enter Contact", Toast.LENGTH_SHORT).show();
+                    } else {
+                        userRegister();
 
+                    }
                 }
 
             }
         });
+
+        if(getIntent().hasExtra("editUser")){
+            fillViews();
+        }
     }
 
     private boolean isGooglePlayServicesAvailable() {
@@ -164,7 +166,151 @@ public class CropRegisterActivity extends PermisoActivity implements
     }
 
 
-    public void userregister() {
+    public void updateUser(){
+
+        if (currentPasswordTxt.getText().toString().length() <= 0) {
+            Toast.makeText(CropRegisterActivity.this, "You must enter the password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edtfirstname.getText().toString().length() <= 0) {
+            Toast.makeText(CropRegisterActivity.this, "Enter FirstName..", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (edtlastname.getText().toString().length() <= 0) {
+            Toast.makeText(CropRegisterActivity.this, "Enter LastName..", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (edtemail.getText().toString().length() <= 0) {
+            Toast.makeText(CropRegisterActivity.this, "Enter Email..", Toast.LENGTH_SHORT).show();
+            return;
+        }  else if (edtfarmname.getText().toString().length() <= 0) {
+            Toast.makeText(CropRegisterActivity.this, "Enter Firm Name", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (edtAddress.getText().toString().length() <= 0) {
+            Toast.makeText(CropRegisterActivity.this, "Enter Address", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (edtContact.getText().toString().length() <= 0) {
+            edtContact.requestFocus();
+            Toast.makeText(CropRegisterActivity.this, "Enter Contact", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (edtCountryCode.getText().toString().length() <= 0) {
+            edtContact.requestFocus();
+            Toast.makeText(CropRegisterActivity.this, "Enter Contact", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(addressCountrySp.getSelectedItemPosition()==0){
+            addressCountrySp.requestFocus();
+            Toast.makeText(CropRegisterActivity.this, "Select address country", Toast.LENGTH_SHORT).show();
+            return;
+        } else if(spinnercountry.getSelectedItemPosition()==0){
+            spinnercountry.requestFocus();
+            Toast.makeText(CropRegisterActivity.this, "Select country", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!edtpassword.getText().toString().isEmpty()){
+            if(edtconpwd.getText().toString().isEmpty()){
+                edtconpwd.requestFocus();
+                Toast.makeText(CropRegisterActivity.this, "Confirm Password", Toast.LENGTH_SHORT).show();
+                return;
+            }else if(!edtconpwd.getText().toString().equals(edtpassword.getText().toString())){
+                edtconpwd.requestFocus();
+                Toast.makeText(CropRegisterActivity.this, "Passwords must match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        //   String tokens = SharedPreferences.(this).gettoken();
+
+        params.put("id", CropDashboardActivity.getPreferences("userId",this));
+        params.put("firstname", "" + edtfirstname.getText().toString());
+        params.put("lastname", "" + edtlastname.getText().toString());
+        params.put("country", "" + spinnercountry.getSelectedItem().toString());
+        params.put("addressCountry", "" + addressCountrySp.getSelectedItem().toString());
+        params.put("addressStreet", "" + edtAddress.getText().toString());
+        params.put("addressCityOrTown", "" + edtAdressTownorCity.getText().toString());
+        params.put("email", "" + edtemail.getText().toString());
+        params.put("farmname", "" + edtfarmname.getText().toString());
+        params.put("phoneNumber", "+" +edtCountryCode.getText().toString()+edtContact.getText().toString());
+        params.put("countryCode", "" + edtCountryCode.getText().toString());
+        params.put("oldPassword", currentPasswordTxt.getText().toString());
+        params.put("latitude", "" + lat);
+        params.put("longitude", "" + lng);
+        if(!edtpassword.getText().toString().isEmpty()){
+            params.put("password", edtpassword.getText().toString());
+        }
+
+        client.post(ApiPaths.CROP_USER_UPDATE, params, new JsonHttpResponseHandler() {
+            ProgressDialog dialog;
+
+            @Override
+            public void onStart() {
+
+                dialog = new ProgressDialog(CropRegisterActivity.this);
+                dialog.setIndeterminate(true);
+                dialog.setMessage("Please Wait..");
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                try {
+                    JSONObject user = response.getJSONObject("user");
+                    Toast.makeText(CropRegisterActivity.this, "Successfully Loged in..", Toast.LENGTH_SHORT).show();
+                    Log.e("response", response.toString());
+                    CropDashboardActivity.saveUser(user,CropRegisterActivity.this);
+
+                    if(response.getString("message").equals("Verification required")){
+                        Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
+                        verifyPhoneNumber.putExtra("userId",user.getString("id"));
+                        verifyPhoneNumber.putExtra("phoneNumber",user.getString("phoneNumber"));
+                        verifyPhoneNumber.putExtra("countryCode",user.getString("countryCode"));
+                        verifyPhoneNumber.putExtra("resendCode","yes");
+                        startActivity(verifyPhoneNumber);
+                    }
+
+                    finish();
+                    dialog.dismiss();
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (errorResponse != null) {
+                    try {
+                        Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("info", new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info", "Something got very very wrong");
+                }
+                dialog.dismiss();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                if (errorResponse != null) {
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info : "+statusCode, "Something got very very wrong");
+                }
+                dialog.dismiss();
+            }
+        });
+
+
+
+    }
+
+    public void userRegister() {
 
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -228,6 +374,11 @@ public class CropRegisterActivity extends PermisoActivity implements
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 if (errorResponse != null) {
+                    try {
+                        Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Log.e("info", new String(String.valueOf(errorResponse)));
                 } else {
                     Log.e("info", "Something got very very wrong");
@@ -345,5 +496,25 @@ public class CropRegisterActivity extends PermisoActivity implements
                 "Accuracy: " + mCurrentLocation.getAccuracy() + "\n" +
                 "Provider: " + mCurrentLocation.getProvider());
 
+    }
+
+    public void fillViews(){
+        //, edtcountry, edtconemail, edtpassword, edtconpwd, , edtAddress,   edtAdressTownorCity,;
+        currentPasswordTxt.setVisibility(View.VISIBLE);
+        edtfirstname.setText(CropDashboardActivity.getPreferences("firstname",this));
+        edtlastname.setText(CropDashboardActivity.getPreferences("lastname",this));
+        edtemail.setText(CropDashboardActivity.getPreferences("email",this));
+        edtfarmname.setText(CropDashboardActivity.getPreferences("Firmname",this));
+        edtContact.setText(CropDashboardActivity.getPreferences("phoneNumber",this).replace("+"+CropDashboardActivity.getPreferences("countryCode",this),""));
+        edtCountryCode.setText(CropDashboardActivity.getPreferences("countryCode",this));
+        edtAddress.setText(CropDashboardActivity.getPreferences("addressStreet",this));
+        edtAdressTownorCity.setText(CropDashboardActivity.getPreferences("addressCityOrTown",this));
+
+        CropDashboardActivity.selectSpinnerItemByValue(spinnercountry,CropDashboardActivity.getPreferences("country",this));
+        CropDashboardActivity.selectSpinnerItemByValue(addressCountrySp,CropDashboardActivity.getPreferences("addressCountry",this));
+        titleTextView.setText("Edit Profile");
+        btnSignUp.setText("Update");
+        //CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
+        //CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
     }
 }
