@@ -870,4 +870,8 @@
     <string name="delivery_date_label">Delivery Date</string>
     <string name="delivery_method">Delivery Method</string>
     <string name="purchase_order_no_items_added">No Items added to the Purchase Order</string>
+    <string name="bill_number">Bill #</string>
+    <string name="order_number">Order Number</string>
+    <string name="bill_date">Biil Date</string>
+    <string name="terms">Terms</string>
 </resources>
