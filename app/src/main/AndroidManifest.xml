@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -12,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropPurchaseOrdersListActivity">
-        </activity>
+        <activity android:name=".activities.CropBillManagerActivity"></activity>
+        <activity android:name=".activities.CropPurchaseOrderPreviewActivity" />
+        <activity android:name=".activities.CropPurchaseOrdersListActivity" />
         <activity android:name=".activities.CropPurchaseOrderManagerActivity" />
         <activity
             android:name=".activities.CropTasksListActivity"
@@ -27,6 +29,7 @@
         <activity
             android:name=".activities.CropIncomeExpenseManagerActivity"
             android:label="Income / Expenses Manager" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -36,6 +39,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
             android:name=".activities.CropEmployeesListActivity"
             android:label="Employees List" />
@@ -90,7 +94,7 @@
         <activity
             android:name=".activities.CropDashboardActivity"
             android:label="@string/title_activity_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropInventorySeedsManagerActivity"
             android:label="@string/title_activity_crop_inventory_seeds_manager"
@@ -183,6 +187,7 @@
             android:label="@string/title_activity_dashboard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -198,8 +203,7 @@
         <activity
             android:name=".activities.CropVerifyPhoneNumberActivity"
             android:label="@string/title_activity_crop_verify_phone_number"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
