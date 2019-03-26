@@ -377,7 +377,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_PURCHASE_ORDER_USER_ID ="userId";
     public static final String CROP_PURCHASE_ORDER_SUPPLIER_ID ="supplierId";
     public static final String CROP_PURCHASE_ORDER_NUMBER ="number";
-    public static final String CROP_PURCHASE_ORDER_REFERENCE_NUMBER ="userId";
+    public static final String CROP_PURCHASE_ORDER_REFERENCE_NUMBER ="referenceNumber";
     public static final String CROP_PURCHASE_ORDER_DELIVERY_METHOD ="deliveryMethod";
     public static final String CROP_PURCHASE_ORDER_DELIVERY_DATE ="deliveryDate";
     public static final String CROP_PURCHASE_ORDER_PURCHASE_DATE ="purchaseDate";

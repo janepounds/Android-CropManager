@@ -35,11 +35,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -57,7 +59,7 @@ public class CropRegisterActivity extends PermisoActivity implements
     Integer random;
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
-    TextView tvlogin, titleTextView;
+    TextView tvlogin, titleTextView, errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class CropRegisterActivity extends PermisoActivity implements
         currentPasswordTxt =  findViewById(R.id.txt_crop_user_current_password);
         addressCountrySp =  findViewById(R.id.spinnerAdressCountry);
         titleTextView =  findViewById(R.id.text_view_crop_register_title);
+        errorTextView =  findViewById(R.id.text_view_crop_user_error);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         tvlogin = (TextView) findViewById(R.id.tvlogin);
 
@@ -88,7 +91,12 @@ public class CropRegisterActivity extends PermisoActivity implements
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(CropRegisterActivity.this, CropLoginActivity.class));
+                if(getIntent().hasExtra("editUser")){
+                    startActivity(new Intent(CropRegisterActivity.this, CropForgotPasswordRequestCode.class));
+                }else{
+                    startActivity(new Intent(CropRegisterActivity.this, CropLoginActivity.class));
+                }
+
             }
         });
 
@@ -285,6 +293,19 @@ public class CropRegisterActivity extends PermisoActivity implements
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 if (errorResponse != null) {
                     try {
+                        String errorTxt ="";
+                        JSONObject errors = errorResponse.getJSONObject("errors");
+                        Iterator<String> errorKeys = errors.keys();
+                        while (errorKeys.hasNext()){
+                            JSONArray errorMessages = errors.getJSONArray(errorKeys.next());
+                            for(int i=0; i<errorMessages.length(); i++){
+                                errorTxt+=errorMessages.get(i)+",";
+                            }
+
+                        }
+                        errorTextView.setText(errorTxt);
+                        errorTextView.setVisibility(View.VISIBLE);
+                        errorTextView.requestFocus();
                         Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -375,7 +396,22 @@ public class CropRegisterActivity extends PermisoActivity implements
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 if (errorResponse != null) {
                     try {
+                        String errorTxt ="";
+                        JSONObject errors = errorResponse.getJSONObject("errors");
+                        Iterator<String> errorKeys = errors.keys();
+                        while (errorKeys.hasNext()){
+                            JSONArray errorMessages = errors.getJSONArray(errorKeys.next());
+                            for(int i=0; i<errorMessages.length(); i++){
+                                errorTxt+=errorMessages.get(i)+",";
+                            }
+
+                        }
+                        errorTextView.setText(errorTxt);
+                        errorTextView.setVisibility(View.VISIBLE);
+                        errorTextView.requestFocus();
                         Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -504,16 +540,16 @@ public class CropRegisterActivity extends PermisoActivity implements
         edtfirstname.setText(CropDashboardActivity.getPreferences("firstname",this));
         edtlastname.setText(CropDashboardActivity.getPreferences("lastname",this));
         edtemail.setText(CropDashboardActivity.getPreferences("email",this));
-        edtfarmname.setText(CropDashboardActivity.getPreferences("Firmname",this));
+        edtfarmname.setText(CropDashboardActivity.getPreferences("farmname",this));
         edtContact.setText(CropDashboardActivity.getPreferences("phoneNumber",this).replace("+"+CropDashboardActivity.getPreferences("countryCode",this),""));
         edtCountryCode.setText(CropDashboardActivity.getPreferences("countryCode",this));
         edtAddress.setText(CropDashboardActivity.getPreferences("addressStreet",this));
         edtAdressTownorCity.setText(CropDashboardActivity.getPreferences("addressCityOrTown",this));
-
         CropDashboardActivity.selectSpinnerItemByValue(spinnercountry,CropDashboardActivity.getPreferences("country",this));
         CropDashboardActivity.selectSpinnerItemByValue(addressCountrySp,CropDashboardActivity.getPreferences("addressCountry",this));
         titleTextView.setText("Edit Profile");
         btnSignUp.setText("Update");
+        tvlogin.setText("Forgot Password? Request Code!");
         //CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         //CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
     }
