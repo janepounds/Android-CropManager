@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".activities.CropPaymentBillManagerActivity"></activity>
         <activity android:name=".activities.CropBillPreviewActivity" />
+
         <activity android:name=".activities.CropBillManagerActivity" />
         <activity android:name=".activities.CropPurchaseOrderPreviewActivity" />
         <activity android:name=".activities.CropPurchaseOrdersListActivity" />
@@ -206,6 +208,10 @@
             android:name=".activities.CropVerifyPhoneNumberActivity"
             android:label="@string/title_activity_crop_verify_phone_number"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropROIStep1Activity"
+            android:label="@string/title_activity_crop_roistep1"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

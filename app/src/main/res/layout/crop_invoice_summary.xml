@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="4dp">
 
 
 
@@ -10,14 +12,16 @@
     android:id="@+id/scroll_view_invoice_summary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+
+   >
 
     <LinearLayout
         android:id="@+id/layout_invoice_summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:background="@drawable/crop_invoice_table_border"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,6 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
+                            android:textColor="@color/red"
                             android:text="UGX 367283"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -107,15 +112,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bill To" />
+                    android:text="BILL TO"
+                    android:background="@color/gray_mh"/>
 
                 <TextView
                     android:id="@+id/text_view_invoice_summary_customer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tusiime Georgia" />
+                    android:text="Tusiime Georgia"
+                    android:layout_marginTop="4dp"/>
 
                 <TextView
                     android:id="@+id/text_view_invoice_summary_customer_company"
@@ -252,27 +259,28 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/gray_mh">
 
                 <TableRow
                     android:id="@+id/tableRow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/crop_invoice_table_border"
+                    
 
                     >
 
                     <LinearLayout
                         android:layout_width="20dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_border"
+                        android:background="@drawable/crop_invoice_table_header_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_count"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
+                            android:background="@drawable/crop_invoice_table_header_border"
                             android:gravity="center"
                             android:text="#"
                             android:textSize="14sp"
@@ -282,14 +290,14 @@
                     <LinearLayout
                         android:layout_width="100dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_border"
+                        android:background="@drawable/crop_invoice_table_header_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
+                            android:background="@drawable/crop_invoice_table_header_border"
                             android:gravity="center"
                             android:text="@string/item_details_label"
                             android:textSize="14sp"
@@ -299,14 +307,14 @@
                     <LinearLayout
                         android:layout_width="70dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_border"
+                        android:background="@drawable/crop_invoice_table_header_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_age"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
+                            android:background="@drawable/crop_invoice_table_header_border"
                             android:gravity="center"
                             android:text="@string/quantity"
                             android:textSize="16sp"
@@ -316,14 +324,14 @@
                     <LinearLayout
                         android:layout_width="65dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_border"
+                        android:background="@drawable/crop_invoice_table_header_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_weight"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
+                            android:background="@drawable/crop_invoice_table_header_border"
                             android:gravity="center"
                             android:text="@string/rate"
                             android:textSize="16sp"
@@ -333,14 +341,14 @@
                     <LinearLayout
                         android:layout_width="60dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_border"
+                        android:background="@drawable/crop_invoice_table_header_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_height"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
+                            android:background="@drawable/crop_invoice_table_header_border"
                             android:gravity="center"
                             android:text="@string/label_tax"
                             android:textSize="16sp"
@@ -350,14 +358,14 @@
                     <LinearLayout
                         android:layout_width="@dimen/crop_estimate_small_column_size"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_border"
+                        android:background="@drawable/crop_invoice_table_header_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_bcs"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
+                            android:background="@drawable/crop_invoice_table_header_border"
                             android:gravity="center"
                             android:text="@string/amount_label"
                             android:textSize="16sp"
@@ -541,7 +549,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_shapes"
+                android:background="@color/gray_mh"
                 android:orientation="horizontal">
 
 

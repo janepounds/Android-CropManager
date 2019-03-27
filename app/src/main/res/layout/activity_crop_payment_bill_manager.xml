@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Enter.."
+                    android:hint="Select"
+                    android:inputType="none"
                     android:background="@drawable/input_shapes"
                     android:textSize="14sp"
 
@@ -75,6 +76,7 @@
                    android:hint="Enter.."
                     android:textSize="14sp"
                     android:layout_weight="0.5"
+                    android:inputType="number"
                     android:background="@drawable/input_shapes"
                     />
 
@@ -106,7 +108,7 @@
                     android:layout_weight="0.4"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:entries="@array/crop_field_soil_type"
+                    android:entries="@array/sp_crop_income_expense_payment_mode"
                     android:background="@drawable/input_shapes"
 
 
@@ -114,35 +116,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp">
 
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="@string/watercourse"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/sp_crop_field_watercourse"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:entries="@array/crop_field_watercourse"
-                    android:background="@drawable/input_shapes"
-
-                    />
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -159,7 +133,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_area"
+                        android:text="@string/paid_through"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
                         android:textSize="16sp"
@@ -167,12 +141,12 @@
                         />
 
                     <EditText
-                        android:id="@+id/txt_crop_field_total_area"
+                        android:id="@+id/txt_crop_bill_paid_through"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Enter.."
-                        android:inputType="numberDecimal"
+
                         android:textSize="14sp"
                         android:background="@drawable/input_shapes"
 
@@ -189,7 +163,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/croppable_area"
+                        android:text="@string/ref_no"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
                         android:textSize="16sp" />
@@ -218,19 +192,21 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/units"
+                    android:text="@string/notes"
                     android:layout_weight="0.5"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
-                <Spinner
+                <EditText
                     android:id="@+id/sp_crop_field_units"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/crop_field_units"
+                    android:layout_height="80dp"
+                   android:hint="Enter.."
+                    android:gravity="start"
+                    android:inputType="textMultiLine"
                     android:textSize="14sp"
-                    android:inputType="numberDecimal"
+
 
                     android:background="@drawable/input_shapes"
 

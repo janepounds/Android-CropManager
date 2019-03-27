@@ -336,7 +336,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
                 0);
-        return sharedPreferences.getString(key, "0");
+        return sharedPreferences.getString(key, "");
 
     }
     public static void selectSpinnerItemByValue(Spinner spnr, String value) {
@@ -385,7 +385,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
 
     public static void saveUser(JSONObject user, Context context) throws JSONException{
-        CropDashboardActivity.savePreferences("Firmname", user.getString("farmname"), context);
+        CropDashboardActivity.savePreferences("farmname", user.getString("farmname"), context);
         CropDashboardActivity.savePreferences("firstname", user.getString("firstname"), context);
         CropDashboardActivity.savePreferences("email", user.getString("email"), context);
         CropDashboardActivity.savePreferences("userId", user.getString("id"), context);

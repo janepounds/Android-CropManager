@@ -874,4 +874,6 @@
     <string name="order_number">Order Number</string>
     <string name="bill_date">Biil Date</string>
     <string name="terms">Terms</string>
+    <string name="title_activity_crop_roistep1">Step 1</string>
+    <string name="paid_through">Paid Through</string>
 </resources>
