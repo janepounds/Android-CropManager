@@ -57,9 +57,9 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
 
     public void initializeForm() {
         subTotalTextView = findViewById(R.id.txt_view_crop_purchase_order_sub_total);
-        discountAmountTxt = findViewById(R.id.txt_crop_purchase_order_discount_percentage);
+        discountAmountTxt = findViewById(R.id.txt_crop_purchase_order_discount);
         totalAmountTxt = findViewById(R.id.txt_crop_purchase_order_total);
-        discountPercentageTxt = findViewById(R.id.txt_crop_sales_order_discount_percentage);
+        discountPercentageTxt = findViewById(R.id.txt_crop_purchase_order_discount_percentage);
         purchaseOrderNumberTextView = findViewById(R.id.txt_crop_purchase_order_number);
         purchaseOrderDateTxt = findViewById(R.id.txt_crop_purchase_order_purchase_date);
         deliveryDateTxt = findViewById(R.id.txt_crop_purchase_order_delivery_date);
@@ -115,22 +115,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
         };
 
         subTotalTextView.addTextChangedListener(watcher);
-        discountPercentageTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                updateTotalAmount();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                updateTotalAmount();
-            }
-        });
+        discountPercentageTxt.addTextChangedListener(watcher);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -240,8 +225,8 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
             float subTotal = Float.parseFloat(subTotalTextView.getText().toString());
             float discount = computeDiscount();
             float total = subTotal-discount;
-            discountAmountTxt.setText("-"+discount);
-            totalAmountTxt.setText(total+"");
+           // discountAmountTxt.setText("-"+discount);
+            //totalAmountTxt.setText(total+"");
 
         }catch (Exception e){
 

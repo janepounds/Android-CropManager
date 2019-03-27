@@ -88,7 +88,6 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
             holder.taxTxt.setText(item.getTax()+"");
             holder.rateTxt.setText(item.getRate()+"");
             CropDashboardActivity.selectSpinnerItemById(holder.productSpinner,item.getProductId());
-
         }
 
 
