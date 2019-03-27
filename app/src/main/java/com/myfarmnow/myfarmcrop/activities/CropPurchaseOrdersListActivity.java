@@ -25,8 +25,7 @@ public class CropPurchaseOrdersListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_purchase_orders_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         purchaseOrderListRecyclerView = findViewById(R.id.crop_purchase_order_recyc_view);
