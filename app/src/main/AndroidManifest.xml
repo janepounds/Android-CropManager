@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropBillManagerActivity"></activity>
+        <activity android:name=".activities.CropPaymentBillManagerActivity"></activity>
+        <activity android:name=".activities.CropBillPreviewActivity" />
+        <activity android:name=".activities.CropBillManagerActivity" />
         <activity android:name=".activities.CropPurchaseOrderPreviewActivity" />
         <activity android:name=".activities.CropPurchaseOrdersListActivity" />
         <activity android:name=".activities.CropPurchaseOrderManagerActivity" />
