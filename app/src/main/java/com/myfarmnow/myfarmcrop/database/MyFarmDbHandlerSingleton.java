@@ -697,6 +697,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
                 contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
                 contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+                contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER);
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
         }
@@ -788,7 +789,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for(CropSalesOrder cropSalesOrder: array_list){
             ArrayList<CropProductItem> items_list = new ArrayList();
-            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ cropSalesOrder.getId(), null );
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ cropSalesOrder.getId()+" AND "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = "+CROP_PRODUCT_ITEM_TYPE_SALES_ORDER, null );
             res.moveToFirst();
             while(!res.isAfterLast()) {
                 CropProductItem item = new CropProductItem();
@@ -972,6 +973,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 contentValues.put(CROP_PRODUCT_ITEM_QUANTITY, x.getQuantity());
                 contentValues.put(CROP_PRODUCT_ITEM_TAX, x.getTax());
                 contentValues.put(CROP_PRODUCT_ITEM_RATE, x.getRate());
+                contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_INVOICE);
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME, null, contentValues);
             }
             //save payments if there are any
@@ -1016,7 +1018,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
             contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
             contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
-            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER);
+            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_INVOICE);
             if(x.getId() !=null){
                 database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
             }
@@ -1091,7 +1093,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         for (CropInvoice invoice : array_list) {
             ArrayList<CropProductItem> items_list = new ArrayList();
 
-            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ invoice.getId(), null );
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ invoice.getId()+" AND "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = "+CROP_PRODUCT_ITEM_TYPE_INVOICE, null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
                 CropProductItem item = new CropProductItem();
@@ -1210,6 +1212,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 contentValues.put(CROP_PRODUCT_ITEM_QUANTITY, x.getQuantity());
                 contentValues.put(CROP_PRODUCT_ITEM_TAX, x.getTax());
                 contentValues.put(CROP_PRODUCT_ITEM_RATE, x.getRate());
+                contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_ESTIMATE);
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME, null, contentValues);
             }
         }
@@ -1270,7 +1273,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
             contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
             contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
-            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER);
+            contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_ESTIMATE);
             if(x.getId() !=null){
                 database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
 
@@ -1329,7 +1332,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         for (CropEstimate estimate : array_list) {
             ArrayList<CropProductItem> items_list = new ArrayList();
 
-            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ estimate.getId(), null );
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ estimate.getId()+" AND "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = "+CROP_PRODUCT_ITEM_TYPE_ESTIMATE, null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
                 CropProductItem item = new CropProductItem();
@@ -2864,6 +2867,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
                 contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
                 contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+                contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER);
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
         }
@@ -2952,7 +2956,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for(CropPurchaseOrder cropPurchaseOrder: array_list){
             ArrayList<CropProductItem> items_list = new ArrayList();
-            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ cropPurchaseOrder.getId(), null );
+            res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ cropPurchaseOrder.getId()+" AND "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = "+CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER, null );
             res.moveToFirst();
             while(!res.isAfterLast()) {
                 CropProductItem item = new CropProductItem();
