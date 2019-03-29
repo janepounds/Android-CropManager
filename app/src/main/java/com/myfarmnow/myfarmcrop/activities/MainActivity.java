@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 
@@ -17,8 +16,6 @@ import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 
 import java.util.ArrayList;
-
-import com.myfarmnow.myfarmcrop.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         x.setUserId("1");
         x.setBatchNumber("3562783738");
 
-        handler.insertCropFertilizer(x);
+        handler.insertCropFertilizerInventory(x);
 
-        ArrayList<CropInventoryFertilizer> list = handler.getCropFertilizers("1");
+        ArrayList<CropInventoryFertilizer> list = handler.getCropFertilizerInventorys("1");
 
         Log.d("FERTILIZERS",list.toString());
 

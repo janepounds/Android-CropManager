@@ -15,7 +15,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
-import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
@@ -129,7 +128,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
         ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
-        for(CropInventoryFertilizer x: dbHandler.getCropFertilizers(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(CropDashboardActivity.getPreferences("userId",this))){
             fertlizersList.add(x);
         }
         fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",this);

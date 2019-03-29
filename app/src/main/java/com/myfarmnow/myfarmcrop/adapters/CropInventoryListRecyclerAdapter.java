@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,16 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.activities.CropInventoryFertilizerManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInventorySeedsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInventorySprayManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
@@ -37,12 +31,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
-import com.myfarmnow.myfarmcrop.models.CropSupplier;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
 
 public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropInventoryListRecyclerAdapter.CropCardViewHolder>  {
     ArrayList<CropInventory> inventoryList;
@@ -150,7 +138,7 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
                                                 }else if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
                                                     MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropSpray(inventory.getId());
                                                 }else if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
-                                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropFertilizer(inventory.getId());
+                                                    MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropFertilizerInventory(inventory.getId());
                                                 }
 
                                                 inventoryList.remove(getAdapterPosition());

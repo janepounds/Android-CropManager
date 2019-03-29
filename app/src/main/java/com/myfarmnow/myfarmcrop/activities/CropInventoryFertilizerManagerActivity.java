@@ -152,7 +152,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         fertilizerInventory.setMicroNutrientsFe(Float.parseFloat(microsFe.getText().toString()));
         fertilizerInventory.setMicroNutrientsNa(Float.parseFloat(microsNa.getText().toString()));
 
-        dbHandler.insertCropFertilizer(fertilizerInventory);
+        dbHandler.insertCropFertilizerInventory(fertilizerInventory);
 
 
 
@@ -185,7 +185,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
             fertilizerInventory.setMicroNutrientsZn(Float.parseFloat(microsZn.getText().toString()));
             fertilizerInventory.setMicroNutrientsFe(Float.parseFloat(microsFe.getText().toString()));
             fertilizerInventory.setMicroNutrientsNa(Float.parseFloat(microsNa.getText().toString()));
-            dbHandler.updateCropFertilizer(fertilizerInventory);
+            dbHandler.updateCropFertilizerInventory(fertilizerInventory);
         }
     }
     public boolean validateEntries(){

@@ -156,8 +156,9 @@ public class CropDashboardActivity extends AppCompatActivity {
         weatherForecastLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openTasks = new Intent(CropDashboardActivity.this, CropPurchaseOrderManagerActivity.class);
-                startActivity(openTasks);
+                /*Intent openTasks = new Intent(CropDashboardActivity.this, CropPurchaseOrderManagerActivity.class);
+                startActivity(openTasks);*/
+                openROICalculator(v);
             }
         });
 
@@ -266,6 +267,12 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropSuppliersListActivity.class);
         startActivity(openList);
     }
+
+    public void openFertilizerCalculator(View view){
+        //CropFertilizerCalculatorEntryActivity
+        Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
+        startActivity(openList);
+    }
     public void openSalesOrderList(View view){
         Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
         startActivity(openList);
@@ -284,6 +291,10 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
     public void openPaymentsList(View view){
         Intent openList = new Intent(this, CropPaymentsListActivity.class);
+        startActivity(openList);
+    }
+    public void openROICalculator(View view){
+        Intent openList = new Intent(this, CropROIStep1Activity.class);
         startActivity(openList);
     }
 
@@ -317,6 +328,7 @@ public class CropDashboardActivity extends AppCompatActivity {
 
         toggleVisibility(contactsSubMenu);
     }
+
 
 
     public void toggleVisibility(View view){
@@ -402,6 +414,7 @@ public class CropDashboardActivity extends AppCompatActivity {
        // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), context);
 
     }
+
 
 
 }

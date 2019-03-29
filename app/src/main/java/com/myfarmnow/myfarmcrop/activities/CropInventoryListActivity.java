@@ -89,7 +89,7 @@ public class CropInventoryListActivity extends AppCompatActivity {
         for(CropInventorySeeds seedsInventory:dbHandler.getCropSeeds(CropDashboardActivity.getPreferences("userId",this))){
             cropListRecyclerAdapter.addInventory(seedsInventory);
         }
-        for(CropInventoryFertilizer fertilizerInventory:dbHandler.getCropFertilizers(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInventoryFertilizer fertilizerInventory:dbHandler.getCropFertilizerInventorys(CropDashboardActivity.getPreferences("userId",this))){
             cropListRecyclerAdapter.addInventory(fertilizerInventory);
         }
         for(CropInventorySpray spraysInventory:dbHandler.getCropSpray(CropDashboardActivity.getPreferences("userId",this))){

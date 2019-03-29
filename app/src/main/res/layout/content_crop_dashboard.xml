@@ -406,7 +406,7 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-
+                                android:onClick="openROICalculator"
                                 android:paddingBottom="5dp">
 
                                 <de.hdodenhof.circleimageview.CircleImageView
@@ -426,7 +426,7 @@
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:textSize="13sp"
-                                    android:text="@string/label_weather_forecast"
+                                    android:text="Calculator"
                                     android:textAllCaps="true"
                                     android:textColor="#000000" />
 
@@ -1382,8 +1382,8 @@
                                     android:orientation="horizontal"
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
-                                    android:onClick="openSupplierList"
-                                    android:paddingTop="5dp">
+                                    android:paddingTop="5dp"
+                                    android:onClick="openFertilizerCalculator">
 
 
                                     <TextView
