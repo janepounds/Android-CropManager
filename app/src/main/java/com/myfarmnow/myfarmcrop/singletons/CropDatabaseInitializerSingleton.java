@@ -45,8 +45,8 @@ public class CropDatabaseInitializerSingleton {
         fertilizers.add(new CropFertilizer("Nitric Acid",FERTILIZER_TYPE_NITROGENOUS,16,0,0.0));
 
 
-        fertilizers.add(new CropFertilizer("Muriate of Potash - MOP",FERTILIZER_TYPE_POTASSIC,0,60,0.0));
-        fertilizers.add(new CropFertilizer("Potassium Magnesium Sulphate",FERTILIZER_TYPE_POTASSIC,0,21.9,0.0));
+        fertilizers.add(new CropFertilizer("Muriate of Potash - MOP",FERTILIZER_TYPE_POTASSIC,0,0,60));
+        fertilizers.add(new CropFertilizer("Potassium Magnesium Sulphate",FERTILIZER_TYPE_POTASSIC,0,0,21.9));
         for (CropFertilizer fertilizer: fertilizers){
             dbHandler.insertCropFertilizer(fertilizer);
         }

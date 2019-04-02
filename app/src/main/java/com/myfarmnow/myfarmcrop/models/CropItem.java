@@ -75,4 +75,8 @@ public class CropItem implements Serializable, CropSpinnerItem{
     public void setImageResourceId(String imageResourceId) {
         this.imageResourceId = imageResourceId;
     }
+
+    public String toString(){
+        return name;
+    }
 }

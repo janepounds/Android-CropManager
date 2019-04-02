@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.CropFertilizerCalculatorResults"
+    tools:showIn="@layout/activity_crop_fertilizer_calculator_results"
+    >
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:layout_margin="4dp">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+
+           >
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_weight="1"
+               android:padding="4dp"
+               android:gravity="center_vertical"
+               >
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_margin="4dp"
+                   android:gravity="center_vertical">
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:text="Crop : "
+                           android:textSize="16sp"
+                           android:textStyle="bold"
+                           />
+
+                   <TextView
+                       android:id="@+id/txt_crop_fertililizer_calculator_crop"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+
+                       android:text="Tomatoes"
+                       android:textSize="14sp"
+
+                       />
+
+
+                  
+               </LinearLayout>
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_weight="1"
+               android:padding="4dp"
+               >
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_margin="4dp"
+                   android:gravity="center_vertical">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:text="Area : "
+                       android:textSize="16sp"
+                       android:textStyle="bold"
+                       />
+
+                   <TextView
+
+                       android:id="@+id/txt_crop_fertililizer_calculator_area"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+
+                       android:layout_weight="1"
+                       android:text="54 Acres"
+
+                       android:textSize="14sp" />
+               </LinearLayout>
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+           <TableRow
+
+               android:background="@drawable/crop_invoice_table_border"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textAlignment="center"
+               >
+               <LinearLayout
+                   android:layout_width="120dp"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal"
+                   android:paddingLeft="1dp">
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="Fertilizer"
+                       android:textStyle="bold"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="80dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="Quantity"
+                       android:textStyle="bold"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="90dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="Unit Price"
+                       android:textStyle="bold"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="100dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+
+                       android:gravity="center"
+                       android:text="Total Cost"
+                       android:textStyle="bold"
+                       android:textSize="13sp"
+                       />
+               </LinearLayout>
+
+
+
+
+           </TableRow>
+           <TableRow
+               android:id="@+id/table_row_crop_fertilizer_npk"
+               android:background="@drawable/crop_invoice_table_border"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textAlignment="center"
+               >
+               <LinearLayout
+                   android:layout_width="120dp"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal"
+                   android:paddingLeft="1dp">
+
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_npk_fertilizer"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="start"
+                       android:text="Diamonium Phosphate - DAP"
+                       android:textSize="13sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="80dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_npk_qty"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="12.567Kg"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="90dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_npk_price"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="UGX 2,000"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="100dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_npk_cost"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+
+                       android:gravity="center"
+                       android:text="UGX 3,789,789"
+                       android:textSize="13sp"
+                       />
+               </LinearLayout>
+
+
+
+
+           </TableRow>
+
+           <TableRow
+               android:id="@+id/table_row_crop_fertilizer_nitrogenous"
+               android:background="@drawable/crop_invoice_table_border"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textAlignment="center"
+               >
+               <LinearLayout
+                   android:layout_width="120dp"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal"
+                   android:paddingLeft="1dp">
+
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_nitogenous_fertilizer"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="start"
+                       android:text="Diamonium Phosphate - DAP"
+                       android:textSize="13sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="80dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_nitrogenous_qty"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="12.567Kg"
+                       android:textSize="13sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="90dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_nitrogenous_price"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="UGX 2,000"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="100dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_nitrogenous_cost"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+
+                       android:gravity="center"
+                       android:text="UGX 3,789,789"
+                       android:textSize="13sp" />
+               </LinearLayout>
+
+
+
+
+           </TableRow>
+
+           <TableRow
+               android:id="@+id/table_row_crop_fertilizer_potassic"
+               android:background="@drawable/crop_invoice_table_border"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textAlignment="center"
+               >
+               <LinearLayout
+                   android:layout_width="120dp"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal"
+                   android:paddingLeft="1dp">
+
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_potassic_fertilizer"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="start"
+                       android:text="Diamonium Phosphate - DAP"
+                       android:textSize="13sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="80dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_potassic_qty"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="12.567Kg"
+                       android:textSize="13sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="90dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_potassic_price"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@drawable/crop_invoice_table_border"
+                       android:gravity="center"
+                       android:text="UGX 2,000"
+                       android:textSize="13sp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="100dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/crop_invoice_table_border"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:id="@+id/text_view_crop_fert_calc_potassic_cost"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+
+                       android:gravity="center"
+                       android:text="UGX 3,789,789"
+                       android:textSize="13sp"
+                       />
+               </LinearLayout>
+
+
+
+
+           </TableRow>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:gravity="end"
+           android:paddingEnd="8dp"
+           >
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+
+               android:text="Total Amount : "
+               android:textSize="16sp"
+               android:textStyle="bold"
+               />
+           <TextView
+               android:id="@+id/txt_crop_fertililizer_calculator_total"
+               android:layout_width="wrap_content"
+
+               android:layout_height="wrap_content"
+
+               android:textSize="14sp"
+               android:text="UGX 2,672,836"
+
+               />
+       </LinearLayout>
+   </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

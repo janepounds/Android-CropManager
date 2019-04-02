@@ -924,4 +924,10 @@
     <string name="yield_units">Yield Units</string>
     <string name="labour_and_management"><![CDATA[Labour & Management]]></string>
     <string name="title_activity_crop_fertilizer_calculator_entry">Fertilizer Calculator</string>
+    <string name="missing_unit_price">Missing price</string>
+    <string name="no_nitrgen_selected">The fertilizers selected have no Nitrogen</string>
+    <string name="no_phosphate_seleceted">The fertilizers selected have no Phosphate</string>
+    <string name="no_potassium_selected">The fertilizers selected have no Potassium</string>
+    <string name="title_activity_crop_fertilizer_calculator_results">Fertilizer Results</string>
+    <string name="title_activity_crop_calculators">Calculators</string>
 </resources>

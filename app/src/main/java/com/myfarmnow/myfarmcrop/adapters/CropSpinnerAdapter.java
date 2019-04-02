@@ -29,6 +29,10 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
         });
         values.addAll(items);
     }
+    public void add(CropSpinnerItem item){
+        values.add(item);
+        notifyDataSetChanged();
+    }
     public void changeDefaultItem(CropSpinnerItem defaultItem){
         values.remove(0);
         values.add(0,defaultItem);

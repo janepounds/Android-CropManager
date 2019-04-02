@@ -18,7 +18,7 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
     float pPercentage=0;
 
 
-    public CropFertilizer(String fertilizerName, String type, double nPercentage, double kPercentage, double pPercentage) {
+    public CropFertilizer(String fertilizerName, String type, double nPercentage, double pPercentage, double kPercentage) {
         this.fertilizerName = fertilizerName;
         this.type = type;
         this.nPercentage = (float)nPercentage;
@@ -102,6 +102,6 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
         this.id = id;
     }
     public String getComposition(){
-        return "("+nPercentage +": "+pPercentage+" : "+kPercentage+" )";
+        return "("+getnPercentage() +": "+getpPercentage()+" : "+getkPercentage()+" )";
     }
 }

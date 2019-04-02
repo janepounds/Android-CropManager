@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
@@ -29,6 +32,7 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
     TextView npkCompoTxt, potassicCompoTxt, nitrogenousCompoTxt;
     CropSpinnerAdapter cropsSpinnerAdapter,npkSpinnerAdapter,potassicSpinnerAdapter,nitrogenousSpinnerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
+    Button calculateBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,8 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initializeViews();
+
+
     }
 
     public void initializeViews(){
@@ -46,7 +52,7 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
         potassiumTxt = findViewById(R.id.txt_crop_fertililizer_calculator_potassium);
         nitrogenousSp = findViewById(R.id.sp_crop_fertililizer_calculator_nitrogenous_fert);
         potassicSp = findViewById(R.id.sp_crop_fertililizer_calculator_potassic_fert);
-        potassicSp = findViewById(R.id.sp_crop_fertililizer_calculator_npk_fert);
+        npkSp = findViewById(R.id.sp_crop_fertililizer_calculator_npk_fert);
         potassicCompoTxt = findViewById(R.id.txt_crop_fertililizer_calculator_potassic_compo);
         npkCompoTxt = findViewById(R.id.txt_crop_fertililizer_calculator_npk_compo);
         areaTxt = findViewById(R.id.txt_crop_fertililizer_calculator_area);
@@ -54,14 +60,16 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
         npkPriceTxt = findViewById(R.id.txt_crop_fertililizer_calculator_npk_price);
         potassicPriceTxt = findViewById(R.id.txt_crop_fertililizer_calculator_potassic_price);
         nitrogenousPriceTxt = findViewById(R.id.txt_crop_fertililizer_calculator_nitrogenous_price);
+        calculateBtn = findViewById(R.id.btn_crop_fertililizer_calculator_calculate);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         cropsSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Crop",this);
+        cropSp.setAdapter(cropsSpinnerAdapter);
         ArrayList<CropItem> cropItems = dbHandler.getCropItems();
         for(CropItem cropItem: cropItems){
             cropsSpinnerAdapter.add(cropItem);
         }
-        cropSp.setAdapter(cropsSpinnerAdapter);
+
         npkSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Fertilizer",this);
         ArrayList<CropFertilizer> npkCropFertilizers = dbHandler.getCropFertilizers(CropDatabaseInitializerSingleton.FERTILIZER_TYPE_NPK);
         for(CropFertilizer cropFertilizer: npkCropFertilizers){
@@ -71,13 +79,13 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
         potassicSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Fertilizer",this);
         ArrayList<CropFertilizer> potassicCropFertilizers = dbHandler.getCropFertilizers(CropDatabaseInitializerSingleton.FERTILIZER_TYPE_POTASSIC);
         for(CropFertilizer cropFertilizer: potassicCropFertilizers){
-            npkSpinnerAdapter.add(cropFertilizer);
+            potassicSpinnerAdapter.add(cropFertilizer);
         }
         potassicSp.setAdapter(potassicSpinnerAdapter);
         nitrogenousSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Fertilizer",this);
         ArrayList<CropFertilizer> nitrogenousCropFertilizers = dbHandler.getCropFertilizers(CropDatabaseInitializerSingleton.FERTILIZER_TYPE_NITROGENOUS);
         for(CropFertilizer cropFertilizer: nitrogenousCropFertilizers){
-            npkSpinnerAdapter.add(cropFertilizer);
+            nitrogenousSpinnerAdapter.add(cropFertilizer);
         }
         nitrogenousSp.setAdapter(nitrogenousSpinnerAdapter);
 
@@ -105,6 +113,9 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
                     CropFertilizer cropFertilizer = (CropFertilizer)((CropSpinnerItem)nitrogenousSp.getSelectedItem());
                     nitrogenousCompoTxt.setText(cropFertilizer.getComposition());
                     CropFertilizerCalculator.getInstance().setNitrogenousFertilizer(cropFertilizer);
+                }else{
+                    nitrogenousCompoTxt.setVisibility(View.GONE);
+                    CropFertilizerCalculator.getInstance().setNitrogenousFertilizer(null);
                 }
             }
 
@@ -120,6 +131,9 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
                     CropFertilizer cropFertilizer = (CropFertilizer)((CropSpinnerItem)potassicSp.getSelectedItem());
                     potassicCompoTxt.setText(cropFertilizer.getComposition());
                     CropFertilizerCalculator.getInstance().setPotassicFertilizer(cropFertilizer);
+                } else{
+                    potassicCompoTxt.setVisibility(View.GONE);
+                    CropFertilizerCalculator.getInstance().setPotassicFertilizer(null);
                 }
             }
 
@@ -134,7 +148,12 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
                 if(position != 0){
                     CropFertilizer cropFertilizer = (CropFertilizer)((CropSpinnerItem)npkSp.getSelectedItem());
                     npkCompoTxt.setText(cropFertilizer.getComposition());
+                    npkCompoTxt.setVisibility(View.VISIBLE);
                     CropFertilizerCalculator.getInstance().setNpkFertilizer(cropFertilizer);
+                }
+                else{
+                    npkCompoTxt.setVisibility(View.GONE);
+                    CropFertilizerCalculator.getInstance().setNpkFertilizer(null);
                 }
             }
 
@@ -143,6 +162,71 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
 
             }
         });
+
+        calculateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(validateEntries()){
+                    try {
+                        CropFertilizerCalculator.getInstance().setNitrogenComposition(Float.parseFloat(nitrogenTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setPhosphateComposition(Float.parseFloat(phosphateTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setPotassiumComposition(Float.parseFloat(potassiumTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setPotassicPrice(Float.parseFloat(potassicPriceTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setNitrogenousPrice(Float.parseFloat(nitrogenousPriceTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setNpkPrice(Float.parseFloat(npkPriceTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setArea(Float.parseFloat(areaTxt.getText().toString()));
+                        CropFertilizerCalculator.getInstance().setUnits(unitsSp.getSelectedItem().toString());
+
+                        if(CropFertilizerCalculator.getInstance().isCalculationPossible()){
+                            startActivity(new Intent(CropFertilizerCalculatorEntryActivity.this,CropFertilizerCalculatorResults.class));
+                        }else{
+                            Toast.makeText(CropFertilizerCalculatorEntryActivity.this, getString(CropFertilizerCalculator.getInstance().determineMissingNutrient()), Toast.LENGTH_LONG).show();
+                        }
+                    }catch (Exception e){
+
+                    }
+                }
+            }
+        });
+    }
+
+    public boolean validateEntries(){
+        String message = null;
+        if(nitrogenTxt.getText().toString().isEmpty()){
+            message = "The nitrogen quantity is not entered";
+            nitrogenTxt.requestFocus();
+        }
+        else if(phosphateTxt.getText().toString().isEmpty()){
+            message = "The phosphate quantity is not entered";
+            phosphateTxt.requestFocus();
+        }
+        else if(potassiumTxt.getText().toString().isEmpty()){
+            message = "The potassium quantity is not entered";
+            potassiumTxt.requestFocus();
+        }
+        else if(npkPriceTxt.getText().toString().isEmpty()){
+            message = getString(R.string.missing_unit_price);
+            npkPriceTxt.requestFocus();
+        }
+        else if(potassicPriceTxt.getText().toString().isEmpty()){
+            message = getString(R.string.missing_unit_price);
+            potassicPriceTxt.requestFocus();
+        }
+        else if(nitrogenousPriceTxt.getText().toString().isEmpty()){
+            message = getString(R.string.missing_unit_price);
+            nitrogenousPriceTxt.requestFocus();
+        }
+
+        // potassiumTxt,, ,
+
+
+
+        if(message != null){
+            Toast.makeText(CropFertilizerCalculatorEntryActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        // Log.d("ERROR",message);
+        return true;
     }
 
 }

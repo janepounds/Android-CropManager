@@ -12,14 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,12 +27,7 @@ import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.NavigationAdapterExpand;
-import com.myfarmnow.myfarmcrop.models.CropEmployee;
-import com.myfarmnow.myfarmcrop.models.CropField;
-import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
-import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -158,7 +151,7 @@ public class CropDashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 /*Intent openTasks = new Intent(CropDashboardActivity.this, CropPurchaseOrderManagerActivity.class);
                 startActivity(openTasks);*/
-                openROICalculator(v);
+                openCalculators(v);
             }
         });
 
@@ -293,8 +286,8 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropPaymentsListActivity.class);
         startActivity(openList);
     }
-    public void openROICalculator(View view){
-        Intent openList = new Intent(this, CropROIStep1Activity.class);
+    public void openCalculators(View view){
+        Intent openList = new Intent(this, CropCalculatorsActivity.class);
         startActivity(openList);
     }
 

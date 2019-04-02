@@ -406,7 +406,7 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:onClick="openROICalculator"
+                                android:onClick="openCalculators"
                                 android:paddingBottom="5dp">
 
                                 <de.hdodenhof.circleimageview.CircleImageView
@@ -1383,7 +1383,7 @@
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
                                     android:paddingTop="5dp"
-                                    android:onClick="openFertilizerCalculator">
+                                    >
 
 
                                     <TextView

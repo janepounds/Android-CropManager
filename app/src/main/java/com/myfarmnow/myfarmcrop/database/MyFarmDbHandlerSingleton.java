@@ -569,8 +569,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 "REAL NOT NULL," + CROP_PAYMENT_BILL_PAYMENT_MODE + " TEXT NOT NULL," + CROP_PAYMENT_BILL_PAID_THROUGH + " TEXT," + CROP_PAYMENT_BILL_REFERENCE_NUMBER + " TEXT," + CROP_PAYMENT_BILL_NOTES + " TEXT" + " )";
 
 
-        String crop_item_table_query = " CREATE TABLE IF NOT EXISTS " + CROP_ITEM_TABLE_NAME + " ( " + CROP_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_ITEM_N_COMPOSITION + " REAL DEFAULT 0, "+ CROP_ITEM_N_COMPOSITION + " TEXT NOT NULL , "  + CROP_ITEM_K_COMPOSITION + " REAL DEFAULT 0, " + CROP_ITEM_P_COMPOSITION + " REAL DEFAULT 0, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
-                 CROP_ITEM_IMAGE_RESOURCE_ID + " TEXT " + " ) ";
+        String crop_item_table_query = " CREATE TABLE IF NOT EXISTS " + CROP_ITEM_TABLE_NAME + " ( " + CROP_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_ITEM_N_COMPOSITION + " REAL DEFAULT 0, "+
+                CROP_ITEM_K_COMPOSITION + " REAL DEFAULT 0, "+CROP_ITEM_NAME + " TEXT NOT NULL , "  +CROP_ITEM_IMAGE_RESOURCE_ID + " TEXT  , "  + CROP_ITEM_P_COMPOSITION + " REAL DEFAULT 0 ) " ;
 
 
         String crop_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_FERTILIZER_TABLE_NAME+" ( "+CROP_FERTILIZER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -590,7 +590,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("MACHINE",crop_machine_insert_query);
         Log.d("MACHINE",crop_machine_insert_query);*/
 
-        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_TABLE_NAME);
+       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_FERTILIZER_TABLE_NAME);
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -729,7 +729,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizer.setkPercentage(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_K_PERCENTAGE)));
 
             array_list.add(fertilizer);
-
+            Log.d("TYPE",fertilizer.getType());
             res.moveToNext();
         }
 
@@ -737,7 +737,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         if (array_list.size()==0){
             CropDatabaseInitializerSingleton.initializeFertilizers(this);
-            return getCropFertilizers(type);
+            //return getCropFertilizers(type);
         }
 
         //Log.d("HOUSES SIZE",array_list.size()+"");
@@ -805,8 +805,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         if (array_list.size()==0){
             CropDatabaseInitializerSingleton.initializeCrops(this);
-            return getCropItems();
+           // return getCropItems();
         }
+        Log.d("SIZE", array_list.size()+"");
         return array_list;
 
     }

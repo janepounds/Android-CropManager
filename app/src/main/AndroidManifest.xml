@@ -231,6 +231,14 @@
         <activity
             android:name=".activities.CropFertilizerCalculatorEntryActivity"
             android:label="@string/title_activity_crop_fertilizer_calculator_entry"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropFertilizerCalculatorResults"
+            android:label="@string/title_activity_crop_fertilizer_calculator_results"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropCalculatorsActivity"
+            android:label="@string/title_activity_crop_calculators"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

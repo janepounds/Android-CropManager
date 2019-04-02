@@ -1,22 +1,29 @@
 package com.myfarmnow.myfarmcrop.singletons;
 
+import android.util.Log;
+
+import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropItem;
+import com.myfarmnow.myfarmcrop.models.Echelon3DEquationsCalculator;
+import com.myfarmnow.myfarmcrop.models.FertilizerCalculationException;
+
+
+import java.util.HashMap;
 
 public class CropFertilizerCalculator {
     CropItem crop;
-    String cropId;
     String units;
     float area;
     float nitrogenComposition;
     float potassiumComposition;
     float phosphateComposition;
-
     float npkPrice;
     float potassicPrice;
     float nitrogenousPrice;
 
     CropFertilizer npkFertilizer, potassicFertilizer, nitrogenousFertilizer;
+    HashMap <String,Double> solution = null;
     private static final CropFertilizerCalculator ourInstance = new CropFertilizerCalculator();
 
     public static CropFertilizerCalculator getInstance() {
@@ -26,13 +33,6 @@ public class CropFertilizerCalculator {
     private CropFertilizerCalculator() {
     }
 
-    public String getCropId() {
-        return cropId;
-    }
-
-    public void setCropId(String cropId) {
-        this.cropId = cropId;
-    }
 
     public String getUnits() {
         return units;
@@ -56,6 +56,7 @@ public class CropFertilizerCalculator {
 
     public void setNitrogenComposition(float nitrogenComposition) {
         this.nitrogenComposition = nitrogenComposition;
+        resetComputation();
     }
 
     public float getPotassiumComposition() {
@@ -64,6 +65,7 @@ public class CropFertilizerCalculator {
 
     public void setPotassiumComposition(float potassiumComposition) {
         this.potassiumComposition = potassiumComposition;
+        resetComputation();
     }
 
     public float getPhosphateComposition() {
@@ -72,6 +74,7 @@ public class CropFertilizerCalculator {
 
     public void setPhosphateComposition(float phosphateComposition) {
         this.phosphateComposition = phosphateComposition;
+        resetComputation();
     }
 
     public float getNpkPrice() {
@@ -104,6 +107,7 @@ public class CropFertilizerCalculator {
 
     public void setNpkFertilizer(CropFertilizer npkFertilizer) {
         this.npkFertilizer = npkFertilizer;
+        resetComputation();
     }
 
     public CropFertilizer getPotassicFertilizer() {
@@ -112,6 +116,7 @@ public class CropFertilizerCalculator {
 
     public void setPotassicFertilizer(CropFertilizer potassicFertilizer) {
         this.potassicFertilizer = potassicFertilizer;
+        resetComputation();
     }
 
     public CropFertilizer getNitrogenousFertilizer() {
@@ -120,6 +125,7 @@ public class CropFertilizerCalculator {
 
     public void setNitrogenousFertilizer(CropFertilizer nitrogenousFertilizer) {
         this.nitrogenousFertilizer = nitrogenousFertilizer;
+        resetComputation();
     }
 
     public CropItem getCrop() {
@@ -128,5 +134,153 @@ public class CropFertilizerCalculator {
 
     public void setCrop(CropItem crop) {
         this.crop = crop;
+    }
+
+    public boolean isCalculationPossible(){
+        return determineMissingNutrient() ==-1;
+    }
+
+    public int determineMissingNutrient(){
+
+        float nitrogen =0;
+        float phosphate =0;
+        float potassium =0;
+        if(npkFertilizer != null){
+            nitrogen+=npkFertilizer.getnPercentage();
+            phosphate+=npkFertilizer.getpPercentage();
+            potassium+=npkFertilizer.getkPercentage();
+        }
+        if(nitrogenousFertilizer != null){
+            nitrogen+=nitrogenousFertilizer.getnPercentage();
+            phosphate+=nitrogenousFertilizer.getpPercentage();
+            potassium+=nitrogenousFertilizer.getkPercentage();
+        }
+        if(potassicFertilizer != null){
+            nitrogen+=potassicFertilizer.getnPercentage();
+            phosphate+=potassicFertilizer.getpPercentage();
+            potassium+=potassicFertilizer.getkPercentage();
+        }
+        System.out.println("Phosphate: "+phosphate+" : "+nitrogen+" : "+potassium);
+        if(nitrogen ==0 && nitrogenComposition >0){
+            return R.string.no_nitrgen_selected;
+        }else if(phosphate ==0 && phosphateComposition >0){
+            return R.string.no_phosphate_seleceted;
+        }
+        else if(potassium ==0 && potassiumComposition >0){
+            return R.string.no_potassium_selected;
+        }
+
+
+
+        return -1;
+    }
+
+    private double[][] generateMatrix(){
+        double nitrogen[] = new double[4];
+        double phosphate[]= new double[4];
+        double potassium[]= new double[4];
+
+        //get  compositions
+        if(getNpkFertilizer() != null){
+            nitrogen[0] =getNpkFertilizer().getnPercentage();
+            phosphate[0] =getNpkFertilizer().getpPercentage();
+            potassium[0] =getNpkFertilizer().getkPercentage();
+        }
+        else{
+            nitrogen[0] =0;
+            phosphate[0] =0;
+            potassium[0] =0;
+        }
+        if(getNitrogenousFertilizer() != null){
+            nitrogen[1] =getNitrogenousFertilizer().getnPercentage();
+            phosphate[1] =getNitrogenousFertilizer().getpPercentage();
+            potassium[1] =getNitrogenousFertilizer().getkPercentage();
+        }
+        else{
+            nitrogen[1] =0;
+            phosphate[1] =0;
+            potassium[1] =0;
+        }
+        if(getPotassicFertilizer() != null){
+            nitrogen[2] =getPotassicFertilizer().getnPercentage();
+            phosphate[2] =getPotassicFertilizer().getpPercentage();
+            potassium[2] =getPotassicFertilizer().getkPercentage();
+        }
+        else{
+            nitrogen[2] =0;
+            phosphate[2] =0;
+            potassium[2] =0;
+        }
+
+        //total
+        nitrogen[3] =nitrogenComposition;
+        phosphate[3] =phosphateComposition;
+        potassium[3] =potassiumComposition;
+
+        return new double[][]{
+                nitrogen,
+                phosphate,
+                potassium
+        };
+    }
+
+    public HashMap calculateQuantities(){
+        Echelon3DEquationsCalculator calculator = new Echelon3DEquationsCalculator(generateMatrix(),3,4);
+        return calculator.solveEquation();
+    }
+
+    public double computeTotalCost() throws FertilizerCalculationException {
+        return computeNitrogenousCost()+computePotassicCost()+computeNpkCost();
+    }
+
+    public double computeNpkCost() throws FertilizerCalculationException{
+        return computeNpkQuantity()*npkPrice;
+    }
+    public double computePotassicCost() throws FertilizerCalculationException{
+        return computePotassicQuantity()*potassicPrice;
+    }
+    public double computeNitrogenousCost() throws FertilizerCalculationException{
+        return computeNitrogenousQuantity()*nitrogenousPrice;
+    }
+    public double computeNpkQuantity() throws FertilizerCalculationException{
+        if (solution == null){
+            solution = calculateQuantities();
+            if (solution == null){
+                throw new FertilizerCalculationException("Error in Calculations");
+            }
+
+        }
+
+        return Math.round(solution.get("x")*area*100)/100;
+
+
+    }
+    public double computePotassicQuantity() throws FertilizerCalculationException{
+        if (solution == null){
+            solution = calculateQuantities();
+            if (solution == null){
+                throw new FertilizerCalculationException("Error in Calculations");
+            }
+
+        }
+
+        return Math.round(solution.get("z")*area*100)/100;
+
+    }
+    public double computeNitrogenousQuantity() throws FertilizerCalculationException{
+        if (solution == null){
+            solution = calculateQuantities();
+            if (solution == null){
+                throw new FertilizerCalculationException("Error in Calculations");
+            }
+
+        }
+
+        return Math.round(solution.get("y")*area*100)/100;
+
+    }
+
+    public void resetComputation(){
+        solution=null;
     }
 }
