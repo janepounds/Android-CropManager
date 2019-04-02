@@ -102,6 +102,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
                             android:textColor="@color/blackText"
+                            android:hint="Enter.."
                             android:textSize="14sp" />
                     </LinearLayout>
                     <LinearLayout
@@ -125,6 +126,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
                             android:textColor="@color/blackText"
+                            android:inputType="none"
+                            android:hint="Select"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -554,7 +557,7 @@
                     android:layout_height="80dp"
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
-                    android:text="Enter.." />
+                    android:hint="Enter.." />
 
             </LinearLayout>
 
@@ -580,7 +583,7 @@
                     android:layout_height="80dp"
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
-                    android:text="Enter.." />
+                    android:hint="Enter.." />
 
             </LinearLayout>
             <LinearLayout

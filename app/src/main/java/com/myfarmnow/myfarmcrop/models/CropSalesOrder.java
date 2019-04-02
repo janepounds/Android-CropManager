@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class CropSalesOrder implements Serializable{
      String  id;
      String  userId;
-     String  customerId;;
+     String  customerId;
      String  number;
      String  date;
      String  shippingDate;

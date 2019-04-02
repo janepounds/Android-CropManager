@@ -146,14 +146,7 @@ public class CropDashboardActivity extends AppCompatActivity {
                 startActivity(openTasks);
             }
         });
-        weatherForecastLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Intent openTasks = new Intent(CropDashboardActivity.this, CropPurchaseOrderManagerActivity.class);
-                startActivity(openTasks);*/
-                openCalculators(v);
-            }
-        });
+
 
 
 
@@ -286,6 +279,19 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropPaymentsListActivity.class);
         startActivity(openList);
     }
+    public void openPurchaseOrdersList(View view){
+        Intent openList = new Intent(this, CropPurchaseOrdersListActivity.class);
+        startActivity(openList);
+    }
+    public void openBillsList(View view){
+        Intent openList = new Intent(this, CropBillsListActivity.class);
+        startActivity(openList);
+    }
+    public void openBillPaymentsList(View view){
+        Intent openList = new Intent(this, CropPaymentBillsListActivity.class);
+        startActivity(openList);
+    }
+
     public void openCalculators(View view){
         Intent openList = new Intent(this, CropCalculatorsActivity.class);
         startActivity(openList);
@@ -300,6 +306,11 @@ public class CropDashboardActivity extends AppCompatActivity {
         LinearLayout slesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
 
         toggleVisibility(slesSubMenu);
+    }
+    public void showPurchasesManager(View view){
+        LinearLayout purchasesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_purchases_submenus);
+
+        toggleVisibility(purchasesSubMenu);
     }
     public void showHideFieldManager(View view){
         LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);

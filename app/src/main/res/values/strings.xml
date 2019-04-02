@@ -874,7 +874,7 @@
     <string name="product_manager">Product Manager</string>
     <string name="field_manager_menu_item">Fields</string>
     <string name="crop_manager_menu_item">Crops</string>
-    <string name="invetory_manager_menu_item">Invetory</string>
+    <string name="inventory_manager_menu_item">Inventory</string>
     <string name="contact_manager_menu_item">Contacts</string>
     <string name="title_activity_crop_verify_phone_number">Verify Account</string>
     <string name="didn_t_receive_code_resend">Didn\'t Receive Code? <u>Resend.</u></string>
@@ -886,8 +886,15 @@
     <string name="purchase_order_no_items_added">No Items added to the Purchase Order</string>
     <string name="bill_number">Bill #</string>
     <string name="order_number">Order Number</string>
-    <string name="bill_date">Biil Date</string>
+    <string name="bill_date">Bill Date</string>
     <string name="terms">Terms</string>
+    <string name="paid_through">Paid Through</string>
+    <string name="label_convert_to_bill">Convert to Bill</string>
+    <string name="supplier_not_selected">You must select Supplier Name</string>
+    <string name="preview_bill">Preview Bill</string>
+    <string name="payment_made_not_entered_message">You must enter Payment Made</string>
+    <string name="select_bill">Select Bill</string>
+
     <string name="title_activity_crop_roistep1">Revenue Calculator- Step 1</string>
     <string name="title_activity_crop_roistep2">Revenue Calculator- Step 2</string>
     <string name="herbicide">Herbicide</string>
@@ -930,4 +937,5 @@
     <string name="no_potassium_selected">The fertilizers selected have no Potassium</string>
     <string name="title_activity_crop_fertilizer_calculator_results">Fertilizer Results</string>
     <string name="title_activity_crop_calculators">Calculators</string>
+
 </resources>

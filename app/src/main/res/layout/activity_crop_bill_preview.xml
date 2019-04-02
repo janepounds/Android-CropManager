@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CropPurchaseOrderPreviewActivity">
+    android:orientation="vertical"
+    tools:context=".activities.CropBillPreviewActivity">
+
     <ScrollView
-        android:id="@+id/scroll_view_purchase_order_summary"
+        android:id="@+id/scroll_view_bill_summary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
         <LinearLayout
-            android:id="@+id/layout_purchase_order_summary"
+            android:id="@+id/layout_bill_summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -27,14 +29,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/text_view_crop_purchase_order_summary_customer_company"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Karlin Farms"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mbarara"/>
+                        android:text="Namungona"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -42,7 +44,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kampala, Uganda"/>
+                            android:text="Kampala"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Uganda"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -59,47 +65,34 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
-                                android:text="PURCHASE ORDER"/>
+                                android:text="BILL"/>
 
                             <TextView
-                                android:id="@+id/text_view_crop_purchase_order_summary_number"
+                                android:id="@+id/text_view_crop_bill_preview_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
-                                android:text="#P0-0001"/>
+                                android:text="#BL-0001"/>
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="Balance Due"/>
+                            <TextView
+                                android:id="@+id/text_view_crop_bill_balance_due"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="UGX 367283"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Supplier Address"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:id="@+id/text_view_purchase_order_summary_supplier_company"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Adam Farms Ltd"/>
-                <TextView
-                    android:id="@+id/text_view_purchase_order_summary_supplier_street"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kyambogo"/>
-
-                <TextView
-                    android:id="@+id/text_view_purchase_order_summary_supplier_city_country"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kampala, Uganda"/>
-
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,21 +110,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Deliver To"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/text_view_purchase_order_summary_customer_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Karlin Jeff" />
+                        android:text="Bill From" />
 
 
                     <TextView
-                        android:id="@+id/text_view_purchase_order_summary_customer_street"
+                        android:id="@+id/text_view_bill_preview_supplier_company"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mbarara University" />
+                        android:text="Kleiner Parkers Farm" />
+
+                    <TextView
+                        android:id="@+id/text_view_bill_preview_supplier_street"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nevada City" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -139,10 +131,10 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/text_view_purchase_order_summary_customer_city_country"
+                            android:id="@+id/text_view_bill_preview_supplier_city_country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kampala, Uganda" />
+                            android:text="Karlin Farms" />
 
                     </LinearLayout>
 
@@ -159,24 +151,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Shipment Preference :" />
-
-                            <TextView
-                                android:id="@+id/text_view_crop_purchase_order_summary_delivery_method"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="DHL Delivery" />
-                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -187,53 +161,71 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Purchase Date :" />
+                                android:text="Order Number :" />
 
                             <TextView
-                                android:id="@+id/text_view_crop_purchase_order_summary_purchase_date"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="08-03-2019" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Delivery Date :" />
-
-                            <TextView
-                                android:id="@+id/text_view_crop_purchase_order_summary_delivery_date"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-
-                                android:text="20-03-2019" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Ref # :" />
-
-                            <TextView
-                                android:id="@+id/text_view_crop_purchase_order_summary_reference_number"
+                                android:id="@+id/text_view_crop_bill_preview_order_number"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0001" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/invoice_terms_label" />
+
+                            <TextView
+                                android:id="@+id/text_view_crop_bill_preview_bill_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="2019-03-20" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/invoice_due_date" />
+
+                            <TextView
+                                android:id="@+id/text_view_crop_bill_preview_due_date"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="2019-04-20" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Terms :" />
+
+                            <TextView
+                                android:id="@+id/text_view_crop_bill_preview_terms"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Net 30" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -399,7 +391,7 @@
 
                     <TextView
 
-                        android:id="@+id/txt_view_crop__purchase_order_summary_sub_total"
+                        android:id="@+id/txt_view_crop_bill_preview_sub_total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -437,7 +429,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txt_view_crop__purchase_order_summary_discount"
+                            android:id="@+id/txt_view_crop_bill_preview_discount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="end"
@@ -452,9 +444,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_shapes"
                     android:orientation="horizontal">
+
+
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="40dp"
@@ -466,7 +460,59 @@
 
                     <TextView
 
-                        android:id="@+id/txt_view_crop_purchase_order_summary_total"
+                        android:id="@+id/txt_view_crop_bill_preview_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/default_numeric_value" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="40dp"
+                        android:text="@string/payment_made_label"
+
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+
+                        android:id="@+id/txt_view_crop_bill_preview_payment_made"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textColor="@color/red"
+                        android:text="@string/default_numeric_value" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_shapes"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="40dp"
+                        android:text="Balance Due"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+
+                        android:id="@+id/txt_view_crop_bill_preview_balance_due"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -474,12 +520,11 @@
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
+
             <TextView
-                android:id="@+id/text_view_crop_purchase_order_summary_notes"
+                android:id="@+id/txt_view_crop_bill_preview_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -487,16 +532,15 @@
                 android:textSize="16sp"
                 android:text="Notes" />
             <TextView
-                android:id="@+id/text_view_crop_purchase_order_summary_terms"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="Terms And Conditions" />
+                android:text="@string/thank_you_for_your_business" />
 
 
         </LinearLayout>
     </ScrollView>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

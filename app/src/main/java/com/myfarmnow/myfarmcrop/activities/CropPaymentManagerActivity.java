@@ -31,7 +31,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
     Spinner customersSp,invoiceSp, paymentModeSp;
     EditText dateTxt,amountTxt, referenceNumberTxt,notesTxt;
     TextView paymentNumberTxt;
-    CropPayment cropPayment;
+    CropPayment cropPayment=null;
     Button saveBtn;
     String submittedInvoiceId;
     @Override
@@ -41,8 +41,8 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(getIntent().hasExtra("invoiceId")){
-            submittedInvoiceId = getIntent().getStringExtra("invoiceId");
+        if(getIntent().hasExtra("cropPayment")){
+            cropPayment = (CropPayment)getIntent().getSerializableExtra("cropPayment");
         }
         initializeForm();
     }

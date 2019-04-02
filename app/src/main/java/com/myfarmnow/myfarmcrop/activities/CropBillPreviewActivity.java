@@ -11,15 +11,14 @@ import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -32,9 +31,9 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropPreviewItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropCustomer;
-import com.myfarmnow.myfarmcrop.models.CropInvoice;
+import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,95 +41,92 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class CropInvoicePreviewActivity extends AppCompatActivity {
+import static com.myfarmnow.myfarmcrop.activities.CropInvoicePreviewActivity.loadBitmapFromView;
 
+public class CropBillPreviewActivity extends AppCompatActivity {
 
     CropPreviewItemListRecyclerAdapter itemListRecyclerAdapter;
     RecyclerView itemListRecyclerView;
     LinearLayoutManager linearLayoutManager;
     ScrollView summaryScrollView;
-    CropInvoice cropInvoice;
-    CropCustomer cropCustomer;
+    CropBill cropBill;
+    CropSupplier cropSupplier;
     Bitmap bitmap;
-    TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
-    termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,referenceTextView,
-    customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
+    TextView subTotalTextView, totalTextView,discountAmountTextView,numberTextView, billDateTextView,notesTextView,
+            termsTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,
+            supplierNameTextView, supplierCompanyTextView, supplierCityCountryTextView, supplierStreetTextView;
     private static final int PERMISSION_REQUEST_CODE = 1;
-    public static final int INVOICE_ACTION_DOWNLOAD = 134;
-    public static final int INVOICE_ACTION_EMAIL = 124;
-    public static final int INVOICE_ACTION_PREVIEW= 114;
+    public static final int BILL_ACTION_DOWNLOAD = 134;
+    public static final int BILL_ACTION_EMAIL = 124;
+    public static final int BILL_ACTION_PREVIEW= 114;
     MyFarmDbHandlerSingleton dbHandler;
-    
+
     int action;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop_invoice_preview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_crop_bill_preview);
 
-        if(getIntent().hasExtra("cropInvoice")){
-            cropInvoice = (CropInvoice) getIntent().getSerializableExtra("cropInvoice");
+        if(getIntent().hasExtra("cropBill")){
+            cropBill = (CropBill) getIntent().getSerializableExtra("cropBill");
         }
 
-        action = getIntent().getIntExtra("action",INVOICE_ACTION_PREVIEW);
+        action = getIntent().getIntExtra("action",BILL_ACTION_PREVIEW);
         initializeView();
 
-      
     }
-    
+
     public void initializeView(){
 
 
-        subTotalTextView = findViewById(R.id.txt_view_crop_estimate_sub_total);
-        customerNameTextView = findViewById(R.id.text_view_invoice_summary_customer_name);
-        customerCompanyTextView = findViewById(R.id.text_view_invoice_summary_customer_company);
-        cityCountryTextView = findViewById(R.id.text_view_invoice_summary_city_country);
-        streetTextView = findViewById(R.id.text_view_invoice_summary_customer_street);
-        totalTextView = findViewById(R.id.txt_view_crop_estimate_total);
-        discountAmountTextView = findViewById(R.id.txt_view_crop_estimate_discount);
-        shippingChargesTextView = findViewById(R.id.txt_view_crop_estimate_shipping_charges);
-        numberTextView = findViewById(R.id.text_view_crop_invoice_estimate_number);
-        dateTextView = findViewById(R.id.text_view_crop_invoice_estimate_summary_date);
-        termsTextView = findViewById(R.id.text_view_crop_invoice_estimate_terms);
-        balanceTextView = findViewById(R.id.text_view_crop_invoice_balance);
-        balanceDueTextView = findViewById(R.id.txt_view_crop_invoice_balance_due);
-        paymentMadeTextView = findViewById(R.id.txt_view_crop_invoice_payment_made);
-        dueDateTextView = findViewById(R.id.text_view_crop_invoice_due_date);
-        orderNumberTextView = findViewById(R.id.text_view_crop_invoice_order_number);
-        summaryScrollView = findViewById(R.id.scroll_view_invoice_summary);
+        subTotalTextView = findViewById(R.id.txt_view_crop_bill_preview_sub_total);
+        supplierCompanyTextView = findViewById(R.id.text_view_bill_preview_supplier_company);
+        supplierCityCountryTextView = findViewById(R.id.text_view_bill_preview_supplier_city_country);
+        supplierStreetTextView = findViewById(R.id.text_view_bill_preview_supplier_street);
+        totalTextView = findViewById(R.id.txt_view_crop_bill_preview_total);
+        discountAmountTextView = findViewById(R.id.txt_view_crop_bill_preview_discount);
+        numberTextView = findViewById(R.id.text_view_crop_bill_preview_number);
+        billDateTextView = findViewById(R.id.text_view_crop_bill_preview_bill_date);
+        termsTextView = findViewById(R.id.text_view_crop_bill_preview_terms);
+        balanceDueTextView = findViewById(R.id.txt_view_crop_bill_preview_balance_due);
+        paymentMadeTextView = findViewById(R.id.txt_view_crop_bill_preview_payment_made);
+        dueDateTextView = findViewById(R.id.text_view_crop_bill_preview_due_date);
+        orderNumberTextView = findViewById(R.id.text_view_crop_bill_preview_order_number);
+        notesTextView = findViewById(R.id.txt_view_crop_bill_preview_notes);
+
+        summaryScrollView = findViewById(R.id.scroll_view_bill_summary);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
 
-        ArrayList<CropProductItem> customersList = new ArrayList<>();
-        for(CropProductItem x: cropInvoice.getItems()){
-            customersList.add(x);
+        ArrayList<CropProductItem> suppliersList = new ArrayList<>();
+        for(CropProductItem x: cropBill.getItems()){
+            suppliersList.add(x);
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        itemListRecyclerAdapter = new CropPreviewItemListRecyclerAdapter(this,customersList);
+        itemListRecyclerAdapter = new CropPreviewItemListRecyclerAdapter(this,suppliersList);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
-        cropCustomer = dbHandler.getCropCustomer(cropInvoice.getCustomerId());
-        if(cropCustomer == null){
+        cropSupplier = dbHandler.getCropSupplier(cropBill.getSupplierId());
+        if(cropSupplier == null){
             finish();
         }
-        subTotalTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeSubTotal()));
-        totalTextView.setText( NumberFormat.getInstance().format(cropInvoice.computeTotal()));
-        shippingChargesTextView.setText(NumberFormat.getInstance().format(cropInvoice.getShippingCharges()));
-        discountAmountTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeDiscount()));
-        balanceDueTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeBalance()));
-        balanceTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeBalance()));
-        paymentMadeTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeTotalPayments()));
-        numberTextView.setText("#"+cropInvoice.getNumber());
-        dateTextView.setText(cropInvoice.getDate());
-        dueDateTextView.setText(cropInvoice.getDueDate());
-        termsTextView.setText(cropInvoice.getTerms());
-        orderNumberTextView.setText(cropInvoice.getOrderNumber());
-        customerNameTextView.setText(cropCustomer.getName());
-        cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+" , "+cropCustomer.getBillingCountry());
-        streetTextView.setText(cropCustomer.getBillingStreet());
-        customerCompanyTextView.setText(cropCustomer.getCompany());
+        subTotalTextView.setText(NumberFormat.getInstance().format(cropBill.computeSubTotal()));
+        totalTextView.setText( NumberFormat.getInstance().format(cropBill.computeTotal()));
+        discountAmountTextView.setText(NumberFormat.getInstance().format(cropBill.computeDiscount()));
+        balanceDueTextView.setText(NumberFormat.getInstance().format(cropBill.computeBalance()));
+        paymentMadeTextView.setText(NumberFormat.getInstance().format(cropBill.computeTotalPayments()));
+        numberTextView.setText("#"+cropBill.getNumber());
+        billDateTextView.setText(cropBill.getBillDate());
+        dueDateTextView.setText(cropBill.getDueDate());
+        termsTextView.setText(cropBill.getTerms());
+        orderNumberTextView.setText(cropBill.getOrderNumber());
+        supplierNameTextView.setText(cropSupplier.getName());
+        supplierCityCountryTextView.setText(cropSupplier.getInvoiceCityOrTown()+" , "+cropSupplier.getInvoiceCountry());
+        supplierStreetTextView.setText(cropSupplier.getInvoiceStreet());
+        supplierCompanyTextView.setText(cropSupplier.getCompany());
+        notesTextView.setText(cropBill.getNotes());
 
         //TODO replace currencies with user settings
         //TODO replace date format with user settings format
@@ -146,7 +142,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
                 }
                 bitmap = loadBitmapFromView(summaryScrollView,2*summaryScrollView.getHeight(),3*summaryScrollView.getWidth());
 
-               // Log.d("HEIGHT ",summaryScrollView.getHeight()+": " +summaryScrollView.getMeasuredHeight());
+                // Log.d("HEIGHT ",summaryScrollView.getHeight()+": " +summaryScrollView.getMeasuredHeight());
                 if (checkPermission()){
                     createPdf();
                 }else{
@@ -160,7 +156,6 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
 
 
     }
-
     public static Bitmap loadBitmapFromView(View v, int width, int height) {
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
@@ -169,7 +164,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         return b;
     }
     private void createPdf(){
-      // = loadBitmapFromView(summaryScrollView,s)
+        // = loadBitmapFromView(summaryScrollView,s)
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         //  Display display = wm.getDefaultDisplay();
         DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -199,7 +194,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
             canvas.drawBitmap(bitmap, 0, 0 , null);
             document.finishPage(page);
 
-            File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropInvoice.getNumber() + ".pdf");
+            File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropBill.getNumber() + ".pdf");
             try {
                 document.writeTo(new FileOutputStream(filePath));
 
@@ -213,23 +208,23 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
             // close the document
             document.close();
 
-            if(action==INVOICE_ACTION_DOWNLOAD){
+            if(action==BILL_ACTION_DOWNLOAD){
                 openGeneratedPDF();
             }
-            else if (action==INVOICE_ACTION_EMAIL){
+            else if (action==BILL_ACTION_EMAIL){
                 openEmail();
             }
             else{
                 //do nothing
             }
-           
+
         }
 
 
     }
 
     private void openEmail(){
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropInvoice.getNumber() + ".pdf");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropBill.getNumber() + ".pdf");
         if (file.exists()) {
             Uri contentUri = Uri.fromFile(file);
             Intent mailIntent = new Intent(Intent.ACTION_SEND);
@@ -237,7 +232,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
             mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"robein@ymail.com"});
 
             mailIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice : "+cropInvoice.getOrderNumber());
+            mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice : "+cropBill.getOrderNumber());
             mailIntent.putExtra(Intent.EXTRA_TEXT, "Kindly Receive this invoice");
             mailIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
 
@@ -260,7 +255,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
     }
 
     private void openGeneratedPDF(){
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropInvoice.getNumber() + ".pdf");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropBill.getNumber() + ".pdf");
         if (file.exists())
         {
             Log.d("YEY","ENTERED");
@@ -327,12 +322,6 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         }
     }
 
+
+
 }
-
-
-
-
-
-
-
-

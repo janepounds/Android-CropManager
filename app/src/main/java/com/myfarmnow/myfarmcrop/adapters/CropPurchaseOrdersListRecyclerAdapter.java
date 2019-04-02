@@ -17,7 +17,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropBillManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrderManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrderPreviewActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
 
@@ -125,10 +128,39 @@ public class CropPurchaseOrdersListRecyclerAdapter extends RecyclerView.Adapter<
                                 editPurchaseOrder.putExtra("cropPurchaseOrder",cropPurchaseOrder);
                                 mContext.startActivity(editPurchaseOrder);
                             }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_convert_to_bill))){
+                                CropPurchaseOrder cropPurchaseOrder = cropPurchaseOrdersList.get(getAdapterPosition());
+                                Intent recordPayment = new Intent(mContext, CropBillManagerActivity.class);
+                                recordPayment.putExtra("cropPurchaseOrder",cropPurchaseOrder);
+                                mContext.startActivity(recordPayment);
+                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_receipt))){
+                                CropPurchaseOrder cropPurchaseOrder = cropPurchaseOrdersList.get(getAdapterPosition());
+                                Intent editPurchaseOrder = new Intent(mContext, CropPurchaseOrderPreviewActivity.class);
+                                editPurchaseOrder.putExtra("cropPurchaseOrder",cropPurchaseOrder);
+                                editPurchaseOrder.putExtra("action",CropPurchaseOrderPreviewActivity.BILL_ACTION_PREVIEW);
+                                mContext.startActivity(editPurchaseOrder);
+                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_dowloand_pdf))){
+                                CropPurchaseOrder cropPurchaseOrder = cropPurchaseOrdersList.get(getAdapterPosition());
+                                Intent editPurchaseOrder = new Intent(mContext, CropPurchaseOrderPreviewActivity.class);
+                                editPurchaseOrder.putExtra("cropPurchaseOrder",cropPurchaseOrder);
+                                editPurchaseOrder.putExtra("action",CropPurchaseOrderPreviewActivity.BILL_ACTION_DOWNLOAD);
+                                mContext.startActivity(editPurchaseOrder);
+                            }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_email))){
+                                CropPurchaseOrder cropPurchaseOrder = cropPurchaseOrdersList.get(getAdapterPosition());
+                                Intent editPurchaseOrder = new Intent(mContext, CropPurchaseOrderPreviewActivity.class);
+                                editPurchaseOrder.putExtra("cropPurchaseOrder",cropPurchaseOrder);
+                                editPurchaseOrder.putExtra("action",CropPurchaseOrderPreviewActivity.BILL_ACTION_EMAIL);
+                                mContext.startActivity(editPurchaseOrder);
+                            }
                             return true;
                         }
                     });
-
+                    popup.getMenu().add(R.string.label_preview_receipt);
+                    popup.getMenu().add(R.string.label_dowloand_pdf);
+                    popup.getMenu().add(R.string.label_email);
+                    popup.getMenu().add(R.string.label_share_link);
+                    popup.getMenu().add(R.string.label_convert_to_bill);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

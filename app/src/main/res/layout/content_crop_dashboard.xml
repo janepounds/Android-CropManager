@@ -566,7 +566,7 @@
                         android:id="@+id/layout_crop_dashboard_field_submenus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="50dp"
                         android:orientation="vertical"
                         android:visibility="gone">
 
@@ -622,16 +622,7 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
 
-                            <ImageView
 
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
 
@@ -690,7 +681,7 @@
                         android:id="@+id/layout_crop_dashboard_crops_submenus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="50dp"
                         android:orientation="vertical"
                         android:visibility="gone">
 
@@ -745,16 +736,7 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
 
-                            <ImageView
 
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
 
@@ -793,7 +775,7 @@
                             android:paddingBottom="5dp"
                             android:paddingLeft="5dp"
                             android:paddingTop="5dp"
-                            android:text="@string/invetory_manager_menu_item"
+                            android:text="@string/inventory_manager_menu_item"
                             android:textColor="#ffffff"
                             android:textSize="15dp"/>
 
@@ -813,7 +795,7 @@
                         android:id="@+id/layout_crop_dashboard_inventory_submenus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="50dp"
                         android:orientation="vertical"
                         android:visibility="gone">
 
@@ -870,16 +852,6 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
 
-                            <ImageView
-
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
 
@@ -938,7 +910,7 @@
                         android:id="@+id/layout_crop_dashboard_contact_submenus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="50dp"
                         android:orientation="vertical"
                         android:visibility="gone">
 
@@ -996,16 +968,6 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
 
-                            <ImageView
-
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
 
@@ -1065,7 +1027,7 @@
                         android:id="@+id/layout_crop_dashboard_financial_submenus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="50dp"
                         android:orientation="vertical"
                         android:visibility="gone">
 
@@ -1124,16 +1086,6 @@
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
 
-                            <ImageView
-
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
                         <LinearLayout
@@ -1161,17 +1113,6 @@
                                 android:text="Suppliers"
                                 android:textColor="#ffffff"
                                 android:textSize="15dp"/>
-
-                            <ImageView
-
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:gravity="center_vertical"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_white"
-                                />
 
                         </LinearLayout>
                         <LinearLayout
@@ -1277,16 +1218,7 @@
                                         android:textColor="#ffffff"
                                         android:textSize="15dp"/>
 
-                                    <ImageView
 
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginLeft="15dp"
-                                        android:gravity="center_vertical"
-                                        android:padding="8dp"
-                                        android:src="@drawable/right_arrow_white"
-                                        />
 
                                 </LinearLayout>
                                 <LinearLayout
@@ -1404,6 +1336,144 @@
 
 
                                 </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="0dp"
+                                android:paddingBottom="5dp"
+                                android:paddingTop="5dp"
+                                android:onClick="showPurchasesManager">
+
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical|left"
+                                    android:paddingBottom="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingTop="5dp"
+                                    android:text="Purchases"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15dp"/>
+
+                                <ImageView
+
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:gravity="center_vertical"
+                                    android:padding="8dp"
+                                    android:src="@drawable/right_arrow_white"
+                                    />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/layout_crop_dashboard_financial_purchases_submenus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openPurchaseOrdersList"
+                                    android:paddingTop="5dp">
+
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Purchase Order"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openBillsList"
+                                    android:paddingTop="5dp">
+
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Bills"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="0dp"
+                                    android:paddingBottom="5dp"
+                                    android:onClick="openBillPaymentsList"
+                                    android:paddingTop="5dp">
+
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/iv_icon"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical|left"
+                                        android:paddingBottom="5dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingTop="5dp"
+                                        android:text="Payments Made"
+                                        android:textColor="#ffffff"
+                                        android:textSize="15dp"/>
+
+
+                                </LinearLayout>
+
+
                             </LinearLayout>
                         </LinearLayout>
 

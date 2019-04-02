@@ -137,10 +137,6 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
                             return true;
                         }
                     });
-                    popup.getMenu().add(R.string.label_preview_receipt);
-                    popup.getMenu().add(R.string.label_dowloand_pdf);
-                    popup.getMenu().add(R.string.label_email);
-                    popup.getMenu().add(R.string.label_share_link);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

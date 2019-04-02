@@ -68,8 +68,6 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_purchase_order_preview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         if(getIntent().hasExtra("cropPurchaseOrder")){
             cropPurchaseOrder = (CropPurchaseOrder) getIntent().getSerializableExtra("cropPurchaseOrder");
@@ -115,10 +113,12 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
-        cropSupplier = dbHandler.getCropSupplier(cropPurchaseOrder.getId());
+        cropSupplier = dbHandler.getCropSupplier(cropPurchaseOrder.getSupplierId());
         if(cropSupplier == null){
             finish();
         }
+
+
         subTotalTextView.setText(NumberFormat.getInstance().format(cropPurchaseOrder.computeSubTotal()));
         totalTextView.setText( NumberFormat.getInstance().format(cropPurchaseOrder.computeTotal()));
         discountAmountTextView.setText(NumberFormat.getInstance().format(cropPurchaseOrder.computeDiscount()));
@@ -126,12 +126,15 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         purchaseOrderNumberTextView.setText("#"+cropPurchaseOrder.getNumber());
         deliveryDateTextView.setText(cropPurchaseOrder.getDeliveryDate());
         purchaseDateTextView.setText(cropPurchaseOrder.getPurchaseDate());
-        customerNameTextView.setText(cropCustomer.getName());
+        notesTextView.setText(cropPurchaseOrder.getNotes());
+        termsTextView.setText(cropPurchaseOrder.getTermsAndConditions());
+        /*customerNameTextView.setText(cropCustomer.getName());
         customerCityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+","+cropCustomer.getBillingCountry());
         customerStreetTextView.setText(cropCustomer.getBillingStreet());
-        customerCompanyTextView.setText(cropCustomer.getCompany());
 
-        supplierCityCountryTextView.setText(cropSupplier.getInvoiceCityOrTown()+","+cropSupplier.getInvoiceCountry());
+        customerCompanyTextView.setText(cropCustomer.getCompany());*/
+
+        supplierCityCountryTextView.setText(cropSupplier.getInvoiceCityOrTown()+" , "+cropSupplier.getInvoiceCountry());
         supplierStreetTextView.setText(cropSupplier.getInvoiceStreet());
         supplierCompanyTextView.setText(cropSupplier.getCompany());
 
