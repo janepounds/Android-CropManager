@@ -227,6 +227,40 @@
             android:name=".activities.CropROIStep1Activity"
             android:label="@string/title_activity_crop_roistep1"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.CropROIStep2Activity"
+            android:label="@string/title_activity_crop_roistep2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropROIStep3Activity"
+            android:label="@string/title_activity_crop_roistep3"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropROIStep4Activity"
+            android:label="@string/title_activity_crop_roistep4"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropROIStep5Activity"
+            android:label="@string/title_activity_crop_roistep5"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropROIResultsActivity"
+            android:label="@string/title_activity_crop_roiresults"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropFertilizerCalculatorEntryActivity"
+            android:label="@string/title_activity_crop_fertilizer_calculator_entry"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropFertilizerCalculatorResults"
+            android:label="@string/title_activity_crop_fertilizer_calculator_results"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropCalculatorsActivity"
+            android:label="@string/title_activity_crop_calculators"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

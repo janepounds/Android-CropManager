@@ -12,14 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,12 +27,7 @@ import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.NavigationAdapterExpand;
-import com.myfarmnow.myfarmcrop.models.CropEmployee;
-import com.myfarmnow.myfarmcrop.models.CropField;
-import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
-import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -153,13 +146,7 @@ public class CropDashboardActivity extends AppCompatActivity {
                 startActivity(openTasks);
             }
         });
-        weatherForecastLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openTasks = new Intent(CropDashboardActivity.this, CropPurchaseOrdersListActivity.class);
-                startActivity(openTasks);
-            }
-        });
+
 
 
 
@@ -266,6 +253,12 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropSuppliersListActivity.class);
         startActivity(openList);
     }
+
+    public void openFertilizerCalculator(View view){
+        //CropFertilizerCalculatorEntryActivity
+        Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
+        startActivity(openList);
+    }
     public void openSalesOrderList(View view){
         Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
         startActivity(openList);
@@ -298,6 +291,12 @@ public class CropDashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropPaymentBillsListActivity.class);
         startActivity(openList);
     }
+
+    public void openCalculators(View view){
+        Intent openList = new Intent(this, CropCalculatorsActivity.class);
+        startActivity(openList);
+    }
+
     public void showHideFinancialManager(View view){
         LinearLayout financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
 
@@ -333,6 +332,7 @@ public class CropDashboardActivity extends AppCompatActivity {
 
         toggleVisibility(contactsSubMenu);
     }
+
 
 
     public void toggleVisibility(View view){
@@ -418,6 +418,7 @@ public class CropDashboardActivity extends AppCompatActivity {
        // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), context);
 
     }
+
 
 
 }

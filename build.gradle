@@ -3,6 +3,16 @@
 buildscript {
     
     repositories {
+        maven {
+
+            name 'Google'
+            url 'https://maven.fabric.io/public'
+            mavenCentral()
+
+
+
+
+        }
         google()
         jcenter()
         //mavenCentral()
@@ -23,19 +33,22 @@ buildscript {
 }
 
 allprojects {
-   /* ext{
-        androidApplicationId= 'com.medikoe.connect'
-        androidVersionCode= 23
-        androidVersionName="1.7.2"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-        testApplicationId='com.medikoe.test'
-
-    }*/
 
 
     repositories {
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        maven {
+            url "https://highsoft.bintray.com/Highcharts"
+        }
+
+
     }
 }
 

@@ -4,8 +4,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.myfarmnow.myfarmcrop"
+
         minSdkVersion 18
         targetSdkVersion 27
+
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,6 +27,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
+
+    implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
@@ -35,6 +39,7 @@ dependencies {
     implementation 'com.sun.mail:android-activation:1.5.5'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.highsoft.highcharts:highcharts:7.0.1'
     implementation('org.apache.httpcomponents:httpmime:4.3.6') {
         exclude module: 'httpclient'
     }

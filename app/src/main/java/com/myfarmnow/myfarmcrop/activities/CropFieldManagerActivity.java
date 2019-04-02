@@ -125,8 +125,6 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         }
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public boolean validateEntries(){
         String message = null;
         if(fieldNameTxt.getText().toString().isEmpty()){
