@@ -13,14 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".activities.CropPaymentBillManagerActivity"></activity>
-        <activity android:name=".activities.CropBillPreviewActivity" />
-
-        <activity android:name=".activities.CropBillManagerActivity" />
-        <activity android:name=".activities.CropPurchaseOrderPreviewActivity" />
-        <activity android:name=".activities.CropPurchaseOrdersListActivity" />
-        <activity android:name=".activities.CropPurchaseOrderManagerActivity" />
+        <activity android:name=".activities.CropPaymentBillsListActivity"
+            android:label="Payments" />
+        <activity
+            android:name=".activities.CropBillsListActivity"
+            android:label="Bills" />
+        <activity
+            android:name=".activities.CropPaymentBillManagerActivity"
+            android:label="Bill Payment Manager" />
+        <activity
+            android:name=".activities.CropBillPreviewActivity"
+            android:label="Bill Preview" />
+        <activity
+            android:name=".activities.CropBillManagerActivity"
+            android:label="Bill Manager" />
+        <activity
+            android:name=".activities.CropPurchaseOrderPreviewActivity"
+            android:label="Purchase Order Preview" />
+        <activity
+            android:name=".activities.CropPurchaseOrdersListActivity"
+            android:label="Purchase Orders" />
+        <activity
+            android:name=".activities.CropPurchaseOrderManagerActivity"
+            android:label="Purchase Order Manager" />
         <activity
             android:name=".activities.CropTasksListActivity"
             android:label="Tasks" />
@@ -46,7 +61,7 @@
 
         <activity
             android:name=".activities.CropEmployeesListActivity"
-            android:label="Employees List" />
+            android:label="Employees" />
         <activity
             android:name=".activities.CropProductManagerActivity"
             android:label="@string/product_manager" />
@@ -211,7 +226,7 @@
         <activity
             android:name=".activities.CropROIStep1Activity"
             android:label="@string/title_activity_crop_roistep1"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

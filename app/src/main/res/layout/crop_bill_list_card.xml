@@ -71,7 +71,7 @@
 
 
                         <ImageView
-                            android:id="@+id/img_crop_purchase_order_card_more"
+                            android:id="@+id/img_crop_bill_card_more"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:backgroundTint="@color/black"

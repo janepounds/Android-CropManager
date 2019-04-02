@@ -179,7 +179,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
             purchase_orderItems.clear();
 
             for(CropProductItem x:itemListRecyclerAdapter.getItems()){
-                purchase_orderItems.add((CropProductItem)x);
+                purchase_orderItems.add(x);
             }
             cropPurchaseOrder.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
 
@@ -225,8 +225,8 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
             float subTotal = Float.parseFloat(subTotalTextView.getText().toString());
             float discount = computeDiscount();
             float total = subTotal-discount;
-           // discountAmountTxt.setText("-"+discount);
-            //totalAmountTxt.setText(total+"");
+           discountAmountTxt.setText("-"+discount);
+            totalAmountTxt.setText(total+"");
 
         }catch (Exception e){
 

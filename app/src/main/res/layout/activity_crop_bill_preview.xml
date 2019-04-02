@@ -68,7 +68,7 @@
                                 android:text="BILL"/>
 
                             <TextView
-                                android:id="@+id/text_view_crop_bill_number"
+                                android:id="@+id/text_view_crop_bill_preview_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
@@ -524,7 +524,7 @@
 
 
             <TextView
-
+                android:id="@+id/txt_view_crop_bill_preview_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -532,7 +532,7 @@
                 android:textSize="16sp"
                 android:text="Notes" />
             <TextView
-                android:id="@+id/txt_view_crop_bill_preview_notes"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

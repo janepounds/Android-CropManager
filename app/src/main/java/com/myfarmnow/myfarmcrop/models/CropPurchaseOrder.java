@@ -7,7 +7,7 @@ public class CropPurchaseOrder implements Serializable {
 
     String  id;
     String  userId;
-    String  supplierId;;
+    String  supplierId;
     String  number;
     String  purchaseDate;
     String  deliveryDate;

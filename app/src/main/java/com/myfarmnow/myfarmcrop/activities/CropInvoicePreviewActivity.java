@@ -81,11 +81,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
     }
     
     public void initializeView(){
-        //text_view_text_view_customer_city
-        //
-        //
-        //
-        //
+
 
         subTotalTextView = findViewById(R.id.txt_view_crop_estimate_sub_total);
         customerNameTextView = findViewById(R.id.text_view_invoice_summary_customer_name);

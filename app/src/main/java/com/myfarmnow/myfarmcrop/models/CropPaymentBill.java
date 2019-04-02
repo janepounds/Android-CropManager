@@ -12,6 +12,23 @@ public class CropPaymentBill implements Serializable {
     String  paidThrough;
     String  notes;
 
+    @Override
+    public String toString() {
+        return "CropPaymentBill{" +
+                "billId='" + billId + '\'' +
+                '}';
+    }
+
+    public String getBillId() {
+        return billId;
+    }
+
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
+
+    String  billId;
+
 
     public String getId() {
         return id;
