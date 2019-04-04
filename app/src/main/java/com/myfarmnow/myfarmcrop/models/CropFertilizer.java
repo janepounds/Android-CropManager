@@ -95,7 +95,7 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
 
     @Override
     public String toString() {
-        return fertilizerName;
+        return fertilizerName +getComposition();
     }
 
     public void setId(String id) {
