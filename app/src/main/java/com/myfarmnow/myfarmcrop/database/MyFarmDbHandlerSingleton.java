@@ -25,6 +25,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
+import com.myfarmnow.myfarmcrop.models.CropIrrigation;
 import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
@@ -37,6 +38,7 @@ import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.CropTask;
+import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 
 import java.util.ArrayList;
@@ -72,6 +74,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_BILL_TABLE_NAME ="crop_bill";
     public static final String CROP_ITEM_TABLE_NAME ="crop_item";
     public static final String CROP_FERTILIZER_TABLE_NAME ="crop_fertilizer";
+    public static final String CROP_IRRIGATION_TABLE_NAME ="crop_irrigation";
+    public static final String CROP_TRANSPLANTING_TABLE_NAME ="crop_transplanting";
 
 
 
@@ -432,6 +436,35 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_FERTILIZER_P_PERCENTAGE ="pPercentage";
     public static final String CROP_FERTILIZER_K_PERCENTAGE ="kPercentage";
 
+    public static final String CROP_IRRIGATION_ID ="id";
+    public static final String CROP_IRRIGATION_USER_ID ="userId";
+    public static final String CROP_IRRIGATION_FIELD_ID ="fieldId";
+    public static final String CROP_IRRIGATION_OPERATION_DATE ="date";
+    public static final String CROP_IRRIGATION_SYSTEM_RATE ="systemRate";
+    public static final String CROP_IRRIGATION_START_TIME ="startTime";
+    public static final String CROP_IRRIGATION_END_TIME ="endTime";
+    public static final String CROP_IRRIGATION_TOTAL_WATER_QUANTITY ="totalWaterQuantity";
+    public static final String CROP_IRRIGATION_AREA_IRRIGATED ="areaIrrigated";
+    public static final String CROP_IRRIGATION_UNITS ="units";
+    public static final String CROP_IRRIGATION_QUANTITY_PER_UNIT ="quantityPerUnit";
+    public static final String CROP_IRRIGATION_RECURRENCE ="recurrence";
+    public static final String CROP_IRRIGATION_REMINDERS ="reminders";
+    public static final String CROP_IRRIGATION_TOTAL_COST ="totalCost";
+
+    public static final String CROP_TRANSPLANTING_ID ="id";
+    public static final String CROP_TRANSPLANTING_USER_ID ="userId";
+    public static final String CROP_TRANSPLANTING_FIELD_ID ="fieldId";
+    public static final String CROP_TRANSPLANTING_OPERATION_DATE ="operationDate";
+    public static final String CROP_TRANSPLANTING_TOTAL_SEEDLING ="totalSeedling";
+    public static final String CROP_TRANSPLANTING_SEEDLINGS_PER_HA ="seedlingsPerHa";
+    public static final String CROP_TRANSPLANTING_VARIETY_EARLINESS ="varietyEarliness";
+    public static final String CROP_TRANSPLANTING_CYCLE_LENGTH ="cycleLength";
+    public static final String CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE ="expectedHarvestingDate";
+    public static final String CROP_TRANSPLANTING_UNITS ="units";
+    public static final String CROP_TRANSPLANTING_EXPECTED_YIELD ="expectedYield";
+    public static final String CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA ="expectedYieldPerHa";
+    public static final String CROP_TRANSPLANTING_OPERATOR ="operator";
+    public static final String CROP_TRANSPLANTING_TOTAL_COST ="totalCost";
 
 
 
@@ -458,6 +491,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         database = db;
+
+
+        String crop_transplanting_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_TRANSPLANTING_TABLE_NAME+" ( "+CROP_TRANSPLANTING_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                CROP_TRANSPLANTING_USER_ID+" USER, "+CROP_TRANSPLANTING_FIELD_ID+" TEXT, "+CROP_TRANSPLANTING_OPERATION_DATE+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_SEEDLING+" REAL, "+
+                CROP_TRANSPLANTING_SEEDLINGS_PER_HA+ " REAL, "+CROP_TRANSPLANTING_VARIETY_EARLINESS+" TEXT NOT NULL, "+CROP_TRANSPLANTING_CYCLE_LENGTH+" REAL NOT NULL, "+CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE+" REAL DEFAULT 0, "+
+                CROP_TRANSPLANTING_UNITS+" TEXT, "+CROP_TRANSPLANTING_EXPECTED_YIELD+" REAL DEFAULT 0, "+CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA +" REAL DEFAULT 0, "+
+                CROP_TRANSPLANTING_OPERATOR+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_COST+" REAL NOT NULL "+" ) ";
+
 
         String crop_inventory_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+" ( "+CROP_INVENTORY_FERTILIZER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_INVENTORY_FERTILIZER_USER_ID+" TEXT,"+CROP_INVENTORY_FERTILIZER_DATE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_TYPE+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_NAME+" TEXT NOT NULL,"+ CROP_INVENTORY_FERTILIZER_N_PERCENTAGE+" REAL,"+
@@ -597,6 +638,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_FERTILIZER_TYPE+" TEXT NOT NULL,"+ CROP_FERTILIZER_NAME+" TEXT NOT NULL,"+ CROP_FERTILIZER_N_PERCENTAGE+" REAL,"+
                 CROP_FERTILIZER_P_PERCENTAGE+" REAL,"+ CROP_FERTILIZER_K_PERCENTAGE+" REAL )";
 
+        String crop_irrigation_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_IRRIGATION_TABLE_NAME + " ( " +CROP_IRRIGATION_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                CROP_IRRIGATION_USER_ID+ " TEXT, "+CROP_IRRIGATION_FIELD_ID+ " TEXT NOT NULL, " +CROP_IRRIGATION_OPERATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
+                CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_TOTAL_WATER_QUANTITY+" REAL DEFAULT 0, "+CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+CROP_IRRIGATION_QUANTITY_PER_UNIT+" REAL DEFAULT 0, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
+                CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_TOTAL_COST+" REAL DEFAULT 0 " + " ) ";
+
 
 
        /* Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
@@ -641,6 +687,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_bill_insert_query);
         database.execSQL(crop_item_table_query);
         database.execSQL(crop_fertilizer_insert_query);
+        database.execSQL(crop_irrigation_insert_query);
+        database.execSQL(crop_transplanting_insert_query);
 
         System.out.println(
 
@@ -685,6 +733,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CROP_PURCHASE_ORDER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_PAYMENT_BILL_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_BILL_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_IRRIGATION_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_TRANSPLANTING_TABLE_NAME);
 
 
         onCreate(db);
@@ -3475,6 +3525,173 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
 
         closeDB();
         Log.d("Crop Product", array_list.toString());
+        return array_list;
+    }
+
+    public void insertCropIrrigation(CropIrrigation irrigation) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_IRRIGATION_USER_ID, irrigation.getUserId());
+        contentValues.put(CROP_IRRIGATION_FIELD_ID, irrigation.getFieldId());
+        contentValues.put(CROP_IRRIGATION_OPERATION_DATE, irrigation.getOperationDate());
+        contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
+        contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
+        contentValues.put(CROP_IRRIGATION_END_TIME, irrigation.getEndTime());
+        contentValues.put(CROP_IRRIGATION_TOTAL_WATER_QUANTITY, irrigation.getTotalWaterQuantity());
+        contentValues.put(CROP_IRRIGATION_AREA_IRRIGATED, irrigation.getAreaIrrigated());
+        contentValues.put(CROP_IRRIGATION_UNITS, irrigation.getUnits());
+        contentValues.put(CROP_IRRIGATION_QUANTITY_PER_UNIT, irrigation.getQuantityPerUnit());
+        contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
+        contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
+        contentValues.put(CROP_IRRIGATION_TOTAL_COST, irrigation.getTotalCost());
+
+        database.insert(CROP_IRRIGATION_TABLE_NAME, null, contentValues);
+        closeDB();
+    }
+
+    public void updateCropIrrigation(CropIrrigation irrigation) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_IRRIGATION_USER_ID, irrigation.getUserId());
+        contentValues.put(CROP_IRRIGATION_FIELD_ID, irrigation.getFieldId());
+        contentValues.put(CROP_IRRIGATION_OPERATION_DATE, irrigation.getOperationDate());
+        contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
+        contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
+        contentValues.put(CROP_IRRIGATION_END_TIME, irrigation.getEndTime());
+        contentValues.put(CROP_IRRIGATION_TOTAL_WATER_QUANTITY, irrigation.getTotalWaterQuantity());
+        contentValues.put(CROP_IRRIGATION_AREA_IRRIGATED, irrigation.getAreaIrrigated());
+        contentValues.put(CROP_IRRIGATION_UNITS, irrigation.getUnits());
+        contentValues.put(CROP_IRRIGATION_QUANTITY_PER_UNIT, irrigation.getQuantityPerUnit());
+        contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
+        contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
+        contentValues.put(CROP_IRRIGATION_TOTAL_COST, irrigation.getTotalCost());
+
+        database.update(CROP_IRRIGATION_TABLE_NAME, contentValues, CROP_IRRIGATION_ID + " = ?", new String[]{irrigation.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteCropIrrigation(String irrigationId) {
+        openDB();
+        database.delete(CROP_IRRIGATION_TABLE_NAME, CROP_IRRIGATION_ID + " = ?", new String[]{irrigationId});
+        closeDB();
+        return true;
+    }
+
+    public ArrayList<CropIrrigation> getCropIrrigations(String userId) {
+        openDB();
+        ArrayList<CropIrrigation> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where " + CROP_IRRIGATION_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropIrrigation irrigation = new CropIrrigation();
+            irrigation.setId(res.getString(res.getColumnIndex(CROP_IRRIGATION_ID)));
+            irrigation.setUserId(res.getString(res.getColumnIndex(CROP_IRRIGATION_USER_ID)));
+            irrigation.setFieldId(res.getString(res.getColumnIndex(CROP_IRRIGATION_FIELD_ID)));
+            irrigation.setOperationDate(res.getString(res.getColumnIndex(CROP_IRRIGATION_OPERATION_DATE)));
+            irrigation.setSystemRate(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_SYSTEM_RATE)));
+            irrigation.setStartTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_START_TIME)));
+            irrigation.setEndTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_END_TIME)));
+            irrigation.setTotalWaterQuantity(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_TOTAL_WATER_QUANTITY)));
+            irrigation.setUnits(res.getString(res.getColumnIndex(CROP_IRRIGATION_UNITS)));
+            irrigation.setAreaIrrigated(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_AREA_IRRIGATED)));
+            irrigation.setQuantityPerUnit(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_QUANTITY_PER_UNIT)));
+            irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
+            irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
+            irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_TOTAL_COST)));
+
+            array_list.add(irrigation);
+            res.moveToNext();
+        }
+
+        closeDB();
+        return array_list;
+    }
+    public void insertCropTransplanting(CropTransplanting transplanting) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_TRANSPLANTING_USER_ID, transplanting.getUserId());
+        contentValues.put(CROP_TRANSPLANTING_FIELD_ID, transplanting.getFieldId());
+        contentValues.put(CROP_TRANSPLANTING_OPERATION_DATE, transplanting.getOperationDate());
+        contentValues.put(CROP_TRANSPLANTING_TOTAL_SEEDLING, transplanting.getTotalSeedling());
+        contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
+        contentValues.put(CROP_TRANSPLANTING_VARIETY_EARLINESS, transplanting.getVarietyEarliness());
+        contentValues.put(CROP_TRANSPLANTING_CYCLE_LENGTH, transplanting.getCycleLength());
+        contentValues.put(CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE, transplanting.getExpectedHarvestingDate());
+        contentValues.put(CROP_TRANSPLANTING_UNITS, transplanting.getUnits());
+        contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD, transplanting.getExpectedYield());
+        contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA, transplanting.getExpectedYieldPerHa());
+        contentValues.put(CROP_TRANSPLANTING_OPERATOR, transplanting.getOperator());
+        contentValues.put(CROP_TRANSPLANTING_TOTAL_COST, transplanting.getTotalCost());
+
+        database.insert(CROP_TRANSPLANTING_TABLE_NAME, null, contentValues);
+        closeDB();
+    }
+    public void updateCropTransplanting(CropTransplanting transplanting) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_TRANSPLANTING_USER_ID, transplanting.getUserId());
+        contentValues.put(CROP_TRANSPLANTING_FIELD_ID, transplanting.getFieldId());
+        contentValues.put(CROP_TRANSPLANTING_OPERATION_DATE, transplanting.getOperationDate());
+        contentValues.put(CROP_TRANSPLANTING_TOTAL_SEEDLING, transplanting.getTotalSeedling());
+        contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
+        contentValues.put(CROP_TRANSPLANTING_VARIETY_EARLINESS, transplanting.getVarietyEarliness());
+        contentValues.put(CROP_TRANSPLANTING_CYCLE_LENGTH, transplanting.getCycleLength());
+        contentValues.put(CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE, transplanting.getExpectedHarvestingDate());
+        contentValues.put(CROP_TRANSPLANTING_UNITS, transplanting.getUnits());
+        contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD, transplanting.getExpectedYield());
+        contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA, transplanting.getExpectedYieldPerHa());
+        contentValues.put(CROP_TRANSPLANTING_OPERATOR, transplanting.getOperator());
+        contentValues.put(CROP_TRANSPLANTING_TOTAL_COST, transplanting.getTotalCost());
+
+        database.update(CROP_TRANSPLANTING_TABLE_NAME, contentValues, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplanting.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteCropTransplanting(String transplantingId) {
+        openDB();
+        database.delete(CROP_TRANSPLANTING_TABLE_NAME, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplantingId});
+        closeDB();
+        return true;
+    }
+    public ArrayList<CropTransplanting> getCropTransplantings(String userId) {
+        openDB();
+        ArrayList<CropTransplanting> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + CROP_TRANSPLANTING_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropTransplanting transplanting = new CropTransplanting();
+            transplanting.setId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_ID)));
+            transplanting.setUserId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_USER_ID)));
+            transplanting.setFieldId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_FIELD_ID)));
+            transplanting.setOperationDate(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATION_DATE)));
+            transplanting.setTotalSeedling(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_TOTAL_SEEDLING)));
+            transplanting.setSeedlingPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_SEEDLINGS_PER_HA)));
+            transplanting.setVarietyEarliness(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_VARIETY_EARLINESS)));
+            transplanting.setCycleLength(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_CYCLE_LENGTH)));
+            transplanting.setExpectedHarvestingDate(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE)));
+            transplanting.setUnits(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_UNITS)));
+            transplanting.setExpectedYield(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD)));
+            transplanting.setExpectedYieldPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA)));
+            transplanting.setOperator(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATOR)));
+            transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_TOTAL_COST)));
+
+            array_list.add(transplanting);
+            res.moveToNext();
+        }
+
+        closeDB();
         return array_list;
     }
 

@@ -13,7 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropPaymentBillsListActivity"
+        <activity android:name=".activities.CropTransplantingListActivity"
+            android:label="Transplanting"/>
+        <activity android:name=".activities.CropIrrigationListActivity"
+            android:label="Irrigation"/>
+        <activity android:name=".activities.CropTransplantingManagerActivity"
+            android:label="Transplanting Manager"/>
+        <activity android:name=".activities.CropIrrigationManagerActivity"
+            android:label="Irrigation Manager"/>
+        <activity
+            android:name=".activities.CropPaymentBillsListActivity"
             android:label="Payments" />
         <activity
             android:name=".activities.CropBillsListActivity"
@@ -227,7 +236,6 @@
             android:name=".activities.CropROIStep1Activity"
             android:label="@string/title_activity_crop_roistep1"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.CropROIStep2Activity"
             android:label="@string/title_activity_crop_roistep2"
@@ -259,8 +267,7 @@
         <activity
             android:name=".activities.CropCalculatorsActivity"
             android:label="@string/title_activity_crop_calculators"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

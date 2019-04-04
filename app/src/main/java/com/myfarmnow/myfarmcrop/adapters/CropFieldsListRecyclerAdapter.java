@@ -22,7 +22,9 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropIrrigationListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropTransplantingListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -175,11 +177,25 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
                                 showSoilAnalysis.putExtra("fieldId",cropField.getId());
                                 mContext.startActivity(showSoilAnalysis);
                             }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_irrigation))){
+                                CropField cropField = cropFieldsList.get(getAdapterPosition());
+                                Intent showIrrigation = new Intent(mContext, CropIrrigationListActivity.class);
+                                showIrrigation.putExtra("fieldId",cropField.getId());
+                                mContext.startActivity(showIrrigation);
+                            }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_transplanting))){
+                                CropField cropField = cropFieldsList.get(getAdapterPosition());
+                                Intent showTransplanting = new Intent(mContext, CropTransplantingListActivity.class);
+                                showTransplanting.putExtra("fieldId",cropField.getId());
+                                mContext.startActivity(showTransplanting);
+                            }
 
                             return true;
                         }
                     });
                     popup.getMenu().add(R.string.label_soil_analysis);
+                    popup.getMenu().add(R.string.label_irrigation);
+                    popup.getMenu().add(R.string.label_transplanting);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

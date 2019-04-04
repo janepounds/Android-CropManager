@@ -82,7 +82,7 @@
         <item>Square Miles</item>
     </string-array>
     <string-array name="crop_roi_yield_units">
-        <item>Select Unit</item>
+        <item>Select</item>
         <item>Boxes</item>
         <item>Kg</item>
         <item>Tonnes</item>
@@ -615,6 +615,12 @@
         <item>First Season</item>
         <item>Second Season</item>
     </string-array>
+    <string-array name="sp_crop_transplanting_variety_earliness">
+        <item>Select</item>
+        <item>Medium</item>
+        <item>Early</item>
+        <item>Late</item>
+    </string-array>
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
@@ -937,5 +943,25 @@
     <string name="no_potassium_selected">The fertilizers selected have no Potassium</string>
     <string name="title_activity_crop_fertilizer_calculator_results">Fertilizer Results</string>
     <string name="title_activity_crop_calculators">Calculators</string>
+    <string name="operation_date">Operation Date</string>
+    <string name="irrigation_system_rate">Irrigation System Rate</string>
+    <string name="total_water_quantity">Total Water Quantity</string>
+    <string name="quantity_per_acre">Quantity Per Acre</string>
+    <string name="total_cost">Total Cost</string>
+    <string name="total_seedling">Total Seedling</string>
+    <string name="seedling_per_ha">Seedling / ha</string>
+    <string name="variety_earliness">Variety Earliness</string>
+    <string name="cycle_length">Cycle Length</string>
+    <string name="expected_harvesting_date">Expected Harvesting Date</string>
+    <string name="expected_yield">Expected Yield</string>
+    <string name="expected_yield_per_ha">Expected Yield/ha</string>
+    <string name="area_irrigated">Area Irrigated</string>
+    <string name="operation_date_not_selected_message">You must select the Operation Date</string>
+    <string name="area_irrigated_not_entered_message">You must enter the Area Irrigated</string>
+    <string name="variety_earliness_not_selected">You must select Variety Earliness</string>
+    <string name="cycle_length_not_entered">You must enter Cycle Length</string>
+    <string name="total_cost_not_entered">You must enter Total Cost</string>
+    <string name="label_irrigation">Irrigation</string>
+    <string name="label_transplanting">Transplanting</string>
 
 </resources>
