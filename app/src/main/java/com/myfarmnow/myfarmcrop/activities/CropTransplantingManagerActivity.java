@@ -26,6 +26,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     CropTransplanting cropTransplanting=null;
+    String cropId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,12 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra("cropTransplanting")){
             cropTransplanting = (CropTransplanting) getIntent().getSerializableExtra("cropIrrigation");
+        }
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
+        }
+        else{
+            finish();
         }
         initializeForm();
     }
@@ -72,6 +79,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
 
                     Intent cropTransplanting = new Intent(CropTransplantingManagerActivity.this, CropTransplantingListActivity.class);
                     cropTransplanting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    cropTransplanting.putExtra("cropId",cropId);
                     startActivity(cropTransplanting);
                 }else{
                     Log.d("ERROR","Testing");
@@ -84,6 +92,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     public void saveTransplanting() {
         cropTransplanting = new CropTransplanting();
         cropTransplanting.setUserId(CropDashboardActivity.getPreferences("userId", this));
+        cropTransplanting.setCropId(cropId);
         cropTransplanting.setOperationDate(operationDateTxt.getText().toString());
         cropTransplanting.setTotalSeedling(Float.parseFloat(totalSeedlingTxt.getText().toString()));
         cropTransplanting.setSeedlingPerHa(Float.parseFloat(seedlingsPerHaTxt.getText().toString()));
@@ -101,6 +110,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     public void updateTransplanting(){
         if(cropTransplanting != null){
             cropTransplanting.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropTransplanting.setCropId(cropId);
             cropTransplanting.setOperationDate(operationDateTxt.getText().toString());
             cropTransplanting.setTotalSeedling(Float.parseFloat(totalSeedlingTxt.getText().toString()));
             cropTransplanting.setSeedlingPerHa(Float.parseFloat(seedlingsPerHaTxt.getText().toString()));

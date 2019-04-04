@@ -25,6 +25,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
     EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt;
     Spinner recurrenceSpinner,remindersSpinner;
     Button saveBtn;
+    String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,12 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra("cropIrrigation")){
             cropIrrigation = (CropIrrigation) getIntent().getSerializableExtra("cropIrrigation");
+        }
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
+        }
+        else{
+            finish();
         }
         initializeForm();
     }
@@ -75,6 +82,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
                     Intent cropIrrigation = new Intent(CropIrrigationManagerActivity.this, CropIrrigationListActivity.class);
                     cropIrrigation.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    cropIrrigation.putExtra("cropId",cropId);
                     startActivity(cropIrrigation);
                 }else{
                     Log.d("ERROR","Testing");
@@ -92,7 +100,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         cropIrrigation.setSystemRate(Float.parseFloat(systemRateTxt.getText().toString()));
         cropIrrigation.setStartTime(startTimeTxt.getText().toString());
         cropIrrigation.setEndTime(endTimeTxt.getText().toString());
-
+        cropIrrigation.setCropId(cropId);
         cropIrrigation.setTotalWaterQuantity(Float.parseFloat(totalWaterQuantityTxt.getText().toString()));
         cropIrrigation.setAreaIrrigated(Float.parseFloat(areaIrrigatedTxt.getText().toString()));
         cropIrrigation.setUnits(unitsTxt.getText().toString());
@@ -110,6 +118,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             cropIrrigation.setSystemRate(Float.parseFloat(systemRateTxt.getText().toString()));
             cropIrrigation.setStartTime(startTimeTxt.getText().toString());
             cropIrrigation.setEndTime(endTimeTxt.getText().toString());
+            cropIrrigation.setCropId(cropId);
             cropIrrigation.setTotalWaterQuantity(Float.parseFloat(totalWaterQuantityTxt.getText().toString()));
             cropIrrigation.setAreaIrrigated(Float.parseFloat(areaIrrigatedTxt.getText().toString()));
             cropIrrigation.setUnits(unitsTxt.getText().toString());

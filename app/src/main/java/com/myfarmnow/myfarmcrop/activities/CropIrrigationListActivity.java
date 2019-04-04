@@ -19,15 +19,22 @@ public class CropIrrigationListActivity extends AppCompatActivity {
     CropIrrigationListRecyclerAdapter cropIrrigationListRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
     MyFarmDbHandlerSingleton dbHandler;
+    String cropId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_irrigation_list);
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
+        }
+        else{
+            finish();
+        }
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         irrigationListRecyclerView = findViewById(R.id.crop_irrigation_recyc_view);
-        cropIrrigationListRecyclerAdapter = new CropIrrigationListRecyclerAdapter(this,dbHandler.getCropIrrigations(CropDashboardActivity.getPreferences("userId",this)));
+        cropIrrigationListRecyclerAdapter = new CropIrrigationListRecyclerAdapter(this,dbHandler.getCropIrrigations(cropId));
         irrigationListRecyclerView.setAdapter(cropIrrigationListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         irrigationListRecyclerView.setLayoutManager(linearLayoutManager);
@@ -53,6 +60,7 @@ public class CropIrrigationListActivity extends AppCompatActivity {
 
     private void openCropIrrigationManagerActivity() {
         Intent intent = new Intent(this, CropIrrigationManagerActivity.class);
+        intent.putExtra("cropId",cropId);
         startActivity(intent);
     }
 }

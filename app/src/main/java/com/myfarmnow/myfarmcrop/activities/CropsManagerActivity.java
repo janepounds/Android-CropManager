@@ -94,6 +94,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)growingCycleSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)plantingMethodSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)seasonSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         fillViews();
     }

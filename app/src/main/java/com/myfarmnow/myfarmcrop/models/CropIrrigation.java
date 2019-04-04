@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CropIrrigation implements CropSpinnerItem, Serializable {
     String id="";
     String userId="";
-    String fieldId="";
+    String cropId ="";
     String operationDate="";
     float systemRate=0;
     String startTime="";
@@ -36,12 +36,12 @@ public class CropIrrigation implements CropSpinnerItem, Serializable {
         this.userId = userId;
     }
 
-    public String getFieldId() {
-        return fieldId;
+    public String getCropId() {
+        return cropId;
     }
 
-    public void setFieldId(String fieldId) {
-        this.fieldId = fieldId;
+    public void setCropId(String cropId) {
+        this.cropId = cropId;
     }
 
     public String getOperationDate() {

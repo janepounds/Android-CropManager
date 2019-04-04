@@ -19,15 +19,23 @@ public class CropTransplantingListActivity extends AppCompatActivity {
     CropTransplantingListRecyclerAdapter cropTransplantingListRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
     MyFarmDbHandlerSingleton dbHandler;
+    String cropId;
     @Override
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_transplanting_list);
+
+        if(getIntent().hasExtra("cropId")){
+            cropId =getIntent().getStringExtra("cropId");
+        }
+        else{
+            finish();
+        }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         transplantingListRecyclerView = findViewById(R.id.crop_transplanting_recyc_view);
-        cropTransplantingListRecyclerAdapter = new CropTransplantingListRecyclerAdapter(this,dbHandler.getCropTransplantings(CropDashboardActivity.getPreferences("userId",this)));
+        cropTransplantingListRecyclerAdapter = new CropTransplantingListRecyclerAdapter(this,dbHandler.getCropTransplantings(cropId));
         transplantingListRecyclerView.setAdapter(cropTransplantingListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         transplantingListRecyclerView.setLayoutManager(linearLayoutManager);
@@ -53,6 +61,7 @@ public class CropTransplantingListActivity extends AppCompatActivity {
 
     private void openCropTransplantingManagerActivity() {
         Intent intent = new Intent(this, CropTransplantingManagerActivity.class);
+        intent.putExtra("cropId",cropId);
         startActivity(intent);
     }
 

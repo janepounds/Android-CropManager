@@ -438,7 +438,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public static final String CROP_IRRIGATION_ID ="id";
     public static final String CROP_IRRIGATION_USER_ID ="userId";
-    public static final String CROP_IRRIGATION_FIELD_ID ="fieldId";
+    public static final String CROP_IRRIGATION_CROP_ID ="cropId";
     public static final String CROP_IRRIGATION_OPERATION_DATE ="date";
     public static final String CROP_IRRIGATION_SYSTEM_RATE ="systemRate";
     public static final String CROP_IRRIGATION_START_TIME ="startTime";
@@ -453,7 +453,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public static final String CROP_TRANSPLANTING_ID ="id";
     public static final String CROP_TRANSPLANTING_USER_ID ="userId";
-    public static final String CROP_TRANSPLANTING_FIELD_ID ="fieldId";
+    public static final String CROP_TRANSPLANTING_CROP_ID ="cropId";
     public static final String CROP_TRANSPLANTING_OPERATION_DATE ="operationDate";
     public static final String CROP_TRANSPLANTING_TOTAL_SEEDLING ="totalSeedling";
     public static final String CROP_TRANSPLANTING_SEEDLINGS_PER_HA ="seedlingsPerHa";
@@ -494,7 +494,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         String crop_transplanting_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_TRANSPLANTING_TABLE_NAME+" ( "+CROP_TRANSPLANTING_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                CROP_TRANSPLANTING_USER_ID+" USER, "+CROP_TRANSPLANTING_FIELD_ID+" TEXT, "+CROP_TRANSPLANTING_OPERATION_DATE+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_SEEDLING+" REAL, "+
+                CROP_TRANSPLANTING_USER_ID+" USER, "+ CROP_TRANSPLANTING_CROP_ID +" TEXT, "+CROP_TRANSPLANTING_OPERATION_DATE+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_SEEDLING+" REAL, "+
                 CROP_TRANSPLANTING_SEEDLINGS_PER_HA+ " REAL, "+CROP_TRANSPLANTING_VARIETY_EARLINESS+" TEXT NOT NULL, "+CROP_TRANSPLANTING_CYCLE_LENGTH+" REAL NOT NULL, "+CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE+" REAL DEFAULT 0, "+
                 CROP_TRANSPLANTING_UNITS+" TEXT, "+CROP_TRANSPLANTING_EXPECTED_YIELD+" REAL DEFAULT 0, "+CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA +" REAL DEFAULT 0, "+
                 CROP_TRANSPLANTING_OPERATOR+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_COST+" REAL NOT NULL "+" ) ";
@@ -639,7 +639,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_FERTILIZER_P_PERCENTAGE+" REAL,"+ CROP_FERTILIZER_K_PERCENTAGE+" REAL )";
 
         String crop_irrigation_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_IRRIGATION_TABLE_NAME + " ( " +CROP_IRRIGATION_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                CROP_IRRIGATION_USER_ID+ " TEXT, "+CROP_IRRIGATION_FIELD_ID+ " TEXT NOT NULL, " +CROP_IRRIGATION_OPERATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
+                CROP_IRRIGATION_USER_ID+ " TEXT, "+ CROP_IRRIGATION_CROP_ID + " TEXT NOT NULL, " +CROP_IRRIGATION_OPERATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
                 CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_TOTAL_WATER_QUANTITY+" REAL DEFAULT 0, "+CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+CROP_IRRIGATION_QUANTITY_PER_UNIT+" REAL DEFAULT 0, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
                 CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_TOTAL_COST+" REAL DEFAULT 0 " + " ) ";
 
@@ -656,7 +656,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("MACHINE",crop_machine_insert_query);
         Log.d("CROP PURCHASE ORDER",crop_purchase_order_insert_query);*/
 
-       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_FERTILIZER_TABLE_NAME);
+       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_TRANSPLANTING_TABLE_NAME);
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
@@ -3533,7 +3533,7 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(CROP_IRRIGATION_USER_ID, irrigation.getUserId());
-        contentValues.put(CROP_IRRIGATION_FIELD_ID, irrigation.getFieldId());
+        contentValues.put(CROP_IRRIGATION_CROP_ID, irrigation.getCropId());
         contentValues.put(CROP_IRRIGATION_OPERATION_DATE, irrigation.getOperationDate());
         contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
         contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
@@ -3545,7 +3545,7 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
         contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
         contentValues.put(CROP_IRRIGATION_TOTAL_COST, irrigation.getTotalCost());
-
+Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         database.insert(CROP_IRRIGATION_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -3554,7 +3554,7 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_IRRIGATION_USER_ID, irrigation.getUserId());
-        contentValues.put(CROP_IRRIGATION_FIELD_ID, irrigation.getFieldId());
+        contentValues.put(CROP_IRRIGATION_CROP_ID, irrigation.getCropId());
         contentValues.put(CROP_IRRIGATION_OPERATION_DATE, irrigation.getOperationDate());
         contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
         contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
@@ -3579,20 +3579,20 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         return true;
     }
 
-    public ArrayList<CropIrrigation> getCropIrrigations(String userId) {
+    public ArrayList<CropIrrigation> getCropIrrigations(String cropId) {
         openDB();
         ArrayList<CropIrrigation> array_list = new ArrayList();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where " + CROP_IRRIGATION_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where " + CROP_IRRIGATION_CROP_ID + " = '" + cropId+"'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
             CropIrrigation irrigation = new CropIrrigation();
             irrigation.setId(res.getString(res.getColumnIndex(CROP_IRRIGATION_ID)));
             irrigation.setUserId(res.getString(res.getColumnIndex(CROP_IRRIGATION_USER_ID)));
-            irrigation.setFieldId(res.getString(res.getColumnIndex(CROP_IRRIGATION_FIELD_ID)));
+            irrigation.setCropId(res.getString(res.getColumnIndex(CROP_IRRIGATION_CROP_ID)));
             irrigation.setOperationDate(res.getString(res.getColumnIndex(CROP_IRRIGATION_OPERATION_DATE)));
             irrigation.setSystemRate(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_SYSTEM_RATE)));
             irrigation.setStartTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_START_TIME)));
@@ -3617,7 +3617,7 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(CROP_TRANSPLANTING_USER_ID, transplanting.getUserId());
-        contentValues.put(CROP_TRANSPLANTING_FIELD_ID, transplanting.getFieldId());
+        contentValues.put(CROP_TRANSPLANTING_CROP_ID, transplanting.getCropId());
         contentValues.put(CROP_TRANSPLANTING_OPERATION_DATE, transplanting.getOperationDate());
         contentValues.put(CROP_TRANSPLANTING_TOTAL_SEEDLING, transplanting.getTotalSeedling());
         contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
@@ -3637,7 +3637,7 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_TRANSPLANTING_USER_ID, transplanting.getUserId());
-        contentValues.put(CROP_TRANSPLANTING_FIELD_ID, transplanting.getFieldId());
+        contentValues.put(CROP_TRANSPLANTING_CROP_ID, transplanting.getCropId());
         contentValues.put(CROP_TRANSPLANTING_OPERATION_DATE, transplanting.getOperationDate());
         contentValues.put(CROP_TRANSPLANTING_TOTAL_SEEDLING, transplanting.getTotalSeedling());
         contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
@@ -3661,20 +3661,20 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         closeDB();
         return true;
     }
-    public ArrayList<CropTransplanting> getCropTransplantings(String userId) {
+    public ArrayList<CropTransplanting> getCropTransplantings(String cropId) {
         openDB();
         ArrayList<CropTransplanting> array_list = new ArrayList();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + CROP_TRANSPLANTING_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + CROP_TRANSPLANTING_CROP_ID + " = '" + cropId+"'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
             CropTransplanting transplanting = new CropTransplanting();
             transplanting.setId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_ID)));
             transplanting.setUserId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_USER_ID)));
-            transplanting.setFieldId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_FIELD_ID)));
+            transplanting.setCropId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_CROP_ID)));
             transplanting.setOperationDate(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATION_DATE)));
             transplanting.setTotalSeedling(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_TOTAL_SEEDLING)));
             transplanting.setSeedlingPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_SEEDLINGS_PER_HA)));
