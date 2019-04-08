@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropHarvestListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIrrigationListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropScoutingListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
@@ -170,6 +172,18 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 showTransplanting.putExtra("cropId",crop.getId());
                                 mContext.startActivity(showTransplanting);
                             }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_scouting))){
+                                Crop crop = cropsList.get(getAdapterPosition());
+                                Intent showScouting = new Intent(mContext, CropScoutingListActivity.class);
+                                showScouting.putExtra("cropId",crop.getId());
+                                mContext.startActivity(showScouting);
+                            }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_harvest))){
+                                Crop crop = cropsList.get(getAdapterPosition());
+                                Intent showHarvest = new Intent(mContext, CropHarvestListActivity.class);
+                                showHarvest.putExtra("cropId",crop.getId());
+                                mContext.startActivity(showHarvest);
+                            }
 
                             return true;
                         }
@@ -181,6 +195,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     popup.getMenu().add(R.string.label_harvest);
                     popup.getMenu().add(R.string.label_irrigation);
                     popup.getMenu().add(R.string.label_transplanting);
+                    popup.getMenu().add(R.string.label_scouting);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

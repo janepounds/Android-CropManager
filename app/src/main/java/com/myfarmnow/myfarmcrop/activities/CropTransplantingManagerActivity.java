@@ -20,6 +20,7 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 
 public class CropTransplantingManagerActivity extends AppCompatActivity {
 
+    //TODO CALCULATING expectedHarvestDate FROM operationDate and cycleLength
     EditText operationDateTxt,totalSeedlingTxt,seedlingsPerHaTxt,cycleLengthTxt,expectedYieldTxt,expectedYieldPerHaTxt,operatorTxt,totalCostTxt;
     Spinner varietyEarlinessSpinner,unitsSpinner;
     TextView expectedHarvestingDateTxt;
@@ -33,7 +34,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_transplanting_manager);
 
         if(getIntent().hasExtra("cropTransplanting")){
-            cropTransplanting = (CropTransplanting) getIntent().getSerializableExtra("cropIrrigation");
+            cropTransplanting = (CropTransplanting) getIntent().getSerializableExtra("cropTransplanting");
         }
         if(getIntent().hasExtra("cropId")){
             cropId =getIntent().getStringExtra("cropId");

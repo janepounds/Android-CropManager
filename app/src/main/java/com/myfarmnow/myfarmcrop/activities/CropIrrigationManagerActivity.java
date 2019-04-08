@@ -19,7 +19,8 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropIrrigation;
 
 public class CropIrrigationManagerActivity extends AppCompatActivity {
-
+    //TODO CALCULATING TOTAL WATER QUANTITY FROM endtime-starttime*systemrate
+    //TODO CALCULATING QUANTITY FROM totalWaterQuantity/areaIrrigated
     CropIrrigation cropIrrigation=null;
     TextView totalWaterQuantityTxt,unitsTxt,quantityPerUnitTxt;
     EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt;

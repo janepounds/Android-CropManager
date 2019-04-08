@@ -93,7 +93,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
     public class IncomeExpenseViewHolder extends RecyclerView.ViewHolder {
 
     TextView itemTextView, transactionTextView, categoryTextView,statusTextView,amountTextView,dateTextView;
-    ImageView deleteButton, editButton, moreButton;
+    ImageView moreButton;
         public IncomeExpenseViewHolder(View itemView) {
             super(itemView);
 

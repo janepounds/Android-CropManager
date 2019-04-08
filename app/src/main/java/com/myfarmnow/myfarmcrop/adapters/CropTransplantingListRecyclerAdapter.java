@@ -22,7 +22,7 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 
 import java.util.ArrayList;
 
-public class CropTransplantingListRecyclerAdapter extends RecyclerView.Adapter<CropTransplantingListRecyclerAdapter.TransplantingViewHolder>   {
+public class CropTransplantingListRecyclerAdapter extends RecyclerView.Adapter<CropTransplantingListRecyclerAdapter.TransplantingViewHolder>{
     LayoutInflater layoutInflater;
     Context mContext;
     ArrayList<CropTransplanting> cropTransplantingList = new ArrayList<>();
@@ -70,6 +70,7 @@ public class CropTransplantingListRecyclerAdapter extends RecyclerView.Adapter<C
 
     }
 
+    //TODO ADJUSTING THE SIDE LINE FOR THE CARD
     @Override
     public int getItemCount() {
         return cropTransplantingList.size();

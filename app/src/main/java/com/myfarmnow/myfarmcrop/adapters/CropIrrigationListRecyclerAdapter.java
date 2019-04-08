@@ -72,6 +72,7 @@ public class CropIrrigationListRecyclerAdapter  extends RecyclerView.Adapter<Cro
 
     }
 
+    //TODO ADJUSTING THE SIDE LINE FOR THE CARD
     @Override
     public int getItemCount() {
         return cropIrrigationList.size();

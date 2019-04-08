@@ -621,6 +621,59 @@
         <item>Early</item>
         <item>Late</item>
     </string-array>
+    <string-array name="sp_crop_scouting_infested">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_type">
+        <item>Select</item>
+        <item>Disease</item>
+        <item>Nematode</item>
+        <item>Pest</item>
+        <item>Rodent</item>
+        <item>Weed</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_level">
+        <item>Select</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_disease">
+
+        <item>Acariasis</item>
+        <item>Acariosis Bronzed</item>
+        <item>Alternario</item>
+
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_nematode">
+
+        <item>Nematodes</item>
+        <item>Nematodes+Fungi</item>
+        <item>Nematodes with galls</item>
+        <item>Wetting</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_pest">
+
+        <item>Acariasis</item>
+        <item>Aleurode</item>
+
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_rodent">
+
+        <item>Field Rat</item>
+
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_weed">
+        <item>Advent</item>
+
+    </string-array>
+    <string-array name="sp_crop_harvest_status">
+        <item>Select</item>
+        <item>Sold</item>
+        <item>Stored</item>
+    </string-array>
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
@@ -963,5 +1016,31 @@
     <string name="total_cost_not_entered">You must enter Total Cost</string>
     <string name="label_irrigation">Irrigation</string>
     <string name="label_transplanting">Transplanting</string>
+    <string name="scouting_date">Scouting Date</string>
+    <string name="scouting_method">Scouting Method</string>
+    <string name="infested">Infested</string>
+    <string name="infestation_type">Infestation Type</string>
+    <string name="infestation">Infestation</string>
+    <string name="infestation_level">Infestation Level</string>
+    <string name="remarks">Remarks</string>
+    <string name="scounting_date_not_selected_message">You must select the Scouting Date</string>
+    <string name="cost_not_entered">You must enter Cost</string>
+    <string name="infestation_type_not_selected">You must select Infestation Type</string>
+    <string name="label_scouting">Scouting</string>
+    <string name="infested_not_selected">You must select Infested field</string>
+    <string name="harvest_date">Harvest Date</string>
+    <string name="harvest_method">Harvest Method</string>
+    <string name="harvest_units">Harvest Units</string>
+    <string name="date_sold">Date Sold</string>
+    <string name="customer">Customer</string>
+    <string name="price">Price</string>
+    <string name="per_unit">/ unit</string>
+    <string name="quantity_sold">Quantity Sold</string>
+    <string name="storage_date">Storage Date</string>
+    <string name="quantity_stored">Quantity Stored</string>
+    <string name="harvest_cost">Harvest Cost</string>
+    <string name="harvest_date_not_selected_message">You must select Harvest Date</string>
+    <string name="quantity_not_entered">You must enter Quantity</string>
+    <string name="harvest">Harvest</string>
 
 </resources>
