@@ -30,4 +30,9 @@ public class CropCalculatorsActivity extends AppCompatActivity {
         startActivity(openList);
     }
 
+    public void openNutrientsCalculator(View view){
+        Intent openList = new Intent(this, CropNutrientsCalculatorEntryActivity.class);
+        startActivity(openList);
+    }
+
 }

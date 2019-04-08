@@ -17,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
@@ -156,17 +157,25 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 showSpray.putExtra("cropId", crop.getId());
                                 mContext.startActivity(showSpray);
                             }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_activities))) {
+                                Crop crop = cropsList.get(getAdapterPosition());
+                                Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
+                                showSpray.putExtra("cropId", crop.getId());
+                                mContext.startActivity(showSpray);
+                            }
 
                             return true;
                         }
                     });
 
+                    //
                     popup.getMenu().add(R.string.label_cultivate);
                     popup.getMenu().add(R.string.label_fertilizer);
                     popup.getMenu().add(R.string.label_spray);
                     popup.getMenu().add(R.string.label_harvest);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
+                    popup.getMenu().add(R.string.label_activities);
                     popup.show();
 
                 }

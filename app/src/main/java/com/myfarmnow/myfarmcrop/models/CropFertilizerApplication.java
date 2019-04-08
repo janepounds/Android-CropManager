@@ -2,7 +2,7 @@ package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
 
-public class CropFertilizerApplication implements Serializable {
+public class CropFertilizerApplication implements Serializable,CropActivity {
     String date;
     String operator;
     String method;
@@ -110,5 +110,10 @@ public class CropFertilizerApplication implements Serializable {
 
     public void setFertilizerName(String fertilizerName) {
         this.fertilizerName = fertilizerName;
+    }
+
+    @Override
+    public int getType() {
+        return CropActivity.CROP_ACTIVITY_FERTILIZER_APPLICATION;
     }
 }

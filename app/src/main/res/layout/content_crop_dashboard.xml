@@ -433,13 +433,13 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/lv_task"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:orientation="vertical"
+                                android:onClick="openBestPractices"
 
+                                android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
                                 <de.hdodenhof.circleimageview.CircleImageView

@@ -25,7 +25,7 @@ import com.myfarmnow.myfarmcrop.models.CropTask;
 import java.util.ArrayList;
 
 public class CropTaskManagerActivity extends AppCompatActivity {
-CropTask cropTask=null;
+    CropTask cropTask=null;
     EditText dateTxt, titleTxt, descriptionTxt;
     Spinner cropSp, typeSp, personnelSp,statusSp, recurrenceSp, remindersSp;
     Button saveBtn;
@@ -160,7 +160,7 @@ CropTask cropTask=null;
         }
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+
     public boolean validateEntries(){
         String message = null;
         if(dateTxt.getText().toString().isEmpty()){

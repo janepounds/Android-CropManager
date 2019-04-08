@@ -7,6 +7,9 @@ public class CropField  implements CropSpinnerItem,Serializable{
     String userId="";
     String fieldName="";
     String soilCategory="";
+    String fieldType;
+    String layoutType;
+    String status;
     String soilType="";
     String watercourse="";
     float totalArea=0;
@@ -94,6 +97,28 @@ public class CropField  implements CropSpinnerItem,Serializable{
         return getFieldName();
     }
 
+    public String getFieldType() {
+        return fieldType;
+    }
 
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
+    }
+
+    public String getLayoutType() {
+        return layoutType;
+    }
+
+    public void setLayoutType(String layoutType) {
+        this.layoutType = layoutType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
 

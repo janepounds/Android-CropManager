@@ -23,7 +23,7 @@ public class CropFieldManagerActivity extends AppCompatActivity {
 
     CropField cropField =null;
     EditText  fieldNameTxt,totalAreaTxt,croppableAreaTxt ;
-    Spinner soilCategorySpinner,soilTypeSpinner,watercourseSpinner,unitsSpinner;
+    Spinner soilCategorySpinner,soilTypeSpinner,watercourseSpinner,unitsSpinner, typeSp, layoutTypeSp, statusSp;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
 
@@ -49,6 +49,9 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         totalAreaTxt = findViewById(R.id.txt_crop_field_total_area);
         croppableAreaTxt = findViewById(R.id.txt_crop_field_croppable_area);
         unitsSpinner = findViewById(R.id.sp_crop_field_units);
+        typeSp = findViewById(R.id.sp_crop_field_type);
+        layoutTypeSp = findViewById(R.id.sp_crop_field_layout_type);
+        statusSp = findViewById(R.id.sp_crop_field_status);
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -87,6 +90,11 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
         cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
         cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
+        if(layoutTypeSp.getSelectedItemPosition()==0){
+            cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
+        }
+        cropField.setFieldType( typeSp.getSelectedItem().toString());
+        cropField.setStatus( statusSp.getSelectedItem().toString());
         cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
         cropField.setCroppableArea(Float.parseFloat(croppableAreaTxt.getText().toString()));
         cropField.setUnits(unitsSpinner.getSelectedItem().toString());
@@ -104,6 +112,11 @@ public class CropFieldManagerActivity extends AppCompatActivity {
             cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
             cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
             cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
+            if(layoutTypeSp.getSelectedItemPosition()==0){
+                cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
+            }
+            cropField.setFieldType( typeSp.getSelectedItem().toString());
+            cropField.setStatus( statusSp.getSelectedItem().toString());
             cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
             cropField.setCroppableArea(Float.parseFloat(croppableAreaTxt.getText().toString()));
             cropField.setUnits(unitsSpinner.getSelectedItem().toString());
@@ -119,6 +132,9 @@ public class CropFieldManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(soilTypeSpinner,cropField.getSoilType());
             CropDashboardActivity.selectSpinnerItemByValue(watercourseSpinner,cropField.getWatercourse());
             CropDashboardActivity.selectSpinnerItemByValue(unitsSpinner,cropField.getUnits());
+            CropDashboardActivity.selectSpinnerItemByValue(typeSp,cropField.getFieldType());
+            CropDashboardActivity.selectSpinnerItemByValue(statusSp,cropField.getStatus());
+            CropDashboardActivity.selectSpinnerItemByValue(layoutTypeSp,cropField.getLayoutType());
             totalAreaTxt.setText(cropField.getTotalArea()+"");
             croppableAreaTxt.setText(cropField.getCroppableArea()+"");
             saveBtn.setText(R.string.btn_update_label);
@@ -138,6 +154,14 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         else if(unitsSpinner.getSelectedItemPosition()==0){
             message = getString(R.string.units_not_selected);
             unitsSpinner.requestFocus();
+        }
+        else if(statusSp.getSelectedItemPosition()==0){
+            message = getString(R.string.field_status_is_not_selected);
+            statusSp.requestFocus();
+        }
+        else if(typeSp.getSelectedItemPosition()==0){
+            message = getString(R.string.field_type_not_selected);
+            typeSp.requestFocus();
         }
 
 

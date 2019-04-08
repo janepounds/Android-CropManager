@@ -319,36 +319,35 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="16sp" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/gray_mh">
-
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        android:labelFor="@+id/txt_crop_spray_rate"
-        android:text="@string/ugx"
-        android:gravity="center_vertical"
-
-        android:textStyle="bold"
-
-        />
-    <EditText
-                    android:id="@+id/txt_crops_operator_cost"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/input_shapes"
-                    android:ems="10"
-                    android:hint="Enter.."
-                    android:inputType="number"
-                    android:textSize="14sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/gray_mh">
 
-</LinearLayout>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="4dp"
+                        android:labelFor="@+id/txt_crop_spray_rate"
+                        android:text="@string/ugx"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+
+                        />
+                    <EditText
+                        android:id="@+id/txt_crops_operator_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/input_shapes"
+                        android:ems="10"
+                        android:hint="Enter.."
+                        android:inputType="number"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -472,6 +471,132 @@
                 />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginRight="10dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Harvest Units"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/sp_crops_harvest_units"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/spinnerStyle"
+                    android:background="@drawable/input_shapes"
+                    android:entries="@array/crop_roi_yield_units"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Estimated Yield"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/txt_crops_estimated_yield"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="Enter.."
+                    android:background="@drawable/input_shapes"
+                    android:textSize="14sp"
+
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estimated Revenue"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/gray_mh"
+                android:layout_weight="1">
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:labelFor="@+id/txt_crop_spray_rate"
+                    android:text="@string/ugx"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="0.1"
+
+                    />
+                <EditText
+                    android:id="@+id/txt_crops_estimated_revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/input_shapes"
+                    android:layout_margin="0dp"
+                    android:ems="10"
+                    android:hint="Enter.."
+                    android:inputType="number"
+                    android:textSize="14sp"
+                    android:layout_weight="0.7"/>
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:labelFor="@+id/txt_crops_estimated_revenue"
+                    android:text="/Units"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_weight="0.2"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
 
 
         <Button

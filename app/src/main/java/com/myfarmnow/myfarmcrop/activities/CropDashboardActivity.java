@@ -297,6 +297,11 @@ public class CropDashboardActivity extends AppCompatActivity {
         startActivity(openList);
     }
 
+    public void openBestPractices(View view){
+        Intent openBestPractices = new Intent(this, CropBestPracticesDashboardActivity.class);
+        startActivity(openBestPractices);
+
+    }
     public void showHideFinancialManager(View view){
         LinearLayout financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
 
@@ -332,6 +337,8 @@ public class CropDashboardActivity extends AppCompatActivity {
 
         toggleVisibility(contactsSubMenu);
     }
+
+
 
 
 

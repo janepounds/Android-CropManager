@@ -2,7 +2,7 @@ package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
 
-public class CropCultivation implements Serializable {
+public class CropCultivation implements Serializable,CropActivity {
     String date;
     String operation;
     String operator;
@@ -78,5 +78,10 @@ public class CropCultivation implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public int getType() {
+        return CropActivity.CROP_ACTIVITY_CULTIVATE;
     }
 }

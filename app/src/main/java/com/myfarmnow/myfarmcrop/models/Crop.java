@@ -21,12 +21,17 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String season;
  private float area;
  private float cost;
+ private float estimatedYield;
+ private float estimatedRevenue;
+ private String harvestUnits;
  private String operator;
  private String seedId;
  private float rate;
  private String plantingMethod;
  private String name;
  private String age;
+
+
 
  public String getName() {
   return name;
@@ -201,7 +206,30 @@ public class Crop implements Serializable, CropSpinnerItem {
 
  @Override
  public String toString() {
-  return getName();
+  return getName()+"( "+getSeason()+" - "+getCroppingYear()+" )";
  }
 
+ public float getEstimatedYield() {
+  return estimatedYield;
+ }
+
+ public void setEstimatedYield(float estimatedYield) {
+  this.estimatedYield = estimatedYield;
+ }
+
+ public float getEstimatedRevenue() {
+  return estimatedRevenue;
+ }
+
+ public void setEstimatedRevenue(float estimatedRevenue) {
+  this.estimatedRevenue = estimatedRevenue;
+ }
+
+ public String getHarvestUnits() {
+  return harvestUnits;
+ }
+
+ public void setHarvestUnits(String harvestUnits) {
+  this.harvestUnits = harvestUnits;
+ }
 }

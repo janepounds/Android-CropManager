@@ -21,7 +21,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
 
     CropInventorySeeds seedsInventoryToEdit=null;
     EditText purchaseDatTxt, seedNameTxt,varietyTxt,dressingTxt,tgwTxt,quantityTxt,costTxt, batchTxt,supplierTxt;
-    Spinner usageUnitSpinner;
+    Spinner usageUnitSpinner,typeSp;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     @Override
@@ -48,6 +48,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         batchTxt = findViewById(R.id.txt_crop_batch_number);
         supplierTxt = findViewById(R.id.txt_crop_supplier);
         saveBtn = findViewById(R.id.btn_save);
+        typeSp = findViewById(R.id.sp_crop_seed_type);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(purchaseDatTxt,this);
 
@@ -79,6 +80,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         if(seedsInventoryToEdit != null){
 
             CropDashboardActivity.selectSpinnerItemByValue(usageUnitSpinner,seedsInventoryToEdit.getUsageUnits());
+            CropDashboardActivity.selectSpinnerItemByValue(typeSp,seedsInventoryToEdit.getType());
             purchaseDatTxt.setText(seedsInventoryToEdit.getDateOfPurchase());
             seedNameTxt.setText(seedsInventoryToEdit.getName());
             varietyTxt.setText(seedsInventoryToEdit.getVariety());
@@ -105,6 +107,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         seedsInventoryToEdit.setBatchNumber(batchTxt.getText().toString());
         seedsInventoryToEdit.setSupplier(supplierTxt.getText().toString());
         seedsInventoryToEdit.setTgw(tgwTxt.getText().toString());
+        seedsInventoryToEdit.setType(typeSp.getSelectedItem().toString());
 
         dbHandler.insertCropSeeds(seedsInventoryToEdit);
 
@@ -114,7 +117,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
     public void updateSeeds(){
 
         if(seedsInventoryToEdit != null) {
-            Log.d("TESTING","Called");
+
             seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId", this));
             seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             seedsInventoryToEdit.setDateOfPurchase(purchaseDatTxt.getText().toString());
@@ -126,6 +129,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
             seedsInventoryToEdit.setBatchNumber(batchTxt.getText().toString());
             seedsInventoryToEdit.setSupplier(supplierTxt.getText().toString());
             seedsInventoryToEdit.setTgw(tgwTxt.getText().toString());
+            seedsInventoryToEdit.setType(typeSp.getSelectedItem().toString());
 
             dbHandler.updateCropSeeds(seedsInventoryToEdit);
         }
@@ -151,6 +155,10 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         else if(usageUnitSpinner.getSelectedItemPosition()==0){
             message = getString(R.string.usage_units_not_selected);
             usageUnitSpinner.requestFocus();
+        }
+        else if(typeSp.getSelectedItemPosition()==0){
+            message = getString(R.string.seed_type_not_selected);
+            typeSp.requestFocus();
         }
 
         if(message != null){

@@ -96,12 +96,13 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/txt_crop_spray_type"
+                    <Spinner
+                        android:id="@+id/sp_crop_spray_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:background="@drawable/input_shapes"
+                        android:entries="@array/crop_spray_type"
                         android:hint="Enter.."
                         android:textSize="14sp" />
 

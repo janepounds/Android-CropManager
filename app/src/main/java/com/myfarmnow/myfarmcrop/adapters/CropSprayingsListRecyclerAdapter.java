@@ -70,31 +70,31 @@ public class CropSprayingsListRecyclerAdapter extends RecyclerView.Adapter<CropS
 
 
     @Override
-    public void onBindViewHolder(@NonNull final SprayingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SprayingViewHolder sprayingViewHolder, int position) {
 
         CropSpraying field = cropSprayingsList.get(position);
-        holder.sprayNameTextView.setText(field.getSprayName());
-        holder.operatorTextView.setText(field.getOperator());
-        holder.rateTextView.setText(field.getRate()+"Kg/ha");
-        holder.windDirectionTextView.setText(field.getWindDirection());
-        holder.waterConditionTextView.setText(field.getWaterCondition());
-        holder.treatmentReasonTextView.setText(field.getTreatmentReason());
+        sprayingViewHolder.sprayNameTextView.setText(field.getSprayName());
+        sprayingViewHolder.operatorTextView.setText(field.getOperator());
+        sprayingViewHolder.rateTextView.setText(field.getRate()+"Kg/ha");
+        sprayingViewHolder.windDirectionTextView.setText(field.getWindDirection());
+        sprayingViewHolder.waterConditionTextView.setText(field.getWaterCondition());
+        sprayingViewHolder.treatmentReasonTextView.setText(field.getTreatmentReason());
 
-        final ViewTreeObserver observer = holder.treatmentReasonTextView.getViewTreeObserver();
+        final ViewTreeObserver observer = sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.treatmentReasonTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 } else {
-                    holder.treatmentReasonTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
 
-                int containerHeight = holder.rateTextView.getHeight()+holder.treatmentReasonTextView.getHeight()+holder.waterConditionTextView.getHeight()+holder.operatorTextView.getHeight()+holder.operatorTextView.getHeight();
-                ViewGroup.LayoutParams params = holder.verticalLineView.getLayoutParams();
+                int containerHeight = sprayingViewHolder.rateTextView.getHeight()+sprayingViewHolder.treatmentReasonTextView.getHeight()+sprayingViewHolder.waterConditionTextView.getHeight()+sprayingViewHolder.operatorTextView.getHeight()+sprayingViewHolder.operatorTextView.getHeight();
+                ViewGroup.LayoutParams params = sprayingViewHolder.verticalLineView.getLayoutParams();
                 params.height = containerHeight;
                 Log.d("LENGTH",containerHeight+"");
-                holder.verticalLineView.requestLayout();
+                sprayingViewHolder.verticalLineView.requestLayout();
 
 
             }

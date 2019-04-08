@@ -26,6 +26,10 @@
         <item>Acres</item>
         <item>Hectares</item>
     </string-array>
+    <string-array name="crop_nutrient_calculator_units">
+        <item>Tonnes</item>
+        <item>Kg</item>
+    </string-array>
     <string-array name="crop_seeds_usage_units">
         <item>Select unit</item>
         <item>g</item>
@@ -120,6 +124,33 @@
         <item>Organic</item>
         <item>Peat</item>
     </string-array>
+    <string-array name="crop_field_type">
+        <item>Select Type</item>
+        <item>Soil Ground/Field</item>
+        <item>Greenhouse</item>
+        <item>Hydroponics</item>
+    </string-array>
+    <string-array name="crop_field_layout_type">
+        <item>Select Layout Type</item>
+        <item>Cover Crop</item>
+        <item>Row Crops</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="crop_field_status">
+        <item>Select Status</item>
+        <item>Active</item>
+        <item>Fallow</item>
+        <item>Leased</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="seed_inventory_seed_type">
+        <item>Select Seed Type</item>
+        <item>Conventional</item>
+        <item>GMO</item>
+        <item>Heirloom</item>
+        <item>Hybrid</item>
+        <item>Organic</item>
+    </string-array>
     <string-array name="crop_field_watercourse">
         <item>Select</item>
         <item>None</item>
@@ -138,8 +169,13 @@
         <item>Select Method</item>
         <item>Drill Sow</item>
         <item>Broadcast Sow</item>
-
+        <item>Container</item>
+        <item>Root stock</item>
+        <item>Bulbs</item>
+        <item>Grafting</item>
+        <item>Others</item>
     </string-array>
+
     <string-array name="crop_cultivate_operation">
         <item>Select Operation</item>
         <item>Field Preparation</item>
@@ -147,7 +183,17 @@
         <item>Pest Management</item>
         <item>Weed Control</item>
         <item>Other</item>
-
+    </string-array>
+    <string-array name="crop_notes_category">
+        <item>Select Category</item>
+        <item>Maintanance</item>
+        <item>Repair</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="crop_spray_type">
+        <item>Select Type</item>
+        <item>Pesticide</item>
+        <item>Herbicide</item>
     </string-array>
     <string-array name="crop_fertilizer_application_method_solid">
 
@@ -937,5 +983,27 @@
     <string name="no_potassium_selected">The fertilizers selected have no Potassium</string>
     <string name="title_activity_crop_fertilizer_calculator_results">Fertilizer Results</string>
     <string name="title_activity_crop_calculators">Calculators</string>
+    <string name="title_activity_crop_nutrients_calculator_entry">Nutrients Calculator</string>
+    <string name="estimated_yield_not_entered">Estimated yield not entered</string>
+    <string name="title_activity_crop_nutrients_calculator_results">Nutrients Removed</string>
+    <string name="field_status_is_not_selected">The field status is not selected</string>
+    <string name="field_type_not_selected">The field type is not selected</string>
+    <string name="seed_type_not_selected">The Seed Type has not been selected</string>
+    <string name="title_activity_crop_pdfview">CropPDFViewActivity</string>
+    <string name="title_activity_crop_best_practices_dashboard">Best Practices</string>
+    <string name="fr">fr</string>
+    <string name="title_activity_crop_machine_task_manager">Task Manager</string>
+    <string name="title_activity_crop_notes_manager">Notes Manager</string>
+    <string name="title_activity_crop_machine_service_manager">Machine Manager</string>
+
+    <string-array name="sp_crop_service_types">
+        <item>Select Type</item>
+        <item>Air Filter</item>
+        <item>Battery Fluid</item>
+    </string-array>
+    <string name="title_activity_crop_machine_notes_list">Notes</string>
+    <string name="title_activity_crop_machine_tasks_list">Tasks</string>
+    <string name="title_activity_crop_activities_list">Crop Activities</string>
+    <string name="label_activities">Activities</string>
 
 </resources>

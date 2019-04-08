@@ -10,6 +10,14 @@ public class CropItem implements Serializable, CropSpinnerItem{
     int kPercentage;
     String imageResourceId;
 
+    float nRemoved;
+    float pRemoved;
+    float kRemoved;
+
+    String isFor; //this model will hold data meant for nutrient removal or fertilizer calculation.
+
+    public static final String IS_FOR_NUTRIENT_REMOVAL ="nutrientRemoval";
+
     public CropItem(String name, int nPercentage, int pPercentage, int kPercentage) {
         this.name = name;
         this.nPercentage = nPercentage;
@@ -24,6 +32,15 @@ public class CropItem implements Serializable, CropSpinnerItem{
         this.kPercentage = kPercentage;
         this.imageResourceId = imageResourceId;
     }
+
+    public CropItem(String isFor,String name, double nRemoved, double pRemoved, double kRemoved) {
+        this.name = name;
+        this.nRemoved = (float) nRemoved;
+        this.pRemoved = (float) pRemoved;
+        this.kRemoved = (float) kRemoved;
+        this.isFor = isFor;
+    }
+
     public CropItem(){
 
     }
@@ -74,6 +91,38 @@ public class CropItem implements Serializable, CropSpinnerItem{
 
     public void setImageResourceId(String imageResourceId) {
         this.imageResourceId = imageResourceId;
+    }
+
+    public float getnRemoved() {
+        return nRemoved;
+    }
+
+    public void setnRemoved(float nRemoved) {
+        this.nRemoved = nRemoved;
+    }
+
+    public float getpRemoved() {
+        return pRemoved;
+    }
+
+    public void setpRemoved(float pRemoved) {
+        this.pRemoved = pRemoved;
+    }
+
+    public float getkRemoved() {
+        return kRemoved;
+    }
+
+    public void setkRemoved(float kRemoved) {
+        this.kRemoved = kRemoved;
+    }
+
+    public String getIsFor() {
+        return isFor;
+    }
+
+    public void setIsFor(String isFor) {
+        this.isFor = isFor;
     }
 
     public String toString(){

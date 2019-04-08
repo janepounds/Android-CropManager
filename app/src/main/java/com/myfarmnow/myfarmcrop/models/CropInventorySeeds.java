@@ -24,6 +24,8 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
     private float cost;
     private String supplier;
 
+
+
     public String getId() {
         return id;
     }
@@ -202,4 +204,6 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
     public String toString() {
         return getName();
     }
+
+
 }

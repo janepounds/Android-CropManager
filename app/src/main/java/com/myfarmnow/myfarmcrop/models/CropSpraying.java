@@ -2,7 +2,7 @@ package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
 
-public class CropSpraying implements Serializable {
+public class CropSpraying implements Serializable,CropActivity {
     String date;
     String startTime;
     String endTime;
@@ -146,5 +146,10 @@ public class CropSpraying implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public int getType() {
+        return CropActivity.CROP_ACTIVITY_SPRAYING;
     }
 }

@@ -23,6 +23,7 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
     String expiryDate;
     int harvestInterval;
     String activeIngredients;
+    String sprayType;
 
     public String getId() {
         return id;
@@ -205,4 +206,6 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
     public String toString() {
         return getName();
     }
+
+
 }

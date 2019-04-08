@@ -26,15 +26,13 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_cultivation_manager);
-        if(getIntent().hasExtra("cultivation")){
-            cultivation =(CropCultivation) getIntent().getSerializableExtra("cultivation");
-        }
-        if(getIntent().hasExtra("cropId")){
-            cropId =getIntent().getStringExtra("cropId");
+        if(getIntent().hasExtra("cropCultivation")){
+            cultivation =(CropCultivation) getIntent().getSerializableExtra("cropCultivation");
         }
         else{
             finish();
         }
+        cropId = cultivation.getCropId();
         initializeForm();
     }
 

@@ -102,6 +102,6 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
         this.id = id;
     }
     public String getComposition(){
-        return "("+getnPercentage() +": "+getpPercentage()+" : "+getkPercentage()+" )";
+        return "("+getnPercentage() +": "+(int)getpPercentage()+" : "+getkPercentage()+" )";
     }
 }

@@ -9,19 +9,29 @@
     tools:showIn="@layout/activity_crop_calculators">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.084">
+
         <LinearLayout
             android:id="@+id/layout_crop_calculators_revenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:orientation="vertical"
-            android:onClick="openRevenueCalculator">
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:onClick="openRevenueCalculator"
+            android:orientation="vertical">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -41,17 +51,19 @@
                 android:text="REVENUE"
                 android:textAllCaps="true"
                 android:textColor="#000000" />
-            
+
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_crop_calculators_fertilizer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
-            android:layout_weight="1"
             android:layout_margin="8dp"
-            android:orientation="vertical"
-            android:onClick="openFertilizerCalculator">
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:onClick="openFertilizerCalculator"
+            android:orientation="vertical">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -73,5 +85,81 @@
                 android:textColor="#000000" />
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:onClick="openNutrientsCalculator"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+
+                android:padding="10dp"
+                android:src="@drawable/crops" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@color/whiteColor"
+                android:gravity="center"
+
+                android:paddingBottom="5dp"
+                android:text="NUTRIENTS"
+                android:textAllCaps="true"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@color/whiteColor"
+            android:onClick="openFertilizerCalculator"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+
+                android:padding="10dp"
+                android:src="@drawable/crops" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@color/whiteColor"
+                android:gravity="center"
+
+                android:paddingBottom="5dp"
+                android:text="FERTILIZER"
+                android:textAllCaps="true"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

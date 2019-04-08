@@ -71,6 +71,96 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Field Type"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <Spinner
+                android:id="@+id/sp_crop_field_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Enter.."
+                android:entries="@array/crop_field_type"
+                android:background="@drawable/input_shapes"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Layout Type"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <Spinner
+                android:id="@+id/sp_crop_field_layout_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Enter.."
+                android:entries="@array/crop_field_layout_type"
+                android:background="@drawable/input_shapes"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Status"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <Spinner
+                android:id="@+id/sp_crop_field_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Enter.."
+                android:entries="@array/crop_field_status"
+                android:background="@drawable/input_shapes"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginBottom="15dp"
             >
 
@@ -124,6 +214,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:entries="@array/crop_field_soil_type"
+
                 android:background="@drawable/input_shapes"
 
 
@@ -156,7 +247,6 @@
                 android:textSize="14sp"
                 android:entries="@array/crop_field_watercourse"
                 android:background="@drawable/input_shapes"
-
                 />
 
         </LinearLayout>

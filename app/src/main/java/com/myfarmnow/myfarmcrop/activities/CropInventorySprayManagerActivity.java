@@ -14,15 +14,14 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 public class CropInventorySprayManagerActivity extends AppCompatActivity {
 
-    public EditText  purchaseDatTxt,seedNameTxt, typeTxt,costTxt,
+    public EditText  purchaseDatTxt,seedNameTxt,costTxt,
             quantityTxt,batchTxt,supplierTxt,activeIngredientsTxt,harvestIntervalTxt,expiryDateTxt;
     Button saveBtn;
-    Spinner usageUnitSpinner;
+    Spinner usageUnitSpinner,typeSp;
     MyFarmDbHandlerSingleton dbHandler;
     CropInventorySpray sprayInventory;
     @Override
@@ -43,7 +42,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
     public void initializeForm(){
         purchaseDatTxt = findViewById(R.id.txt_crop_spray_date_of_purchase);
         seedNameTxt = findViewById(R.id.txt_crop_spray_spray_name);
-        typeTxt = findViewById(R.id.txt_crop_spray_type);
+        typeSp = findViewById(R.id.sp_crop_spray_type);
         harvestIntervalTxt = findViewById(R.id.txt_crop_spray_harvest_interval);
         activeIngredientsTxt = findViewById(R.id.txt_crop_spray_active_ingreds);
         expiryDateTxt = findViewById(R.id.txt_crop_pray_exp_date);
@@ -86,11 +85,11 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
             expiryDateTxt.setText(sprayInventory.getExpiryDate());
             purchaseDatTxt.setText(sprayInventory.getDateOfPurchase());
             seedNameTxt.setText(sprayInventory.getName());
-            typeTxt.setText(sprayInventory.getType());
             harvestIntervalTxt.setText(sprayInventory.getHarvestInterval()+"");
             activeIngredientsTxt.setText(sprayInventory.getActiveIngredients());
             activeIngredientsTxt.setText(sprayInventory.getActiveIngredients());
             CropDashboardActivity.selectSpinnerItemByValue(usageUnitSpinner,sprayInventory.getUsageUnits());
+            CropDashboardActivity.selectSpinnerItemByValue(typeSp,sprayInventory.getType());
             quantityTxt.setText(sprayInventory.getQuantity()+"");
             costTxt.setText(sprayInventory.getCost()+"");
             batchTxt.setText(sprayInventory.getBatchNumber()+"");
@@ -103,9 +102,8 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         sprayInventory.setUserId(CropDashboardActivity.getPreferences("userId",this));
         sprayInventory.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
         sprayInventory.setDateOfPurchase(purchaseDatTxt.getText().toString());
-
         sprayInventory.setName(seedNameTxt.getText().toString());
-        sprayInventory.setType(typeTxt.getText().toString());
+        sprayInventory.setType(typeSp.getSelectedItem().toString());
         sprayInventory.setActiveIngredients(activeIngredientsTxt.getText().toString());
         sprayInventory.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         sprayInventory.setCost(Float.parseFloat(costTxt.getText().toString()));
@@ -113,6 +111,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         sprayInventory.setSupplier(supplierTxt.getText().toString());
         sprayInventory.setHarvestInterval(Integer.parseInt(harvestIntervalTxt.getText().toString()));
         sprayInventory.setExpiryDate(expiryDateTxt.getText().toString());
+
        // sprayInventory.setTgw(tgwTxt.getText().toString());
 
 
@@ -129,7 +128,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
             sprayInventory.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             sprayInventory.setDateOfPurchase(purchaseDatTxt.getText().toString());
             sprayInventory.setName(seedNameTxt.getText().toString());
-            sprayInventory.setType(typeTxt.getText().toString());
+            sprayInventory.setType(typeSp.getSelectedItem().toString());
             sprayInventory.setActiveIngredients(activeIngredientsTxt.getText().toString());
             sprayInventory.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
             sprayInventory.setCost(Float.parseFloat(costTxt.getText().toString()));
@@ -137,7 +136,6 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
             sprayInventory.setSupplier(supplierTxt.getText().toString());
             sprayInventory.setHarvestInterval(Integer.parseInt(harvestIntervalTxt.getText().toString()));
             sprayInventory.setExpiryDate(expiryDateTxt.getText().toString());
-            Log.d("TASTE",sprayInventory.getName()+" : "+seedNameTxt.getText().toString());
             dbHandler.updateCropSpray(sprayInventory);
         }
     }
@@ -162,6 +160,9 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         else if(usageUnitSpinner.getSelectedItemPosition()==0){
             message = getString(R.string.usage_units_not_selected);
             usageUnitSpinner.requestFocus();
+        }else if(typeSp.getSelectedItemPosition() ==0){
+            message = getString(R.string.type_not_selected);
+            typeSp.requestFocus();
         }
 
         if(message != null){

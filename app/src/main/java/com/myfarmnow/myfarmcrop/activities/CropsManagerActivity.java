@@ -23,7 +23,8 @@ import java.util.ArrayList;
 
 public class CropsManagerActivity extends AppCompatActivity {
    EditText dateTxt, varietyTxt, yearTxt,areaTxt,operatorTxt,costTxt,rateTxt;
-   Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp;
+   EditText estimatedRevenueTxt, estimatedYieldTxt;
+   Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp,harvestUnitsSp;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
    Button saveBtn;
@@ -52,7 +53,12 @@ public class CropsManagerActivity extends AppCompatActivity {
         seasonSp  = findViewById(R.id.sp_crops_season);
         seedSp  = findViewById(R.id.sp_crops_seed_name);
         fieldSp  = findViewById(R.id.sp_crops_field);
+        harvestUnitsSp  = findViewById(R.id.sp_crops_harvest_units);
         plantingMethodSp  = findViewById(R.id.sp_crops_planting_method);
+        estimatedRevenueTxt  = findViewById(R.id.txt_crops_estimated_revenue);
+        estimatedYieldTxt  = findViewById(R.id.txt_crops_estimated_yield);
+
+
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateTxt,this);
         saveBtn = findViewById(R.id.btn_save);
@@ -109,10 +115,15 @@ public class CropsManagerActivity extends AppCompatActivity {
         crop.setSeason(seasonSp.getSelectedItem().toString());
         crop.setDateSown(dateTxt.getText().toString());
         crop.setArea(Float.parseFloat(areaTxt.getText().toString()));
+        crop.setEstimatedRevenue(Float.parseFloat(estimatedRevenueTxt.getText().toString()));
+        crop.setEstimatedYield(Float.parseFloat(estimatedYieldTxt.getText().toString()));
         crop.setOperator(operatorTxt.getText().toString());
         crop.setCost(Float.parseFloat(costTxt.getText().toString()));
         if(seedSp.getSelectedItemPosition()!=0){
             crop.setSeedId(((CropInventorySeeds)seedSp.getSelectedItem()).getId());
+        }
+        if(harvestUnitsSp.getSelectedItemPosition()!=0){
+            crop.setHarvestUnits(harvestUnitsSp.getSelectedItem().toString());
         }
         crop.setRate(Float.parseFloat(rateTxt.getText().toString()));
         crop.setPlantingMethod(plantingMethodSp.getSelectedItem().toString());
@@ -128,10 +139,15 @@ public class CropsManagerActivity extends AppCompatActivity {
             crop.setSeason(seasonSp.getSelectedItem().toString());
             crop.setDateSown(dateTxt.getText().toString());
             crop.setArea(Float.parseFloat(areaTxt.getText().toString()));
+            crop.setEstimatedRevenue(Float.parseFloat(estimatedRevenueTxt.getText().toString()));
+            crop.setEstimatedYield(Float.parseFloat(estimatedYieldTxt.getText().toString()));
             crop.setOperator(operatorTxt.getText().toString());
             crop.setCost(Float.parseFloat(costTxt.getText().toString()));
             if(seedSp.getSelectedItemPosition()!=0){
                 crop.setSeedId(((CropInventorySeeds)seedSp.getSelectedItem()).getId());
+            }
+            if(harvestUnitsSp.getSelectedItemPosition()!=0){
+                crop.setHarvestUnits(harvestUnitsSp.getSelectedItem().toString());
             }
             crop.setRate(Float.parseFloat(rateTxt.getText().toString()));
             crop.setPlantingMethod(plantingMethodSp.getSelectedItem().toString());
@@ -149,11 +165,14 @@ public class CropsManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(growingCycleSp,crop.getGrowingCycle());
             CropDashboardActivity.selectSpinnerItemByValue(seasonSp,crop.getSeason());
             CropDashboardActivity.selectSpinnerItemByValue(plantingMethodSp,crop.getPlantingMethod());
+            CropDashboardActivity.selectSpinnerItemByValue(harvestUnitsSp,crop.getHarvestUnits());
             dateTxt.setText(crop.getDateSown());
             areaTxt.setText(crop.getArea()+"");
             operatorTxt.setText(crop.getOperator());
             costTxt.setText(crop.getCost()+"");
             rateTxt.setText(crop.getRate()+"");
+            estimatedYieldTxt.setText(crop.getEstimatedYield()+"");
+            estimatedRevenueTxt.setText(crop.getEstimatedRevenue()+"");
             CropDashboardActivity.selectSpinnerItemById(seedSp,crop.getSeedId());
             CropDashboardActivity.selectSpinnerItemById(fieldSp,crop.getFieldId());
         }
@@ -184,7 +203,14 @@ public class CropsManagerActivity extends AppCompatActivity {
         else if(fieldSp.getSelectedItemPosition()==0){
             message = getString(R.string.field_not_selected);
             fieldSp.requestFocus();
+        }else if(estimatedRevenueTxt.getText().toString().isEmpty()){
+            estimatedRevenueTxt.setText(getString(R.string.default_numeric_value));
         }
+        else if(estimatedYieldTxt.getText().toString().isEmpty()){
+            estimatedYieldTxt.setText(getString(R.string.default_numeric_value));
+        }
+
+
 
         if(message != null){
             Toast.makeText(CropsManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
