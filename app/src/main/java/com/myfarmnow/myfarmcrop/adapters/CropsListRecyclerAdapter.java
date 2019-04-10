@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -20,7 +21,11 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropHarvestListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropIrrigationListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropScoutingListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropTransplantingListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
@@ -98,6 +103,8 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
         TextView datePlantedTxt;
 
+        Button activitiesBtn;
+
         public CropCardViewHolder(View itemView) {
             super(itemView);
             cropNameTxtView = itemView.findViewById(R.id.txt_crop_card_name);
@@ -107,6 +114,17 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             croppingYearTxt = itemView.findViewById(R.id.txt_crop_card_cropping_year);
             seasonTxt = itemView.findViewById(R.id.txt_crop_card_season);
             cropAge = itemView.findViewById(R.id.txt_crop_card_age);
+            activitiesBtn = itemView.findViewById(R.id.btn_crop_activities);
+
+            activitiesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Crop crop = cropsList.get(getAdapterPosition());
+                    Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
+                    showSpray.putExtra("cropId", crop.getId());
+                    mContext.startActivity(showSpray);
+                }
+            });
 
             moreButton = itemView.findViewById(R.id.img_crop_card_more);
             //layout_batch_number txt_view_batch_lbl
@@ -157,11 +175,30 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 showSpray.putExtra("cropId", crop.getId());
                                 mContext.startActivity(showSpray);
                             }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_activities))) {
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_irrigation))){
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
-                                showSpray.putExtra("cropId", crop.getId());
-                                mContext.startActivity(showSpray);
+                                Intent showIrrigation = new Intent(mContext, CropIrrigationListActivity.class);
+                                showIrrigation.putExtra("cropId",crop.getId());
+                                mContext.startActivity(showIrrigation);
+                            }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_transplanting))){
+                                Crop crop = cropsList.get(getAdapterPosition());
+                                Intent showTransplanting = new Intent(mContext, CropTransplantingListActivity.class);
+                                showTransplanting.putExtra("cropId",crop.getId());
+                                mContext.startActivity(showTransplanting);
+                            }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_scouting))){
+                                Crop crop = cropsList.get(getAdapterPosition());
+                                Intent showScouting = new Intent(mContext, CropScoutingListActivity.class);
+                                showScouting.putExtra("cropId",crop.getId());
+                                mContext.startActivity(showScouting);
+                            }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_harvest))){
+                                Crop crop = cropsList.get(getAdapterPosition());
+                                Intent showHarvest = new Intent(mContext, CropHarvestListActivity.class);
+                                showHarvest.putExtra("cropId",crop.getId());
+                                mContext.startActivity(showHarvest);
+
                             }
 
                             return true;
@@ -173,9 +210,11 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     popup.getMenu().add(R.string.label_fertilizer);
                     popup.getMenu().add(R.string.label_spray);
                     popup.getMenu().add(R.string.label_harvest);
+                    popup.getMenu().add(R.string.label_irrigation);
+                    popup.getMenu().add(R.string.label_transplanting);
+                    popup.getMenu().add(R.string.label_scouting);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
-                    popup.getMenu().add(R.string.label_activities);
                     popup.show();
 
                 }

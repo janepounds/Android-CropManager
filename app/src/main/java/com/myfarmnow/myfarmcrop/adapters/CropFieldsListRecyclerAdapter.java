@@ -22,7 +22,9 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropIrrigationListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropTransplantingListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -175,6 +177,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
                                 showSoilAnalysis.putExtra("fieldId",cropField.getId());
                                 mContext.startActivity(showSoilAnalysis);
                             }
+
 
                             return true;
                         }

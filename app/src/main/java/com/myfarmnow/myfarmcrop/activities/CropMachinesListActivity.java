@@ -42,8 +42,6 @@ public class CropMachinesListActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-       // Log.d("ADD NEW SELECTED",item.getItemId()+" "+R.id.action_add_new);
 
         switch (item.getItemId()) {
 

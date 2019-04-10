@@ -59,6 +59,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         fertilizerId =findViewById(R.id.sp_crop_fertilizer_application_fertilizername);
         methodSp =findViewById(R.id.sp_crop_fertilizer_application_method);
         fertilizerFormSp =findViewById(R.id.sp_crop_fertilizer_application_fertilizer_form);
+
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Method",this);
         methodSp.setAdapter(applicationMethodAdapter);
         methodSp.setEnabled(false);

@@ -49,28 +49,28 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.1"
                                 android:layout_marginLeft="6dp"
+                                android:gravity="end"
                                >
 
-                                <TextView
-                                    android:id="@+id/txt_crop_card_name"
-                                    android:textSize="16dp"
-                                    android:textColor="#696666"
+                                <Button
+                                    android:id="@+id/btn_crop_activities"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textStyle="bold"
-                                    android:layout_marginRight="5dp"
-                                    android:text="Tomatoes " />
-
-                                <TextView
-                                    android:id="@+id/txt_crop_card_variety"
+                                    android:text="Activities"
+                                    android:textAllCaps="false"
+                                    android:layout_weight="1"/>
+                                <Button
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="(Asla Fg)"
-                                    android:textColor="#696666"
-                                    android:textSize="16dp" />
-
-
+                                    android:text="Notes"
+                                    android:textAllCaps="false"
+                                    android:layout_weight="1"/>
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Gallery"
+                                    android:textAllCaps="false"
+                                    android:layout_weight="1"/>
                             </LinearLayout>
 
                             <ImageView
@@ -84,6 +84,7 @@
 
 
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -99,8 +100,35 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1">
 
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:layout_marginLeft="6dp"
+                                    >
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_card_name"
+                                        android:textSize="16dp"
+                                        android:textColor="#696666"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:layout_marginRight="5dp"
+                                        android:text="Tomatoes " />
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_card_variety"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="(Asla Fg)"
+                                        android:textColor="#696666"
+                                        android:textSize="16dp" />
 
 
+                                </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"

@@ -48,7 +48,7 @@ public class CropBestPracticesDashboardActivity extends AppCompatActivity {
     }
     public void openEggPlantBestPractices(View view){
         Intent openPDF = new Intent(this, CropPDFViewActivity.class);
-        openPDF.putExtra("fileName","egg_plants.pdf");
+        openPDF.putExtra("fileName","eggplants.pdf");
         openPDF.putExtra("pageTitle","Egg Plants Best Practices");
         startActivity(openPDF);
     }
@@ -60,7 +60,7 @@ public class CropBestPracticesDashboardActivity extends AppCompatActivity {
     }
     public void openOnionBestPractices(View view){
         Intent openPDF = new Intent(this, CropPDFViewActivity.class);
-        openPDF.putExtra("fileName","ground_nuts.pdf");
+        openPDF.putExtra("fileName","onions.pdf");
         openPDF.putExtra("pageTitle","Onions Best Practices");
         startActivity(openPDF);
     }
@@ -72,7 +72,7 @@ public class CropBestPracticesDashboardActivity extends AppCompatActivity {
     }
     public void openPineappleBestPractices(View view){
         Intent openPDF = new Intent(this, CropPDFViewActivity.class);
-        openPDF.putExtra("fileName","pineapple.pdf");
+        openPDF.putExtra("fileName","pinneapple.pdf");
         openPDF.putExtra("pageTitle","Pineapple Best Practices");
         startActivity(openPDF);
     }

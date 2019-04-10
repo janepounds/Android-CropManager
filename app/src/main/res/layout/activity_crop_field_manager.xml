@@ -178,7 +178,6 @@
                 android:id="@+id/sp_crop_field_soil_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:layout_weight="0.5"
                 android:background="@drawable/input_shapes"
@@ -211,7 +210,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
-                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:entries="@array/crop_field_soil_type"
 
@@ -243,7 +241,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:entries="@array/crop_field_watercourse"
                 android:background="@drawable/input_shapes"

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,23 +16,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
+
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
+
 import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
+
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropActivity;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
+import com.myfarmnow.myfarmcrop.models.CropHarvest;
+import com.myfarmnow.myfarmcrop.models.CropIrrigation;
+import com.myfarmnow.myfarmcrop.models.CropScouting;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
+import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -68,6 +77,24 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             SprayingViewHolder holder = new SprayingViewHolder(view);
             return holder;
         }
+        else if(viewType==CropActivity.CROP_ACTIVITY_SCOUTING){
+            View view = mInflater.inflate(R.layout.crop_scouting_list_card,parent,false);
+
+            ScoutingViewHolder holder = new ScoutingViewHolder(view);
+            return holder;
+        }else if(viewType==CropActivity.CROP_ACTIVITY_IRRIGATION){
+            View view = mInflater.inflate(R.layout.crop_irrigation_list_card,parent,false);
+            IrrigationViewHolder holder = new IrrigationViewHolder(view);
+            return holder;
+        }else if(viewType==CropActivity.CROP_ACTIVITY_TRANSPLANTING){
+            View view = mInflater.inflate(R.layout.crop_transplanting_list_card,parent,false);
+            TransplantingViewHolder holder = new TransplantingViewHolder(view);
+            return holder;
+        }else if(viewType==CropActivity.CROP_ACTIVITY_HARVESTING){
+            View view = mInflater.inflate(R.layout.crop_harvest_list_card,parent,false);
+            HarvestViewHolder holder = new HarvestViewHolder(view);
+            return holder;
+        }
         else {
             return null;
         }
@@ -95,9 +122,9 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         fertilizerApplicationHolder.operationTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int containerHeight = fertilizerApplicationHolder.rateTextView.getHeight()+fertilizerApplicationHolder.operationTextView.getHeight()+fertilizerApplicationHolder.methodTextView.getHeight();
+                    int containerHeight = (16+fertilizerApplicationHolder.rateTextView.getHeight())*7;
                     ViewGroup.LayoutParams params = fertilizerApplicationHolder.verticalLineView.getLayoutParams();
-                    params.height = 3*containerHeight;
+                    params.height = containerHeight;
                     fertilizerApplicationHolder.verticalLineView.requestLayout();
                 }
             });
@@ -120,10 +147,10 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int containerHeight =  ((CultivationViewHolder)holder).notesTextView.getHeight()+ 3*(((CultivationViewHolder)holder).costTextView.getHeight()+ ((CultivationViewHolder)holder).operatorTextView.getHeight());
+                    int containerHeight =  (16+((CultivationViewHolder)holder).operationTextView.getHeight())*7+((CultivationViewHolder)holder).notesTextView.getHeight();
                     ViewGroup.LayoutParams params =  ((CultivationViewHolder)holder).verticalLineView.getLayoutParams();
                     params.height = containerHeight;
-                    Log.d("LENGTH",containerHeight+"");
+
                     ((CultivationViewHolder)holder).verticalLineView.requestLayout();
 
 
@@ -149,15 +176,133 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int containerHeight = sprayingViewHolder.rateTextView.getHeight()+sprayingViewHolder.treatmentReasonTextView.getHeight()+sprayingViewHolder.waterConditionTextView.getHeight()+sprayingViewHolder.operatorTextView.getHeight()+sprayingViewHolder.operatorTextView.getHeight();
+                    int lineHeight = (16+sprayingViewHolder.rateTextView.getHeight())*8+sprayingViewHolder.treatmentReasonTextView.getHeight();
                     ViewGroup.LayoutParams params = sprayingViewHolder.verticalLineView.getLayoutParams();
-                    params.height = containerHeight;
-                    Log.d("LENGTH",containerHeight+"");
+                    params.height = lineHeight;
                     sprayingViewHolder.verticalLineView.requestLayout();
-
-
                 }
             });
+        } 
+        else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_SCOUTING){
+            final ScoutingViewHolder scoutingViewHolder = (ScoutingViewHolder)holder;
+            final CropScouting scouting = (CropScouting)cropsList.get(position);
+            scoutingViewHolder.scoutingDateTxt.setText(scouting.getDate());
+            scoutingViewHolder.scoutingMethodTxt.setText("("+scouting.getMethod()+")");
+            scoutingViewHolder.infestationTypeTxt.setText(scouting.getInfestationType()+" : ");
+            scoutingViewHolder.infestationTxt.setText(scouting.getInfestation());
+            scoutingViewHolder.infestationLevelTxt.setText(scouting.getInfestationLevel());
+            scoutingViewHolder.costTxt.setText(scouting.getCost()+"");
+            // holder.remarksTxt.setText(scouting.getRemarks());
+
+            //TODO MAKING DROP DOWN GONE WHEN REMARKS NOT ENTERED
+            //TODO MAKING infestationLayout and infestationLevelLayout GONE WHEN CROP IS NOT INFESTED
+            //TODO ADJUSTING THE SIDE LINE OF THE CARD
+        
+            if(scouting.getInfested().toLowerCase().equals("yes")) {
+
+                TextView infestationTypeTxt = new TextView(mContext);
+                infestationTypeTxt.setText(scouting.getInfestationType());
+                TextView infestationTxt = new TextView(mContext);
+                infestationTxt.setText(scouting.getInfestation());
+                TextView infestationLevelTxt = new TextView(mContext);
+                infestationLevelTxt.setText(scouting.getInfestationLevel());
+                scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
+                scoutingViewHolder.infestationLevelLayout.setVisibility(View.VISIBLE);
+            }
+            else{
+                TextView infestationTypeTxt = new TextView(mContext);
+                infestationTypeTxt.setText("Infested : ");
+                TextView infestationTxt = new TextView(mContext);
+                infestationTxt.setText("No");
+                scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
+            }
+
+
+            if(scouting.getRemarks() != null){
+                //holder.hideShowLayout.setVisibility(View.GONE);
+                TextView remarksTxt = new TextView(mContext);
+                remarksTxt.setText(scouting.getRemarks());
+                View view = new View(mContext);
+                view.setMinimumHeight(20);
+                scoutingViewHolder.expandContentLayout.addView(remarksTxt);
+
+                scoutingViewHolder.expandContentLayout.addView(view);
+                scoutingViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
+
+            }
+
+            scoutingViewHolder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    if (scoutingViewHolder.expandContentLayout.getVisibility()==View.VISIBLE){
+                        scoutingViewHolder.expandContentLayout.setVisibility(View.GONE);
+                        scoutingViewHolder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
+                        ViewGroup.LayoutParams params = scoutingViewHolder.verticalLineView.getLayoutParams();
+                        params.height = scoutingViewHolder.verticalLineView.getHeight()-scoutingViewHolder.expandContentLayout.getHeight();
+                        scoutingViewHolder.verticalLineView.requestLayout();
+                    }else{
+                        scoutingViewHolder.expandContentLayout.setVisibility(View.VISIBLE);
+                        scoutingViewHolder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
+                        ViewGroup.LayoutParams params = scoutingViewHolder.verticalLineView.getLayoutParams();
+                        params.height = scoutingViewHolder.verticalLineView.getHeight()+scoutingViewHolder.expandContentLayout.getHeight();
+                        scoutingViewHolder.verticalLineView.requestLayout();
+                    }
+                }
+            });
+
+            final ViewTreeObserver observer = scoutingViewHolder.costTxt.getViewTreeObserver();
+            observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        scoutingViewHolder.costTxt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    } else {
+                        scoutingViewHolder.costTxt.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+
+                    int lineHeight = (int)((18+scoutingViewHolder.costTxt.getHeight())*8.5);
+                    if(scouting.getInfested().toLowerCase().equals("no")){
+                        lineHeight=-(16+scoutingViewHolder.costTxt.getHeight());
+                    }
+                    ViewGroup.LayoutParams params = scoutingViewHolder.verticalLineView.getLayoutParams();
+                    params.height = lineHeight;
+                    scoutingViewHolder.verticalLineView.requestLayout();
+                }
+            });
+
+
+
+        } else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_IRRIGATION){
+            final IrrigationViewHolder irrigationViewHolder = (IrrigationViewHolder)holder;
+            CropIrrigation irrigation = (CropIrrigation)cropsList.get(position);
+            irrigationViewHolder.operationDateTxt.setText(irrigation.getOperationDate());
+            irrigationViewHolder.areaIrrigationTxt.setText(irrigation.getAreaIrrigated()+"");
+            irrigationViewHolder.systemRateTxt.setText(irrigation.getSystemRate()+" l/hr");
+            irrigationViewHolder.durationTxt.setText(irrigation.getAreaIrrigated()+" hrs");
+            irrigationViewHolder.totalWaterQuantity.setText(irrigation.getTotalWaterQuantity()+" ltrs");
+            irrigationViewHolder.recurrenceTxt.setText(irrigation.getRecurrence());
+            irrigationViewHolder.totalCostTxt.setText(irrigation.getTotalCost()+"");
+        }else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_IRRIGATION){
+            final TransplantingViewHolder transplantingViewHolder = (TransplantingViewHolder)holder;
+            CropTransplanting transplanting = (CropTransplanting)cropsList.get(position);
+            transplantingViewHolder.operationDateTxt.setText(transplanting.getOperationDate());
+            transplantingViewHolder.totalSeedlingsTxt.setText(transplanting.getTotalSeedling()+"");
+            transplantingViewHolder.seedlingsPerHaTxt.setText(transplanting.getSeedlingPerHa()+"");
+            transplantingViewHolder.varietyEarlinessTxt.setText(transplanting.getVarietyEarliness());
+            transplantingViewHolder.harvestDueDateTxt.setText(transplanting.getOperationDate());
+            transplantingViewHolder.expectedYieldTxt.setText(transplanting.getExpectedYield()+"");
+            transplantingViewHolder.totalCostTxt.setText(transplanting.getTotalCost()+"");
+        }else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_HARVESTING){
+            final HarvestViewHolder harvestViewHolder = (HarvestViewHolder)holder;
+            CropHarvest harvest = (CropHarvest)cropsList.get(position);
+            harvestViewHolder.harvestDateTxt.setText(harvest.getDate());
+            harvestViewHolder.harvestMethodTxt.setText(harvest.getMethod());
+            harvestViewHolder.quantityTxt.setText(harvest.getQuantity()+" ");
+            harvestViewHolder.unitsTxt.setText(harvest.getUnits());
+            harvestViewHolder.statusTxt.setText(harvest.getStatus());
+            harvestViewHolder.costTxt.setText(harvest.getCost()+"");
+
         }
     }
 
@@ -396,5 +541,283 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         }
 
     }
+    public class ScoutingViewHolder extends RecyclerView.ViewHolder{
+        TextView scoutingDateTxt,scoutingMethodTxt,infestationTypeTxt,infestationTxt,infestationLevelTxt,costTxt,remarksTxt;
+        ImageView moreButton,showHideRemarksButton;
+        LinearLayout expandContentLayout,hideShowLayout, infestationLayout, infestationLevelLayout;
+        View verticalLineView;
 
+        public ScoutingViewHolder(View itemView) {
+            super(itemView);
+            scoutingDateTxt = itemView.findViewById(R.id.txt_view_crop_scouting_card_date);
+            scoutingMethodTxt = itemView.findViewById(R.id.txt_view_crop_scouting_card_method);
+            infestationTypeTxt = itemView.findViewById(R.id.txt_view_crop_scouting_card_infestation_type);
+            infestationTxt = itemView.findViewById(R.id.txt_view_crop_scouting_card_infestation);
+            infestationLevelTxt = itemView.findViewById(R.id.txt_view_crop_scouting_card_infestation_level);
+            costTxt = itemView.findViewById(R.id.txt_view_crop_scouting_card_cost);
+            verticalLineView = itemView.findViewById(R.id.txt_view_crop_scouting_card_line);
+
+            hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
+            expandContentLayout = itemView.findViewById(R.id.layout_crop_scouting_expand);
+            infestationLayout = itemView.findViewById(R.id.layout_crop_scouting_card_infestation);
+            infestationLevelLayout = itemView.findViewById(R.id.layout_crop_scouting_card_infestation_level);
+
+            moreButton = itemView.findViewById(R.id.img_crop_scouting_card_more);
+            showHideRemarksButton = itemView.findViewById(R.id.img_crop_scouting_card_show_crops);
+            moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+
+                            if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))){
+                                final CropScouting cropScouting = (CropScouting)cropsList.get(getAdapterPosition());
+                                new android.app.AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete this Scouting Record ?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropScouting(cropScouting.getId());
+                                                cropsList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
+                                CropScouting cropScouting = (CropScouting)cropsList.get(getAdapterPosition());
+                                Intent editScouting = new Intent(mContext, CropScoutingManagerActivity.class);
+                                editScouting.putExtra("cropScouting",cropScouting);
+                                editScouting.putExtra("cropId",cropScouting.getCropId());
+                                mContext.startActivity(editScouting);
+                            }
+
+
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+                }
+            });
+
+
+
+        }
+    }
+
+    public class IrrigationViewHolder extends RecyclerView.ViewHolder {
+        TextView operationDateTxt,areaIrrigationTxt,systemRateTxt,durationTxt,totalWaterQuantity,recurrenceTxt,totalCostTxt;
+        ImageView moreButton ;
+
+        public IrrigationViewHolder(View itemView) {
+            super(itemView);
+            operationDateTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_operation_date);
+            areaIrrigationTxt = itemView.findViewById(R.id.txt_crop_irrigation_card_irrigated_area);
+            systemRateTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_system_rate);
+            durationTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_duration);
+            totalWaterQuantity = itemView.findViewById(R.id.txt_view_crop_irrigation_card_total_water_quantity);
+            recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_recurrence);
+            totalCostTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_total_cost);
+
+
+            moreButton = itemView.findViewById(R.id.img_crop_irrigation_card_more);
+
+
+
+            moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropIrrigation cropIrrigation = (CropIrrigation)cropsList.get(getAdapterPosition());
+                                new android.app.AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete this irrigation card?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropIrrigation(cropIrrigation.getId());
+                                                cropsList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                                CropIrrigation cropIrrigation = (CropIrrigation)cropsList.get(getAdapterPosition());
+                                Intent editIrrigation = new Intent(mContext, CropIrrigationManagerActivity.class);
+                                editIrrigation.putExtra("cropIrrigation",cropIrrigation);
+                                mContext.startActivity(editIrrigation);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
+                }
+            });
+
+
+
+        }
+    }
+
+
+    public class TransplantingViewHolder extends RecyclerView.ViewHolder {
+        TextView operationDateTxt,totalSeedlingsTxt,seedlingsPerHaTxt,expectedYieldTxt,totalCostTxt,varietyEarlinessTxt,harvestDueDateTxt;
+        ImageView moreButton ;
+
+        public TransplantingViewHolder(View itemView) {
+            super(itemView);
+            operationDateTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_operation_date);
+            totalSeedlingsTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_total_seedlings);
+            seedlingsPerHaTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_seedlings_per_ha);
+            varietyEarlinessTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_variety_earliness);
+            harvestDueDateTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_operation_date);
+            expectedYieldTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_expected_yield);
+            totalCostTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_total_cost);
+            moreButton = itemView.findViewById(R.id.img_crop_irrigation_card_more);
+
+
+
+            moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                                final CropTransplanting cropTransplanting =(CropTransplanting) cropsList.get(getAdapterPosition());
+                                new android.app.AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete this Transplanting card?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropTransplanting(cropTransplanting.getId());
+                                                cropsList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+
+                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                                CropTransplanting cropTransplanting = (CropTransplanting)cropsList.get(getAdapterPosition());
+                                Intent editTransplanting = new Intent(mContext, CropTransplantingManagerActivity.class);
+                                editTransplanting.putExtra("cropTransplanting",cropTransplanting);
+                                mContext.startActivity(editTransplanting);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+
+                }
+            });
+
+
+
+        }
+    }
+
+    public class HarvestViewHolder extends RecyclerView.ViewHolder{
+        TextView harvestDateTxt,harvestMethodTxt,quantityTxt,statusTxt,costTxt,unitsTxt;
+        LinearLayout hideShowLayout,expandContentLayout;
+        ImageView moreButton,showHideRemarksButton;
+
+        public HarvestViewHolder(View itemView) {
+            super(itemView);
+            harvestDateTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_date);
+            harvestMethodTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_method);
+            quantityTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_quantity);
+            statusTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_status);
+            unitsTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_units);
+
+            costTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_cost);
+
+            hideShowLayout = itemView.findViewById(R.id.layout_crop_harvest_card_show_hide);
+            expandContentLayout = itemView.findViewById(R.id.layout_crop_harvest_expand);
+
+            moreButton = itemView.findViewById(R.id.img_crop_harvest_card_more);
+            showHideRemarksButton = itemView.findViewById(R.id.img_crop_harvest_card_show_crops);
+            moreButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                    PopupMenu popup = new PopupMenu(wrapper, v);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+
+                            if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))){
+                                final CropHarvest cropHarvest = (CropHarvest)cropsList.get(getAdapterPosition());
+                                new android.app.AlertDialog.Builder(mContext)
+                                        .setTitle("Confirm")
+                                        .setMessage("Do you really want to delete this Harvest Record ?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropHarvest(cropHarvest.getId());
+                                                cropsList.remove(getAdapterPosition());
+                                                notifyItemRemoved(getAdapterPosition());
+
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
+                                CropHarvest cropHarvest = (CropHarvest)cropsList.get(getAdapterPosition());
+                                Intent editHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
+                                editHarvest.putExtra("cropHarvest",cropHarvest);
+                                editHarvest.putExtra("cropId",cropHarvest.getCropId());
+                                mContext.startActivity(editHarvest);
+                            }
+
+
+                            return true;
+                        }
+                    });
+
+                    popup.getMenu().add(R.string.label_edit);
+                    popup.getMenu().add(R.string.label_delete);
+                    popup.show();
+
+                }
+            });
+
+
+
+        }
+
+
+    }
 }

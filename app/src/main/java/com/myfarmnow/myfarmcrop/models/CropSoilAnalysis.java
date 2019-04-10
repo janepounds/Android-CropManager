@@ -101,7 +101,7 @@ public class CropSoilAnalysis implements Serializable {
         return "CropSoilAnalysis{" +
                 "userId='" + userId + '\'' +
                 ", id='" + id + '\'' +
-                ", fieldId='" + fieldId + '\'' +
+                ", cropId='" + fieldId + '\'' +
                 ", date='" + date + '\'' +
                 ", ph=" + ph +
                 ", organicMatter=" + organicMatter +

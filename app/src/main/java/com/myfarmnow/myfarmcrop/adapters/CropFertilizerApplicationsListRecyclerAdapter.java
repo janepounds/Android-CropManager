@@ -112,7 +112,7 @@ public class CropFertilizerApplicationsListRecyclerAdapter extends RecyclerView.
     public class FertilizerApplicationViewHolder extends RecyclerView.ViewHolder{
 
         TextView dateTextView, operationTextView, methodTextView, costTextView, rateTextView;
-        ImageView editButton, moreButton;
+        ImageView moreButton;
         View verticalLineView;
         public FertilizerApplicationViewHolder(View itemView) {
             super(itemView);

@@ -86,7 +86,7 @@
         <item>Square Miles</item>
     </string-array>
     <string-array name="crop_roi_yield_units">
-        <item>Select Unit</item>
+        <item>Select</item>
         <item>Boxes</item>
         <item>Kg</item>
         <item>Tonnes</item>
@@ -661,6 +661,65 @@
         <item>First Season</item>
         <item>Second Season</item>
     </string-array>
+    <string-array name="sp_crop_transplanting_variety_earliness">
+        <item>Select</item>
+        <item>Medium</item>
+        <item>Early</item>
+        <item>Late</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infested">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_type">
+        <item>Select</item>
+        <item>Disease</item>
+        <item>Nematode</item>
+        <item>Pest</item>
+        <item>Rodent</item>
+        <item>Weed</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_level">
+        <item>Select</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_disease">
+
+        <item>Acariasis</item>
+        <item>Acariosis Bronzed</item>
+        <item>Alternario</item>
+
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_nematode">
+
+        <item>Nematodes</item>
+        <item>Nematodes+Fungi</item>
+        <item>Nematodes with galls</item>
+        <item>Wetting</item>
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_pest">
+
+        <item>Acariasis</item>
+        <item>Aleurode</item>
+
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_rodent">
+
+        <item>Field Rat</item>
+
+    </string-array>
+    <string-array name="sp_crop_scouting_infestation_weed">
+        <item>Advent</item>
+
+    </string-array>
+    <string-array name="sp_crop_harvest_status">
+        <item>Select</item>
+        <item>Sold</item>
+        <item>Stored</item>
+    </string-array>
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
@@ -1005,5 +1064,52 @@
     <string name="title_activity_crop_machine_tasks_list">Tasks</string>
     <string name="title_activity_crop_activities_list">Crop Activities</string>
     <string name="label_activities">Activities</string>
+    <string name="operation_date">Operation Date</string>
+    <string name="irrigation_system_rate">Irrigation System Rate</string>
+    <string name="total_water_quantity">Total Water Quantity</string>
+    <string name="quantity_per_acre">Quantity Per Acre</string>
+    <string name="total_cost">Total Cost</string>
+    <string name="total_seedling">Total Seedling</string>
+    <string name="seedling_per_ha">Seedling / ha</string>
+    <string name="variety_earliness">Variety Earliness</string>
+    <string name="cycle_length">Cycle Length</string>
+    <string name="expected_harvesting_date">Expected Harvesting Date</string>
+    <string name="expected_yield">Expected Yield</string>
+    <string name="expected_yield_per_ha">Expected Yield/ha</string>
+    <string name="area_irrigated">Area Irrigated</string>
+    <string name="operation_date_not_selected_message">You must select the Operation Date</string>
+    <string name="area_irrigated_not_entered_message">You must enter the Area Irrigated</string>
+    <string name="variety_earliness_not_selected">You must select Variety Earliness</string>
+    <string name="cycle_length_not_entered">You must enter Cycle Length</string>
+    <string name="total_cost_not_entered">You must enter Total Cost</string>
+    <string name="label_irrigation">Irrigation</string>
+    <string name="label_transplanting">Transplanting</string>
+    <string name="scouting_date">Scouting Date</string>
+    <string name="scouting_method">Scouting Method</string>
+    <string name="infested">Infested</string>
+    <string name="infestation_type">Infestation Type</string>
+    <string name="infestation">Infestation</string>
+    <string name="infestation_level">Infestation Level</string>
+    <string name="remarks">Remarks</string>
+    <string name="scounting_date_not_selected_message">You must select the Scouting Date</string>
+    <string name="cost_not_entered">You must enter Cost</string>
+    <string name="infestation_type_not_selected">You must select Infestation Type</string>
+    <string name="label_scouting">Scouting</string>
+    <string name="infested_not_selected">You must select Infested field</string>
+    <string name="harvest_date">Harvest Date</string>
+    <string name="harvest_method">Harvest Method</string>
+    <string name="harvest_units">Harvest Units</string>
+    <string name="date_sold">Date Sold</string>
+    <string name="customer">Customer</string>
+    <string name="price">Price</string>
+    <string name="per_unit">/ unit</string>
+    <string name="quantity_sold">Quantity Sold</string>
+    <string name="storage_date">Storage Date</string>
+    <string name="quantity_stored">Quantity Stored</string>
+    <string name="harvest_cost">Harvest Cost</string>
+    <string name="harvest_date_not_selected_message">You must select Harvest Date</string>
+    <string name="quantity_not_entered">You must enter Quantity</string>
+    <string name="harvest">Harvest</string>
+
 
 </resources>

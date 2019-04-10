@@ -13,6 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".activities.CropHarvestListActivity"
+            android:label="Harvests"/>
+        <activity android:name=".activities.CropHarvestManagerActivity"
+            android:label="Harvest Manager"/>
+        <activity
+            android:name=".activities.CropScoutingListActivity"
+            android:label="Scouting Records" />
+        <activity
+            android:name=".activities.CropScoutingManagerActivity"
+            android:label="Scouting Manager" />
+        <activity
+            android:name=".activities.CropTransplantingListActivity"
+            android:label="Transplanting" />
+        <activity
+            android:name=".activities.CropIrrigationListActivity"
+            android:label="Irrigation" />
+        <activity
+            android:name=".activities.CropTransplantingManagerActivity"
+            android:label="Transplanting Manager" />
+        <activity
+            android:name=".activities.CropIrrigationManagerActivity"
+            android:label="Irrigation Manager" />
         <activity
             android:name=".activities.CropPaymentBillsListActivity"
             android:label="Payments" />
@@ -260,6 +283,7 @@
             android:name=".activities.CropCalculatorsActivity"
             android:label="@string/title_activity_crop_calculators"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.CropNutrientsCalculatorEntryActivity"
             android:label="@string/title_activity_crop_nutrients_calculator_entry"
@@ -300,6 +324,7 @@
             android:name=".activities.CropActivitiesListActivity"
             android:label="@string/title_activity_crop_activities_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
