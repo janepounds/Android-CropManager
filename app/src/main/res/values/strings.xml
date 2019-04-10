@@ -1130,6 +1130,7 @@
     <string name="website">Website</string>
     <string name="contact_type_not_selected_message">You must select Contact Type</string>
     <string name="address_not_entered_message">You must enter Address</string>
+    <string name="repeat_until">Repeat Until</string>
 
 
 </resources>

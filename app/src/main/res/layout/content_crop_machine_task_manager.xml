@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_margin="4dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -58,7 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="4dp">
 
                     <TextView
 
@@ -91,7 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="4dp">
 
                     <TextView
 
@@ -117,7 +119,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="4dp">
                     <TextView
 
                         android:layout_width="match_parent"
@@ -154,7 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="10dp">
+                android:layout_margin="4dp">
 
                 <TextView
 
@@ -277,7 +280,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="4dp">
 
                     <TextView
 
@@ -300,9 +304,11 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_crop_machine_task_weekly_reminder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 >
 
                 <LinearLayout
@@ -364,40 +370,34 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cost"
+                        android:text="@string/repeat_until"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:layout_weight="0.3"/>
 
                     <EditText
-                        android:id="@+id/txt_crop_task_cost"
+                        android:id="@+id/txt_crop_task_repeat_until"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:hint="Enter.."
+                        android:hint="Select"
                         android:background="@drawable/input_shapes"
-                        android:inputType="numberDecimal"
+                        android:inputType="none"
                         android:textSize="14sp"
                         android:layout_weight="0.7"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_crop_machine_task_days_before"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="4dp"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Days Before"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_weight="0.3"/>
-
+                android:layout_weight="1"
+                android:background="@color/gray_mh"
+                android:visibility="gone">
                 <EditText
                     android:id="@+id/txt_crop_task_days_before"
                     android:layout_width="wrap_content"
@@ -408,6 +408,19 @@
                     android:inputType="numberDecimal"
                     android:textSize="14sp"
                     android:layout_weight="0.7"/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Days Before"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="0.3"/>
+
+
             </LinearLayout>
 
             <Button

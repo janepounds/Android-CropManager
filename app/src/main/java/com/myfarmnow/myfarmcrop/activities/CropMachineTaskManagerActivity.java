@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,9 +31,10 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
     EditText dateTxt, titleTxt, descriptionTxt;
     Spinner cropSp, typeSp, personnelSp,statusSp, recurrenceSp, remindersSp;
     Button saveBtn;
+    LinearLayout weeklyRecurrenceLayout, daysBeforeLayout;
     CropSpinnerAdapter cropsSpinnerAdapter, employeesSpinnerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
-
+    String machineId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,12 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra("cropMachineTask")){
             cropMachineTask = (CropMachineTask)getIntent().getSerializableExtra("cropMachineTask");
+        }
+        if(getIntent().hasExtra("machineId")){
+            machineId =getIntent().getStringExtra("machineId");
+        }
+        else{
+            finish();
         }
         initializeForm();
 
@@ -56,6 +65,44 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         statusSp = findViewById(R.id.sp_crop_task_status);
         recurrenceSp = findViewById(R.id.sp_crop_task_recurrence);
         remindersSp = findViewById(R.id.sp_crop_task_reminders);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_machine_task_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_machine_task_days_before);
+
+
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -81,6 +128,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
 
                     Intent toCropMachineTasksList = new Intent(CropMachineTaskManagerActivity.this, CropMachineTasksListActivity.class);
                     toCropMachineTasksList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    toCropMachineTasksList.putExtra("machineId",machineId);
                     startActivity(toCropMachineTasksList);
                 }else{
                     Log.d("ERROR","Testing");
