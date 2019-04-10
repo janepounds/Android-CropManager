@@ -5,7 +5,9 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Layout;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -30,12 +33,13 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     String cropId;
     CropHarvest cropHarvest=null;
     EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,quantitySoldTxt,storageDateTxt,quantityStoredTxt,costTxt;
+    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt;
     Spinner  harvestUnitsSpinner,operatorSpinner,statusSpinner;
     LinearLayout harvestSoldLayout,harvestStoredLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     CropSpinnerAdapter employeesSpinnerAdapter;
-    boolean harvestSet = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,9 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         costTxt = findViewById(R.id.txt_crop_harvest_cost);
         harvestSoldLayout=findViewById(R.id.layout_crop_harvest_sold);
         harvestStoredLayout=findViewById(R.id.layout_crop_harvest_stored);
+        quantityStoredUnitsTxt=findViewById(R.id.txt_crop_harvest_stored_unit);
+        pricePerUnitTxt=findViewById(R.id.txt_crop_harvest_price_per_unit);
+        quantitySoldUnitsTxt=findViewById(R.id.txt_crop_harvest_sold_unit);
 
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -89,9 +96,61 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                 else if(position==1){
                     harvestStoredLayout.setVisibility(View.GONE);
                 }
-                if(!harvestSet && cropHarvest != null){
-                    CropDashboardActivity.selectSpinnerItemById(operatorSpinner, cropHarvest.getOperator());
-                    harvestSet =true;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        harvestUnitsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("boxes")){
+                   quantityStoredUnitsTxt.setText("Boxes");
+                    pricePerUnitTxt.setText("Boxes");
+                    quantitySoldUnitsTxt.setText("/ Box");
+
+                }
+                else if(selection.toLowerCase().equals("kg")){
+
+                    quantityStoredUnitsTxt.setText("Kg");
+                    pricePerUnitTxt.setText("Kg");
+                    quantitySoldUnitsTxt.setText("/ Kg");
+
+                }
+                else if(selection.toLowerCase().equals("tonnes")){
+                    quantityStoredUnitsTxt.setText("Tonnes");
+                    pricePerUnitTxt.setText("Tonnes");
+                    quantitySoldUnitsTxt.setText("/ Tonne");
+
+
+
+                }
+                else if(selection.toLowerCase().equals("bushels")){
+
+                    quantityStoredUnitsTxt.setText("Bushels");
+                    pricePerUnitTxt.setText("Bushels");
+                    quantitySoldUnitsTxt.setText("/ Bushel");
+
+
+                }
+                else if(selection.toLowerCase().equals("bags")){
+
+                    quantityStoredUnitsTxt.setText("Bags");
+                    pricePerUnitTxt.setText("Bags");
+                    quantitySoldUnitsTxt.setText("/ Bag");
+
+
+                }
+                else if(selection.toLowerCase().equals("bunches")){
+                    quantityStoredUnitsTxt.setText("Bunches");
+                    pricePerUnitTxt.setText("Bunches");
+                    quantitySoldUnitsTxt.setText("/ Bunch");
+
+
                 }
 
             }
@@ -101,7 +160,6 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
 
             }
         });
-
 
 
 
@@ -144,6 +202,31 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                 }
             }
         });
+        TextWatcher watcher =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                computeIncomeGenerated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                computeIncomeGenerated();
+            }
+        };
+
+
+        priceTxt.addTextChangedListener(watcher);
+        quantitySoldTxt.addTextChangedListener(watcher);
+
+
+
+
+
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
         fillViews();
     }
@@ -154,7 +237,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         cropHarvest.setDate(harvestDateTxt.getText().toString());
         cropHarvest.setMethod(harvestMethodTxt.getText().toString());
         cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
-        cropHarvest.setQuantity(Float.parseFloat(quantitySoldTxt.getText().toString()));
+        cropHarvest.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         if(operatorSpinner.getSelectedItemPosition()!=0) {
             cropHarvest.setOperator(((CropEmployee) operatorSpinner.getSelectedItem()).getEmployeeId());
         }
@@ -166,6 +249,9 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         cropHarvest.setStorageDate(storageDateTxt.getText().toString());
         cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
         cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
+        cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
+        cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
+        cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
 
         dbHandler.insertCropHarvest(cropHarvest);
     }
@@ -177,7 +263,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             cropHarvest.setDate(harvestDateTxt.getText().toString());
             cropHarvest.setMethod(harvestMethodTxt.getText().toString());
             cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
-            cropHarvest.setQuantity(Float.parseFloat(quantitySoldTxt.getText().toString()));
+            cropHarvest.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
             if(operatorSpinner.getSelectedItemPosition()!=0) {
                 cropHarvest.setOperator(((CropEmployee) operatorSpinner.getSelectedItem()).getEmployeeId());
             }
@@ -189,6 +275,10 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             cropHarvest.setStorageDate(storageDateTxt.getText().toString());
             cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
             cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
+            cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
+            cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
+            cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
+
 
             dbHandler.updateCropHarvest(cropHarvest);
         }
@@ -208,11 +298,28 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             storageDateTxt.setText(cropHarvest.getStorageDate());
             quantityStoredTxt.setText(cropHarvest.getQuantityStored()+"");
             costTxt.setText(cropHarvest.getCost()+"");
+            quantityStoredUnitsTxt.setText(cropHarvest.getUnits());
+            pricePerUnitTxt.setText(cropHarvest.getUnits());
+            quantitySoldUnitsTxt.setText(cropHarvest.getUnits());
 
 
         }
 
     }
+
+    public float computeIncomeGenerated(){
+        try{
+            float price = Float.parseFloat(priceTxt.getText().toString());
+            float quantitySold = Float.parseFloat(quantitySoldTxt.getText().toString());
+            float incomeGenerated = (price*quantitySold);
+            incomeGeneratedTxt.setText(incomeGenerated+"");
+            return incomeGenerated;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public boolean validateEntries(){
         String message = null;

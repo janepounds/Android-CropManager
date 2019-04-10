@@ -13,10 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropHarvestListActivity"
-            android:label="Harvests"/>
-        <activity android:name=".activities.CropHarvestManagerActivity"
-            android:label="Harvest Manager"/>
+        <activity android:name=".activities.CropContactsListActivity"
+            android:label="Contacts"/>
+        <activity android:name=".activities.CropContactManagerActivity"
+            android:label="Contact Manager"/>
+        <activity
+            android:name=".activities.CropHarvestListActivity"
+            android:label="Harvests" />
+        <activity
+            android:name=".activities.CropHarvestManagerActivity"
+            android:label="Harvest Manager" />
         <activity
             android:name=".activities.CropScoutingListActivity"
             android:label="Scouting Records" />

@@ -325,7 +325,7 @@
                             android:text="@string/default_numeric_value"
                             android:textSize="14sp" />
                         <TextView
-                            android:id="@+id/txt_crop_harvest_price_unit"
+                            android:id="@+id/txt_crop_harvest_price_per_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"

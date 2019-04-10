@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -59,6 +61,8 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
         this.cropHarvestList.addAll(cropHarvests);
 
         notifyDataSetChanged();
+
+
     }
 
     @Override
@@ -70,6 +74,12 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
         holder.unitsTxt.setText(harvest.getUnits());
         holder.statusTxt.setText(harvest.getStatus());
         holder.costTxt.setText(harvest.getCost()+"");
+        holder.incomeGeneratedTxt.setText(harvest.getIncomeGenerated()+"");
+        holder.priceTxt.setText(harvest.getPrice()+"");
+        holder.quantitySoldTxt.setText(harvest.getQuantitySold()+"");
+
+
+
 
     }
 
@@ -80,7 +90,7 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
 
 
     public class HarvestViewHolder extends RecyclerView.ViewHolder{
-        TextView harvestDateTxt,harvestMethodTxt,quantityTxt,statusTxt,costTxt,unitsTxt;
+        TextView harvestDateTxt,harvestMethodTxt,quantityTxt,statusTxt,costTxt,unitsTxt,incomeGeneratedTxt,priceTxt,quantitySoldTxt;
         LinearLayout hideShowLayout,expandContentLayout;
         ImageView moreButton,showHideRemarksButton;
 
@@ -93,12 +103,16 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
             unitsTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_units);
 
             costTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_cost);
+            incomeGeneratedTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_income_generated);
 
             hideShowLayout = itemView.findViewById(R.id.layout_crop_harvest_card_show_hide);
             expandContentLayout = itemView.findViewById(R.id.layout_crop_harvest_expand);
 
+
             moreButton = itemView.findViewById(R.id.img_crop_harvest_card_more);
             showHideRemarksButton = itemView.findViewById(R.id.img_crop_harvest_card_show_crops);
+
+
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -108,7 +122,7 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
 
-                            if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))){
+                            if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))) {
                                 final CropHarvest cropHarvest = cropHarvestList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
@@ -122,13 +136,14 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
                                                 cropHarvestList.remove(getAdapterPosition());
                                                 notifyItemRemoved(getAdapterPosition());
 
-                                            }})
+                                            }
+                                        })
                                         .setNegativeButton(android.R.string.no, null).show();
-                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
+                            } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))) {
                                 CropHarvest cropHarvest = cropHarvestList.get(getAdapterPosition());
                                 Intent editHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
-                                editHarvest.putExtra("cropHarvest",cropHarvest);
-                                editHarvest.putExtra("cropId",cropHarvest.getCropId());
+                                editHarvest.putExtra("cropHarvest", cropHarvest);
+                                editHarvest.putExtra("cropId", cropHarvest.getCropId());
                                 mContext.startActivity(editHarvest);
                             }
 
@@ -145,10 +160,21 @@ public class CropHarvestListRecyclerAdapter extends RecyclerView.Adapter<CropHar
             });
 
 
-
         }
+        public float computeIncomeGenerated(){
+            try{
+                float price = Float.parseFloat(priceTxt.getText().toString());
+                float quantitySold = Float.parseFloat(quantitySoldTxt.getText().toString());
+                float incomeGenerated = (price*quantitySold);
+                incomeGeneratedTxt.setText(incomeGenerated+"");
+                return incomeGenerated;
+            }catch (Exception e){
 
+            }
+            return 0;
+        }
 
         }
     }
+
 

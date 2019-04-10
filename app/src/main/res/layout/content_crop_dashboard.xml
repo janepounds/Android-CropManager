@@ -288,7 +288,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/medicationcount1"
+                                android:id="@+id/layout_crop_dashboard_contacts"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"

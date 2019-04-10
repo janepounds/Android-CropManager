@@ -20,6 +20,17 @@ public class CropHarvest implements CropSpinnerItem, Serializable {
     float quantityStored=0;
     float cost=0;
     String operator="";
+
+    public float getIncomeGenerated() {
+        return incomeGenerated;
+    }
+
+    public void setIncomeGenerated(float incomeGenerated) {
+        this.incomeGenerated = incomeGenerated;
+    }
+
+    float incomeGenerated=0;
+
     @Override
     public String getId() {
         return id;
@@ -156,4 +167,6 @@ public class CropHarvest implements CropSpinnerItem, Serializable {
     public void setOperator(String operator) {
         this.operator = operator;
     }
+
+
 }

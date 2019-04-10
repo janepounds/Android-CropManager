@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropBill;
+import com.myfarmnow.myfarmcrop.models.CropContact;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
@@ -80,6 +81,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_TRANSPLANTING_TABLE_NAME ="crop_transplanting";
     public static final String CROP_SCOUTING_TABLE_NAME ="crop_scouting";
     public static final String CROP_HARVEST_TABLE_NAME ="crop_harvest";
+    public static final String CROP_CONTACT_TABLE_NAME ="crop_contact";
 
 
 
@@ -502,7 +504,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_HARVEST_QUANTITY_STORED ="quantityStored";
     public static final String CROP_HARVEST_COST="cost";
 
-
+    public static final String CROP_CONTACT_ID ="id";
+    public static final String CROP_CONTACT_USER_ID ="userId";
+    public static final String CROP_CONTACT_TYPE ="type";
+    public static final String CROP_CONTACT_NAME ="name";
+    public static final String CROP_CONTACT_BUSINESS_NAME ="businessName";
+    public static final String CROP_CONTACT_ADDRESS="address";
+    public static final String CROP_CONTACT_PHONE_NUMBER="phoneNumber";
+    public static final String CROP_CONTACT_EMAIL ="email";
+    public static final String CROP_CONTACT_WEBSITE ="website";
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
@@ -526,6 +536,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         database = db;
+
+        String crop_contact_insert_query = " CREATE TABLE IF NOT EXISTS "+ CROP_CONTACT_TABLE_NAME+ " ( "+CROP_CONTACT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT , "+
+                CROP_CONTACT_USER_ID+" TEXT, "+CROP_CONTACT_TYPE+" TEXT NOT NULL, "+CROP_CONTACT_NAME+" TEXT NOT NULL, "+CROP_CONTACT_BUSINESS_NAME+" TEXT, "+
+                CROP_CONTACT_ADDRESS+" TEXT NOT NULL, "+CROP_CONTACT_PHONE_NUMBER+" TEXT NOT NULL, "+CROP_CONTACT_EMAIL+" TEXT, "+CROP_CONTACT_WEBSITE+" TEXT "+" ) ";
+
+
 
         String crop_harvest_insert_query =" CREATE TABLE IF NOT EXISTS " + CROP_HARVEST_TABLE_NAME+ " ( "+CROP_HARVEST_ID+" INTEGER PRIMARY KEY AUTOINCREMENT , "+
                 CROP_HARVEST_USER_ID+" TEXT, "+CROP_HARVEST_CROP_ID+" TEXT, "+CROP_HARVEST_EMPLOYEE_ID+ " TEXT, "+CROP_HARVEST_DATE+" TEXT NOT NULL, "+CROP_HARVEST_METHOD+ " TEXT, "+
@@ -702,7 +718,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("MACHINE",crop_machine_insert_query);
         Log.d("CROP PURCHASE ORDER",crop_purchase_order_insert_query);*/
 
-       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_SCOUTING_TABLE_NAME);
+       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_CONTACT_TABLE_NAME);
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
@@ -734,6 +750,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_transplanting_insert_query);
         database.execSQL(crop_scouting_insert_query);
         database.execSQL(crop_harvest_insert_query);
+        database.execSQL(crop_contact_insert_query);
 
         System.out.println(
 
@@ -782,6 +799,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CROP_TRANSPLANTING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_SCOUTING_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CROP_HARVEST_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CROP_CONTACT_TABLE_NAME);
 
 
         onCreate(db);
@@ -3906,6 +3924,77 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             harvest.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_COST))));
 
             array_list.add(harvest);
+            res.moveToNext();
+        }
+
+        closeDB();
+        return array_list;
+    }
+
+
+    public void insertCropContact(CropContact contact) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_CONTACT_USER_ID, contact.getUserId());
+        contentValues.put(CROP_CONTACT_TYPE, contact.getType());
+        contentValues.put(CROP_CONTACT_NAME, contact.getName());
+        contentValues.put(CROP_CONTACT_BUSINESS_NAME, contact.getBusinessName());
+        contentValues.put(CROP_CONTACT_ADDRESS, contact.getAddress());
+        contentValues.put(CROP_CONTACT_PHONE_NUMBER, contact.getPhoneNumber());
+        contentValues.put(CROP_CONTACT_EMAIL, contact.getEmail());
+        contentValues.put(CROP_CONTACT_WEBSITE, contact.getWebsite());
+
+        database.insert(CROP_CONTACT_TABLE_NAME, null, contentValues);
+        closeDB();
+    }
+
+    public void updateCropContact(CropContact contact) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_CONTACT_USER_ID, contact.getUserId());
+        contentValues.put(CROP_CONTACT_TYPE, contact.getType());
+        contentValues.put(CROP_CONTACT_NAME, contact.getName());
+        contentValues.put(CROP_CONTACT_BUSINESS_NAME, contact.getBusinessName());
+        contentValues.put(CROP_CONTACT_ADDRESS, contact.getAddress());
+        contentValues.put(CROP_CONTACT_PHONE_NUMBER, contact.getPhoneNumber());
+        contentValues.put(CROP_CONTACT_EMAIL, contact.getEmail());
+        contentValues.put(CROP_CONTACT_WEBSITE, contact.getWebsite());
+
+        database.update(CROP_CONTACT_TABLE_NAME, contentValues, CROP_CONTACT_ID + " = ?", new String[]{contact.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteCropContact(String contactId) {
+        openDB();
+        database.delete(CROP_CONTACT_TABLE_NAME, CROP_CONTACT_ID + " = ?", new String[]{contactId});
+        closeDB();
+        return true;
+    }
+
+    public ArrayList<CropContact> getCropContacts(String userId) {
+        openDB();
+        ArrayList<CropContact> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_CONTACT_TABLE_NAME + " where " + CROP_CONTACT_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropContact contact = new CropContact();
+            contact.setId(res.getString(res.getColumnIndex(CROP_CONTACT_ID)));
+            contact.setUserId(res.getString(res.getColumnIndex(CROP_CONTACT_USER_ID)));
+            contact.setType(res.getString(res.getColumnIndex(CROP_CONTACT_TYPE)));
+            contact.setName(res.getString(res.getColumnIndex(CROP_CONTACT_NAME)));
+            contact.setBusinessName(res.getString(res.getColumnIndex(CROP_CONTACT_BUSINESS_NAME)));
+            contact.setAddress(res.getString(res.getColumnIndex(CROP_CONTACT_ADDRESS)));
+            contact.setPhoneNumber(res.getString(res.getColumnIndex(CROP_CONTACT_PHONE_NUMBER)));
+            contact.setEmail(res.getString(res.getColumnIndex(CROP_CONTACT_EMAIL)));
+            contact.setWebsite(res.getString(res.getColumnIndex(CROP_CONTACT_WEBSITE)));
+
+            array_list.add(contact);
             res.moveToNext();
         }
 

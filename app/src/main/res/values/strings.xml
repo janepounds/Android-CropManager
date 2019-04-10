@@ -674,6 +674,20 @@
         <item>Sold</item>
         <item>Stored</item>
     </string-array>
+
+    <string-array name="sp_crop_contact_type">
+        <item>Select</item>
+        <item>Customer</item>
+        <item>Employee</item>
+        <item>Trainer</item>
+        <item>Farmer</item>
+        <item>Rider</item>
+        <item>Vet</item>
+        <item>Breeder</item>
+        <item>Supplier</item>
+        <item>Judge</item>
+        <item>Other</item>
+    </string-array>
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
     <string name="soil_category">Soil Category</string>
@@ -1042,5 +1056,11 @@
     <string name="harvest_date_not_selected_message">You must select Harvest Date</string>
     <string name="quantity_not_entered">You must enter Quantity</string>
     <string name="harvest">Harvest</string>
+    <string name="contact_type">Contact Type</string>
+    <string name="business_name">Business Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="website">Website</string>
+    <string name="contact_type_not_selected_message">You must select Contact Type</string>
+    <string name="address_not_entered_message">You must enter Address</string>
 
 </resources>
