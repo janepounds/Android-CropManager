@@ -13,13 +13,13 @@ import android.view.View;
 
 import com.myfarmnow.myfarmcrop.R;
 
-public class CropMachineNotesListActivity extends AppCompatActivity {
+public class CropMachineServicesListActivity extends AppCompatActivity {
 
     String machineId =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop_machine_notes_list);
+        setContentView(R.layout.activity_crop_machine_services_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -28,6 +28,8 @@ public class CropMachineNotesListActivity extends AppCompatActivity {
         }else{
             finish();
         }
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -41,12 +43,14 @@ public class CropMachineNotesListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_add_new:
-                Intent intent = new Intent(this, CropMachineNotesManagerActivity.class);
+                Intent intent = new Intent(this, CropMachineServiceManagerActivity.class);
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 }
