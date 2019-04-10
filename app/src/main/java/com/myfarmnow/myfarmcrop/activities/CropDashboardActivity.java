@@ -46,7 +46,8 @@ public class CropDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     ArrayList<NavDrawerItem> menuList = new ArrayList<>();
 
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout, incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout;
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
+            incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName;
     @Override
@@ -72,6 +73,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
         weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
+        contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
 
         userProfileLayout =findViewById(R.id.layout_user_profile);
         textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
@@ -144,6 +146,13 @@ public class CropDashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent openTasks = new Intent(CropDashboardActivity.this, CropTasksListActivity.class);
                 startActivity(openTasks);
+            }
+        });
+        contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openContacts = new Intent(CropDashboardActivity.this, CropContactsListActivity.class);
+                startActivity(openContacts);
             }
         });
 

@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -190,6 +192,8 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
         fillViews();
     }
