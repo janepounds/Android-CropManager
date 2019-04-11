@@ -1,6 +1,9 @@
 package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivity {
     String id="";
@@ -93,12 +96,10 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
     }
 
     public float getQuantityPerUnit() {
-        return quantityPerUnit;
+        return computeWaterQuantity()/getAreaIrrigated();
     }
 
-    public void setQuantityPerUnit(float quantityPerUnit) {
-        this.quantityPerUnit = quantityPerUnit;
-    }
+
 
     public String getRecurrence() {
         return recurrence;
@@ -135,5 +136,33 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
     @Override
     public int getType() {
         return CropActivity.CROP_ACTIVITY_IRRIGATION;
+    }
+
+    public float computeWaterQuantity(){
+        try {
+            return  getSystemRate()*calculateTime(startTime,endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public float getDuration(){
+        try {
+            return  calculateTime(startTime,endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    public static float calculateTime(String startTime, String endTime) throws ParseException {
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Date date1 = format.parse(startTime);
+        Date date2 = format.parse(endTime);
+        double difference = (date2.getTime() - date1.getTime())/(1000.0*60*60.0);
+        return (float)difference;
     }
 }

@@ -11,21 +11,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIncomeExpenseManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropIncomeExpensesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.Crop;
-import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 
 import java.text.NumberFormat;

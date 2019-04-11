@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.CropHarvestListActivity"
-            android:label="Harvests" />
-        <activity
             android:name=".activities.CropHarvestManagerActivity"
             android:label="Harvest Manager" />
         <activity
@@ -26,17 +23,8 @@
             android:name=".activities.CropContactManagerActivity"
             android:label="Contact Manager" />
         <activity
-            android:name=".activities.CropScoutingListActivity"
-            android:label="Scouting Records" />
-        <activity
             android:name=".activities.CropScoutingManagerActivity"
             android:label="Scouting Manager" />
-        <activity
-            android:name=".activities.CropTransplantingListActivity"
-            android:label="Transplanting" />
-        <activity
-            android:name=".activities.CropIrrigationListActivity"
-            android:label="Irrigation" />
         <activity
             android:name=".activities.CropTransplantingManagerActivity"
             android:label="Transplanting Manager" />
@@ -160,18 +148,6 @@
         <activity
             android:name=".activities.CropInventorySprayManagerActivity"
             android:label="@string/title_activity_crop_inventory_spray_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropCultivationsListActivity"
-            android:label="@string/title_activity_crop_cultivate_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropSprayingListActivity"
-            android:label="@string/title_activity_crop_spraying_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropFertilizerApplicationListActivity"
-            android:label="@string/title_activity_crop_fertilizer_application_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropEstimateManagerActivity"

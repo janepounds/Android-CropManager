@@ -27,7 +27,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/treatment_kit" />
+                android:src="@drawable/irrigation" />
 
             <View
                 android:id="@+id/txt_view_crop_irrigation_card_line"
@@ -111,7 +111,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rate : "
+                        android:text="Area : "
                         android:textColor="@color/blackText"
                         android:textSize="14sp" />
 

@@ -42,12 +42,13 @@ public class CropNutrientsCalculatorEntryActivity extends AppCompatActivity {
     }
 
     public void initializeViews(){
-        cropSp = findViewById(R.id.sp_crop_fertililizer_calculator_crop);
-        unitsSp = findViewById(R.id.sp_crop_fertililizer_calculator_units);
+        cropSp = findViewById(R.id.sp_crop_nutrients_calculator_crop);
+        unitsSp = findViewById(R.id.sp_crop_nutrients_calculator_units);
 
-        yieldTxt = findViewById(R.id.txt_crop_fertililizer_calculator_npk_price);
+        yieldTxt = findViewById(R.id.txt_crop_nutrients_calculator_yield);
+        areaTxt = findViewById(R.id.txt_crop_nutrients_calculator_area);
 
-        calculateBtn = findViewById(R.id.btn_crop_fertililizer_calculator_calculate);
+        calculateBtn = findViewById(R.id.btn_crop_nutrients_calculator_calculate);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         cropsSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Crop",this);

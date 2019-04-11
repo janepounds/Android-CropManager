@@ -506,10 +506,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_IRRIGATION_SYSTEM_RATE ="systemRate";
     public static final String CROP_IRRIGATION_START_TIME ="startTime";
     public static final String CROP_IRRIGATION_END_TIME ="endTime";
-    public static final String CROP_IRRIGATION_TOTAL_WATER_QUANTITY ="totalWaterQuantity";
+
     public static final String CROP_IRRIGATION_AREA_IRRIGATED ="areaIrrigated";
     public static final String CROP_IRRIGATION_UNITS ="units";
-    public static final String CROP_IRRIGATION_QUANTITY_PER_UNIT ="quantityPerUnit";
     public static final String CROP_IRRIGATION_RECURRENCE ="recurrence";
     public static final String CROP_IRRIGATION_REMINDERS ="reminders";
     public static final String CROP_IRRIGATION_TOTAL_COST ="totalCost";
@@ -522,7 +521,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_TRANSPLANTING_SEEDLINGS_PER_HA ="seedlingsPerHa";
     public static final String CROP_TRANSPLANTING_VARIETY_EARLINESS ="varietyEarliness";
     public static final String CROP_TRANSPLANTING_CYCLE_LENGTH ="cycleLength";
-    public static final String CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE ="expectedHarvestingDate";
+
     public static final String CROP_TRANSPLANTING_UNITS ="units";
     public static final String CROP_TRANSPLANTING_EXPECTED_YIELD ="expectedYield";
     public static final String CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA ="expectedYieldPerHa";
@@ -613,7 +612,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_transplanting_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_TRANSPLANTING_TABLE_NAME+" ( "+CROP_TRANSPLANTING_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_TRANSPLANTING_USER_ID+" TEXT, "+ CROP_TRANSPLANTING_CROP_ID +" TEXT, "+CROP_TRANSPLANTING_OPERATION_DATE+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_SEEDLING+" REAL, "+
-                CROP_TRANSPLANTING_SEEDLINGS_PER_HA+ " REAL, "+CROP_TRANSPLANTING_VARIETY_EARLINESS+" TEXT NOT NULL, "+CROP_TRANSPLANTING_CYCLE_LENGTH+" REAL NOT NULL, "+CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE+" REAL DEFAULT 0, "+
+                CROP_TRANSPLANTING_SEEDLINGS_PER_HA+ " REAL, "+CROP_TRANSPLANTING_VARIETY_EARLINESS+" TEXT NOT NULL, "+CROP_TRANSPLANTING_CYCLE_LENGTH+" REAL NOT NULL, "+
                 CROP_TRANSPLANTING_UNITS+" TEXT, "+CROP_TRANSPLANTING_EXPECTED_YIELD+" REAL DEFAULT 0, "+CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA +" REAL DEFAULT 0, "+
                 CROP_TRANSPLANTING_OPERATOR+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_COST+" REAL NOT NULL "+" ) ";
 
@@ -776,7 +775,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_irrigation_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_IRRIGATION_TABLE_NAME + " ( " +CROP_IRRIGATION_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 CROP_IRRIGATION_USER_ID+ " TEXT, "+ CROP_IRRIGATION_CROP_ID + " TEXT NOT NULL, " +CROP_IRRIGATION_OPERATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
-                CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_TOTAL_WATER_QUANTITY+" REAL DEFAULT 0, "+CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+CROP_IRRIGATION_QUANTITY_PER_UNIT+" REAL DEFAULT 0, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
+                CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
                 CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_TOTAL_COST+" REAL DEFAULT 0 " + " ) ";
 
 
@@ -3975,10 +3974,9 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
         contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
         contentValues.put(CROP_IRRIGATION_END_TIME, irrigation.getEndTime());
-        contentValues.put(CROP_IRRIGATION_TOTAL_WATER_QUANTITY, irrigation.getTotalWaterQuantity());
         contentValues.put(CROP_IRRIGATION_AREA_IRRIGATED, irrigation.getAreaIrrigated());
         contentValues.put(CROP_IRRIGATION_UNITS, irrigation.getUnits());
-        contentValues.put(CROP_IRRIGATION_QUANTITY_PER_UNIT, irrigation.getQuantityPerUnit());
+
         contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
         contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
         contentValues.put(CROP_IRRIGATION_TOTAL_COST, irrigation.getTotalCost());
@@ -3996,10 +3994,10 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
         contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
         contentValues.put(CROP_IRRIGATION_END_TIME, irrigation.getEndTime());
-        contentValues.put(CROP_IRRIGATION_TOTAL_WATER_QUANTITY, irrigation.getTotalWaterQuantity());
+
         contentValues.put(CROP_IRRIGATION_AREA_IRRIGATED, irrigation.getAreaIrrigated());
         contentValues.put(CROP_IRRIGATION_UNITS, irrigation.getUnits());
-        contentValues.put(CROP_IRRIGATION_QUANTITY_PER_UNIT, irrigation.getQuantityPerUnit());
+
         contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
         contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
         contentValues.put(CROP_IRRIGATION_TOTAL_COST, irrigation.getTotalCost());
@@ -4034,10 +4032,9 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             irrigation.setSystemRate(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_SYSTEM_RATE)));
             irrigation.setStartTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_START_TIME)));
             irrigation.setEndTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_END_TIME)));
-            irrigation.setTotalWaterQuantity(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_TOTAL_WATER_QUANTITY)));
             irrigation.setUnits(res.getString(res.getColumnIndex(CROP_IRRIGATION_UNITS)));
             irrigation.setAreaIrrigated(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_AREA_IRRIGATED)));
-            irrigation.setQuantityPerUnit(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_QUANTITY_PER_UNIT)));
+
             irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
             irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_TOTAL_COST)));
@@ -4060,7 +4057,6 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
         contentValues.put(CROP_TRANSPLANTING_VARIETY_EARLINESS, transplanting.getVarietyEarliness());
         contentValues.put(CROP_TRANSPLANTING_CYCLE_LENGTH, transplanting.getCycleLength());
-        contentValues.put(CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE, transplanting.getExpectedHarvestingDate());
         contentValues.put(CROP_TRANSPLANTING_UNITS, transplanting.getUnits());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD, transplanting.getExpectedYield());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA, transplanting.getExpectedYieldPerHa());
@@ -4080,7 +4076,7 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
         contentValues.put(CROP_TRANSPLANTING_VARIETY_EARLINESS, transplanting.getVarietyEarliness());
         contentValues.put(CROP_TRANSPLANTING_CYCLE_LENGTH, transplanting.getCycleLength());
-        contentValues.put(CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE, transplanting.getExpectedHarvestingDate());
+
         contentValues.put(CROP_TRANSPLANTING_UNITS, transplanting.getUnits());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD, transplanting.getExpectedYield());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA, transplanting.getExpectedYieldPerHa());
@@ -4117,7 +4113,6 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             transplanting.setSeedlingPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_SEEDLINGS_PER_HA)));
             transplanting.setVarietyEarliness(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_VARIETY_EARLINESS)));
             transplanting.setCycleLength(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_CYCLE_LENGTH)));
-            transplanting.setExpectedHarvestingDate(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_HARVESTING_DATE)));
             transplanting.setUnits(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_UNITS)));
             transplanting.setExpectedYield(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD)));
             transplanting.setExpectedYieldPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA)));

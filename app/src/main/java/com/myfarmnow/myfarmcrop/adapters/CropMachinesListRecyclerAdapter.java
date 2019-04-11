@@ -21,6 +21,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineNotesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropMachineServicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineTasksListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;

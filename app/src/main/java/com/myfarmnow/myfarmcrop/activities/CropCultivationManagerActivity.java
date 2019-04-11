@@ -56,7 +56,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                     else{
                         updateCultivation();
                     }
-                    Intent toCropsList = new Intent(CropCultivationManagerActivity.this, CropCultivationsListActivity.class);
+                    Intent toCropsList = new Intent(CropCultivationManagerActivity.this, CropActivitiesListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);

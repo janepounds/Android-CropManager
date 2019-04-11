@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,8 +21,6 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropIrrigation;
 
 public class CropIrrigationManagerActivity extends AppCompatActivity {
-    //TODO CALCULATING TOTAL WATER QUANTITY FROM endtime-starttime*systemrate
-    //TODO CALCULATING QUANTITY FROM totalWaterQuantity/areaIrrigated
     CropIrrigation cropIrrigation=null;
     TextView totalWaterQuantityTxt,unitsTxt,quantityPerUnitTxt;
     EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt;
@@ -81,7 +81,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
                         updateIrrigation();
                     }
 
-                    Intent cropIrrigation = new Intent(CropIrrigationManagerActivity.this, CropIrrigationListActivity.class);
+                    Intent cropIrrigation = new Intent(CropIrrigationManagerActivity.this, CropActivitiesListActivity.class);
                     cropIrrigation.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropIrrigation.putExtra("cropId",cropId);
                     startActivity(cropIrrigation);
@@ -91,6 +91,26 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             }
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateWaterQuantity();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateWaterQuantity();
+            }
+        };
+        startTimeTxt.addTextChangedListener(watcher);
+        endTimeTxt.addTextChangedListener(watcher);
+        systemRateTxt.addTextChangedListener(watcher);
         fillViews();
     }
 
@@ -105,7 +125,6 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         cropIrrigation.setTotalWaterQuantity(Float.parseFloat(totalWaterQuantityTxt.getText().toString()));
         cropIrrigation.setAreaIrrigated(Float.parseFloat(areaIrrigatedTxt.getText().toString()));
         cropIrrigation.setUnits(unitsTxt.getText().toString());
-        cropIrrigation.setQuantityPerUnit(Float.parseFloat(quantityPerUnitTxt.getText().toString()));
         cropIrrigation.setRecurrence(recurrenceSpinner.getSelectedItem().toString());
         cropIrrigation.setReminders(remindersSpinner.getSelectedItem().toString());
         cropIrrigation.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
@@ -123,7 +142,6 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             cropIrrigation.setTotalWaterQuantity(Float.parseFloat(totalWaterQuantityTxt.getText().toString()));
             cropIrrigation.setAreaIrrigated(Float.parseFloat(areaIrrigatedTxt.getText().toString()));
             cropIrrigation.setUnits(unitsTxt.getText().toString());
-            cropIrrigation.setQuantityPerUnit(Float.parseFloat(quantityPerUnitTxt.getText().toString()));
             cropIrrigation.setRecurrence(recurrenceSpinner.getSelectedItem().toString());
             cropIrrigation.setReminders(remindersSpinner.getSelectedItem().toString());
             cropIrrigation.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
@@ -150,6 +168,19 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
 
 
+    public void updateWaterQuantity(){
+        try{
+            float area = Float.parseFloat(areaIrrigatedTxt.getText().toString());
+            float rate = Float.parseFloat(systemRateTxt.getText().toString());
+            float hours = CropIrrigation.calculateTime(startTimeTxt.getText().toString(),endTimeTxt.getText().toString());
+            float quantity = rate*hours;
+            totalWaterQuantityTxt.setText(quantity+"");
+            float qtyPerArea =quantity/area;
+            quantityPerUnitTxt.setText(qtyPerArea+"");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public boolean validateEntries(){
         String message = null;

@@ -87,7 +87,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
                     else{
                         updateSpraying();
                     }
-                    Intent toCropsList = new Intent(CropSprayingManagerActivity.this, CropSprayingListActivity.class);
+                    Intent toCropsList = new Intent(CropSprayingManagerActivity.this, CropActivitiesListActivity.class);
                     toCropsList.putExtra("cropId",cropId);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);

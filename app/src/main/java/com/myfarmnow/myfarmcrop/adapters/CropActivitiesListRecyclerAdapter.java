@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -32,7 +31,6 @@ import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropActivity;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
@@ -279,11 +277,11 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             irrigationViewHolder.operationDateTxt.setText(irrigation.getOperationDate());
             irrigationViewHolder.areaIrrigationTxt.setText(irrigation.getAreaIrrigated()+"");
             irrigationViewHolder.systemRateTxt.setText(irrigation.getSystemRate()+" l/hr");
-            irrigationViewHolder.durationTxt.setText(irrigation.getAreaIrrigated()+" hrs");
-            irrigationViewHolder.totalWaterQuantity.setText(irrigation.getTotalWaterQuantity()+" ltrs");
+            irrigationViewHolder.durationTxt.setText(irrigation.getDuration()+" hrs");
+            irrigationViewHolder.totalWaterQuantity.setText(irrigation.computeWaterQuantity()+" ltrs");
             irrigationViewHolder.recurrenceTxt.setText(irrigation.getRecurrence());
             irrigationViewHolder.totalCostTxt.setText(irrigation.getTotalCost()+"");
-        }else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_IRRIGATION){
+        }else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_TRANSPLANTING){
             final TransplantingViewHolder transplantingViewHolder = (TransplantingViewHolder)holder;
             CropTransplanting transplanting = (CropTransplanting)cropsList.get(position);
             transplantingViewHolder.operationDateTxt.setText(transplanting.getOperationDate());

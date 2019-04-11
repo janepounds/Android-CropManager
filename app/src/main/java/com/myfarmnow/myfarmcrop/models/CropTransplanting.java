@@ -1,21 +1,27 @@
 package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CropTransplanting implements CropSpinnerItem, Serializable,CropActivity {
-    String id="";
-    String userId="";
-    String cropId ="";
-    String operationDate="";
+    String id;
+    String userId;
+    String cropId ;
+    String operationDate;
     float totalSeedling=0;
     float seedlingPerHa=0;
-    String varietyEarliness="";
+    String varietyEarliness;
     float cycleLength=0;
-    String expectedHarvestingDate="";
-    String units="";
+
+    String units;
     float expectedYield=0;
     float  expectedYieldPerHa=0;
-    String operator="";
+    String operator;
     float totalCost=0;
 
     @Override
@@ -84,12 +90,17 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     }
 
     public String getExpectedHarvestingDate() {
-        return expectedHarvestingDate;
+
+        try {
+            return determineHarvestDate(operationDate,(int)cycleLength);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            
+            return "";
+        }
     }
 
-    public void setExpectedHarvestingDate(String expectedHarvestingDate) {
-        this.expectedHarvestingDate = expectedHarvestingDate;
-    }
+
 
     public String getUnits() {
         return units;
@@ -134,5 +145,18 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     @Override
     public int getType() {
         return CropActivity.CROP_ACTIVITY_TRANSPLANTING;
+    }
+
+
+    public static String determineHarvestDate(String date,int cycleLength) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date curDate = dateFormat.parse(date);
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(curDate);
+        currentCalendar.add(Calendar.DAY_OF_MONTH,cycleLength);
+        NumberFormat formatter = new DecimalFormat("00");
+        return currentCalendar.get(Calendar.YEAR)+ "-" + formatter.format( currentCalendar.get(Calendar.MONTH)+1) + "-" +formatter.format( currentCalendar.get(Calendar.DAY_OF_MONTH)) ;
+
     }
 }

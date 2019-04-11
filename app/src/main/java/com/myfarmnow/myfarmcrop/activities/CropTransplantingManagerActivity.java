@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,7 +22,6 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 
 public class CropTransplantingManagerActivity extends AppCompatActivity {
 
-    //TODO CALCULATING expectedHarvestDate FROM operationDate and cycleLength
     EditText operationDateTxt,totalSeedlingTxt,seedlingsPerHaTxt,cycleLengthTxt,expectedYieldTxt,expectedYieldPerHaTxt,operatorTxt,totalCostTxt;
     Spinner varietyEarlinessSpinner,unitsSpinner;
     TextView expectedHarvestingDateTxt;
@@ -78,7 +79,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
                         updateTransplanting();
                     }
 
-                    Intent cropTransplanting = new Intent(CropTransplantingManagerActivity.this, CropTransplantingListActivity.class);
+                    Intent cropTransplanting = new Intent(CropTransplantingManagerActivity.this, CropActivitiesListActivity.class);
                     cropTransplanting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropTransplanting.putExtra("cropId",cropId);
                     startActivity(cropTransplanting);
@@ -88,6 +89,24 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             }
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateHarvestDate();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateHarvestDate();
+            }
+        };
+        cycleLengthTxt.addTextChangedListener(watcher);
+        operationDateTxt.addTextChangedListener(watcher);
         fillViews();
     }
     public void saveTransplanting() {
@@ -99,7 +118,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         cropTransplanting.setSeedlingPerHa(Float.parseFloat(seedlingsPerHaTxt.getText().toString()));
         cropTransplanting.setVarietyEarliness(varietyEarlinessSpinner.getSelectedItem().toString());
         cropTransplanting.setCycleLength(Float.parseFloat(cycleLengthTxt.getText().toString()));
-        cropTransplanting.setExpectedHarvestingDate(expectedHarvestingDateTxt.getText().toString());
+
         cropTransplanting.setUnits(unitsSpinner.getSelectedItem().toString());
         cropTransplanting.setExpectedYield(Float.parseFloat(expectedYieldTxt.getText().toString()));
         cropTransplanting.setExpectedYieldPerHa(Float.parseFloat(expectedYieldPerHaTxt.getText().toString()));
@@ -108,6 +127,16 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         dbHandler.insertCropTransplanting(cropTransplanting);
     }
 
+
+    public void updateHarvestDate(){
+        try{
+            int cycleLength  = Integer.parseInt(cycleLengthTxt.getText().toString());
+            String harvestDate = CropTransplanting.determineHarvestDate(operationDateTxt.getText().toString(),cycleLength);
+            expectedHarvestingDateTxt.setText(harvestDate);
+        }catch (Exception e){
+
+        }
+    }
     public void updateTransplanting(){
         if(cropTransplanting != null){
             cropTransplanting.setUserId(CropDashboardActivity.getPreferences("userId",this));
@@ -117,7 +146,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             cropTransplanting.setSeedlingPerHa(Float.parseFloat(seedlingsPerHaTxt.getText().toString()));
             cropTransplanting.setVarietyEarliness(varietyEarlinessSpinner.getSelectedItem().toString());
             cropTransplanting.setCycleLength(Float.parseFloat(cycleLengthTxt.getText().toString()));
-            cropTransplanting.setExpectedHarvestingDate(expectedHarvestingDateTxt.getText().toString());
+
             cropTransplanting.setUnits(unitsSpinner.getSelectedItem().toString());
             cropTransplanting.setExpectedYield(Float.parseFloat(expectedYieldTxt.getText().toString()));
             cropTransplanting.setExpectedYieldPerHa(Float.parseFloat(expectedYieldPerHaTxt.getText().toString()));

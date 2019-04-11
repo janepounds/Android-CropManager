@@ -116,7 +116,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     else{
                         updateFertilizerApplication();
                     }
-                    Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropFertilizerApplicationListActivity.class);
+                    Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropActivitiesListActivity.class);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);

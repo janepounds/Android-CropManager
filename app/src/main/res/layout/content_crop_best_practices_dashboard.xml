@@ -47,7 +47,7 @@
                             android:layout_height="70dp"
 
                             android:padding="10dp"
-                            android:src="@drawable/fields" />
+                            android:src="@drawable/maize" />
 
                         <TextView
                             android:id="@+id/tv_dashboard_fields"
@@ -91,7 +91,7 @@
                             android:layout_height="70dp"
 
                             android:padding="10dp"
-                            android:src="@drawable/crops" />
+                            android:src="@drawable/beans" />
 
                         <TextView
                             android:id="@+id/tv_matings"
@@ -137,7 +137,7 @@
                             android:layout_height="70dp"
 
                             android:padding="10dp"
-                            android:src="@drawable/inventory" />
+                            android:src="@drawable/cabbage" />
 
                         <TextView
                             android:id="@+id/tv_litar"
@@ -189,7 +189,7 @@
                             android:layout_height="70dp"
 
                             android:padding="10dp"
-                            android:src="@drawable/machinery" />
+                            android:src="@drawable/carrot" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -234,7 +234,7 @@
                             android:layout_height="70dp"
 
                             android:padding="10dp"
-                            android:src="@drawable/contacts" />
+                            android:src="@drawable/egg_plant" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -278,7 +278,7 @@
                             android:layout_height="70dp"
                             android:padding="10dp"
 
-                            android:src="@drawable/tasks_icon" />
+                            android:src="@drawable/ground_nuts" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -317,7 +317,7 @@
                             android:layout_height="70dp"
                             android:padding="10dp"
 
-                            android:src="@drawable/incomeexpance" />
+                            android:src="@drawable/onion" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -349,7 +349,7 @@
                             android:background="@color/whiteColor"
                             android:padding="10dp"
 
-                            android:src="@drawable/meatproductions" />
+                            android:src="@drawable/passion" />
 
                         <TextView
 
@@ -381,7 +381,7 @@
                             android:layout_height="70dp"
                             android:background="@color/whiteColor"
                             android:padding="10dp"
-                            android:src="@drawable/tasks" />
+                            android:src="@drawable/pineapple" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -418,7 +418,7 @@
                             android:layout_height="70dp"
                             android:padding="10dp"
 
-                            android:src="@drawable/incomeexpance" />
+                            android:src="@drawable/pumpkin" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -449,7 +449,7 @@
                             android:background="@color/whiteColor"
                             android:padding="10dp"
 
-                            android:src="@drawable/meatproductions" />
+                            android:src="@drawable/soya_bean" />
 
                         <TextView
                             android:id="@+id/meat_Produced_txt"
@@ -481,7 +481,7 @@
                             android:layout_height="70dp"
                             android:background="@color/whiteColor"
                             android:padding="10dp"
-                            android:src="@drawable/tasks" />
+                            android:src="@drawable/tomatoes" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -516,7 +516,7 @@
                             android:layout_height="70dp"
                             android:padding="10dp"
 
-                            android:src="@drawable/incomeexpance" />
+                            android:src="@drawable/water_melon" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -537,11 +537,27 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:onClick="openSoyaBeansBestPractices"
+                        android:onClick="openGarlicBestPractices"
                         android:orientation="vertical"
                         android:paddingBottom="5dp">
 
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:padding="10dp"
 
+                            android:src="@drawable/garlic" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:background="@color/whiteColor"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Garlic"
+                            android:textAllCaps="true"
+                            android:textColor="#000000" />
 
                     </LinearLayout>
 
@@ -550,12 +566,28 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:onClick="openTomatoBestPractices"
+                        android:onClick="openSorghumBestPractices"
 
                         android:orientation="vertical"
                         android:paddingBottom="5dp">
 
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:padding="10dp"
 
+                            android:src="@drawable/tomatoes" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:background="@color/whiteColor"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Sorghum"
+                            android:textAllCaps="true"
+                            android:textColor="#000000" />
                     </LinearLayout>
                 </LinearLayout>
 

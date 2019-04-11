@@ -193,7 +193,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                         updateHarvest();
                     }
 
-                    Intent cropHarvest = new Intent(CropHarvestManagerActivity.this, CropHarvestListActivity.class);
+                    Intent cropHarvest = new Intent(CropHarvestManagerActivity.this, CropActivitiesListActivity.class);
                     cropHarvest.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropHarvest.putExtra("cropId",cropId);
                     startActivity(cropHarvest);
