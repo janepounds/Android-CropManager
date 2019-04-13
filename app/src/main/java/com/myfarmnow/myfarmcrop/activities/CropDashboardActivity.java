@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,14 +29,13 @@ import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
+import com.myfarmnow.myfarmcrop.fragments.CropDashboardGraphsFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CropDashboardActivity extends AppCompatActivity {
@@ -44,12 +45,14 @@ public class CropDashboardActivity extends AppCompatActivity {
     ImageView imgdrawer;
     RelativeLayout mainlayout;
     Toolbar toolbar;
-    ArrayList<NavDrawerItem> menuList = new ArrayList<>();
 
     LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName;
+
+    CropDashboardGraphsFragment graphsFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,10 @@ public class CropDashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         initializeDashboard();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
     }
 
@@ -173,6 +180,8 @@ public class CropDashboardActivity extends AppCompatActivity {
         //
 
     }
+
+
     public static  void addDatePicker(final EditText ed_, final Context context){
         ed_.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +229,10 @@ public class CropDashboardActivity extends AppCompatActivity {
         ed_.setInputType(InputType.TYPE_NULL);
     }
 
+    public void openFarmReports(View view){
+        Intent openReports = new Intent(this, CropFarmReportsActivity.class);
+        startActivity(openReports);
+    }
     public void openEmployeeList(View view){
         Intent openList = new Intent(this, CropEmployeesListActivity.class);
         startActivity(openList);

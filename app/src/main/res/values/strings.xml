@@ -578,7 +578,7 @@
     <string-array name="sp_crop_income_expense_transaction">
         <item>Select Transaction</item>
         <item>Income</item>
-        <item>Expenses</item>
+        <item>Expense</item>
     </string-array>
     <string-array name="sp_crop_income_category">
 
@@ -1132,5 +1132,22 @@
     <string name="address_not_entered_message">You must enter Address</string>
     <string name="title_activity_crop_machine_services_list">Service</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="graphs_time_period_options">
+        <item>This year</item>
+        <item>Last 3 months</item>
+        <item>Last 6 months</item>
+        <item>Last 12 months</item>
+        <item>Last year</item>
+
+    </string-array>
+
+    <string-array name="graph_crops_season">
+        <item>First Season</item>
+        <item>Second Season</item>
+    </string-array>
+    <string name="title_activity_crop_farm_reports">Farm Reports</string>
 
 </resources>

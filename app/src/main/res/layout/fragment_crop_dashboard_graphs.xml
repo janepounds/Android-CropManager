@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CropDashboardGraphsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dp">
+
+            <Spinner
+                android:id="@+id/crop_graphs_bar_income_expense_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/input_shapes"
+                android:entries="@array/graphs_time_period_options"
+                android:layout_weight="0.5"
+                >
+            </Spinner>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_border"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+               >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="0dp"
+                    android:padding="4dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Income "
+                        android:textSize="12sp"
+                        android:textColor="@color/colorPrimary"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_view_crop_income_expense_total_income"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="0dp"
+                    android:padding="4dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Expenses : "
+                        android:textSize="12sp"
+                        android:textColor="@color/red"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_view_crop_income_expense_total_expenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/red" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="0dp"
+                    android:padding="4dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Profit Margin : "
+                        android:textSize="12sp"
+                        android:textColor="@color/blue_mh"
+                        />
+
+                    <TextView
+                        android:id="@+id/text_view_crop_income_expense_total_profit_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/blue_mh" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.highsoft.highcharts.core.HIChartView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/chart_crop_income_bar_graph"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dp">
+
+            <Spinner
+                android:id="@+id/crop_graphs_bar_crop_income_year_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/input_shapes"
+
+                >
+            </Spinner>
+            <Spinner
+                android:id="@+id/crop_graphs_bar_crop_income_season_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/input_shapes"
+                android:entries="@array/graph_crops_season"
+                >
+            </Spinner>
+
+        </LinearLayout>
+
+       <com.highsoft.highcharts.core.HIChartView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/chart_crop_crops_pie_graph"
+            />
+    </LinearLayout>
+
+</FrameLayout>

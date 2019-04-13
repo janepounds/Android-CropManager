@@ -309,6 +309,10 @@
         <activity
             android:name=".activities.CropMachineServicesListActivity"
             android:label="@string/title_activity_crop_machine_services_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CropFarmReportsActivity"
+            android:label="@string/title_activity_crop_farm_reports"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
