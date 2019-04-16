@@ -473,7 +473,11 @@
                             android:textSize="15dp"
                             android:textStyle="bold" />
 
-
+                        <FrameLayout
+                            android:id="@+id/fragment_crop_dashboard_graphs_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
 
                     </LinearLayout>
 
@@ -1490,7 +1494,8 @@
                     android:orientation="horizontal"
                     android:gravity="left"
                     android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
+                    android:paddingTop="5dp"
+                    android:onClick="openFarmReports">
 
                     <ImageView
 

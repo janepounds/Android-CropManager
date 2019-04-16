@@ -32,7 +32,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/treatment_kit" />
+                android:src="@drawable/cultivation" />
 
             <View
                 android:id="@+id/txt_view_crop_cultivation_card_line"

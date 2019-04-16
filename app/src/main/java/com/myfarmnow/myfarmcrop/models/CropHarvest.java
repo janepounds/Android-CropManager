@@ -219,4 +219,5 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
     public void setDaysBefore(String daysBefore) {
         this.daysBefore = daysBefore;
     }
+
 }

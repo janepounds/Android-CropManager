@@ -206,7 +206,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setDate(dateTxt.getText().toString());
         cropIncomeExpense.setCategory(categorySpinner.getSelectedItem().toString());
         cropIncomeExpense.setTransaction(transactionSpinner.getSelectedItem().toString());
-        cropIncomeExpense.setCropId(cropSpinner.getSelectedItem().toString());
+        cropIncomeExpense.setCropId(((CropSpinnerItem)cropSpinner.getSelectedItem()).getId());
         cropIncomeExpense.setTaxes(Float.parseFloat(taxesTxt.getText().toString()));
         cropIncomeExpense.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
@@ -230,7 +230,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setDate(dateTxt.getText().toString());
             cropIncomeExpense.setCategory(categorySpinner.getSelectedItem().toString());
             cropIncomeExpense.setTransaction(transactionSpinner.getSelectedItem().toString());
-            cropIncomeExpense.setCropId(cropSpinner.getSelectedItem().toString());
+            cropIncomeExpense.setCropId(((CropSpinnerItem)cropSpinner.getSelectedItem()).getId());
             cropIncomeExpense.setTaxes(Float.parseFloat(taxesTxt.getText().toString()));
             cropIncomeExpense.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
             cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
@@ -251,11 +251,10 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropIncomeExpense != null){
            // CropDashboardActivity.selectSpinnerItemByValue(categorySpinner, cropIncomeExpense.getCategory());
-            // CropDashboardActivity.selectSpinnerItemByValue(cropSpinner, cropIncomeExpense.getCropId());
+            CropDashboardActivity.selectSpinnerItemById(cropSpinner, cropIncomeExpense.getCropId());
             CropDashboardActivity.selectSpinnerItemByValue(paymentModeSpinner, cropIncomeExpense.getPaymentMode());
             CropDashboardActivity.selectSpinnerItemByValue(paymentStatusSpinner, cropIncomeExpense.getPaymentStatus());
             CropDashboardActivity.selectSpinnerItemByValue(transactionSpinner, cropIncomeExpense.getTransaction());
-
 
             dateTxt.setText(cropIncomeExpense.getDate());
             itemTxt.setText(cropIncomeExpense.getItem());

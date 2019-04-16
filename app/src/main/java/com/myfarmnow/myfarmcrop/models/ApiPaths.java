@@ -14,7 +14,4 @@ public class ApiPaths {
     public static final String CROP_FORGOT_PASSWORD_REQUEST_CODE =  SERVER_URL + "/api/crop/user/forgot/password/request/code";
     public static final String CROP_FORGOT_PASSWORD_CHANGE =  SERVER_URL + "/api/crop/user/forgot/password/change";
 
-
-    
-
 }
