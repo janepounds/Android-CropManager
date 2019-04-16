@@ -19,13 +19,20 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropCultivationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropHarvestListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIrrigationListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropScoutingListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
@@ -161,41 +168,41 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 mContext.startActivity(editCrop);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_cultivate))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showCultivate = new Intent(mContext, CropCultivationsListActivity.class);
-                                showCultivate.putExtra("cropId", crop.getId());
-                                mContext.startActivity(showCultivate);
+                                Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
+                                intent.putExtra("cropId", crop.getId());
+                                mContext.startActivity(intent);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_fertilizer))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showFertilize = new Intent(mContext, CropFertilizerApplicationListActivity.class);
+                                Intent showFertilize = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
                                 showFertilize.putExtra("cropId", crop.getId());
                                 mContext.startActivity(showFertilize);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showSpray = new Intent(mContext, CropSprayingListActivity.class);
+                                Intent showSpray = new Intent(mContext, CropSprayingManagerActivity.class);
                                 showSpray.putExtra("cropId", crop.getId());
                                 mContext.startActivity(showSpray);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_irrigation))){
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showIrrigation = new Intent(mContext, CropIrrigationListActivity.class);
+                                Intent showIrrigation = new Intent(mContext, CropIrrigationManagerActivity.class);
                                 showIrrigation.putExtra("cropId",crop.getId());
                                 mContext.startActivity(showIrrigation);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_transplanting))){
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showTransplanting = new Intent(mContext, CropTransplantingListActivity.class);
+                                Intent showTransplanting = new Intent(mContext, CropTransplantingManagerActivity.class);
                                 showTransplanting.putExtra("cropId",crop.getId());
                                 mContext.startActivity(showTransplanting);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_scouting))){
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showScouting = new Intent(mContext, CropScoutingListActivity.class);
+                                Intent showScouting = new Intent(mContext, CropScoutingManagerActivity.class);
                                 showScouting.putExtra("cropId",crop.getId());
                                 mContext.startActivity(showScouting);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_harvest))){
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showHarvest = new Intent(mContext, CropHarvestListActivity.class);
+                                Intent showHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
                                 showHarvest.putExtra("cropId",crop.getId());
                                 mContext.startActivity(showHarvest);
 

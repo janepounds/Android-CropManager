@@ -25,8 +25,7 @@ public class CropCultivationsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_cultivations_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         if(getIntent().hasExtra("cropId")){
             cropId =getIntent().getStringExtra("cropId");

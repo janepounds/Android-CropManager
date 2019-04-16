@@ -15,6 +15,9 @@ public class CropTask implements CropSpinnerItem, Serializable {
     String recurrence="";
     String reminders="";
     String employeeName;
+    private float frequency;
+    private String repeatUntil;
+    private String daysBefore;
     private String cropName;
 
 
@@ -126,6 +129,30 @@ public class CropTask implements CropSpinnerItem, Serializable {
 
     public String getCropName() {
         return cropName;
+    }
+
+    public float getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getRepeatUntil() {
+        return repeatUntil;
+    }
+
+    public void setRepeatUntil(String repeatUntil) {
+        this.repeatUntil = repeatUntil;
+    }
+
+    public String getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(String daysBefore) {
+        this.daysBefore = daysBefore;
     }
 }
 

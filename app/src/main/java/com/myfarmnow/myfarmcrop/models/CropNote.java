@@ -9,8 +9,8 @@ public class CropNote {
     private String notes;
     private String isFor;
 
-    private static final String IS_FOR_MACHINE ="machine";
-    private static final String IS_FOR_CROP ="crop";
+    public static final String IS_FOR_MACHINE ="machine";
+    public static final String IS_FOR_CROP ="crop";
 
     public CropNote(){
 

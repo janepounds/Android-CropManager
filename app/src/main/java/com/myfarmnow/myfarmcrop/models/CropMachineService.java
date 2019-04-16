@@ -9,7 +9,7 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
     String date;
     String title;
     String type;
-    String status;
+
     String description;
     String recurrence;
     String reminders;
@@ -60,14 +60,6 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getDescription() {

@@ -20,6 +20,9 @@ import android.widget.TextView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropMachineNotesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropMachineServicesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropMachineTasksListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -91,6 +94,8 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
         TextView machineNameTextView,categoryTextView, modelTextView, registrationNumberTextView,locationTextView;
         ImageView moreButton ;
 
+        Button serviceBtn, notesBtn, tasksBtn;
+
         public MachineViewHolder(View itemView) {
             super(itemView);
             machineNameTextView = itemView.findViewById(R.id.txt_crop_machine_card_name);
@@ -99,8 +104,37 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
             registrationNumberTextView = itemView.findViewById(R.id.txt_crop_machine_card_registration_number);
             locationTextView = itemView.findViewById(R.id.txt_crop_machine_card_storage_location);
             moreButton = itemView.findViewById(R.id.img_crop_machine_card_more);
+            tasksBtn = itemView.findViewById(R.id.btn_machine_tasks);
+            serviceBtn = itemView.findViewById(R.id.btn_machine_service);
+            notesBtn = itemView.findViewById(R.id.btn_machine_notes);
 
-
+            serviceBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                    Intent editMachine = new Intent(mContext, CropMachineServicesListActivity.class);
+                    editMachine.putExtra("machineId",cropMachine.getId());
+                    mContext.startActivity(editMachine);
+                }
+            });
+            tasksBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                    Intent editMachine = new Intent(mContext, CropMachineTasksListActivity.class);
+                    editMachine.putExtra("machineId",cropMachine.getId());
+                    mContext.startActivity(editMachine);
+                }
+            });
+            notesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                    Intent editMachine = new Intent(mContext, CropMachineNotesListActivity.class);
+                    editMachine.putExtra("machineId",cropMachine.getId());
+                    mContext.startActivity(editMachine);
+                }
+            });
 
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -32,10 +32,11 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
 
     String cropId;
     CropHarvest cropHarvest=null;
-    EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,quantitySoldTxt,storageDateTxt,quantityStoredTxt,costTxt;
+    EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,
+            quantitySoldTxt,storageDateTxt,quantityStoredTxt,costTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt;
-    Spinner  harvestUnitsSpinner,operatorSpinner,statusSpinner;
-    LinearLayout harvestSoldLayout,harvestStoredLayout;
+    Spinner  harvestUnitsSpinner,operatorSpinner,statusSpinner,recurrenceSp,remindersSp;
+    LinearLayout harvestSoldLayout,harvestStoredLayout,weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     CropSpinnerAdapter employeesSpinnerAdapter;
@@ -45,7 +46,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_harvest_manager);
-        if(getIntent().hasExtra("cropScouting")){
+        if(getIntent().hasExtra("cropHarvest")){
             cropHarvest = (CropHarvest) getIntent().getSerializableExtra("cropHarvest");
         }
         if(getIntent().hasExtra("cropId")){
@@ -77,7 +78,13 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         quantityStoredUnitsTxt=findViewById(R.id.txt_crop_harvest_stored_unit);
         pricePerUnitTxt=findViewById(R.id.txt_crop_harvest_price_per_unit);
         quantitySoldUnitsTxt=findViewById(R.id.txt_crop_harvest_sold_unit);
-
+        recurrenceSp = findViewById(R.id.sp_crop_harvest_recurrence);
+        remindersSp = findViewById(R.id.sp_crop_harvest_reminders);
+        weeksTxt = findViewById(R.id.txt_crop_harvest_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_harvest_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_harvest_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_harvest_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_harvest_days_before);
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -168,6 +175,8 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(harvestDateTxt,this);
         CropDashboardActivity.addDatePicker(dateSoldTxt,this);
         CropDashboardActivity.addDatePicker(storageDateTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+
 
         ArrayList<CropSpinnerItem> employeesItems = new ArrayList<>();
         for(CropEmployee x: dbHandler.getCropEmployee(CropDashboardActivity.getPreferences("userId",this))){
@@ -223,11 +232,53 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         priceTxt.addTextChangedListener(watcher);
         quantitySoldTxt.addTextChangedListener(watcher);
 
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
 
 
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
         fillViews();
     }
     public void saveHarvest() {
@@ -252,6 +303,22 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
         cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
         cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
+        cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
+        cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            cropHarvest.setFrequency(Float.parseFloat(weeks));
+            cropHarvest.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            cropHarvest.setDaysBefore(days);
+
+        }
 
         dbHandler.insertCropHarvest(cropHarvest);
     }
@@ -278,6 +345,22 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
             cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
             cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
+            cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
+            cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                cropHarvest.setFrequency(Float.parseFloat(weeks));
+                cropHarvest.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                cropHarvest.setDaysBefore(days);
+
+            }
 
 
             dbHandler.updateCropHarvest(cropHarvest);
@@ -288,6 +371,9 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(harvestUnitsSpinner, cropHarvest.getUnits());
             CropDashboardActivity.selectSpinnerItemById(operatorSpinner, cropHarvest.getOperator());
             CropDashboardActivity.selectSpinnerItemByValue(statusSpinner, cropHarvest.getStatus());
+            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropHarvest.getRecurrence());
+            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropHarvest.getReminders());
+
             harvestDateTxt.setText(cropHarvest.getDate());
             harvestMethodTxt.setText(cropHarvest.getMethod());
             quantityTxt.setText(cropHarvest.getQuantity()+"");
@@ -301,7 +387,9 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             quantityStoredUnitsTxt.setText(cropHarvest.getUnits());
             pricePerUnitTxt.setText(cropHarvest.getUnits());
             quantitySoldUnitsTxt.setText(cropHarvest.getUnits());
-
+            weeksTxt.setText(cropHarvest.getFrequency()+"");
+            repeatUntilTxt.setText(cropHarvest.getRepeatUntil());
+            daysBeforeTxt.setText(cropHarvest.getDaysBefore());
 
         }
 
@@ -338,6 +426,14 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         else if(statusSpinner.getSelectedItemPosition()==0) {
             message = getString(R.string.status_not_selected);
             statusSpinner.requestFocus();
+        }
+        else if(recurrenceSp.getSelectedItemPosition()==0){
+            message = getString(R.string.recurrence_not_selected);
+            recurrenceSp.requestFocus();
+        }
+        else if(remindersSp.getSelectedItemPosition()==0){
+            message = getString(R.string.reminders_not_selected);
+            remindersSp.requestFocus();
         }
 
         if(message != null){

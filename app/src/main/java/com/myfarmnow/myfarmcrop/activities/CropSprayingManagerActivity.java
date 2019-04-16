@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,12 +27,14 @@ import java.util.ArrayList;
 public class CropSprayingManagerActivity extends AppCompatActivity {
 
 
-    EditText dateTxt, startTimeTxt,endTimeTxt, operatorTxt, waterVolumeTxt,costTxt, rateTxt,reasonTxt, equipmentUsedTxt;
+    EditText dateTxt, startTimeTxt,endTimeTxt, operatorTxt, waterVolumeTxt,costTxt, rateTxt,
+            reasonTxt, equipmentUsedTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Button btn_save;
     CropSpraying cropSpraying;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner windDirectionSp,waterConditionSp,sprayIdSp;
+    Spinner windDirectionSp,waterConditionSp,sprayIdSp,recurrenceSp,remindersSp;
 
     TextView rateUnitsTextView;
 
@@ -68,11 +71,64 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         sprayIdSp =findViewById(R.id.sp_crop_spraying_name);
         windDirectionSp =findViewById(R.id.sp_crop_spraying_wind_direction);
         waterConditionSp =findViewById(R.id.sp_crop_spraying_weather_condition);
+        remindersSp = findViewById(R.id.sp_crop_spraying_reminders);
+        recurrenceSp = findViewById(R.id.sp_crop_spraying_recurrence);
+        weeksTxt = findViewById(R.id.txt_crop_spraying_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_spraying_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_spraying_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_spraying_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_spraying_days_before);
+
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         btn_save = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(dateTxt,this);
         CropDashboardActivity.addTimePicker(startTimeTxt,this);
         CropDashboardActivity.addTimePicker(endTimeTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+
         ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
@@ -97,6 +153,9 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             }
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
         ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
         for(CropInventorySpray x: dbHandler.getCropSpray(CropDashboardActivity.getPreferences("userId",this))){
             spraysList.add(x);
@@ -139,6 +198,23 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
         cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
         cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
+        cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
+        cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            cropSpraying.setFrequency(Float.parseFloat(weeks));
+            cropSpraying.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            cropSpraying.setDaysBefore(days);
+
+        }
+
 
         if(waterConditionSp.getSelectedItemPosition()!=0){
             cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
@@ -162,6 +238,23 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
             cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
             cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
+            cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
+            cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                cropSpraying.setFrequency(Float.parseFloat(weeks));
+                cropSpraying.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                cropSpraying.setDaysBefore(days);
+
+            }
+
             if(waterConditionSp.getSelectedItemPosition()!=0){
                 cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
             }
@@ -175,6 +268,9 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         if(cropSpraying != null){
             CropDashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
             CropDashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
+            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropSpraying.getRecurrence());
+            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
+
             rateTxt.setText(cropSpraying.getRate()+"");
             waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
             dateTxt.setText(cropSpraying.getDate());
@@ -185,6 +281,10 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             operatorTxt.setText(cropSpraying.getOperator());
             costTxt.setText(cropSpraying.getCost()+"");
             rateTxt.setText(cropSpraying.getRate()+"");
+            weeksTxt.setText(cropSpraying.getFrequency()+"");
+            repeatUntilTxt.setText(cropSpraying.getRepeatUntil());
+            daysBeforeTxt.setText(cropSpraying.getDaysBefore());
+
 
             CropDashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getId());
         }
@@ -214,6 +314,14 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         }else if(sprayIdSp.getSelectedItemPosition()==0){
             message = getString(R.string.spray_name_not_entered);
             sprayIdSp.requestFocus();
+        }
+        else if(recurrenceSp.getSelectedItemPosition()==0){
+            message = getString(R.string.recurrence_not_selected);
+            recurrenceSp.requestFocus();
+        }
+        else if(remindersSp.getSelectedItemPosition()==0){
+            message = getString(R.string.reminders_not_selected);
+            remindersSp.requestFocus();
         }
 
         if(waterVolumeTxt.getText().toString().isEmpty()){

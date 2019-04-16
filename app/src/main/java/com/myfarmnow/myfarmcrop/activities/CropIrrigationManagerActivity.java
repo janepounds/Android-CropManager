@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +25,9 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
     //TODO CALCULATING QUANTITY FROM totalWaterQuantity/areaIrrigated
     CropIrrigation cropIrrigation=null;
     TextView totalWaterQuantityTxt,unitsTxt,quantityPerUnitTxt;
-    EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt;
+    EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Spinner recurrenceSpinner,remindersSpinner;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
@@ -57,6 +60,52 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         recurrenceSpinner = findViewById(R.id.sp_crop_irrigation_recurrence);
         remindersSpinner = findViewById(R.id.sp_crop_irrigation_reminders);
         totalCostTxt = findViewById(R.id.txt_crop_irrigation_total_cost);
+        weeksTxt = findViewById(R.id.txt_crop_irrigation_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_irrigation_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_irrigation_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_irrigation_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_irrigation_days_before);
+        recurrenceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         saveBtn = findViewById(R.id.btn_save);
@@ -64,6 +113,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(operationDateTxt,this);
         CropDashboardActivity.addTimePicker(startTimeTxt,this);
         CropDashboardActivity.addTimePicker(endTimeTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
 
         ((ArrayAdapter)recurrenceSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -109,6 +159,20 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         cropIrrigation.setRecurrence(recurrenceSpinner.getSelectedItem().toString());
         cropIrrigation.setReminders(remindersSpinner.getSelectedItem().toString());
         cropIrrigation.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            cropIrrigation.setFrequency(Float.parseFloat(weeks));
+            cropIrrigation.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            cropIrrigation.setDaysBefore(days);
+
+        }
         dbHandler.insertCropIrrigation(cropIrrigation);
     }
 
@@ -127,6 +191,20 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             cropIrrigation.setRecurrence(recurrenceSpinner.getSelectedItem().toString());
             cropIrrigation.setReminders(remindersSpinner.getSelectedItem().toString());
             cropIrrigation.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                cropIrrigation.setFrequency(Float.parseFloat(weeks));
+                cropIrrigation.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                cropIrrigation.setDaysBefore(days);
+
+            }
             dbHandler.updateCropIrrigation(cropIrrigation);
         }
     }
@@ -143,6 +221,9 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             unitsTxt.setText(cropIrrigation.getUnits()+"");
             quantityPerUnitTxt.setText(cropIrrigation.getQuantityPerUnit()+"");
             totalCostTxt.setText(cropIrrigation.getTotalCost()+"");
+            weeksTxt.setText(cropIrrigation.getFrequency()+"");
+            repeatUntilTxt.setText(cropIrrigation.getRepeatUntil());
+            daysBeforeTxt.setText(cropIrrigation.getDaysBefore());
 
         }
 

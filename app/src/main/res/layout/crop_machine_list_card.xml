@@ -31,6 +31,57 @@
                         android:layout_height="wrap_content"
                         >
 
+                        <Button
+                            android:id="@+id/btn_machine_service"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Service"
+                            android:textAllCaps="false"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/btn_machine_tasks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tasks"
+                            android:textAllCaps="false"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:id="@+id/btn_machine_notes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Notes"
+                            android:textAllCaps="false"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:gravity="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:id="@+id/img_crop_machine_card_more"
+                            android:layout_width="25dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end"
+                            android:backgroundTint="@color/black"
+                            android:textColor="@color/darker_gray"
+                            app:srcCompat="@drawable/more_options_icon" />
+
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="3dp">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
                         <TextView
                             android:textSize="14dp"
                             android:textColor="#696666"
@@ -50,22 +101,7 @@
                         android:textColor="#696666"
                         android:textSize="14dp" />
                     </LinearLayout>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:gravity="end"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                    <ImageView
-                        android:id="@+id/img_crop_machine_card_more"
-                        android:layout_width="25dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="end"
-                        android:backgroundTint="@color/black"
-                        android:textColor="@color/darker_gray"
-                        app:srcCompat="@drawable/more_options_icon" />
 
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout

@@ -13,20 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".activities.CropHarvestListActivity"
-            android:label="Harvests"/>
-        <activity android:name=".activities.CropHarvestManagerActivity"
-            android:label="Harvest Manager"/>
-
-        <activity android:name=".activities.CropContactsListActivity"
-            android:label="Contacts"/>
-        <activity android:name=".activities.CropContactManagerActivity"
-            android:label="Contact Manager"/>
-
-
-
+        <activity
+            android:name=".activities.CropHarvestListActivity"
+            android:label="Harvests" />
+        <activity
+            android:name=".activities.CropHarvestManagerActivity"
+            android:label="Harvest Manager" />
+        <activity
+            android:name=".activities.CropContactsListActivity"
+            android:label="Contacts" />
+        <activity
+            android:name=".activities.CropContactManagerActivity"
+            android:label="Contact Manager" />
         <activity
             android:name=".activities.CropScoutingListActivity"
             android:label="Scouting Records" />
@@ -292,7 +290,6 @@
             android:name=".activities.CropCalculatorsActivity"
             android:label="@string/title_activity_crop_calculators"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.CropNutrientsCalculatorEntryActivity"
             android:label="@string/title_activity_crop_nutrients_calculator_entry"
@@ -312,28 +309,31 @@
         <activity
             android:name=".activities.CropMachineTaskManagerActivity"
             android:label="@string/title_activity_crop_machine_task_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineNotesManagerActivity"
             android:label="@string/title_activity_crop_notes_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineServiceManagerActivity"
             android:label="@string/title_activity_crop_machine_service_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineNotesListActivity"
             android:label="@string/title_activity_crop_machine_notes_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineTasksListActivity"
             android:label="@string/title_activity_crop_machine_tasks_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropActivitiesListActivity"
             android:label="@string/title_activity_crop_activities_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+             />
+        <activity
+            android:name=".activities.CropMachineServicesListActivity"
+            android:label="@string/title_activity_crop_machine_services_list"
+            ></activity>
     </application>
 
 </manifest>

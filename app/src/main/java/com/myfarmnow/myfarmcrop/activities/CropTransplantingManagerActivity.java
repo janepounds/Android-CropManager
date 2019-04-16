@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +23,11 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 public class CropTransplantingManagerActivity extends AppCompatActivity {
 
     //TODO CALCULATING expectedHarvestDate FROM operationDate and cycleLength
-    EditText operationDateTxt,totalSeedlingTxt,seedlingsPerHaTxt,cycleLengthTxt,expectedYieldTxt,expectedYieldPerHaTxt,operatorTxt,totalCostTxt;
-    Spinner varietyEarlinessSpinner,unitsSpinner;
+    EditText operationDateTxt,totalSeedlingTxt,seedlingsPerHaTxt,cycleLengthTxt,
+            expectedYieldTxt,expectedYieldPerHaTxt,operatorTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    Spinner varietyEarlinessSpinner,unitsSpinner,recurrenceSp,remindersSp;
     TextView expectedHarvestingDateTxt;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     CropTransplanting cropTransplanting=null;
@@ -57,13 +61,69 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         expectedYieldPerHaTxt = findViewById(R.id.txt_crop_transplanting_expected_yield_per_ha);
        operatorTxt = findViewById(R.id.txt_crop_transplanting_operator);
         totalCostTxt = findViewById(R.id.txt_crop_transplanting_total_cost);
+        remindersSp = findViewById(R.id.sp_crop_transplanting_reminders);
+        recurrenceSp = findViewById(R.id.sp_crop_transplanting_recurrence);
+        weeksTxt = findViewById(R.id.txt_crop_transplanting_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_transplanting_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_transplanting_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_transplanting_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_transplanting_days_before);
+
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(operationDateTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
 
         ((ArrayAdapter)varietyEarlinessSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)unitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +165,23 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         cropTransplanting.setExpectedYieldPerHa(Float.parseFloat(expectedYieldPerHaTxt.getText().toString()));
         cropTransplanting.setOperator(operatorTxt.getText().toString());
         cropTransplanting.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
+        cropTransplanting.setRecurrence(recurrenceSp.getSelectedItem().toString());
+        cropTransplanting.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            cropTransplanting.setFrequency(Float.parseFloat(weeks));
+            cropTransplanting.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            cropTransplanting.setDaysBefore(days);
+
+        }
+
         dbHandler.insertCropTransplanting(cropTransplanting);
     }
 
@@ -123,6 +200,22 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             cropTransplanting.setExpectedYieldPerHa(Float.parseFloat(expectedYieldPerHaTxt.getText().toString()));
             cropTransplanting.setOperator(operatorTxt.getText().toString());
             cropTransplanting.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
+            cropTransplanting.setRecurrence(recurrenceSp.getSelectedItem().toString());
+            cropTransplanting.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                cropTransplanting.setFrequency(Float.parseFloat(weeks));
+                cropTransplanting.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                cropTransplanting.setDaysBefore(days);
+
+            }
 
             dbHandler.updateCropTransplanting(cropTransplanting);
         }
@@ -131,6 +224,9 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         if(cropTransplanting != null){
             CropDashboardActivity.selectSpinnerItemByValue(varietyEarlinessSpinner, cropTransplanting.getVarietyEarliness());
             CropDashboardActivity.selectSpinnerItemByValue(unitsSpinner, cropTransplanting.getUnits());
+            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropTransplanting.getRecurrence());
+            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropTransplanting.getReminders());
+
             operationDateTxt.setText(cropTransplanting.getOperationDate());
             totalSeedlingTxt.setText(cropTransplanting.getTotalSeedling()+"");
             seedlingsPerHaTxt.setText(cropTransplanting.getSeedlingPerHa()+"");
@@ -140,6 +236,9 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             expectedYieldPerHaTxt.setText(cropTransplanting.getExpectedYieldPerHa()+"");
             operatorTxt.setText(cropTransplanting.getOperator());
             totalCostTxt.setText(cropTransplanting.getTotalCost()+"");
+            weeksTxt.setText(cropTransplanting.getFrequency()+"");
+            repeatUntilTxt.setText(cropTransplanting.getRepeatUntil());
+            daysBeforeTxt.setText(cropTransplanting.getDaysBefore());
 
         }
 
@@ -166,6 +265,14 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         else if(totalCostTxt.getText().toString().isEmpty()){
             message = getString(R.string.total_cost_not_entered);
             totalCostTxt.requestFocus();
+        }
+        else if(recurrenceSp.getSelectedItemPosition()==0){
+            message = getString(R.string.recurrence_not_selected);
+            recurrenceSp.requestFocus();
+        }
+        else if(remindersSp.getSelectedItemPosition()==0){
+            message = getString(R.string.reminders_not_selected);
+            remindersSp.requestFocus();
         }
 
         if(message != null){

@@ -17,6 +17,11 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     float  expectedYieldPerHa=0;
     String operator="";
     float totalCost=0;
+    String recurrence;
+    String reminders;
+    private float frequency;
+    private String repeatUntil;
+    private String daysBefore;
 
     @Override
     public String getId() {
@@ -134,5 +139,45 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     @Override
     public int getType() {
         return CropActivity.CROP_ACTIVITY_TRANSPLANTING;
+    }
+
+    public String getRecurrence() {
+        return recurrence;
+    }
+
+    public void setRecurrence(String recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public String getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(String reminders) {
+        this.reminders = reminders;
+    }
+
+    public float getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getRepeatUntil() {
+        return repeatUntil;
+    }
+
+    public void setRepeatUntil(String repeatUntil) {
+        this.repeatUntil = repeatUntil;
+    }
+
+    public String getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(String daysBefore) {
+        this.daysBefore = daysBefore;
     }
 }

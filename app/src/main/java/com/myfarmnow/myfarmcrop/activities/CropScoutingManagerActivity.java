@@ -29,9 +29,9 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
 
 
-    EditText scoutingDateTxt,scoutingMethodTxt,costTxt,remarksTxt;
-    Spinner infestedSpinner,infestationTypeSpinner,infestationSpinner,infestationLevelSpinner;
-    LinearLayout infestationShowHideLayout;
+    EditText scoutingDateTxt,scoutingMethodTxt,costTxt,remarksTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    Spinner infestedSpinner,infestationTypeSpinner,infestationSpinner,infestationLevelSpinner,recurrenceSp,remindersSp;
+    LinearLayout infestationShowHideLayout,weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     CropSpinnerAdapter infestationAdapter;
     MyFarmDbHandlerSingleton dbHandler;
@@ -73,7 +73,13 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         costTxt = findViewById(R.id.txt_crop_scouting_cost);
         remarksTxt = findViewById(R.id.txt_crop_scouting_remarks);
         infestationShowHideLayout = findViewById(R.id.crop_scouting_show_hide_infestation);
-
+        remindersSp = findViewById(R.id.sp_crop_scouting_reminders);
+        recurrenceSp = findViewById(R.id.sp_crop_scouting_recurrence);
+        weeksTxt = findViewById(R.id.txt_crop_scouting_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_scouting_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_scouting_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_scouting_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_scouting_days_before);
 
         infestedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -159,16 +165,60 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
             }
         });
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(scoutingDateTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
 
         ((ArrayAdapter)infestedSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)infestationTypeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)infestationSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)infestationLevelSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +259,22 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
         cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
         cropScouting.setRemarks(remarksTxt.getText().toString());
+        cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
+        cropScouting.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            cropScouting.setFrequency(Float.parseFloat(weeks));
+            cropScouting.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            cropScouting.setDaysBefore(days);
+
+        }
 
         dbHandler.insertCropScouting(cropScouting);
     }
@@ -225,6 +291,22 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
             cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
             cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
             cropScouting.setRemarks(remarksTxt.getText().toString());
+            cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
+            cropScouting.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                cropScouting.setFrequency(Float.parseFloat(weeks));
+                cropScouting.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                cropScouting.setDaysBefore(days);
+
+            }
 
             dbHandler.updateCropScouting(cropScouting);
         }
@@ -235,10 +317,16 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(infestationTypeSpinner, cropScouting.getInfestationType());
            // CropDashboardActivity.selectSpinnerItemById(infestationSpinner, cropScouting.getInfestation());
             CropDashboardActivity.selectSpinnerItemByValue(infestationLevelSpinner, cropScouting.getInfestationLevel());
+            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropScouting.getRecurrence());
+            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropScouting.getReminders());
+
             scoutingDateTxt.setText(cropScouting.getDate());
             scoutingMethodTxt.setText(cropScouting.getMethod());
             costTxt.setText(cropScouting.getCost()+"");
             remarksTxt.setText(cropScouting.getRemarks());
+            weeksTxt.setText(cropScouting.getFrequency()+"");
+            repeatUntilTxt.setText(cropScouting.getRepeatUntil());
+            daysBeforeTxt.setText(cropScouting.getDaysBefore());
 
         }
 
@@ -257,6 +345,14 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         else if(infestedSpinner.getSelectedItemPosition()==0) {
             message = getString(R.string.infested_not_selected);
             infestedSpinner.requestFocus();
+        }
+        else if(recurrenceSp.getSelectedItemPosition()==0){
+            message = getString(R.string.recurrence_not_selected);
+            recurrenceSp.requestFocus();
+        }
+        else if(remindersSp.getSelectedItemPosition()==0){
+            message = getString(R.string.reminders_not_selected);
+            remindersSp.requestFocus();
         }
 
 

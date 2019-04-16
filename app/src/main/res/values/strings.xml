@@ -1067,12 +1067,37 @@
     <string name="fr">fr</string>
     <string name="title_activity_crop_machine_task_manager">Task Manager</string>
     <string name="title_activity_crop_notes_manager">Notes Manager</string>
-    <string name="title_activity_crop_machine_service_manager">Machine Manager</string>
+    <string name="title_activity_crop_machine_service_manager">Machine Service Manager</string>
 
     <string-array name="sp_crop_service_types">
         <item>Select Type</item>
         <item>Air Filter</item>
         <item>Battery Fluid</item>
+        <item>Battery Replacement</item>
+        <item>Belts</item>
+        <item>Brake Fluid</item>
+        <item>Brakes</item>
+        <item>Coolant</item>
+        <item>Diesel Filter</item>
+        <item>Drive Train</item>
+        <item>Engine Major</item>
+        <item>Equipment Service</item>
+        <item>Fan</item>
+        <item>Fan Belt</item>
+        <item>Fuel Filter</item>
+        <item>Fluids-other</item>
+        <item>Hydraulic Fluid</item>
+        <item>Hydraulic Pump</item>
+        <item>Inspection</item>
+        <item>Lubricant</item>
+        <item>Seals</item>
+        <item>Tire Pressure</item>
+        <item>Tires</item>
+        <item>Transmission Fluid</item>
+        <item>Transmission Major</item>
+        <item>Warranty</item>
+        <item>Wheels</item>
+        <item>Other</item>
     </string-array>
     <string name="title_activity_crop_machine_notes_list">Notes</string>
     <string name="title_activity_crop_machine_tasks_list">Tasks</string>
@@ -1130,7 +1155,12 @@
     <string name="website">Website</string>
     <string name="contact_type_not_selected_message">You must select Contact Type</string>
     <string name="address_not_entered_message">You must enter Address</string>
+
     <string name="repeat_until">Repeat Until</string>
+
+    <string name="title_activity_crop_machine_services_list">Service</string>
+    <string name="start_date_not_entered_message">You must select the Start Date</string>
+    <string name="end_date_not_entered_message">You must select the End Date</string>
 
 
 </resources>

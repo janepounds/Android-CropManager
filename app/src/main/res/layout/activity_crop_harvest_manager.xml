@@ -513,7 +513,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <TextView
@@ -570,6 +570,188 @@
 
 
                 </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recurrence"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_crop_harvest_recurrence"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:background="@drawable/input_shapes"
+                        android:entries="@array/sp_crop_task_recurrence"
+                        android:textSize="14sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reminders"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/sp_crop_harvest_reminders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes"
+                        android:textSize="14sp"
+                        android:entries="@array/sp_crop_task_reminders"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_crop_harvest_weekly_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Every:"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_weight="0.3"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.7"
+                        android:background="@color/gray_mh">
+                        <EditText
+                            android:id="@+id/txt_crop_harvest_weekly_weeks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="@string/default_numeric_value"
+                            android:background="@drawable/input_shapes"
+                            android:inputType="numberDecimal"
+                            android:textSize="14sp"
+                            android:layout_weight="0.8"/>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Weeks"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_weight="0.2"/>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repeat_until"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_weight="0.3"/>
+
+                    <EditText
+                        android:id="@+id/txt_crop_harvest_repeat_until"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:hint="Select"
+                        android:background="@drawable/input_shapes"
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:layout_weight="0.7"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_crop_harvest_days_before"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/gray_mh"
+                android:visibility="gone"
+                >
+                <EditText
+                    android:id="@+id/txt_crop_harvest_days_before"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Enter.."
+                    android:background="@drawable/input_shapes"
+                    android:inputType="numberDecimal"
+                    android:textSize="14sp"
+                    android:layout_weight="0.7"/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Days Before"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="0.3"/>
+
 
             </LinearLayout>
             <Button

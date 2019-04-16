@@ -109,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:hint="Enter.."
+                        android:hint="Select"
                         android:background="@drawable/input_shapes"
                         android:inputType="none"
 
@@ -135,7 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:hint="Enter.."
+                        android:hint="Select"
                         android:background="@drawable/input_shapes"
                         android:inputType="none"
 
@@ -397,7 +397,8 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:background="@color/gray_mh"
-                android:visibility="gone">
+                android:visibility="gone"
+                >
                 <EditText
                     android:id="@+id/txt_crop_task_days_before"
                     android:layout_width="wrap_content"
