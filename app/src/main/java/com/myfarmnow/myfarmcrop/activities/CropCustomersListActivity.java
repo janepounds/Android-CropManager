@@ -35,8 +35,6 @@ public class CropCustomersListActivity extends AppCompatActivity {
         customerListRecyclerView.setAdapter(cropCustomersListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         customerListRecyclerView.setLayoutManager(linearLayoutManager);
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -46,12 +44,9 @@ public class CropCustomersListActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
         switch (item.getItemId()) {
             case R.id.action_add_new:
                 Intent intent = new Intent(this, CropCustomerManagerActivity.class);
-
                 startActivity(intent);
                 return true;
             default:

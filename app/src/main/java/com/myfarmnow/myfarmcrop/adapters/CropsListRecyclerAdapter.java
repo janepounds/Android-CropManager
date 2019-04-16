@@ -29,6 +29,7 @@ import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.cropNameTxtView.setText(curCrop.getName());
         holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
         holder.cropAge.setText("(" + curCrop.computeAge() + ")");
-        holder.datePlantedTxt.setText(curCrop.getDateSown());
+        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
         holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
 

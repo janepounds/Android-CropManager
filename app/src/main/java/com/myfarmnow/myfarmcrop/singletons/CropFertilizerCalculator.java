@@ -182,9 +182,9 @@ public class CropFertilizerCalculator {
 
         //get  compositions
         if(getNpkFertilizer() != null){
-            nitrogen[0] =getNpkFertilizer().getnPercentage();
-            phosphate[0] =getNpkFertilizer().getpPercentage();
-            potassium[0] =getNpkFertilizer().getkPercentage();
+            nitrogen[0] =getNpkFertilizer().getnPercentage()/100.0;
+            phosphate[0] =getNpkFertilizer().getpPercentage()/100.0;
+            potassium[0] =getNpkFertilizer().getkPercentage()/100.0;
         }
         else{
             nitrogen[0] =0;
@@ -192,9 +192,9 @@ public class CropFertilizerCalculator {
             potassium[0] =0;
         }
         if(getNitrogenousFertilizer() != null){
-            nitrogen[1] =getNitrogenousFertilizer().getnPercentage();
-            phosphate[1] =getNitrogenousFertilizer().getpPercentage();
-            potassium[1] =getNitrogenousFertilizer().getkPercentage();
+            nitrogen[1] =getNitrogenousFertilizer().getnPercentage()/100.0;
+            phosphate[1] =getNitrogenousFertilizer().getpPercentage()/100.0;
+            potassium[1] =getNitrogenousFertilizer().getkPercentage()/100.0;
         }
         else{
             nitrogen[1] =0;
@@ -202,9 +202,9 @@ public class CropFertilizerCalculator {
             potassium[1] =0;
         }
         if(getPotassicFertilizer() != null){
-            nitrogen[2] =getPotassicFertilizer().getnPercentage();
-            phosphate[2] =getPotassicFertilizer().getpPercentage();
-            potassium[2] =getPotassicFertilizer().getkPercentage();
+            nitrogen[2] =getPotassicFertilizer().getnPercentage()/100.0;
+            phosphate[2] =getPotassicFertilizer().getpPercentage()/100.0;
+            potassium[2] =getPotassicFertilizer().getkPercentage()/100.0;
         }
         else{
             nitrogen[2] =0;

@@ -23,6 +23,7 @@ import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrderManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrderPreviewActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -69,10 +70,10 @@ public class CropPurchaseOrdersListRecyclerAdapter extends RecyclerView.Adapter<
 
         CropPurchaseOrder estimate = cropPurchaseOrdersList.get(position);
         holder.nameTextView.setText(estimate.getSupplierName());
-        holder.dateTextView.setText(estimate.getDeliveryDate());
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getDeliveryDate()));
         holder.purchaseOrderNumberTxt.setText(estimate.getNumber());
         holder.statusTextView.setText(estimate.getStatus());
-        holder.amountTextView.setText(NumberFormat.getInstance().format(estimate.computeTotal()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+NumberFormat.getInstance().format(estimate.computeTotal()));
     }
 
 

@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.activities.CropProductManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -73,7 +74,7 @@ public class CropProductsListRecyclerAdapter extends RecyclerView.Adapter<CropPr
         CropProduct product = cropProductsList.get(position);
         holder.nameTextView.setText(product.getName());
         holder.taxTextView.setText(product.getTaxRate()+"");
-        holder.rateTxt.setText(product.getSellingPrice()+"");
+        holder.rateTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+product.getSellingPrice());
 
         holder.quantityTextView.setText(product.getOpeningQuantity()+product.getUnits());
     }

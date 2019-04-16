@@ -158,7 +158,7 @@ public class CropDashboardGraphsFragment extends Fragment {
 
     public void drawGraphs(String startDate, String endDate){
         float totalIncome=0, totalExpenses =0,margin=0;
-        ArrayList<GraphRecord> expenseRecords = dbHandler.getGraphExpenses(startDate,endDate);
+        ArrayList<GraphRecord> expenseRecords = dbHandler.getGraphExpensesByCategory(startDate,endDate);
         LinkedHashMap<String, Double> expensesPerMonth = groupRecordByMonth(expenseRecords,startDate,endDate);
 
         ArrayList<HIData> expenses = new ArrayList<>();
@@ -273,6 +273,7 @@ public class CropDashboardGraphsFragment extends Fragment {
         plotOptions.setColumn(new HIColumn());
 
         plotOptions.getColumn().setLineWidth(1);
+        plotOptions.getColumn().setPointPadding(0);
         barGraphOptions.setPlotOptions(plotOptions);
 
 
@@ -301,7 +302,7 @@ public class CropDashboardGraphsFragment extends Fragment {
 
 
         HITooltip tooltip = new HITooltip();
-        tooltip.setPointFormat("{series.name}: <b>{point.percentage:.1f}%</b>");
+        tooltip.setPointFormat("{series.name}: <b>"+currency+"{point.y:.2f} ({point.percentage:.1f}%)</b>");
         options.setTooltip(tooltip);
 
         HIPlotOptions plotOptions = new HIPlotOptions();

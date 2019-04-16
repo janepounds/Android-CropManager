@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.highsoft.highcharts.common.hichartsclasses.HICSSObject;
@@ -36,9 +37,10 @@ import java.util.LinkedHashMap;
 
 public class CropFarmReportsActivity extends AppCompatActivity {
 
-    HIChartView incomesCategoryPieChartView,expensesCategoryPieChartView,expensesByActivityPieChartView;
+    HIChartView incomesCategoryPieChartView,expensesCategoryPieChartView,cropsExpensesPieChartView,expensesByActivityPieChartView;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner incomeCategoryRangeSpinner,expensesCategoryRangeSpinner,expensesActivityRangeSpinner;
+    Spinner incomeCategoryRangeSpinner,expensesCategoryRangeSpinner,expensesActivityRangeSpinner,yearsSpinner,seasonsSpinner;;
+    String currency ="UGX ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,19 +53,36 @@ public class CropFarmReportsActivity extends AppCompatActivity {
         incomeCategoryRangeSpinner =findViewById(R.id.spinner_crop_farm_reports_income_category_range);
         expensesCategoryPieChartView =findViewById(R.id.chart_crop_farm_reports_expense_category_pie);
         expensesByActivityPieChartView =findViewById(R.id.chart_crop_farm_reports_expense_activity_pie);
+        cropsExpensesPieChartView =findViewById(R.id.chart_crop_farm_reports_crops_expenses_pie_activity_pie);
+
         expensesCategoryRangeSpinner =findViewById(R.id.spinner_crop_farm_reports_expense_category_range);
         expensesActivityRangeSpinner =findViewById(R.id.spinner_crop_farm_reports_expense_activity_range);
         incomesCategoryPieChartView.setOptions(new HIOptions());
         expensesCategoryPieChartView.setOptions(new HIOptions());
         expensesByActivityPieChartView.setOptions(new HIOptions());
+        cropsExpensesPieChartView.setOptions(new HIOptions());
+
+        yearsSpinner = findViewById(R.id.crop_graphs_bar_crop_income_year_spinner);
+        seasonsSpinner = findViewById(R.id.crop_graphs_bar_crop_income_season_spinner);
+
         final Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int year = cal.get(Calendar.YEAR);
 
+        int endYear = cal.get(Calendar.YEAR);
+
+        ArrayList<String> years = new ArrayList<String>();
+        for(int yr =endYear;yr>= 2015; yr--){
+            years.add(yr+"");
+        }
+        ArrayAdapter<String> yearsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,years);
+        yearsSpinner.setAdapter(yearsAdapter);
+
         drawIncomesCategoryPie(year+"-01-01",year+"-12-31");
         drawExpensesCategoryPie(year+"-01-01",year+"-12-31");
         drawExpensesByActivityPie(year+"-01-01",year+"-12-31");
+        drawExpensesCropsPie(year,"First Season");
 
         incomeCategoryRangeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -105,9 +124,102 @@ public class CropFarmReportsActivity extends AppCompatActivity {
             }
         });
 
+        yearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                drawExpensesCropsPie(Integer.parseInt(yearsSpinner.getSelectedItem().toString()),seasonsSpinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        seasonsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                drawExpensesCropsPie(Integer.parseInt(yearsSpinner.getSelectedItem().toString()),seasonsSpinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
-    
+    public void drawExpensesCropsPie(int year, String season){
+
+
+        HIOptions options = cropsExpensesPieChartView.getOptions();
+
+        HIChart chart = new HIChart();
+        chart.setType("pie");
+        chart.setBackgroundColor(null);
+        chart.setPlotBorderWidth(0);
+        chart.setPlotShadow(false);
+        options.setChart(chart);
+
+
+
+        HITooltip tooltip = new HITooltip();
+        tooltip.setPointFormat("{series.name}: <b>"+currency+"{point.y:.2f} ({point.percentage:.1f}%)</b>");
+        options.setTooltip(tooltip);
+
+        HIPlotOptions plotOptions = new HIPlotOptions();
+        plotOptions.setPie(new HIPie());
+        plotOptions.getPie().setDataLabels(new HIDataLabels());
+        plotOptions.getPie().getDataLabels().setEnabled(false);
+        plotOptions.getPie().getDataLabels().setDistance(-50);
+        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
+        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
+        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
+        options.setPlotOptions(plotOptions);
+
+        HIPie series1 = new HIPie();
+        series1.setName("Income: ");
+        series1.setInnerSize("50%");
+
+
+
+        HICredits credits = new HICredits();
+        credits.setEnabled(false);
+        options.setCredits(credits);
+        HIExporting exporting = new HIExporting();
+        exporting.setEnabled(false);
+        options.setExporting(exporting);
+        ArrayList<GraphRecord> incomeRecords = dbHandler.getGraphExpensesByCrop(year,season);
+
+
+        ArrayList<HIData> pieItems = new ArrayList<>();
+        LinkedHashMap<String, Double> cropIncomes = groupRecordByCategory(incomeRecords);
+        System.out.println(cropIncomes+" CROPS");
+        float total = 0;
+        for(String category : cropIncomes.keySet()){
+            HIData dataPoint = new HIData();
+            dataPoint.setY(cropIncomes.get(category));
+            dataPoint.setName(category);
+            pieItems.add(dataPoint);
+            total+=cropIncomes.get(category);
+        }
+        series1.setData(pieItems);
+
+
+        HITitle title = new HITitle();
+        title.setText("Total <br />"+"UGX "+ NumberFormat.getInstance().format(total));
+        title.setAlign("center");
+        title.setVerticalAlign("middle");
+        title.setY(0);
+        options.setTitle(title);
+
+        HISubtitle subtitle = new HISubtitle();
+        subtitle.setText("Expenses By Crop");
+        options.setSubtitle(subtitle);
+        options.setSeries(new ArrayList<HISeries>(Arrays.asList(series1)));
+
+        cropsExpensesPieChartView.setOptions(options);
+    }
     public static HashMap<String, String> getGraphDateRange(int position){
         SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
         HashMap<String, String> dates = new HashMap<>();
@@ -182,7 +294,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITooltip tooltip = new HITooltip();
-        tooltip.setPointFormat("{series.name}: <b>{point.percentage:.1f}%</b>");
+       tooltip.setPointFormat("{series.name}: <b>"+currency+"{point.y:.2f} ({point.percentage:.1f}%)</b>");
         options.setTooltip(tooltip);
 
         HIPlotOptions plotOptions = new HIPlotOptions();
@@ -253,7 +365,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITooltip tooltip = new HITooltip();
-        tooltip.setPointFormat("{series.name}: <b>{point.percentage:.1f}%</b>");
+       tooltip.setPointFormat("{series.name}: <b>"+currency+"{point.y:.2f} ({point.percentage:.1f}%)</b>");
         options.setTooltip(tooltip);
 
         HIPlotOptions plotOptions = new HIPlotOptions();
@@ -324,7 +436,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITooltip tooltip = new HITooltip();
-        tooltip.setPointFormat("{series.name}: <b>{point.percentage:.1f}%</b>");
+       tooltip.setPointFormat("{series.name}: <b>"+currency+"{point.y:.2f} ({point.percentage:.1f}%)</b>");
         options.setTooltip(tooltip);
 
         HIPlotOptions plotOptions = new HIPlotOptions();
@@ -354,7 +466,6 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
         ArrayList<HIData> pieItems = new ArrayList<>();
         LinkedHashMap<String, Double> cropIncomes = groupRecordByCategory(incomeRecords);
-        System.out.println(cropIncomes+" CROPS");
         float total = 0;
         for(String category : cropIncomes.keySet()){
             HIData dataPoint = new HIData();

@@ -39,6 +39,7 @@ import com.myfarmnow.myfarmcrop.models.CropIrrigation;
 import com.myfarmnow.myfarmcrop.models.CropScouting;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropTransplanting;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_FERTILIZER_APPLICATION){
             CropFertilizerApplication field = (CropFertilizerApplication)cropsList.get(position);
             final FertilizerApplicationViewHolder fertilizerApplicationHolder = (FertilizerApplicationViewHolder)holder;
-            fertilizerApplicationHolder.costTextView.setText("UGX "+ NumberFormat.getInstance().format(field.getCost())); //TODO replace currency
+            fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+ NumberFormat.getInstance().format(field.getCost())); //TODO replace currency
             fertilizerApplicationHolder.rateTextView.setText(field.getRate()+"Kg/ha");
             fertilizerApplicationHolder.methodTextView.setText(field.getMethod());
             fertilizerApplicationHolder.operationTextView.setText(field.getFertilizerName());
@@ -130,10 +131,10 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_CULTIVATE){
             CropCultivation field = (CropCultivation)cropsList.get(position);
             ((CultivationViewHolder)holder).operatorTextView.setText(field.getOperator());
-            ((CultivationViewHolder)holder).costTextView.setText("UGX "+ NumberFormat.getInstance().format(field.getCost()));
+            ((CultivationViewHolder)holder).costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+ NumberFormat.getInstance().format(field.getCost()));
             ((CultivationViewHolder)holder).operationTextView.setText(field.getOperation());
             ((CultivationViewHolder)holder).notesTextView.setText(field.getNotes());
-            ((CultivationViewHolder)holder).dateTextView.setText(field.getDate());
+            ((CultivationViewHolder)holder).dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(field.getDate()));
 
             final ViewTreeObserver observer =  ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver();
             observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -184,7 +185,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_SCOUTING){
             final ScoutingViewHolder scoutingViewHolder = (ScoutingViewHolder)holder;
             final CropScouting scouting = (CropScouting)cropsList.get(position);
-            scoutingViewHolder.scoutingDateTxt.setText(scouting.getDate());
+            scoutingViewHolder.scoutingDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(scouting.getDate()));
             scoutingViewHolder.scoutingMethodTxt.setText("("+scouting.getMethod()+")");
             scoutingViewHolder.infestationTypeTxt.setText(scouting.getInfestationType()+" : ");
             scoutingViewHolder.infestationTxt.setText(scouting.getInfestation());
@@ -274,7 +275,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         } else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_IRRIGATION){
             final IrrigationViewHolder irrigationViewHolder = (IrrigationViewHolder)holder;
             CropIrrigation irrigation = (CropIrrigation)cropsList.get(position);
-            irrigationViewHolder.operationDateTxt.setText(irrigation.getOperationDate());
+            irrigationViewHolder.operationDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(irrigation.getOperationDate()));
             irrigationViewHolder.areaIrrigationTxt.setText(irrigation.getAreaIrrigated()+"");
             irrigationViewHolder.systemRateTxt.setText(irrigation.getSystemRate()+" l/hr");
             irrigationViewHolder.durationTxt.setText(irrigation.getDuration()+" hrs");
@@ -284,17 +285,17 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         }else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_TRANSPLANTING){
             final TransplantingViewHolder transplantingViewHolder = (TransplantingViewHolder)holder;
             CropTransplanting transplanting = (CropTransplanting)cropsList.get(position);
-            transplantingViewHolder.operationDateTxt.setText(transplanting.getOperationDate());
+            transplantingViewHolder.operationDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(transplanting.getOperationDate()));
             transplantingViewHolder.totalSeedlingsTxt.setText(transplanting.getTotalSeedling()+"");
             transplantingViewHolder.seedlingsPerHaTxt.setText(transplanting.getSeedlingPerHa()+"");
             transplantingViewHolder.varietyEarlinessTxt.setText(transplanting.getVarietyEarliness());
-            transplantingViewHolder.harvestDueDateTxt.setText(transplanting.getOperationDate());
+            transplantingViewHolder.harvestDueDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(transplanting.getOperationDate()));
             transplantingViewHolder.expectedYieldTxt.setText(transplanting.getExpectedYield()+"");
             transplantingViewHolder.totalCostTxt.setText(transplanting.getTotalCost()+"");
         }else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_HARVESTING){
             final HarvestViewHolder harvestViewHolder = (HarvestViewHolder)holder;
             CropHarvest harvest = (CropHarvest)cropsList.get(position);
-            harvestViewHolder.harvestDateTxt.setText(harvest.getDate());
+            harvestViewHolder.harvestDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(harvest.getDate()));
             harvestViewHolder.harvestMethodTxt.setText(harvest.getMethod());
             harvestViewHolder.quantityTxt.setText(harvest.getQuantity()+" ");
             harvestViewHolder.unitsTxt.setText(harvest.getUnits());
@@ -367,7 +368,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                 final CropFertilizerApplication cropFertilizerApplication = (CropFertilizerApplication)cropsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete the fertilizer application done on "+cropFertilizerApplication.getDate()+"?")
+                                        .setMessage("Do you really want to delete the fertilizer application done on "+CropSettingsSingleton.getInstance().convertToUserFormat(cropFertilizerApplication.getDate())+"?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -504,7 +505,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                 final CropSpraying cropSpraying = (CropSpraying)cropsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete the spraying on "+cropSpraying.getDate()+"?")
+                                        .setMessage("Do you really want to delete the spraying on "+CropSettingsSingleton.getInstance().convertToUserFormat(cropSpraying.getDate())+"?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

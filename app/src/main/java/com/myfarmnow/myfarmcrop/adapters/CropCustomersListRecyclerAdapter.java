@@ -24,6 +24,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -95,11 +96,11 @@ public class CropCustomersListRecyclerAdapter extends RecyclerView.Adapter<CropC
             if(!x.determineStatus(mContext).equals(mContext.getString(R.string.invoice_status_paid))){
                 unpaid++;
                 balance += x.computeBalance();
-                holder.dateTextView.setText(x.getDueDate());
+                holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(x.getDueDate()));
                 holder.duePaymentLayout.setVisibility(View.VISIBLE);
             }
         }
-        holder.quantityTextView.setText("UGX "+ NumberFormat.getInstance().format(customer.getOpeningBalance()+balance));
+        holder.quantityTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+ NumberFormat.getInstance().format(customer.getOpeningBalance()+balance));
         holder.unpaidInvoicesTextView.setText(unpaid+"/"+invoices.size()+" Unpaid");
 
 

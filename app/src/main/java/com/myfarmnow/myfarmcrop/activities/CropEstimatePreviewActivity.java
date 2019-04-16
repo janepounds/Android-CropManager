@@ -35,6 +35,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -125,11 +126,10 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
         discountAmountTextView.setText(NumberFormat.getInstance().format(cropEstimate.computeDiscount()));
 
         numberTextView.setText("#"+cropEstimate.getNumber());
-        dateTextView.setText(cropEstimate.getDate());
+        dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropEstimate.getDate()));
         referenceTextView.setText(cropEstimate.getReferenceNumber());
-        dueDateTextView.setText(cropEstimate.getExpiryDate());
-        //termsTextView.setText(cropEstimate.getR());
-        //orderNumberTextView.setText(cropEstimate.getOrderNumber());
+        dueDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropEstimate.getExpiryDate()));
+
         customerNameTextView.setText(cropCustomer.getName());
         cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+" , "+cropCustomer.getBillingCountry());
         streetTextView.setText(cropCustomer.getBillingStreet());

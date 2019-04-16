@@ -26,6 +26,7 @@ import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropField;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -90,7 +91,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             TextView cropNameAreaTextView = new TextView(mContext);
             TextView datePlantedTextView = new TextView(mContext);
             cropNameAreaTextView.setText(crop.getName()+" ("+crop.getArea()+"ha)");
-            datePlantedTextView.setText("Date Planted : "+crop.getDateSown()+" ("+crop.computeAge()+")");
+            datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getDateSown())+" ("+crop.computeAge()+")");
             View view = new View(mContext);
             view.setMinimumHeight(20);
             cropNameAreaTextView.setTypeface(cropNameAreaTextView.getTypeface(), Typeface.BOLD);

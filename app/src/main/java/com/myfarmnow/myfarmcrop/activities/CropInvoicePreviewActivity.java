@@ -35,6 +35,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -123,8 +124,8 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         balanceTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeBalance()));
         paymentMadeTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeTotalPayments()));
         numberTextView.setText("#"+cropInvoice.getNumber());
-        dateTextView.setText(cropInvoice.getDate());
-        dueDateTextView.setText(cropInvoice.getDueDate());
+        dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDate()));
+        dueDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDueDate()));
         termsTextView.setText(cropInvoice.getTerms());
         orderNumberTextView.setText(cropInvoice.getOrderNumber());
         customerNameTextView.setText(cropCustomer.getName());

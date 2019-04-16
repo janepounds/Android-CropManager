@@ -20,6 +20,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentBillManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPaymentBill;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class CropPaymentBillsListRecyclerAdapter extends RecyclerView.Adapter<Cr
     public void onBindViewHolder(@NonNull PaymentBillViewHolder holder, int position) {
         CropPaymentBill paymentBill = cropPaymentBillsList.get(position);
 
-        holder.paymentDateTextView.setText(paymentBill.getDate());
+        holder.paymentDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(paymentBill.getDate()));
         holder.modeTextView.setText(paymentBill.getMode());
         holder.billIdTextView.setText(paymentBill.getBillId());
 

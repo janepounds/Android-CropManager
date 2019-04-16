@@ -26,6 +26,7 @@ import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 
@@ -76,7 +77,7 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
 
         CropEstimate estimate = cropEstimatesList.get(position);
         holder.nameTextView.setText(estimate.getCustomerName());
-        holder.dateTextView.setText(estimate.getDate());
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getDate()));
         holder.referenceNumberTxt.setText(estimate.getReferenceNumber());
         holder.statusTextView.setText(estimate.getStatus());
         holder.estimateNumberTextView.setText(estimate.getNumber());

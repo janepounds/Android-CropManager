@@ -20,6 +20,7 @@ import com.myfarmnow.myfarmcrop.activities.CropEmployeeManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class CropEmployeesListRecyclerAdapter extends RecyclerView.Adapter<CropE
         holder.employmentStatusTextView.setText(employee.getEmploymentStatus());
         holder.phoneTextView.setText(employee.getPhone());
         holder.payTypeTextView.setText(employee.getPayType());
-        holder.payRateTextView.setText("UGX "+ NumberFormat.getInstance().format(employee.getPayAmount()));
+        holder.payRateTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+ NumberFormat.getInstance().format(employee.getPayAmount()));
         holder.perTextView.setText(employee.getPayRate());
 
 

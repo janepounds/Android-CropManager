@@ -24,6 +24,7 @@ import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -71,15 +72,15 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
     @Override
     public void onBindViewHolder(@NonNull SalesOrderViewHolder holder, int position) {
 
-        CropSalesOrder estimate = cropSalesOrdersList.get(position);
-        holder.nameTextView.setText(estimate.getCustomerName());
-        holder.dateTextView.setText(estimate.getDate());
-        holder.referenceNumberTxt.setText(estimate.getReferenceNumber());
-        holder.statusTextView.setText(estimate.getStatus());
-        holder.estimateNumberTextView.setText(estimate.getNumber());
+        CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(position);
+        holder.nameTextView.setText(cropSalesOrder.getCustomerName());
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropSalesOrder.getDate()));
+        holder.referenceNumberTxt.setText(cropSalesOrder.getReferenceNumber());
+        holder.statusTextView.setText(cropSalesOrder.getStatus());
+        holder.estimateNumberTextView.setText(cropSalesOrder.getNumber());
        // holder.referenceNumberTxtView.setVisibility(View.VISIBLE);
 
-        holder.amountTextView.setText(NumberFormat.getInstance().format(estimate.computeTotal()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+NumberFormat.getInstance().format(cropSalesOrder.computeTotal()));
     }
 
 

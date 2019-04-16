@@ -21,6 +21,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
 
         CropPayment payment = cropPaymentsList.get(position);
         holder.nameTextView.setText(payment.getCustomerName());
-        holder.dateTextView.setText(payment.getDate());
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(payment.getDate()));
         holder.modeTextView.setText(payment.getMode());
         holder.referenceNumberTxt.setText(payment.getInvoiceNumber());
         holder.paymentNumberTextView.setText(payment.getPaymentNumber());

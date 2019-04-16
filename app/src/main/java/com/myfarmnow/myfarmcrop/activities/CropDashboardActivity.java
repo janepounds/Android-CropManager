@@ -230,7 +230,11 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
 
     public void openFarmReports(View view){
-        Intent openReports = new Intent(this, CropFarmReportsActivity.class);
+        Intent openReports = new Intent(this, CropReportsDashboardActivity.class);
+        startActivity(openReports);
+    }
+    public void openSettings(View view){
+        Intent openReports = new Intent(this, CropSettingsActivity.class);
         startActivity(openReports);
     }
     public void openEmployeeList(View view){

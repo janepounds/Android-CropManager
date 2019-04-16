@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -140,7 +141,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
                                 final CropSoilAnalysis cropSoilAnalysis = cropsoilAnalysisList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete the soil_analysis on "+cropSoilAnalysis.getDate()+"?")
+                                        .setMessage("Do you really want to delete the soil_analysis on "+ CropSettingsSingleton.getInstance().convertToUserFormat(cropSoilAnalysis.getDate())+"?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.activities.CropBillPreviewActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropBill;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -70,8 +71,8 @@ public class CropBillsListRecyclerAdapter extends RecyclerView.Adapter<CropBills
     public void onBindViewHolder(@NonNull BillViewHolder holder, int position) {
         CropBill estimate = cropBillsList.get(position);
         holder.supplierTextView.setText(estimate.getSupplierName());
-        holder.dueDateTextView.setText(estimate.getDueDate());
-        holder.billDateTextView.setText(estimate.getBillDate());
+        holder.dueDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getDueDate()));
+        holder.billDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getBillDate()));
 
         holder.statusTextView.setText(estimate.determineStatus(mContext));
         holder.billNumberTextView.setText(estimate.getNumber());

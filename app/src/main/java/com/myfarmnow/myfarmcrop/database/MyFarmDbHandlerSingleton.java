@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
+import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropContact;
@@ -45,6 +46,7 @@ import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.CropTask;
 import com.myfarmnow.myfarmcrop.models.CropTransplanting;
+import com.myfarmnow.myfarmcrop.models.CropYieldRecord;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 
@@ -81,6 +83,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_BILL_TABLE_NAME ="crop_bill";
     public static final String CROP_ITEM_TABLE_NAME ="crop_item";
     public static final String CROP_FERTILIZER_TABLE_NAME ="crop_fertilizer";
+    public static final String CROP_SETTINGS_TABLE_NAME ="crop_settings";
 
     public static final String CROP_MACHINE_TASK_TABLE_NAME ="crop_machine_task";
     public static final String CROP_NOTE_TABLE_NAME ="crop_notes";
@@ -570,6 +573,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_CONTACT_EMAIL ="email";
     public static final String CROP_CONTACT_WEBSITE ="website";
 
+    public static final String CROP_SETTINGS_ID ="id";
+    public static final String CROP_SETTINGS_USER_ID ="userId";
+    public static final String CROP_SETTINGS_DATE_FORMAT ="dateFormat";
+    public static final String CROP_SETTINGS_WEIGHT_UNITS ="weightUnits";
+    public static final String CROP_SETTINGS_AREA_UNITS ="areaUnits";
+
+
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -779,6 +790,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
                 CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_COST+" REAL DEFAULT 0 " + " ) ";
 
+        String crop_settings_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_SETTINGS_TABLE_NAME + " ( " + CROP_SETTINGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_SETTINGS_USER_ID + " TEXT NOT NULL, " + CROP_SETTINGS_AREA_UNITS + " TEXT NOT NULL DEFAULT 'Acres', " + CROP_SETTINGS_DATE_FORMAT + " TEXT NOT NULL 'dd-mm-2018', "  + CROP_SETTINGS_WEIGHT_UNITS + " TEXT NOT NULL DEFAULT 'Kg' " + " ) ";
+
 
 
 
@@ -832,6 +845,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_scouting_insert_query);
         database.execSQL(crop_harvest_insert_query);
         database.execSQL(crop_contact_insert_query);
+        database.execSQL(crop_settings_insert_query);
 
 
         System.out.println(
@@ -900,6 +914,142 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         this.close();
     }
 
+    public ArrayList<CropYieldRecord> getCropsYield(String userId){
+
+        openDB();
+        ArrayList<CropYieldRecord> array_list = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select "+CROP_CROP_TABLE_NAME+".*,"+CROP_FIELDS_TABLE_NAME+".* from " + CROP_CROP_TABLE_NAME +  " LEFT JOIN "+CROP_FIELDS_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_FIELD_ID+" = "+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_ID+" where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropYieldRecord crop = new CropYieldRecord();
+            crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
+            crop.setCropId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setCroppingYear(res.getString(res.getColumnIndex(CROP_CROP_YEAR)));
+            crop.setCropName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
+            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            array_list.add(crop);
+            res.moveToNext();
+        }
+
+        for(CropYieldRecord yieldRecord: array_list){
+            yieldRecord.setTotalCost(getCropTotalExpenses(yieldRecord.getCropId()));
+            yieldRecord.setRevenue(getCropRevenue(yieldRecord.getCropId()));
+        }
+        return array_list;
+
+    }
+    public float getCropTotalExpenses(String cropId){
+        Cursor res;
+        float totalExpenses=0;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        res = db.rawQuery("select "+CROP_INCOME_EXPENSE_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_INCOME_EXPENSE_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_INCOME_EXPENSE_TABLE_NAME+"."+CROP_INCOME_EXPENSE_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId+" AND "+CROP_INCOME_EXPENSE_TRANSACTION+" = 'Expense'" , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_GROSS_AMOUNT));
+            res.moveToNext();
+        }
+
+        //Activities
+        res = db.rawQuery("select "+CROP_HARVEST_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_HARVEST_TABLE_NAME+"."+CROP_HARVEST_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_HARVEST_COST));
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_TRANSPLANTING_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_TRANSPLANTING_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_TRANSPLANTING_TABLE_NAME+"."+CROP_TRANSPLANTING_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST));
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_SCOUTING_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_SCOUTING_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_SCOUTING_TABLE_NAME+"."+CROP_SCOUTING_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_SCOUTING_COST));
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_CULTIVATION_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_CULTIVATION_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_CULTIVATION_TABLE_NAME+"."+CROP_CULTIVATION_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST));
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_IRRIGATION_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_IRRIGATION_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_IRRIGATION_TABLE_NAME+"."+CROP_IRRIGATION_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST));
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_SPRAYING_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_SPRAYING_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_SPRAYING_TABLE_NAME+"."+CROP_SPRAYING_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST));
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+"."+CROP_FERTILIZER_APPLICATION_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_COST));
+            res.moveToNext();
+        }
+
+        //Crop Planting
+        res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " + CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId  , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            totalExpenses+= res.getFloat(res.getColumnIndex(CROP_CROP_COST));
+            res.moveToNext();
+        }
+
+
+        closeDB();
+        return totalExpenses;
+
+    }
+    public float getCropRevenue(String cropId){
+        float totalRevenue =0;
+        Cursor res;
+        SQLiteDatabase db = this.getReadableDatabase();
+        res = db.rawQuery("select "+CROP_INCOME_EXPENSE_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_INCOME_EXPENSE_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_INCOME_EXPENSE_TABLE_NAME+"."+CROP_INCOME_EXPENSE_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId+" AND "+CROP_INCOME_EXPENSE_TRANSACTION+" = 'Income'" , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            totalRevenue+= res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_GROSS_AMOUNT));
+            res.moveToNext();
+        }
+        res = db.rawQuery("select "+CROP_HARVEST_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_HARVEST_TABLE_NAME+"."+CROP_HARVEST_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_ID + " = "+cropId , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            totalRevenue+=(res.getFloat(res.getColumnIndex(CROP_HARVEST_QUANTITY_SOLD))*res.getFloat(res.getColumnIndex(CROP_HARVEST_PRICE)));
+            res.moveToNext();
+        }
+        closeDB();
+        return totalRevenue;
+
+    }
     public ArrayList<GraphRecord> getGraphExpensesByActivity(String startDate, String endDate){
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
@@ -976,6 +1126,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        //Crop Planting
+        res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " + CROP_CROP_DATE_SOWN+ " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)),
+                    "Planting",
+                    res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
         
         closeDB();
         return expensesList;
@@ -1006,13 +1167,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
-        //ACTIVITY
+        //ACTIVITIESS
         res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_CULTIVATION_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1022,7 +1183,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1032,7 +1193,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_HARVEST_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1042,7 +1203,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1052,7 +1213,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1063,7 +1224,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_IRRIGATION_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1073,8 +1234,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SCOUTING_DATE)),
-                    "Crop Activity",
+                    context.getString(R.string.graph_category_crop_activity),
                     res.getFloat(res.getColumnIndex(CROP_SCOUTING_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+        //Crop Planting
+        res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " + CROP_CROP_DATE_SOWN+ " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)),
+                    context.getString(R.string.graph_category_crop_activity),
+                    res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
@@ -1084,7 +1256,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE)),
-                    "Soil Analysis",
+                    "Field Activity",
                     res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1093,7 +1265,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         //INVENTORY
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)),
-                    "Inventory",
+                    context.getString(R.string.graph_category_crop_inventory),
                     res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1103,7 +1275,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_DATE)),
-                    "Inventory",
+                    context.getString(R.string.graph_category_crop_inventory),
                     res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
@@ -1113,160 +1285,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)),
-                    "Inventory",
+                    context.getString(R.string.graph_category_crop_inventory),
                     res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_COST)));
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
-        closeDB();
-        return expensesList;
-
-    }
-    public ArrayList<GraphRecord> getGraphExpenses(String startDate, String endDate){
-        ArrayList<GraphRecord> expensesList = new ArrayList<>();
-        Cursor res;
-        SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_CULTIVATION_DATE)),
-                    "Cultivation",
-                    res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + CROP_TRANSPLANTING_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DATE)),
-                   "Transplanting",
-                    res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_HARVEST_TABLE_NAME + " where " + CROP_HARVEST_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)),
-                    "Transplanting",
-                    res.getFloat(res.getColumnIndex(CROP_HARVEST_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " where " + CROP_FERTILIZER_APPLICATION_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DATE)),
-                    "Fertilizer Application",
-                    res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_SPRAYING_TABLE_NAME + " where " + CROP_SPRAYING_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)),
-                    "Spraying",
-                    res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-
-        res = db.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where " + CROP_IRRIGATION_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_IRRIGATION_DATE)),
-                    "Irrigation",
-                    res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_SCOUTING_TABLE_NAME + " where " + CROP_SCOUTING_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SCOUTING_DATE)),
-                    "Scouting",
-                    res.getFloat(res.getColumnIndex(CROP_SCOUTING_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-
-        //INVENTORY
-        res = db.rawQuery("select * from " + CROP_INVENTORY_SPRAY_TABLE_NAME + " where " +  CROP_INVENTORY_SPRAY_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)),
-                    "Spray",
-                    res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " where " +  CROP_INVENTORY_FERTILIZER_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_DATE)),
-                    "Fertilizer",
-                    res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-        res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " +  CROP_INVENTORY_SEEDS_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)),
-                    "Seeds",
-                    res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-
-        //FIELD ANALYSIS
-        res = db.rawQuery("select * from " + CROP_SOIL_ANALYSIS_TABLE_NAME + " where " + CROP_SOIL_ANALYSIS_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE)),
-                    "Soil Analysis",
-                    res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-
-        //PAYMENTS MADE FOR BILL
-        res = db.rawQuery("select * from " + CROP_PAYMENT_BILL_TABLE_NAME + " where " +  CROP_PAYMENT_BILL_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_DATE)),
-                    "Payment Made",
-                    res.getFloat(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MADE)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-
-        //INCOME EXPENSE
-        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') AND "+CROP_INCOME_EXPENSE_TRANSACTION+" = 'Expense'" , null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_DATE)),
-                    res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CATEGORY)),
-                    res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_GROSS_AMOUNT)));
-            expensesList.add(expenseRecord);
-            res.moveToNext();
-        }
-
-
         closeDB();
         return expensesList;
 
@@ -1277,7 +1300,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
         res = db.rawQuery("select "+CROP_INCOME_EXPENSE_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_INCOME_EXPENSE_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_INCOME_EXPENSE_TABLE_NAME+"."+CROP_INCOME_EXPENSE_CROP_ID+
-                " where " +CROP_INCOME_EXPENSE_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_SEASON + " = '"+season+"' AND "+CROP_INCOME_EXPENSE_TRANSACTION+" = 'Expense'" , null);
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_SEASON + " = '"+season+"' AND "+CROP_INCOME_EXPENSE_TRANSACTION+" = 'Expense'" , null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -1287,6 +1310,97 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
+
+        //Activities
+        res = db.rawQuery("select "+CROP_HARVEST_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_HARVEST_TABLE_NAME+"."+CROP_HARVEST_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_HARVEST_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_TRANSPLANTING_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_TRANSPLANTING_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_TRANSPLANTING_TABLE_NAME+"."+CROP_TRANSPLANTING_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_SCOUTING_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_SCOUTING_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_SCOUTING_TABLE_NAME+"."+CROP_SCOUTING_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SCOUTING_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_SCOUTING_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_CULTIVATION_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_CULTIVATION_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_CULTIVATION_TABLE_NAME+"."+CROP_CULTIVATION_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_CULTIVATION_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_IRRIGATION_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_IRRIGATION_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_IRRIGATION_TABLE_NAME+"."+CROP_IRRIGATION_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_IRRIGATION_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_SPRAYING_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_SPRAYING_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_SPRAYING_TABLE_NAME+"."+CROP_SPRAYING_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        res = db.rawQuery("select "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+"."+CROP_FERTILIZER_APPLICATION_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
+        //Crop Planting
+        res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " + CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+
 
         closeDB();
         return expensesList;
@@ -1304,6 +1418,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_DATE)),
                     res.getString(res.getColumnIndex(CROP_CROP_NAME)),
                     res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_GROSS_AMOUNT)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+        res = db.rawQuery("select "+CROP_HARVEST_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+".* from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+" = "+CROP_HARVEST_TABLE_NAME+"."+CROP_HARVEST_CROP_ID+
+                " where " +CROP_CROP_TABLE_NAME+"."+ CROP_CROP_YEAR + " = "+year+" AND "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_SEASON + " = '"+season+"'" , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)),
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME)),
+                    res.getFloat(res.getColumnIndex(CROP_HARVEST_QUANTITY_SOLD))*res.getFloat(res.getColumnIndex(CROP_HARVEST_PRICE)));
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
@@ -1335,6 +1460,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_PAYMENT_DATE)),
                     "Payment Received",
                     res.getFloat(res.getColumnIndex(CROP_PAYMENT_AMOUNT)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+        res = db.rawQuery("select * from " + CROP_HARVEST_TABLE_NAME + " where " + CROP_HARVEST_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)),
+                    "Crop Harvest",
+                    res.getFloat(res.getColumnIndex(CROP_HARVEST_QUANTITY_SOLD))*res.getFloat(res.getColumnIndex(CROP_HARVEST_PRICE)));
             expensesList.add(expenseRecord);
             res.moveToNext();
         }

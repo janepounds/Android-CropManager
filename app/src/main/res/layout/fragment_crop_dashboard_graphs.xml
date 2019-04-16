@@ -141,6 +141,7 @@
             android:orientation="horizontal"
             android:layout_margin="4dp">
 
+
             <Spinner
                 android:id="@+id/crop_graphs_bar_crop_income_year_spinner"
                 android:layout_width="match_parent"

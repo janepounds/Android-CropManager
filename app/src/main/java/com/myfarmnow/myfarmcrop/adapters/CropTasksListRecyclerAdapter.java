@@ -23,6 +23,7 @@ import com.myfarmnow.myfarmcrop.activities.CropTasksListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropTask;
 import com.myfarmnow.myfarmcrop.models.CropTask;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,7 @@ public class CropTasksListRecyclerAdapter extends RecyclerView.Adapter<CropTasks
         holder.personnelTextView.setText(task.getEmployeeName());
         holder.recurrenceTextView.setText(task.getRecurrence());
         holder.statusTextView.setText(task.getStatus());
-        holder.dateTextView.setText(task.getDate());
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(task.getDate()));
 
 //        Log.d("DUE DATE",task.getEmployeeId());
 

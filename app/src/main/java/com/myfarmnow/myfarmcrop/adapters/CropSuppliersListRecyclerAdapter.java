@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -36,8 +37,6 @@ public class CropSuppliersListRecyclerAdapter extends RecyclerView.Adapter<CropS
         cropSuppliersList.addAll(cropSuppliers);
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
-
-        Log.d("CROP FIELDS",cropSuppliersList.size()+" ");
     }
     @NonNull
     @Override
@@ -78,7 +77,7 @@ public class CropSuppliersListRecyclerAdapter extends RecyclerView.Adapter<CropS
         holder.cityTextView.setText(supplier.getInvoiceCityOrTown());
         //holder.dateTextView.setText(supplier.getD());
 
-        holder.quantityTextView.setText("UGX "+ NumberFormat.getInstance().format(supplier.getOpeningBalance()));
+        holder.quantityTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+ NumberFormat.getInstance().format(supplier.getOpeningBalance()));
     }
 
 
