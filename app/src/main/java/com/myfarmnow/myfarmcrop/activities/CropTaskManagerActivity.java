@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +28,9 @@ import java.util.ArrayList;
 
 public class CropTaskManagerActivity extends AppCompatActivity {
     CropTask cropTask=null;
-    EditText dateTxt, titleTxt, descriptionTxt;
+    EditText dateTxt, titleTxt, descriptionTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Spinner cropSp, typeSp, personnelSp,statusSp, recurrenceSp, remindersSp;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     CropSpinnerAdapter cropsSpinnerAdapter, employeesSpinnerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
@@ -56,16 +59,60 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         statusSp = findViewById(R.id.sp_crop_task_status);
         recurrenceSp = findViewById(R.id.sp_crop_task_recurrence);
         remindersSp = findViewById(R.id.sp_crop_task_reminders);
-
+        weeksTxt = findViewById(R.id.txt_crop_task_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_task_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_task_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_task_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_task_days_before);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)statusSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
 
 
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -120,6 +167,20 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         cropTask.setDescription(descriptionTxt.getText().toString());
         cropTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropTask.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            cropTask.setFrequency(Float.parseFloat(weeks));
+            cropTask.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            cropTask.setDaysBefore(days);
+
+        }
         dbHandler.insertCropTask(cropTask);
 
 
@@ -138,6 +199,20 @@ public class CropTaskManagerActivity extends AppCompatActivity {
             cropTask.setDescription(descriptionTxt.getText().toString());
             cropTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropTask.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                cropTask.setFrequency(Float.parseFloat(weeks));
+                cropTask.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                cropTask.setDaysBefore(days);
+
+            }
             dbHandler.updateCropTask(cropTask);
         }
     }
@@ -155,6 +230,9 @@ public class CropTaskManagerActivity extends AppCompatActivity {
             dateTxt.setText(cropTask.getDate());
             titleTxt.setText(cropTask.getTitle());
             descriptionTxt.setText(cropTask.getDescription());
+            weeksTxt.setText(cropTask.getFrequency()+"");
+            repeatUntilTxt.setText(cropTask.getRepeatUntil());
+            daysBeforeTxt.setText(cropTask.getDaysBefore());
 
 
         }

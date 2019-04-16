@@ -33,9 +33,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_notes_manager);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getIntent().hasExtra("cropNote")){
+         if(getIntent().hasExtra("cropNote")){
             cropNote = (CropNote)getIntent().getSerializableExtra("cropNote");
         }
         initializeForm();
@@ -57,7 +55,8 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
         descriptionTxt = findViewById(R.id.txt_crop_note_description);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-
+        CropDashboardActivity.addDatePicker(dateTxt,this);
+        categoryLayout.setVisibility(View.VISIBLE);
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override

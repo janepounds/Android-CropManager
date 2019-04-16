@@ -180,6 +180,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_CULTIVATION_OPERATOR ="operator";
     public static final String CROP_CULTIVATION_COST ="cost";
     public static final String CROP_CULTIVATION_NOTES ="notes";
+    public static final String CROP_CULTIVATION_FREQUENCY ="frequency";
+    public static final String CROP_CULTIVATION_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_CULTIVATION_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_CULTIVATION_RECURRENCE ="recurrence";
+    public static final String CROP_CULTIVATION_REMINDERS ="reminders";
+
 
     public static final String CROP_FERTILIZER_APPLICATION_ID ="id";
     public static final String CROP_FERTILIZER_APPLICATION_USER_ID ="userId";
@@ -192,6 +198,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_FERTILIZER_APPLICATION_RATE ="rate";
     public static final String CROP_FERTILIZER_APPLICATION_COST ="cost";
     public static final String CROP_FERTILIZER_APPLICATION_CROP_ID ="cropId";
+    public static final String CROP_FERTILIZER_APPLICATION_FREQUENCY ="frequency";
+    public static final String CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_FERTILIZER_APPLICATION_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_FERTILIZER_APPLICATION_RECURRENCE ="recurrence";
+    public static final String CROP_FERTILIZER_APPLICATION_REMINDERS ="reminders";
+
 
     public static final String CROP_SPRAYING_ID ="id";
     public static final String CROP_SPRAYING_USER_ID ="userId";
@@ -208,6 +220,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SPRAYING_RATE="rate";
     public static final String CROP_SPRAYING_TREATMENT_REASON="treatmentReason";
     public static final String CROP_SPRAYING_COST="cost";
+    public static final String CROP_SPRAYING_FREQUENCY ="frequency";
+    public static final String CROP_SPRAYING_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_SPRAYING_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_SPRAYING_RECURRENCE ="recurrence";
+    public static final String CROP_SPRAYING_REMINDERS ="reminders";
 
 
 
@@ -247,6 +264,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SOIL_ANALYSIS_COST="cost";
     public static final String CROP_SOIL_ANALYSIS_RESULTS="results";
     public static final String CROP_SOIL_ANALYSIS_FIELD_ID="fieldId";
+    public static final String CROP_SOIL_ANALYSIS_FREQUENCY ="frequency";
+    public static final String CROP_SOIL_ANALYSIS_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_SOIL_ANALYSIS_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_SOIL_ANALYSIS_RECURRENCE ="recurrence";
+    public static final String CROP_SOIL_ANALYSIS_REMINDERS ="reminders";
+
+
 
     public static final String CROP_EMPLOYEE_ID ="id";
     public static final String CROP_EMPLOYEE_USER_ID ="userId";
@@ -403,6 +427,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_TASK_DESCRIPTION = "description";
     public static final String CROP_TASK_RECURRENCE = "recurrence";
     public static final String CROP_TASK_REMINDERS = "reminders";
+    public static final String CROP_TASK_FREQUENCY ="frequency";
+    public static final String CROP_TASK_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_TASK_DAYS_BEFORE ="daysBefore";
+
+
+
 
     public static final String CROP_PRODUCT_ITEM_TYPE_SALES_ORDER = "salesOrder";
     public static final String CROP_PRODUCT_ITEM_TYPE_ESTIMATE = "estimate";
@@ -471,7 +501,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_MACHINE_TASK_START_DATE= "startDate";
     public static final String CROP_MACHINE_TASK_END_DATE= "endDate";
     public static final String CROP_MACHINE_TASK_TITLE = "title";
-    public static final String CROP_MACHINE_TASK_TYPE = "type";
     public static final String CROP_MACHINE_TASK_PERSONNEL = "responsible";
     public static final String CROP_MACHINE_TASK_STATUS = "status";
     public static final String CROP_MACHINE_TASK_DESCRIPTION = "description";
@@ -494,7 +523,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_MACHINE_SERVICE_CURRENT_HOURS = "currentHours";
     public static final String CROP_MACHINE_SERVICE_TYPE = "type";
     public static final String CROP_MACHINE_SERVICE_PERSONNEL = "responsible";
-    public static final String CROP_MACHINE_SERVICE_STATUS = "status";
     public static final String CROP_MACHINE_SERVICE_DESCRIPTION = "description";
     public static final String CROP_MACHINE_SERVICE_RECURRENCE = "recurrence";
     public static final String CROP_MACHINE_SERVICE_FREQUENCY = "frequency";
@@ -510,12 +538,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_IRRIGATION_SYSTEM_RATE ="systemRate";
     public static final String CROP_IRRIGATION_START_TIME ="startTime";
     public static final String CROP_IRRIGATION_END_TIME ="endTime";
-
     public static final String CROP_IRRIGATION_AREA_IRRIGATED ="areaIrrigated";
     public static final String CROP_IRRIGATION_UNITS ="units";
     public static final String CROP_IRRIGATION_RECURRENCE ="recurrence";
     public static final String CROP_IRRIGATION_REMINDERS ="reminders";
+    public static final String CROP_IRRIGATION_FREQUENCY ="frequency";
+    public static final String CROP_IRRIGATION_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_IRRIGATION_DAYS_BEFORE ="daysBefore";
     public static final String CROP_IRRIGATION_COST ="totalCost";
+
 
     public static final String CROP_TRANSPLANTING_ID ="id";
     public static final String CROP_TRANSPLANTING_USER_ID ="userId";
@@ -525,12 +556,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_TRANSPLANTING_SEEDLINGS_PER_HA ="seedlingsPerHa";
     public static final String CROP_TRANSPLANTING_VARIETY_EARLINESS ="varietyEarliness";
     public static final String CROP_TRANSPLANTING_CYCLE_LENGTH ="cycleLength";
-
     public static final String CROP_TRANSPLANTING_UNITS ="units";
     public static final String CROP_TRANSPLANTING_EXPECTED_YIELD ="expectedYield";
     public static final String CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA ="expectedYieldPerHa";
     public static final String CROP_TRANSPLANTING_OPERATOR ="operator";
+    public static final String CROP_TRANSPLANTING_FREQUENCY ="frequency";
+    public static final String CROP_TRANSPLANTING_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_TRANSPLANTING_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_TRANSPLANTING_RECURRENCE ="recurrence";
+    public static final String CROP_TRANSPLANTING_REMINDERS ="reminders";
     public static final String CROP_TRANSPLANTING_COST ="totalCost";
+
 
     public static final String CROP_SCOUTING_ID ="id";
     public static final String CROP_SCOUTING_USER_ID ="userId";
@@ -543,6 +579,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SCOUTING_INFESTATION_LEVEL="infestationLevel";
     public static final String CROP_SCOUTING_COST="cost";
     public static final String CROP_SCOUTING_REMARKS="remarks";
+    public static final String CROP_SCOUTING_FREQUENCY ="frequency";
+    public static final String CROP_SCOUTING_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_SCOUTING_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_SCOUTING_RECURRENCE ="recurrence";
+    public static final String CROP_SCOUTING_REMINDERS ="reminders";
 
 
     public static final String CROP_HARVEST_ID ="id";
@@ -562,6 +603,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_HARVEST_STORAGE_DATE ="storageDate";
     public static final String CROP_HARVEST_QUANTITY_STORED ="quantityStored";
     public static final String CROP_HARVEST_COST="cost";
+    public static final String CROP_HARVEST_FREQUENCY ="frequency";
+    public static final String CROP_HARVEST_REPEAT_UNTIL ="repeatUntil";
+    public static final String CROP_HARVEST_DAYS_BEFORE ="daysBefore";
+    public static final String CROP_HARVEST_RECURRENCE ="recurrence";
+    public static final String CROP_HARVEST_REMINDERS ="reminders";
 
     public static final String CROP_CONTACT_ID ="id";
     public static final String CROP_CONTACT_USER_ID ="userId";
@@ -614,19 +660,22 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_HARVEST_USER_ID+" TEXT, "+CROP_HARVEST_CROP_ID+" TEXT, "+CROP_HARVEST_EMPLOYEE_ID+ " TEXT, "+CROP_HARVEST_DATE+" TEXT NOT NULL, "+CROP_HARVEST_METHOD+ " TEXT, "+
                 CROP_HARVEST_UNITS+" TEXT NOT NULL, "+CROP_HARVEST_QUANTITY+" REAL NOT NULL, "+CROP_HARVEST_OPERATOR+" TEXT, "+CROP_HARVEST_STATUS+" TEXT NOT NULL, "+
                 CROP_HARVEST_DATE_SOLD+" TEXT, "+CROP_HARVEST_CUSTOMER+" TEXT, "+CROP_HARVEST_PRICE+" REAL DEFAULT 0, "+CROP_HARVEST_QUANTITY_SOLD+" REAL, "+
-                CROP_HARVEST_STORAGE_DATE+" TEXT, "+CROP_HARVEST_QUANTITY_STORED+" REAL, "+CROP_HARVEST_COST+" REAL "+" ) ";
+                CROP_HARVEST_STORAGE_DATE+" TEXT, "+CROP_HARVEST_QUANTITY_STORED+" REAL, "+CROP_HARVEST_COST+ " REAL, "+CROP_HARVEST_REPEAT_UNTIL + " TEXT, " +CROP_HARVEST_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_HARVEST_RECURRENCE + " TEXT NOT NULL, " +CROP_HARVEST_FREQUENCY + " REAL DEFAULT 0, " + CROP_HARVEST_REMINDERS + " TEXT NOT NULL " +" ) ";
 
         String crop_scouting_insert_query = "CREATE TABLE IF NOT EXISTS "+CROP_SCOUTING_TABLE_NAME+" ( "+CROP_SCOUTING_ID+" INTEGER PRIMARY KEY AUTOINCREMENT , "+CROP_SCOUTING_USER_ID+" TEXT , "+
                 CROP_SCOUTING_CROP_ID+" TEXT, "+CROP_SCOUTING_DATE+" TEXT NOT NULL, "+CROP_SCOUTING_METHOD+" TEXT, "+CROP_SCOUTING_INFESTED+" TEXT NOT NULL, "+
                 CROP_SCOUTING_INFESTATION_TYPE+" TEXT, "+CROP_SCOUTING_INFESTATION+" TEXT, "+CROP_SCOUTING_INFESTATION_LEVEL+" TEXT, "+
-                CROP_SCOUTING_COST+" REAL NOT NULL DEFAULT 0, "+ CROP_SCOUTING_REMARKS+" TEXT "+" ) ";
+                CROP_SCOUTING_COST+" REAL NOT NULL DEFAULT 0, "+ CROP_SCOUTING_REMARKS+" TEXT, "+CROP_SCOUTING_REPEAT_UNTIL + " TEXT, " +CROP_SCOUTING_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_SCOUTING_RECURRENCE + " TEXT NOT NULL, " +CROP_SCOUTING_FREQUENCY + " REAL DEFAULT 0, " + CROP_SCOUTING_REMINDERS + " TEXT NOT NULL " +" ) ";
 
 
         String crop_transplanting_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_TRANSPLANTING_TABLE_NAME+" ( "+CROP_TRANSPLANTING_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_TRANSPLANTING_USER_ID+" TEXT, "+ CROP_TRANSPLANTING_CROP_ID +" TEXT, "+CROP_TRANSPLANTING_DATE+" TEXT NOT NULL, "+CROP_TRANSPLANTING_TOTAL_SEEDLING+" REAL, "+
                 CROP_TRANSPLANTING_SEEDLINGS_PER_HA+ " REAL, "+CROP_TRANSPLANTING_VARIETY_EARLINESS+" TEXT NOT NULL, "+CROP_TRANSPLANTING_CYCLE_LENGTH+" REAL NOT NULL, "+
                 CROP_TRANSPLANTING_UNITS+" TEXT, "+CROP_TRANSPLANTING_EXPECTED_YIELD+" REAL DEFAULT 0, "+CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA +" REAL DEFAULT 0, "+
-                CROP_TRANSPLANTING_OPERATOR+" TEXT NOT NULL, "+CROP_TRANSPLANTING_COST+" REAL NOT NULL "+" ) ";
+                CROP_TRANSPLANTING_OPERATOR+" TEXT NOT NULL, "+CROP_TRANSPLANTING_COST+" REAL NOT NULL, "+CROP_TRANSPLANTING_REPEAT_UNTIL + " TEXT, " +CROP_TRANSPLANTING_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_TRANSPLANTING_RECURRENCE + " TEXT NOT NULL, " +CROP_TRANSPLANTING_FREQUENCY + " REAL DEFAULT 0, " + CROP_TRANSPLANTING_REMINDERS + " TEXT NOT NULL " +" ) ";
 
 
         String crop_inventory_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+" ( "+CROP_INVENTORY_FERTILIZER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -659,19 +708,22 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_cultivate_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CULTIVATION_TABLE_NAME+" ( "+CROP_CULTIVATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CULTIVATION_USER_ID+" TEXT,"+CROP_CULTIVATION_CROP_ID+" TEXT NOT NULL,"+ CROP_CULTIVATION_DATE+" TEXT NOT NULL,"+ CROP_CULTIVATION_OPERATION+" TEXT NOT NULL,"+CROP_CULTIVATION_OPERATOR+" TEXT NOT NULL,"+
-                CROP_CULTIVATION_COST+" REAL,"+CROP_CULTIVATION_NOTES+" TEXT )";
+                CROP_CULTIVATION_COST+" REAL,"+CROP_CULTIVATION_NOTES+" TEXT, "+CROP_CULTIVATION_REPEAT_UNTIL + " TEXT, " +CROP_CULTIVATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_CULTIVATION_RECURRENCE + " TEXT NOT NULL, " +CROP_CULTIVATION_FREQUENCY + " REAL DEFAULT 0, " + CROP_CULTIVATION_REMINDERS + " TEXT NOT NULL " +" ) ";
 
         String crop_fertilizer_application_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" ( "+CROP_FERTILIZER_APPLICATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_FERTILIZER_APPLICATION_USER_ID+" TEXT,"+CROP_FERTILIZER_APPLICATION_CROP_ID+" TEXT NOT NULL,"+ CROP_FERTILIZER_APPLICATION_DATE+" TEXT NOT NULL,"+CROP_FERTILIZER_APPLICATION_OPERATOR+" TEXT,"+
                 CROP_FERTILIZER_APPLICATION_METHOD+" REAL NOT NULL,"+CROP_FERTILIZER_APPLICATION_REASON+" TEXT, "+CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM+" TEXT NOT NULL, "+CROP_FERTILIZER_APPLICATION_FERTILIZER_ID+" TEXT NOT NULL,"+
-                 CROP_FERTILIZER_APPLICATION_RATE+" REAL NOT NULL ,"+CROP_FERTILIZER_APPLICATION_COST+" REAL )";
+                 CROP_FERTILIZER_APPLICATION_RATE+" REAL NOT NULL ,"+CROP_FERTILIZER_APPLICATION_COST+" REAL, "+CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " +CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_FERTILIZER_APPLICATION_RECURRENCE + " TEXT NOT NULL, " +CROP_FERTILIZER_APPLICATION_FREQUENCY + " REAL DEFAULT 0, " + CROP_FERTILIZER_APPLICATION_REMINDERS + " TEXT NOT NULL " +" ) ";
 
 
         String crop_spraying_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SPRAYING_TABLE_NAME+" ( "+CROP_SPRAYING_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SPRAYING_USER_ID+" TEXT,"+CROP_SPRAYING_CROP_ID+" TEXT NOT NULL,"+ CROP_SPRAYING_DATE +" TEXT NOT NULL,"+CROP_SPRAYING_START_TIME+" TEXT,"+
                 CROP_SPRAYING_END_TIME+" TEXT,"+CROP_SPRAYING_OPERATOR+" TEXT NOT NULL,"+
                 CROP_SPRAYING_WATER_VOLUME+" REAL ,"+ CROP_SPRAYING_WATER_CONDITION+" TEXT,"+CROP_SPRAYING_WIND_DIRECTION+" TEXT, "+CROP_SPRAYING_EQUIPMENT_USED+" TEXT ,"+
-                CROP_SPRAYING_SPRAY_ID +" TEXT NOT NULL,"+ CROP_SPRAYING_RATE+" REAL NOT NULL ,"+CROP_SPRAYING_TREATMENT_REASON+" TEXT ,"+CROP_SPRAYING_COST+" REAL )";
+                CROP_SPRAYING_SPRAY_ID +" TEXT NOT NULL,"+ CROP_SPRAYING_RATE+" REAL NOT NULL ,"+CROP_SPRAYING_TREATMENT_REASON+" TEXT ,"+CROP_SPRAYING_COST+" REAL, "+CROP_SPRAYING_REPEAT_UNTIL + " TEXT, " +CROP_SPRAYING_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_SPRAYING_RECURRENCE + " TEXT NOT NULL, " +CROP_SPRAYING_FREQUENCY + " REAL DEFAULT 0, " + CROP_SPRAYING_REMINDERS + " TEXT NOT NULL " +" ) ";
 
         String crop_field_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_FIELDS_TABLE_NAME +" ( "+ CROP_FIELD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_FIELD_USER_ID+" TEXT,"+CROP_FIELD_NAME+" TEXT NOT NULL,"+ CROP_FIELD_SOIL_CATEGORY+" TEXT,"+ CROP_FIELD_SOIL_TYPE+" TEXT,"+CROP_FIELD_WATERCOURSE+" TEXT,"+
@@ -680,7 +732,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_soil_analysis_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_SOIL_ANALYSIS_TABLE_NAME +" ( "+ CROP_SOIL_ANALYSIS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SOIL_ANALYSIS_USER_ID+" TEXT ,"+CROP_SOIL_ANALYSIS_FIELD_ID+" TEXT,"+CROP_SOIL_ANALYSIS_DATE+" TEXT NOT NULL,"+ CROP_SOIL_ANALYSIS_PH+" REAL,"+ CROP_SOIL_ANALYSIS_ORGANIC_MATTER+" TEXT,"+
-                CROP_SOIL_ANALYSIS_AGRONOMIST +" TEXT NOT NULL ,"+ CROP_SOIL_ANALYSIS_COST+" REAL  NOT NULL  ,"+ CROP_SOIL_ANALYSIS_RESULTS+" TEXT NOT NULL)";
+                CROP_SOIL_ANALYSIS_AGRONOMIST +" TEXT NOT NULL ,"+ CROP_SOIL_ANALYSIS_COST+" REAL  NOT NULL  ,"+ CROP_SOIL_ANALYSIS_RESULTS+" TEXT NOT NULL, "+CROP_SOIL_ANALYSIS_REPEAT_UNTIL + " TEXT, " +CROP_SOIL_ANALYSIS_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_SOIL_ANALYSIS_RECURRENCE + " TEXT NOT NULL, " +CROP_SOIL_ANALYSIS_FREQUENCY + " REAL DEFAULT 0, " + CROP_SOIL_ANALYSIS_REMINDERS + " TEXT NOT NULL " + " ) ";
 
         String crop_machine_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_MACHINE_TABLE_NAME+" ( "+CROP_MACHINE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_MACHINE_USER_ID+" TEXT,"+CROP_MACHINE_NAME+" TEXT NOT NULL,"+CROP_MACHINE_BRAND+" TEXT ,"+CROP_MACHINE_CATEGORY+" TEXT NOT NULL,"+CROP_MACHINE_MANUFACTURER+" TEXT ,"+ CROP_MACHINE_MODEL+" TEXT ,"+
@@ -740,7 +793,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT " + " ) ";
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
-                CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
+                CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL, " +CROP_TASK_REPEAT_UNTIL + " TEXT, " +CROP_TASK_DAYS_BEFORE
+                + " REAL DEFAULT 0, " +CROP_TASK_FREQUENCY + " REAL DEFAULT 0 " + " ) ";
 
         String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
@@ -773,22 +827,23 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_machine_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_MACHINE_TASK_TABLE_NAME + " ( " + CROP_MACHINE_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_MACHINE_TASK_MACHINE_ID + " TEXT NOT NULL, " + CROP_MACHINE_TASK_START_DATE + " TEXT NOT NULL, " +
                 CROP_MACHINE_TASK_END_DATE + " TEXT NOT NULL, " + CROP_MACHINE_TASK_TITLE + " TEXT NOT NULL, " + CROP_MACHINE_TASK_PERSONNEL + " TEXT NOT NULL, "
-                + CROP_MACHINE_TASK_STATUS + " TEXT NOT NULL, " +CROP_MACHINE_TASK_TYPE + " TEXT NOT NULL, " + CROP_MACHINE_TASK_DESCRIPTION + " TEXT , " +CROP_MACHINE_TASK_REPEAT_UNTIL + " TEXT, " +CROP_MACHINE_TASK_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_MACHINE_TASK_COST + " REAL DEFAULT 0, " +
+                + CROP_MACHINE_TASK_STATUS + " TEXT NOT NULL, " + CROP_MACHINE_TASK_DESCRIPTION + " TEXT , " +CROP_MACHINE_TASK_REPEAT_UNTIL + " TEXT, " +CROP_MACHINE_TASK_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_MACHINE_TASK_COST + " REAL DEFAULT 0, " +
                 CROP_MACHINE_TASK_RECURRENCE + " TEXT NOT NULL, " +CROP_MACHINE_TASK_FREQUENCY + " REAL DEFAULT 0, " + CROP_MACHINE_TASK_REMINDERS + " TEXT NOT NULL " + " ) ";
 
 
-        String crop_note_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTE_TABLE_NAME + " ( " + CROP_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTE_PARENT_ID + " TEXT NOT NULL, " + CROP_NOTE_DATE + " TEXT NOT NULL, " + CROP_NOTE_CATEGORY + " TEXT, "  + CROP_NOTE_NOTES + " TEXT NOT NULL " + " ) ";
+        String crop_note_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTE_TABLE_NAME + " ( " + CROP_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTE_PARENT_ID + " TEXT NOT NULL, " + CROP_NOTE_DATE + " TEXT NOT NULL, " + CROP_NOTE_CATEGORY + " TEXT, "  + CROP_NOTE_NOTES + " TEXT NOT NULL, " +CROP_NOTE_IS_FOR + " TEXT " + " ) ";
 
 
         String crop_machine_service_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_MACHINE_SERVICE_TABLE_NAME + " ( " + CROP_MACHINE_SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_MACHINE_SERVICE_MACHINE_ID + " TEXT NOT NULL, " +
                 CROP_MACHINE_SERVICE_CURRENT_HOURS + " REAL DEFAULT 0, " + CROP_MACHINE_SERVICE_PERSONNEL + " TEXT NOT NULL, "+CROP_MACHINE_SERVICE_TYPE + " TEXT NOT NULL, "
-                + CROP_MACHINE_SERVICE_STATUS + " TEXT NOT NULL, "  + CROP_MACHINE_SERVICE_DESCRIPTION + " TEXT , " +CROP_MACHINE_SERVICE_REPEAT_UNTIL + " TEXT, " +CROP_MACHINE_SERVICE_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_MACHINE_SERVICE_COST + " REAL DEFAULT 0, " +
+                + CROP_MACHINE_SERVICE_DESCRIPTION + " TEXT , " +CROP_MACHINE_SERVICE_REPEAT_UNTIL + " TEXT, " +CROP_MACHINE_SERVICE_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_MACHINE_SERVICE_COST + " REAL DEFAULT 0, " +
                 CROP_MACHINE_SERVICE_RECURRENCE + " TEXT NOT NULL, " +CROP_MACHINE_SERVICE_FREQUENCY + " REAL DEFAULT 0, " + CROP_MACHINE_SERVICE_REMINDERS + " TEXT NOT NULL " + " ) ";
 
         String crop_irrigation_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_IRRIGATION_TABLE_NAME + " ( " +CROP_IRRIGATION_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 CROP_IRRIGATION_USER_ID+ " TEXT, "+ CROP_IRRIGATION_CROP_ID + " TEXT NOT NULL, " +CROP_IRRIGATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
                 CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
-                CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_COST+" REAL DEFAULT 0 " + " ) ";
+                CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_REPEAT_UNTIL + " TEXT, " +CROP_IRRIGATION_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_IRRIGATION_FREQUENCY + " REAL DEFAULT 0, " +CROP_IRRIGATION_COST+" REAL DEFAULT 0 " + " ) ";
+
 
         String crop_settings_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_SETTINGS_TABLE_NAME + " ( " + CROP_SETTINGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_SETTINGS_USER_ID + " TEXT NOT NULL, " + CROP_SETTINGS_AREA_UNITS + " TEXT NOT NULL DEFAULT 'Acres', " + CROP_SETTINGS_DATE_FORMAT + " TEXT NOT NULL 'dd-mm-2018', "  + CROP_SETTINGS_WEIGHT_UNITS + " TEXT NOT NULL DEFAULT 'Kg' " + " ) ";
 
@@ -806,7 +861,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("MACHINE",crop_machine_insert_query);
         Log.d("CROP PURCHASE ORDER",crop_purchase_order_insert_query);*/
 
-       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
+       //db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_SERVICE_TABLE_NAME);
+       // db.execSQL("DROP TABLE IF EXISTS "+ CROP_NOTE_TABLE_NAME);
       // db.execSQL("DROP TABLE IF EXISTS "+ CROP_CROP_TABLE_NAME);
 
 
@@ -1482,11 +1538,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_MACHINE_SERVICE_MACHINE_ID, service.getMachineId());
-
         contentValues.put(CROP_MACHINE_SERVICE_PERSONNEL, service.getEmployeeName());
-
         contentValues.put(CROP_MACHINE_SERVICE_TYPE, service.getType());
-        contentValues.put(CROP_MACHINE_SERVICE_STATUS, service.getStatus());
         contentValues.put(CROP_MACHINE_SERVICE_DESCRIPTION, service.getDescription());
         contentValues.put(CROP_MACHINE_SERVICE_RECURRENCE, service.getRecurrence());
         contentValues.put(CROP_MACHINE_SERVICE_REMINDERS, service.getReminders());
@@ -1494,6 +1547,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_SERVICE_COST, service.getCost());
         contentValues.put(CROP_MACHINE_SERVICE_REPEAT_UNTIL, service.getRepeatUntil());
         contentValues.put(CROP_MACHINE_SERVICE_DAYS_BEFORE, service.getDaysBefore());
+        Log.d("SERVICE INSERTED",contentValues.toString());
         database.insert(CROP_MACHINE_SERVICE_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -1504,7 +1558,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_SERVICE_PERSONNEL, service.getEmployeeName());
         contentValues.put(CROP_MACHINE_SERVICE_CURRENT_HOURS, service.getCurrentHours());
         contentValues.put(CROP_MACHINE_SERVICE_TYPE, service.getType());
-        contentValues.put(CROP_MACHINE_SERVICE_STATUS, service.getStatus());
         contentValues.put(CROP_MACHINE_SERVICE_DESCRIPTION, service.getDescription());
         contentValues.put(CROP_MACHINE_SERVICE_RECURRENCE, service.getRecurrence());
         contentValues.put(CROP_MACHINE_SERVICE_REMINDERS, service.getReminders());
@@ -1531,7 +1584,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select "+CROP_MACHINE_SERVICE_TABLE_NAME+".*,"+CROP_MACHINE_TABLE_NAME+"."+CROP_MACHINE_NAME+
                 " from " + CROP_MACHINE_SERVICE_TABLE_NAME+
                 " LEFT JOIN "+CROP_MACHINE_TABLE_NAME+" ON "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_MACHINE_ID+" = "+CROP_MACHINE_TABLE_NAME+"."+CROP_MACHINE_ID+
-                " where "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_MACHINE_ID+" = "+ machineId, null);
+                " where "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_MACHINE_ID+" = '"+ machineId +" ' ", null);
+
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -1543,7 +1597,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             service.setCurrentHours(res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_CURRENT_HOURS)));
             service.setServiceType(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_TYPE)));
             service.setType(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_TYPE)));
-            service.setStatus(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_STATUS)));
             service.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DESCRIPTION)));
             service.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_RECURRENCE)));
             service.setReminders(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_REMINDERS)));
@@ -1556,7 +1609,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
         closeDB();
-
+        Log.d("SERVICES ",array_list.size()+"");
         return array_list;
     }
     public void  insertCropNote(CropNote note){
@@ -1623,7 +1676,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_END_DATE, task.getEndDate());
         contentValues.put(CROP_MACHINE_TASK_PERSONNEL, task.getEmployeeName());
         contentValues.put(CROP_MACHINE_TASK_TITLE, task.getTitle());
-        contentValues.put(CROP_MACHINE_TASK_TYPE, task.getType());
         contentValues.put(CROP_MACHINE_TASK_STATUS, task.getStatus());
         contentValues.put(CROP_MACHINE_TASK_DESCRIPTION, task.getDescription());
         contentValues.put(CROP_MACHINE_TASK_RECURRENCE, task.getRecurrence());
@@ -1643,7 +1695,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_END_DATE, task.getEndDate());
         contentValues.put(CROP_MACHINE_TASK_PERSONNEL, task.getEmployeeName());
         contentValues.put(CROP_MACHINE_TASK_TITLE, task.getTitle());
-        contentValues.put(CROP_MACHINE_TASK_TYPE, task.getType());
+
         contentValues.put(CROP_MACHINE_TASK_STATUS, task.getStatus());
         contentValues.put(CROP_MACHINE_TASK_DESCRIPTION, task.getDescription());
         contentValues.put(CROP_MACHINE_TASK_RECURRENCE, task.getRecurrence());
@@ -1685,7 +1737,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
             task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
             task.setTitle(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_TITLE)));
-            task.setType(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_TYPE)));
+
             task.setStatus(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_STATUS)));
             task.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DESCRIPTION)));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE)));
@@ -3030,6 +3082,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SOIL_ANALYSIS_RESULTS, spraying.getResult());
         contentValues.put(CROP_SOIL_ANALYSIS_COST, spraying.getCost());
         contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER, spraying.getOrganicMatter());
+        contentValues.put(CROP_SOIL_ANALYSIS_RECURRENCE, spraying.getRecurrence());
+        contentValues.put(CROP_SOIL_ANALYSIS_REMINDERS, spraying.getReminders());
+        contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, spraying.getFrequency());
+        contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, spraying.getRepeatUntil());
+        contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, spraying.getDaysBefore());
+
         database.insert(CROP_SOIL_ANALYSIS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -3046,6 +3104,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SOIL_ANALYSIS_RESULTS, spraying.getResult());
         contentValues.put(CROP_SOIL_ANALYSIS_COST, spraying.getCost());
         contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER, spraying.getOrganicMatter());
+        contentValues.put(CROP_SOIL_ANALYSIS_RECURRENCE, spraying.getRecurrence());
+        contentValues.put(CROP_SOIL_ANALYSIS_REMINDERS, spraying.getReminders());
+        contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, spraying.getFrequency());
+        contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, spraying.getRepeatUntil());
+        contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, spraying.getDaysBefore());
+
         database.update(CROP_SOIL_ANALYSIS_TABLE_NAME, contentValues, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{spraying.getId()});
         closeDB();
     }
@@ -3077,6 +3141,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setPh(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_PH)));
             crop.setCost(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
             crop.setFieldId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_FIELD_ID)));
+            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
+            crop.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
+            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
+            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
+
             array_list.add(crop);
             res.moveToNext();
         }
@@ -3106,6 +3175,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_OPERATOR, spraying.getOperator());
         contentValues.put(CROP_SPRAYING_COST, spraying.getCost());
         contentValues.put(CROP_SPRAYING_RATE, spraying.getRate());
+        contentValues.put(CROP_SPRAYING_RECURRENCE, spraying.getRecurrence());
+        contentValues.put(CROP_SPRAYING_REMINDERS, spraying.getReminders());
+        contentValues.put(CROP_SPRAYING_FREQUENCY, spraying.getFrequency());
+        contentValues.put(CROP_SPRAYING_REPEAT_UNTIL, spraying.getRepeatUntil());
+        contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
+
         database.insert(CROP_SPRAYING_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -3129,6 +3204,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_OPERATOR, spraying.getOperator());
         contentValues.put(CROP_SPRAYING_COST, spraying.getCost());
         contentValues.put(CROP_SPRAYING_RATE, spraying.getRate());
+        contentValues.put(CROP_SPRAYING_RECURRENCE, spraying.getRecurrence());
+        contentValues.put(CROP_SPRAYING_REMINDERS, spraying.getReminders());
+        contentValues.put(CROP_SPRAYING_FREQUENCY, spraying.getFrequency());
+        contentValues.put(CROP_SPRAYING_REPEAT_UNTIL, spraying.getRepeatUntil());
+        contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
+
         database.update(CROP_SPRAYING_TABLE_NAME, contentValues, CROP_SPRAYING_ID + " = ?", new String[]{spraying.getId()});
         closeDB();
     }
@@ -3170,6 +3251,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
             crop.setSprayName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));
+            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE)));
+            crop.setReminders(res.getString(res.getColumnIndex(CROP_SPRAYING_REMINDERS)));
+            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE)));
+            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
 
             array_list.add(crop);
             res.moveToNext();
@@ -3196,6 +3281,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR, fertilizerApplication.getOperator());
         contentValues.put(CROP_FERTILIZER_APPLICATION_COST, fertilizerApplication.getCost());
         contentValues.put(CROP_FERTILIZER_APPLICATION_RATE, fertilizerApplication.getRate());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_RECURRENCE, fertilizerApplication.getRecurrence());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_REMINDERS, fertilizerApplication.getReminders());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_FREQUENCY, fertilizerApplication.getFrequency());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL, fertilizerApplication.getRepeatUntil());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE, fertilizerApplication.getDaysBefore());
+
         database.insert(CROP_FERTILIZER_APPLICATION_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -3215,6 +3306,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR, fertilizerApplication.getOperator());
         contentValues.put(CROP_FERTILIZER_APPLICATION_COST, fertilizerApplication.getCost());
         contentValues.put(CROP_FERTILIZER_APPLICATION_RATE, fertilizerApplication.getRate());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_RECURRENCE, fertilizerApplication.getRecurrence());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_REMINDERS, fertilizerApplication.getReminders());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_FREQUENCY, fertilizerApplication.getFrequency());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL, fertilizerApplication.getRepeatUntil());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE, fertilizerApplication.getDaysBefore());
+
         database.update(CROP_FERTILIZER_APPLICATION_TABLE_NAME, contentValues, CROP_FERTILIZER_APPLICATION_ID + " = ?", new String[]{fertilizerApplication.getId()});
         closeDB();
     }
@@ -3253,6 +3350,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
             crop.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
+            crop.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
+            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
+            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL)));
 
             array_list.add(crop);
             res.moveToNext();
@@ -3277,6 +3378,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CULTIVATION_COST, cropCultivation.getCost());
         contentValues.put(CROP_CULTIVATION_NOTES, cropCultivation.getNotes());
         contentValues.put(CROP_CULTIVATION_OPERATOR, cropCultivation.getOperator());
+        contentValues.put(CROP_CULTIVATION_RECURRENCE, cropCultivation.getRecurrence());
+        contentValues.put(CROP_CULTIVATION_REMINDERS, cropCultivation.getReminders());
+        contentValues.put(CROP_CULTIVATION_FREQUENCY, cropCultivation.getFrequency());
+        contentValues.put(CROP_CULTIVATION_REPEAT_UNTIL, cropCultivation.getRepeatUntil());
+        contentValues.put(CROP_CULTIVATION_DAYS_BEFORE, cropCultivation.getDaysBefore());
+
         database.insert(CROP_CULTIVATION_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -3292,6 +3399,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CULTIVATION_COST, cropCultivation.getCost());
         contentValues.put(CROP_CULTIVATION_NOTES, cropCultivation.getNotes());
         contentValues.put(CROP_CULTIVATION_OPERATOR, cropCultivation.getOperator());
+        contentValues.put(CROP_CULTIVATION_RECURRENCE, cropCultivation.getRecurrence());
+        contentValues.put(CROP_CULTIVATION_REMINDERS, cropCultivation.getReminders());
+        contentValues.put(CROP_CULTIVATION_FREQUENCY, cropCultivation.getFrequency());
+        contentValues.put(CROP_CULTIVATION_REPEAT_UNTIL, cropCultivation.getRepeatUntil());
+        contentValues.put(CROP_CULTIVATION_DAYS_BEFORE, cropCultivation.getDaysBefore());
+
         database.update(CROP_CULTIVATION_TABLE_NAME, contentValues, CROP_CULTIVATION_ID + " = ?", new String[]{cropCultivation.getId()});
 
         closeDB();
@@ -3322,6 +3435,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setCost(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST)));
             crop.setOperator(res.getString(res.getColumnIndex(CROP_CULTIVATION_OPERATOR)));
             crop.setNotes(res.getString(res.getColumnIndex(CROP_CULTIVATION_NOTES)));
+            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE)));
+            crop.setReminders(res.getString(res.getColumnIndex(CROP_CULTIVATION_REMINDERS)));
+            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
+            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL)));
+
 
             array_list.add(crop);
             res.moveToNext();
@@ -4026,6 +4144,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TASK_DESCRIPTION, task.getDescription());
         contentValues.put(CROP_TASK_RECURRENCE, task.getRecurrence());
         contentValues.put(CROP_TASK_REMINDERS, task.getReminders());
+        contentValues.put(CROP_TASK_FREQUENCY, task.getFrequency());
+        contentValues.put(CROP_TASK_REPEAT_UNTIL, task.getRepeatUntil());
+        contentValues.put(CROP_TASK_DAYS_BEFORE, task.getDaysBefore());
+
         Log.d("INSERTED",contentValues.toString());
         database.insert(CROP_TASK_TABLE_NAME,null,contentValues);
         closeDB();
@@ -4043,6 +4165,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TASK_DESCRIPTION, task.getDescription());
         contentValues.put(CROP_TASK_RECURRENCE, task.getRecurrence());
         contentValues.put(CROP_TASK_REMINDERS, task.getReminders());
+        contentValues.put(CROP_TASK_FREQUENCY, task.getFrequency());
+        contentValues.put(CROP_TASK_REPEAT_UNTIL, task.getRepeatUntil());
+        contentValues.put(CROP_TASK_DAYS_BEFORE, task.getDaysBefore());
+
         database.update(CROP_TASK_TABLE_NAME,contentValues,CROP_TASK_ID+" = ?", new String[]{task.getId()});
 
         closeDB();
@@ -4082,6 +4208,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setDescription(res.getString(res.getColumnIndex(CROP_TASK_DESCRIPTION)));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
+            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
 
             array_list.add(task);
             res.moveToNext();
@@ -4554,10 +4682,13 @@ Log.d("CROP BILL INSERT QUERY", contentValues.toString());
         contentValues.put(CROP_IRRIGATION_END_TIME, irrigation.getEndTime());
         contentValues.put(CROP_IRRIGATION_AREA_IRRIGATED, irrigation.getAreaIrrigated());
         contentValues.put(CROP_IRRIGATION_UNITS, irrigation.getUnits());
-
         contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
         contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
+        contentValues.put(CROP_IRRIGATION_FREQUENCY, irrigation.getFrequency());
+        contentValues.put(CROP_IRRIGATION_REPEAT_UNTIL, irrigation.getRepeatUntil());
+        contentValues.put(CROP_IRRIGATION_DAYS_BEFORE, irrigation.getDaysBefore());
         contentValues.put(CROP_IRRIGATION_COST, irrigation.getTotalCost());
+
 Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         database.insert(CROP_IRRIGATION_TABLE_NAME, null, contentValues);
         closeDB();
@@ -4572,13 +4703,15 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_IRRIGATION_SYSTEM_RATE, irrigation.getSystemRate());
         contentValues.put(CROP_IRRIGATION_START_TIME, irrigation.getStartTime());
         contentValues.put(CROP_IRRIGATION_END_TIME, irrigation.getEndTime());
-
         contentValues.put(CROP_IRRIGATION_AREA_IRRIGATED, irrigation.getAreaIrrigated());
         contentValues.put(CROP_IRRIGATION_UNITS, irrigation.getUnits());
-
         contentValues.put(CROP_IRRIGATION_RECURRENCE, irrigation.getRecurrence());
         contentValues.put(CROP_IRRIGATION_REMINDERS, irrigation.getReminders());
+        contentValues.put(CROP_IRRIGATION_FREQUENCY, irrigation.getFrequency());
+        contentValues.put(CROP_IRRIGATION_REPEAT_UNTIL, irrigation.getRepeatUntil());
+        contentValues.put(CROP_IRRIGATION_DAYS_BEFORE, irrigation.getDaysBefore());
         contentValues.put(CROP_IRRIGATION_COST, irrigation.getTotalCost());
+
 
         database.update(CROP_IRRIGATION_TABLE_NAME, contentValues, CROP_IRRIGATION_ID + " = ?", new String[]{irrigation.getId()});
 
@@ -4612,9 +4745,10 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             irrigation.setEndTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_END_TIME)));
             irrigation.setUnits(res.getString(res.getColumnIndex(CROP_IRRIGATION_UNITS)));
             irrigation.setAreaIrrigated(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_AREA_IRRIGATED)));
-
             irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
             irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
+           irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
+            irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
 
             array_list.add(irrigation);
@@ -4638,8 +4772,14 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_TRANSPLANTING_UNITS, transplanting.getUnits());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD, transplanting.getExpectedYield());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA, transplanting.getExpectedYieldPerHa());
-        contentValues.put(CROP_TRANSPLANTING_OPERATOR, transplanting.getOperator());
+        contentValues.put(CROP_TRANSPLANTING_OPERATOR, transplanting.getOperator());;
+        contentValues.put(CROP_TRANSPLANTING_RECURRENCE, transplanting.getRecurrence());
+        contentValues.put(CROP_TRANSPLANTING_REMINDERS, transplanting.getReminders());
+        contentValues.put(CROP_TRANSPLANTING_FREQUENCY, transplanting.getFrequency());
+        contentValues.put(CROP_TRANSPLANTING_REPEAT_UNTIL, transplanting.getRepeatUntil());
+        contentValues.put(CROP_TRANSPLANTING_DAYS_BEFORE, transplanting.getDaysBefore());
         contentValues.put(CROP_TRANSPLANTING_COST, transplanting.getTotalCost());
+
 
         database.insert(CROP_TRANSPLANTING_TABLE_NAME, null, contentValues);
         closeDB();
@@ -4654,11 +4794,15 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_TRANSPLANTING_SEEDLINGS_PER_HA, transplanting.getSeedlingPerHa());
         contentValues.put(CROP_TRANSPLANTING_VARIETY_EARLINESS, transplanting.getVarietyEarliness());
         contentValues.put(CROP_TRANSPLANTING_CYCLE_LENGTH, transplanting.getCycleLength());
-
         contentValues.put(CROP_TRANSPLANTING_UNITS, transplanting.getUnits());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD, transplanting.getExpectedYield());
         contentValues.put(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA, transplanting.getExpectedYieldPerHa());
         contentValues.put(CROP_TRANSPLANTING_OPERATOR, transplanting.getOperator());
+        contentValues.put(CROP_TRANSPLANTING_RECURRENCE, transplanting.getRecurrence());
+        contentValues.put(CROP_TRANSPLANTING_REMINDERS, transplanting.getReminders());
+        contentValues.put(CROP_TRANSPLANTING_FREQUENCY, transplanting.getFrequency());
+        contentValues.put(CROP_TRANSPLANTING_REPEAT_UNTIL, transplanting.getRepeatUntil());
+        contentValues.put(CROP_TRANSPLANTING_DAYS_BEFORE, transplanting.getDaysBefore());
         contentValues.put(CROP_TRANSPLANTING_COST, transplanting.getTotalCost());
 
         database.update(CROP_TRANSPLANTING_TABLE_NAME, contentValues, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplanting.getId()});
@@ -4695,7 +4839,12 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             transplanting.setExpectedYield(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD)));
             transplanting.setExpectedYieldPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA)));
             transplanting.setOperator(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATOR)));
+            transplanting.setRecurrence(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE)));
+            transplanting.setReminders(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REMINDERS)));
+            transplanting.setDaysBefore(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
+            transplanting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL)));
             transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
+
 
             array_list.add(transplanting);
             res.moveToNext();
@@ -4719,6 +4868,11 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_SCOUTING_INFESTATION_LEVEL, scouting.getInfestationLevel());
         contentValues.put(CROP_SCOUTING_COST, scouting.getCost());
         contentValues.put(CROP_SCOUTING_REMARKS, scouting.getRemarks());
+        contentValues.put(CROP_SCOUTING_RECURRENCE, scouting.getRecurrence());
+        contentValues.put(CROP_SCOUTING_REMINDERS, scouting.getReminders());
+        contentValues.put(CROP_SCOUTING_FREQUENCY, scouting.getFrequency());
+        contentValues.put(CROP_SCOUTING_REPEAT_UNTIL, scouting.getRepeatUntil());
+        contentValues.put(CROP_SCOUTING_DAYS_BEFORE, scouting.getDaysBefore());
 
         database.insert(CROP_SCOUTING_TABLE_NAME, null, contentValues);
         closeDB();
@@ -4738,6 +4892,11 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_SCOUTING_INFESTATION_LEVEL, scouting.getInfestationLevel());
         contentValues.put(CROP_SCOUTING_COST, scouting.getCost());
         contentValues.put(CROP_SCOUTING_REMARKS, scouting.getRemarks());
+        contentValues.put(CROP_SCOUTING_RECURRENCE, scouting.getRecurrence());
+        contentValues.put(CROP_SCOUTING_REMINDERS, scouting.getReminders());
+        contentValues.put(CROP_SCOUTING_FREQUENCY, scouting.getFrequency());
+        contentValues.put(CROP_SCOUTING_REPEAT_UNTIL, scouting.getRepeatUntil());
+        contentValues.put(CROP_SCOUTING_DAYS_BEFORE, scouting.getDaysBefore());
 
         database.update(CROP_SCOUTING_TABLE_NAME, contentValues, CROP_SCOUTING_ID + " = ?", new String[]{scouting.getId()});
 
@@ -4773,6 +4932,10 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             scouting.setInfestationLevel(res.getString(res.getColumnIndex(CROP_SCOUTING_INFESTATION_LEVEL)));
             scouting.setCost(res.getFloat(res.getColumnIndex(CROP_SCOUTING_COST)));
             scouting.setRemarks(res.getString(res.getColumnIndex(CROP_SCOUTING_REMARKS)));
+            scouting.setRecurrence(res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE)));
+            scouting.setReminders(res.getString(res.getColumnIndex(CROP_SCOUTING_REMINDERS)));
+            scouting.setDaysBefore(res.getString(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
+            scouting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL)));
 
             array_list.add(scouting);
             res.moveToNext();
@@ -4802,6 +4965,11 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_HARVEST_STORAGE_DATE, harvest.getStorageDate());
         contentValues.put(CROP_HARVEST_QUANTITY_STORED, harvest.getQuantityStored());
         contentValues.put(CROP_HARVEST_COST, harvest.getCost());
+        contentValues.put(CROP_HARVEST_RECURRENCE, harvest.getRecurrence());
+        contentValues.put(CROP_HARVEST_REMINDERS, harvest.getReminders());
+        contentValues.put(CROP_HARVEST_FREQUENCY, harvest.getFrequency());
+        contentValues.put(CROP_HARVEST_REPEAT_UNTIL, harvest.getRepeatUntil());
+        contentValues.put(CROP_HARVEST_DAYS_BEFORE, harvest.getDaysBefore());
 
         database.insert(CROP_HARVEST_TABLE_NAME, null, contentValues);
         closeDB();
@@ -4827,6 +4995,11 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_HARVEST_STORAGE_DATE, harvest.getStorageDate());
         contentValues.put(CROP_HARVEST_QUANTITY_STORED, harvest.getQuantityStored());
         contentValues.put(CROP_HARVEST_COST, harvest.getCost());
+        contentValues.put(CROP_HARVEST_RECURRENCE, harvest.getRecurrence());
+        contentValues.put(CROP_HARVEST_REMINDERS, harvest.getReminders());
+        contentValues.put(CROP_HARVEST_FREQUENCY, harvest.getFrequency());
+        contentValues.put(CROP_HARVEST_REPEAT_UNTIL, harvest.getRepeatUntil());
+        contentValues.put(CROP_HARVEST_DAYS_BEFORE, harvest.getDaysBefore());
 
         database.update(CROP_HARVEST_TABLE_NAME, contentValues, CROP_HARVEST_ID + " = ?", new String[]{harvest.getId()});
 
@@ -4867,6 +5040,10 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
             harvest.setStorageDate(res.getString(res.getColumnIndex(CROP_HARVEST_STORAGE_DATE)));
             harvest.setQuantityStored(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_QUANTITY_STORED))));
             harvest.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_COST))));
+            harvest.setRecurrence(res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE)));
+            harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
+            harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
+            harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
 
             array_list.add(harvest);
             res.moveToNext();

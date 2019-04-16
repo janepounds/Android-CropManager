@@ -19,6 +19,11 @@ public class CropSpraying implements Serializable,CropActivity {
     String userId="";
     String cropId;
     String sprayName;
+    String recurrence;
+    String reminders;
+    private float frequency;
+    private String repeatUntil;
+    private String daysBefore;
 
     public String getSprayName() {
         return sprayName;
@@ -151,5 +156,45 @@ public class CropSpraying implements Serializable,CropActivity {
     @Override
     public int getType() {
         return CropActivity.CROP_ACTIVITY_SPRAYING;
+    }
+
+    public String getRecurrence() {
+        return recurrence;
+    }
+
+    public void setRecurrence(String recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public String getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(String reminders) {
+        this.reminders = reminders;
+    }
+
+    public float getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getRepeatUntil() {
+        return repeatUntil;
+    }
+
+    public void setRepeatUntil(String repeatUntil) {
+        this.repeatUntil = repeatUntil;
+    }
+
+    public String getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(String daysBefore) {
+        this.daysBefore = daysBefore;
     }
 }

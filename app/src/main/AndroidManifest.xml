@@ -285,31 +285,33 @@
         <activity
             android:name=".activities.CropMachineTaskManagerActivity"
             android:label="@string/title_activity_crop_machine_task_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineNotesManagerActivity"
             android:label="@string/title_activity_crop_notes_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineServiceManagerActivity"
             android:label="@string/title_activity_crop_machine_service_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineNotesListActivity"
             android:label="@string/title_activity_crop_machine_notes_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineTasksListActivity"
             android:label="@string/title_activity_crop_machine_tasks_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropActivitiesListActivity"
             android:label="@string/title_activity_crop_activities_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+             />
         <activity
             android:name=".activities.CropMachineServicesListActivity"
             android:label="@string/title_activity_crop_machine_services_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+            ></activity>
+
         <activity
             android:name=".activities.CropFarmReportsActivity"
             android:label="@string/title_activity_crop_farm_reports"
@@ -326,6 +328,7 @@
             android:name=".activities.CropSettingsActivity"
             android:label="@string/title_activity_crop_settings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

@@ -11,18 +11,23 @@ import java.util.Date;
 public class CropTransplanting implements CropSpinnerItem, Serializable,CropActivity {
     String id;
     String userId;
-    String cropId ;
+    String cropId;
     String operationDate;
-    float totalSeedling=0;
-    float seedlingPerHa=0;
+    float totalSeedling = 0;
+    float seedlingPerHa = 0;
     String varietyEarliness;
-    float cycleLength=0;
+    float cycleLength = 0;
 
     String units;
-    float expectedYield=0;
-    float  expectedYieldPerHa=0;
+    float expectedYield = 0;
+    float expectedYieldPerHa = 0;
     String operator;
-    float totalCost=0;
+    float totalCost = 0;
+    String recurrence;
+    String reminders;
+    private float frequency;
+    private String repeatUntil;
+    private String daysBefore;
 
     @Override
     public String getId() {
@@ -92,14 +97,13 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     public String getExpectedHarvestingDate() {
 
         try {
-            return determineHarvestDate(operationDate,(int)cycleLength);
+            return determineHarvestDate(operationDate, (int) cycleLength);
         } catch (ParseException e) {
             e.printStackTrace();
-            
+
             return "";
         }
     }
-
 
 
     public String getUnits() {
@@ -148,15 +152,57 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     }
 
 
-    public static String determineHarvestDate(String date,int cycleLength) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date curDate = dateFormat.parse(date);
-        Calendar currentCalendar = Calendar.getInstance();
-        currentCalendar.setTime(curDate);
-        currentCalendar.add(Calendar.DAY_OF_MONTH,cycleLength);
-        NumberFormat formatter = new DecimalFormat("00");
-        return currentCalendar.get(Calendar.YEAR)+ "-" + formatter.format( currentCalendar.get(Calendar.MONTH)+1) + "-" +formatter.format( currentCalendar.get(Calendar.DAY_OF_MONTH)) ;
-
+    public String getRecurrence() {
+        return recurrence;
     }
+
+    public void setRecurrence(String recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public String getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(String reminders) {
+        this.reminders = reminders;
+    }
+
+    public float getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getRepeatUntil() {
+        return repeatUntil;
+    }
+
+    public void setRepeatUntil(String repeatUntil) {
+        this.repeatUntil = repeatUntil;
+    }
+
+    public String getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(String daysBefore) {
+        this.daysBefore = daysBefore;
+    }
+
+        public static String determineHarvestDate (String date,int cycleLength) throws ParseException {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            Date curDate = dateFormat.parse(date);
+            Calendar currentCalendar = Calendar.getInstance();
+            currentCalendar.setTime(curDate);
+            currentCalendar.add(Calendar.DAY_OF_MONTH, cycleLength);
+            NumberFormat formatter = new DecimalFormat("00");
+            return currentCalendar.get(Calendar.YEAR) + "-" + formatter.format(currentCalendar.get(Calendar.MONTH) + 1) + "-" + formatter.format(currentCalendar.get(Calendar.DAY_OF_MONTH));
+
+
+        }
+
 }

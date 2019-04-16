@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -16,7 +19,9 @@ import com.myfarmnow.myfarmcrop.models.CropSoilAnalysis;
 public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
 
 
-    EditText dateTxt,phTxt,organicMatterTxt,agronomistTxt,costTxt,resultsTxt ;
+    EditText dateTxt,phTxt,organicMatterTxt,agronomistTxt,costTxt,resultsTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt ;
+    Spinner recurrenceSp,remindersSp;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     Button btn_save;
     CropSoilAnalysis soilAnalysis;
     String fieldId;
@@ -48,7 +53,58 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         costTxt =findViewById(R.id.txt_crop_soil_analysis_cost);
         resultsTxt =findViewById(R.id.txt_crop_soil_analysis_results);
         btn_save = findViewById(R.id.btn_save);
+        remindersSp = findViewById(R.id.sp_crop_soil_analysis_reminders);
+        recurrenceSp = findViewById(R.id.sp_crop_soil_analysis_recurrence);
+        weeksTxt = findViewById(R.id.txt_crop_soil_analysis_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_soil_analysis_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_soil_analysis_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_soil_analysis_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_soil_analysis_days_before);
         CropDashboardActivity.addDatePicker(dateTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +140,23 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         soilAnalysis.setPh(Float.parseFloat(phTxt.getText().toString()));
         soilAnalysis.setCost(Float.parseFloat(costTxt.getText().toString()));
         soilAnalysis.setOrganicMatter(Float.parseFloat(organicMatterTxt.getText().toString()));
+        soilAnalysis.setRecurrence(recurrenceSp.getSelectedItem().toString());
+        soilAnalysis.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            soilAnalysis.setFrequency(Float.parseFloat(weeks));
+            soilAnalysis.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            soilAnalysis.setDaysBefore(days);
+
+        }
+
         dbHandler.insertCropSoilAnalysis(soilAnalysis);
 
     }
@@ -96,6 +169,23 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
             soilAnalysis.setPh(Float.parseFloat(phTxt.getText().toString()));
             soilAnalysis.setCost(Float.parseFloat(costTxt.getText().toString()));
             soilAnalysis.setOrganicMatter(Float.parseFloat(organicMatterTxt.getText().toString()));
+            soilAnalysis.setRecurrence(recurrenceSp.getSelectedItem().toString());
+            soilAnalysis.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                soilAnalysis.setFrequency(Float.parseFloat(weeks));
+                soilAnalysis.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                soilAnalysis.setDaysBefore(days);
+
+            }
+
             dbHandler.updateCropSoilAnalysis(soilAnalysis);
         }
     }
@@ -117,7 +207,14 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
             message = getString(R.string.operator_not_entered);
             resultsTxt.requestFocus();
         }
-
+        else if(recurrenceSp.getSelectedItemPosition()==0){
+            message = getString(R.string.recurrence_not_selected);
+            recurrenceSp.requestFocus();
+        }
+        else if(remindersSp.getSelectedItemPosition()==0){
+            message = getString(R.string.reminders_not_selected);
+            remindersSp.requestFocus();
+        }
         if(phTxt.getText().toString().isEmpty()){
             phTxt.setText("0");
         }
@@ -136,12 +233,19 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
 
     public void fillViews() {
         if (soilAnalysis != null) {
+            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, soilAnalysis.getRecurrence());
+            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, soilAnalysis.getReminders());
+
             dateTxt.setText(soilAnalysis.getDate());
             organicMatterTxt.setText(soilAnalysis.getOrganicMatter()+"");
             agronomistTxt.setText(soilAnalysis.getAgronomist()+"");
             costTxt.setText(soilAnalysis.getCost()+"");
             phTxt.setText(soilAnalysis.getPh()+"");
             resultsTxt.setText(soilAnalysis.getResult());
+            weeksTxt.setText(soilAnalysis.getFrequency()+"");
+            repeatUntilTxt.setText(soilAnalysis.getRepeatUntil());
+            daysBeforeTxt.setText(soilAnalysis.getDaysBefore());
+
         }
     }
 

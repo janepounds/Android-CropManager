@@ -20,6 +20,9 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
     String recurrence="";
     String reminders="";
     float totalCost=0;
+    private float frequency;
+    private String repeatUntil;
+    private String daysBefore;
 
 
     @Override
@@ -138,6 +141,30 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         return CropActivity.CROP_ACTIVITY_IRRIGATION;
     }
 
+    public float getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getRepeatUntil() {
+        return repeatUntil;
+    }
+
+    public void setRepeatUntil(String repeatUntil) {
+        this.repeatUntil = repeatUntil;
+    }
+
+    public String getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(String daysBefore) {
+        this.daysBefore = daysBefore;
+    }
+
     public float computeWaterQuantity(){
         try {
             return  getSystemRate()*calculateTime(startTime,endTime);
@@ -164,5 +191,6 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         Date date2 = format.parse(endTime);
         double difference = (date2.getTime() - date1.getTime())/(1000.0*60*60.0);
         return (float)difference;
+
     }
 }

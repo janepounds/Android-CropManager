@@ -3,17 +3,17 @@ package com.myfarmnow.myfarmcrop.models;
 import java.io.Serializable;
 
 public class CropMachineTask implements CropSpinnerItem, Serializable {
-    String userId="";
-    String id="";
-    String employeeId="";
-    String machineId="";
-    String date="";
-    String title="";
-    String type="";
-    String status="";
-    String description="";
-    String recurrence="";
-    String reminders="";
+    String userId;
+    String id;
+    String employeeId;
+    String machineId;
+
+    String title;
+
+    String status;
+    String description;
+    String recurrence;
+    String reminders;
     String employeeName;
     private String cropName;
     private String endDate;
@@ -57,13 +57,6 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         this.machineId = machineId;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getTitle() {
         return title;
@@ -73,13 +66,7 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         this.title = title;
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getStatus() {
         return status;

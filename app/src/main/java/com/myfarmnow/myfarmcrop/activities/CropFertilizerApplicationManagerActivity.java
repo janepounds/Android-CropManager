@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,12 +24,13 @@ import java.util.ArrayList;
 
 public class CropFertilizerApplicationManagerActivity extends AppCompatActivity {
 
-    EditText dateTxt,  operatorTxt,costTxt, rateTxt,reasonTxt;
+    EditText dateTxt,  operatorTxt,costTxt, rateTxt,reasonTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Button btn_save;
     CropFertilizerApplication fertilizerApplication;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner methodSp, fertilizerFormSp, fertilizerId;
+    Spinner methodSp, fertilizerFormSp, fertilizerId,recurrenceSp,remindersSp;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     boolean applicationMethodSet = false;//
 
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
@@ -59,12 +62,20 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         fertilizerId =findViewById(R.id.sp_crop_fertilizer_application_fertilizername);
         methodSp =findViewById(R.id.sp_crop_fertilizer_application_method);
         fertilizerFormSp =findViewById(R.id.sp_crop_fertilizer_application_fertilizer_form);
+        remindersSp = findViewById(R.id.sp_crop_fertilizer_application_reminders);
+        recurrenceSp = findViewById(R.id.sp_crop_fertilizer_application_recurrence);
+        weeksTxt = findViewById(R.id.txt_crop_fertilizer_application_weekly_weeks);
+        repeatUntilTxt = findViewById(R.id.txt_crop_fertilizer_application_repeat_until);
+        daysBeforeTxt = findViewById(R.id.txt_crop_fertilizer_application_days_before);
+        weeklyRecurrenceLayout = findViewById(R.id.layout_crop_fertilizer_application_weekly_reminder);
+        daysBeforeLayout = findViewById(R.id.layout_crop_fertilizer_application_days_before);
 
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Method",this);
         methodSp.setAdapter(applicationMethodAdapter);
         methodSp.setEnabled(false);
         btn_save = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(dateTxt,this);
+        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
 
 
         String liquidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_liquid);
@@ -106,6 +117,49 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             }
         });
 
+
+        recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("weekly")){
+                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +182,9 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
         ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
         for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(CropDashboardActivity.getPreferences("userId",this))){
             fertlizersList.add(x);
@@ -150,6 +207,24 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
         fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
+        fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
+        fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
+        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+            String weeks = weeksTxt.getText().toString();
+            String repeatUntil = repeatUntilTxt.getText().toString();
+
+            fertilizerApplication.setFrequency(Float.parseFloat(weeks));
+            fertilizerApplication.setRepeatUntil(repeatUntil);
+        }
+        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+            String days = daysBeforeTxt.getText().toString();
+
+
+            fertilizerApplication.setDaysBefore(days);
+
+        }
+
+
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
 
     }
@@ -164,6 +239,23 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
             fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
             fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
+            fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
+            fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
+            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
+                String weeks = weeksTxt.getText().toString();
+                String repeatUntil = repeatUntilTxt.getText().toString();
+
+                fertilizerApplication.setFrequency(Float.parseFloat(weeks));
+                fertilizerApplication.setRepeatUntil(repeatUntil);
+            }
+            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
+                String days = daysBeforeTxt.getText().toString();
+
+
+                fertilizerApplication.setDaysBefore(days);
+
+            }
+
             dbHandler.updateCropFertilizerApplication(fertilizerApplication);
 
         }
@@ -171,12 +263,19 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
     public void fillViews(){
         if(fertilizerApplication != null){
             CropDashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());
+            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, fertilizerApplication.getRecurrence());
+            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, fertilizerApplication.getReminders());
+
             rateTxt.setText(fertilizerApplication.getRate()+"");
             dateTxt.setText(fertilizerApplication.getDate());
             reasonTxt.setText(fertilizerApplication.getReason());
             operatorTxt.setText(fertilizerApplication.getOperator());
             costTxt.setText(fertilizerApplication.getCost()+"");
             rateTxt.setText(fertilizerApplication.getRate()+"");
+            weeksTxt.setText(fertilizerApplication.getFrequency()+"");
+            repeatUntilTxt.setText(fertilizerApplication.getRepeatUntil());
+            daysBeforeTxt.setText(fertilizerApplication.getDaysBefore());
+
             CropDashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getFertilizerId());
         }
     }
@@ -211,6 +310,15 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             message = getString(R.string.fertilizer_name_not_entered);
             fertilizerId.requestFocus();
         }
+        else if(recurrenceSp.getSelectedItemPosition()==0){
+            message = getString(R.string.recurrence_not_selected);
+            recurrenceSp.requestFocus();
+        }
+        else if(remindersSp.getSelectedItemPosition()==0){
+            message = getString(R.string.reminders_not_selected);
+            remindersSp.requestFocus();
+        }
+
         if(message != null){
             Toast.makeText(CropFertilizerApplicationManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
             return false;
