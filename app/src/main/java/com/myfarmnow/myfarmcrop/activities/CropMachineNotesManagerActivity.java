@@ -103,6 +103,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
         cropNote.setParentId(machineId);
         cropNote.setNotes(descriptionTxt.getText().toString());
         cropNote.setDate(dateTxt.getText().toString());
+        cropNote.setIsFor(CropNote.IS_FOR_MACHINE);
 
         if(categoryLayout.getVisibility()==View.VISIBLE){
             String category = categorySp.getSelectedItem().toString();

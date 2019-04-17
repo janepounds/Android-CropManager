@@ -29,6 +29,7 @@
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.9"
                         >
 
                         <Button
@@ -53,22 +54,14 @@
                             android:textAllCaps="false"
                             android:layout_weight="1"/>
                     </LinearLayout>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:gravity="end"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <ImageView
-                            android:id="@+id/img_crop_machine_card_more"
-                            android:layout_width="25dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end"
-                            android:backgroundTint="@color/black"
-                            android:textColor="@color/darker_gray"
-                            app:srcCompat="@drawable/more_options_icon" />
-
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/img_crop_machine_card_more"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:backgroundTint="@color/black"
+                        android:textColor="@color/darker_gray"
+                        app:srcCompat="@drawable/more_options_icon" />
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"

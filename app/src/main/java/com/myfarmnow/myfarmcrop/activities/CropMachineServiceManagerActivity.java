@@ -109,8 +109,6 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
             }
         });
-
-
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(serviceDateTxt,this);
@@ -158,7 +156,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
     public void saveFields(){
         cropMachineService = new CropMachineService();
-        cropMachineService.setMachineId(CropDashboardActivity.getPreferences("machineId",this));
+        cropMachineService.setMachineId(machineId);
         cropMachineService.setCurrentHours(Float.parseFloat(currentHoursTxt.getText().toString()));
         cropMachineService.setDate(serviceDateTxt.getText().toString());
         cropMachineService.setType(typeSp.getSelectedItem().toString());
@@ -188,11 +186,11 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
     public void updateField(){
         if(cropMachineService != null){
-            cropMachineService.setMachineId(CropDashboardActivity.getPreferences("machineId",this));
+            cropMachineService.setMachineId(machineId);
             cropMachineService.setCurrentHours(Float.parseFloat(currentHoursTxt.getText().toString()));
             cropMachineService.setDate(serviceDateTxt.getText().toString());
             cropMachineService.setType(typeSp.getSelectedItem().toString());
-            cropMachineService.setEmployeeName(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
+            cropMachineService.setEmployeeName(((CropSpinnerItem)personnelSp.getSelectedItem()).toString());
             cropMachineService.setDescription(descriptionTxt.getText().toString());
             cropMachineService.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropMachineService.setReminders(remindersSp.getSelectedItem().toString());

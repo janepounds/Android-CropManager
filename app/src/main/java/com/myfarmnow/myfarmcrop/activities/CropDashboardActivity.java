@@ -29,6 +29,7 @@ import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.CropDashboardGraphsFragment;
 
 import org.json.JSONException;
@@ -60,6 +61,7 @@ public class CropDashboardActivity extends AppCompatActivity {
         toolbar=  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
         initializeDashboard();
 
         FragmentManager manager = getSupportFragmentManager();

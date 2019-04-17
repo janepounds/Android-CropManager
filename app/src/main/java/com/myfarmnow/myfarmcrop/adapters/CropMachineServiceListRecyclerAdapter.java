@@ -74,7 +74,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
         holder.serviceTypeTxt.setText(machineService.getType());
         holder.personnelTxt.setText(machineService.getEmployeeName());
         holder.recurrenceTxt.setText(machineService.getRecurrence());
-        holder.statusTxt.setVisibility(View.GONE);
+
 
         if(machineService.getDescription() != null){
 
@@ -114,7 +114,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
 
     public class MachineServiceViewHolder extends RecyclerView.ViewHolder{
 
-        TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt,statusTxt;
+        TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt;
         LinearLayout expandContentLayout,hideShowLayout;
         ImageView showHideRemarksButton,moreButton;
         public MachineServiceViewHolder(View itemView) {
@@ -124,7 +124,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
             personnelTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_personnel);
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_recurring);
             hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
-            expandContentLayout = itemView.findViewById(R.id.layout_crop_scouting_expand);
+            expandContentLayout = itemView.findViewById(R.id.layout_crop_machine_task_expand);
             moreButton = itemView.findViewById(R.id.img_crop_machine_task_card_more);
 
 

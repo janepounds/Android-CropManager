@@ -166,9 +166,10 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         cropMachineTask = new CropMachineTask();
         cropMachineTask.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropMachineTask.setTitle(titleTxt.getText().toString());
+        cropMachineTask.setMachineId(machineId);
         cropMachineTask.setStartDate(startDateTxt.getText().toString());
         cropMachineTask.setEndDate(startDateTxt.getText().toString());
-        cropMachineTask.setEmployeeId(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
+        cropMachineTask.setEmployeeName(personnelSp.getSelectedItem().toString());
         cropMachineTask.setStatus(statusSp.getSelectedItem().toString());
         cropMachineTask.setDescription(descriptionTxt.getText().toString());
         cropMachineTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
@@ -198,9 +199,10 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         if(cropMachineTask != null){
             cropMachineTask.setUserId(CropDashboardActivity.getPreferences("userId",this));
             cropMachineTask.setTitle(titleTxt.getText().toString());
+            cropMachineTask.setMachineId(machineId);
             cropMachineTask.setStartDate(startDateTxt.getText().toString());
             cropMachineTask.setEndDate(startDateTxt.getText().toString());
-            cropMachineTask.setEmployeeId(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
+            cropMachineTask.setEmployeeName(personnelSp.getSelectedItem().toString());
             cropMachineTask.setStatus(statusSp.getSelectedItem().toString());
             cropMachineTask.setDescription(descriptionTxt.getText().toString());
             cropMachineTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
