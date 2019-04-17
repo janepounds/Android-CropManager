@@ -34,6 +34,7 @@ import com.myfarmnow.myfarmcrop.models.CropMachine;
 import com.myfarmnow.myfarmcrop.models.CropMachineService;
 import com.myfarmnow.myfarmcrop.models.CropMachineTask;
 import com.myfarmnow.myfarmcrop.models.CropNote;
+import com.myfarmnow.myfarmcrop.models.CropNotification;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropPaymentBill;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
@@ -84,7 +85,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_ITEM_TABLE_NAME ="crop_item";
     public static final String CROP_FERTILIZER_TABLE_NAME ="crop_fertilizer";
     public static final String CROP_SETTINGS_TABLE_NAME ="crop_settings";
-
+    public static final String CROP_NOTIFICATION_TABLE_NAME ="crop_notification";
     public static final String CROP_MACHINE_TASK_TABLE_NAME ="crop_machine_task";
     public static final String CROP_NOTE_TABLE_NAME ="crop_notes";
     public static final String CROP_MACHINE_SERVICE_TABLE_NAME ="crop_machine_services";
@@ -625,7 +626,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SETTINGS_WEIGHT_UNITS ="weightUnits";
     public static final String CROP_SETTINGS_AREA_UNITS ="areaUnits";
 
-
+    public static final String CROP_NOTIFICATION_ID ="id";
+    public static final String CROP_NOTIFICATION_USER_ID ="userId";
+    public static final String CROP_NOTIFICATION_DATE ="date";
+    public static final String CROP_NOTIFICATION_MESSAGE ="message";
+    public static final String CROP_NOTIFICATION_STATUS ="status";
+    public static final String CROP_NOTIFICATION_ACTION_DATE ="actionDate";
+    public static final String CROP_NOTIFICATION_TYPE ="type";
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
@@ -845,7 +852,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_REPEAT_UNTIL + " TEXT, " +CROP_IRRIGATION_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_IRRIGATION_FREQUENCY + " REAL DEFAULT 0, " +CROP_IRRIGATION_COST+" REAL DEFAULT 0 " + " ) ";
 
 
-        String crop_settings_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_SETTINGS_TABLE_NAME + " ( " + CROP_SETTINGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_SETTINGS_USER_ID + " TEXT NOT NULL, " + CROP_SETTINGS_AREA_UNITS + " TEXT NOT NULL DEFAULT 'Acres', " + CROP_SETTINGS_DATE_FORMAT + " TEXT NOT NULL 'dd-mm-2018', "  + CROP_SETTINGS_WEIGHT_UNITS + " TEXT NOT NULL DEFAULT 'Kg' " + " ) ";
+        String crop_settings_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_SETTINGS_TABLE_NAME + " ( " + CROP_SETTINGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_SETTINGS_USER_ID + " TEXT NOT NULL, " +
+                CROP_SETTINGS_AREA_UNITS + " TEXT NOT NULL DEFAULT 'Acres', " + CROP_SETTINGS_DATE_FORMAT + " TEXT NOT NULL DEFAULT 'dd-mm-2018', "  + CROP_SETTINGS_WEIGHT_UNITS + " TEXT NOT NULL DEFAULT 'Kg' " + " ) ";
+
+        String crop_notification_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTIFICATION_TABLE_NAME + " ( " + CROP_NOTIFICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTIFICATION_USER_ID + " TEXT NOT NULL, " +
+                CROP_NOTIFICATION_DATE + " TEXT NOT NULL DEFAULT 'dd-mm-2018', " + CROP_NOTIFICATION_MESSAGE + " TEXT NOT NULL DEFAULT 'Message', "  + CROP_NOTIFICATION_STATUS + " TEXT NOT NULL DEFAULT 'Pending', " + CROP_NOTIFICATION_ACTION_DATE + " TEXT NOT NULL DEFAULT 'dd-mm-2018', " +
+                CROP_NOTIFICATION_TYPE + " TEXT NOT NULL DEFAULT 'Cultivate' " +" ) ";
+
 
 
 
@@ -902,6 +915,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_harvest_insert_query);
         database.execSQL(crop_contact_insert_query);
         database.execSQL(crop_settings_insert_query);
+        database.execSQL(crop_notification_insert_query);
 
 
         System.out.println(
@@ -5123,6 +5137,71 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         closeDB();
         return array_list;
     }
+
+    public void insertCropNotification(CropNotification notification) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_NOTIFICATION_USER_ID, notification.getUserId());
+        contentValues.put(CROP_NOTIFICATION_DATE, notification.getDate());
+        contentValues.put(CROP_NOTIFICATION_MESSAGE, notification.getMessage());
+        contentValues.put(CROP_NOTIFICATION_STATUS, notification.getStatus());
+        contentValues.put(CROP_NOTIFICATION_ACTION_DATE, notification.getActionDate());
+        contentValues.put(CROP_NOTIFICATION_TYPE, notification.getType());
+
+        database.insert(CROP_NOTIFICATION_TABLE_NAME, null, contentValues);
+        closeDB();
+    }
+
+    public void updateCropNotification(CropNotification notification) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_NOTIFICATION_USER_ID, notification.getUserId());
+        contentValues.put(CROP_NOTIFICATION_DATE, notification.getDate());
+        contentValues.put(CROP_NOTIFICATION_MESSAGE, notification.getMessage());
+        contentValues.put(CROP_NOTIFICATION_STATUS, notification.getStatus());
+        contentValues.put(CROP_NOTIFICATION_ACTION_DATE, notification.getActionDate());
+        contentValues.put(CROP_NOTIFICATION_TYPE, notification.getType());
+
+        database.update(CROP_NOTIFICATION_TABLE_NAME, contentValues, CROP_NOTIFICATION_ID + " = ?", new String[]{notification.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteCropNotification(String notificationId) {
+        openDB();
+        database.delete(CROP_NOTIFICATION_TABLE_NAME, CROP_NOTIFICATION_ID + " = ?", new String[]{notificationId});
+        closeDB();
+        return true;
+    }
+
+    public ArrayList<CropNotification> getCropNotifications(String userId) {
+        openDB();
+        ArrayList<CropNotification> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = ' " + userId +" '", null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropNotification notification = new CropNotification();
+            notification.setId(res.getString(res.getColumnIndex(CROP_NOTIFICATION_ID)));
+            notification.setUserId(res.getString(res.getColumnIndex(CROP_NOTIFICATION_USER_ID)));
+            notification.setDate(res.getString(res.getColumnIndex(CROP_NOTIFICATION_DATE)));
+            notification.setMessage(res.getString(res.getColumnIndex(CROP_NOTIFICATION_MESSAGE)));
+            notification.setStatus(res.getString(res.getColumnIndex(CROP_NOTIFICATION_STATUS)));
+            notification.setActionDate(res.getString(res.getColumnIndex(CROP_NOTIFICATION_ACTION_DATE)));
+            notification.setType(res.getString(res.getColumnIndex(CROP_NOTIFICATION_TYPE)));
+
+            array_list.add(notification);
+            res.moveToNext();
+        }
+
+        closeDB();
+        return array_list;
+    }
+
 
 }
 
