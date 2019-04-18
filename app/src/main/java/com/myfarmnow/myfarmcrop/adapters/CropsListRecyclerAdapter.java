@@ -27,6 +27,7 @@ import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -99,12 +100,12 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView editButton, moreButton, deleteButton, cultivateButton, fertilizerApplicationButton, soilAnalysisButton, sprayingButton;
+        ImageView  moreButton;
         TextView cropNameTxtView, cropVarietyTextView, rateTextView, cropAge, croppingYearTxt, seasonTxt;
 
         TextView datePlantedTxt;
 
-        Button activitiesBtn;
+        Button activitiesBtn, notesBtn;
 
         public CropCardViewHolder(View itemView) {
             super(itemView);
@@ -116,12 +117,22 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             seasonTxt = itemView.findViewById(R.id.txt_crop_card_season);
             cropAge = itemView.findViewById(R.id.txt_crop_card_age);
             activitiesBtn = itemView.findViewById(R.id.btn_crop_activities);
+            notesBtn = itemView.findViewById(R.id.btn_crop_notes);
 
             activitiesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Crop crop = cropsList.get(getAdapterPosition());
                     Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
+                    showSpray.putExtra("cropId", crop.getId());
+                    mContext.startActivity(showSpray);
+                }
+            });
+            notesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Crop crop = cropsList.get(getAdapterPosition());
+                    Intent showSpray = new Intent(mContext, CropsNotesListActivity.class);
                     showSpray.putExtra("cropId", crop.getId());
                     mContext.startActivity(showSpray);
                 }

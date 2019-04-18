@@ -451,6 +451,8 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                 CropCultivation cropCultivation = (CropCultivation)cropsList.get(getAdapterPosition());
                                 Intent editCropCultivation = new Intent(mContext, CropCultivationManagerActivity.class);
                                 editCropCultivation.putExtra("cropCultivation", cropCultivation);
+                                editCropCultivation.putExtra("cropId",cropCultivation.getCropId());
+
                                 mContext.startActivity(editCropCultivation);
 
                             }
@@ -662,6 +664,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                 CropIrrigation cropIrrigation = (CropIrrigation)cropsList.get(getAdapterPosition());
                                 Intent editIrrigation = new Intent(mContext, CropIrrigationManagerActivity.class);
                                 editIrrigation.putExtra("cropIrrigation",cropIrrigation);
+                                editIrrigation.putExtra("cropId",cropIrrigation.getCropId());
                                 mContext.startActivity(editIrrigation);
                             }
                             return true;
@@ -729,6 +732,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                 CropTransplanting cropTransplanting = (CropTransplanting)cropsList.get(getAdapterPosition());
                                 Intent editTransplanting = new Intent(mContext, CropTransplantingManagerActivity.class);
                                 editTransplanting.putExtra("cropTransplanting",cropTransplanting);
+                                editTransplanting.putExtra("cropId",cropTransplanting.getCropId());
                                 mContext.startActivity(editTransplanting);
                             }
                             return true;

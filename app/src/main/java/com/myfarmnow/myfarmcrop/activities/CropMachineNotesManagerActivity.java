@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -71,7 +72,10 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
                         updateField();
                     }
 
-                    Intent toCropNotesList = new Intent(CropMachineNotesManagerActivity.this, CropMachineNotesListActivity.class);toCropNotesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent toCropNotesList = new Intent(CropMachineNotesManagerActivity.this, CropMachineNotesListActivity.class);
+                   // toCropNotesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    toCropNotesList.putExtra("machineId",cropNote.getParentId());
+
                     startActivity(toCropNotesList);
                 }
             }
@@ -122,8 +126,8 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
 
     public void updateField(){
         if(cropNote != null){
-            cropNote = new CropNote();
-            cropNote.setParentId(machineId);
+
+
             cropNote.setNotes(descriptionTxt.getText().toString());
             cropNote.setDate(dateTxt.getText().toString());
             cropNote.setIsFor(CropNote.IS_FOR_MACHINE);
@@ -163,6 +167,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("NewApi")
     public boolean validateEntries(){
         String message = null;
         if(dateTxt.getText().toString().isEmpty()){
