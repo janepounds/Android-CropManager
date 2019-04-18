@@ -27,6 +27,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
 
+    implementation "android.arch.work:work-runtime:1.0.0-alpha02"
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'

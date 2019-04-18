@@ -990,6 +990,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         this.close();
     }
 
+
+    public void generateNotifications(){
+        //WorkRequest request;
+    }
+
     public void initializeSettings(String userId){
         openDB();
         SQLiteDatabase db = this.getReadableDatabase();
