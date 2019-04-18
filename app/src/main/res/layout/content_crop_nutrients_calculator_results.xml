@@ -78,7 +78,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="P = 45Kg"
-
                             android:textSize="16sp" />
 
 
@@ -98,6 +97,72 @@
                             android:textSize="16sp" />
 
 
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/layout_crop_nutrients_calculator_results_impact"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Economic Impact"
+                        android:textColor="@color/colorPrimary"
+
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/text_view_crop_nutrients_calculator_results_n_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="N = UGX 456,900"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/text_view_crop_nutrients_calculator_results_p_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="P = UGX 456,900"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/text_view_crop_nutrients_calculator_results_k_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="K = 45Kg"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
                 </LinearLayout>
 
 

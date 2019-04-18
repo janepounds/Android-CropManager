@@ -1970,7 +1970,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropItem.setName(res.getString(res.getColumnIndex(CROP_ITEM_NAME)));
             cropItem.setnRemoved(res.getFloat(res.getColumnIndex(CROP_ITEM_N_REMOVED)));
             cropItem.setpRemoved(res.getFloat(res.getColumnIndex(CROP_ITEM_P_REMOVED)));
-            cropItem.setkRemoved(res.getFloat(res.getColumnIndex(CROP_ITEM_P_REMOVED)));
+            cropItem.setkRemoved(res.getFloat(res.getColumnIndex(CROP_ITEM_K_REMOVED)));
             cropItem.setIsFor(res.getString(res.getColumnIndex(CROP_ITEM_IS_FOR)));
             array_list.add(cropItem);
             res.moveToNext();

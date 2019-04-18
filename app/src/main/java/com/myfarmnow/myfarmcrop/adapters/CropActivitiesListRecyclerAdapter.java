@@ -78,7 +78,6 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         }
         else if(viewType==CropActivity.CROP_ACTIVITY_SCOUTING){
             View view = mInflater.inflate(R.layout.crop_scouting_list_card,parent,false);
-
             ScoutingViewHolder holder = new ScoutingViewHolder(view);
             return holder;
         }else if(viewType==CropActivity.CROP_ACTIVITY_IRRIGATION){
