@@ -186,7 +186,7 @@
     </string-array>
     <string-array name="crop_notes_category">
         <item>Select Category</item>
-        <item>Maintanance</item>
+        <item>Maintenance</item>
         <item>Repair</item>
         <item>Other</item>
     </string-array>

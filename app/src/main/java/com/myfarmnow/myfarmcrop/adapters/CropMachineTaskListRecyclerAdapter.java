@@ -130,6 +130,7 @@ public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<Cro
             hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
             expandContentLayout = itemView.findViewById(R.id.layout_crop_machine_task_expand);
             moreButton = itemView.findViewById(R.id.img_crop_machine_task_card_more);
+            showHideRemarksButton = itemView.findViewById(R.id.img_crop_machine_task_card_show_description);
 
 
             moreButton.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +162,7 @@ public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<Cro
                                 CropMachineTask cropMachineTask = cropMachineTaskList.get(getAdapterPosition());
                                 Intent editMachineTask = new Intent(mContext, CropMachineTaskManagerActivity.class);
                                 editMachineTask.putExtra("cropMachineTask",cropMachineTask);
-                                editMachineTask.putExtra("cropId",cropMachineTask.getMachineId());
+                                editMachineTask.putExtra("machineId",cropMachineTask.getMachineId());
                                 mContext.startActivity(editMachineTask);
                             }
 

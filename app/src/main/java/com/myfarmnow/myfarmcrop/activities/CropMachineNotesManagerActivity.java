@@ -35,14 +35,16 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_notes_manager);
          if(getIntent().hasExtra("cropNote")){
             cropNote = (CropNote)getIntent().getSerializableExtra("cropNote");
+
         }
-        initializeForm();
-        if(getIntent().hasExtra("machineId")){
-            machineId = getIntent().getStringExtra("machineId");
+        else if(getIntent().hasExtra("machineId")){
+            machineId =getIntent().getStringExtra("machineId");
         }
         else{
             finish();
         }
+        initializeForm();
+
 
     }
 
@@ -69,11 +71,8 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
                         updateField();
                     }
 
-                    Intent toCropNotesList = new Intent(CropMachineNotesManagerActivity.this, CropMachineNotesListActivity.class);
-                    toCropNotesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent toCropNotesList = new Intent(CropMachineNotesManagerActivity.this, CropMachineNotesListActivity.class);toCropNotesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropNotesList);
-                }else{
-                    Log.d("ERROR","Testing");
                 }
             }
         });
@@ -95,6 +94,8 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
 
             }
         });
+
+        fillViews();
     }
 
 
@@ -104,6 +105,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
         cropNote.setNotes(descriptionTxt.getText().toString());
         cropNote.setDate(dateTxt.getText().toString());
         cropNote.setIsFor(CropNote.IS_FOR_MACHINE);
+
 
         if(categoryLayout.getVisibility()==View.VISIBLE){
             String category = categorySp.getSelectedItem().toString();
@@ -116,7 +118,6 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
         dbHandler.insertCropNote(cropNote);
 
 
-
     }
 
     public void updateField(){
@@ -125,24 +126,29 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
             cropNote.setParentId(machineId);
             cropNote.setNotes(descriptionTxt.getText().toString());
             cropNote.setDate(dateTxt.getText().toString());
-
+            cropNote.setIsFor(CropNote.IS_FOR_MACHINE);
             if(categoryLayout.getVisibility()==View.VISIBLE){
                 String category = categorySp.getSelectedItem().toString();
                 if(category.toLowerCase().equals("other")){
-                    category = otherCategoryTxt.getText().toString();
+
+                    cropNote.setCategory(otherCategoryTxt.getText().toString());
                 }
-                cropNote.setCategory(category);
+                else{
+                    cropNote.setCategory(category);
+                }
+
             }
             dbHandler.updateCropNote(cropNote);
         }
+
     }
 
     public void fillViews(){
         if(cropNote != null){
 
             CropDashboardActivity.selectSpinnerItemByValue(categorySp, cropNote.getCategory());
-
             dateTxt.setText(cropNote.getDate());
+
             if (categorySp.getSelectedItemPosition()==0 && cropNote.getCategory()
                      != null){
                 CropDashboardActivity.selectSpinnerItemByValue(categorySp, "Other");
@@ -153,6 +159,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
 
 
         }
+
 
     }
 

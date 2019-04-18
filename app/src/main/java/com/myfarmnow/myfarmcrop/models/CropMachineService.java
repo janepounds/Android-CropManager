@@ -18,7 +18,7 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
     private float frequency;
     private String repeatUntil;
     private float cost;
-    private float currentHours;
+    public float currentHours;
     private String daysBefore;
 
     @Override
