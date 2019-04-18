@@ -60,12 +60,14 @@
                                     android:textAllCaps="false"
                                     android:layout_weight="1"/>
                                 <Button
+                                    android:id="@+id/btn_crop_notes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Notes"
                                     android:textAllCaps="false"
                                     android:layout_weight="1"/>
                                 <Button
+                                    android:id="@+id/btn_crop_gallery"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Gallery"

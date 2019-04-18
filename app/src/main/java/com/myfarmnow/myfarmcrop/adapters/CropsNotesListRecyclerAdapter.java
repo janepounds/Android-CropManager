@@ -12,25 +12,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropMachineNotesManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropsNotesManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNote;
 
 import java.util.ArrayList;
 
-public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<CropMachineNotesListRecyclerAdapter.MachineNotesViewHolder>  {
+public class CropsNotesListRecyclerAdapter  extends RecyclerView.Adapter<CropsNotesListRecyclerAdapter.CropsNotesViewHolder>  {
     LayoutInflater layoutInflater;
     Context mContext;
-    ArrayList<CropNote> cropMachineNotesList = new ArrayList<>();
+    ArrayList<CropNote> cropsNotesList = new ArrayList<>();
 
 
-    public CropMachineNotesListRecyclerAdapter(Context context, ArrayList<CropNote> cropMachineNotes){
-        cropMachineNotesList.addAll(cropMachineNotes);
+    public CropsNotesListRecyclerAdapter(Context context, ArrayList<CropNote> cropsNotes){
+        cropsNotesList.addAll(cropsNotes);
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
 
@@ -39,25 +38,25 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
     @NonNull
     @Override
-    public MachineNotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CropsNotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.crop_notes_list_card,parent,false);
 
-        MachineNotesViewHolder holder = new MachineNotesViewHolder(view);
+        CropsNotesViewHolder holder = new CropsNotesViewHolder(view);
         return holder;
     }
-    public void appendList(ArrayList<CropNote> cropMachineNotes){
+    public void appendList(ArrayList<CropNote> cropsNotes){
 
-        this.cropMachineNotesList.addAll(cropMachineNotes);
+        this.cropsNotesList.addAll(cropsNotes);
         notifyDataSetChanged();
     }
-    public void addCropMachineNotes(CropNote cropMachineNotes){
-        this.cropMachineNotesList.add(cropMachineNotes);
+    public void addCropsNotes(CropNote cropsNotes){
+        this.cropsNotesList.add(cropsNotes);
         notifyItemChanged(getItemCount());
     }
-    public void changeList(ArrayList<CropNote> cropMachineNotes){
+    public void changeList(ArrayList<CropNote> cropsNotes){
 
-        this.cropMachineNotesList.clear();
-        this.cropMachineNotesList.addAll(cropMachineNotes);
+        this.cropsNotesList.clear();
+        this.cropsNotesList.addAll(cropsNotes);
 
         notifyDataSetChanged();
 
@@ -66,31 +65,26 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
 
     @Override
-    public void onBindViewHolder(@NonNull CropMachineNotesListRecyclerAdapter.MachineNotesViewHolder holder, int position) {
-        CropNote machineNotes = cropMachineNotesList.get(position);
-        holder.categoryLayout.setVisibility(View.VISIBLE);
-        holder.notesDateTxt.setText(machineNotes.getDate());
-        holder.categoryTxt.setText(machineNotes.getCategory());
+    public void onBindViewHolder(@NonNull CropsNotesListRecyclerAdapter.CropsNotesViewHolder holder, int position) {
+        CropNote cropsNotes = cropsNotesList.get(position);
 
-        holder.notesTxt.setText(machineNotes.getNotes());
+        holder.notesDateTxt.setText(cropsNotes.getDate());
+        holder.notesTxt.setText(cropsNotes.getNotes());
 
     }
 
     @Override
     public int getItemCount() {
-        return cropMachineNotesList.size();
+        return cropsNotesList.size();
     }
 
-    public class MachineNotesViewHolder extends RecyclerView.ViewHolder{
-        TextView categoryTxt,notesDateTxt,notesTxt;
-        LinearLayout categoryLayout;
+    public class CropsNotesViewHolder extends RecyclerView.ViewHolder{
+        TextView notesDateTxt,notesTxt;
         ImageView moreButton;
-        public MachineNotesViewHolder(View itemView) {
+        public CropsNotesViewHolder(View itemView) {
             super(itemView);
             notesDateTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_date);
-            categoryTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_category);
             notesTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_notes);
-            categoryLayout = itemView.findViewById(R.id.layout_crop_notes_card_category);
             moreButton = itemView.findViewById(R.id.img_crop_notes_card_more);
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,27 +96,27 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
                         public boolean onMenuItemClick(MenuItem item) {
 
                             if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))){
-                                final CropNote cropMachineNotes = cropMachineNotesList.get(getAdapterPosition());
+                                final CropNote cropsNotes = cropsNotesList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete this "+cropMachineNotes.getCategory()+" note ?")
+                                        .setMessage("Do you really want to delete this note ?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropNote(cropMachineNotes.getId());
-                                                cropMachineNotesList.remove(getAdapterPosition());
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropNote(cropsNotes.getId());
+                                                cropsNotesList.remove(getAdapterPosition());
                                                 notifyItemRemoved(getAdapterPosition());
 
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-                                CropNote cropMachineNotes = cropMachineNotesList.get(getAdapterPosition());
-                                Intent editMachineNotes = new Intent(mContext, CropMachineNotesManagerActivity.class);
-                                editMachineNotes.putExtra("cropNote", cropMachineNotes);
-                                editMachineNotes.putExtra("machineId",cropMachineNotes.getParentId());
-                                mContext.startActivity(editMachineNotes);
+                                CropNote cropsNotes = cropsNotesList.get(getAdapterPosition());
+                                Intent editCropsNotes = new Intent(mContext, CropsNotesManagerActivity.class);
+                                editCropsNotes.putExtra("cropNote", cropsNotes);
+                                editCropsNotes.putExtra("cropId",cropsNotes.getParentId());
+                                mContext.startActivity(editCropsNotes);
                             }
 
 
