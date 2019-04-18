@@ -74,7 +74,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
         holder.serviceTypeTxt.setText(machineService.getType());
         holder.personnelTxt.setText(machineService.getEmployeeName());
         holder.recurrenceTxt.setText(machineService.getRecurrence());
-        holder.statusTxt.setVisibility(View.GONE);
+        holder.statusLayout.setVisibility(View.GONE);
 
         if(machineService.getDescription() != null){
 
@@ -114,8 +114,8 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
 
     public class MachineServiceViewHolder extends RecyclerView.ViewHolder{
 
-        TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt,statusTxt;
-        LinearLayout expandContentLayout,hideShowLayout;
+        TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt;
+        LinearLayout expandContentLayout,hideShowLayout,statusLayout;
         ImageView showHideRemarksButton,moreButton;
         public MachineServiceViewHolder(View itemView) {
             super(itemView);
@@ -124,8 +124,10 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
             personnelTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_personnel);
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_recurring);
             hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
-            expandContentLayout = itemView.findViewById(R.id.layout_crop_scouting_expand);
+            statusLayout = itemView.findViewById(R.id.layout_crop_task_status);
+            expandContentLayout = itemView.findViewById(R.id.layout_crop_machine_task_expand);
             moreButton = itemView.findViewById(R.id.img_crop_machine_task_card_more);
+            showHideRemarksButton = itemView.findViewById(R.id.img_crop_machine_task_card_show_description);
 
 
             moreButton.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +143,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
                                 final CropMachineService cropMachineService = cropMachineServiceList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete this "+cropMachineService.getType()+" service ?")
+                                        .setMessage("Do you really want to delete the "+cropMachineService.getType()+" service ?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -157,7 +159,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
                                 CropMachineService cropMachineService = cropMachineServiceList.get(getAdapterPosition());
                                 Intent editMachineService = new Intent(mContext, CropMachineServiceManagerActivity.class);
                                 editMachineService.putExtra("cropMachineService",cropMachineService);
-                                editMachineService.putExtra("cropId",cropMachineService.getMachineId());
+                                editMachineService.putExtra("machineId",cropMachineService.getMachineId());
                                 mContext.startActivity(editMachineService);
                             }
 

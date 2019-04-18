@@ -26,7 +26,7 @@ import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import java.util.ArrayList;
 
 public class CropMachineServiceManagerActivity extends AppCompatActivity {
-    EditText serviceDateTxt,descriptionTxt,currentHoursTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    EditText serviceDateTxt,descriptionTxt,currentHoursTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt,costTxt;
     Spinner typeSp,personnelSp,recurrenceSp,remindersSp;
     Button saveBtn;
     CropSpinnerAdapter  employeesSpinnerAdapter;
@@ -59,6 +59,8 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         currentHoursTxt = findViewById(R.id.txt_crop_service_current_hours);
         typeSp = findViewById(R.id.sp_crop_service_type);
         personnelSp = findViewById(R.id.sp_crop_service_personnel);
+        costTxt = findViewById(R.id.txt_crop_service_cost);
+
         recurrenceSp = findViewById(R.id.sp_crop_service_recurrence);
         remindersSp = findViewById(R.id.sp_crop_service_reminders);
         weeksTxt = findViewById(R.id.txt_crop_service_weekly_weeks);
@@ -109,8 +111,6 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
             }
         });
-
-
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(serviceDateTxt,this);
@@ -158,12 +158,13 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
     public void saveFields(){
         cropMachineService = new CropMachineService();
-        cropMachineService.setMachineId(CropDashboardActivity.getPreferences("machineId",this));
+        cropMachineService.setMachineId(machineId);
         cropMachineService.setCurrentHours(Float.parseFloat(currentHoursTxt.getText().toString()));
         cropMachineService.setDate(serviceDateTxt.getText().toString());
         cropMachineService.setType(typeSp.getSelectedItem().toString());
         cropMachineService.setEmployeeName(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
         cropMachineService.setDescription(descriptionTxt.getText().toString());
+        cropMachineService.setCost(Float.parseFloat(costTxt.getText().toString()));
         cropMachineService.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropMachineService.setReminders(remindersSp.getSelectedItem().toString());
         if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
@@ -188,11 +189,12 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
     public void updateField(){
         if(cropMachineService != null){
-            cropMachineService.setMachineId(CropDashboardActivity.getPreferences("machineId",this));
+            cropMachineService.setMachineId(machineId);
             cropMachineService.setCurrentHours(Float.parseFloat(currentHoursTxt.getText().toString()));
             cropMachineService.setDate(serviceDateTxt.getText().toString());
             cropMachineService.setType(typeSp.getSelectedItem().toString());
             cropMachineService.setEmployeeName(((CropSpinnerItem)personnelSp.getSelectedItem()).getId());
+            cropMachineService.setCost(Float.parseFloat(costTxt.getText().toString()));
             cropMachineService.setDescription(descriptionTxt.getText().toString());
             cropMachineService.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropMachineService.setReminders(remindersSp.getSelectedItem().toString());
@@ -222,7 +224,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropMachineService.getRecurrence());
             CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropMachineService.getReminders());
 
-
+            costTxt.setText(cropMachineService.getCost()+"");
             serviceDateTxt.setText(cropMachineService.getDate());
             currentHoursTxt.setText(cropMachineService.getCurrentHours()+"");
             descriptionTxt.setText(cropMachineService.getDescription());

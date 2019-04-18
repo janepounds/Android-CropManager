@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
-public class CropNote {
+import java.io.Serializable;
+
+public class CropNote implements Serializable {
 
     private String id;
     private String date;

@@ -40,7 +40,9 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:entries="@array/weightUnitsArray"/>
+                    android:entries="@array/weightUnitsArray"
+                    android:background="@drawable/input_shapes"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -89,6 +91,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:spinnerMode="dialog"
                     android:background="@drawable/input_shapes"
                     android:entries="@array/currency_list"/>
 

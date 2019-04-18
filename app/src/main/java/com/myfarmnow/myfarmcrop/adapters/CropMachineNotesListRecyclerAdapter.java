@@ -69,7 +69,7 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
         CropNote machineNotes = cropMachineNotesList.get(position);
         holder.categoryTxt.setVisibility(View.VISIBLE);
         holder.notesDateTxt.setText(machineNotes.getDate());
-        holder.categoryTxt.setText(machineNotes.getNotes());
+        holder.categoryTxt.setText(machineNotes.getCategory());
 
         holder.notesTxt.setText(machineNotes.getNotes());
 
@@ -102,7 +102,7 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
                                 final CropNote cropMachineNotes = cropMachineNotesList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete this "+cropMachineNotes.getCategory()+" notes ?")
+                                        .setMessage("Do you really want to delete this "+cropMachineNotes.getCategory()+" note ?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -117,8 +117,8 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
                                 CropNote cropMachineNotes = cropMachineNotesList.get(getAdapterPosition());
                                 Intent editMachineNotes = new Intent(mContext, CropMachineNotesManagerActivity.class);
-                                editMachineNotes.putExtra("cropMachineNotes", String.valueOf(cropMachineNotes));
-                                editMachineNotes.putExtra("machineId",cropMachineNotes.getIsFor());
+                                editMachineNotes.putExtra("cropNote", cropMachineNotes);
+                                editMachineNotes.putExtra("machineId",cropMachineNotes.getParentId());
                                 mContext.startActivity(editMachineNotes);
                             }
 
