@@ -203,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/expected_harvesting_date"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -211,6 +211,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
+                        android:hint="SOME"
                         android:inputType="none"
                         android:textSize="14sp"
                         />

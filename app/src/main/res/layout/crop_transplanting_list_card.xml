@@ -83,7 +83,7 @@
                         android:id="@+id/txt_crop_transplanting_card_transplanted_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(2.5 ha)"/>
+                        android:text=""/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -208,7 +208,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="2019-04-23"
+                        android:text=""
                         android:textColor="@color/blackText" />
                 </LinearLayout>
 

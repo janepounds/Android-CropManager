@@ -165,6 +165,13 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         this.daysBefore = daysBefore;
     }
 
+    public  float computeQuantityPerArea(){
+
+        float quantityPerUnit = (totalWaterQuantity / areaIrrigated);
+
+        return quantityPerUnit;
+    }
+
     public float computeWaterQuantity(){
         try {
             return  getSystemRate()*calculateTime(startTime,endTime);

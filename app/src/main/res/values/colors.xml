@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2b8c41</color>
-
+    <color name="colorPrimary">#34463F</color>
+<color name="textColor">#62A169</color>
+    <color name="buttonColor">#51925E</color>
     <color name="colorPrimary_birds">#f4ad42</color>
     <color name="colorPrimaryDark">#161f2b</color>
     <color name="colorAccent">#2b8c41</color>
@@ -16,8 +17,8 @@
     <color name="orange">#c48d1e</color>
     <color name="red">#ce0000</color>
     <color name="whiteColor">#ffffff</color>
-    <color name="submitBtnColor">#ff31243e</color>
-    <color name="hintColor">#ffb4b1b1</color>
+    <color name="submitBtnColor">#056839</color>
+    <color name="hintColor">#8E9B8C</color>
     <color name="editTextBorderColor">#ffd3d4d9</color>
 
     <color name="pedigreetextcolor">#3a3a3d</color>
@@ -43,6 +44,9 @@
     <color name="dark_green">#3d8e27</color>
     <color name="darker_gray">#b2b2b2</color>
     <color name="light_gray">#eeeeee</color>
+    <color name="gray_gray">#D2D2D2</color>
+    <color name="gray_spinner">#E5E5E5</color>
+    <color name="gray_spinner_border">#F5F5F5</color>
 
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="yellow">#ffff00</color>

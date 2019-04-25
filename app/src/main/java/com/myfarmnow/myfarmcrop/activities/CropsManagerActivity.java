@@ -96,7 +96,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         }
         seedsSpinnerAdapter = new CropSpinnerAdapter(seedItems,"Seed",this);
         seedSp.setAdapter(seedsSpinnerAdapter);
-
+//TODO CROPS FROM ARRAY LIST
         ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)growingCycleSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)plantingMethodSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

@@ -685,10 +685,65 @@
     </string-array>
     <string-array name="sp_crop_scouting_infestation_disease">
         <item>Acariasis</item>
-        <item>Acariosis Bronzed</item>
+        <item>Acariosis bronzed</item>
         <item>Alternario</item>
-
+        <item>Anthracnose</item>
+        <item>Anti-germ</item>
+        <item>Bacterial death</item>
+        <item>Bacterial diseases</item>
+        <item>Bare coals</item>
+        <item>Black rot</item>
+        <item>Blast</item>
+        <item>Blight</item>
+        <item>Botrytis squamosa</item>
+        <item>Brown rot</item>
+        <item>Brown rust</item>
+        <item>Bulb rot</item>
+        <item>Caries</item>
+        <item>Coals</item>
+        <item>Collet rot</item>
+        <item>Covered coals</item>
+        <item>Disease of brown spots</item>
+        <item>Disease of conservation</item>
+        <item>Disease transmitted by seed</item>
+        <item>Disinfection</item>
+        <item>Disinfection of wounds</item>
+        <item>Excoriose</item>
+        <item>Eye of peacock</item>
+        <item>Fire blight</item>
+        <item>Fruit rot</item>
+        <item>Fusarium</item>
+        <item>Gommose</item>
+        <item>Gray carpet</item>
+        <item>Gray mold</item>
+        <item>Gray rot</item>
+        <item>Mildew</item>
+        <item>Oidium</item>
+        <item>Peach tree</item>
+        <item>Phoma</item>
+        <item>Powdery mildew</item>
+        <item>Pythium</item>
+        <item>Ramularia</item>
+        <item>Rhizoctonia</item>
+        <item>Roots rot</item>
+        <item>Rust</item>
+        <item>Scab</item>
+        <item>Scald</item>
+        <item>Sclerotinia</item>
+        <item>Sclerrtinia rot</item>
+        <item>Seed drill</item>
+        <item>Septoria</item>
+        <item>Sickness</item>
+        <item>Siqatoka</item>
+        <item>Soil mushroom</item>
+        <item>Speckle</item>
+        <item>Verticillium</item>
+        <item>White rot</item>
+        <item>Winter treatment</item>
+        <item>Yellow rust</item>
+        <item>Others</item>
     </string-array>
+
     <string-array name="sp_crop_scouting_infestation_nematode">
         <item>Nematodes</item>
         <item>Nematodes+Fungi</item>
@@ -697,15 +752,101 @@
     </string-array>
     <string-array name="sp_crop_scouting_infestation_pest">
         <item>Acariasis</item>
-        <item>Aleurode</item>
-
+        <item>Aleurodes</item>
+        <item>Aphids</item>
+        <item>Beggar cleon</item>
+        <item>Borer</item>
+        <item>Capuchin</item>
+        <item>Casside</item>
+        <item>Cluster leafroller</item>
+        <item>Cluster worm</item>
+        <item>Codling</item>
+        <item>Codling moth</item>
+        <item>Cricket</item>
+        <item>Defoliating headworms</item>
+        <item>Desert locust</item>
+        <item>Drosophila suzukii</item>
+        <item>Flies</item>
+        <item>Fly mine</item>
+        <item>Grain weevil</item>
+        <item>Grey aphid</item>
+        <item>Gray rot</item>
+        <item>Gray worm</item>
+        <item>Green aphid</item>
+        <item>Grosse altise</item>
+        <item>Insects of storage</item>
+        <item>Lasioderme</item>
+        <item>Leafhopper</item>
+        <item>Leaf miner</item>
+        <item>Lepidoptera</item>
+        <item>Mealybug</item>
+        <item>Mediterranean fruit fly</item>
+        <item>Mineuse(tuta absoluta)</item>
+        <item>Mites</item>
+        <item>Mole cricket</item>
+        <item>Moths</item>
+        <item>Nematodes</item>
+        <item>Noctuelles</item>
+        <item>Olive fly</item>
+        <item>Oriental leafroller</item>
+        <item>Pegomyie</item>
+        <item>Pests of stored commodities</item>
+        <item>Pine processionary</item>
+        <item>Powdery mildew</item>
+        <item>Prodenia</item>
+        <item>Psyllid</item>
+        <item>Red mites</item>
+        <item>Ring worm</item>
+        <item>Scale insects</item>
+        <item>Slugs </item>
+        <item>Snails</item>
+        <item>Stable fly</item>
+        <item>Sylvain of grains</item>
+        <item>Thrips</item>
+        <item>Tuta absoluta</item>
+        <item>White flies</item>
+        <item>White fly</item>
+        <item>Wire worms</item>
+        <item>Woolly aphids</item>
+        <item>Worms</item>
     </string-array>
+
     <string-array name="sp_crop_scouting_infestation_rodent">
-        <item>Field Rat</item>
-
+        <item>Field Rats</item>
+        <item>Mouse</item>
+        <item>Rats</item>
+        <item>Rodents</item>
     </string-array>
+
     <string-array name="sp_crop_scouting_infestation_weed">
         <item>Advent</item>
+        <item>Annual broadleaf weeds</item>
+        <item>Annual grass weeds</item>
+        <item>Annual grasses and perennials</item>
+        <item>Annual weeds</item>
+        <item>Bi-annual weeds</item>
+        <item>Broadleaf weeds</item>
+        <item>Broomrape</item>
+        <item>Dicotyledonous weeds</item>
+        <item>Grass weeds</item>
+        <item>Jujube</item>
+        <item>Perennial broadleaf weeds</item>
+        <item>Perennial grasses</item>
+        <item>Perennial weeds</item>
+        <item>Top kill</item>
+        <item>Weed</item>
+        <item>Weeds annual grasses</item>
+        <item>Grain grey beans</item>
+        <item>Phalaris</item>
+        <item>Ray-gras</item>
+        <item>Wild oats</item>
+        <item>Gesse</item>
+        <item>Sow thistle</item>
+        <item>Thistle</item>
+        <item>Umbelliferde</item>
+        <item>Wheatgrass</item>
+        <item>Weeds grasses perennials</item>
+        <item>Weeds dicotyledons</item>
 
     </string-array>
     <string-array name="sp_crop_harvest_status">
@@ -1480,6 +1621,9 @@
     </string-array>
 
     <string name="title_activity_crop_settings">Settings</string>
+    <string name="label_preview_invoice">Preview Invoice</string>
+    <string name="infested_card">Infested :</string>
+    <string name="no">No</string>
 
     <string-array name="dateFormatsArray">
         <item>mm/dd/yyyy</item>

@@ -35,7 +35,14 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         this.incomeGenerated = incomeGenerated;
     }
 
-    float incomeGenerated=0;
+    public float incomeGenerated=0;
+
+    public float computeIncomeGenerated(){
+
+        float incomeGenerated = (price * quantitySold);
+
+        return  incomeGenerated;
+    }
 
     @Override
     public String getId() {
@@ -219,5 +226,7 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
     public void setDaysBefore(String daysBefore) {
         this.daysBefore = daysBefore;
     }
+
+
 
 }

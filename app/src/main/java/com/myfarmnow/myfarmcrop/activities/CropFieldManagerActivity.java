@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.myfarmnow.myfarmcrop.R.layout;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
@@ -124,7 +125,7 @@ public class CropFieldManagerActivity extends AppCompatActivity {
 
         }
     }
-
+//TODO LAYOUT TYPE EDITING
     public void fillViews(){
         if(cropField !=null){
             fieldNameTxt.setText(cropField.getFieldName());

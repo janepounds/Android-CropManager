@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentManager;
@@ -393,11 +394,13 @@ public class CropDashboardActivity extends AppCompatActivity {
     public static void selectSpinnerItemByValue(Spinner spnr, String value) {
 
         ArrayAdapter<String> adapter = (ArrayAdapter) spnr.getAdapter();
+        //((TextView) spnr.getChildAt(0)).setTextColor(Color.BLUE);
         if(value==null){
             return;
         }
 
         for (int position = 0; position < adapter.getCount(); position++) {
+
             String item = adapter.getItem(position);
             if(item.toLowerCase().equals(value.toLowerCase())){
                 spnr.setSelection(position);
