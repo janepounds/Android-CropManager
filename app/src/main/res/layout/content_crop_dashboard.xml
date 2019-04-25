@@ -55,6 +55,29 @@
                             android:textColor="#fff"
                             android:textSize="18dp" />
 
+                        <ImageView
+                            android:id="@+id/img_crop_dashboard_notifications"
+                            android:layout_width="30dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="40dp"
+                            android:src="@drawable/event" />
+
+                        <TextView
+                            android:id="@+id/text_view_crop_dashboard_notification_unread_counter"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_alignRight="@+id/img_crop_dashboard_notifications"
+                            android:layout_alignTop="@+id/img_crop_dashboard_notifications"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="11dp"
+                            android:background="@drawable/rounded_badge"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#fff"
+                            android:textSize="12sp" />
+
 
 
                         <ImageView
@@ -487,11 +510,45 @@
             </ScrollView>
 
             <FrameLayout
-                android:id="@+id/mainFrame"
+                android:id="@+id/frame_layout_notifications"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
+                android:layout_height="280dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="50dp"
+                android:padding="1dp"
+                android:background="@drawable/black_border"
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        app:tabGravity="fill"
+                        app:tabTextColor="@color/black"
+                        app:tabSelectedTextColor="@color/black"
+                        app:tabIndicatorColor="@color/green_mh"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabBackground="@drawable/tab_color_selector"
+
+                        >
+                    </android.support.design.widget.TabLayout>
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </android.support.v4.view.ViewPager>
+                </LinearLayout>
+
+
+
+
+            </FrameLayout>
 
 
 

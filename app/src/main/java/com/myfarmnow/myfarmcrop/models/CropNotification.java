@@ -1,6 +1,9 @@
 package com.myfarmnow.myfarmcrop.models;
 
 public class CropNotification {
+    public final static String QUERY_KEY_TODAY ="=";
+    public final static String QUERY_KEY_OVER_DUE ="<";
+    public final static String QUERY_KEY_UPCOMING =">";
     String id;
     String userId;
     String date;

@@ -13,10 +13,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropsNotesListActivity"
-            android:label="Crop Notes"/>
-        <activity android:name=".activities.CropsNotesManagerActivity"
-            android:label="Crop Notes Manager"/>
+        <activity
+            android:name=".activities.CropsNotesListActivity"
+            android:label="Crop Notes" />
+
+        <receiver
+            android:name=".broadcasts.CropBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activities.CropsNotesManagerActivity"
+            android:label="Crop Notes Manager" />
         <activity
             android:name=".activities.CropHarvestManagerActivity"
             android:label="Harvest Manager" />
@@ -128,10 +139,6 @@
         <activity
             android:name=".activities.CropFieldManagerActivity"
             android:label="@string/activity_crop_field_manager_title"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropDashboardActivity"
@@ -323,6 +330,15 @@
             android:name=".activities.CropSettingsActivity"
             android:label="@string/title_activity_crop_settings"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".services.CropNotificationsCreatorService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.CropNotificationsFireService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

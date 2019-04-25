@@ -1480,6 +1480,21 @@
     </string-array>
 
     <string name="title_activity_crop_settings">Settings</string>
+    <string name="task_reminder_type">Once</string>
+    <string name="notification_type_spraying">Spraying</string>
+    <string name="notification_type_cultivation">Cultivation</string>
+    <string name="notification_type_harvest">Harvest</string>
+    <string name="notification_type_fertilizer_application">Fertilizer Application</string>
+    <string name="notification_type_irrigation">Irrigation</string>
+    <string name="notification_type_transplanting">Transplanting</string>
+    <string name="notification_type_scouting">Scouting</string>
+    <string name="notification_type_service">Service</string>
+    <string name="notification_type_machine_task">Task</string>
+    <string name="notification_type_soil_analysis">Soil Analysis</string>
+    <string name="notification_status_pending">Pending</string>
+    <string name="notification_status_done">Done</string>
+    <string name="default_notification_channel_id">MY_FARM_6738</string>
+    <string name="default_notification_channel_title">CROP MANAGER</string>
 
     <string-array name="dateFormatsArray">
         <item>mm/dd/yyyy</item>
@@ -1494,6 +1509,12 @@
         <item>Kg</item>
         <item>Lb</item>
         <item>Oz</item>
+    </string-array>
+
+    <string-array name="notificationTabs">
+        <item>Today</item>
+        <item>Upcoming</item>
+        <item>Over Due</item>
     </string-array>
 
 </resources>

@@ -77,6 +77,7 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
         holder.resultsTextView.setText(field.getResult());
         holder.organicMatterTextView.setText(field.getOrganicMatter()+"%");
         holder.phTextView.setText(field.getPh()+"");
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(field.getDate()));
 
         final ViewTreeObserver observer = holder.resultsTextView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

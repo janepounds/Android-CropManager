@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_marktext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Mark 'Shearing' as done?"
+        android:textColor="#000"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Are you sure you want to mark this task as  done?"
+        android:textColor="#000"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btn_mark_done"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:text="Mark Task Done"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:background="#00000000"
+        android:text="Cancel"
+        android:textColor="#000" />
+
+</LinearLayout>

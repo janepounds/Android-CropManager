@@ -1,18 +1,29 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,39 +31,56 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.CropDashboardGraphsFragment;
+import com.myfarmnow.myfarmcrop.fragments.NotificationsOverDueFragment;
+import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
+import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
+import com.myfarmnow.myfarmcrop.models.CropNotification;
+import com.myfarmnow.myfarmcrop.services.CropNotificationsCreatorService;
+import com.myfarmnow.myfarmcrop.services.CropNotificationsFireService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CropDashboardActivity extends AppCompatActivity {
+public class CropDashboardActivity extends AppCompatActivity  {
 
     public static DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    ImageView imgdrawer;
+    ImageView imgdrawer, noticationsImageBtn;
     RelativeLayout mainlayout;
     Toolbar toolbar;
+    NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
     LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName;
+    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView;
 
-    CropDashboardGraphsFragment graphsFragment;
+
+    private TabLayout notificationsTabLayout;
+    private ViewPager notificationsViewPager;
+
+    FrameLayout notificationsFrameLayout;
+    MyFarmDbHandlerSingleton dbHandler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +96,14 @@ public class CropDashboardActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
+        //start the notifications services
+       /* startService(new Intent(this, CropNotificationsCreatorService.class));
+        startService(new Intent(this, CropNotificationsFireService.class));*/
+
     }
 
     public void initializeDashboard(){
+
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         //expandableListView = findViewById(R.id.drawer_menu_list);
@@ -83,12 +116,40 @@ public class CropDashboardActivity extends AppCompatActivity {
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
         weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
         contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
+        notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
+        noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
+        unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
+        notificationsViewPager = findViewById(R.id.viewPager);
+        notificationsTabLayout = findViewById(R.id.tabLayout);
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
 
         userProfileLayout =findViewById(R.id.layout_user_profile);
         textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
         textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
+        notificationTabsLayoutAdapter = new NotificationTabsLayoutAdapter(getSupportFragmentManager());
+        notificationTabsLayoutAdapter.addFragment(new NotificationsTodayFragment(),"Today");
+        notificationTabsLayoutAdapter.addFragment(new NotificationsUpcomingFragment(),"Upcoming");
+        notificationTabsLayoutAdapter.addFragment(new NotificationsOverDueFragment(),"Over Due");
+        notificationsViewPager.setAdapter(notificationTabsLayoutAdapter);
+        notificationsTabLayout.setupWithViewPager(notificationsViewPager);
+        notificationsTabLayout.setSelectedTabIndicatorColor(Color.GREEN);
 
+        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(CropDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
+
+
+
+        noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(notificationsFrameLayout.getVisibility()==View.GONE){
+                    notificationsFrameLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    notificationsFrameLayout.setVisibility(View.GONE);
+                }
+            }
+        });
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 supportInvalidateOptionsMenu();
@@ -179,7 +240,8 @@ public class CropDashboardActivity extends AppCompatActivity {
                 startActivity(editUser);
             }
         });
-        //
+
+
 
     }
 
@@ -436,6 +498,7 @@ public class CropDashboardActivity extends AppCompatActivity {
     }
 
     public static void saveUser(JSONObject user, Context context) throws JSONException{
+
         CropDashboardActivity.savePreferences("farmname", user.getString("farmname"), context);
         CropDashboardActivity.savePreferences("firstname", user.getString("firstname"), context);
         CropDashboardActivity.savePreferences("email", user.getString("email"), context);
@@ -450,9 +513,11 @@ public class CropDashboardActivity extends AppCompatActivity {
         CropDashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
         CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
-       // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), context);
+        // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
 
     }
+
+
 
 
 

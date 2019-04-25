@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/notification_remote_view_card_activities_today_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Tasks due Today" />
+    <TextView
+        android:id="@+id/notification_remote_view_card_activities_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="12sp"
+        android:layout_marginStart="32dp"
+        android:text="Activities" />
+    <TextView
+        android:id="@+id/notification_remote_view_card_activities_upcoming_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Upcoming Tasks" />
+    <TextView
+        android:id="@+id/notification_remote_view_card_activities_upcoming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="12sp"
+        android:layout_marginStart="32dp"
+        android:text="Activities" />
+
+</LinearLayout>
