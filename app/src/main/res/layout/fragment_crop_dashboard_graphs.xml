@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.CropDashboardGraphsFragment">
+    tools:context=".fragments.CropDashboardGraphsFragment"
+    android:background="@drawable/graphs_section_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,31 +15,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_margin="4dp">
 
-            <Spinner
-                android:id="@+id/crop_graphs_bar_income_expense_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:background="@drawable/input_shapes"
-                android:entries="@array/graphs_time_period_options"
-                android:layout_weight="0.5"
-                >
-            </Spinner>
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/black_border"
-                android:layout_weight="0.5"
                 android:orientation="vertical"
-               >
+                android:paddingStart="64dp"
+                android:paddingEnd="64dp">
+                <Spinner
+                    android:id="@+id/crop_graphs_bar_income_expense_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:textAlignment="center"
+                    android:entries="@array/graphs_time_period_options"
+                    android:layout_weight="0.5"
+                    >
+                </Spinner>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/divider_line_color"
                     />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,7 +61,7 @@
                         android:layout_weight="1"
                         android:text="Income "
                         android:textSize="12sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/financial_summary_summary_text_color"
                         />
 
                     <TextView
@@ -63,13 +70,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/financial_summary_summary_text_color" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +87,7 @@
                         android:layout_weight="1"
                         android:text="Expenses : "
                         android:textSize="12sp"
-                        android:textColor="@color/red"
+                        android:textColor="@color/financial_summary_summary_text_color"
                         />
 
                     <TextView
@@ -93,13 +96,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="@color/red" />
+                        android:textColor="@color/financial_summary_summary_text_color" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,9 +111,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Profit Margin : "
+                        android:text="Profit Margin "
                         android:textSize="12sp"
-                        android:textColor="@color/blue_mh"
+                        android:textColor="@color/financial_summary_summary_text_color"
                         />
 
                     <TextView
@@ -123,9 +122,15 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="@color/blue_mh" />
+                        android:textColor="@color/financial_summary_summary_text_color" />
                 </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_line_color"
+                />
 
         </LinearLayout>
 
@@ -133,6 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginTop="8dp"
+            android:background="@color/financial_summary_summary_background_color"
             android:id="@+id/chart_crop_income_bar_graph"
             />
         <LinearLayout
@@ -148,8 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/input_shapes"
-
+                android:background="@drawable/spinner_shapes_grey"
                 >
             </Spinner>
             <Spinner
@@ -158,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/input_shapes"
+                android:background="@drawable/spinner_shapes_grey"
                 android:entries="@array/graph_crops_season"
                 >
             </Spinner>

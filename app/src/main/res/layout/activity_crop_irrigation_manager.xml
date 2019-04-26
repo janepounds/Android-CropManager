@@ -160,7 +160,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
-                        android:text="50000"
+                        android:text="0"
                         android:textSize="14sp"
                         />
                 </LinearLayout>
@@ -250,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes"
                         android:ems="10"
-                        android:text="600"
+                        android:text="0"
                         android:layout_weight="0.2"
 
                         android:inputType="numberDecimal"

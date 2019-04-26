@@ -1,8 +1,10 @@
 package com.myfarmnow.myfarmcrop.fragments;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.highsoft.highcharts.common.hichartsclasses.HICrosshair;
 import com.highsoft.highcharts.common.hichartsclasses.HIData;
 import com.highsoft.highcharts.common.hichartsclasses.HIDataLabels;
 import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
+import com.highsoft.highcharts.common.hichartsclasses.HILabels;
 import com.highsoft.highcharts.common.hichartsclasses.HILegend;
 import com.highsoft.highcharts.common.hichartsclasses.HIOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIPie;
@@ -31,9 +34,11 @@ import com.highsoft.highcharts.common.hichartsclasses.HITooltip;
 import com.highsoft.highcharts.common.hichartsclasses.HIXAxis;
 import com.highsoft.highcharts.common.hichartsclasses.HIYAxis;
 import com.highsoft.highcharts.core.HIChartView;
+import com.highsoft.highcharts.core.HIFunction;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -68,7 +73,7 @@ public class CropDashboardGraphsFragment extends Fragment {
     TextView totalIncomeTextView,totalExpensesTextView, profitMarginTextView;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner barRangeSpinner,yearsSpinner,seasonsSpinner;
-    String currency ="UGX ";
+    String currency = CropSettingsSingleton.getInstance().getCurrency()+" ";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -200,6 +205,9 @@ public class CropDashboardGraphsFragment extends Fragment {
         barChart.setType( "column");
         barChart.setPlotBorderWidth(null);
         barChart.setPlotShadow(false);
+
+        barChart.setBackgroundColor(HIColor.initWithHexValue("B6C5B6"));
+
         barGraphOptions.setChart(barChart);
 
         HICredits credits = new HICredits();
@@ -219,12 +227,15 @@ public class CropDashboardGraphsFragment extends Fragment {
         HIColumn expensesBarSeries = new HIColumn();
         expensesBarSeries.setName("Expense");
         expensesBarSeries.setData(expenses);
-       // expensesBarSeries.setColor(HIColor.initWithName("Black"));
+       expensesBarSeries.setColor(HIColor.initWithHexValue("C1CC28"));
 
         HIColumn incomeBarSeries = new HIColumn();
         incomeBarSeries.setName("Income");
         incomeBarSeries.setData(incomes);
-        //incomeBarSeries.setColor(HIColor.initWithName("Blue"));
+        incomeBarSeries.setColor(HIColor.initWithHexValue("49C051"));
+
+        HICSSObject hicssObject = new HICSSObject();
+        hicssObject.setColor("#4B6F4A");
 
 
         barGraphOptions.setSeries(new ArrayList<HISeries>(Arrays.asList(expensesBarSeries,incomeBarSeries)));
@@ -235,15 +246,23 @@ public class CropDashboardGraphsFragment extends Fragment {
         xAxis.setCategories(new ArrayList<>(incomesPerMonth.keySet()));
         HITitle xTitle = new HITitle();
         xTitle.setText("Month");
+        xTitle.setStyle(hicssObject);
         xAxis.setTitle(xTitle);
+
+        xAxis.setLabels(new HILabels());
+
+        xAxis. getLabels().setStyle(hicssObject);
+
         xAxis.setCrosshair(new HICrosshair());
         barGraphOptions.setXAxis(new ArrayList<HIXAxis>(){{add(xAxis);}});
 
-
         final HIYAxis yAxis = new HIYAxis();
         yAxis.setMin(0);
+        yAxis.setLabels(new HILabels());
         yAxis.setTitle( new HITitle());
-        yAxis.getTitle().setText("Amount (UGX)");//TODO replace UGX
+        yAxis. getLabels().setStyle(hicssObject);
+        yAxis. getTitle().setStyle(hicssObject);
+        yAxis.getTitle().setText("Amount "+currency);
         barGraphOptions.setYAxis(new ArrayList<HIYAxis>(){{add(yAxis);}});
 
         HITooltip tooltip = new HITooltip();
@@ -281,6 +300,7 @@ public class CropDashboardGraphsFragment extends Fragment {
        // growthLineChartHiOptions.setPlotOptions(linePlotOptions);
         //growthLineChartHiOptions.getChart().
 
+
         incomeExpenserBarChartView.setOptions(barGraphOptions);
         //growthLineHiChartView.setOptions(growthLineChartHiOptions);
 
@@ -297,7 +317,11 @@ public class CropDashboardGraphsFragment extends Fragment {
         chart.setBackgroundColor(null);
         chart.setPlotBorderWidth(0);
         chart.setPlotShadow(false);
+        chart.setBackgroundColor(HIColor.initWithHexValue("B6C5B6"));
         options.setChart(chart);
+
+        HICSSObject hicssObject = new HICSSObject();
+        hicssObject.setColor("#4B6F4A");
 
 
 
@@ -332,7 +356,7 @@ public class CropDashboardGraphsFragment extends Fragment {
 
         ArrayList<HIData> pieItems = new ArrayList<>();
         LinkedHashMap<String, Double> cropIncomes = groupRecordByCategory(incomeRecords);
-        System.out.println(cropIncomes+" CROPS");
+
         float total = 0;
         for(String category : cropIncomes.keySet()){
             HIData dataPoint = new HIData();
@@ -349,10 +373,13 @@ public class CropDashboardGraphsFragment extends Fragment {
         title.setAlign("center");
         title.setVerticalAlign("middle");
         title.setY(0);
+        title.setStyle(hicssObject);
+        //title.
         options.setTitle(title);
 
         HISubtitle subtitle = new HISubtitle();
         subtitle.setText("Income By Crop");
+        subtitle.setStyle(hicssObject);
         options.setSubtitle(subtitle);
         options.setSeries(new ArrayList<HISeries>(Arrays.asList(series1)));
 

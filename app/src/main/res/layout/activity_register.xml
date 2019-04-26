@@ -2,27 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorAccent"
+    android:background="@drawable/sign_in_background"
     android:tag="layout/sign_up_0">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_view_crop_register_title"
+            android:drawableTop="@drawable/logo_crop_manager"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10.0dip"
+            android:layout_marginTop="50.0dip"
             android:gravity="center"
             android:text="Sign Up"
             android:textColor="@color/whiteColor"
             android:textSize="30.0sp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dip"
+            android:gravity="center"
+            android:padding="5.0dip"
+            android:text="Personal Information"
+            android:textColor="@color/whiteColor"
+            android:textSize="16.0sp"
+            android:textStyle="bold" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="15dp"
+
+            android:background="@color/whiteColor"
+            />
         <ScrollView
-            android:id="@id/scrollView"
+
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="10dp">
@@ -33,35 +50,37 @@
                 android:layout_marginLeft="20.0dip"
                 android:layout_marginRight="20.0dip"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/text_view_crop_user_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/yellow"
-                    android:visibility="gone"
+                    android:layout_marginBottom="10dp"
                     android:text="This ie the error we have found at the server end"
-                    android:layout_marginBottom="10dp"/>
+                    android:textColor="@color/yellow"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/txt_crop_user_current_password"
                     android:layout_width="fill_parent"
                     android:layout_height="45.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/user"
                     android:drawablePadding="20.0dip"
                     android:hint="Current Password"
+                    android:inputType="textPassword"
                     android:padding="10.0dip"
                     android:singleLine="true"
                     android:textColor="@color/whiteColor"
-                    android:visibility="gone"
-                    android:inputType="textPassword"
                     android:textColorHint="@color/hintColor"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:visibility="gone" />
+
                 <EditText
                     android:id="@+id/edtfirstname"
                     android:layout_width="fill_parent"
                     android:layout_height="45.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/user"
                     android:drawablePadding="20.0dip"
                     android:hint="First Name"
@@ -78,7 +97,7 @@
 
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/user"
                     android:drawablePadding="20.0dip"
                     android:hint="Last Name"
@@ -88,6 +107,7 @@
                     android:textColor="@color/whiteColor"
                     android:textColorHint="@color/hintColor"
                     android:textCursorDrawable="@drawable/color_cursor" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,11 +121,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/btn_dropdown"
+                        android:background="@drawable/rectangle_border"
                         android:orientation="horizontal"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp">
-
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
+                        <ImageView
+                            android:id="@+id/country_id"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/globe" />
                         <Spinner
                             android:id="@+id/spinnercountry"
                             android:layout_width="match_parent"
@@ -113,15 +141,16 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
                             android:layout_toLeftOf="@+id/icoandroid"
+                            android:layout_toRightOf="@+id/country_id"
                             android:background="@null"
-                            android:gravity="center"
                             android:entries="@array/country_list"
+                            android:gravity="center"
                             android:spinnerMode="dialog" />
 
                         <ImageView
                             android:id="@+id/icoandroid"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
@@ -137,18 +166,18 @@
 
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/location"
                     android:drawablePadding="20.0dip"
                     android:drawableTint="@color/White"
                     android:hint="Country"
                     android:maxLength="10"
-                    android:visibility="gone"
                     android:padding="10.0dip"
                     android:singleLine="true"
                     android:textColor="@color/whiteColor"
                     android:textColorHint="@color/hintColor"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edtemail"
@@ -156,7 +185,7 @@
 
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/mail"
                     android:drawablePadding="20.0dip"
                     android:hint="Email"
@@ -173,7 +202,7 @@
 
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/email"
                     android:drawablePadding="20.0dip"
                     android:hint="Confirm Email"
@@ -190,7 +219,7 @@
 
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/password"
                     android:drawablePadding="20.0dip"
                     android:hint="Password"
@@ -207,7 +236,7 @@
 
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/password"
                     android:drawablePadding="20.0dip"
                     android:hint="Confirm Password"
@@ -241,12 +270,20 @@
                     android:textSize="16.0sp"
                     android:textStyle="bold" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@color/whiteColor"
+                    />
                 <EditText
                     android:id="@+id/edtfarmname"
                     android:layout_width="fill_parent"
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/user"
                     android:drawablePadding="20.0dip"
                     android:hint="Farm Name"
@@ -262,7 +299,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/address"
                     android:drawablePadding="20.0dip"
                     android:hint="Street or Village"
@@ -270,12 +307,13 @@
                     android:textColor="@color/whiteColor"
                     android:textColorHint="@color/hintColor"
                     android:textCursorDrawable="@drawable/color_cursor" />
+
                 <EditText
                     android:id="@+id/editAdressTownorCity"
                     android:layout_width="fill_parent"
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
+                    android:background="@drawable/rectangle_border"
                     android:drawableLeft="@drawable/address"
                     android:drawablePadding="20.0dip"
                     android:hint="Town or City"
@@ -287,12 +325,12 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15.0dip"
                     android:layout_weight="1"
                     android:background="@drawable/btn_dropdown"
                     android:orientation="horizontal"
-                    android:layout_marginTop="15.0dip"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <Spinner
                         android:id="@+id/spinnerAdressCountry"
@@ -301,14 +339,14 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:background="@null"
-                        android:gravity="center"
                         android:entries="@array/country_list"
+                        android:gravity="center"
                         android:spinnerMode="dialog" />
 
                     <ImageView
 
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
@@ -318,15 +356,12 @@
                 </RelativeLayout>
 
 
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/rectangle_with_curve_border_drawable"
                     android:layout_marginTop="15.0dip"
-                     >
+                    android:background="@drawable/rectangle_border"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
@@ -335,9 +370,10 @@
                         android:layout_weight="0.2"
 
                         android:text="+"
+                        android:textAlignment="center"
                         android:textColor="@color/whiteColor"
-                        android:textSize="24sp"
-                        android:textAlignment="center"/>
+                        android:textSize="24sp" />
+
                     <EditText
                         android:id="@+id/edtCountryCode"
                         android:layout_width="0dp"
@@ -352,6 +388,7 @@
                         android:textColor="@color/whiteColor"
                         android:textColorHint="@color/hintColor"
                         android:textCursorDrawable="@drawable/color_cursor" />
+
                     <EditText
                         android:id="@+id/edtContact"
                         android:layout_width="0dp"
@@ -365,14 +402,14 @@
                         android:textColorHint="@color/hintColor"
                         android:textCursorDrawable="@drawable/color_cursor" />
                 </LinearLayout>
-                
+
 
                 <Button
                     android:id="@+id/btnSignUp"
                     android:layout_width="fill_parent"
                     android:layout_height="45.0dip"
-                    android:layout_marginBottom="15.0dip"
                     android:layout_marginTop="20.0dip"
+                    android:layout_marginBottom="15.0dip"
                     android:background="@drawable/sign_up_button"
                     android:text="Sign Up"
                     android:textColor="@color/submitBtnColor"
@@ -386,7 +423,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15.0dip"
                     android:gravity="center"
-                    android:text="Already Register? Login!"
+                    android:textStyle="italic"
+                    android:text="Already Registered? Login!"
                     android:textColor="@color/hintColor"
                     android:textSize="16.0sp" />
             </LinearLayout>

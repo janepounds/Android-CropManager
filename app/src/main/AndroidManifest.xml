@@ -221,7 +221,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropLoginActivity"
-            android:label="@string/title_activity_dashboard">
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -230,13 +231,15 @@
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
-            android:label="User" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.CropForgotPasswordRequestCode"
-            android:label="Forgot Password" />
+            android:label="Forgot Password"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.CropForgotPasswordChange"
-            android:label="Forgot Password" />
+            android:label="Forgot Password"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.CropVerifyPhoneNumberActivity"
             android:label="@string/title_activity_crop_verify_phone_number"

@@ -148,7 +148,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
                                 Intent recordPayment = new Intent(mContext, CropPaymentManagerActivity.class);
                                 recordPayment.putExtra("invoiceId",cropInvoice.getId());
                                 mContext.startActivity(recordPayment);
-                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_receipt))){
+                            }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_invoice))){
                                 CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
                                 Intent editInvoice = new Intent(mContext, CropInvoicePreviewActivity.class);
                                 editInvoice.putExtra("cropInvoice",cropInvoice);

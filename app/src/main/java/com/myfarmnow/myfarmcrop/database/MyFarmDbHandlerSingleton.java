@@ -889,7 +889,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
       // db.execSQL("DROP TABLE IF EXISTS "+ CROP_SETTINGS_TABLE_NAME);
       // db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_SERVICE_TABLE_NAME);
-      //db.execSQL("DROP TABLE IF EXISTS "+ CROP_NOTE_TABLE_NAME);
+      //db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
 
 
 
@@ -4209,6 +4209,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FIELD_FIELD_TYPE,field.getFieldType());
         contentValues.put(CROP_FIELD_LAYOUT_TYPE,field.getLayoutType());
         contentValues.put(CROP_FIELD_STATUS,field.getStatus());
+        contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
+
         database.insert(CROP_FIELDS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4390,6 +4392,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             field.setUnits(res.getString(res.getColumnIndex(CROP_FIELD_UNITS)));
             field.setFieldType(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
             field.setLayoutType(res.getString(res.getColumnIndex(CROP_FIELD_LAYOUT_TYPE)));
+            field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
+
             array_list.add(field);
 
             res.moveToNext();

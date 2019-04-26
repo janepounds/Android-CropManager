@@ -211,8 +211,9 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             int cycleLength  = Integer.parseInt(cycleLengthTxt.getText().toString());
             String harvestDate = CropTransplanting.determineHarvestDate(operationDateTxt.getText().toString(),cycleLength);
             expectedHarvestingDateTxt.setText(harvestDate);
-        }catch (Exception e){
 
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     public void updateTransplanting(){

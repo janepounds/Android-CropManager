@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:n1="http://schemas.android.com/apk/res/android"
     n1:layout_width="fill_parent"
     n1:layout_height="fill_parent"
-    n1:background="@color/colorAccent"
-    n1:tag="layout/sign_in_0">
+    n1:background="@drawable/sign_in_background"
+    n1:tag="layout/sign_in_0"
+    >
 
     <LinearLayout
         n1:layout_width="fill_parent"
@@ -11,13 +12,19 @@
         n1:layout_centerInParent="true"
         n1:orientation="vertical">
 
+        <ImageView
+            n1:layout_width="wrap_content"
+            n1:layout_height="wrap_content"
+            />
+
         <TextView
             n1:layout_width="fill_parent"
             n1:layout_height="wrap_content"
             n1:gravity="center"
-            n1:text="Sign in"
+            n1:text="Sign In"
             n1:textColor="@color/whiteColor"
-            n1:textSize="30.0sp" />
+            n1:textSize="30.0sp"
+            n1:drawableTop="@drawable/logo_crop_manager"/>
         <LinearLayout
             n1:layout_width="fill_parent"
             n1:layout_height="fill_parent"
@@ -31,8 +38,8 @@
                 n1:layout_width="fill_parent"
                 n1:singleLine="true"
                 n1:layout_height="45.0dip"
-                n1:background="@drawable/rectangle_with_curve_border_drawable"
-                n1:drawableLeft="@drawable/user"
+                n1:background="@drawable/rectangle_border"
+                n1:drawableLeft="@drawable/mail"
                 n1:drawablePadding="20.0dip"
                 n1:hint="Email"
                 n1:textCursorDrawable="@drawable/color_cursor"
@@ -47,7 +54,7 @@
                 n1:layout_height="45.0dip"
                 n1:singleLine="true"
                 n1:layout_marginTop="35.0dip"
-                n1:background="@drawable/rectangle_with_curve_border_drawable"
+                n1:background="@drawable/rectangle_border"
                 n1:drawableLeft="@drawable/password"
                 n1:drawablePadding="20.0dip"
                 n1:hint="Password"
@@ -61,7 +68,8 @@
                 n1:id="@+id/tvForgetPass"
                 n1:layout_width="fill_parent"
                 n1:layout_height="wrap_content"
-                n1:layout_margin="20.0dip"
+                n1:layout_marginTop="10.0dip"
+                n1:layout_marginBottom="20.0dip"
                 n1:gravity="end"
                 n1:text="Forgot Password?"
                 n1:textColor="@color/hintColor"
@@ -88,9 +96,10 @@
                 n1:layout_height="wrap_content"
                 n1:layout_margin="15.0dip"
                 n1:gravity="center"
-                n1:text="Dont't have an account? Sign Up!"
+                n1:text="Don't have an account? Sign Up!"
                 n1:textColor="@color/hintColor"
                 n1:textSize="16.0sp" />
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>

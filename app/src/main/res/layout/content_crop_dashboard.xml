@@ -23,7 +23,7 @@
                 android:id="@+id/mainView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/colorPrimary"
+                android:background="#344834"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
                 <android.support.v7.widget.Toolbar
@@ -42,7 +42,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginEnd="15dp"
                             android:padding="5dp"
                             android:src="@drawable/menu" />
 
@@ -61,7 +61,7 @@
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="40dp"
+                            android:layout_marginStart="40dp"
                             android:src="@drawable/event" />
 
                         <TextView
@@ -80,14 +80,6 @@
 
 
 
-                        <ImageView
-                            android:id="@+id/imgscan"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="50dp"
-                            android:src="@drawable/scan" />
 
                         <ImageView
                             android:id="@+id/imgsetting"
@@ -96,7 +88,7 @@
                             android:onClick="openSettings"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginEnd="15dp"
                             android:src="@drawable/setting" />
 
 
@@ -108,7 +100,8 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/mainView">
+                android:layout_below="@+id/mainView"
+                android:background="@drawable/home_background">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -132,18 +125,20 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginTop="10dp"
                                 android:layout_weight="1"
-                                android:background="@color/whiteColor"
+
                                 android:id="@+id/layout_crop_dashboard_fields"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:background="@color/whiteColor"
+                                    android:padding="20dp"
                                     android:src="@drawable/fields" />
 
                                 <TextView
@@ -151,42 +146,31 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_fields"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                                <TextView
-                                    android:id="@+id/brddedercount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
-
+                                    android:textColor="#FFF" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/layout_crop_dashboard_crops"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginTop="10dp"
                                 android:layout_weight="1"
-                                android:background="@color/whiteColor"
+
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:background="@color/whiteColor"
+                                    android:padding="20dp"
                                     android:src="@drawable/crops" />
 
                                 <TextView
@@ -194,25 +178,14 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
 
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_crops"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
-                                <TextView
-                                    android:id="@+id/matingcount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
 
                             </LinearLayout>
 
@@ -220,18 +193,20 @@
                                 android:id="@+id/layout_crop_dashboard_inventory"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginTop="10dp"
                                 android:layout_weight="1"
-                                android:background="@color/whiteColor"
+
 
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:background="@color/whiteColor"
+                                    android:padding="20dp"
                                     android:src="@drawable/inventory" />
 
                                 <TextView
@@ -239,25 +214,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
 
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_inventory"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
-                                <TextView
-                                    android:id="@+id/littercount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
+
                             </LinearLayout>
                         </LinearLayout>
 
@@ -271,43 +236,32 @@
                                 android:id="@+id/layout_crop_dashboard_machines"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
-                                android:background="@color/whiteColor"
+
 
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:background="@color/whiteColor"
+                                    android:padding="20dp"
                                     android:src="@drawable/machinery" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
                                     android:gravity="center"
-
+                                    android:textStyle="bold"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_machinery"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
-                                <TextView
-                                    android:id="@+id/incomeexpensecount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
+
 
                             </LinearLayout>
 
@@ -315,42 +269,32 @@
                                 android:id="@+id/layout_crop_dashboard_contacts"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
-                                android:background="@color/whiteColor"
+
 
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:background="@color/whiteColor"
+                                    android:padding="20dp"
                                     android:src="@drawable/contacts" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_contacts"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
-                                <TextView
-                                    android:id="@+id/medicationcount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
+
 
                             </LinearLayout>
 
@@ -358,30 +302,28 @@
                                 android:id="@+id/layout_crop_dashboard_tasks"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_margin="10dp"
                                 android:layout_weight="1"
-
-                                android:background="@color/whiteColor"
                                 android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                >
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:padding="20dp"
+                                    android:background="@color/whiteColor"
                                     android:src="@drawable/tasks_icon" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
-                                    android:paddingBottom="5dp"
+
                                     android:text="@string/label_tasks"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -396,30 +338,29 @@
                                 android:id="@+id/layout_crop_dashboard_income_expense"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_weight="1"
-
-                                android:background="@color/whiteColor"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/incomeexpance" />
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
+                                    android:padding="20dp"
+                                    android:background="@color/whiteColor"
+                                    android:src="@drawable/new_income_expenses" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_income_expenses"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
                             </LinearLayout>
 
@@ -427,80 +368,84 @@
                                 android:id="@+id/layout_crop_dashboard_weather_forecast"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
                                 android:onClick="openCalculators"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
                                     android:background="@color/whiteColor"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/meatproductions" />
+                                    android:padding="20dp"
+                                    android:src="@drawable/new_farm_calculator" />
 
                                 <TextView
                                     android:id="@+id/meat_Produced_txt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:textSize="13sp"
                                     android:text="Calculator"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
 
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_weight="1"
                                 android:onClick="openBestPractices"
-
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="90dp"
                                     android:background="@color/whiteColor"
-                                    android:padding="10dp"
-                                    android:src="@drawable/tasks" />
+                                    android:padding="20dp"
+                                    android:src="@drawable/new_best_practices" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
+                                    android:textStyle="bold"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_basic_practices"
                                     android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                                    android:textColor="#FFF" />
                             </LinearLayout>
                         </LinearLayout>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="15dp"
                             android:layout_weight="1"
                             android:text="@string/label_financial_summary"
-                            android:textColor="#000"
+                            android:textColor="#FFF"
                             android:textSize="15dp"
-                            android:textStyle="bold" />
+                            />
 
                         <FrameLayout
                             android:id="@+id/fragment_crop_dashboard_graphs_section"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="32dp"
+                            android:layout_marginTop="16dp"
                             />
 
                     </LinearLayout>
@@ -514,8 +459,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:layout_marginBottom="20dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginTop="50dp"
                 android:padding="1dp"
                 android:background="@drawable/black_border"
@@ -559,7 +504,7 @@
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#1E282C"
+            android:background="#344834"
             android:fitsSystemWindows="true">
 
            <ScrollView
@@ -593,7 +538,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
-                            android:src="@drawable/fields"
+                            android:src="@drawable/fields_dashboard"
                             android:padding="8dp"
                             android:visibility="visible" />
 
@@ -617,7 +562,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:src="@drawable/right_arrow_white"
@@ -709,7 +654,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
-                            android:src="@drawable/crops"
+                            android:src="@drawable/crops_dashboard"
                             android:padding="8dp"
                             android:visibility="visible" />
 
@@ -732,7 +677,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:src="@drawable/right_arrow_white"
@@ -823,7 +768,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
-                            android:src="@drawable/inventory"
+                            android:src="@drawable/inventory_dashboard"
                             android:padding="8dp"
                             android:visibility="visible" />
 
@@ -846,7 +791,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:src="@drawable/right_arrow_white"
@@ -938,7 +883,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
-                            android:src="@drawable/contacts"
+                            android:src="@drawable/contacts_dashbord"
                             android:padding="8dp"
                             android:visibility="visible" />
 
@@ -961,7 +906,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:src="@drawable/right_arrow_white"
@@ -1054,7 +999,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:gravity="center_vertical"
-                            android:src="@drawable/finance"
+                            android:src="@drawable/income_expense_dashboard"
                             android:padding="8dp"
                             android:visibility="visible" />
 
@@ -1078,7 +1023,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:gravity="center_vertical"
                             android:padding="8dp"
                             android:src="@drawable/right_arrow_white"
@@ -1239,7 +1184,7 @@
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:layout_alignParentRight="true"
-                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginStart="15dp"
                                     android:gravity="center_vertical"
                                     android:padding="8dp"
                                     android:src="@drawable/right_arrow_white"
@@ -1436,7 +1381,7 @@
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:layout_alignParentRight="true"
-                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginStart="15dp"
                                     android:gravity="center_vertical"
                                     android:padding="8dp"
                                     android:src="@drawable/right_arrow_white"
@@ -1545,156 +1490,92 @@
 
 
 
-                <RelativeLayout
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:orientation="horizontal"
+                       android:layout_marginStart="0dp"
+                       android:paddingBottom="5dp"
+                       android:paddingTop="5dp"
+                       android:onClick="openFarmReports">
+
+                       <ImageView
+
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:gravity="center_vertical"
+                           android:src="@drawable/farm_reports_dashboard"
+                           android:padding="8dp"
+                           android:visibility="visible"
+                           />
+
+                       <TextView
+
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_centerVertical="true"
+                           android:layout_weight="1"
+                           android:gravity="center_vertical|left"
+                           android:paddingBottom="5dp"
+                           android:paddingLeft="5dp"
+                           android:paddingTop="5dp"
+                           android:text="Farm Reports"
+                           android:textColor="#ffffff"
+                           android:textSize="15dp"/>
+
+
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:gravity="left"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:onClick="openFarmReports">
-
-                    <ImageView
-
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:visibility="visible" />
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|left"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="0dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
                         android:paddingTop="5dp"
-                        android:text="Farm Reports"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"></TextView>
+                        android:onClick="openFarmReports">
 
-                    <ImageView
+                        <ImageView
 
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:src="@drawable/leftarrow1"
-                        android:visibility="gone" />
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/help_dashboard"
+                            android:padding="8dp"
+                            android:visibility="visible"
+                            />
 
-                    <ImageView
+                        <TextView
 
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:src="@drawable/arrow_left_black"
-                        android:visibility="gone" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|left"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="5dp"
+                            android:text="Help"
+                            android:textColor="#ffffff"
+                            android:textSize="15dp"/>
 
-                    <ImageView
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:background="@drawable/group_indicator_selector"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"/>
-                    <ImageView
 
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:src="@drawable/downarrow"
-                        android:visibility="gone" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:gravity="left"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
-
-                    <ImageView
-
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:visibility="visible" />
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/iv_icon"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|left"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingTop="5dp"
-                        android:text="Help"
-                        android:textColor="#ffffff"
-                        android:textSize="15dp"></TextView>
-
-                    <ImageView
-
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:src="@drawable/leftarrow1"
-                        android:visibility="gone" />
-
-                    <ImageView
-
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:src="@drawable/arrow_left_black"
-                        android:visibility="gone" />
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:background="@drawable/group_indicator_selector"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"/>
-                    <ImageView
-
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:src="@drawable/downarrow"
-                        android:visibility="gone" />
-                </RelativeLayout>
-
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
            </ScrollView>
         </android.support.design.widget.NavigationView>
