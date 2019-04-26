@@ -360,8 +360,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/crop_field_units"
-                android:textSize="14sp"
                 android:inputType="numberDecimal"
+                style="@style/MySpinnerLook"
               />
             </LinearLayout>
         </LinearLayout>

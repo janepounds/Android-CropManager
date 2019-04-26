@@ -8,10 +8,19 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="@drawable/input_shapes_card"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    >
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -30,7 +39,7 @@
                         <TextView
                             android:id="@+id/txt_crop_field_card_name"
                             android:textSize="14dp"
-                            android:textColor="#696666"
+                            android:textColor="#000000"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
@@ -43,8 +52,8 @@
                             android:id="@+id/txt_crop_field_card_area"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="15.5 ha"
-                            android:textColor="#696666"
+                            android:text="( 15.5 ha )"
+                            android:textColor="#000000"
                             android:textSize="14dp" />
 
                     </LinearLayout>
@@ -69,6 +78,12 @@
 
                 </LinearLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="320dp"
+                    android:layout_height="1dp"
+                    android:background="#D2D3D2"
+                    android:layout_marginStart="10dp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -100,8 +115,8 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Soil Category :"
-                                    android:textColor="#696666"
+                                    android:text="Soil Category:"
+                                    android:textColor="#000000"
                                     android:textSize="14dp" />
 
                                 <TextView
@@ -110,7 +125,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Loamy Sand"
-                                    android:textColor="#696666"
+                                    android:textColor="#899889"
                                     android:textSize="14dp" />
 
                             </LinearLayout>
@@ -136,17 +151,17 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="Soil Type :"
-                                    android:textColor="#696666"
+                                    android:text="Soil Type:"
+                                    android:textColor="#000000"
                                     android:textSize="14dp" />
 
                                 <TextView
                                     android:id="@+id/txt_crop_field_card_soil_category"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:text="Light Sand "
                                     android:layout_weight="1"
-                                    android:textColor="#696666"
+                                    android:text="Light Sand "
+                                    android:textColor="#899889"
                                     android:textSize="14dp" />
 
 
@@ -161,23 +176,26 @@
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:layout_marginTop="3dp">
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="10dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Croppable Area :"
-                                android:textColor="#696666"
+                                android:text="Croppable Area:"
+                                android:textColor="#000000"
+                                android:layout_weight="1"
                                 android:textSize="14dp" />
 
                             <TextView
                                 android:id="@+id/txt_crop_field_card_croppable_area"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="12.45 ha"
-                                android:textColor="#696666"
-                                android:layout_marginLeft="10dp"
+                                android:textColor="#899889"
+
                                 android:textSize="14dp" />
 
 
@@ -185,43 +203,49 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="end"
-                            android:padding="0dp"
-                            android:layout_marginRight="4dp"
-                            android:layout_marginLeft="4dp"
-                            android:id="@+id/layout_crop_field_card_show_hide"
-                            android:background="@color/gray">
 
-                            <ImageView
-                                android:id="@+id/img_crop_fields_card_show_crops"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:backgroundTint="@color/black"
-                                android:textColor="@color/darker_gray"
-                                android:gravity="end"
-                                app:srcCompat="@drawable/arrow_drop_down" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/layout_crop_field_expand"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/gray"
-                            android:layout_marginRight="4dp"
-                            android:layout_marginLeft="4dp"
-                            android:visibility="gone">
-
-
-                    </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
+                </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="40dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:padding="0dp"
+                    android:layout_margin="0dp"
+                    android:id="@+id/layout_crop_field_card_show_hide"
+                    android:background="#B6C5B6">
+
+                    <ImageView
+                        android:id="@+id/img_crop_fields_card_show_crops"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:backgroundTint="@color/black"
+                        android:textColor="#D2DDD5"
+                        android:layout_marginRight="18.17dp"
+                        android:layout_marginTop="10dp"
+
+                        app:srcCompat="@drawable/arrow_drop_down" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_crop_field_expand"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#B6C5B6"
+                    android:visibility="gone"
+                    android:padding="4dp">
 
 
-
+                </LinearLayout>
+</LinearLayout>
     </LinearLayout>
 </LinearLayout>
