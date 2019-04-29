@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray">
+    android:background="#F4F4F4">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.9"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:background="@color/black"
-                android:textAlignment="center" />
+
 
             <ImageView
                 android:layout_width="36dp"
@@ -39,9 +29,9 @@
             <View
                 android:id="@+id/txt_view_crop_spraying_card_line"
                 android:layout_width="1dp"
-                android:layout_height="55dp"
+                android:layout_height="342dp"
                 android:layout_marginStart="16dp"
-                android:background="@color/black"
+                android:background="#E7EAE7"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -50,24 +40,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp">
 
             <TextView
                 android:id="@+id/txt_view_crop_spraying_card_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="8dp"
                 android:text="20-08-2018"
                 android:textSize="18sp"
-                android:textColor="@color/blackText" />
+                android:textColor="#A6C0A7" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-
-                android:background="@drawable/black_border"
+                android:padding="10dp"
+                android:background="@drawable/input_shapes_crops_card"
                 android:orientation="vertical"
              >
                 <LinearLayout
@@ -81,6 +73,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.9"
+                        android:layout_marginStart="24dp"
                         android:textSize="18sp"
                         android:textAlignment="gravity"
                         android:text="Spraying"
@@ -101,42 +94,41 @@
                   </LinearLayout>
               </LinearLayout>
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="240dp"
                     android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#D2D3D2" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                         <TextView
                             android:id="@+id/txt_view_crop_spraying_card_spray_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_marginStart="35dp"
                             android:textSize="14sp"
                             android:text="Weed Control Spray"
                             android:textColor="@color/blackText" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_weight="1"
+                      android:layout_marginStart="35dp"
                       android:text="Operator : "
                        android:textSize="14sp"
                       android:textColor="@color/blackText"
@@ -148,14 +140,8 @@
                       android:layout_height="wrap_content"
                       android:layout_weight="1"
                       android:text="John Kiwanuka"
-                      android:textColor="@color/blackText" />
+                      android:textColor="#899889" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
-
 
 
 
@@ -164,12 +150,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="35dp"
                         android:text="Rate : "
                          android:textSize="14sp"
                         android:textColor="@color/blackText"
@@ -181,86 +168,83 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="56kg/ha"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
             </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="W.D : "
                              android:textSize="14sp"
-
+                            android:layout_marginStart="35dp"
+                            android:layout_weight="1"
                             android:textColor="@color/blackText"
                             />
 
                         <TextView
                             android:id="@+id/txt_view_crop_spraying_card_wind_direction"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NW "
-                            android:textColor="@color/blackText" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="W.C: "
-                             android:textSize="14sp"
-
-                            android:textColor="@color/blackText"
-                            />
-
-                        <TextView
-                            android:id="@+id/txt_view_crop_spraying_card_water_condition"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Sunny"
-                            android:textColor="@color/blackText" />
+                            android:text="NW "
+                            android:textColor="#899889" />
                     </LinearLayout>
+
+
 
 
                 </LinearLayout>
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="W.C: "
+                        android:textSize="14sp"
+                        android:layout_marginStart="35dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/blackText"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_view_crop_spraying_card_water_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sunny"
+                        android:textColor="#899889" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:layout_marginBottom="20dp"
+                    android:padding="2dp">
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Reason : "
+                        android:layout_marginStart="35dp"
+
                         android:textSize="14sp"
                         android:textColor="@color/blackText"
                         />
@@ -270,8 +254,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="35dp"
                         android:text="To Control Pests"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -280,4 +265,4 @@
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

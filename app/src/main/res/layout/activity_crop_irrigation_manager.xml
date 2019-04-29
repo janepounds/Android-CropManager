@@ -25,24 +25,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp">
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/operation_date"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+                        android:layout_marginBottom="4dp"
                         android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_irrigation_operation_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:hint="Select"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:inputType="none"
 
                         android:textSize="14sp" />
@@ -51,15 +51,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginBottom="10dp">
 
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/irrigation_system_rate"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
+                    android:layout_marginBottom="4dp"
                     android:textSize="16sp" />
 
                 <EditText
@@ -78,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <LinearLayout
@@ -93,8 +94,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/start_time"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+                        android:layout_marginBottom="4dp"
                         android:textSize="16sp" />
 
                     <EditText
@@ -104,7 +105,7 @@
                         android:ems="10"
                         android:hint="Select"
                         android:inputType="none"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:textSize="14sp"
                         />
                 </LinearLayout>
@@ -120,15 +121,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/end_time"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="4dp" />
 
                     <EditText
                         android:id="@+id/txt_crop_irrigation_end_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:hint="Select"
                         android:inputType="none"
                         android:textSize="14sp"
@@ -144,15 +145,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp">
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/total_water_quantity"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+                        android:layout_marginBottom="4dp"
                         android:textSize="16sp" />
 
                     <TextView
@@ -172,21 +174,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginBottom="10dp">
 
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/area_irrigated"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
+                    android:layout_marginBottom="4dp"
                     android:textSize="16sp" />
                         <LinearLayout
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:orientation="horizontal"
-                            android:background="@color/gray_mh"
+
                             >
                             <EditText
                                 android:id="@+id/txt_crop_irrigation_area_irrigated"
@@ -206,13 +209,12 @@
 
                                 android:id="@+id/txt_crop_irrigation_area_irrigated_units"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:padding="4dp"
                                 android:text="acres"
                                 android:layout_weight="0.8"
-                                android:textStyle="bold"
                                 android:textAlignment="center"
-
+                                android:background="@drawable/input_shapes_grey_units_right"
                                 />
                         </LinearLayout>
             </LinearLayout>
@@ -232,18 +234,16 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:text="@string/quantity"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
+                    android:layout_marginBottom="4dp"
                     android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/gray_mh"
-                    >
+                   >
                     <TextView
                         android:id="@+id/txt_crop_irrigation_quantity_per_unit"
                         android:layout_width="match_parent"
@@ -262,11 +262,11 @@
 
                         android:id="@+id/txt_crop_irrigation_quantity_units"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="4dp"
                         android:text="/ acres"
                         android:layout_weight="0.8"
-                        android:textStyle="bold"
+                        android:background="@drawable/input_shapes_grey_units_right"
                         android:textAlignment="center"
 
                         />
@@ -286,8 +286,8 @@
                     android:layout_height="wrap_content"
 
                     android:text="@string/total_cost"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
+                    android:layout_marginBottom="4dp"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@color/gray_mh"
+
                     >
 
                     <TextView
@@ -306,7 +306,7 @@
                         android:layout_weight="0.2"
                         android:textSize="14sp"
                         android:textAlignment="center"
-                        android:textStyle="bold"
+                        android:background="@drawable/input_shapes_grey_units"
                         android:gravity="center_vertical"
 
                         />
@@ -345,19 +345,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/recurrence"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+                        android:layout_marginBottom="4dp"
                         android:textSize="16sp" />
 
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:background="@drawable/input_shapes_grey_spinner">
                     <Spinner
                         android:id="@+id/sp_crop_irrigation_recurrence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:background="@drawable/input_shapes"
                         android:entries="@array/sp_crop_task_recurrence"
-                        android:textSize="14sp"
                         />
+                 </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -371,19 +374,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/reminders"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="4dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner">
 
                     <Spinner
                         android:id="@+id/sp_crop_irrigation_reminders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp"
                         android:entries="@array/sp_crop_task_reminders"
                         />
-
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -391,8 +396,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="5dp"
                 android:visibility="gone"
-
                 >
 
                 <LinearLayout
@@ -400,7 +405,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_weight="1"
-                    android:layout_margin="4dp"
+                    android:layout_marginRight="10dp"
+
                     android:gravity="center_vertical"
                     >
 
@@ -408,10 +414,9 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Every:"
-                        android:textColor="@color/colorPrimary"
+                        android:text="Every"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"
-                        android:textStyle="bold"
                         android:layout_weight="0.3"/>
 
                     <LinearLayout
@@ -419,7 +424,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_weight="0.7"
-                        android:background="@color/gray_mh">
+                       >
                         <EditText
                             android:id="@+id/txt_crop_irrigation_weekly_weeks"
                             android:layout_width="wrap_content"
@@ -433,10 +438,11 @@
                         <TextView
 
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="Weeks"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:background="@drawable/input_shapes_grey_units_right"
                             android:layout_weight="0.2"/>
                     </LinearLayout>
 
@@ -447,7 +453,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="4dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -455,8 +460,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/repeat_until"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+
                         android:textSize="16sp"
                         android:layout_weight="0.3"/>
 
@@ -464,9 +469,8 @@
                         android:id="@+id/txt_crop_irrigation_repeat_until"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:hint="Select"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:inputType="none"
                         android:textSize="14sp"
                         android:layout_weight="0.7"/>
@@ -478,9 +482,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:background="@color/gray_mh"
                 android:visibility="gone"
                 >
                 <EditText
@@ -499,11 +503,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
+                    android:background="@drawable/input_shapes_grey_units_right"
                     android:text="Days Before"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_weight="0.3"/>
 
 
@@ -516,7 +520,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:backgroundTint="@color/colorPrimary"
-                android:drawableTint="#ffffff"
                 android:text="Save "
                 android:textAllCaps="false"
                 android:textColor="#ffffff" />

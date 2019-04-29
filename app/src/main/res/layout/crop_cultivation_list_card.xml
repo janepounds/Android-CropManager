@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="0dp"
-    android:background="@color/light_gray">
+    android:background="#F4F4F4">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.9"
             android:orientation="vertical">
-            <View
-                android:layout_width="1dp"
-                android:layout_height="19dp"
-                android:textAlignment="center"
-                android:layout_marginStart="16dp"
-                android:background="@color/black" />
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
@@ -37,10 +29,10 @@
             <View
                 android:id="@+id/txt_view_crop_cultivation_card_line"
                 android:layout_width="1dp"
-                android:layout_height="55dp"
-                android:textAlignment="center"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
-                android:background="@color/black" />
+                android:background="#E7EAE7"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -49,24 +41,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingRight="22dp"
             >
 
             <TextView
                 android:id="@+id/txt_view_crop_cultivation_card_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="8dp"
                 android:text="20-08-2018"
-                android:textColor="@color/blackText"
+                android:textColor="#A6C0A7"
                 android:textSize="18sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/black_border"
+                android:background="@drawable/input_shapes_crops_card"
                 android:layout_marginEnd="8dp"
+                android:padding="10dp"
              >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,6 +75,7 @@
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:layout_weight="0.9"
+                      android:layout_marginStart="24dp"
                       android:text="Cultivation"
                       android:textColor="@color/blackText"
                       android:textSize="18sp"
@@ -105,16 +101,17 @@
               </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="237dp"
                     android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#D2D3D2" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
                     android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="2dp">
 
                     <TextView
                         android:id="@+id/txt_view_crop_cultivation_card_operation"
@@ -126,22 +123,18 @@
                         android:textSize="14sp"/>
 
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
                 <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_weight="1"
+                      android:layout_marginStart="34dp"
                       android:text="Operator : "
                         android:textSize="14sp"
                       android:textColor="@color/blackText"
@@ -153,23 +146,20 @@
                       android:layout_height="wrap_content"
                       android:layout_weight="1"
                       android:text="50%"
-                      android:textColor="@color/blackText" />
+                      android:textColor="#899889" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="34dp"
                         android:text="Cost : "
                         android:textSize="14sp"
                         android:textColor="@color/blackText"
@@ -180,25 +170,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
                         android:text="50000"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+
               <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:layout_margin="0dp"
-                  android:padding="8dp">
+                  android:padding="4dp">
                   <TextView
                       android:id="@+id/txt_view_crop_cultivation_card_notes"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:layout_marginStart="32dp"
+                      android:layout_marginBottom="10dp"
                       android:layout_weight="1"
                       android:text="Dr. Williams, this is theg aghgs gajajhsh sgdhhsj yewuwh sgdhsj ghdkw sghsb shs"
                       android:textColor="@color/blackText" />
@@ -210,4 +197,4 @@
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
