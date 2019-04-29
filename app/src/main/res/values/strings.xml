@@ -1132,7 +1132,7 @@
     <string name="title_activity_crop_verify_phone_number">Verify Account</string>
     <string name="didn_t_receive_code_resend">Didn\'t Receive Code? <u>Resend.</u></string>
     <string name="supplier">Supplier</string>
-    <string name="purchase_order_number">Purchase Order Number</string>
+    <string name="purchase_order_number">Purchase Order #</string>
     <string name="purchase_order_date">Purchase Date</string>
     <string name="delivery_date_label">Delivery Date</string>
     <string name="delivery_method">Delivery Method</string>

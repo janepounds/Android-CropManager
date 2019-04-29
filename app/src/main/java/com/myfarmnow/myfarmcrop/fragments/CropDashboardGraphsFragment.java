@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,6 +118,18 @@ public class CropDashboardGraphsFragment extends Fragment {
         barRangeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getActivity().getColor(R.color.financial_summary_summary_graph_text_color));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.financial_summary_summary_graph_text_color)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 HashMap<String, String> dates = getGraphDateRange(position);
                 drawGraphs(dates.get("startDate"),dates.get("endDate"));
 
@@ -132,6 +145,18 @@ public class CropDashboardGraphsFragment extends Fragment {
         yearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getActivity().getColor(R.color.financial_summary_summary_graph_text_color));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.financial_summary_summary_graph_text_color)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 drawCropsPie(Integer.parseInt(yearsSpinner.getSelectedItem().toString()),seasonsSpinner.getSelectedItem().toString());
             }
 
@@ -143,6 +168,18 @@ public class CropDashboardGraphsFragment extends Fragment {
         seasonsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getActivity().getColor(R.color.financial_summary_summary_graph_text_color));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.financial_summary_summary_graph_text_color)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 drawCropsPie(Integer.parseInt(yearsSpinner.getSelectedItem().toString()),seasonsSpinner.getSelectedItem().toString());
             }
 
@@ -203,7 +240,7 @@ public class CropDashboardGraphsFragment extends Fragment {
 
         HIChart barChart = new HIChart();
         barChart.setType( "column");
-        barChart.setPlotBorderWidth(null);
+        barChart.setPlotBorderWidth(0);
         barChart.setPlotShadow(false);
 
         barChart.setBackgroundColor(HIColor.initWithHexValue("B6C5B6"));
@@ -290,8 +327,7 @@ public class CropDashboardGraphsFragment extends Fragment {
 
         HIPlotOptions plotOptions = new HIPlotOptions();
         plotOptions.setColumn(new HIColumn());
-
-        plotOptions.getColumn().setLineWidth(1);
+       // plotOptions.getColumn().setLineWidth(1);
         plotOptions.getColumn().setPointPadding(0);
         barGraphOptions.setPlotOptions(plotOptions);
 

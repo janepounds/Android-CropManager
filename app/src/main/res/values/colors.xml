@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#34463F</color>
-<color name="textColor">#62A169</color>
+    <color name="textColor">#62A169</color>
     <color name="buttonColor">#51925E</color>
     <color name="colorPrimary_birds">#f4ad42</color>
     <color name="colorPrimaryDark">#161f2b</color>
@@ -15,7 +15,7 @@
     <color name="black">#000000</color>
     <color name="green">#1ec442</color>
     <color name="orange">#c48d1e</color>
-    <color name="red">#ce0000</color>
+    <color name="red">#A16C62</color>
     <color name="whiteColor">#ffffff</color>
     <color name="submitBtnColor">#056839</color>
     <color name="hintColor">#8E9B8C</color>
@@ -34,7 +34,7 @@
     <color name="device_ok">#92cf05</color>
     <color name="device_problem">#dc4436</color>
     <color name="gray">#f0f1ed</color>
-    <color name="gray_mh">#b8b8b8</color>
+    <color name="gray_mh">#F5F5F5</color>
     <color name="green_mh">#3fc926</color>
     <color name="lite_green">#377f22</color>
     <color name="transparent">#00000000</color>
@@ -53,8 +53,12 @@
 
     <color name="yellow">#ffff00</color>
     <color name="financial_summary_summary_text_color">#6D6D6D</color>
+    <color name="financial_summary_summary_graph_text_color">#4B6F4A</color>
     <color name="financial_summary_summary_background_color">#B6C5B6</color>
     <color name="divider_line_color">#6d6d6d</color>
+    <color name="divider_line_color_estimates">#CFE8D8</color>
+    <color name="estimates_preview_item_divider">#D2D2D2</color>
+    <color name="estimates_manager_button">#51925E</color>
 
 
 </resources>

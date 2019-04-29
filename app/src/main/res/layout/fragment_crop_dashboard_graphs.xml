@@ -22,8 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingStart="64dp"
-                android:paddingEnd="64dp">
+                android:paddingStart="72dp"
+                android:paddingEnd="72dp">
                 <Spinner
                     android:id="@+id/crop_graphs_bar_income_expense_spinner"
                     android:layout_width="match_parent"
@@ -59,8 +59,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Income "
+                        android:text="Income"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         android:textColor="@color/financial_summary_summary_text_color"
                         />
 
@@ -85,8 +86,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Expenses : "
+                        android:text="Expenses"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         android:textColor="@color/financial_summary_summary_text_color"
                         />
 
@@ -111,7 +113,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Profit Margin "
+                        android:text="Profit Margin"
+                        android:textStyle="bold"
                         android:textSize="12sp"
                         android:textColor="@color/financial_summary_summary_text_color"
                         />
