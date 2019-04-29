@@ -2,19 +2,25 @@ package com.myfarmnow.myfarmcrop.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
 import java.util.ArrayList;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
     ArrayList<CropSpinnerItem> values=new ArrayList<>();
     String fieldLabel;
+    Context context;
     public CropSpinnerAdapter(ArrayList<CropSpinnerItem> items,final String fieldLabel, Context context) {
         super(context,  android.R.layout.simple_spinner_item);
         this.fieldLabel =fieldLabel;
@@ -28,6 +34,7 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
             }
         });
         values.addAll(items);
+        this.context =context;
     }
     public void add(CropSpinnerItem item){
         values.add(item);
@@ -74,7 +81,19 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // I created a dynamic TextView here, but you can reference your own  custom layout for each spinner item
         TextView label = (TextView) super.getView(position, convertView, parent);
-        label.setTextColor(Color.BLACK);
+        try{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                label.setTextColor(context.getColor(R.color.colorPrimary));
+
+            }
+            else {
+                label.setTextColor(context.getResources().getColor(R.color.colorPrimary)); //Change selected text color
+            }
+            label.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+        }catch (Exception e){
+
+        }
+
         // Then you can get the current item using the values array (CropSpinnerItems array) and the current position
         // You can NOW reference each method you has created in your bean object (CropSpinnerItem class)
         label.setText(values.get(position).toString());

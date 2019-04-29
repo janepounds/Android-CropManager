@@ -1,10 +1,12 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +23,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -36,7 +39,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
     MyFarmDbHandlerSingleton dbHandler;
     Spinner windDirectionSp,waterConditionSp,sprayIdSp,recurrenceSp,remindersSp;
 
-    TextView rateUnitsTextView;
+    TextView rateUnitsTextView,currencyTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         reasonTxt =findViewById(R.id.txt_crop_spraying_treatment_reason);
         equipmentUsedTxt =findViewById(R.id.txt_crop_spraying_equipment_used);
         rateUnitsTextView =findViewById(R.id.txt_crop_spraying_rate_units);
+        currencyTxt =findViewById(R.id.txt_crop_spraying_currency);
         sprayIdSp =findViewById(R.id.sp_crop_spraying_name);
         windDirectionSp =findViewById(R.id.sp_crop_spraying_wind_direction);
         waterConditionSp =findViewById(R.id.sp_crop_spraying_weather_condition);
@@ -79,10 +83,24 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_spraying_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_spraying_days_before);
 
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+
+
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
 
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
                     weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
@@ -103,7 +121,18 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
 
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
@@ -131,6 +160,31 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
 
         ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        windDirectionSp.setOnItemSelectedListener(onItemSelectedListener);
+        waterConditionSp.setOnItemSelectedListener(onItemSelectedListener);
 
 
         btn_save.setOnClickListener(new View.OnClickListener() {

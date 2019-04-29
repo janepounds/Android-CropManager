@@ -67,8 +67,6 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
-        ArrayAdapter.createFromResource(this,R.array.crop_field_units,R.layout.my_spinner);
-
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

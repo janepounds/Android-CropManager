@@ -383,7 +383,9 @@
             android:drawableTint="#ffffff"
             android:text="Save "
             android:textAllCaps="false"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            style="@style/Button"
+            />
 
 
 

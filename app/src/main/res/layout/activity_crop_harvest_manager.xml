@@ -33,9 +33,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="@string/harvest_date"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="4dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor"
                     />
 
                 <EditText
@@ -43,9 +43,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="none"
+                    android:inputType="date"
                     android:hint="Select"
-                    android:background="@drawable/input_shapes"
+                    android:background="@drawable/input_shapes_grey_spinner"
                     android:textSize="14sp"
 
 
@@ -64,10 +64,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/harvest_method"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="4dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor" />
 
                 <EditText
                     android:id="@+id/txt_crop_harvest_method"
@@ -94,23 +93,24 @@
                     android:layout_height="wrap_content"
                     android:text="@string/harvest_units"
                     android:layout_weight="0.6"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="4dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor" />
+                <LinearLayout
+                    android:background="@drawable/input_shapes_grey_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3.4dp">
 
                 <Spinner
-
                     android:id="@+id/sp_crop_harvest_units"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:textSize="14sp"
                     android:entries="@array/crop_roi_yield_units"
-                    android:background="@drawable/input_shapes"
 
 
                     />
-
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,10 +124,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/quantity"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="4dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor" />
 
                 <EditText
                     android:id="@+id/txt_crop_harvest_quantity"
@@ -156,20 +155,23 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="@string/operator"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="4dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textColor" />
+
+
+                    <LinearLayout
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3.4dp">
 
                     <Spinner
                         android:id="@+id/sp_crop_harvest_operator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
-
                         />
-
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -184,21 +186,23 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="@string/status"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="4dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textColor" />
+                    <LinearLayout
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3.4dp">
 
                     <Spinner
                         android:id="@+id/sp_crop_harvest_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:textSize="14sp"
                         android:entries="@array/sp_crop_harvest_status"
-                        android:background="@drawable/input_shapes"
-
                         />
-
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -521,10 +525,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/harvest_cost"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="4dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -537,17 +540,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@color/gray_mh">
+                        >
 
 
                         <TextView
-
+                            android:id="@+id/txt_crop_harvest_currency"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:padding="4dp"
+                            android:background="@drawable/input_shapes_grey_units"
                             android:text="@string/ugx"
+                            android:textColor="@color/colorPrimary"
                             android:gravity="center_vertical"
-                            android:textStyle="bold"
+
 
                             />
 
@@ -577,33 +582,40 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="5dp"
+
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp">
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/recurrence"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:layout_marginBottom="4dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textColor" />
+
+                    <LinearLayout
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3.4dp">
 
                     <Spinner
                         android:id="@+id/sp_crop_harvest_recurrence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:background="@drawable/input_shapes"
                         android:entries="@array/sp_crop_task_recurrence"
-                        android:textSize="14sp"
+
                         />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -611,26 +623,29 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_margin="4dp">
+                   >
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/reminders"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="4dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textColor" />
+                    <LinearLayout
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3.4dp">
 
                     <Spinner
                         android:id="@+id/sp_crop_harvest_reminders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp"
                         android:entries="@array/sp_crop_task_reminders"
                         />
-
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -638,7 +653,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="gone"
+                android:layout_marginTop="5dp"
+
                 >
 
                 <LinearLayout
@@ -646,7 +662,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_weight="1"
-                    android:layout_margin="4dp"
+                    android:layout_marginRight="20dp"
                     android:gravity="center_vertical"
                     >
 
@@ -654,10 +670,9 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Every:"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:text="Every"
+                        android:textSize="15sp"
+                        android:textColor="@color/textColor"
                         android:layout_weight="0.3"/>
 
                     <LinearLayout
@@ -665,11 +680,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_weight="0.7"
-                        android:background="@color/gray_mh">
+                        >
                         <EditText
                             android:id="@+id/txt_crop_harvest_weekly_weeks"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textColor="@color/black"
                             android:text="@string/default_numeric_value"
                             android:background="@drawable/input_shapes"
@@ -679,10 +694,12 @@
                         <TextView
 
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="Weeks"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:background="@drawable/input_shapes_grey_units_right"
+                            android:gravity="center"
                             android:layout_weight="0.2"/>
                     </LinearLayout>
 
@@ -693,7 +710,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="4dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -701,18 +717,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/repeat_until"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textColor"
                         android:layout_weight="0.3"/>
 
                     <EditText
                         android:id="@+id/txt_crop_harvest_repeat_until"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:hint="Select"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:inputType="none"
                         android:textSize="14sp"
                         android:layout_weight="0.7"/>
@@ -724,16 +738,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:background="@color/gray_mh"
-                android:visibility="gone"
+
                 >
                 <EditText
                     android:id="@+id/txt_crop_harvest_days_before"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:hint="Enter.."
                     android:background="@drawable/input_shapes"
                     android:inputType="numberDecimal"
@@ -745,11 +758,12 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="Days Before"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@drawable/input_shapes_grey_units_right"
+                    android:textSize="14sp"
                     android:layout_weight="0.3"/>
 
 

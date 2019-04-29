@@ -1,14 +1,18 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -18,12 +22,14 @@ import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
 public class CropsManagerActivity extends AppCompatActivity {
    EditText dateTxt, varietyTxt, yearTxt,areaTxt,operatorTxt,costTxt,rateTxt;
    EditText estimatedRevenueTxt, estimatedYieldTxt;
+   TextView currencyATxt,currencyBTxt;
    Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp,harvestUnitsSp;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
@@ -57,7 +63,8 @@ public class CropsManagerActivity extends AppCompatActivity {
         plantingMethodSp  = findViewById(R.id.sp_crops_planting_method);
         estimatedRevenueTxt  = findViewById(R.id.txt_crops_estimated_revenue);
         estimatedYieldTxt  = findViewById(R.id.txt_crops_estimated_yield);
-
+        currencyATxt  = findViewById(R.id.crops_currency_a);
+        currencyBTxt  = findViewById(R.id.crops_currency_b);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateTxt,this);
@@ -93,6 +100,8 @@ public class CropsManagerActivity extends AppCompatActivity {
         ArrayList<CropSpinnerItem> seedItems = new ArrayList<>();
         for(CropInventorySeeds x: dbHandler.getCropSeeds(CropDashboardActivity.getPreferences("userId",this))){
             seedItems.add(x);
+
+
         }
         seedsSpinnerAdapter = new CropSpinnerAdapter(seedItems,"Seed",this);
         seedSp.setAdapter(seedsSpinnerAdapter);
@@ -101,6 +110,39 @@ public class CropsManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)growingCycleSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)plantingMethodSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)seasonSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)harvestUnitsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        cropSP.setOnItemSelectedListener(onItemSelectedListener);
+        growingCycleSp.setOnItemSelectedListener(onItemSelectedListener);
+        seasonSp.setOnItemSelectedListener(onItemSelectedListener);
+        harvestUnitsSp.setOnItemSelectedListener(onItemSelectedListener);
+        plantingMethodSp.setOnItemSelectedListener(onItemSelectedListener);
+
+
+        currencyATxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+        currencyBTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         fillViews();
     }
@@ -128,6 +170,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         }
         crop.setRate(Float.parseFloat(rateTxt.getText().toString()));
         crop.setPlantingMethod(plantingMethodSp.getSelectedItem().toString());
+
         dbHandler.insertCrop(crop);
     }
     public void updateCrop(){

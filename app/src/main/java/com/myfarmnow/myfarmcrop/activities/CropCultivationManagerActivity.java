@@ -1,9 +1,11 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -20,6 +23,7 @@ import com.myfarmnow.myfarmcrop.models.CropCultivation;
 public class CropCultivationManagerActivity extends AppCompatActivity {
 
     EditText dateTxt, notesTxt,costTxt, operatorTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    TextView currencyTxt;
     Button btn_save;
     CropCultivation cultivation;
     String cropId;
@@ -53,6 +57,8 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         remindersSp = findViewById(R.id.sp_crop_cultivation_reminders);
         recurrenceSp = findViewById(R.id.sp_crop_cultivation_recurrence);
         weeksTxt = findViewById(R.id.txt_crop_cultivation_weekly_weeks);
+        currencyTxt =findViewById(R.id.txt_crop_cultivate_currency);
+
         repeatUntilTxt = findViewById(R.id.txt_crop_cultivation_repeat_until);
         daysBeforeTxt = findViewById(R.id.txt_crop_cultivation_days_before);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_cultivation_weekly_reminder);
@@ -62,6 +68,18 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
 
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
@@ -81,9 +99,24 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         });
 
         remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
@@ -128,6 +161,34 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)operationTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        operationTxt.setOnItemSelectedListener(onItemSelectedListener);
+
 
     }
 
@@ -156,6 +217,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
             cultivation.setDaysBefore(days);
 
         }
+
 
         dbHandler.insertCropCultivate(cultivation);
 

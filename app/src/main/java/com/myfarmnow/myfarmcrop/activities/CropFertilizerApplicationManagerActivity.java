@@ -1,9 +1,11 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -19,12 +22,14 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
 public class CropFertilizerApplicationManagerActivity extends AppCompatActivity {
 
     EditText dateTxt,  operatorTxt,costTxt, rateTxt,reasonTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    TextView currency;
     Button btn_save;
     CropFertilizerApplication fertilizerApplication;
     String cropId;
@@ -65,6 +70,8 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         remindersSp = findViewById(R.id.sp_crop_fertilizer_application_reminders);
         recurrenceSp = findViewById(R.id.sp_crop_fertilizer_application_recurrence);
         weeksTxt = findViewById(R.id.txt_crop_fertilizer_application_weekly_weeks);
+        currency = findViewById(R.id.txt_crop_fertilizer_application_currency);
+
         repeatUntilTxt = findViewById(R.id.txt_crop_fertilizer_application_repeat_until);
         daysBeforeTxt = findViewById(R.id.txt_crop_fertilizer_application_days_before);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_fertilizer_application_weekly_reminder);
@@ -76,7 +83,6 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         btn_save = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(dateTxt,this);
         CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
-
 
         String liquidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_liquid);
         String solidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_solid);
@@ -91,6 +97,19 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         fertilizerFormSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                String selection = parent.getItemAtPosition(position).toString();
                if(selection.toLowerCase().equals("solid")){
                    methodSp.setEnabled(true);
@@ -121,7 +140,18 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
 
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
                     weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
@@ -142,7 +172,18 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
 
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
@@ -184,6 +225,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)fertilizerFormSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
         for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(CropDashboardActivity.getPreferences("userId",this))){
@@ -191,6 +233,9 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         }
         fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",this);
         fertilizerId.setAdapter(fertilizerAdapter);
+
+        currency.setText(CropSettingsSingleton.getInstance().getCurrency());
+
 
         fillViews();
     }

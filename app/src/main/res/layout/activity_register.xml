@@ -20,29 +20,13 @@
             android:text="Sign Up"
             android:textColor="@color/whiteColor"
             android:textSize="30.0sp" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10.0dip"
-            android:gravity="center"
-            android:padding="5.0dip"
-            android:text="Personal Information"
-            android:textColor="@color/whiteColor"
-            android:textSize="16.0sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="15dp"
-
-            android:background="@color/whiteColor"
-            />
         <ScrollView
 
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="10dp">
+
+
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -50,7 +34,24 @@
                 android:layout_marginLeft="20.0dip"
                 android:layout_marginRight="20.0dip"
                 android:orientation="vertical">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:gravity="center"
+                    android:padding="5.0dip"
+                    android:text="Personal Information"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="16.0sp"
+                    android:textStyle="bold" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/whiteColor"
+                    />
                 <TextView
                     android:id="@+id/text_view_crop_user_error"
                     android:layout_width="match_parent"
