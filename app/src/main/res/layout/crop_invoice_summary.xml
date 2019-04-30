@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/crop_invoice_table_border"
         android:padding="8dp">
 
         <LinearLayout
@@ -35,11 +34,15 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Karlin Farms"/>
+                    android:text="Karlin Farms"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Namungona"/>
+                    android:text="Namungona"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,11 +50,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kampala"/>
+                        android:text="Kampala"
+                        android:textSize="12sp"
+                        android:textColor="@color/textColor"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Uganda"/>
+                        android:text="Uganda"
+                        android:textSize="12sp"
+                        android:textColor="@color/textColor"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -67,15 +74,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="INVOICE"/>
+                            android:text="INVOICE"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
 
                         <TextView
                             android:id="@+id/text_view_crop_invoice_estimate_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="#EST-0001"/>
+                            android:text="#EST-0001"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -85,25 +94,36 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"
                             android:text="Balance Due"/>
                         <TextView
                             android:id="@+id/text_view_crop_invoice_balance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textColor="@color/red"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"
                             android:text="UGX 367283"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BILL TO"
+            android:textColor="@color/textColor"
+           />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/divider_line_color_estimates"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
-            android:layout_marginTop="15dp">
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -111,44 +131,40 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="BILL TO"
-                    android:background="@color/gray_mh"/>
+
 
                 <TextView
                     android:id="@+id/text_view_invoice_summary_customer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tusiime Georgia"
-                    android:layout_marginTop="4dp"/>
+                    android:layout_marginTop="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"/>
 
                 <TextView
                     android:id="@+id/text_view_invoice_summary_customer_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kleiner Parkers Farm" />
+                    android:text="Kleiner Parkers Farm"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"/>
 
                 <TextView
                     android:id="@+id/text_view_invoice_summary_customer_street"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nevada City" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:text="Nevada City"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"/>
+                
+                <TextView
+                    android:id="@+id/text_view_invoice_summary_city_country"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/text_view_invoice_summary_city_country"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Karlin Farms" />
-
-                </LinearLayout>
-
+                    android:text="Karlin Farms"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"/>
             </LinearLayout>
 
             <LinearLayout
@@ -162,13 +178,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Karlin Farms"
-                        android:visibility="invisible" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -178,14 +187,18 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Invoice Date :" />
+                            android:text="Invoice Date :"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
 
                         <TextView
                             android:id="@+id/text_view_crop_invoice_estimate_summary_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="08-03-2019" />
+                            android:text="08-03-2019"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -197,14 +210,18 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/invoice_terms_label" />
+                            android:text="@string/invoice_terms_label"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
 
                         <TextView
                             android:id="@+id/text_view_crop_invoice_estimate_terms"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Net 15" />
+                            android:text="Net 15"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -216,14 +233,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/invoice_due_date" />
+                            android:text="@string/invoice_due_date"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
 
                         <TextView
                             android:id="@+id/text_view_crop_invoice_due_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"
                             android:text="" />
                     </LinearLayout>
 
@@ -236,13 +256,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="P. O #" />
+                            android:text="P. O #"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
 
                         <TextView
                             android:id="@+id/text_view_crop_invoice_order_number"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"
                             android:text="" />
                     </LinearLayout>
                 </LinearLayout>
@@ -259,117 +283,118 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/gray_mh">
+                android:orientation="horizontal">
 
                 <TableRow
                     android:id="@+id/tableRow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
-
+                    android:background="@drawable/crop_invoice_table_border"
                     >
 
                     <LinearLayout
                         android:layout_width="20dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_header_border"
+                        android:background="@drawable/crop_invoice_table_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_count"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_header_border"
+                            android:background="@drawable/crop_invoice_table_border"
                             android:gravity="center"
                             android:text="#"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"
+                            />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="100dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_header_border"
+                        android:background="@drawable/crop_invoice_table_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_date"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_header_border"
+                            android:background="@drawable/crop_invoice_table_border"
                             android:gravity="center"
                             android:text="@string/item_details_label"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                          
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="70dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_header_border"
+                        android:background="@drawable/crop_invoice_table_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_age"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_header_border"
+                            android:background="@drawable/crop_invoice_table_border"
                             android:gravity="center"
                             android:text="@string/quantity"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="65dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_header_border"
+                        android:background="@drawable/crop_invoice_table_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_weight"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_header_border"
+                            android:background="@drawable/crop_invoice_table_border"
                             android:gravity="center"
                             android:text="@string/rate"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="60dp"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_header_border"
+                        android:background="@drawable/crop_invoice_table_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_height"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_header_border"
+                            android:background="@drawable/crop_invoice_table_border"
                             android:gravity="center"
                             android:text="@string/label_tax"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="@dimen/crop_estimate_small_column_size"
                         android:layout_height="28dp"
-                        android:background="@drawable/crop_invoice_table_header_border"
+                        android:background="@drawable/crop_invoice_table_border"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_view_crop_invoice_bcs"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_header_border"
+                            android:background="@drawable/crop_invoice_table_border"
                             android:gravity="center"
                             android:text="@string/amount_label"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor" />
                     </LinearLayout>
 
 
@@ -404,9 +429,9 @@
                     android:layout_marginRight="40dp"
                     android:text="@string/sub_total"
 
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp"
+                    />
 
                 <TextView
 
@@ -432,9 +457,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="65dp"
                     android:text="@string/discount"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp"
+                   />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -471,9 +496,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
                     android:text="@string/shipping_charges"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp"
+                    />
 
 
 
@@ -506,9 +531,9 @@
                     android:layout_marginRight="40dp"
                     android:text="@string/total_ugx"
 
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp"
+                    />
 
                 <TextView
 
@@ -532,9 +557,9 @@
                     android:layout_marginRight="40dp"
                     android:text="@string/payment_made_label"
 
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp"
+                    />
 
                 <TextView
 
@@ -558,9 +583,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="40dp"
                     android:text="Balance Due"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp"
+                    />
 
                 <TextView
 
@@ -580,16 +605,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="12sp"
+            android:textColor="@color/textColor"
             android:text="Notes" />
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="12sp"
+            android:textColor="@color/textColor"
+
             android:text="@string/thank_you_for_your_business" />
 
 

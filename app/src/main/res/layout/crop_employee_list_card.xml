@@ -15,17 +15,17 @@
         android:paddingStart="24dp"
         android:background="@color/white"
         >
-                        <LinearLayout
+        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="5dp"
+
                             android:orientation="horizontal"
                             android:gravity="center_vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_crop_card"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
 
 
                                 android:src="@drawable/contact" />
@@ -151,63 +151,56 @@
 
 
                                 </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_marginTop="8dp">
-                                    <TextView
-                                        android:id="@+id/txt_crop_employee_card_pay_type"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Salary"
-                                        android:textSize="14sp"
-                                        android:textColor="@color/estimates_card_text_color"
-                                        />
 
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:gravity="end"
-                                        android:layout_marginRight="20dp">
-
-                                        <TextView
-                                            android:id="@+id/txt_crop_employee_card_pay_amount"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="USD 300"
-                                            android:textColor="@color/estimates_card_text_color"
-                                            />
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="/"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_marginRight="4dp"/>
-                                        <TextView
-                                            android:id="@+id/txt_crop_employee_card_pay_rate"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Month"
-                                            android:textColor="@color/estimates_card_text_color"
-                                            />
-
-                                    </LinearLayout>
-                                </LinearLayout>
 
                             </LinearLayout>
 
 
                         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:id="@+id/txt_crop_employee_card_pay_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salary"
+                android:textSize="14sp"
+                android:textColor="@color/estimates_card_text_color"
+                />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                >
 
+                <TextView
+                    android:id="@+id/txt_crop_employee_card_pay_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="USD 300"
+                    android:textColor="@color/estimates_card_text_color"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"/>
+                <TextView
+                    android:id="@+id/txt_crop_employee_card_pay_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Month"
+                    android:textColor="@color/estimates_card_text_color"
+                    />
 
-
-
-
-
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
