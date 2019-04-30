@@ -59,6 +59,8 @@
     <color name="divider_line_color_estimates">#CFE8D8</color>
     <color name="estimates_preview_item_divider">#D2D2D2</color>
     <color name="estimates_manager_button">#51925E</color>
+    <color name="estimates_card_currency_color">#51925E</color>
+    <color name="estimates_card_text_color">#899889</color>
 
 
 </resources>

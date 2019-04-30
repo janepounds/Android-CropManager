@@ -9,58 +9,48 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp">
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:paddingStart="24dp">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="8dp"
+
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Payment for Bill :"
-                    android:textColor="#696666"
-                    android:textStyle="bold"
-                    android:textSize="14dp" />
+                    android:text="Bill :"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/txt_crop_payment_bill_card_bill_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BL#001 "
-                    android:textColor="#696666"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="14dp" />
+                    android:textColor="@color/black"
+                    android:layout_marginTop="16dp"
+                    android:textSize="16sp" />
 
                  <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:layout_marginLeft="6dp"
                     >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:layout_marginLeft="5dp"
-                        android:text="UGX"
-                        android:textColor="#696666"
-                        android:textSize="14dp" />
                     <TextView
                         android:id="@+id/txt_crop_payment_bill_card_payment_made"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="300,000"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#696666"
-                        android:textSize="14dp" />
+                        android:text="UGX 300,000"
+                        android:layout_marginTop="16dp"
+                        android:textColor="@color/estimates_card_currency_color"
+                        android:textSize="14sp" />
                     <ImageView
                         android:id="@+id/img_crop_payment_card_more"
                         android:layout_width="25dp"
@@ -74,30 +64,17 @@
 
 
             </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="6dp"
-
-                    android:orientation="horizontal">
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="#D2D3D2" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -105,8 +82,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="08-03-2019"
-                    android:textColor="#696666"
-                    android:textSize="14dp" />
+                    android:textColor="@color/estimates_card_text_color"
+                    android:textSize="14sp" />
 
 
 
@@ -118,18 +95,17 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="2dp"
                     android:text="CASH"
-                    android:textColor="#696666"
+                    android:textColor="@color/estimates_card_text_color"
                     android:textSize="14sp"
-                    android:textStyle="bold"/>
+                   />
 
 
             </LinearLayout>
-        <LinearLayout
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
 
@@ -143,9 +119,9 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="2dp"
                 android:text="Bill Payment"
-                android:textColor="#696666"
+                android:textColor="@color/estimates_card_text_color"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+               />
 
 
         </LinearLayout>

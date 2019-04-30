@@ -2,51 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:background="@color/white"
+
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:paddingStart="24dp"
+        android:background="@color/white"
+        >
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="5dp"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                            <ImageView
+                            <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_crop_card"
                                 android:layout_width="60dp"
                                 android:layout_height="80dp"
                                 android:layout_margin="10dp"
+
                                 android:src="@drawable/generic_user" />
 
                             <LinearLayout
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                >
                                 <LinearLayout
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="8dp">
 
                                     <TextView
                                         android:id="@+id/txt_crop_employee_card_first_name"
-                                        android:textSize="14dp"
-                                        android:textColor="#696666"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/black"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textStyle="bold"
-                                        android:layout_marginRight="10dp"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginRight="8dp"
                                         android:text="Alex" />
 
                                     <TextView
@@ -55,9 +59,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:text="Muhangi"
-                                        android:textStyle="bold"
-                                        android:textColor="#696666"
-                                        android:textSize="14dp" />
+                                        android:layout_marginTop="8dp"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp" />
                                     <LinearLayout
                                         android:orientation="horizontal"
                                         android:layout_width="wrap_content"
@@ -83,18 +87,12 @@
 
 
                                 </LinearLayout>
-
                                 <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="6dp"
-                                        android:layout_marginLeft="6dp"
-                                        android:layout_marginTop="3dp"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginTop="8dp"
                                         android:orientation="horizontal">
 
                                         <TextView
@@ -102,32 +100,28 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Production Manager "
-                                            android:textColor="#696666"
-                                            android:textStyle="bold"
-                                            android:textSize="14dp" />
+                                            android:textColor="@color/estimates_card_text_color"
+                                         
+                                            android:textSize="14sp" />
 
 
 
                                     </LinearLayout>
-
-
-                                </LinearLayout>
-
                                 <LinearLayout
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="8dp">
 
                                     <TextView
                                         android:id="@+id/txt_crop_employee_card_employment_status"
-                                        android:textSize="14dp"
-                                        android:textColor="#696666"
+                                        android:textSize="14sp"
+                                        android:textColor="@color/estimates_card_text_color"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Full-Time"
-                                        android:textStyle="bold"/>
+                                       />
 
 
                                 </LinearLayout>
@@ -135,28 +129,69 @@
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="6dp"
-                                    android:layout_marginTop="3dp">
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="8dp">
+
                                         <ImageView
                                             android:layout_width="25dp"
                                             android:layout_height="25dp"
-                                            android:backgroundTint="@color/black"
-                                            android:src="@drawable/phone_black"
+                                            android:src="@drawable/phone_caller"
                                            />
 
                                     <TextView
                                         android:id="@+id/txt_crop_employee_card_phone"
-                                        android:textSize="14dp"
-                                        android:textColor="#696666"
+                                        android:textSize="14sp"
+                                        android:textColor="@color/estimates_card_text_color"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0704123123"
-                                        android:textStyle="bold"/>
+                                        />
 
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="8dp">
+                                    <TextView
+                                        android:id="@+id/txt_crop_employee_card_pay_type"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Salary"
+                                        android:textColor="@color/estimates_card_text_color"
+                                        />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:gravity="end"
+                                        android:layout_marginRight="20dp">
+
+                                        <TextView
+                                            android:id="@+id/txt_crop_employee_card_pay_amount"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="USD 300"
+                                            android:textColor="@color/estimates_card_text_color"
+                                            />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="/"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_marginRight="4dp"/>
+                                        <TextView
+                                            android:id="@+id/txt_crop_employee_card_pay_rate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Month"
+                                            android:textColor="@color/estimates_card_text_color"
+                                            />
 
                                     </LinearLayout>
                                 </LinearLayout>
@@ -165,47 +200,7 @@
 
 
                         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/txt_crop_employee_card_pay_type"
-            android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Salary"
-            android:textStyle="bold"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_marginRight="20dp">
-
-        <TextView
-            android:id="@+id/txt_crop_employee_card_pay_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="300"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"/>
-        <TextView
-            android:id="@+id/txt_crop_employee_card_pay_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Month"
-            android:textStyle="bold"/>
-
-        </LinearLayout>
-    </LinearLayout>
 
 
 

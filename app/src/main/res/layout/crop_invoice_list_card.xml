@@ -6,47 +6,52 @@
     android:orientation="vertical">
     <LinearLayout
         android:orientation="vertical"
-        android:background="@color/white"
+
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
-
-
-
-
-
-
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        android:layout_margin="16dp"
+        android:padding="24dp"
+        android:background="@color/whiteColor">
 
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp">
+
 
                     <TextView
                         android:id="@+id/txt_crop_invoice_card_customer_name"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#696666"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="Kleiner Parker Firm" />
+                        android:text="Kleiner Parker Firm "
+                        android:layout_marginTop="16dp"
+                        android:textColor="#000000"
+                        android:layout_weight="0.6"
+                        android:textSize="16sp" />
+
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:layout_marginLeft="6dp"
+                        android:layout_weight="0.4"
+
                         >
+                        <TextView
+                            android:id="@+id/txt_crop_product_card_quantitty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="16dp"
+                            android:text="UGX 300,000"
+                            android:textColor="@color/estimates_card_currency_color"
+                            android:textSize="14dp" />
+
 
                         <ImageView
                             android:id="@+id/img_crop_product_card_more"
@@ -62,19 +67,25 @@
 
 
 
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#D2D3D2" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
 
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -82,33 +93,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="INV-001"
-                            android:textColor="#696666"
+                            android:textColor="@color/estimates_card_text_color"
                             android:textSize="14dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:layout_marginLeft="5dp"
-                            android:text="UGX"
-                            android:textColor="@color/red"
-                            android:textSize="14dp" />
-                        <TextView
-                            android:id="@+id/txt_crop_product_card_quantitty"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="300,000"
-                            android:layout_marginRight="10dp"
-                            android:textColor="@color/red"
-                            android:textSize="14dp" />
 
 
                     </LinearLayout>
 
 
-                </LinearLayout>
 
 
 
@@ -116,9 +108,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -127,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:text="08-03-2019"
 
-                            android:textColor="#696666"
+                            android:textColor="@color/estimates_card_text_color"
                             android:textSize="14dp" />
 
 
@@ -138,7 +129,7 @@
                             android:gravity="end"
                             android:layout_marginLeft="5dp"
                             android:text="DRAFT"
-                            android:textColor="#696666"
+                            android:textColor="@color/estimates_card_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold"/>
 
@@ -149,14 +140,15 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Order # :"
-                        android:textColor="#696666"
+                        android:textColor="@color/estimates_card_text_color"
                         android:textStyle="bold"
                         android:textSize="14dp" />
 
@@ -165,7 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0002 "
-                        android:textColor="#696666"
+                        android:textColor="@color/estimates_card_text_color"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:textSize="14dp" />
@@ -180,7 +172,7 @@
 
 
 
-            </LinearLayout>
+
 
 
 

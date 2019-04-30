@@ -4,43 +4,42 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
 
 
 
-            <LinearLayout
+
+        <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                android:paddingStart="24dp"
+                android:background="@color/whiteColor"
+                >
 
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
+                   >
 
                     <TextView
                         android:id="@+id/txt_crop_product_card_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:text="Water Nipples "
-                        android:textColor="#696666"
-                       android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_weight="0.9"
                         android:textSize="16sp" />
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:layout_marginLeft="6dp"
                        >
 
 
@@ -60,148 +59,142 @@
 
 
                 </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="#D2D3D2" />
+
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                    >
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Stock On Hand :"
-                            android:textStyle="bold"
-                            android:textColor="#696666"
-                            android:textSize="14dp" />
+                            android:text="Stock On Hand"
+                            android:layout_weight="0.4"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/txt_crop_product_card_quantity"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
+                            android:layout_weight="0.6"
                             android:text="200"
-                            android:textColor="#696666"
-                            android:textSize="14dp" />
+                            android:textColor="@color/estimates_card_currency_color"
+                            android:textSize="14sp" />
 
 
                     </LinearLayout>
 
 
-                </LinearLayout>
+
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                   >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Rate :"
-                        android:textColor="#696666"
-                        android:textStyle="bold"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="UGX "
-                        android:textColor="#696666"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/txt_crop_product_card_selling_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="200"
-                        android:textColor="#696666"
-
-                        android:textSize="14dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/"
-                        android:textColor="#696666"
-                        android:textStyle="bold"
-                        android:textSize="14dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"/>
-
-                    <TextView
-                        android:id="@+id/txt_crop_product_card_units"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Piece"
-                        android:textColor="#696666"
-                        android:textSize="14dp" />
-
-
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:layout_weight="0.4"
+                        />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="0.6"
+                        >
 
+
+
+
+                        <TextView
+                            android:id="@+id/txt_crop_product_card_selling_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="200"
+                            android:textColor="@color/estimates_card_currency_color"
+
+                            android:textSize="14sp" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tax :"
-                            android:textStyle="bold"
-                            android:textColor="#696666"
-                            android:textSize="14dp" />
+                            android:text="/"
+                            android:textColor="@color/estimates_card_currency_color"
 
-                        <TextView
-                            android:id="@+id/txt_crop_product_card_tax_rate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="20"
-                            android:textColor="#696666"
-                            android:textSize="14dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_marginLeft="5dp"
-                            android:text="%"
-                            android:textColor="#696666"
                             android:textSize="14sp"
-                            android:textStyle="bold"/>
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"/>
+
+                        <TextView
+                            android:id="@+id/txt_crop_product_card_units"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Piece"
+                            android:textColor="@color/estimates_card_currency_color"
+                            android:textSize="14sp" />
+
+
+
 
                     </LinearLayout>
 
+
+
+
+
+
                 </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                    >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Tax :"
+                            android:layout_weight="0.4"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txt_crop_product_card_tax_rate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:text="20 %"
+                            android:textColor="@color/estimates_card_currency_color"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
 
 
 
             </LinearLayout>
 
-
-
-
-    </LinearLayout>
 
 </LinearLayout>

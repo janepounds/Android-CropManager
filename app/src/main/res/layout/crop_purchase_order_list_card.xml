@@ -4,33 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
    android:orientation="vertical">
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:orientation="horizontal">
-
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:paddingStart="24dp"
+            android:orientation="vertical"
+            android:background="@color/whiteColor">
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="3dp">
+                    android:layout_marginBottom="8dp"
+                >
 
                     <TextView
                         android:id="@+id/txt_crop_purchase_order_card_supplier_name"
@@ -38,8 +26,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:text="Kleiner Parkers"
-                        android:textColor="#696666"
-                        android:textSize="14sp" />
+                        android:textColor="@color/estimates_card_currency_color"
+                        android:layout_marginTop="16dp"
+                        android:textSize="16sp" />
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -48,17 +37,6 @@
                         android:layout_marginLeft="6dp"
                         >
 
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:layout_marginLeft="5dp"
-                            android:text="UGX"
-                            android:textColor="#696666"
-                            android:textSize="14dp" />
-
                         <TextView
                             android:id="@+id/txt_crop_purchase_order_card_amount"
                             android:layout_width="wrap_content"
@@ -66,7 +44,8 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
                             android:text="300,000"
-                            android:textColor="#696666"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/estimates_card_currency_color"
                             android:textSize="14dp" />
 
 
@@ -85,96 +64,62 @@
 
 
                 </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="#D2D3D2" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txt_crop_purchase_order_card_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txt_crop_purchase_order_card_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="PO-0001"
-                            android:textColor="#696666"
-                            android:textSize="14dp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:id="@+id/layout_crop_estimate_card_reference_number"
-                            android:orientation="horizontal"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-
-                            android:layout_marginTop="3dp"
-                            >
-
-
-                            <TextView
-                                android:id="@+id/txt_crop_purchase_order_card_delivery_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:text="2019-04-25"
-                                android:textColor="#696666"
-                                android:textSize="14dp" />
-
-
-                        </LinearLayout>
-
-
-
-                        <TextView
-                            android:id="@+id/txt_crop_purchase_order_card_status"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:layout_marginLeft="5dp"
-                            android:text="DRAFT"
-                            android:textColor="#696666"
-                            android:textSize="14sp"
-                            android:textStyle="bold"/>
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
+                        android:text="PO-0001"
+                        android:textColor="@color/estimates_card_currency_color"
+                        android:textSize="14dp" />
 
             </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+
+                    <TextView
+                        android:id="@+id/txt_crop_purchase_order_card_delivery_date"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginRight="10dp"
+                        android:text="2019-04-25"
+                        android:textColor="@color/estimates_card_currency_color"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/txt_crop_purchase_order_card_status"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:layout_marginLeft="5dp"
+                        android:text="DRAFT"
+                        android:textColor="@color/estimates_card_currency_color"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+
+        </LinearLayout>
         </LinearLayout>
 
 
-
-    </LinearLayout>
 </LinearLayout>
