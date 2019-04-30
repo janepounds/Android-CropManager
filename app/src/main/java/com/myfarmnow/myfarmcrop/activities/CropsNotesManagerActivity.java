@@ -68,6 +68,7 @@ public class CropsNotesManagerActivity extends AppCompatActivity {
                     // toCropNotesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropNotesList.putExtra("cropId",cropNote.getParentId());
                     startActivity(toCropNotesList);
+
                 }
             }
         });

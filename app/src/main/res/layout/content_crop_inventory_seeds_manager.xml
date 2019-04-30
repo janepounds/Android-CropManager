@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -32,12 +32,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:layout_weight="0.7"
                         android:text="Purchase Date"
-
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
 
                     <EditText
@@ -48,7 +46,7 @@
                         android:inputType="none"
                         android:hint="Select"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"/>
+                        android:background="@drawable/input_shapes_grey_spinner"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -56,7 +54,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -67,10 +65,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="15sp"
                         android:layout_weight="0.6"
                         android:text="Seed Name "
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
 
                     <EditText
@@ -97,15 +95,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="15sp"
                         android:layout_weight="0.6"
                         android:text="Variety"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_variety"
@@ -121,17 +119,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:layout_weight="0.6"
                         android:text="Seed Type"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/input_shapes_grey_spinner">
                     <Spinner
                         android:id="@+id/sp_crop_seed_type"
                         android:layout_width="match_parent"
@@ -139,23 +140,23 @@
                         android:layout_weight="0.4"
                         android:inputType="text"
                         android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
                         android:entries="@array/seed_inventory_seed_type"
-                        android:textSize="14sp" />
+                        />
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="15sp"
                         android:layout_weight="0.6"
                         android:text="Dressing"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_dressing"
@@ -171,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="25dp"
@@ -185,9 +186,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
                             android:text="@string/quantity"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/textColor"
+                            android:textSize="15sp"
+                             />
 
                         <EditText
                             android:id="@+id/txt_crop_quantity"
@@ -211,25 +212,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/cost"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold"
-                            android:textSize="16sp" />
+                            android:textColor="@color/textColor"
+                            android:textSize="15sp" />
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:background="@color/gray_mh">
+                            >
 
 
                             <TextView
-
+                                android:id="@+id/txt_crop_seeds_currency"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:padding="4dp"
-                                android:labelFor="@+id/txt_crop_spray_rate"
-                                android:text="@string/ugx"
-                                android:gravity="center_vertical"
-                                android:textStyle="bold"
+                               android:text="@string/ugx"
+                                android:textColor="@color/colorPrimary"
+                                android:gravity="center"
+                                android:background="@drawable/input_shapes_grey_units"
+
 
                                 />
                             <EditText
@@ -253,7 +254,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -264,11 +265,10 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:textSize="15sp"
                             android:layout_weight="0.6"
                             android:text="@string/batch"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             />
                         <EditText
                             android:id="@+id/txt_crop_batch_number"
@@ -288,11 +288,10 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp" android:textStyle="bold"
+                            android:textSize="15sp"
                             android:layout_weight="0.6"
                             android:text="Supplier"
-                            android:layout_marginLeft="7dp"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             />
                         <EditText
                             android:id="@+id/txt_crop_supplier"
@@ -319,11 +318,10 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:textSize="15sp"
                             android:layout_weight="0.6"
                             android:text="@string/tgw"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             />
                         <EditText
                             android:id="@+id/txt_crop_tgw"
@@ -344,12 +342,17 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp" android:textStyle="bold"
+                            android:textSize="15sp"
                             android:layout_weight="0.4"
                             android:text="@string/usage_unit"
-                            android:layout_marginLeft="7dp"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:padding="3.4dp">
+
                         <Spinner
                             android:id="@+id/txt_crop_usage_unit"
                             android:layout_width="match_parent"
@@ -357,8 +360,8 @@
                             android:layout_weight="0.6"
                             android:entries="@array/crop_seeds_usage_units"
                             android:hint="Enter"
-                            android:background="@drawable/input_shapes"
-                            android:textSize="14sp" />
+                            />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 

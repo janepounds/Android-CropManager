@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4F4F4"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropInventoryListActivity"
     tools:showIn="@layout/activity_crop_inventory_list">
@@ -16,6 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_shapes_grey_spinner"
+            android:layout_margin="10dp">
     <Spinner
         android:id="@+id/select_inventory_spinner"
         android:layout_width="match_parent"
@@ -24,11 +32,11 @@
         android:entries="@array/cropInventories"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/input_shapes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </Spinner>
+        </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/inventory_recyc_view"

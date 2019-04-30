@@ -30,10 +30,10 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@string/machine_name"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"
                 />
 
             <EditText
@@ -60,9 +60,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/brand"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"
+
                 />
 
             <EditText
@@ -92,10 +93,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_shapes_grey_spinner"
+            >
             <Spinner
                 android:id="@+id/sp_crop_machine_category"
                 android:layout_width="match_parent"
@@ -103,11 +108,10 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:entries="@array/crop_machine_category"
-                android:background="@drawable/input_shapes"
 
                 />
 
-
+        </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -121,10 +125,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/manufacturer"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
-                />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"/>
 
             <EditText
                 android:id="@+id/txt_crop_machine_manufacturer"
@@ -150,9 +153,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/model"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor" />
 
             <EditText
                 android:id="@+id/txt_crop_machine_model"
@@ -180,9 +183,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reg"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"/>
 
             <EditText
                 android:id="@+id/txt_crop_machine_reg"
@@ -214,9 +217,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/quantity"
                 android:layout_weight="0.6"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="16sp" />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor" />
 
             <EditText
                 android:id="@+id/txt_crop_machine_quantity"
@@ -246,9 +249,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date_acquired"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor"
                     android:layout_weight="1"
                     />
 
@@ -281,10 +284,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/purchased_from"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
-                />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"/>
 
             <EditText
                 android:id="@+id/txt_crop_machine_purchased_from"
@@ -312,10 +314,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storage_location"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
-                />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"/>
 
             <EditText
                 android:id="@+id/txt_crop_machine_storage_location"
@@ -341,10 +342,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/purchase_price"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
-                />
+                android:layout_marginBottom="4dp"
+                android:textSize="15sp"
+                android:textColor="@color/textColor"/>
 
             <EditText
                 android:id="@+id/txt_crop_machine_purchase_price"

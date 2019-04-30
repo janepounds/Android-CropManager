@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:layout_height="wrap_content"
+    android:background="#F4F4F4"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_marginBottom="8dp"
@@ -27,9 +28,11 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:background="@color/white"
+                    android:background="@drawable/input_shapes_crops_card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    >
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -45,7 +48,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Death"
-                            android:textColor="#000"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="20dp" />
 
 
@@ -81,7 +84,7 @@
 
                         <TextView
                             android:textSize="14dp"
-                            android:textColor="#696666"
+                            android:textColor="@color/colorPrimary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Current Inventory : "/>
@@ -92,7 +95,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0/0 Straws"
-                            android:textColor="#696666"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="14dp" />
 
                     </LinearLayout>
@@ -116,7 +119,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Batch# : "
-                                android:textColor="#696666"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="14dp" />
 
                             <TextView
@@ -125,7 +128,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0/0 Straws"
-                                android:textColor="#696666"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="14dp" />
 
                         </LinearLayout>

@@ -68,7 +68,7 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
     @Override
     public void onBindViewHolder(@NonNull CropMachineNotesListRecyclerAdapter.MachineNotesViewHolder holder, int position) {
         CropNote machineNotes = cropMachineNotesList.get(position);
-        holder.categoryLayout.setVisibility(View.VISIBLE);
+        holder.categoryTxt.setVisibility(View.VISIBLE);
         holder.notesDateTxt.setText(machineNotes.getDate());
         holder.categoryTxt.setText(machineNotes.getCategory());
 
@@ -83,14 +83,12 @@ public class CropMachineNotesListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
     public class MachineNotesViewHolder extends RecyclerView.ViewHolder{
         TextView categoryTxt,notesDateTxt,notesTxt;
-        LinearLayout categoryLayout;
         ImageView moreButton;
         public MachineNotesViewHolder(View itemView) {
             super(itemView);
             notesDateTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_date);
             categoryTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_category);
             notesTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_notes);
-            categoryLayout = itemView.findViewById(R.id.layout_crop_notes_card_category);
             moreButton = itemView.findViewById(R.id.img_crop_notes_card_more);
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override

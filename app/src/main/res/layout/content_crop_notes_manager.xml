@@ -30,9 +30,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/date"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"
                         android:layout_weight="0.3"/>
 
                     <EditText
@@ -56,17 +55,22 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
+
                 >
                 <TextView
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Category"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp"
                     android:layout_weight="0.3"/>
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_shapes_grey_spinner"
+                >
                 <Spinner
                     android:id="@+id/sp_crop_note_category"
                     android:layout_width="0dp"
@@ -74,11 +78,10 @@
                     android:ems="10"
                     android:hint="Enter.."
                     android:entries="@array/crop_notes_category"
-                    android:background="@drawable/input_shapes"
                     android:layout_weight="0.7"
                     android:textSize="14sp"
                     />
-
+            </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -94,9 +97,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Specify Category"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp"
                     android:layout_weight="0.3"/>
 
                 <EditText
@@ -133,9 +135,8 @@
                     android:layout_height="wrap_content"
 
                     android:text="@string/description"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/txt_crop_note_description"

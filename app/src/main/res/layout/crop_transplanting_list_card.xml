@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/gray">
+    android:background="#F4F4F4">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,12 +17,7 @@
             android:layout_weight="0.9"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:background="@color/black"
-                android:textAlignment="center" />
+
 
             <ImageView
                 android:layout_width="36dp"
@@ -35,7 +30,7 @@
                 android:layout_width="1dp"
                 android:layout_height="230dp"
                 android:layout_marginStart="16dp"
-                android:background="@color/black"
+                android:background="#E7EAE7"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -44,24 +39,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_view_crop_transplanting_card_operation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="8dp"
                 android:text="20-08-2018"
                 android:textSize="18sp"
-                android:textColor="@color/blackText"
+                android:textColor="#A6C0A7"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/black_border"
+                android:background="@drawable/input_shapes_crops_card"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -76,6 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
+                        android:layout_marginStart="28dp"
                         android:text="Transplanting"
                         android:textColor="@color/blackText"
                        android:textSize="18sp" />
@@ -101,21 +99,23 @@
                     </LinearLayout>
                 </LinearLayout>
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="237dp"
                     android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#D2D3D2" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
                         android:text="Total Seedlings : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -124,25 +124,22 @@
                         android:id="@+id/txt_view_crop_transplanting_card_total_seedlings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_weight="1"
                         android:text="100 "
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
                         android:text="Seedlings / ha : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -151,122 +148,109 @@
                         android:id="@+id/txt_view_crop_transplanting_card_seedlings_per_ha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_weight="1"
                         android:text="200"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
                         android:text="Variety Earliness : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txt_view_crop_transplanting_card_variety_earliness"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Medium "
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
                         android:text="Harvest Due Date : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txt_view_crop_transplanting_card_expected_harvesting_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
-
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
                         android:text="Expected Yield : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="1">
                     <TextView
                         android:id="@+id/txt_view_crop_transplanting_card_expected_yield"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:paddingRight="4dp"
                         android:text="15"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                     <TextView
                         android:id="@+id/txt_view_crop_transplanting_card_units"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+
                         android:text="tonnes"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
+</LinearLayout>
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
                         android:text="Total Cost : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -276,9 +260,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
                         android:text="UGX 150,000"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -1,17 +1,20 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -52,6 +55,19 @@ public class CropInventoryListActivity extends AppCompatActivity {
         selectInventorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 if(position !=0){
                     String selection = parent.getSelectedItem().toString();
                     ArrayList<CropInventory> filteredList = new ArrayList<>();

@@ -2,38 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@drawable/input_shapes_crops_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp">
+        android:layout_margin="8dp"
+        android:padding="0dp">
 
 
 
 
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="6dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
+                    android:padding="6dp"
+                    android:layout_marginStart="6dp"
                     >
 
                     <TextView
                         android:id="@+id/txt_crop_income_expense_card_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:text="Irrigation Pump"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="#76A76A"
+
+                        android:textSize="17sp" />
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -61,6 +68,13 @@
 
 
                 </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="#D2D3D2"
+            />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -70,24 +84,24 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="6dp"
+                        android:padding="4dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginTop="3dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Transaction :"
-                            android:textStyle="bold"
-                            android:textColor="#696666"
+                            android:layout_weight="0.7"
+                            android:text="Transaction "
+                            android:textColor="#000"
                             android:textSize="14dp" />
 
                         <TextView
                             android:id="@+id/txt_crop_income_expense_card_transaction"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="0.3"
                             android:layout_marginLeft="5dp"
                             android:text="Income"
                             android:textColor="#696666"
@@ -108,24 +122,24 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="6dp"
+                        android:padding="4dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginTop="3dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Category :"
-                            android:textStyle="bold"
-                            android:textColor="#696666"
+                            android:layout_weight="0.7"
+                            android:text="Category "
+                            android:textColor="#000"
                             android:textSize="14dp" />
 
                         <TextView
                             android:id="@+id/txt_crop_income_expense_card_category"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:layout_weight="0.3"
                             android:layout_marginLeft="5dp"
                             android:text="Machinery"
                             android:textColor="#696666"
@@ -145,24 +159,25 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="6dp"
+                        android:padding="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginTop="3dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Status :"
-                            android:textStyle="bold"
-                            android:textColor="#696666"
+                            android:text="Status "
+                            android:layout_weight="0.7"
+                            android:textColor="#000"
                             android:textSize="14dp" />
 
                         <TextView
                             android:id="@+id/txt_crop_income_expense_card_status"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:layout_weight="0.3"
                             android:layout_marginLeft="5dp"
                             android:text="Pending Payment"
                             android:textColor="#696666"
@@ -174,6 +189,9 @@
 
 
                 </LinearLayout>
+        </LinearLayout>
+
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -186,7 +204,7 @@
                         android:text="Amount :"
                         android:textColor="@color/whiteColor"
                         android:textStyle="bold"
-                        android:textSize="14dp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -216,7 +234,7 @@
                         android:text="Date :"
                         android:textColor="@color/whiteColor"
                         android:textStyle="bold"
-                        android:textSize="14dp"
+                        android:textSize="15sp"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"/>
 

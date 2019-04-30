@@ -20,7 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <LinearLayout
@@ -34,15 +34,15 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="Purchase Date"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_spray_date_of_purchase"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:hint="Select"
                         android:inputType="none"
                         android:textSize="14sp" />
@@ -52,7 +52,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -66,8 +66,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Spray Name"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+                       android:textSize="15sp"
                         />
 
                     <EditText
@@ -93,19 +93,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Spray Type"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
-
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/input_shapes_grey_spinner"
+    android:padding="3.4dp">
                     <Spinner
                         android:id="@+id/sp_crop_spray_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:background="@drawable/input_shapes"
                         android:entries="@array/crop_spray_type"
                         android:hint="Enter.."
-                        android:textSize="14sp" />
-
+                        />
+</LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -113,7 +116,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -127,8 +130,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Quantity"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_spray_qty"
@@ -153,26 +156,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/cost"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@color/gray_mh">
+                       >
 
 
                         <TextView
 
+                            android:id="@+id/txt_crop_spray_currency"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:padding="4dp"
-                            android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="@string/ugx"
                             android:gravity="center_vertical"
-                            android:textStyle="bold"
-
+                            android:background="@drawable/input_shapes_grey_units"
+                            android:textColor="@color/colorPrimary"
                             />
                         <EditText
                             android:id="@+id/txt_crop_spray_cost"
@@ -195,7 +197,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                >
 
@@ -210,8 +212,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Batch #"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                         />
 
                     <EditText
                         android:id="@+id/txt_crop_spray_batch_no"
@@ -235,8 +237,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Supplier"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_spray_supplier"
@@ -256,7 +258,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -268,8 +270,8 @@
                         android:layout_height="wrap_content"
                         android:text="Active Ingredients"
                         android:layout_weight="0.5"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"/>
 
                     <EditText
                         android:id="@+id/txt_crop_spray_active_ingreds"
@@ -287,7 +289,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -299,64 +301,66 @@
                         android:layout_height="wrap_content"
                         android:text="Harvest Interval"
                         android:layout_weight="0.3"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/gray_mh"
+
                     >
                     <EditText
                         android:id="@+id/txt_crop_spray_harvest_interval"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="0.9"
                         android:background="@drawable/input_shapes"
                         android:hint="Enter.."
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="days"
-                        android:textAlignment="center"
-                        android:padding="2dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
                         android:layout_weight="0.1"
-                        android:textStyle="bold" />
+                        android:background="@drawable/input_shapes_grey_units_right" />
 
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Usage Unit"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
-
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:padding="3.4dp">
                     <Spinner
                         android:id="@+id/spinner_crop_spray_unit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes"
-
                         android:entries="@array/crop_spray_usage_units"
-                        android:textSize="14sp"
                         android:layout_marginRight="8dp"
                         />
-
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -368,8 +372,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Expiry Date"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_pray_exp_date"

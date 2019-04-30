@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#F4F4F4"
         >
 
         <LinearLayout
@@ -14,12 +15,6 @@
             android:layout_weight="0.9"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="16dp"
-                android:background="@color/black"
-                android:textAlignment="center" />
 
             <ImageView
                 android:layout_width="36dp"
@@ -32,7 +27,7 @@
                 android:layout_width="1dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="16dp"
-                android:background="@color/black"
+                android:background="#E7EAE7"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -41,44 +36,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="8dp"
+            >
 
-            <TextView
-                android:id="@+id/txt_view_crop_machine_task_card_start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="20-08-2018"
-                android:textColor="@color/blackText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/crop_card_border"
                 android:orientation="vertical"
-                android:padding="4dp">
+                android:paddingTop="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/txt_crop_machine_task_card_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
-                        android:text="Oil Refilling"
-                        android:textColor="@color/blackText"
-                        android:textStyle="bold" />
-
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.2">
+                        <TextView
+                            android:id="@+id/txt_view_crop_machine_task_card_start_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="20-08-2018"
+                            android:textSize="14sp"
+                            android:textColor="@color/blackText" />
+                    <TextView
+                        android:id="@+id/txt_crop_machine_task_card_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="18dp"
+                        android:layout_marginEnd="4dp"
+                        android:text="Oil Refilling"
+                        android:textColor="@color/blackText"
+                         />
+
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:layout_weight="0.1"
+                        android:layout_weight="0.8"
                         android:orientation="horizontal">
 
 
@@ -89,6 +101,14 @@
                             android:src="@drawable/more_options_icon" />
                     </LinearLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="312dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="#D2D3D2" />
 
                 <LinearLayout
 
@@ -100,18 +120,23 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Personnel : "
+                        android:layout_weight="0.7"
+                        android:text="Personnel  "
+                        android:layout_marginStart="14dp"
+                        android:textSize="14sp"
                         android:textColor="@color/blackText"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/txt_view_crop_machine_task_card_personnel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textSize="14sp"
                         android:text="John Mukasa"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,20 +147,23 @@
                     >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:text="Recurring : "
+                        android:layout_weight="0.7"
+                        android:layout_marginStart="14dp"
+                        android:text="Recurring  "
+                        android:textSize="14sp"
                         android:textColor="@color/blackText"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/txt_view_crop_machine_task_card_recurring"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_weight="0.3"
                         android:text="Monthly"
-                        android:textColor="@color/blackText" />
+                        android:textSize="14sp"
+                        android:textColor="#899889" />
                 </LinearLayout>
 
 
@@ -148,39 +176,42 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:text="Status : "
+                        android:layout_weight="0.7"
+                        android:text="Status  "
+                        android:layout_marginStart="14dp"
+                        android:textSize="14sp"
                         android:textColor="@color/blackText"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/txt_view_crop_machine_task_card_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
                         android:text="Complete"
-                        android:textColor="@color/blackText" />
+                        android:textColor="#899889" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:orientation="horizontal"
                     android:gravity="end"
                     android:padding="0dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="30dp"
                     android:id="@+id/layout_crop_scouting_card_show_hide"
-                    android:background="@color/gray"
-                    android:visibility="gone">
+                    android:background="#B6C5B6"
+                    >
 
                     <ImageView
                         android:id="@+id/img_crop_machine_task_card_show_description"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:backgroundTint="@color/black"
-                        android:textColor="@color/darker_gray"
-                        android:gravity="end"
+                        android:textColor="#D2DDD5"
+                        android:layout_marginRight="18.17dp"
+                        android:layout_marginTop="10dp"
                         android:src="@drawable/arrow_drop_down" />
                 </LinearLayout>
                 <LinearLayout
@@ -188,9 +219,8 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/gray"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginLeft="4dp"
+                    android:background="#B6C5B6"
+                    android:padding="4dp"
                     android:visibility="gone">
 
 

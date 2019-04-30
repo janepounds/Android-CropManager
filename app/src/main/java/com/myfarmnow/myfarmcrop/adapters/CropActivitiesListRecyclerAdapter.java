@@ -163,7 +163,39 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             sprayingViewHolder.rateTextView.setText(field.getRate()+"Kg/ha");
             sprayingViewHolder.windDirectionTextView.setText(field.getWindDirection());
             sprayingViewHolder.waterConditionTextView.setText(field.getWaterCondition());
-            sprayingViewHolder.treatmentReasonTextView.setText(field.getTreatmentReason());
+            //sprayingViewHolder.treatmentReasonTextView.setText(field.getTreatmentReason());
+
+
+                TextView treatmentReasonTextView = new TextView(mContext);
+                treatmentReasonTextView.setText("Reason: "+field.getTreatmentReason());
+                View view = new View(mContext);
+                view.setMinimumHeight(20);
+                sprayingViewHolder.expandContentLayout.addView(treatmentReasonTextView);
+
+                sprayingViewHolder.expandContentLayout.addView(view);
+                sprayingViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
+
+
+
+            sprayingViewHolder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    if (sprayingViewHolder.expandContentLayout.getVisibility()==View.VISIBLE){
+                        sprayingViewHolder.expandContentLayout.setVisibility(View.GONE);
+                        sprayingViewHolder.showHideCropsButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
+                        ViewGroup.LayoutParams params = sprayingViewHolder.verticalLineView.getLayoutParams();
+                        params.height = sprayingViewHolder.verticalLineView.getHeight()-sprayingViewHolder.expandContentLayout.getHeight();
+                        sprayingViewHolder.verticalLineView.requestLayout();
+                    }else{
+                        sprayingViewHolder.expandContentLayout.setVisibility(View.VISIBLE);
+                        sprayingViewHolder.showHideCropsButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
+                        ViewGroup.LayoutParams params = sprayingViewHolder.verticalLineView.getLayoutParams();
+                        params.height = sprayingViewHolder.verticalLineView.getHeight()+sprayingViewHolder.expandContentLayout.getHeight();
+                        sprayingViewHolder.verticalLineView.requestLayout();
+                    }
+                }
+            });
 
             final ViewTreeObserver observer = sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver();
             observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -175,7 +207,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int lineHeight = (16+sprayingViewHolder.rateTextView.getHeight())*8+sprayingViewHolder.treatmentReasonTextView.getHeight();
+                    int lineHeight = (18+sprayingViewHolder.rateTextView.getHeight())*9+sprayingViewHolder.treatmentReasonTextView.getHeight();
                     ViewGroup.LayoutParams params = sprayingViewHolder.verticalLineView.getLayoutParams();
                     params.height = lineHeight;
                     sprayingViewHolder.verticalLineView.requestLayout();
@@ -481,8 +513,9 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
     public class SprayingViewHolder extends RecyclerView.ViewHolder{
 
         TextView dateTextView,waterConditionTextView,windDirectionTextView, treatmentReasonTextView, operatorTextView, rateTextView, sprayNameTextView;
-        ImageView moreButton, deleteButton,soilAnalysisButton;
+        ImageView moreButton, showHideCropsButton;
         View verticalLineView;
+        LinearLayout expandContentLayout,hideShowLayout;
         public SprayingViewHolder(View itemView) {
             super(itemView);
             waterConditionTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_water_condition);
@@ -493,6 +526,9 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             operatorTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_operator);
             rateTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_rate);
             sprayNameTextView = itemView.findViewById(R.id.txt_view_crop_spraying_card_spray_name);
+            expandContentLayout = itemView.findViewById(R.id.layout_crop_field_expand);
+            hideShowLayout = itemView.findViewById(R.id.layout_crop_field_card_show_hide);
+            showHideCropsButton = itemView.findViewById(R.id.img_crop_fields_card_show_crops);
 
             moreButton = itemView.findViewById(R.id.img_crop_spraying_card_more);
 

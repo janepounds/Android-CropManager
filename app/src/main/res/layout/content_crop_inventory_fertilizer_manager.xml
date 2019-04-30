@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -31,8 +31,8 @@
                         android:layout_height="wrap_content"
                         android:text="Purchase Date"
                         android:layout_weight="0.7"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_date_of_purchase"
@@ -62,18 +62,20 @@
                         android:layout_height="wrap_content"
                         android:text="Fertilizer Type"
                         android:layout_weight="0.7"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
-
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_shapes_grey_spinner">
                     <Spinner
                         android:id="@+id/spinner_crop_fertilizer_fertilizer_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
                         android:entries="@array/crop_fertilizers_types"
-                        android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
-
+                </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
