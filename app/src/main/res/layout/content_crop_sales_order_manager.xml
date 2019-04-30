@@ -130,7 +130,7 @@
                             android:id="@+id/txt_crop_sales_order_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/input_shapes"
+                            android:background="@drawable/input_shapes_grey_spinner"
                             android:textColor="@color/blackText"
                             android:inputType="none"
                             android:hint="Select"
@@ -621,7 +621,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColor"
                     android:drawableTint="#ffffff"
-                    android:text="Save "
+                    android:text="Save"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />
                 <Button

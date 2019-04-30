@@ -24,11 +24,11 @@
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/img_crop_card"
-                                android:layout_width="60dp"
+                                android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:layout_margin="10dp"
 
-                                android:src="@drawable/generic_user" />
+
+                                android:src="@drawable/contact" />
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -129,7 +129,7 @@
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical"
                                     android:layout_marginStart="8dp"
                                     android:layout_marginTop="8dp">
 
@@ -162,6 +162,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Salary"
+                                        android:textSize="14sp"
                                         android:textColor="@color/estimates_card_text_color"
                                         />
 

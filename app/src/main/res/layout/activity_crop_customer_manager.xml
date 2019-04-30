@@ -30,7 +30,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
+                        
                         android:layout_weight="0.6"
                         android:text="@string/name"
                         android:textColor="@color/colorPrimary"
@@ -63,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textStyle="bold"
+                        
                         android:layout_weight="0.6"
                         android:text="@string/company"
                         android:textColor="@color/colorPrimary"
@@ -86,7 +87,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/tax_reg_no"
                         android:textColor="@color/colorPrimary"
@@ -122,7 +123,7 @@
                         android:text="@string/phone"
                         android:layout_weight="0.6"
                         android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        
                         android:textSize="16sp" />
 
                     <EditText
@@ -155,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/mobile"
                         android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        
                         android:textSize="16sp"
                         android:layout_weight="1"
                         />
@@ -199,7 +200,7 @@
                         android:text="@string/email"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                         />
 
                     <EditText
                         android:id="@+id/txt_crop_customer_email"
@@ -225,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/opening_balance"
                         android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        
                         android:textSize="16sp" />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -241,7 +242,7 @@
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="@string/ugx"
                             android:gravity="center_vertical"
-                            android:textStyle="bold"
+                            
 
                             />
                         <EditText
@@ -278,13 +279,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Billing Address"
-                        android:textStyle="bold"
+                        
                         android:textSize="18sp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/street"
                         android:textColor="@color/colorPrimary"
@@ -307,7 +308,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/city_town"
                         android:textColor="@color/colorPrimary"
@@ -330,20 +331,27 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/country"
                         android:textColor="@color/colorPrimary"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
                     <Spinner
                         android:id="@+id/txt_crop_customer_country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:hint="Enter.."
+                        android:hint="Select"
                         android:entries="@array/country_list"
-                        android:background="@drawable/input_shapes"
+
                         android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -361,7 +369,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/shipping_address"
                         android:textSize="18dp"
-                        android:textStyle="bold"/>
+                        />
                     <CheckBox
                         android:id="@+id/check_crop_customer_shipping_as_billing"
                         android:layout_width="wrap_content"
@@ -371,7 +379,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/as_billing_address"
                         android:textSize="18dp"
-                        android:textStyle="bold"/>
+                        />
 
 
                 </LinearLayout>
@@ -384,7 +392,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/street"
                         android:textColor="@color/colorPrimary"
@@ -407,7 +415,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/city_town"
                         android:textColor="@color/colorPrimary"
@@ -430,11 +438,17 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" android:textStyle="bold"
+                        android:textSize="16sp" 
                         android:layout_weight="0.6"
                         android:text="@string/country"
                         android:textColor="@color/colorPrimary"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
                     <Spinner
                         android:id="@+id/txt_crop_customer_shipping_add_country"
                         android:layout_width="match_parent"
@@ -442,8 +456,8 @@
                         android:layout_weight="0.4"
                         android:hint="Enter.."
                         android:entries="@array/country_list"
-                        android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

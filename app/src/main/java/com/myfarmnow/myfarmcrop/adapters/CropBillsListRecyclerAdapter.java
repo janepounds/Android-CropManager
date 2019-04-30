@@ -72,12 +72,13 @@ public class CropBillsListRecyclerAdapter extends RecyclerView.Adapter<CropBills
         CropBill estimate = cropBillsList.get(position);
         holder.supplierTextView.setText(estimate.getSupplierName());
         holder.dueDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getDueDate()));
-        holder.billDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getBillDate()));
+        holder.billDateTextView.setText(
+                        CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getBillDate()));
 
         holder.statusTextView.setText(estimate.determineStatus(mContext));
         holder.billNumberTextView.setText(estimate.getNumber());
 
-        holder.amountTextView.setText(NumberFormat.getInstance().format(estimate.computeBalance()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" " +NumberFormat.getInstance().format(estimate.computeBalance()));
 
     }
 

@@ -32,20 +32,24 @@
                 android:text="@string/customer_name"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_shapes_grey_spinner"
+                android:orientation="vertical"
+                android:padding="2.4dp">
             <Spinner
                 android:id="@+id/sp_crop_record_payment_received_customer_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:hint="Enter.."
                 android:textSize="14sp"
-                android:background="@drawable/input_shapes"
-
 
                 />
+            </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
@@ -61,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_invoice"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 android:textStyle="bold"
                 android:layout_weight="0.5"
                 android:textSize="16sp" />
@@ -70,7 +74,7 @@
                 android:id="@+id/sp_crop_record_payment_received_select_operation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
 
@@ -93,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/payment_date"
                     android:layout_weight="0.6"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/textColor"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
@@ -102,10 +106,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Enter.."
+                    android:hint="Select"
                     android:inputType="none"
                     android:textSize="14sp"
-                    android:background="@drawable/input_shapes"
+                    android:background="@drawable/input_shapes_grey_spinner"
                     android:layout_weight="0.4"
 
 
@@ -125,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/payment_number"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/textColor"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_weight="1"
@@ -168,7 +172,7 @@
                 android:text="@string/amount"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -219,22 +223,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/payment_mode"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/textColor"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_weight="1"
                     />
 
-                <Spinner
-                    android:id="@+id/txt_crop_record_payment_received_payment_mode"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/sp_crop_income_expense_payment_mode"
-                    android:textSize="14sp"
-                    android:background="@drawable/input_shapes"
-                    android:layout_weight="1"
-
-                    />
+                    android:background="@drawable/input_shapes_grey_spinner"
+                    android:orientation="vertical"
+                    android:padding="2.4dp">
+                    <Spinner
+                        android:id="@+id/txt_crop_record_payment_received_payment_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/sp_crop_income_expense_payment_mode"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -251,7 +260,7 @@
                 android:text="@string/reference_number"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 />
 
 
@@ -285,7 +294,7 @@
                 android:text="@string/notes"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 />
 
 
@@ -319,7 +328,7 @@
                 style="@style/Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/textColor"
                 android:drawableTint="#ffffff"
                 android:text="Save "
                 android:textAllCaps="false"
@@ -329,7 +338,7 @@
                 style="@style/Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/textColor"
                 android:drawableTint="#ffffff"
                 android:text="@string/save_send"
                 android:textAllCaps="false"

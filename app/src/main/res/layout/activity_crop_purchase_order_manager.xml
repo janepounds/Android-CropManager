@@ -52,7 +52,6 @@
                                 android:id="@+id/spinner_crop_purchase_order_supplier"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/input_shapes"
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -162,7 +161,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
-                            android:background="@drawable/input_shapes"
+                            android:background="@drawable/input_shapes_grey_spinner"
                             android:hint="Select"
                             android:inputType="none"
                             android:textSize="12sp" />
@@ -189,7 +188,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
                             android:background="@drawable/input_shapes"
-                            android:hint="Select"
                             android:inputType="none"
                             android:textSize="12sp" />
                     </LinearLayout>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropEstimatesListActivity"
-    tools:showIn="@layout/activity_crop_estimates_list">
+    tools:showIn="@layout/activity_crop_estimates_list"
+    android:background="@color/light_gray">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/crop_estimate_recyc_view"
         android:layout_width="match_parent"

@@ -43,7 +43,7 @@
     <color name="dark_gray_mh">#868686</color>
     <color name="dark_green">#3d8e27</color>
     <color name="darker_gray">#b2b2b2</color>
-    <color name="light_gray">#eeeeee</color>
+    <color name="light_gray">#F4F4F4</color>
     <color name="gray_gray">#D2D2D2</color>
     <color name="gray_spinner">#E5E5E5</color>
     <color name="gray_spinner_border">#F5F5F5</color>

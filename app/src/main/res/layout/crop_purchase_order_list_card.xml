@@ -26,7 +26,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:text="Kleiner Parkers"
-                        android:textColor="@color/estimates_card_currency_color"
+                        android:textColor="@color/black"
                         android:layout_marginTop="16dp"
                         android:textSize="16sp" />
                     <LinearLayout
