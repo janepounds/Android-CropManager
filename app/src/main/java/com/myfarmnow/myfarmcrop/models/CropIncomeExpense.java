@@ -32,6 +32,7 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
 
     float sellingPrice=0;
     String customerSupplier="";
+    float amount=0;
 
 
     @Override
@@ -143,6 +144,17 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
 
     public void setCustomerSupplier(String customerSupplier) {
         this.customerSupplier = customerSupplier;
+    }
+
+    public  float computeAmount(){
+        float amount= ( grossAmount-(grossAmount *(taxes/100)));
+        return  amount;
+
+    }
+    public  float computeUnitPrice(){
+        float unitPrice =( grossAmount / quantity);
+        return  unitPrice;
+
     }
 
 }

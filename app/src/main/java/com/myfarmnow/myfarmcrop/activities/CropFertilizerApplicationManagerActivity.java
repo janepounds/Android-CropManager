@@ -310,6 +310,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             CropDashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());
             CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, fertilizerApplication.getRecurrence());
             CropDashboardActivity.selectSpinnerItemByValue(remindersSp, fertilizerApplication.getReminders());
+            CropDashboardActivity.selectSpinnerItemById(fertilizerId, fertilizerApplication.getFertilizerName());
 
             rateTxt.setText(fertilizerApplication.getRate()+"");
             dateTxt.setText(fertilizerApplication.getDate());

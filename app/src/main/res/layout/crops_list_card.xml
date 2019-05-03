@@ -316,14 +316,7 @@
                                             android:text="2.5"
                                             android:textColor="#899889"
                                             android:textSize="15sp" />
-                                        <TextView
-                                            android:textSize="15sp"
-                                            android:textColor="#899889"
-                                            android:layout_marginStart="5dp"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Kg/ha "
-                                            />
+
                                         </LinearLayout>
 
                                     </LinearLayout>
@@ -333,7 +326,7 @@
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginBottom="6dp"
+                                        android:layout_marginBottom="2dp"
                                         android:layout_marginStart="6dp"
 
                                         android:orientation="horizontal">
@@ -360,7 +353,34 @@
                                     </LinearLayout>
 
 
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="6dp"
+                                    android:layout_marginStart="6dp"
 
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Estimated Revenue "
+                                        android:textColor="#000"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/txt_crop_card_estimated_revenue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="UGX 50,000 /Box"
+                                        android:textColor="#899889"
+                                        android:layout_marginStart="20dp"
+                                        android:textSize="15sp"
+                                        />
+
+
+                                </LinearLayout>
 
 
 

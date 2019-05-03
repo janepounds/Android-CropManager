@@ -22,19 +22,21 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropTransplanting;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropTransplantingManagerActivity extends AppCompatActivity {
 
 
-    EditText operationDateTxt,totalSeedlingTxt,seedlingsPerHaTxt,cycleLengthTxt,expectedYieldTxt,expectedYieldPerHaTxt,operatorTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    EditText operationDateTxt,totalSeedlingTxt,cycleLengthTxt,expectedYieldTxt,operatorTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt,expectedYieldPerHaTxt,seedlingsPerHaTxt;
     Spinner varietyEarlinessSpinner,unitsSpinner,recurrenceSp,remindersSp;
 
-    TextView expectedHarvestingDateTxt;
+    TextView expectedHarvestingDateTxt,expectedYieldPerUnitTxt,seedlingPerUnitTxt,areaTxt;
     LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     CropTransplanting cropTransplanting=null;
     String cropId;
+    Float area;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +48,8 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         if(getIntent().hasExtra("cropId")){
             cropId =getIntent().getStringExtra("cropId");
         }
-        else{
-            finish();
-        }
+
+
         initializeForm();
     }
     public void initializeForm(){
@@ -56,13 +57,15 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         operationDateTxt = findViewById(R.id.txt_crop_transplanting_operation_date);
         totalSeedlingTxt = findViewById(R.id.txt_crop_transplanting_total_seedling);
         seedlingsPerHaTxt = findViewById(R.id.txt_crop_transplanting_seedling_per_ha);
+        seedlingPerUnitTxt = findViewById(R.id.txt_crop_transplanting_seedling_per_unit);
         varietyEarlinessSpinner = findViewById(R.id.sp_crop_transplanting_variety_earliness);
         cycleLengthTxt = findViewById(R.id.txt_crop_transplanting_cycle_length);
         expectedHarvestingDateTxt = findViewById(R.id.txt_crop_transplanting_expected_harvesting_date);
         unitsSpinner = findViewById(R.id.sp_crop_transplanting_units);
         expectedYieldTxt = findViewById(R.id.txt_crop_transplanting_expected_yield);
         expectedYieldPerHaTxt = findViewById(R.id.txt_crop_transplanting_expected_yield_per_ha);
-       operatorTxt = findViewById(R.id.txt_crop_transplanting_operator);
+        expectedYieldPerUnitTxt = findViewById(R.id.txt_crop_transplanting_expected_yield_per_unit);
+        operatorTxt = findViewById(R.id.txt_crop_transplanting_operator);
         totalCostTxt = findViewById(R.id.txt_crop_transplanting_total_cost);
         remindersSp = findViewById(R.id.sp_crop_transplanting_reminders);
         recurrenceSp = findViewById(R.id.sp_crop_transplanting_recurrence);
@@ -176,6 +179,9 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         varietyEarlinessSpinner.setOnItemSelectedListener(onItemSelectedListener);
         unitsSpinner.setOnItemSelectedListener(onItemSelectedListener);
 
+        seedlingPerUnitTxt.setText("Seedling / "+CropSettingsSingleton.getInstance().getAreaUnits());
+        expectedYieldPerUnitTxt.setText("Expected Yield / "+CropSettingsSingleton.getInstance().getAreaUnits());
+
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -208,6 +214,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateHarvestDate();
+
             }
 
             @Override
@@ -217,6 +224,43 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         };
         cycleLengthTxt.addTextChangedListener(watcher);
         operationDateTxt.addTextChangedListener(watcher);
+
+       /* TextWatcher watcher1 = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                calculateExpectedYieldPerUnit();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateExpectedYieldPerUnit();
+            }
+        };
+        expectedYieldTxt.addTextChangedListener(watcher1);
+        TextWatcher watcher2 = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                calculateSeedlingPerUnit();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateSeedlingPerUnit();
+            }
+        };
+        totalSeedlingTxt.addTextChangedListener(watcher2);*/
+
+
         fillViews();
     }
     public void saveTransplanting() {
@@ -265,6 +309,31 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+   /* public float calculateExpectedYieldPerUnit(){
+        try{
+            float expectedYield = Float.parseFloat(expectedYieldTxt.getText().toString());
+            float area = Float.parseFloat(areaTxt.getText().toString());
+            float expectedYieldPerUnit = (expectedYield/area);
+            expectedYieldPerHaTxt.setText(expectedYieldPerUnit+"");
+            return expectedYieldPerUnit;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }
+
+    public float calculateSeedlingPerUnit(){
+        try{
+            float totalSeedling = Float.parseFloat(totalSeedlingTxt.getText().toString());
+            float area = Float.parseFloat(areaTxt.getText().toString());
+            float seedlingPerUnit = (totalSeedling/area);
+            seedlingPerUnitTxt.setText(seedlingPerUnit+"");
+            return seedlingPerUnit;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }*/
     public void updateTransplanting(){
         if(cropTransplanting != null){
             cropTransplanting.setUserId(CropDashboardActivity.getPreferences("userId",this));

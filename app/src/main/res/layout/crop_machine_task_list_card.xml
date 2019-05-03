@@ -122,7 +122,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="Personnel  "
                         android:layout_marginStart="14dp"
                         android:textSize="14sp"
@@ -133,7 +133,7 @@
                         android:id="@+id/txt_view_crop_machine_task_card_personnel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.4"
                         android:textSize="14sp"
                         android:text="John Mukasa"
                         android:textColor="#899889" />
@@ -149,7 +149,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:layout_marginStart="14dp"
                         android:text="Recurring  "
                         android:textSize="14sp"
@@ -160,7 +160,7 @@
                         android:id="@+id/txt_view_crop_machine_task_card_recurring"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.4"
                         android:text="Monthly"
                         android:textSize="14sp"
                         android:textColor="#899889" />
@@ -178,7 +178,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="Status  "
                         android:layout_marginStart="14dp"
                         android:textSize="14sp"
@@ -189,10 +189,63 @@
                         android:id="@+id/txt_view_crop_machine_task_card_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.4"
                         android:text="Complete"
                         android:textColor="#899889" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_crop_service_card_current_hours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="Current Hours"
+                        android:layout_marginStart="14dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/blackText"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_view_crop_machine_task_card_current_hours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="5"
+                        android:textColor="#899889" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_crop_service_card_cost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="Cost  "
+                        android:layout_marginStart="14dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/blackText"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_view_crop_machine_task_card_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text="UGX 58000"
+                        android:textColor="#899889" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"

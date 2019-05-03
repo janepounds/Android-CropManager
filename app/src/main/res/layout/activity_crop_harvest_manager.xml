@@ -284,7 +284,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/price"
+                    android:text="@string/unit_price"
                     android:textColor="@color/textColor"
                     android:layout_marginBottom="4dp"
                     android:layout_marginRight="5dp"
@@ -355,7 +355,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/quantity_sold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/textColor"
             android:layout_marginBottom="4dp"
             android:layout_marginRight="5dp"
             android:textSize="15sp" />
@@ -395,6 +395,7 @@
                     android:text="@string/units"
                     android:gravity="center"
                     android:textSize="14sp"
+                    android:textColor="@color/colorPrimary"
                     android:background="@drawable/input_shapes_grey_units_right"
                     />
 

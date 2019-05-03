@@ -71,12 +71,13 @@ public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<Cro
     @Override
     public void onBindViewHolder(@NonNull final MachineTaskViewHolder holder, int position) {
         CropMachineTask machineTask = cropMachineTaskList.get(position);
-
+        holder.costLayout.setVisibility(View.VISIBLE);
         holder.startDateTxt.setText(machineTask.getStartDate());
         holder.titleTxt.setText(machineTask.getTitle());
         holder.personnelTxt.setText(machineTask.getEmployeeName());
         holder.recurrenceTxt.setText(machineTask.getRecurrence());
         holder.statusTxt.setText(machineTask.getStatus());
+        holder.costTxt.setText(machineTask.getCost()+"");
 
         if(machineTask.getDescription() != null){
 
@@ -117,8 +118,8 @@ public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<Cro
 
     public class MachineTaskViewHolder extends RecyclerView.ViewHolder{
 
-        TextView startDateTxt,titleTxt,personnelTxt,recurrenceTxt,statusTxt;
-        LinearLayout hideShowLayout,expandContentLayout;
+        TextView startDateTxt,titleTxt,personnelTxt,recurrenceTxt,statusTxt,costTxt;
+        LinearLayout hideShowLayout,expandContentLayout,costLayout;
         ImageView moreButton,showHideRemarksButton;
         public MachineTaskViewHolder(View itemView) {
             super(itemView);
@@ -127,6 +128,9 @@ public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<Cro
             personnelTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_personnel);
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_recurring);
             statusTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_status);
+            costTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_cost);
+
+            costLayout = itemView.findViewById(R.id.layout_crop_service_card_cost);
             hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
             expandContentLayout = itemView.findViewById(R.id.layout_crop_machine_task_expand);
             moreButton = itemView.findViewById(R.id.img_crop_machine_task_card_more);

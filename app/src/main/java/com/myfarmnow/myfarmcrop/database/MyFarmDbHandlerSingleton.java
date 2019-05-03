@@ -891,6 +891,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
+
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
         database.execSQL(crop_inventory_spray_insert_query);
@@ -4271,7 +4272,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             spray.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
             spray.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_TYPE)));
             spray.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_QUANTITY)));
-            spray.setCost(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_QUANTITY)));
+            spray.setCost(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_COST)));
             spray.setBatchNumber(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_BATCH_NUMBER)));
             spray.setSupplier(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_SUPPLIER)));
             spray.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_USAGE_UNIT)));
@@ -4359,6 +4360,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setVariety(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_VARIETY)));
             inventorySeeds.setDressing(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DRESSING)));
             inventorySeeds.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_QUANTITY)));
+            inventorySeeds.setCost(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_COST)));
             inventorySeeds.setBatchNumber(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_BATCH_NUMBER)));
             inventorySeeds.setSupplier(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_SUPPLIER)));
             inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
@@ -4407,7 +4409,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_FERTILIZER_BATCH_NUMBER, fertilizer.getBatchNumber());
         contentValues.put(CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER, fertilizer.getSerialNumber());
         contentValues.put(CROP_INVENTORY_FERTILIZER_SUPPLIER, fertilizer.getSupplier());
-        contentValues.put(CROP_INVENTORY_FERTILIZER_USAGE_UNIT, fertilizer.getUsageUnit());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_USAGE_UNIT, fertilizer.getUsageUnits());
         contentValues.put(CROP_INVENTORY_FERTILIZER_COST, fertilizer.getCost());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA, fertilizer.getMacroNutrientsCa());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG, fertilizer.getMacroNutrientsMg());
@@ -4438,7 +4440,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_FERTILIZER_BATCH_NUMBER, fertilizer.getBatchNumber());
         contentValues.put(CROP_INVENTORY_FERTILIZER_SERIAL_NUMBER, fertilizer.getSerialNumber());
         contentValues.put(CROP_INVENTORY_FERTILIZER_SUPPLIER, fertilizer.getSupplier());
-        contentValues.put(CROP_INVENTORY_FERTILIZER_USAGE_UNIT, fertilizer.getUsageUnit());
+        contentValues.put(CROP_INVENTORY_FERTILIZER_USAGE_UNIT, fertilizer.getUsageUnits());
         contentValues.put(CROP_INVENTORY_FERTILIZER_COST, fertilizer.getCost());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA, fertilizer.getMacroNutrientsCa());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG, fertilizer.getMacroNutrientsMg());
@@ -4484,7 +4486,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizer.setpPercentage(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_P_PERCENTAGE)));
             fertilizer.setkPercentage(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_K_PERCENTAGE)));
             fertilizer.setSupplier(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_SUPPLIER)));
-            fertilizer.setUsageUnit(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_USAGE_UNIT)));
+            fertilizer.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_USAGE_UNIT)));
             fertilizer.setCost(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_COST)));
             fertilizer.setMacroNutrientsCa(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_CA)));
             fertilizer.setMacroNutrientsMg(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_MACRO_NUTRIENTS_MG)));
@@ -4577,6 +4579,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
         closeDB();
         Log.d("FIELDS SIZE", array_list.size() + "");
+
         return array_list;
     }
 

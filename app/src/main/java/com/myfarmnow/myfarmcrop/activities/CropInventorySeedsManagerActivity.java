@@ -109,6 +109,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
                     Intent toCropInventoryList = new Intent(CropInventorySeedsManagerActivity.this, CropInventoryListActivity.class);
                     toCropInventoryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropInventoryList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

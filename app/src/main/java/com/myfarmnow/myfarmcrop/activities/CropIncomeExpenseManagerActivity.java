@@ -26,6 +26,7 @@ import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
     EditText  dateTxt, sellingPriceTxt,itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt;
     Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner, customerSupplierSp;
-
+    TextView currencyA,currencyB,currencyC,amountTxt;
     Button saveBtn;
     CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter,customerSupplierAdapter;
     MyFarmDbHandlerSingleton dbHandler;
@@ -67,6 +68,10 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         grossAmountTxt = findViewById(R.id.txt_crop_income_expense_gross_amount);
         unitPriceTxt = findViewById(R.id.txt_crop_income_expense_unit_price);
         taxesTxt = findViewById(R.id.txt_crop_income_expense_taxes);
+        currencyA = findViewById(R.id.txt_crop_income_expense_currencyA);
+        currencyB = findViewById(R.id.txt_crop_income_expense_currencyB);
+        currencyC = findViewById(R.id.txt_crop_income_expense_currencyC);
+
 
         customerSupplierSp = findViewById(R.id.spinner_crop_income_expense_customer_supplier);
 
@@ -85,6 +90,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)paymentModeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)paymentStatusSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)transactionSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter)categorySpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
@@ -92,6 +98,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
                 try{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
                     }
                     else {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
@@ -107,8 +114,17 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
             }
         };
+
         paymentStatusSpinner.setOnItemSelectedListener(onItemSelectedListener);
         paymentModeSpinner.setOnItemSelectedListener(onItemSelectedListener);
+
+
+
+        currencyA.setText(CropSettingsSingleton.getInstance().getCurrency());
+        currencyB.setText(CropSettingsSingleton.getInstance().getCurrency());
+        currencyC.setText(CropSettingsSingleton.getInstance().getCurrency());
+
+
 
 
         CropDashboardActivity.addDatePicker(dateTxt,this);
@@ -124,9 +140,11 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         }
 
         transactionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
+
+               try{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
                     }
@@ -143,7 +161,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
                     categoryAdapter.changeItems(incomeArrayList);
                     customerSupplierAdapter.changeItems(customersList);
                 }
-                else if(selection.toLowerCase().equals("expenses")){
+                else if(selection.toLowerCase().equals("expense")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(expensesArrayList);
                     customerSupplierAdapter.changeItems(suppliersList);
@@ -287,7 +305,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropIncomeExpense != null){
-           // CropDashboardActivity.selectSpinnerItemByValue(categorySpinner, cropIncomeExpense.getCategory());
+          // CropDashboardActivity.selectSpinnerItemByValue(categorySpinner, cropIncomeExpense.getCategory());
             CropDashboardActivity.selectSpinnerItemById(cropSpinner, cropIncomeExpense.getCropId());
             CropDashboardActivity.selectSpinnerItemByValue(paymentModeSpinner, cropIncomeExpense.getPaymentMode());
             CropDashboardActivity.selectSpinnerItemByValue(paymentStatusSpinner, cropIncomeExpense.getPaymentStatus());
@@ -298,7 +316,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
            sellingPriceTxt.setText(cropIncomeExpense.getSellingPrice()+"");
             quantityTxt.setText(cropIncomeExpense.getQuantity()+"");
             grossAmountTxt.setText(cropIncomeExpense.getGrossAmount()+"");
-            unitPriceTxt.setText(cropIncomeExpense.getUnitPrice()+"");
+            unitPriceTxt.setText(cropIncomeExpense.computeUnitPrice()+"");
             taxesTxt.setText(cropIncomeExpense.getTaxes()+"");
             //customerSupplierSp.setText(cropIncomeExpense.getCustomerSupplier());
         }
@@ -312,6 +330,19 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             float unitPrice = (grossAmount/quantity);
             unitPriceTxt.setText(unitPrice+"");
             return unitPrice;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }
+
+    public float computeAmount(){
+        try{
+            float grossAmount = Float.parseFloat(grossAmountTxt.getText().toString());
+            float taxes = Float.parseFloat(taxesTxt.getText().toString());
+            float amount = (grossAmount-(grossAmount*(taxes/100)));
+            amountTxt.setText(amount+"");
+            return amount;
         }catch (Exception e){
 
         }
@@ -353,10 +384,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             message = getString(R.string.category_not_selected);
             categorySpinner.requestFocus();
         }
-        else if(cropSpinner.getSelectedItemPosition()==0){
-            message = getString(R.string.crop_not_selected);
-            cropSpinner.requestFocus();
-        }
+
         else if(paymentModeSpinner.getSelectedItemPosition()==0){
             message = getString(R.string.payment_mode_not_selected);
             paymentModeSpinner.requestFocus();

@@ -24,12 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -38,16 +39,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/date"
                         android:textColor="@color/textColor"
-                        
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
+
 
                     <EditText
                         android:id="@+id/txt_crop_income_expense_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
                         android:hint="Select"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:inputType="none"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -63,21 +64,23 @@
                         android:layout_height="wrap_content"
                         android:text="@string/transaction"
                         android:textColor="@color/textColor"
-                        
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes_grey_spinner"
-                        android:orientation="vertical"
-                        android:padding="2.4dp">
+
+                        android:padding="3.4dp">
+
                     <Spinner
                         android:id="@+id/sp_crop_income_expense_transaction"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/sp_crop_income_expense_transaction"
-                        android:textSize="14sp"
+
+
                         />
                     </LinearLayout>
                 </LinearLayout>
@@ -87,14 +90,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -103,8 +106,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/item"
                         android:textColor="@color/textColor"
-                        
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
+
 
                     <EditText
                         android:id="@+id/txt_crop_income_expense_item"
@@ -130,21 +134,20 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
 
+                        android:textSize="15sp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes_grey_spinner"
-                        android:orientation="vertical"
-                        android:padding="2.4dp">
-                        <Spinner
-                            android:id="@+id/sp_crop_income_expense_category"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            />
+                        android:padding="3.4dp">
+                    <Spinner
+                        android:id="@+id/sp_crop_income_expense_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        />
+
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -152,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <LinearLayout
@@ -168,21 +171,23 @@
                         android:layout_height="wrap_content"
                         android:text="@string/crop"
                         android:textColor="@color/textColor"
-                        
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes_grey_spinner"
-                        android:orientation="vertical"
-                        android:padding="2.4dp">
+
+                        android:padding="3.4dp">
                     <Spinner
                         android:id="@+id/sp_crop_income_expense_crop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+
                         android:textSize="14sp"
+
                         />
                     </LinearLayout>
                 </LinearLayout>
@@ -199,8 +204,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/quantity"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
+
+                        android:textSize="15sp" />
+
 
                     <EditText
                         android:id="@+id/txt_crop_income_expense_quantity"
@@ -219,14 +225,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -235,25 +241,29 @@
                         android:layout_height="wrap_content"
                         android:text="@string/gross_amount"
                         android:textColor="@color/textColor"
-                        
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@color/gray_mh">
+                        >
 
 
                         <TextView
 
+                            android:id="@+id/txt_crop_income_expense_currencyA"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:padding="4dp"
                             android:text="@string/ugx"
-                            android:gravity="center_vertical"
-                            
 
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@drawable/input_shapes_grey_units"
+                            android:textSize="14sp"
                             />
                         <EditText
                             android:id="@+id/txt_crop_income_expense_gross_amount"
@@ -282,8 +292,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/unit_price"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
+
+                        android:textSize="15sp" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -294,13 +305,18 @@
 
                         <TextView
 
+                            android:id="@+id/txt_crop_income_expense_currencyB"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:padding="4dp"
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="@string/ugx"
-                            android:gravity="center_vertical"
-                            
+
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@drawable/input_shapes_grey_units"
+
 
                             />
                         <EditText
@@ -323,29 +339,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp">
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/taxes"
                         android:textColor="@color/textColor"
-                        
-                        android:layout_marginRight="5dp"
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:background="@color/gray_mh"
                         >
 
                         <EditText
@@ -353,6 +368,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/input_shapes"
+                            android:layout_weight="0.2"
                             android:ems="10"
                             android:hint="Enter.."
                             android:inputType="numberDecimal"
@@ -367,8 +383,11 @@
                             android:padding="4dp"
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="%"
-                            
-                            android:textSize="16dp"
+
+                            android:gravity="center"
+                            android:background="@drawable/input_shapes_grey_units_right"
+                            android:textSize="14sp"
+                            android:layout_weight="0.8"
 
                             />
 
@@ -388,25 +407,22 @@
                         android:layout_height="wrap_content"
                         android:text="@string/payment_mode"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes_grey_spinner"
-                        android:orientation="vertical"
-                        android:padding="2.4dp">
+
+                        android:padding="3.4dp">
+
                     <Spinner
                         android:id="@+id/sp_crop_income_expense_payment_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/sp_crop_income_expense_payment_mode"
-                        android:textSize="14sp"
-
                         />
                     </LinearLayout>
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -414,7 +430,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
 
@@ -422,22 +438,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
                     android:text="@string/payment_status"
-                    
-                    android:textSize="14sp"
+
                     android:textColor="@color/textColor"
+                    android:textSize="15sp"
                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_shapes_grey_spinner"
-                    android:orientation="vertical"
-                    android:padding="2.4dp">
+
+                    android:padding="3.4dp">
+
                 <Spinner
                     android:id="@+id/sp_crop_income_expense_payment_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:entries="@array/sp_crop_income_expense_payment_status"
 
                     />
@@ -451,7 +467,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
 
                 <LinearLayout
@@ -464,10 +480,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/selling_price"
                         android:textColor="@color/textColor"
-                        
 
-                        android:layout_marginRight="5dp"
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -485,12 +500,16 @@
 
                             <TextView
 
+                                android:id="@+id/txt_crop_income_expense_currencyC"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:padding="4dp"
                                 android:text="@string/ugx"
                                 android:gravity="center_vertical"
-                                
+
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14sp"
+                                android:background="@drawable/input_shapes_grey_units"
 
                                 />
                             <EditText
@@ -539,22 +558,18 @@
 
                     android:text="@string/customer_supplier"
                     android:textColor="@color/textColor"
-                    
-                    android:textSize="14sp" />
 
+                    android:textSize="15sp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_shapes_grey_spinner"
-                    android:orientation="vertical"
-                    android:padding="2.4dp">
-                    <Spinner
-                        android:id="@+id/spinner_crop_income_expense_customer_supplier"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:hint="Enter.."
-                        />
+                    android:padding="3.4dp">
+                <Spinner
+                    android:id="@+id/spinner_crop_income_expense_customer_supplier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                     />
                 </LinearLayout>
 
             </LinearLayout>

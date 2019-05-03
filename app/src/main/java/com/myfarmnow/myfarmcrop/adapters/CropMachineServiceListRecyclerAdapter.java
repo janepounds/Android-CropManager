@@ -69,11 +69,17 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull final MachineServiceViewHolder holder, int position) {
         CropMachineService machineService = cropMachineServiceList.get(position);
+        holder.costLayout.setVisibility(View.VISIBLE);
+        holder.currentHoursLayout.setVisibility(View.VISIBLE);
+
+        holder.currentHoursTxt.setText(machineService.getCurrentHours()+"");
+        holder.costTxt.setText(machineService.getCost()+"");
 
         holder.serviceDateTxt.setText(machineService.getDate());
         holder.serviceTypeTxt.setText(machineService.getType());
         holder.personnelTxt.setText(machineService.getEmployeeName());
         holder.recurrenceTxt.setText(machineService.getRecurrence());
+
         holder.statusLayout.setVisibility(View.GONE);
 
         if(machineService.getDescription() != null){
@@ -114,8 +120,8 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
 
     public class MachineServiceViewHolder extends RecyclerView.ViewHolder{
 
-        TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt;
-        LinearLayout expandContentLayout,hideShowLayout,statusLayout;
+        TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt,currentHoursTxt,costTxt;
+        LinearLayout expandContentLayout,hideShowLayout,statusLayout,currentHoursLayout,costLayout;
         ImageView showHideRemarksButton,moreButton;
         public MachineServiceViewHolder(View itemView) {
             super(itemView);
@@ -123,8 +129,13 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
             serviceTypeTxt = itemView.findViewById(R.id.txt_crop_machine_task_card_title);
             personnelTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_personnel);
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_recurring);
+            currentHoursTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_current_hours);
+            costTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_cost);
+
             hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
             statusLayout = itemView.findViewById(R.id.layout_crop_task_status);
+            currentHoursLayout = itemView.findViewById(R.id.layout_crop_service_card_current_hours);
+            costLayout = itemView.findViewById(R.id.layout_crop_service_card_cost);
             expandContentLayout = itemView.findViewById(R.id.layout_crop_machine_task_expand);
             moreButton = itemView.findViewById(R.id.img_crop_machine_task_card_more);
             showHideRemarksButton = itemView.findViewById(R.id.img_crop_machine_task_card_show_description);

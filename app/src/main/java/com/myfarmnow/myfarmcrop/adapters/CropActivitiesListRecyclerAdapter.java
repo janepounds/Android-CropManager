@@ -107,9 +107,10 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             CropFertilizerApplication field = (CropFertilizerApplication)cropsList.get(position);
             final FertilizerApplicationViewHolder fertilizerApplicationHolder = (FertilizerApplicationViewHolder)holder;
             fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(field.getCost())); //TODO replace currency
-            fertilizerApplicationHolder.rateTextView.setText(field.getRate()+" Kg/ha");
+            fertilizerApplicationHolder.rateTextView.setText(field.getRate()+" Kg");
             fertilizerApplicationHolder.methodTextView.setText(field.getMethod());
             fertilizerApplicationHolder.operationTextView.setText(field.getFertilizerName());
+            fertilizerApplicationHolder.recurrenceTxt.setText(field.getRecurrence());
 
             final ViewTreeObserver observer = fertilizerApplicationHolder.operationTextView.getViewTreeObserver();
             observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -134,6 +135,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             ((CultivationViewHolder)holder).costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(field.getCost()));
             ((CultivationViewHolder)holder).operationTextView.setText(field.getOperation());
             ((CultivationViewHolder)holder).notesTextView.setText(field.getNotes());
+            ((CultivationViewHolder)holder).recurrenceTxt.setText(field.getRecurrence());
             ((CultivationViewHolder)holder).dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(field.getDate()));
 
             final ViewTreeObserver observer =  ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver();
@@ -160,7 +162,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             CropSpraying field = (CropSpraying)cropsList.get(position);
             sprayingViewHolder.sprayNameTextView.setText(field.getSprayName());
             sprayingViewHolder.operatorTextView.setText(field.getOperator());
-            sprayingViewHolder.rateTextView.setText(field.getRate()+"Kg/ha");
+            sprayingViewHolder.rateTextView.setText(field.getRate()+" Kg");
             sprayingViewHolder.windDirectionTextView.setText(field.getWindDirection());
             sprayingViewHolder.waterConditionTextView.setText(field.getWaterCondition());
             //sprayingViewHolder.treatmentReasonTextView.setText(field.getTreatmentReason());
@@ -304,8 +306,8 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             });
 
 
-
-        } else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_IRRIGATION){
+        }
+        else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_IRRIGATION){
             final IrrigationViewHolder irrigationViewHolder = (IrrigationViewHolder)holder;
             CropIrrigation irrigation = (CropIrrigation)cropsList.get(position);
             irrigationViewHolder.operationDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(irrigation.getOperationDate()));
@@ -336,6 +338,60 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             harvestViewHolder.statusTxt.setText(harvest.getStatus());
             harvestViewHolder.costTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(harvest.getCost()));
             harvestViewHolder.incomeGeneratedTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(harvest.computeIncomeGenerated()));
+
+            if(harvest.getStatus().toLowerCase().equals("sold")) {
+
+                TextView dateSoldTxt = new TextView(mContext);
+                dateSoldTxt.setText("Date Sold:   "+harvest.getDateSold());
+                TextView customerTxt = new TextView(mContext);
+                customerTxt.setText("Customer:   "+harvest.getCustomer());
+                TextView quantitySoldTxt = new TextView(mContext);
+                quantitySoldTxt.setText("Quantity Sold:   "+harvest.getQuantitySold()+"");
+                View view = new View(mContext);
+                view.setMinimumHeight(20);
+                harvestViewHolder.expandContentLayout.addView(dateSoldTxt);
+                harvestViewHolder.expandContentLayout.addView(customerTxt);
+                harvestViewHolder.expandContentLayout.addView(quantitySoldTxt);
+
+
+                harvestViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
+            }
+            else if(harvest.getStatus().toLowerCase().equals("stored")){
+                harvestViewHolder.incomeGeneratedLayout.setVisibility(View.GONE);
+
+                TextView storageDateTxt = new TextView(mContext);
+                storageDateTxt.setText("Storage Date:   " +harvest.getStorageDate());
+                TextView quantityStoredTxt = new TextView(mContext);
+                quantityStoredTxt.setText("Quantity Stored:   "+harvest.getQuantityStored()+"");
+
+                View view = new View(mContext);
+                view.setMinimumHeight(20);
+                harvestViewHolder.expandContentLayout.addView(storageDateTxt);
+                harvestViewHolder.expandContentLayout.addView(quantityStoredTxt);
+
+
+                harvestViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
+            }
+            else{
+
+            }
+
+
+            harvestViewHolder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    if (harvestViewHolder.expandContentLayout.getVisibility()==View.VISIBLE){
+                        harvestViewHolder.expandContentLayout.setVisibility(View.GONE);
+                        harvestViewHolder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
+
+                    }else{
+                        harvestViewHolder.expandContentLayout.setVisibility(View.VISIBLE);
+                        harvestViewHolder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
+
+                    }
+                }
+            });
 
 
         }
@@ -375,7 +431,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
     public class FertilizerApplicationViewHolder extends RecyclerView.ViewHolder{
 
-        TextView dateTextView, operationTextView, methodTextView, costTextView, rateTextView;
+        TextView dateTextView, operationTextView, methodTextView, costTextView, rateTextView,recurrenceTxt;
         ImageView editButton, moreButton;
         View verticalLineView;
         public FertilizerApplicationViewHolder(View itemView) {
@@ -384,6 +440,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             methodTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_method);
             dateTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_date);
             verticalLineView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_line);
+            recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_recurrence);
 
             costTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_cost);
             rateTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_rate);
@@ -442,7 +499,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
     public class CultivationViewHolder extends RecyclerView.ViewHolder{
 
-        TextView dateTextView, notesTextView, operationTextView, methodTextView, operatorTextView, costTextView;
+        TextView dateTextView, notesTextView, operationTextView, methodTextView, operatorTextView, costTextView,recurrenceTxt;
         ImageView editButton, deleteButton, moreButton;
         View verticalLineView;
         public CultivationViewHolder(View itemView) {
@@ -451,6 +508,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             operationTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_operation);
             dateTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_date);
             verticalLineView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_line);
+            recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_cultivation_card_recurrence);
 
             operatorTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_operator);
             costTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_cost);
@@ -795,7 +853,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
     public class HarvestViewHolder extends RecyclerView.ViewHolder{
         TextView harvestDateTxt,harvestMethodTxt,quantityTxt,statusTxt,costTxt,unitsTxt, incomeGeneratedTxt;
-        LinearLayout hideShowLayout,expandContentLayout;
+        LinearLayout hideShowLayout,expandContentLayout, incomeGeneratedLayout;
         ImageView moreButton,showHideRemarksButton;
 
         public HarvestViewHolder(View itemView) {
@@ -807,6 +865,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             unitsTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_units);
             costTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_cost);
             incomeGeneratedTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_income_generated);
+            incomeGeneratedLayout = itemView.findViewById(R.id.layout_crop_harvest_card_income_generated);
 
             hideShowLayout = itemView.findViewById(R.id.layout_crop_harvest_card_show_hide);
             expandContentLayout = itemView.findViewById(R.id.layout_crop_harvest_expand);

@@ -74,7 +74,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
         holder.transactionTextView.setText(incomeExpense.getTransaction());
         holder.categoryTextView.setText(incomeExpense.getCategory());
         holder.statusTextView.setText(incomeExpense.getPaymentStatus());
-        holder.amountTextView.setText(NumberFormat.getInstance().format(incomeExpense.getGrossAmount()));
+        holder.amountTextView.setText(NumberFormat.getInstance().format(incomeExpense.computeAmount()));
         holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(incomeExpense.getDate()));
 
     }
