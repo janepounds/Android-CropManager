@@ -68,18 +68,17 @@
                         android:textColor="@color/textColor"
                         android:textSize="15sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes_grey_spinner">
 
-                    <Spinner
+
+                    <AutoCompleteTextView
                         android:id="@+id/sp_crop_service_personnel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:background="@drawable/input_shapes"
+                        android:hint="Enter ..."
                         />
-                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

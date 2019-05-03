@@ -164,19 +164,16 @@
                         android:text="@string/personnel"
                         android:textColor="@color/textColor"
                         android:textSize="15sp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes_grey_spinner"
-                        android:padding="3.4dp">
-                    <Spinner
+
+                    <AutoCompleteTextView
                         android:id="@+id/sp_crop_task_personnel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:background="@drawable/input_shapes"
 
                         />
-                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout

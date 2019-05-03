@@ -158,20 +158,11 @@
                         android:layout_marginBottom="4dp"
                         android:textSize="15sp"
                         android:textColor="@color/textColor" />
-
-
-                    <LinearLayout
-                        android:background="@drawable/input_shapes_grey_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="3.4dp">
-
-                    <Spinner
+                    <AutoCompleteTextView
                         android:id="@+id/sp_crop_harvest_operator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout

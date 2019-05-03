@@ -1776,6 +1776,27 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
+
+        res = db.rawQuery("select * from " + CROP_MACHINE_SERVICE_TABLE_NAME + " where " + CROP_MACHINE_SERVICE_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DATE)),
+                    context.getString(R.string.graph_category_machine_service),
+                    res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
+        res = db.rawQuery("select * from " + CROP_MACHINE_TASK_TABLE_NAME + " where " + CROP_MACHINE_TASK_START_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)),
+                    context.getString(R.string.graph_category_machine_task),
+                    res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_COST)));
+            expensesList.add(expenseRecord);
+            res.moveToNext();
+        }
         closeDB();
         return expensesList;
 
@@ -1886,6 +1907,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
+
 
 
         closeDB();

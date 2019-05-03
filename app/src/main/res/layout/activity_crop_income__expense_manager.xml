@@ -560,17 +560,16 @@
                     android:textColor="@color/textColor"
 
                     android:textSize="15sp" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/input_shapes_grey_spinner"
-                    android:padding="3.4dp">
-                <Spinner
+
+                <AutoCompleteTextView
                     android:id="@+id/spinner_crop_income_expense_customer_supplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:hint="Enter.."
+                    android:background="@drawable/input_shapes"
                      />
-                </LinearLayout>
+
 
             </LinearLayout>
 

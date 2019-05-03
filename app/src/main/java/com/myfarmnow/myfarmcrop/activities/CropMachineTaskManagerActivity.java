@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
+import com.myfarmnow.myfarmcrop.models.CropContact;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropMachineTask;
@@ -34,10 +36,11 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
     CropMachineTask cropMachineTask=null;
     EditText startDateTxt,endDateTxt, titleTxt, descriptionTxt,costTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     TextView currencyTxt;
-    Spinner  personnelSp,statusSp, recurrenceSp, remindersSp;
+    Spinner  statusSp, recurrenceSp, remindersSp;
+    AutoCompleteTextView personnelSp;
     Button saveBtn;
     LinearLayout weeklyRecurrenceLayout, daysBeforeLayout;
-    CropSpinnerAdapter  employeesSpinnerAdapter;
+    ArrayAdapter<String>   employeesSpinnerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
     String machineId;
 
@@ -207,11 +210,15 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         });
 
 
-        ArrayList<CropSpinnerItem> employeesItems = new ArrayList<>();
+        ArrayList<String> employeesItems = new ArrayList<>();
         for(CropEmployee x: dbHandler.getCropEmployee(CropDashboardActivity.getPreferences("userId",this))){
-            employeesItems.add(x);
+            employeesItems.add(x.getFullName());
         }
-        employeesSpinnerAdapter = new CropSpinnerAdapter(employeesItems,"Employees",this);
+        for(CropContact x: dbHandler.getCropContacts(CropDashboardActivity.getPreferences("userId",this))){
+            employeesItems.add(x.getName());
+        }
+        employeesSpinnerAdapter  = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, employeesItems);;
         personnelSp.setAdapter(employeesSpinnerAdapter);
 
 
@@ -228,7 +235,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         cropMachineTask.setStartDate(startDateTxt.getText().toString());
         cropMachineTask.setEndDate(startDateTxt.getText().toString());
         cropMachineTask.setCost(Float.parseFloat(costTxt.getText().toString()));
-        cropMachineTask.setEmployeeName(((CropSpinnerItem)personnelSp.getSelectedItem()).toString());
+        cropMachineTask.setEmployeeName(personnelSp.getText().toString());
         cropMachineTask.setStatus(statusSp.getSelectedItem().toString());
         cropMachineTask.setDescription(descriptionTxt.getText().toString());
         cropMachineTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
@@ -262,7 +269,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
             cropMachineTask.setStartDate(startDateTxt.getText().toString());
             cropMachineTask.setEndDate(startDateTxt.getText().toString());
             cropMachineTask.setCost(Float.parseFloat(costTxt.getText().toString()));
-            cropMachineTask.setEmployeeName(((CropSpinnerItem)personnelSp.getSelectedItem()).toString());
+            cropMachineTask.setEmployeeName(personnelSp.getText().toString());
             cropMachineTask.setStatus(statusSp.getSelectedItem().toString());
             cropMachineTask.setDescription(descriptionTxt.getText().toString());
             cropMachineTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
@@ -277,13 +284,10 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
 
     public void fillViews(){
         if(cropMachineTask != null){
-
-
-            CropDashboardActivity.selectSpinnerItemById(personnelSp, cropMachineTask.getEmployeeName());
             CropDashboardActivity.selectSpinnerItemByValue(statusSp, cropMachineTask.getStatus());
             CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropMachineTask.getRecurrence());
             CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropMachineTask.getReminders());
-
+            personnelSp.setText(cropMachineTask.getEmployeeName());
             costTxt.setText(cropMachineTask.getCost()+"");
             startDateTxt.setText(cropMachineTask.getStartDate());
             endDateTxt.setText(cropMachineTask.getEndDate());
@@ -315,7 +319,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
             descriptionTxt.requestFocus();
         }
 
-        else if(personnelSp.getSelectedItemPosition()==0){
+        else if(personnelSp.getText().toString().isEmpty()){
             message = getString(R.string.personnel_not_selected);
             personnelSp.requestFocus();
         }

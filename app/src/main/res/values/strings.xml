@@ -1649,7 +1649,8 @@
     <string name="service_date">Service Date</string>
     <string name="total_seeds">Total Seeds</string>
     <string name="amount_used">Amount Used</string>
-
+    <string name="graph_category_machine_service">Machine Service</string>
+    <string name="graph_category_machine_task">Machine task</string>
 
 
     <string-array name="dateFormatsArray">

@@ -108,6 +108,11 @@ public class CropEmployeesListRecyclerAdapter extends RecyclerView.Adapter<CropE
             payRateTextView = itemView.findViewById(R.id.txt_crop_employee_card_pay_amount);
             moreButton = itemView.findViewById(R.id.img_crop_employee_card_more);
 
+            /*Uri number = Uri.parse("tel:5551234");
+                Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+
+                */
+
             moreButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {

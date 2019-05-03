@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropContact;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropHarvest;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -37,11 +39,12 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,
             quantitySoldTxt,storageDateTxt,quantityStoredTxt,costTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currencyTxt;
-    Spinner  harvestUnitsSpinner,operatorSpinner,statusSpinner,recurrenceSp,remindersSp;
+    Spinner  harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
+    AutoCompleteTextView operatorSpinner;
     LinearLayout harvestSoldLayout,harvestStoredLayout,weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
-    CropSpinnerAdapter employeesSpinnerAdapter;
+    ArrayAdapter<String>  employeesSpinnerAdapter;
 
 
     @Override
@@ -230,11 +233,15 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
 
 
-        ArrayList<CropSpinnerItem> employeesItems = new ArrayList<>();
+        ArrayList<String> employeesItems = new ArrayList<>();
         for(CropEmployee x: dbHandler.getCropEmployee(CropDashboardActivity.getPreferences("userId",this))){
-            employeesItems.add(x);
+            employeesItems.add(x.getFullName());
         }
-        employeesSpinnerAdapter = new CropSpinnerAdapter(employeesItems,"Employee",this);
+        for(CropContact x: dbHandler.getCropContacts(CropDashboardActivity.getPreferences("userId",this))){
+            employeesItems.add(x.getName());
+        }
+        employeesSpinnerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, employeesItems);;
         operatorSpinner.setAdapter(employeesSpinnerAdapter);
 
         ((ArrayAdapter)harvestUnitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -364,9 +371,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         cropHarvest.setMethod(harvestMethodTxt.getText().toString());
         cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
         cropHarvest.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
-        if(operatorSpinner.getSelectedItemPosition()!=0) {
-            cropHarvest.setOperator(((CropEmployee) operatorSpinner.getSelectedItem()).getEmployeeId());
-        }
+        cropHarvest.setOperator(operatorSpinner.getText().toString());
         cropHarvest.setStatus(statusSpinner.getSelectedItem().toString());
         cropHarvest.setDateSold(dateSoldTxt.getText().toString());
         cropHarvest.setCustomer(customerTxt.getText().toString());
@@ -406,9 +411,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             cropHarvest.setMethod(harvestMethodTxt.getText().toString());
             cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
             cropHarvest.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
-            if(operatorSpinner.getSelectedItemPosition()!=0) {
-                cropHarvest.setOperator(((CropEmployee) operatorSpinner.getSelectedItem()).getEmployeeId());
-            }
+            cropHarvest.setOperator(operatorSpinner.getText().toString());
             cropHarvest.setStatus(statusSpinner.getSelectedItem().toString());
             cropHarvest.setDateSold(dateSoldTxt.getText().toString());
             cropHarvest.setCustomer(customerTxt.getText().toString());
@@ -444,12 +447,11 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropHarvest != null){
             CropDashboardActivity.selectSpinnerItemByValue(harvestUnitsSpinner, cropHarvest.getUnits());
-            CropDashboardActivity.selectSpinnerItemById(operatorSpinner, cropHarvest.getOperator());
             CropDashboardActivity.selectSpinnerItemByValue(statusSpinner, cropHarvest.getStatus());
             CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropHarvest.getRecurrence());
             CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropHarvest.getReminders());
-
             harvestDateTxt.setText(cropHarvest.getDate());
+            operatorSpinner.setText(cropHarvest.getEmployeeId());
             harvestMethodTxt.setText(cropHarvest.getMethod());
             quantityTxt.setText(cropHarvest.getQuantity()+"");
             dateSoldTxt.setText(cropHarvest.getDateSold());

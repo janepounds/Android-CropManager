@@ -246,7 +246,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
             Uri contentUri = Uri.fromFile(file);
             Intent mailIntent = new Intent(Intent.ACTION_SEND);
             mailIntent.setType("message/rfc822");
-            mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"robein@ymail.com"});
+            mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{cropCustomer.getEmail()});
 
             mailIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice : "+cropInvoice.getOrderNumber());
@@ -258,11 +258,12 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 24) {
 
                     Uri apkURI = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", file);
-                    mailIntent.setDataAndType(apkURI, "message/rfc822");
+                    mailIntent.setData(apkURI) ;
                     mailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
                 } else {
-                    mailIntent.setDataAndType(contentUri, "application/pdf");
+                    mailIntent.setData(contentUri);
+                   // mailIntent.setDataAndType(contentUri, "application/pdf");
                 }
                 startActivity(Intent.createChooser(mailIntent, "Send email.."));
             } catch (android.content.ActivityNotFoundException ex) {
@@ -275,7 +276,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), cropInvoice.getNumber() + ".pdf");
         if (file.exists())
         {
-            Log.d("YEY","ENTERED");
+
             Intent intent = new Intent(Intent.ACTION_VIEW);
             //Log.e("pathOpen", file.getPath());
 

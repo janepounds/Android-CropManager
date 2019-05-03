@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,17 +36,19 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     CropIncomeExpense cropIncomeExpense =null;
 
     EditText  dateTxt, sellingPriceTxt,itemTxt,quantityTxt,grossAmountTxt,unitPriceTxt,taxesTxt;
-    Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner, customerSupplierSp;
+    Spinner categorySpinner, cropSpinner, paymentModeSpinner, paymentStatusSpinner, transactionSpinner;
     TextView currencyA,currencyB,currencyC,amountTxt;
+    AutoCompleteTextView customerSupplierSp;
     Button saveBtn;
-    CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter,customerSupplierAdapter;
+    CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter;
+    ArrayAdapter<String>  customerSupplierAdapter;
     MyFarmDbHandlerSingleton dbHandler;
 
     ArrayList<CropSpinnerItem> incomeArrayList= new ArrayList<>();
     ArrayList<CropSpinnerItem> expensesArrayList= new ArrayList<>();
 
-    ArrayList<CropSpinnerItem>  customersList = new ArrayList<>();
-    ArrayList<CropSpinnerItem>  suppliersList = new ArrayList<>();
+    ArrayList<String>  customersList = new ArrayList<>();
+    ArrayList<String>  suppliersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,19 +159,27 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
                 }
                 String selection = parent.getItemAtPosition(position).toString();
+
                 if(selection.toLowerCase().equals("income")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(incomeArrayList);
-                    customerSupplierAdapter.changeItems(customersList);
+                    customerSupplierSp.setAdapter( new ArrayAdapter<String>(CropIncomeExpenseManagerActivity.this,
+                            android.R.layout.simple_dropdown_item_1line, customersList));;
+
+                    customerSupplierSp.setEnabled(true);
                 }
                 else if(selection.toLowerCase().equals("expense")){
                     categorySpinner.setEnabled(true);
                     categoryAdapter.changeItems(expensesArrayList);
-                    customerSupplierAdapter.changeItems(suppliersList);
+                    customerSupplierSp.setAdapter( new ArrayAdapter<String>(CropIncomeExpenseManagerActivity.this,
+                            android.R.layout.simple_dropdown_item_1line, suppliersList));
+                    customerSupplierAdapter.addAll(suppliersList);
+                    customerSupplierSp.setEnabled(true);
 
                 }
                 else{
                     categorySpinner.setEnabled(false);
+                   // customerSupplierSp.setEnabled(false);
                 }
 
             }
@@ -241,15 +252,19 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
         customersList = new ArrayList<>();
         for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
-            customersList.add(x);
+            customersList.add(x.getName());
         }
         suppliersList = new ArrayList<>();
         for(CropSupplier x: dbHandler.getCropSuppliers(CropDashboardActivity.getPreferences("userId",this))){
-            suppliersList.add(x);
+            suppliersList.add(x.getName());
         }
-        customerSupplierAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Customer/Supplier",this);
+        customerSupplierAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, customersList);
+
+        Log.d("Supplier",suppliersList.toString());
 
         customerSupplierSp.setAdapter(customerSupplierAdapter);
+        customerSupplierSp.setEnabled(false);
 
         fillViews();
 
@@ -268,9 +283,8 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
         cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
 
-        if(customerSupplierSp.getSelectedItemPosition()!=0){
-            cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
-        }
+        cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getText().toString());
+
 
         cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
         cropIncomeExpense.setItem(itemTxt.getText().toString());
@@ -291,10 +305,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             cropIncomeExpense.setGrossAmount(Integer.parseInt(grossAmountTxt.getText().toString()));
             cropIncomeExpense.setPaymentMode(paymentModeSpinner.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(paymentStatusSpinner.getSelectedItem().toString());
-            if(customerSupplierSp.getSelectedItemPosition()!=0){
-                cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getSelectedItem().toString());
-            }
-
+            cropIncomeExpense.setCustomerSupplier(customerSupplierSp.getText().toString());
             cropIncomeExpense.setSellingPrice(Float.parseFloat(sellingPriceTxt.getText().toString()));
 
             cropIncomeExpense.setItem(itemTxt.getText().toString());
@@ -317,6 +328,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             quantityTxt.setText(cropIncomeExpense.getQuantity()+"");
             grossAmountTxt.setText(cropIncomeExpense.getGrossAmount()+"");
             unitPriceTxt.setText(cropIncomeExpense.computeUnitPrice()+"");
+            customerSupplierSp.setText(cropIncomeExpense.getCustomerSupplier());
             taxesTxt.setText(cropIncomeExpense.getTaxes()+"");
             //customerSupplierSp.setText(cropIncomeExpense.getCustomerSupplier());
         }
