@@ -617,9 +617,9 @@
     </string-array>
     <string-array name="sp_crop_income_expense_payment_status">
         <item>Select Status</item>
-        <item>Pending</item>
-        <item>Partial</item>
-        <item>Full</item>
+        <item>Full Payment</item>
+        <item>Partial Payment</item>
+        <item>Pending Payment</item>
     </string-array>
     <string-array name="sp_crop_task_type">
         <item>Select Type</item>
@@ -657,7 +657,8 @@
         <item>Select</item>
         <item>First Season</item>
         <item>Second Season</item>
-    </string-array>
+    </string-array>.....
+
     <string-array name="sp_crop_transplanting_variety_earliness">
         <item>Select</item>
         <item>Medium</item>
@@ -1640,6 +1641,9 @@
     <string name="label_preview_invoice">Preview Invoice</string>
     <string name="infested_card">Infested :</string>
     <string name="no">No</string>
+    <string name="service_date">Service Date</string>
+    <string name="total_seeds">Total Seeds</string>
+    <string name="amount_used">Amount Used</string>
 
 
     <string-array name="dateFormatsArray">

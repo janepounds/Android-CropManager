@@ -1,25 +1,31 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
-//TO DO  FIX BUG- USAGE UNITS NOT SHOWING
+//TODO  FIX BUG- USAGE UNITS NOT SHOWING
     EditText dateTxt,nameTxt,batchNumberTxt,npkNTxt, npkPTxt, npkKTxt,qtyTxt,serialNumberTxt,supplierTxt,costTxt;
     EditText macrosCa,macrosMg,macrosS,microsB,microsMn,microsCl,microsMo,microsCu,microsZn,microsFe,microsNa;
+    TextView currencyTxt;
     Spinner typeSp,usageUnitSp;
     Button saveBtn;
     CropInventoryFertilizer fertilizerInventory =null;
@@ -49,6 +55,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         supplierTxt = findViewById(R.id.txt_crop_fertilizer_supplier);
         costTxt = findViewById(R.id.txt_crop_fertilizer_unit_cost);
         qtyTxt = findViewById(R.id.txt_crop_fertilizer_qty);
+        currencyTxt = findViewById(R.id.txt_crop_fertilizer_currency);
 
         npkNTxt = findViewById(R.id.txt_crop_fertilizer_npk_n);
         npkKTxt = findViewById(R.id.txt_crop_fertilizer_npk_k);
@@ -69,6 +76,36 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         CropDashboardActivity.addDatePicker(dateTxt,this);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)usageUnitSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        usageUnitSp.setOnItemSelectedListener(onItemSelectedListener);
+        typeSp.setOnItemSelectedListener(onItemSelectedListener);
+
+
+
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+
 
         fillViews();
 
@@ -151,6 +188,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         fertilizerInventory.setMicroNutrientsZn(Float.parseFloat(microsZn.getText().toString()));
         fertilizerInventory.setMicroNutrientsFe(Float.parseFloat(microsFe.getText().toString()));
         fertilizerInventory.setMicroNutrientsNa(Float.parseFloat(microsNa.getText().toString()));
+        Log.d("USAGE UNITS", fertilizerInventory.getUsageUnits());
 
         dbHandler.insertCropFertilizerInventory(fertilizerInventory);
 

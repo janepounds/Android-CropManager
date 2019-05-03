@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropField;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropFieldManagerActivity extends AppCompatActivity {
 
@@ -96,6 +97,8 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         statusSp.setOnItemSelectedListener(onItemSelectedListener);
         layoutTypeSp.setOnItemSelectedListener(onItemSelectedListener);
         typeSp.setOnItemSelectedListener(onItemSelectedListener);
+//TODO SETTING DEFAULT UNITS
+        //CropDashboardActivity.selectSpinnerItemByValue(unitsSpinner,CropSettingsSingleton.getInstance().getAreaUnits());
 
         fillViews();
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,15 +129,12 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
         cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
         cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
-        if(layoutTypeSp.getSelectedItemPosition()==0){
-            cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
-        }
+        cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
         cropField.setFieldType( typeSp.getSelectedItem().toString());
         cropField.setStatus( statusSp.getSelectedItem().toString());
         cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
         cropField.setCroppableArea(Float.parseFloat(croppableAreaTxt.getText().toString()));
         cropField.setUnits(unitsSpinner.getSelectedItem().toString());
-
 
         dbHandler.insertCropField(cropField);
 
@@ -148,9 +148,7 @@ public class CropFieldManagerActivity extends AppCompatActivity {
             cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
             cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
             cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
-            if(layoutTypeSp.getSelectedItemPosition()==0){
-                cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
-            }
+            cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
             cropField.setFieldType( typeSp.getSelectedItem().toString());
             cropField.setStatus( statusSp.getSelectedItem().toString());
             cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));
@@ -160,7 +158,7 @@ public class CropFieldManagerActivity extends AppCompatActivity {
 
         }
     }
-    //TODO LAYOUT TYPE EDITING
+
     public void fillViews(){
         if(cropField !=null){
             fieldNameTxt.setText(cropField.getFieldName());
@@ -171,6 +169,7 @@ public class CropFieldManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(typeSp,cropField.getFieldType());
             CropDashboardActivity.selectSpinnerItemByValue(statusSp,cropField.getStatus());
             CropDashboardActivity.selectSpinnerItemByValue(layoutTypeSp,cropField.getLayoutType());
+
             totalAreaTxt.setText(cropField.getTotalArea()+"");
             croppableAreaTxt.setText(cropField.getCroppableArea()+"");
             saveBtn.setText(R.string.btn_update_label);

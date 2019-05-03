@@ -147,21 +147,21 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("boxes")){
                    quantityStoredUnitsTxt.setText("Boxes");
-                    pricePerUnitTxt.setText("Boxes");
-                    quantitySoldUnitsTxt.setText("/ Box");
+                    quantitySoldUnitsTxt.setText("Boxes");
+                    pricePerUnitTxt.setText("/ Box");
 
                 }
                 else if(selection.toLowerCase().equals("kg")){
 
                     quantityStoredUnitsTxt.setText("Kg");
-                    pricePerUnitTxt.setText("Kg");
-                    quantitySoldUnitsTxt.setText("/ Kg");
+                    quantitySoldUnitsTxt.setText("Kg");
+                    pricePerUnitTxt.setText("/ Kg");
 
                 }
                 else if(selection.toLowerCase().equals("tonnes")){
                     quantityStoredUnitsTxt.setText("Tonnes");
-                    pricePerUnitTxt.setText("Tonnes");
-                    quantitySoldUnitsTxt.setText("/ Tonne");
+                    quantitySoldUnitsTxt.setText("Tonnes");
+                    pricePerUnitTxt.setText("/ Tonne");
 
 
 
@@ -169,23 +169,23 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                 else if(selection.toLowerCase().equals("bushels")){
 
                     quantityStoredUnitsTxt.setText("Bushels");
-                    pricePerUnitTxt.setText("Bushels");
-                    quantitySoldUnitsTxt.setText("/ Bushel");
+                    quantitySoldUnitsTxt.setText("Bushels");
+                    pricePerUnitTxt.setText("/ Bushel");
 
 
                 }
                 else if(selection.toLowerCase().equals("bags")){
 
                     quantityStoredUnitsTxt.setText("Bags");
-                    pricePerUnitTxt.setText("Bags");
-                    quantitySoldUnitsTxt.setText("/ Bag");
+                    quantitySoldUnitsTxt.setText("Bags");
+                    pricePerUnitTxt.setText("/ Bag");
 
 
                 }
                 else if(selection.toLowerCase().equals("bunches")){
                     quantityStoredUnitsTxt.setText("Bunches");
-                    pricePerUnitTxt.setText("Bunches");
-                    quantitySoldUnitsTxt.setText("/ Bunch");
+                    quantitySoldUnitsTxt.setText("Bunches");
+                    pricePerUnitTxt.setText("/ Bunch");
 
 
                 }

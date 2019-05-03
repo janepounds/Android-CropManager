@@ -29,6 +29,10 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     private String repeatUntil;
     private String daysBefore;
 
+
+
+    float area;
+
     @Override
     public String getId() {
         return id;
@@ -191,6 +195,13 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     public void setDaysBefore(String daysBefore) {
         this.daysBefore = daysBefore;
     }
+    public float getArea() {
+        return area;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
 
         public static String determineHarvestDate (String date,int cycleLength) throws ParseException {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -204,5 +215,18 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
 
 
         }
+   /* public float computeExpectedYieldPerUnit(){
+
+        float expectedYieldPerUnit = (expectedYield / Crop.area);
+
+        return  expectedYieldPerUnit;
+    }
+
+    public float computeSeedlingPerUnit(){
+
+        float seedlingPerUnit = (totalSeedling / Crop.area);
+
+        return  seedlingPerUnit;
+    }*/
 
 }

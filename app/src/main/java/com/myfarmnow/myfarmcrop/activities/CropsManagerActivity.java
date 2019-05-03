@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 public class CropsManagerActivity extends AppCompatActivity {
    EditText dateTxt, varietyTxt, yearTxt,areaTxt,operatorTxt,costTxt,rateTxt;
    EditText estimatedRevenueTxt, estimatedYieldTxt;
-   TextView currencyATxt,currencyBTxt;
+   TextView currencyATxt,currencyBTxt,rateRTxt,estimatedRevenueUnitsTxt;
    Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp,harvestUnitsSp;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
@@ -62,6 +64,8 @@ public class CropsManagerActivity extends AppCompatActivity {
         harvestUnitsSp  = findViewById(R.id.sp_crops_harvest_units);
         plantingMethodSp  = findViewById(R.id.sp_crops_planting_method);
         estimatedRevenueTxt  = findViewById(R.id.txt_crops_estimated_revenue);
+        estimatedRevenueUnitsTxt  = findViewById(R.id.txt_crops_estimated_revenue_units);
+
         estimatedYieldTxt  = findViewById(R.id.txt_crops_estimated_yield);
         currencyATxt  = findViewById(R.id.crops_currency_a);
         currencyBTxt  = findViewById(R.id.crops_currency_b);
@@ -69,6 +73,27 @@ public class CropsManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(dateTxt,this);
         saveBtn = findViewById(R.id.btn_save);
+
+        TextWatcher watcher =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                computeRateR();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                computeRateR();
+            }
+        };
+
+
+        rateTxt.addTextChangedListener(watcher);
+        areaTxt.addTextChangedListener(watcher);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -137,12 +162,77 @@ public class CropsManagerActivity extends AppCompatActivity {
         cropSP.setOnItemSelectedListener(onItemSelectedListener);
         growingCycleSp.setOnItemSelectedListener(onItemSelectedListener);
         seasonSp.setOnItemSelectedListener(onItemSelectedListener);
-        harvestUnitsSp.setOnItemSelectedListener(onItemSelectedListener);
         plantingMethodSp.setOnItemSelectedListener(onItemSelectedListener);
 
 
         currencyATxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         currencyBTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+
+
+        harvestUnitsSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("boxes")){
+
+                    estimatedRevenueUnitsTxt.setText("/ Box");
+
+                }
+                else if(selection.toLowerCase().equals("kg")){
+
+                    estimatedRevenueUnitsTxt.setText("/ Kg");
+
+
+                }
+                else if(selection.toLowerCase().equals("tonnes")){
+                    estimatedRevenueUnitsTxt.setText("/ Tonne");
+
+
+
+
+                }
+                else if(selection.toLowerCase().equals("bushels")){
+
+                    estimatedRevenueUnitsTxt.setText("/ Bushel");
+
+
+                }
+                else if(selection.toLowerCase().equals("bags")){
+
+
+                    estimatedRevenueUnitsTxt.setText("/ Bag");
+
+
+                }
+                else if(selection.toLowerCase().equals("bunches")){
+
+                    estimatedRevenueUnitsTxt.setText("/ Bunch");
+
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         fillViews();
     }
@@ -221,6 +311,18 @@ public class CropsManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemById(fieldSp,crop.getFieldId());
         }
 
+    }
+    public float computeRateR(){
+        try{
+            float rate = Float.parseFloat(rateTxt.getText().toString());
+            float area = Float.parseFloat(areaTxt.getText().toString());
+            float rateR = (rate/area);
+            rateRTxt.setText(rateR+"");
+            return rateR;
+        }catch (Exception e){
+
+        }
+        return 0;
     }
 
     public boolean validateEntries(){

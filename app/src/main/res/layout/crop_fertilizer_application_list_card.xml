@@ -162,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="34dp"
-                        android:text="Rate : "
+                        android:text="Amount Used : "
                         android:textSize="14sp"
                         android:textColor="@color/blackText" />
 
@@ -172,6 +172,31 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="50%"
+                        android:textSize="14sp"
+                        android:textColor="#899889" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="0dp"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="34dp"
+                        android:text="Recurrence : "
+                        android:textSize="14sp"
+                        android:textColor="@color/blackText" />
+
+                    <TextView
+                        android:id="@+id/txt_view_crop_fertilizer_application_card_recurrence"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Monthly"
                         android:textSize="14sp"
                         android:textColor="#899889" />
                 </LinearLayout>

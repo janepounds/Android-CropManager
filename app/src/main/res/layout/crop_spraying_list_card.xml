@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="35dp"
-                        android:text="Rate : "
+                        android:text="Amount Used : "
                          android:textSize="14sp"
                         android:textColor="@color/blackText"
                         />
@@ -170,7 +170,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="56kg/ha"
+                        android:text="56kg"
                         android:textColor="#899889" />
             </LinearLayout>
 

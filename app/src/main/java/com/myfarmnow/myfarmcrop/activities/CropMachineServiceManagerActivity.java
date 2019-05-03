@@ -1,12 +1,14 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -22,11 +25,13 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropMachineService;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
 public class CropMachineServiceManagerActivity extends AppCompatActivity {
     EditText serviceDateTxt,descriptionTxt,currentHoursTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt,costTxt;
+    TextView currencyTxt;
     Spinner typeSp,personnelSp,recurrenceSp,remindersSp;
     Button saveBtn;
     CropSpinnerAdapter  employeesSpinnerAdapter;
@@ -60,6 +65,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         typeSp = findViewById(R.id.sp_crop_service_type);
         personnelSp = findViewById(R.id.sp_crop_service_personnel);
         costTxt = findViewById(R.id.txt_crop_service_cost);
+        currencyTxt = findViewById(R.id.txt_crop_service_currency);
 
         recurrenceSp = findViewById(R.id.sp_crop_service_recurrence);
         remindersSp = findViewById(R.id.sp_crop_service_reminders);
@@ -73,7 +79,18 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
 
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
                     weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
@@ -94,7 +111,18 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
 
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
@@ -118,6 +146,35 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        typeSp.setOnItemSelectedListener(onItemSelectedListener);
+
+
+
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
 
 

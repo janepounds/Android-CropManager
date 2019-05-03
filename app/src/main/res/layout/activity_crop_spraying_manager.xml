@@ -331,7 +331,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rate"
+                        android:text="@string/amount_used"
                         android:textColor="@color/textColor"
                         android:layout_marginBottom="4dp"
                         android:textSize="16sp"
@@ -359,7 +359,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
-                        android:text="Kg/ha"
+                        android:text="Kg"
                         android:textColor="@color/colorPrimary"
                         android:background="@drawable/input_shapes_grey_units_right"
                         android:gravity="center"

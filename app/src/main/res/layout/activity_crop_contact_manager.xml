@@ -28,24 +28,23 @@
 
                 <TextView
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/contact_type"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:layout_weight="0.5"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_shapes_grey_spinner">
                 <Spinner
                     android:id="@+id/sp_crop_contact_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/input_shapes"
                     android:entries="@array/sp_crop_contact_type"
                     />
-
+                </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
@@ -56,13 +55,11 @@
 
                 <TextView
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
                     android:text="@string/name"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
                     />
 
                 <EditText
@@ -96,10 +93,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/business_name"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"
-
                         />
 
                     <EditText
@@ -125,8 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/address"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp" />
 
                     <EditText
@@ -153,9 +147,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/phone_number"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"/>
 
                 <EditText
                     android:id="@+id/txt_crop_contact_phone_number"
@@ -181,9 +174,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"/>
 
                 <EditText
                     android:id="@+id/txt_crop_contact_email"
@@ -209,8 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/website"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
 
                 <EditText

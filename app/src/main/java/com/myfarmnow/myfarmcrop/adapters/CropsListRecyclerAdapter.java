@@ -64,11 +64,12 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
         holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
-        holder.rateTextView.setText(curCrop.getRate() + "");
+        holder.rateTextView.setText(curCrop.computeRateR() + " "+ curCrop.getHarvestUnits()+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
         holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
+        holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+curCrop.getEstimatedRevenue());
 
     }
-
+//TODO AREA UNITS FROM SETTINGS ARE FIRST NULL UNTIL SETTINGS ARE UPDATED
     @Override
     public int getItemCount() {
         return cropsList.size();
@@ -103,7 +104,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         ImageView  moreButton;
         TextView cropNameTxtView, cropVarietyTextView, rateTextView, cropAge, croppingYearTxt, seasonTxt;
 
-        TextView datePlantedTxt,plantingMethodTxt;
+        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt;
 
         Button activitiesBtn, notesBtn;
 
@@ -117,6 +118,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             seasonTxt = itemView.findViewById(R.id.txt_crop_card_season);
             cropAge = itemView.findViewById(R.id.txt_crop_card_age);
             plantingMethodTxt = itemView.findViewById(R.id.txt_crop_card_planting_method);
+            estimatedRevenueTxt = itemView.findViewById(R.id.txt_crop_card_estimated_revenue);
 
             activitiesBtn = itemView.findViewById(R.id.btn_crop_activities);
             notesBtn = itemView.findViewById(R.id.btn_crop_notes);

@@ -21,13 +21,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginBottom="5dp"
                 >
 
                     <TextView
 
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/date"
                         android:textColor="@color/textColor"
@@ -36,7 +36,7 @@
 
                     <EditText
                         android:id="@+id/txt_crop_note_date"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Enter.."
@@ -52,14 +52,14 @@
                 android:id="@+id/layout_crop_note_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
 
                 >
                 <TextView
 
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Category"
                     android:gravity="center_vertical"
@@ -67,7 +67,7 @@
                     android:textSize="15sp"
                     android:layout_weight="0.3"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_shapes_grey_spinner"
                 >
@@ -88,13 +88,13 @@
                 android:id="@+id/layout_other_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
                 >
                 <TextView
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Specify Category"
                     android:textColor="@color/textColor"
@@ -103,7 +103,7 @@
 
                 <EditText
                     android:id="@+id/txt_crop_note_category_other"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="Enter.."

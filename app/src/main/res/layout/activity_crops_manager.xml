@@ -410,43 +410,30 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rate"
+                android:text="@string/total_seeds"
                 android:textColor="@color/textColor"
                 android:layout_marginRight="5dp"
                 android:textSize="15sp"
                 android:layout_marginBottom="4dp"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="#F5F5F5"
                     >
 
                     <EditText
                         android:id="@+id/txt_crops_rate"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/input_shapes"
-                        android:ems="7"
+                        android:ems="10"
                         android:hint="Enter.."
                         android:inputType="numberDecimal"
                         android:textSize="14sp"
 
                         />
-
-                    <TextView
-
-                        android:layout_width="63dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:labelFor="@+id/txt_crop_spray_rate"
-                        android:text="Kg/ha"
-                        android:textSize="14sp"
-                        android:gravity="center"
-                        android:background="@drawable/input_shapes_grey_units_right"
-                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
@@ -603,7 +590,7 @@
                     android:textSize="14sp"
                     android:layout_weight="0.7"/>
                 <TextView
-                    android:id="@+id/txt_crops_units"
+                    android:id="@+id/txt_crops_estimated_revenue_units"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="14sp"

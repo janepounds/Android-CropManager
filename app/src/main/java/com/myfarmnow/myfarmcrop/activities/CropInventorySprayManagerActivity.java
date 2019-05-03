@@ -55,6 +55,8 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         usageUnitSpinner = findViewById(R.id.spinner_crop_spray_unit);
         quantityTxt = findViewById(R.id.txt_crop_spray_qty);
         costTxt = findViewById(R.id.txt_crop_spray_cost);
+        currencyTxt = findViewById(R.id.txt_crop_spray_currency);
+
         batchTxt = findViewById(R.id.txt_crop_spray_batch_no);
         supplierTxt = findViewById(R.id.txt_crop_spray_supplier);
         saveBtn = findViewById(R.id.btn_save);

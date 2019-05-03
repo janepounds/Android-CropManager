@@ -23,7 +23,6 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
     float pPercentage=0;
     String serialNumber="";
     String supplier="";
-    String usageUnit="";
     float cost=0;
     float macroNutrientsCa=0;
     float macroNutrientsMg=0;
@@ -62,7 +61,7 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
             e.printStackTrace();
         }
         try {
-            this.setUsageUnits(fertilizerJson.getString("usageUnit"));
+            this.setUsageUnits(fertilizerJson.getString("usageUnits"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -216,13 +215,7 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         this.supplier = supplier;
     }
 
-    public String getUsageUnit() {
-        return usageUnit;
-    }
 
-    public void setUsageUnit(String usageUnit) {
-        this.usageUnit = usageUnit;
-    }
 
     public float getCost() {
         return cost;

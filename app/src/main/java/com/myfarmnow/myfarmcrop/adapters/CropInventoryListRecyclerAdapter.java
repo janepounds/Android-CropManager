@@ -64,7 +64,7 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
         holder.curInventoryTxtView.setText(curInventory.calculateAmountLeft()+"/"+curInventory.getInitialQuantity()+" "+curInventory.getUsageUnits());
 
     }
-
+//TODO CHANGING THE PROGRESS BAR COLOR
     @Override
     public int getItemCount() {
         return inventoryList.size();

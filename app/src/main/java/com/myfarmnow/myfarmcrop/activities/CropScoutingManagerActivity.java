@@ -86,6 +86,18 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         infestedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
 
                 if(position==1){
                     infestationShowHideLayout.setVisibility(View.VISIBLE);
@@ -130,6 +142,18 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         infestationTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("disease")){
                     infestationSpinner.setEnabled(true);
@@ -267,8 +291,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
             }
         };
-        infestedSpinner.setOnItemSelectedListener(onItemSelectedListener);
-        infestationTypeSpinner.setOnItemSelectedListener(onItemSelectedListener);
+
         infestationSpinner.setOnItemSelectedListener(onItemSelectedListener);
         infestationLevelSpinner.setOnItemSelectedListener(onItemSelectedListener);
 

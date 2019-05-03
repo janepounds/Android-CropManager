@@ -19,7 +19,7 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String variety;
  private String growingCycle;
  private String season;
- private float area;
+ public  float area;
  private float cost;
  private float estimatedYield;
  private float estimatedRevenue;
@@ -31,7 +31,22 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String name;
  private String age;
 
+ public float getRateR() {
+  return rateR;
+ }
 
+ public void setRateR(float rateR) {
+  this.rateR = rateR;
+ }
+
+ public float rateR=0;
+
+ public float computeRateR(){
+
+  float rateR = (rate / area);
+
+  return  rateR;
+ }
 
  public String getName() {
   return name;
