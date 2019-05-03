@@ -522,7 +522,8 @@
                         android:layout_height="80dp"
                         android:background="@drawable/input_shapes"
                         android:gravity="start"
-                        android:text="Enter.." />
+                        android:hint="Enter.."
+                        android:textSize="12sp"/>
                 </LinearLayout>
                            </LinearLayout>
 

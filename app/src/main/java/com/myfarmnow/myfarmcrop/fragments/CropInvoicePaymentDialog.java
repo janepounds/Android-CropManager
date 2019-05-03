@@ -1,12 +1,16 @@
 package com.myfarmnow.myfarmcrop.fragments;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,7 +23,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
 
-public class CropPaymentDialog extends DialogFragment {
+public class CropInvoicePaymentDialog extends DialogFragment {
     MyFarmDbHandlerSingleton dbHandler;
     EditText dateTxt,amountTxt,referenceNumberTxt,notesTxt;
     TextView paymentNumberTxt;
@@ -60,6 +64,30 @@ public class CropPaymentDialog extends DialogFragment {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(getActivity());
         paymentNumberTxt.setText(dbHandler.getNextPaymentNumber());
         //setCancelable(false);
+
+        ((ArrayAdapter)paymentModeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getActivity().getColor(R.color.colorPrimary));
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        paymentModeSp.setOnItemSelectedListener(onItemSelectedListener);
 
         builder.setView(view);
         dialog= builder.create();

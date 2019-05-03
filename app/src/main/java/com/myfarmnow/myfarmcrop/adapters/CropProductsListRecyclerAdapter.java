@@ -17,10 +17,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropProductManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -74,9 +72,9 @@ public class CropProductsListRecyclerAdapter extends RecyclerView.Adapter<CropPr
         CropProduct product = cropProductsList.get(position);
         holder.nameTextView.setText(product.getName());
         holder.taxTextView.setText(product.getTaxRate()+"");
-        holder.rateTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+product.getSellingPrice());
+        holder.rateTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+product.getSellingPrice()+"/"+product.getUnits());
 
-        holder.quantityTextView.setText(product.getOpeningQuantity()+product.getUnits());
+        holder.stockAtHandTextView.setText(product.computeStockAtHand()+product.getUnits());
     }
 
 
@@ -89,12 +87,12 @@ public class CropProductsListRecyclerAdapter extends RecyclerView.Adapter<CropPr
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
-        TextView  quantityTextView, rateTxt, taxTextView, nameTextView;
+        TextView stockAtHandTextView, rateTxt, taxTextView, nameTextView;
         ImageView editButton, moreButton;
         public ProductViewHolder(View itemView) {
             super(itemView);
 
-            quantityTextView = itemView.findViewById(R.id.txt_crop_product_card_quantity);
+            stockAtHandTextView = itemView.findViewById(R.id.txt_crop_product_card_quantity);
             rateTxt = itemView.findViewById(R.id.txt_crop_product_card_selling_price);
             taxTextView = itemView.findViewById(R.id.txt_crop_product_card_tax_rate);
             nameTextView = itemView.findViewById(R.id.txt_crop_product_card_name);

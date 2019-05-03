@@ -24,17 +24,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
-                        
+                        android:textSize="14sp"
                         android:layout_weight="0.6"
                         android:text="@string/name"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
 
                     <EditText
@@ -63,11 +61,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         
                         android:layout_weight="0.6"
                         android:text="@string/company"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_customer_company"
@@ -87,10 +85,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/tax_reg_no"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_customer_tax_reg_number"
@@ -122,9 +120,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/phone"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_customer_phone"
@@ -155,9 +153,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mobile"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
 
@@ -198,8 +196,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:text="@string/email"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
 
                     <EditText
@@ -225,9 +223,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/opening_balance"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -279,16 +277,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Billing Address"
-                        
-                        android:textSize="18sp"/>
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/street"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_customer_street"
@@ -308,10 +306,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/city_town"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_customer_city_town"
@@ -331,10 +329,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/country"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -368,17 +366,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/shipping_address"
-                        android:textSize="18dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
                         />
                     <CheckBox
                         android:id="@+id/check_crop_customer_shipping_as_billing"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                       />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/as_billing_address"
-                        android:textSize="18dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
                         />
 
 
@@ -392,10 +393,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/street"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_customer_shipping_add_street"
@@ -415,10 +416,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/city_town"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <EditText
                         android:id="@+id/txt_crop_customer_shipping_add_city_town"
@@ -438,10 +439,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp" 
+                        android:textSize="14sp" 
                         android:layout_weight="0.6"
                         android:text="@string/country"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         />
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -471,7 +472,7 @@
                 style="@style/Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/textColor"
                 android:drawableTint="#ffffff"
                 android:text="Save "
                 android:textAllCaps="false"

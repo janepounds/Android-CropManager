@@ -42,22 +42,27 @@
                             android:layout_weight="0.5"
                             android:text="Crop"
                             
-                            android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
                             />
 
-                        <Spinner
-                            android:id="@+id/sp_crop_fertililizer_calculator_crop"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:hint="Enter.."
-                            android:background="@drawable/input_shapes"
-                            android:textSize="14sp"
-                            android:spinnerMode="dialog"
-
-                            />
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:orientation="vertical"
+                            android:padding="2.4dp">
+                            <Spinner
+                                android:id="@+id/sp_crop_fertililizer_calculator_crop"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:hint="Enter.."
+                                android:textSize="14sp"
+                                android:spinnerMode="dialog"
+                                />
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -80,20 +85,26 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Units"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             
                             android:layout_weight="0.5"
-                            android:textSize="16sp" />
-
+                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:orientation="vertical"
+                            android:padding="2.4dp">
                         <Spinner
                             android:id="@+id/sp_crop_fertililizer_calculator_units"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:background="@drawable/input_shapes"
+
                             android:entries="@array/crop_fertilizer_calculator_units"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             android:textSize="14sp" />
+                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -124,8 +135,8 @@
                             android:layout_weight="0.5"
                             android:text="Area"
                             
-                            android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
                             />
 
 
@@ -143,7 +154,6 @@
                         android:id="@+id/txt_crop_fertililizer_calculator_area"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
                         android:layout_weight="0.5"
                         android:inputType="number"
@@ -161,10 +171,10 @@
                 android:layout_margin="4dp"
                 android:text="Nutrients"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
 
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,14 +189,12 @@
                     >
 
                     <TextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="Nitrogen (N)"
-                        
-                        android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:textColor="@color/textColor"
                         />
 
                 </LinearLayout>
@@ -200,7 +208,6 @@
                         android:id="@+id/txt_crop_fertililizer_calculator_nitrogen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
                         android:layout_weight="0.5"
                         android:inputType="number"
@@ -230,8 +237,8 @@
                         android:layout_weight="0.5"
                         android:text="Phosphate (P)"
 
-                        android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:textColor="@color/textColor"
                         />
 
                 </LinearLayout>
@@ -245,7 +252,7 @@
                         android:id="@+id/txt_crop_fertililizer_calculator_phosphate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
+                      
                         android:textSize="14sp"
                         android:layout_weight="0.5"
                         android:inputType="number"
@@ -276,8 +283,8 @@
                         android:layout_weight="0.5"
                         android:text="Potassium (K)"
                         
-                        android:textSize="16sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:textColor="@color/textColor"
                         />
 
                 </LinearLayout>
@@ -291,7 +298,7 @@
                         android:id="@+id/txt_crop_fertililizer_calculator_potassium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         android:textSize="14sp"
                         android:layout_weight="0.5"
                         android:inputType="number"
@@ -309,10 +316,10 @@
                 android:layout_margin="4dp"
                 android:text="Select Fertilizers"
                 android:textAlignment="textStart"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
 
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -338,10 +345,16 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:text="NPK Fertilizer"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
                             />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:orientation="vertical"
+                            android:padding="2.4dp">
                         <Spinner
                             android:id="@+id/sp_crop_fertililizer_calculator_npk_fert"
                             android:layout_width="match_parent"
@@ -349,10 +362,10 @@
                             android:layout_weight="1"
                             android:ems="10"
                             android:hint="Enter.."
-                            android:background="@drawable/input_shapes"
                             android:textSize="14sp"
                             android:spinnerMode="dialog"
                             />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/txt_crop_fertililizer_calculator_npk_compo"
@@ -385,16 +398,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Unit Price"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
 
                             android:layout_weight="0.5"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <EditText
                             android:id="@+id/txt_crop_fertililizer_calculator_npk_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp"
                             android:layout_weight="0.5"
                             android:inputType="number"
@@ -431,21 +443,27 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:text="Nitrogenous Fertilizer"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
                             />
 
-                        <Spinner
-                            android:id="@+id/sp_crop_fertililizer_calculator_nitrogenous_fert"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:hint="Enter.."
-                            android:background="@drawable/input_shapes"
-                            android:textSize="14sp"
-                            android:spinnerMode="dialog"
-                            />
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:orientation="vertical"
+                            android:padding="2.4dp">
+                            <Spinner
+                                android:id="@+id/sp_crop_fertililizer_calculator_nitrogenous_fert"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:hint="Enter.."
+                                android:textSize="14sp"
+                                android:spinnerMode="dialog"
+                                />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/txt_crop_fertililizer_calculator_nitrogenous_compo"
@@ -478,16 +496,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Unit Price"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
 
                             android:layout_weight="0.5"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <EditText
                             android:id="@+id/txt_crop_fertililizer_calculator_nitrogenous_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorPrimary"
                             android:textSize="14sp"
                             android:layout_weight="0.5"
                             android:inputType="number"
@@ -524,21 +541,27 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:text="Potassic Fertilizer"
-                            android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
                             />
 
-                        <Spinner
-                            android:id="@+id/sp_crop_fertililizer_calculator_potassic_fert"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:hint="Enter.."
-                            android:background="@drawable/input_shapes"
-                            android:textSize="14sp"
-                            android:spinnerMode="dialog"
-                            />
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:orientation="vertical"
+                            android:padding="2.4dp">
+                            <Spinner
+                                android:id="@+id/sp_crop_fertililizer_calculator_potassic_fert"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:hint="Enter.."
+                                android:textSize="14sp"
+                                android:spinnerMode="dialog"
+                                />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/txt_crop_fertililizer_calculator_potassic_compo"
@@ -571,16 +594,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Unit Price"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
 
                             android:layout_weight="0.5"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <EditText
                             android:id="@+id/txt_crop_fertililizer_calculator_potassic_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             android:textSize="14sp"
                             android:layout_weight="0.5"
                             android:inputType="number"
@@ -602,7 +625,7 @@
                 style="@style/Button"
                 android:textColor="@color/whiteColor"
                 android:drawableRight="@drawable/arrow_right_white_24dp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 />
 
 

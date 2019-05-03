@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.myfarmnow.myfarmcrop.adapters.CropItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
+import com.myfarmnow.myfarmcrop.models.CropInvoice;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
@@ -40,7 +42,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
     EditText discountPercentageTxt,shippingChargesTxt,termsAndConditionsTxt,notesTxt, salesOrderDateTxt,expiryDateTxt,referenceNoTxt,methodTxt;
     TextView salesOrderNumberTextView;
     Spinner customersSp;
-    Button saveBtn;
+    Button saveBtn,saveAndSendBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
     ArrayList <CropProductItem> sales_orderItems = new ArrayList<>();
     CropSpinnerAdapter customersSpinnerAdapter;
@@ -49,6 +51,8 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_sales_order_manager);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if(getIntent().hasExtra("cropSalesOrder")){
             cropSalesOrder = (CropSalesOrder)getIntent().getSerializableExtra("cropSalesOrder");
         }
@@ -73,6 +77,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         customersSp = findViewById(R.id.spinner_crop_sales_order_customer_name);
         referenceNoTxt = findViewById(R.id.txt_crop_sales_order_reference_number);
         saveBtn = findViewById(R.id.btn_save);
+        saveAndSendBtn = findViewById(R.id.btn_save_send);
         CropDashboardActivity.addDatePicker(salesOrderDateTxt,this);
         CropDashboardActivity.addDatePicker(expiryDateTxt,this);
 
@@ -173,18 +178,47 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
                 }
             }
         });
+        saveAndSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    if(validateEntries()){
+                        CropSalesOrder salesOrder=null;
+                        if(cropSalesOrder ==null){
+                            salesOrder=saveSalesOrder();
+                        }
+                        else{
+                            salesOrder=updateSalesOrder();
+                        }
+                        if(salesOrder!=null){
+                            Intent toCropEmployeesList = new Intent(CropSalesOrderManagerActivity.this, CropSalesOrderPreviewActivity.class);
+                            toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            toCropEmployeesList.putExtra("cropSalesOrder",salesOrder);
+                            toCropEmployeesList.putExtra("action",CropSalesOrderPreviewActivity.SALES_ORDER_ACTION_EMAIL);
+                            startActivity(toCropEmployeesList);
+                            finish();
+                        }else{
+                            Toast.makeText(CropSalesOrderManagerActivity.this,"Sales Order cant be Saved",Toast.LENGTH_LONG).show();
+                        }
+
+                    }else{
+                        Log.d("ERROR","Testing");
+                    }
+            }
+        });
         fillViews();
 
 
     }
 
-    public void saveSalesOrder(){
+    public CropSalesOrder saveSalesOrder(){
         cropSalesOrder = new CropSalesOrder();
         cropSalesOrder.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropSalesOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropSalesOrder.setCustomerNotes(notesTxt.getText().toString());
         cropSalesOrder.setShippingDate(expiryDateTxt.getText().toString());
         cropSalesOrder.setStatus("DRAFT");
+        cropSalesOrder.setMethod(methodTxt.getText().toString());
         cropSalesOrder.setReferenceNumber(referenceNoTxt.getText().toString());
         cropSalesOrder.setDiscount(Float.parseFloat(discountPercentageTxt.getText().toString()));
         cropSalesOrder.setShippingCharges(Float.parseFloat(shippingChargesTxt.getText().toString()));
@@ -199,16 +233,17 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         }
         cropSalesOrder.setItems(sales_orderItems);
 
-        dbHandler.insertCropSalesOrder(cropSalesOrder);
+        return dbHandler.insertCropSalesOrder(cropSalesOrder);
 
     }
 
-    public void updateSalesOrder(){
+    public CropSalesOrder updateSalesOrder(){
         if(cropSalesOrder != null){
             cropSalesOrder.setCustomerNotes(notesTxt.getText().toString());
             cropSalesOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
             cropSalesOrder.setShippingDate(expiryDateTxt.getText().toString());
             cropSalesOrder.setReferenceNumber(referenceNoTxt.getText().toString());
+            cropSalesOrder.setMethod(methodTxt.getText().toString());
             cropSalesOrder.setDiscount(Float.parseFloat(discountPercentageTxt.getText().toString()));
             cropSalesOrder.setShippingCharges(Float.parseFloat(shippingChargesTxt.getText().toString()));
             cropSalesOrder.setDate(salesOrderDateTxt.getText().toString());
@@ -221,7 +256,10 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
             cropSalesOrder.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
             Log.d("TEST",cropSalesOrder.getDeletedItemsIds().toString());
             cropSalesOrder.setItems(sales_orderItems);
-            dbHandler.updateCropSalesOrder(cropSalesOrder);
+            return dbHandler.updateCropSalesOrder(cropSalesOrder);
+        }
+        else{
+            return null;
         }
     }
 

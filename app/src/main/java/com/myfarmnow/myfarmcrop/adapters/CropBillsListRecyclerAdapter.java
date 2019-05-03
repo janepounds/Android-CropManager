@@ -12,14 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropBillManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropBillPreviewActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropBillPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -139,7 +138,7 @@ public class CropBillsListRecyclerAdapter extends RecyclerView.Adapter<CropBills
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_record_payment))){
                                 CropBill cropBill = cropBillsList.get(getAdapterPosition());
-                                Intent recordPayment = new Intent(mContext, CropPaymentManagerActivity.class);
+                                Intent recordPayment = new Intent(mContext, CropBillPaymentManagerActivity.class);
                                 recordPayment.putExtra("billId",cropBill.getId());
                                 mContext.startActivity(recordPayment);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_receipt))){
@@ -155,6 +154,13 @@ public class CropBillsListRecyclerAdapter extends RecyclerView.Adapter<CropBills
                                 editBill.putExtra("action",CropBillPreviewActivity.BILL_ACTION_DOWNLOAD);
                                 mContext.startActivity(editBill);
                             }
+                            else if (item.getTitle().toString().equals(mContext.getString(R.string.preview_bill))){
+                                CropBill cropBill = cropBillsList.get(getAdapterPosition());
+                                Intent editBill = new Intent(mContext, CropBillPreviewActivity.class);
+                                editBill.putExtra("cropBill",cropBill);
+                                editBill.putExtra("action",CropBillPreviewActivity.BILL_ACTION_PREVIEW);
+                                mContext.startActivity(editBill);
+                            }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_email))){
                                 CropBill cropBill = cropBillsList.get(getAdapterPosition());
                                 Intent editBill = new Intent(mContext, CropBillPreviewActivity.class);
@@ -168,7 +174,7 @@ public class CropBillsListRecyclerAdapter extends RecyclerView.Adapter<CropBills
                     popup.getMenu().add(R.string.preview_bill);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
-                    popup.getMenu().add(R.string.label_share_link);
+                   // popup.getMenu().add(R.string.label_share_link);
                     popup.getMenu().add(R.string.label_record_payment);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);

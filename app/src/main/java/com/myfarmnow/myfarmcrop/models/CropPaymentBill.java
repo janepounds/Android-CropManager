@@ -11,6 +11,9 @@ public class CropPaymentBill implements Serializable {
     String  referenceNumber;
     String  paidThrough;
     String  notes;
+    private String supplierId;
+    private String supplierName;
+    private String billNumber;
 
     @Override
     public String toString() {
@@ -92,5 +95,29 @@ public class CropPaymentBill implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public String getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(String billNumber) {
+        this.billNumber = billNumber;
     }
 }

@@ -73,7 +73,7 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
         holder.modeTextView.setText(payment.getMode());
         holder.referenceNumberTxt.setText(payment.getInvoiceNumber());
         holder.paymentNumberTextView.setText(payment.getPaymentNumber());
-        holder.amountTextView.setText(NumberFormat.getInstance().format(payment.getAmount()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(payment.getAmount()));
         if (payment.getInvoiceId()==null){
             holder.invoicePaymentLayout.setVisibility(View.GONE);
         }

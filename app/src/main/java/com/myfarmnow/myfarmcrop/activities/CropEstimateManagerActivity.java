@@ -41,7 +41,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
     EditText discountPercentageTxt,shippingChargesTxt,termsAndConditionsTxt,notesTxt,estimateDateTxt,expiryDateTxt,referenceNumberTxt;
     TextView estimateNumberTextView;
     Spinner customersSp;
-    Button saveBtn;
+    Button saveBtn,saveAndSendBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
     ArrayList <CropProductItem> estimateItems = new ArrayList<>();
     CropSpinnerAdapter customersSpinnerAdapter;
@@ -74,6 +74,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         termsAndConditionsTxt = findViewById(R.id.txt_crop_estimate_terms_and_conditions);
         customersSp = findViewById(R.id.spinner_crop_estimate_customer_name);
         saveBtn = findViewById(R.id.btn_save);
+        saveAndSendBtn = findViewById(R.id.btn_save_send);
         CropDashboardActivity.addDatePicker(estimateDateTxt,this);
         CropDashboardActivity.addDatePicker(expiryDateTxt,this);
 
@@ -169,6 +170,36 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
                     Intent toCropEmployeesList = new Intent(CropEstimateManagerActivity.this, CropEstimatesListActivity.class);
                     toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropEmployeesList);
+                    finish();
+                }else{
+                    Log.d("ERROR","Testing");
+                }
+            }
+        });
+        saveAndSendBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(validateEntries()){
+                    CropEstimate estimate ;
+                    if(cropEstimate ==null){
+                        estimate =saveEstimate();
+                    }
+                    else{
+                        estimate =updateEstimate();
+                    }
+
+                    if(estimate !=null){
+                        Intent toCropEmployeesList = new Intent(CropEstimateManagerActivity.this, CropEstimatePreviewActivity.class);
+                        toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        toCropEmployeesList.putExtra("cropEstimate",estimate);
+                        toCropEmployeesList.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_EMAIL);
+                        startActivity(toCropEmployeesList);
+                    }
+                    else{
+                        Toast.makeText(CropEstimateManagerActivity.this,"Estimate cant be Saved",Toast.LENGTH_LONG).show();
+                    }
+
                 }else{
                     Log.d("ERROR","Testing");
                 }
@@ -179,7 +210,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
 
     }
 
-    public void saveEstimate(){
+    public CropEstimate saveEstimate(){
         cropEstimate = new CropEstimate();
         cropEstimate.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
@@ -199,11 +230,11 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         }
         cropEstimate.setItems(estimateItems);
 
-        dbHandler.insertCropEstimate(cropEstimate);
+        return dbHandler.insertCropEstimate(cropEstimate);
 
     }
 
-    public void updateEstimate(){
+    public CropEstimate updateEstimate(){
         if(cropEstimate != null){
             cropEstimate.setCustomerNotes(notesTxt.getText().toString());
             cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
@@ -221,7 +252,10 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
             cropEstimate.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
             Log.d("TEST",cropEstimate.getDeletedItemsIds().toString());
             cropEstimate.setItems(estimateItems);
-            dbHandler.updateCropEstimate(cropEstimate);
+           return dbHandler.updateCropEstimate(cropEstimate);
+        }
+        else{
+            return null;
         }
     }
 

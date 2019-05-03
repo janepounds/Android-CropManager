@@ -30,9 +30,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
+                   
+                    android:textSize="14sp"
+                    android:textColor="@color/textColor"
                     />
 
                 <EditText
@@ -66,9 +66,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/first_name"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_first_name"
@@ -97,9 +97,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/last_name"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
 
@@ -136,9 +136,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/phone"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_phone"
@@ -168,9 +168,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mobile"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
 
@@ -207,9 +207,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/employee_id"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_id"
@@ -239,11 +239,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gender"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
 
                     <Spinner
                         android:id="@+id/txt_crop_employee_gender"
@@ -253,10 +259,11 @@
                         android:hint="Enter.."
                         android:entries="@array/sp_crop_employee_gender"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
+             
                         android:layout_weight="1"
 
                         />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -278,9 +285,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/address"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_address"
@@ -309,9 +316,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/email"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
 
@@ -345,9 +352,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date_of_birth"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
+                   
+                    android:textSize="14sp"
+                    android:textColor="@color/textColor"
                     />
 
                 <EditText
@@ -355,10 +362,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Enter.."
+                    android:hint="Select"
                     android:textSize="14sp"
                     android:inputType="none"
-                    android:background="@drawable/input_shapes"
+                    android:background="@drawable/input_shapes_grey_spinner"
 
 
 
@@ -383,19 +390,19 @@
                         android:layout_height="wrap_content"
                         android:text="@string/hire_date"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_hire_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Enter.."
+                        android:hint="Select"
                         android:inputType="none"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:layout_weight="0.4"
 
 
@@ -415,22 +422,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/employment_status"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
                     <Spinner
                         android:id="@+id/txt_crop_employee_employment_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/sp_crop_employee_employment_status"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
                         android:layout_weight="1"
 
                         />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -452,9 +465,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/pay_rate"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_pay_rate"
@@ -484,22 +497,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/per"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
                     <Spinner
                         android:id="@+id/txt_crop_employee_per"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/sp_crop_employee_per"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
                         android:layout_weight="1"
 
                         />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -521,9 +540,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/reports_to"
                         android:layout_weight="0.6"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_employee_reports_to"
@@ -553,11 +572,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/pay_type"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="14sp"
                         android:layout_weight="1"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
 
                     <Spinner
                         android:id="@+id/txt_crop_employee_pay_type"
@@ -565,10 +590,10 @@
                         android:layout_height="wrap_content"
                         android:entries="@array/sp_crop_employee_pay_type"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
                         android:layout_weight="1"
 
                         />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -582,7 +607,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="@color/textColor"
                 android:drawableTint="#ffffff"
                 android:text="Save "
                 android:textAllCaps="false"

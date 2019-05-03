@@ -41,7 +41,7 @@ public class CropPaymentBillsListActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add_new:
-                Intent intent = new Intent(this, CropPaymentBillManagerActivity.class);
+                Intent intent = new Intent(this, CropBillPaymentManagerActivity.class);
                 startActivity(intent);
                 return true;
             default:

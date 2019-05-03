@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +26,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
@@ -42,11 +46,15 @@ public class CropBillManagerActivity extends AppCompatActivity {
     TextView subTotalTextView, discountAmountTxt,totalAmountTxt;
     EditText discountPercentageTxt,notesTxt, billDateTxt,dueDateTxt;
     TextView billOrderNumberTextView, billNumberTxt;
-    Spinner termsTxt,suppliersSp;
-    Button saveBtn;
+    Spinner termsSp,suppliersSp;
+    Button saveBtn,saveAndSendBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
     ArrayList <CropProductItem> bill_orderItems = new ArrayList<>();
     CropSpinnerAdapter suppliersSpinnerAdapter;
+
+    CropPurchaseOrder sourceCropPurchaseOrder;
+    
+    
 
     CropBill cropBill;
     @Override
@@ -57,7 +65,13 @@ public class CropBillManagerActivity extends AppCompatActivity {
         if (getIntent().hasExtra("cropBill")) {
             cropBill = (CropBill) getIntent().getSerializableExtra("cropBill");
         }
+        
         initializeForm();
+
+        if(getIntent().hasExtra("cropPurchaseOrder")){
+            loadPurchaseOrderAsBill((CropPurchaseOrder) getIntent().getSerializableExtra("cropPurchaseOrder"));
+            cropBill=null; //just incase an invoice was submitted as well. ignore it
+        }
 
     }
 
@@ -71,12 +85,13 @@ public class CropBillManagerActivity extends AppCompatActivity {
         billNumberTxt = findViewById(R.id.txt_crop_bill_number);
         dueDateTxt = findViewById(R.id.txt_crop_bill_due_date);
         notesTxt = findViewById(R.id.txt_crop_bill_notes);
-        termsTxt = findViewById(R.id.txt_crop_bill_terms);
+        termsSp = findViewById(R.id.txt_crop_bill_terms);
         suppliersSp = findViewById(R.id.spinner_crop_bill_supplier);
         saveBtn = findViewById(R.id.btn_save);
+        saveAndSendBtn = findViewById(R.id.btn_save_send);
         CropDashboardActivity.addDatePicker(billDateTxt, this);
         CropDashboardActivity.addDatePicker(dueDateTxt, this);
-        ((ArrayAdapter)termsTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter) termsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -136,6 +151,10 @@ public class CropBillManagerActivity extends AppCompatActivity {
                         updateBill();
                     }
 
+                    if(sourceCropPurchaseOrder != null){
+                        sourceCropPurchaseOrder.setStatus(getString(R.string.estimate_status_invoiced));
+                        dbHandler.updateCropPurchaseOrder(sourceCropPurchaseOrder);
+                    }
                     Intent toCropEmployeesList = new Intent(CropBillManagerActivity.this, CropBillsListActivity.class);
                     toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropEmployeesList);
@@ -144,15 +163,93 @@ public class CropBillManagerActivity extends AppCompatActivity {
                 }
             }
         });
+        saveAndSendBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                if(validateEntries()){
+                    CropBill bill;
+                    if (cropBill == null) {
+                        bill=saveBill();
+                    } else {
+                        bill=updateBill();
+                    }
+                    if(sourceCropPurchaseOrder != null){
+                        sourceCropPurchaseOrder.setStatus(getString(R.string.purchase_order_status_billed));
+                        dbHandler.updateCropPurchaseOrder(sourceCropPurchaseOrder);
+                    }
+                    if(bill!=null){
+                        Intent toCropEmployeesList = new Intent(CropBillManagerActivity.this, CropBillPreviewActivity.class);
+                        toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        toCropEmployeesList.putExtra("cropBill",bill);
+                        toCropEmployeesList.putExtra("action",CropBillPreviewActivity.BILL_ACTION_EMAIL);
+                        startActivity(toCropEmployeesList);
+                        finish();
+                    }else{
+                        Toast.makeText(CropBillManagerActivity.this,"Bill cant be Saved",Toast.LENGTH_LONG).show();
+                    }
+
+
+                }else{
+                    Log.d("ERROR","Testing");
+                }
+            }
+        });
+
+
+
+        billDateTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                computeDueDate();
+            }
+        });
+        termsSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+                if(position !=0 ){
+                    computeDueDate();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         fillViews();
 
 
     }
 
-    public void saveBill(){
+    public CropBill saveBill(){
         cropBill = new CropBill();
         cropBill.setUserId(CropDashboardActivity.getPreferences("userId",this));
-        cropBill.setTerms(termsTxt.getSelectedItem().toString());
+        cropBill.setTerms(termsSp.getSelectedItem().toString());
         cropBill.setNotes(notesTxt.getText().toString());
         cropBill.setDueDate(dueDateTxt.getText().toString());
         cropBill.setOrderNumber(billOrderNumberTextView.getText().toString());
@@ -168,14 +265,14 @@ public class CropBillManagerActivity extends AppCompatActivity {
         }
         cropBill.setItems(bill_orderItems);
 
-        dbHandler.insertCropBill(cropBill);
+        return dbHandler.insertCropBill(cropBill);
 
     }
 
-    public void updateBill(){
+    public CropBill updateBill(){
         if(cropBill != null){
             cropBill.setUserId(CropDashboardActivity.getPreferences("userId",this));
-            cropBill.setTerms(termsTxt.getSelectedItem().toString());
+            cropBill.setTerms(termsSp.getSelectedItem().toString());
             cropBill.setNotes(notesTxt.getText().toString());
             cropBill.setDueDate(dueDateTxt.getText().toString());
             cropBill.setOrderNumber(billOrderNumberTextView.getText().toString());
@@ -189,13 +286,16 @@ public class CropBillManagerActivity extends AppCompatActivity {
                 bill_orderItems.add(x);
             }
             cropBill.setItems(bill_orderItems);
-            dbHandler.updateCropBill(cropBill);
+            return dbHandler.updateCropBill(cropBill);
+        }
+        else{
+            return null;
         }
     }
     public void fillViews(){
         if(cropBill != null){
             CropDashboardActivity.selectSpinnerItemById(suppliersSp,cropBill.getSupplierId());
-            CropDashboardActivity.selectSpinnerItemByValue(termsTxt,cropBill.getTerms());
+            CropDashboardActivity.selectSpinnerItemByValue(termsSp,cropBill.getTerms());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: cropBill.getItems()){
                 items.add(x);
@@ -236,6 +336,27 @@ public class CropBillManagerActivity extends AppCompatActivity {
         }
     }
 
+
+    public void loadPurchaseOrderAsBill(CropPurchaseOrder estimate){
+        if(estimate != null){
+            sourceCropPurchaseOrder = estimate;
+            CropDashboardActivity.selectSpinnerItemById(suppliersSp,estimate.getSupplierId());
+            ArrayList <CropProductItem> items = new ArrayList<>();
+            for(CropProductItem x: estimate.getItems()){
+                x.setInvoiceOrEstimateId(null); //remove any associated Order Id
+
+                items.add(x);
+            }
+            itemListRecyclerAdapter.appendList(items);
+
+            notesTxt.setText(estimate.getNotes());
+            //dueDateTxt.setText(cropInvoice.getDueDate());
+            discountPercentageTxt.setText(estimate.getDiscount()+"");
+            billNumberTxt.setText(estimate.getNumber());
+            //orderNumberTxt.setText(estimate.getReferenceNumber());
+            //invoiceDateTxt.setText(cropInvoice.getDate());
+        }
+    }
     public boolean validateEntries() {
         String message = null;
 
@@ -264,9 +385,9 @@ public class CropBillManagerActivity extends AppCompatActivity {
             message = getString(R.string.supplier_not_selected);
             suppliersSp.requestFocus();
         }
-        if(termsTxt.getSelectedItemPosition()==0){
+        if(termsSp.getSelectedItemPosition()==0){
             message = getString(R.string.terms_not_selected);
-            termsTxt.requestFocus();
+            termsSp.requestFocus();
         }
         if(message != null){
             Toast.makeText(CropBillManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
@@ -280,10 +401,10 @@ public class CropBillManagerActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         try {
             String date = billDateTxt.getText().toString();
-            if (!date.isEmpty() && termsTxt.getSelectedItemPosition()!=0){
+            if (!date.isEmpty() && termsSp.getSelectedItemPosition()!=0){
                 cal.setTime( dateFormat.parse(date));
                 int days =0;
-                String terms = termsTxt.getSelectedItem().toString().toLowerCase();
+                String terms = termsSp.getSelectedItem().toString().toLowerCase();
 
                 dueDateTxt.setEnabled(false);
                 if(terms.equals("due on receipt")){

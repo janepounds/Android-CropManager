@@ -83,6 +83,11 @@ public class CropDashboardActivity extends AppCompatActivity  {
     FrameLayout notificationsFrameLayout;
     MyFarmDbHandlerSingleton dbHandler;
 
+    public static final String FARM_NAME_PREFERENCES_ID ="farmname";
+    public static final String STREET_PREFERENCES_ID ="addressStreet";
+    public static final String CITY_PREFERENCES_ID ="addressCityOrTown";
+    public static final String COUNTRY_PREFERENCES_ID ="addressCountry";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -503,7 +508,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     public static void saveUser(JSONObject user, Context context) throws JSONException{
 
-        CropDashboardActivity.savePreferences("farmname", user.getString("farmname"), context);
+        CropDashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
         CropDashboardActivity.savePreferences("firstname", user.getString("firstname"), context);
         CropDashboardActivity.savePreferences("email", user.getString("email"), context);
         CropDashboardActivity.savePreferences("userId", user.getString("id"), context);
@@ -511,9 +516,9 @@ public class CropDashboardActivity extends AppCompatActivity  {
         CropDashboardActivity.savePreferences("country", user.getString("country"), context);
         CropDashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
         CropDashboardActivity.savePreferences("email", user.getString("email"), context);
-        CropDashboardActivity.savePreferences("addressStreet", user.getString("addressStreet"), context);
-        CropDashboardActivity.savePreferences("addressCityOrTown", user.getString("addressCityOrTown"), context);
-        CropDashboardActivity.savePreferences("addressCountry", user.getString("addressCountry"), context);
+        CropDashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
+        CropDashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
+        CropDashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
         CropDashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
         CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);

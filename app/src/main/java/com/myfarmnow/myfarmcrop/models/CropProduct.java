@@ -14,8 +14,21 @@ public class CropProduct implements CropSpinnerItem, Serializable {
     float  openingQuantity;
     float  sellingPrice;
     float taxRate;
+    float remainingQuantity;
     String description;
 
+
+    public float getRemainingQuantity() {
+        return remainingQuantity;
+    }
+
+    public void setQuantityUsed(float remainingQuantity) {
+        this.remainingQuantity = remainingQuantity;
+    }
+
+    public float computeStockAtHand(){
+        return openingQuantity-remainingQuantity;
+    }
     public String getId() {
         return id;
     }

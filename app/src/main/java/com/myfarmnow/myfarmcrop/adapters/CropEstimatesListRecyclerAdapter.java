@@ -83,7 +83,7 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
         holder.estimateNumberTextView.setText(estimate.getNumber());
         holder.referenceNumberTxtView.setVisibility(View.VISIBLE);
 
-        holder.amountTextView.setText(NumberFormat.getInstance().format(estimate.computeTotal()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(estimate.computeTotal()));
     }
 
 
@@ -180,8 +180,12 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
                     popup.getMenu().add(R.string.label_preview_estimate);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
-                    popup.getMenu().add(R.string.label_share_link);
-                    popup.getMenu().add(R.string.label_convert_to_invoice);
+                    //popup.getMenu().add(R.string.label_share_link);
+                    //only show this option if this estimate has never been invoiced
+                    if(!cropEstimatesList.get(getAdapterPosition()).getStatus().equals(mContext.getString(R.string.estimate_status_invoiced))){
+                        popup.getMenu().add(R.string.label_convert_to_invoice);
+                    }
+
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

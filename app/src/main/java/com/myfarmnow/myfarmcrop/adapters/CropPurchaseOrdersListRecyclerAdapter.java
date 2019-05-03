@@ -160,8 +160,11 @@ public class CropPurchaseOrdersListRecyclerAdapter extends RecyclerView.Adapter<
                     popup.getMenu().add(R.string.label_preview_receipt);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
-                    popup.getMenu().add(R.string.label_share_link);
-                    popup.getMenu().add(R.string.label_convert_to_bill);
+                    //popup.getMenu().add(R.string.label_share_link);
+                    if(!cropPurchaseOrdersList.get(getAdapterPosition()).getStatus().equals(mContext.getString(R.string.purchase_order_status_billed))){
+                        popup.getMenu().add(R.string.label_convert_to_bill);
+                    }
+
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

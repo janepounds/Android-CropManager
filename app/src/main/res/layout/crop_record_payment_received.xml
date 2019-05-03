@@ -15,71 +15,6 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical">
-
-
-        <LinearLayout
-            android:id="@+id/layout_record_payment_received_customer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/customer_name"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/textColor"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_shapes_grey_spinner"
-                android:orientation="vertical"
-                android:padding="2.4dp">
-            <Spinner
-                android:id="@+id/sp_crop_record_payment_received_customer_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter.."
-                android:textSize="14sp"
-
-                />
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_record_payment_received_invoice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="15dp"
-            >
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_invoice"
-                android:textColor="@color/textColor"
-                android:textStyle="bold"
-                android:layout_weight="0.5"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/sp_crop_record_payment_received_select_operation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                android:background="@drawable/input_shapes"
-
-                />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,6 +86,80 @@
             </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_record_payment_received_invoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp"
+            >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invoice"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:layout_weight="0.5"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_shapes_grey_spinner"
+                android:orientation="vertical"
+                android:padding="2.4dp">
+            <Spinner
+                android:id="@+id/sp_crop_record_payment_received_select_operation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
+                android:textSize="14sp"
+
+
+                />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_record_payment_received_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/customer_name"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/textColor"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_shapes_grey_spinner"
+                android:orientation="vertical"
+                android:padding="2.4dp">
+            <Spinner
+                android:id="@+id/sp_crop_record_payment_received_customer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter.."
+                android:textSize="14sp"
+
+                />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -183,7 +192,7 @@
                 android:layout_marginRight="10dp">
 
                 <TextView
-                    android:id="@+id/crop_cost"
+                    android:id="@+id/txt_crop_payment_currency"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/ugx"

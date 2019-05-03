@@ -46,6 +46,7 @@ import com.highsoft.highcharts.common.hichartsclasses.HITooltip;
 import com.highsoft.highcharts.core.HIChartView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.singletons.CropROICalculatorSingleton;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,7 +64,7 @@ public class CropROIResultsActivity extends AppCompatActivity {
 
     HIChartView pieChartView;
     ScrollView summaryScrollView;
-    String currency="UGX ";
+    String currency= CropSettingsSingleton.getInstance().getCurrency()+" ";
     Bitmap bitmap,bitmap2;
     private static final int PERMISSION_REQUEST_CODE = 1;
 
@@ -138,8 +139,12 @@ public class CropROIResultsActivity extends AppCompatActivity {
         chart.setPlotShadow(false);
         options.setChart(chart);
 
+        HICSSObject hicssObject = new HICSSObject();
+        hicssObject.setColor("#4B6F4A");
+
         HITitle title = new HITitle();
-        title.setText("Pie-Chart Representation");
+        title.setText("Pie Chart Representation");
+        title.setStyle(hicssObject);
         options.setTitle(title);
 
         HITooltip tooltip = new HITooltip();
@@ -185,6 +190,8 @@ public class CropROIResultsActivity extends AppCompatActivity {
         pie.setData(new ArrayList<>(Arrays.asList(map1, map2, map3, map4)));
 
         options.setSeries(new ArrayList<HISeries>(Arrays.asList(pie)));
+        String colors []=new String[]{"#51925E","#34463F","#97A162","#CFE8D8"};
+        options.setColors(new ArrayList<String>(Arrays.asList(colors)));
 
         pieChartView.setOptions(options);
     }

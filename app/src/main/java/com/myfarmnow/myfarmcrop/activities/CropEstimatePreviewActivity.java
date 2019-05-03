@@ -55,6 +55,7 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
     TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
             termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,referenceTextView,
             customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
+    TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int INVOICE_ACTION_DOWNLOAD = 134;
     public static final int INVOICE_ACTION_EMAIL = 124;
@@ -106,6 +107,18 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
         referenceTextView = findViewById(R.id.text_view_crop_invoice_reference_number);
         summaryScrollView = findViewById(R.id.scroll_view_invoice_summary);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
+
+        farmNameTextView = findViewById(R.id.text_view_crop_invoice_estimate_farm_name);
+        userStreetTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_street);
+        userCityTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_city);
+        userCountryTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_country);
+
+        farmNameTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        userStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
+        userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
+        userCountryTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
+
+        //android:id="@+id/text_view_crop_invoice_estimate_user_street"
 
         ArrayList<CropProductItem> customersList = new ArrayList<>();
         for(CropProductItem x: cropEstimate.getItems()){

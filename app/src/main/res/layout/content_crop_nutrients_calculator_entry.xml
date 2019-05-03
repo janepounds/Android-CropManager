@@ -36,21 +36,28 @@
                             android:layout_weight="0.3"
                             android:text="Crop"
                             android:textSize="16sp"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/textColor"
                             />
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.7"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="2.4dp">
                         <Spinner
                             android:id="@+id/sp_crop_nutrients_calculator_crop"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
+                           
                             android:ems="10"
-                            android:hint="Enter.."
-                            android:background="@drawable/input_shapes"
+                            android:hint="Select"
                             android:textSize="14sp"
                             android:spinnerMode="dialog"
 
                             />
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -75,9 +82,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="Estimated Yield"
-                            android:textColor="@color/colorPrimary"
-
-                            android:layout_weight="0.5"
+                            android:textColor="@color/textColor"
+                            android:layout_weight="0.4"
                             android:textSize="16sp" />
 
 
@@ -85,7 +91,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.6"
                             android:background="@color/gray_mh"
                            >
 
@@ -93,7 +99,7 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_yield"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.7"
                                 android:inputType="number|numberDecimal"
@@ -104,7 +110,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="Tonnes"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:layout_weight="0.3"
                                 android:textSize="16sp" />
 
@@ -124,8 +130,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Economic Impact : "
-                    android:textSize="18dp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"
+                    android:layout_marginStart="4dp"
+                    android:textColor="@color/textColor"
+                   />
                 <CheckBox
                     android:id="@+id/check_crop_nutrients_calculator_econ_impact"
                     android:layout_width="wrap_content"
@@ -164,20 +172,26 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
                                 android:text="Nitrogen Source"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="16sp" />
 
-                            <Spinner
-                                android:id="@+id/sp_crop_nutrients_calculator_nSource_fert"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="Enter.."
-                                android:background="@drawable/input_shapes"
-                                android:textSize="14sp"
-                                android:spinnerMode="dialog"
-                                />
+                                android:background="@drawable/input_shapes_grey_spinner"
+                                android:orientation="vertical"
+                                android:padding="2.4dp">
+                                    <Spinner
+                                        android:id="@+id/sp_crop_nutrients_calculator_nSource_fert"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:ems="10"
+                                        android:hint="Enter.."
+                                        android:textSize="14sp"
+                                        android:spinnerMode="dialog"
+                                        />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/txt_crop_nutrients_calculator_nSource_compo"
@@ -210,7 +224,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Unit Price"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
 
                                 android:layout_weight="0.5"
                                 android:textSize="16sp" />
@@ -219,7 +233,7 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_nSource_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.5"
                                 android:inputType="number|numberDecimal"
@@ -256,20 +270,25 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
                                 android:text="Phosphorus Source"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="16sp" />
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/input_shapes_grey_spinner"
+                                android:orientation="vertical"
+                                android:padding="2.4dp">
                             <Spinner
                                 android:id="@+id/sp_crop_nutrients_calculator_pSource_fert"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:hint="Enter.."
-                                android:background="@drawable/input_shapes"
                                 android:textSize="14sp"
                                 android:spinnerMode="dialog"
                                 />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/txt_crop_nutrients_calculator_pSource_compo"
@@ -302,7 +321,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Unit Price"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
 
                                 android:layout_weight="0.5"
                                 android:textSize="16sp" />
@@ -311,7 +330,7 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_pSource_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.5"
                                 android:inputType="number|numberDecimal"
@@ -348,20 +367,25 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
                                 android:text="Potassium Source"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="16sp" />
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/input_shapes_grey_spinner"
+                                android:orientation="vertical"
+                                android:padding="2.4dp">
                             <Spinner
                                 android:id="@+id/sp_crop_nutrients_calculator_kSource_fert"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:hint="Enter.."
-                                android:background="@drawable/input_shapes"
                                 android:textSize="14sp"
                                 android:spinnerMode="dialog"
                                 />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/txt_crop_nutrients_calculator_kSource_compo"
@@ -394,7 +418,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Unit Price"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
 
                                 android:layout_weight="0.5"
                                 android:textSize="16sp" />
@@ -403,7 +427,7 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_kSource_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.5"
                                 android:inputType="number|numberDecimal"

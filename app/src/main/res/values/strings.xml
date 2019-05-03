@@ -10,7 +10,7 @@
     <string name="label_tasks">Tasks</string>
     <string name="label_income_expenses">INCOME/EXPENSES</string>
     <string name="label_weather_forecast">Weather Forecast</string>
-    <string name="label_basic_practices">Basic Practices</string>
+    <string name="label_basic_practices">Best Practices</string>
     <string name="label_financial_summary">Financial Summary</string>
     <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager</string>
     <string name="units">Units</string>
@@ -567,6 +567,8 @@
         <item>g</item>
         <item>in</item>
         <item>Kg</item>
+        <item>Tonnes</item>
+        <item>Bushels</item>
         <item>Km</item>
         <item>lb</item>
         <item>mg</item>
@@ -1640,6 +1642,7 @@
     <string name="label_preview_invoice">Preview Invoice</string>
     <string name="infested_card">Infested :</string>
     <string name="no">No</string>
+    <string name="purchase_order_status_billed">BILLED</string>
 
 
     <string-array name="dateFormatsArray">

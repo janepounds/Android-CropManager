@@ -139,6 +139,14 @@
                         android:text="Kleiner Parkers Farm"
                         android:textColor="@color/textColor"
                         android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/text_view_bill_preview_supplier_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Uhuru Sserubiri"
+                        android:textColor="@color/textColor"
+                        android:textSize="12sp"/>
+
 
                     <TextView
                         android:id="@+id/text_view_bill_preview_supplier_street"
@@ -441,6 +449,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
+                        android:textColor="@color/textColor"
                         android:text="@string/default_numeric_value" />
 
                 </LinearLayout>
@@ -510,6 +519,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
+                        android:textColor="@color/textColor"
                         android:text="@string/default_numeric_value" />
 
                 </LinearLayout>
@@ -562,6 +572,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
+                        android:textColor="@color/textColor"
                         android:text="@string/default_numeric_value" />
 
                 </LinearLayout>

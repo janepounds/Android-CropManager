@@ -84,6 +84,7 @@ public class CropBillPreviewActivity extends AppCompatActivity {
 
         subTotalTextView = findViewById(R.id.txt_view_crop_bill_preview_sub_total);
         supplierCompanyTextView = findViewById(R.id.text_view_bill_preview_supplier_company);
+        supplierNameTextView = findViewById(R.id.text_view_bill_preview_supplier_name);
         supplierCityCountryTextView = findViewById(R.id.text_view_bill_preview_supplier_city_country);
         supplierStreetTextView = findViewById(R.id.text_view_bill_preview_supplier_street);
         totalTextView = findViewById(R.id.txt_view_crop_bill_preview_total);

@@ -129,27 +129,10 @@
                             android:id="@+id/txt_crop_product_card_selling_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="200"
-                            android:textColor="@color/estimates_card_currency_color"
-
-                            android:textSize="14sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/"
-                            android:textColor="@color/estimates_card_currency_color"
-
-                            android:textSize="14sp"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"/>
-
-                        <TextView
-                            android:id="@+id/txt_crop_product_card_units"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Piece"
+                            android:text="200/Piece"
                             android:textColor="@color/estimates_card_currency_color"
                             android:textSize="14sp" />
+
 
 
 

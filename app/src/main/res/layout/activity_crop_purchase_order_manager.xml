@@ -514,6 +514,7 @@
                     android:layout_height="80dp"
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
                 </LinearLayout>
                 <LinearLayout
@@ -537,6 +538,7 @@
                         android:layout_height="80dp"
                         android:background="@drawable/input_shapes"
                         android:gravity="start"
+                        android:textSize="12sp"
                         android:hint="Enter.." />
 
                 </LinearLayout>
@@ -555,8 +557,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColor"
-                    android:drawableTint="#ffffff"
-                    android:text="Save "
+                    android:text="Save"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />
                 <Button
@@ -565,7 +566,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColor"
-                    android:drawableTint="#ffffff"
                     android:text="@string/save_send"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />

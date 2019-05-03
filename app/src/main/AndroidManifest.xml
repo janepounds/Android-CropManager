@@ -53,7 +53,7 @@
             android:name=".activities.CropBillsListActivity"
             android:label="Bills" />
         <activity
-            android:name=".activities.CropPaymentBillManagerActivity"
+            android:name=".activities.CropBillPaymentManagerActivity"
             android:label="Bill Payment Manager" />
         <activity
             android:name=".activities.CropBillPreviewActivity"
@@ -225,7 +225,6 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

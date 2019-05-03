@@ -24,8 +24,8 @@
                 android:layout_margin="4dp"
                 android:textStyle="bold"
                 android:text="Overhead/Fixed Costs"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textColor="@color/textColor"
+                android:textSize="14sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,8 +42,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/building_repair"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
@@ -81,8 +81,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/machinery_depreciation"
 
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
@@ -121,8 +121,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/property_taxes"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
@@ -158,8 +158,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/business_overhead"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
@@ -195,8 +195,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/building_depreciation"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
@@ -233,8 +233,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total Other Costs"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
@@ -265,22 +265,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     >
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total Overhead/Fixed Costs"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="0.3"
-                    android:background="@color/light_gray"
+                    android:layout_weight="0.4"
+                    android:background="@color/calaculators_total_color"
+                    android:padding="4dp"
                     >
                     <TextView
                         android:id="@+id/txt_crop_ro1_step_3_total_overhead_costs"
@@ -318,9 +319,10 @@
                         style="@style/Button"
                         android:textColor="@color/whiteColor"
                         android:drawableRight="@drawable/arrow_right_white_24dp"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -336,9 +338,10 @@
                         style="@style/Button"
                         android:textColor="@color/whiteColor"
                         android:drawableLeft="@drawable/arrow_left_white_24dp"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="normal" />
                 </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>

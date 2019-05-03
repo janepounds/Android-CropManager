@@ -150,20 +150,20 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
                                 CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
                                 Intent editSalesOrder = new Intent(mContext, CropSalesOrderPreviewActivity.class);
                                 editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
-                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.INVOICE_ACTION_PREVIEW);
+                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.SALES_ORDER_ACTION_PREVIEW);
                                 mContext.startActivity(editSalesOrder);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_dowloand_pdf))){
                                 CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
                                 Intent editSalesOrder = new Intent(mContext, CropSalesOrderPreviewActivity.class);
                                 editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
-                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.INVOICE_ACTION_DOWNLOAD);
+                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.SALES_ORDER_ACTION_DOWNLOAD);
                                 mContext.startActivity(editSalesOrder);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_email))){
                                 CropSalesOrder cropSalesOrder = cropSalesOrdersList.get(getAdapterPosition());
                                 Intent editSalesOrder = new Intent(mContext, CropSalesOrderPreviewActivity.class);
                                 editSalesOrder.putExtra("cropSalesOrder",cropSalesOrder);
-                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.INVOICE_ACTION_EMAIL);
+                                editSalesOrder.putExtra("action",CropSalesOrderPreviewActivity.SALES_ORDER_ACTION_EMAIL);
                                 mContext.startActivity(editSalesOrder);
                             }
                             return true;
@@ -172,8 +172,10 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
                     popup.getMenu().add(R.string.label_preview_receipt);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
-                    popup.getMenu().add(R.string.label_share_link);
-                    popup.getMenu().add(R.string.label_convert_to_invoice);
+                  //  popup.getMenu().add(R.string.label_share_link);
+                    if(!cropSalesOrdersList.get(getAdapterPosition()).getStatus().equals(mContext.getString(R.string.estimate_status_invoiced))){
+                        popup.getMenu().add(R.string.label_convert_to_invoice);
+                    }
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

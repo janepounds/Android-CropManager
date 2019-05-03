@@ -102,7 +102,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
             amountTextView = itemView.findViewById(R.id.txt_crop_estimate_card_amount);
             estimateNumberTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_number);
             dateTextView = itemView.findViewById(R.id.txt_crop_estimate_card_estimate_date);
-            orderNumberTxt = itemView.findViewById(R.id.txt_crop_estimate_card_reference_number);
+            orderNumberTxt = itemView.findViewById(R.id.txt_crop_estimate_card_order_number);
             statusTextView = itemView.findViewById(R.id.txt_crop_estimate_card_status);
           //  taxTextView = itemView.findViewById(R.id.txt_crop_estimate_card_phone);
             nameTextView = itemView.findViewById(R.id.txt_crop_estimate_card_customer_name);
@@ -147,6 +147,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
                                 CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
                                 Intent recordPayment = new Intent(mContext, CropPaymentManagerActivity.class);
                                 recordPayment.putExtra("invoiceId",cropInvoice.getId());
+                                recordPayment.putExtra("customerId",cropInvoice.getCustomerId());
                                 mContext.startActivity(recordPayment);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_invoice))){
                                 CropInvoice cropInvoice = cropInvoicesList.get(getAdapterPosition());
@@ -174,7 +175,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
                     popup.getMenu().add(R.string.preview_invoice);
                     popup.getMenu().add(R.string.label_dowloand_pdf);
                     popup.getMenu().add(R.string.label_email);
-                    popup.getMenu().add(R.string.label_share_link);
+                   // popup.getMenu().add(R.string.label_share_link);
                     popup.getMenu().add(R.string.label_record_payment);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);

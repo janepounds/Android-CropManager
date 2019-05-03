@@ -1,8 +1,9 @@
 package com.myfarmnow.myfarmcrop;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
-public class CropManagerApp extends Application {
+public class CropManagerApp extends MultiDexApplication {
   
   @Override
   public void onCreate() {

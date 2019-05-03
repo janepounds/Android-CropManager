@@ -56,6 +56,9 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
     TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
     termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,referenceTextView,
     customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
+
+    TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView;
+
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int INVOICE_ACTION_DOWNLOAD = 134;
     public static final int INVOICE_ACTION_EMAIL = 124;
@@ -133,8 +136,16 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         streetTextView.setText(cropCustomer.getBillingStreet());
         customerCompanyTextView.setText(cropCustomer.getCompany());
 
-        //TODO replace currencies with user settings
-        //TODO replace date format with user settings format
+        farmNameTextView = findViewById(R.id.text_view_crop_invoice_estimate_farm_name);
+        userStreetTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_street);
+        userCityTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_city);
+        userCountryTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_country);
+
+        farmNameTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        userStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
+        userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
+        userCountryTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
+
 
         final ViewTreeObserver observer = summaryScrollView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

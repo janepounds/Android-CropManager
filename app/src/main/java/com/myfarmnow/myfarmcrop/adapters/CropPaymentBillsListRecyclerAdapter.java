@@ -11,13 +11,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentBillManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropBillPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPaymentBill;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -64,14 +64,18 @@ public class CropPaymentBillsListRecyclerAdapter extends RecyclerView.Adapter<Cr
     }
     @Override
     public void onBindViewHolder(@NonNull PaymentBillViewHolder holder, int position) {
-        CropPaymentBill paymentBill = cropPaymentBillsList.get(position);
+        CropPaymentBill payment = cropPaymentBillsList.get(position);
 
-        holder.paymentDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(paymentBill.getDate()));
-        holder.modeTextView.setText(paymentBill.getMode());
-        holder.billIdTextView.setText(paymentBill.getBillId());
+        holder.nameTextView.setText(payment.getSupplierName());
+        holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(payment.getDate()));
+        holder.modeTextView.setText(payment.getMode());
+        holder.billNumberTextView.setText(payment.getBillNumber()+"");
+    //    holder.paymentNumberTextView.setText(payment.get());
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(payment.getAmount()));
 
-        holder.amountTextView.setText(NumberFormat.getInstance().format(paymentBill.getAmount()));
-
+        if (payment.getBillId()==null){
+            holder.billPaymentLayout.setVisibility(View.GONE);
+        }
     }
 
 
@@ -80,21 +84,24 @@ public class CropPaymentBillsListRecyclerAdapter extends RecyclerView.Adapter<Cr
         return cropPaymentBillsList.size();
     }
 
-    public class PaymentBillViewHolder  extends RecyclerView.ViewHolder{
-        TextView paymentDateTextView,modeTextView,billIdTextView,amountTextView;
-        ImageView moreButton;
+    public class PaymentBillViewHolder  extends RecyclerView.ViewHolder {
 
+        TextView amountTextView, billNumberTextView, modeTextView, nameTextView, paymentNumberTextView, dateTextView;
+        ImageView moreButton, deleteButton;
+        LinearLayout billPaymentLayout;
 
         public PaymentBillViewHolder(View itemView) {
             super(itemView);
 
-            amountTextView = itemView.findViewById(R.id.txt_crop_payment_bill_card_payment_made);
-            paymentDateTextView = itemView.findViewById(R.id.txt_crop_payment_bill_card_payment_date);
-            modeTextView = itemView.findViewById(R.id.txt_crop_payment_bill_card_mode);
-            billIdTextView = itemView.findViewById(R.id.txt_crop_payment_bill_card_bill_number);
+            amountTextView = itemView.findViewById(R.id.txt_crop_payment_card_amount);
+          //  paymentNumberTextView = itemView.findViewById(R.id.txt_crop_payment_card_payment_number);
+            dateTextView = itemView.findViewById(R.id.txt_crop_payment_card_date);
+            modeTextView = itemView.findViewById(R.id.txt_crop_payment_card_mode);
+            billNumberTextView = itemView.findViewById(R.id.txt_crop_payment_card_invoice_number);
 
-
+            nameTextView = itemView.findViewById(R.id.txt_crop_payment_card_customer_name);
             moreButton = itemView.findViewById(R.id.img_crop_payment_card_more);
+            billPaymentLayout = itemView.findViewById(R.id.layout_crop_payment_card_invoice);
 
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,11 +111,11 @@ public class CropPaymentBillsListRecyclerAdapter extends RecyclerView.Adapter<Cr
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))) {
                                 final CropPaymentBill cropPaymentBill = cropPaymentBillsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle(R.string.label_confirm)
-                                        .setMessage(wrapper.getString(R.string.delete_prompt_message)+" payment for bill "+cropPaymentBill.getBillId()+" ?")
+                                        .setMessage(wrapper.getString(R.string.delete_prompt_message) + " payment for bill " + cropPaymentBill.getBillId() + " ?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -118,12 +125,13 @@ public class CropPaymentBillsListRecyclerAdapter extends RecyclerView.Adapter<Cr
                                                 cropPaymentBillsList.remove(getAdapterPosition());
                                                 notifyItemRemoved(getAdapterPosition());
 
-                                            }})
+                                            }
+                                        })
                                         .setNegativeButton(android.R.string.no, null).show();
-                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                            } else if (item.getTitle().equals(mContext.getString(R.string.label_edit))) {
                                 CropPaymentBill cropPaymentBill = cropPaymentBillsList.get(getAdapterPosition());
-                                Intent editPaymentBill = new Intent(mContext, CropPaymentBillManagerActivity.class);
-                                editPaymentBill.putExtra("cropPaymentBill",cropPaymentBill);
+                                Intent editPaymentBill = new Intent(mContext, CropBillPaymentManagerActivity.class);
+                                editPaymentBill.putExtra("cropPaymentBill", cropPaymentBill);
                                 mContext.startActivity(editPaymentBill);
                             }
                             return true;
@@ -136,8 +144,7 @@ public class CropPaymentBillsListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
                 }
             });
-
-
         }
     }
+
 }

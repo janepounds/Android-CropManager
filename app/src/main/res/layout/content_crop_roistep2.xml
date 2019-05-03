@@ -21,10 +21,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Direct/Variable Expenses"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/textColor"
                 android:textSize="16sp"
                 android:textAlignment="center"
-                android:textStyle="bold"
+               
                  />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,8 +42,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/seed_and_treatment"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -81,8 +81,8 @@
                         android:layout_height="match_parent"
                         android:text="Fertilizer"
 
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -119,8 +119,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/herbicide"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -156,8 +156,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/insecticide"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -193,8 +193,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/fuel"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -231,8 +231,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/machinery_operating"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -269,8 +269,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/machinery_lease"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -306,8 +306,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/land_rental"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -343,8 +343,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Crop Insuration Premium"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -381,8 +381,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Drying Costs"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -419,8 +419,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Other Costs"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -459,9 +459,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total Variable Costs"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
+                       
                          />
                 </LinearLayout>
                 <LinearLayout
@@ -469,7 +469,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_weight="1"
-                    android:background="@color/light_gray"
+                    android:background="@color/calaculators_total_color"
+                    android:padding="4dp"
                     >
                     <TextView
                         android:id="@+id/txt_crop_roi_step_2_crop_total_variable_cost"
@@ -477,7 +478,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="textEnd"
                         android:layout_margin="4dp"
-                        android:textStyle="bold"
+                       
                         android:hint="@string/enter_hint"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -492,24 +493,7 @@
                 android:layout_margin="8dp"
                 android:gravity="center_vertical"
                 >
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    >
-                    <Button
-                        android:id="@+id/txt_crop_roi_step_2_crop_btn_next"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/next"
-                        android:textAllCaps="false"
-                        style="@style/Button"
-                        android:textColor="@color/whiteColor"
-                        android:drawableRight="@drawable/arrow_right_white_24dp"
-                        android:textSize="16sp"
-                         />
-                </LinearLayout>
+                
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -525,8 +509,26 @@
                         style="@style/Button"
                         android:textColor="@color/whiteColor"
                         android:drawableLeft="@drawable/arrow_left_white_24dp"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                          />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+                    <Button
+                        android:id="@+id/txt_crop_roi_step_2_crop_btn_next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/next"
+                        android:textAllCaps="false"
+                        style="@style/Button"
+                        android:textColor="@color/whiteColor"
+                        android:drawableRight="@drawable/arrow_right_white_24dp"
+                        android:textSize="14sp"
+                        />
                 </LinearLayout>
 
             </LinearLayout>

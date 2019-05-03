@@ -32,7 +32,8 @@
                         android:layout_height="wrap_content"
                         android:text="Karlin Farms"
                         android:textColor="@color/textColor"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

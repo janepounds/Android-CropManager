@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
+import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
@@ -39,7 +40,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
     EditText discountPercentageTxt,termsAndConditionsTxt,notesTxt, purchaseOrderDateTxt,deliveryDateTxt,referenceNoTxt,methodTxt;
     TextView purchaseOrderNumberTextView;
     Spinner suppliersSp;
-    Button saveBtn;
+    Button saveBtn,saveAndSendBtn;
     ArrayList <CropProduct> list = new ArrayList<>();
     ArrayList <CropProductItem> purchase_orderItems = new ArrayList<>();
     CropSpinnerAdapter suppliersSpinnerAdapter;
@@ -69,6 +70,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
         suppliersSp = findViewById(R.id.spinner_crop_purchase_order_supplier);
         referenceNoTxt = findViewById(R.id.txt_crop_purchase_order_reference_number);
         saveBtn = findViewById(R.id.btn_save);
+        saveAndSendBtn = findViewById(R.id.btn_save_send);
         CropDashboardActivity.addDatePicker(purchaseOrderDateTxt, this);
         CropDashboardActivity.addDatePicker(deliveryDateTxt, this);
 
@@ -137,11 +139,41 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
                 }
             }
         });
+
+        saveAndSendBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(validateEntries()){
+                    CropPurchaseOrder purchaseOrder=null;
+                    if (cropPurchaseOrder == null) {
+                        savePurchaseOrder();
+                    } else {
+                        updatePurchaseOrder();
+                    }
+
+                    if(purchaseOrder!=null){
+                        Intent toCropEmployeesList = new Intent(CropPurchaseOrderManagerActivity.this, CropPurchaseOrderPreviewActivity.class);
+                        toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        toCropEmployeesList.putExtra("cropPurchaseOrder",purchaseOrder);
+                        toCropEmployeesList.putExtra("action",CropInvoicePreviewActivity.INVOICE_ACTION_EMAIL);
+                        startActivity(toCropEmployeesList);
+                        finish();
+                    }else{
+                        Toast.makeText(CropPurchaseOrderManagerActivity.this,"Sales Order cant be Saved",Toast.LENGTH_LONG).show();
+                    }
+
+
+                }else{
+                    Log.d("ERROR","Testing");
+                }
+            }
+        });
         fillViews();
 
 
     }
-    public void savePurchaseOrder(){
+    public CropPurchaseOrder savePurchaseOrder(){
         cropPurchaseOrder = new CropPurchaseOrder();
         cropPurchaseOrder.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropPurchaseOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
@@ -161,11 +193,11 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
         }
         cropPurchaseOrder.setItems(purchase_orderItems);
 
-        dbHandler.insertCropPurchaseOrder(cropPurchaseOrder);
+       return dbHandler.insertCropPurchaseOrder(cropPurchaseOrder);
 
     }
 
-    public void updatePurchaseOrder(){
+    public CropPurchaseOrder updatePurchaseOrder(){
         if(cropPurchaseOrder != null){
             cropPurchaseOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
             cropPurchaseOrder.setNotes(notesTxt.getText().toString());
@@ -184,7 +216,10 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
             cropPurchaseOrder.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
 
             cropPurchaseOrder.setItems(purchase_orderItems);
-            dbHandler.updateCropPurchaseOrder(cropPurchaseOrder);
+            return dbHandler.updateCropPurchaseOrder(cropPurchaseOrder);
+        }
+        else{
+            return null;
         }
     }
 
