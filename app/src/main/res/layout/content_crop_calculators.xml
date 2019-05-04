@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     android:padding="48dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropCalculatorsActivity"
@@ -45,41 +47,13 @@
                 android:gravity="center"
 
                 android:paddingBottom="5dp"
-                android:text="REVENUE"
+                android:text="REVENUE CALCULATE"
                 android:textAllCaps="true"
                 android:textColor="#000000" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_crop_calculators_fertilizer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@color/whiteColor"
-            android:onClick="openFertilizerCalculator"
-            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-
-                android:padding="10dp"
-                android:src="@drawable/crops" />
-
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="@color/whiteColor"
-                android:gravity="center"
-                android:paddingBottom="5dp"
-                android:text="FERTILIZER"
-                android:textAllCaps="true"
-                android:textColor="#000000" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -93,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
@@ -117,7 +91,7 @@
                 android:gravity="center"
 
                 android:paddingBottom="5dp"
-                android:text="NUTRIENTS"
+                android:text="NUTRIENT REMOVAL"
                 android:textAllCaps="true"
                 android:textColor="#000000" />
 
@@ -125,7 +99,7 @@
 
         <LinearLayout
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
@@ -149,7 +123,7 @@
                 android:gravity="center"
 
                 android:paddingBottom="5dp"
-                android:text="FERTILIZER"
+                android:text="FERTILIZER ESTIMATOR"
                 android:textAllCaps="true"
                 android:textColor="#000000" />
         </LinearLayout>

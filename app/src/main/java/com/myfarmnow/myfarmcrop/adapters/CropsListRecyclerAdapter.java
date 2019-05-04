@@ -30,9 +30,11 @@ import com.myfarmnow.myfarmcrop.activities.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecyclerAdapter.CropCardViewHolder> {
@@ -66,7 +68,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
         holder.rateTextView.setText(curCrop.computeRateR() + " "+ curCrop.getHarvestUnits()+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
         holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
-        holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+curCrop.getEstimatedRevenue());
+        holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
 
     }
 //TODO AREA UNITS FROM SETTINGS ARE FIRST NULL UNTIL SETTINGS ARE UPDATED

@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -74,10 +77,39 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
         CropSoilAnalysis field = cropsoilAnalysisList.get(position);
 
         holder.agronomistTextView.setText(field.getAgronomist());
-        holder.resultsTextView.setText(field.getResult());
+       // holder.resultsTextView.setText(field.getResult());
         holder.organicMatterTextView.setText(field.getOrganicMatter()+"%");
         holder.phTextView.setText(field.getPh()+"");
         holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(field.getDate()));
+
+        TextView resultsTextView = new TextView(mContext);
+        resultsTextView.setText("Results : "+field.getResult());
+        View view = new View(mContext);
+        view.setMinimumHeight(20);
+        holder.expandContentLayout.addView(resultsTextView);
+
+        holder.expandContentLayout.addView(view);
+        holder.hideShowLayout.setVisibility(View.VISIBLE);
+
+
+
+        holder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                if (holder.expandContentLayout.getVisibility()==View.VISIBLE){
+                    holder.expandContentLayout.setVisibility(View.GONE);
+                    holder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
+
+                }else{
+                    holder.expandContentLayout.setVisibility(View.VISIBLE);
+                    holder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
+
+                }
+            }
+        });
+
+
 
         final ViewTreeObserver observer = holder.resultsTextView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -112,7 +144,8 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
     public class SoilAnalysisViewHolder extends RecyclerView.ViewHolder{
 
         TextView dateTextView, phTextView, organicMatterTextView, agronomistTextView, resultsTextView;
-        ImageView moreButton, deleteButton;
+        LinearLayout hideShowLayout,expandContentLayout;
+        ImageView moreButton,showHideRemarksButton;
         View verticalLineView;
         public SoilAnalysisViewHolder(View itemView) {
             super(itemView);
@@ -127,7 +160,9 @@ public class CropSoilAnalysisListRecyclerAdapter extends RecyclerView.Adapter<Cr
 
             moreButton = itemView.findViewById(R.id.img_crop_soil_analysis_card_more);
 
-
+            hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
+            expandContentLayout = itemView.findViewById(R.id.layout_crop_scouting_expand);
+            showHideRemarksButton = itemView.findViewById(R.id.img_crop_scouting_card_show_crops);
 
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override

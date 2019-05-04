@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:text="Area : "
                         android:layout_marginStart="28dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:textColor="@color/blackText"
                         android:textSize="14sp" />
 
@@ -124,7 +124,7 @@
                         android:id="@+id/txt_crop_irrigation_card_irrigated_area"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="(2.5 ha)"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:text="Duration : "
                         android:layout_marginStart="28dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
 
@@ -149,7 +149,7 @@
                         android:id="@+id/txt_view_crop_irrigation_card_duration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="100 l/hr"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -165,7 +165,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:text="Rate : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -174,7 +174,7 @@
                         android:id="@+id/txt_view_crop_irrigation_card_system_rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="56kg/ha"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -191,7 +191,7 @@
                             android:layout_height="wrap_content"
                             android:text="Water Quantity : "
                             android:layout_marginStart="28dp"
-                            android:layout_weight="1"
+                            android:layout_weight="0.5"
                             android:textColor="@color/blackText"
                            android:textSize="14sp" />
 
@@ -199,7 +199,7 @@
                             android:id="@+id/txt_view_crop_irrigation_card_total_water_quantity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="0.6"
                             android:text="300 ltrs "
                             android:textColor="#899889" />
                     </LinearLayout>
@@ -217,7 +217,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="28dp"
-                            android:layout_weight="1"
+                            android:layout_weight="0.5"
                             android:text="Qty/ha : "
                             android:textColor="@color/blackText"
                            android:textSize="14sp" />
@@ -226,7 +226,7 @@
                             android:id="@+id/txt_view_crop_irrigation_card_quantity_per_acre"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="0.6"
                             android:text="10 ltrs"
                             android:textColor="#899889" />
                     </LinearLayout>
@@ -243,7 +243,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:text="Recurrence : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -252,7 +252,7 @@
                         android:id="@+id/txt_view_crop_irrigation_card_recurrence"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="Weekly"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -269,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:text="Cost : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -278,7 +278,7 @@
                         android:id="@+id/txt_view_crop_irrigation_card_total_cost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="UGX 150,000"
                         android:textColor="#899889" />
                 </LinearLayout>

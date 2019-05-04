@@ -58,7 +58,7 @@
                                     android:textAllCaps="false"
                                     android:layout_weight="1"
                                     android:layout_marginStart="15dp"
-                                    android:layout_marginEnd="15dp"/>
+                                    android:layout_marginEnd="10dp"/>
                                 <Button
                                     android:id="@+id/btn_crop_notes"
                                     android:layout_width="wrap_content"
@@ -66,6 +66,7 @@
                                     android:text="Notes"
                                     style="@style/CropButton"
                                     android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
                                     android:textAllCaps="false"
                                     android:layout_weight="1"/>
                                 <Button
@@ -163,16 +164,16 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Field "
-                                        android:layout_weight="0.6"
+                                        android:layout_weight="1"
                                         android:textColor="#000"
                                         android:textSize="15sp" />
 
                                     <TextView
                                         android:id="@+id/txt_crop_card_field"
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:text="Field 1"
@@ -196,34 +197,38 @@
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_date_planted"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:layout_weight="1"
                                             android:text="Date Sown "
                                             android:textColor="#000"
 
                                             android:textSize="15sp" />
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_weight="1">
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_actual_date_planted"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-
+                                            android:layout_weight="1"
                                             android:text="25/12/2020"
                                             android:textColor="#899889"
-                                            android:layout_marginStart="67dp"
                                             android:textSize="15sp" />
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_age"
                                             android:textSize="15sp"
-                                            android:layout_marginStart="5dp"
                                             android:textColor="#899889"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="4m 20d"
-
+                                            android:layout_weight="1"
                                             />
-
+                                        </LinearLayout>
 
                                     </LinearLayout>
 
@@ -246,26 +251,23 @@
                                             android:layout_height="wrap_content"
                                             android:text="Cropping Year "
                                             android:textColor="#000"
-                                            android:layout_weight="0.2"
+                                            android:layout_weight="1"
 
                                             android:textSize="15sp" />
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="0.1"
-                                            android:layout_marginStart="32dp"
+                                            android:layout_weight="1"
                                             android:orientation="horizontal"
                                             >
 
                                             <TextView
                                                 android:id="@+id/txt_crop_card_cropping_year"
-                                                android:layout_width="106dp"
+                                                android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
-                                                android:layout_marginStart="-7dp"
 
-                                                android:layout_weight="1"
-                                                android:paddingStart="7dp"
+                                                android:layout_weight="0.7"
                                                 android:text="2019"
                                                 android:textColor="#899889"
                                                 android:textSize="15sp" />
@@ -275,7 +277,7 @@
                                             android:textSize="15sp"
 
                                             android:textColor="#899889"
-                                            android:layout_weight="0.7"
+                                            android:layout_weight="0.2"
 
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -299,20 +301,19 @@
                                             android:layout_height="wrap_content"
                                             android:text="Rate "
                                             android:textColor="#000"
-                                            android:layout_weight="0.6"
+                                            android:layout_weight="1"
                                             android:textSize="15sp" />
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal"
-                                            android:layout_weight="0.4"
+                                            android:layout_weight="1"
                                             >
                                         <TextView
                                             android:id="@+id/txt_crop_card_rate"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginStart="10dp"
                                             android:text="2.5"
                                             android:textColor="#899889"
                                             android:textSize="15sp" />
@@ -332,9 +333,10 @@
                                         android:orientation="horizontal">
 
                                         <TextView
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Planting Method "
+                                            android:layout_weight="1"
                                             android:textColor="#000"
                                             android:textSize="15sp" />
 
@@ -345,8 +347,7 @@
                                             android:layout_weight="1"
                                             android:text="Drill Sow"
                                             android:textColor="#899889"
-                                            android:layout_marginStart="30dp"
-                                            android:textSize="15sp"
+                                             android:textSize="15sp"
                                             />
 
 
@@ -362,8 +363,9 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="1"
                                         android:text="Estimated Revenue "
                                         android:textColor="#000"
                                         android:textSize="15sp" />
@@ -375,8 +377,7 @@
                                         android:layout_weight="1"
                                         android:text="UGX 50,000 /Box"
                                         android:textColor="#899889"
-                                        android:layout_marginStart="20dp"
-                                        android:textSize="15sp"
+                                         android:textSize="15sp"
                                         />
 
 
