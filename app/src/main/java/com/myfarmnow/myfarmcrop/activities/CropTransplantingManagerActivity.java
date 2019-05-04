@@ -30,7 +30,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     EditText operationDateTxt,totalSeedlingTxt,cycleLengthTxt,expectedYieldTxt,operatorTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt,expectedYieldPerHaTxt,seedlingsPerHaTxt;
     Spinner varietyEarlinessSpinner,unitsSpinner,recurrenceSp,remindersSp;
 
-    TextView expectedHarvestingDateTxt,expectedYieldPerUnitTxt,seedlingPerUnitTxt,areaTxt;
+    TextView expectedHarvestingDateTxt,expectedYieldPerUnitTxt,seedlingPerUnitTxt,currencyTxt,areaTxt;
     LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
@@ -67,6 +67,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         expectedYieldPerUnitTxt = findViewById(R.id.txt_crop_transplanting_expected_yield_per_unit);
         operatorTxt = findViewById(R.id.txt_crop_transplanting_operator);
         totalCostTxt = findViewById(R.id.txt_crop_transplanting_total_cost);
+        currencyTxt = findViewById(R.id.txt_crop_transplanting_currency);
         remindersSp = findViewById(R.id.sp_crop_transplanting_reminders);
         recurrenceSp = findViewById(R.id.sp_crop_transplanting_recurrence);
         weeksTxt = findViewById(R.id.txt_crop_transplanting_weekly_weeks);
@@ -149,6 +150,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(operationDateTxt,this);
         CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         ((ArrayAdapter)varietyEarlinessSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)unitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

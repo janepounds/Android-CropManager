@@ -217,8 +217,8 @@
                     android:id="@+id/txt_crop_transplanting_expected_harvesting_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_shapes"
-                    android:hint="Select"
+                    android:background="@drawable/input_shapes_grey_spinner"
+
                     android:inputType="none"
                     android:textSize="14sp"
                     />
@@ -371,12 +371,13 @@
                     >
 
                     <TextView
-                        android:id="@+id/crop_cost"
+                        android:id="@+id/txt_crop_transplanting_currency"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/ugx"
                         android:layout_weight="0.7"
                         android:textSize="14sp"
+                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:background="@drawable/input_shapes_grey_units"
                         />

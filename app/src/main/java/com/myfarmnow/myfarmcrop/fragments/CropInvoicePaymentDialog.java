@@ -49,7 +49,7 @@ public class CropInvoicePaymentDialog extends DialogFragment {
         invoiceLayout = view.findViewById(R.id.layout_record_payment_received_invoice);
         saveBtn = view.findViewById(R.id.btn_save);
 
-        ((TextView)view.findViewById(R.id.txt_crop_record_payment_currency)).setText(CropSettingsSingleton.getInstance().getCurrency());
+        ((TextView)view.findViewById(R.id.txt_crop_payment_currency)).setText(CropSettingsSingleton.getInstance().getCurrency());
         CropDashboardActivity.addDatePicker(dateTxt,getActivity());
         customerLayout.setVisibility(View.GONE);
         invoiceLayout.setVisibility(View.GONE);
