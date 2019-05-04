@@ -17,10 +17,18 @@
 
 
             <ImageView
+                android:id="@+id/img_crop_task"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/treatment_kit" />
+                android:src="@drawable/task_task" />
+            <ImageView
+                android:id="@+id/img_crop_service"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/service_service"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/txt_view_crop_spraying_card_line"

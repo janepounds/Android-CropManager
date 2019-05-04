@@ -22,7 +22,9 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropMachineTaskManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropMachineTask;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<CropMachineTaskListRecyclerAdapter.MachineTaskViewHolder> {
@@ -77,7 +79,7 @@ public class CropMachineTaskListRecyclerAdapter extends RecyclerView.Adapter<Cro
         holder.personnelTxt.setText(machineTask.getEmployeeName());
         holder.recurrenceTxt.setText(machineTask.getRecurrence());
         holder.statusTxt.setText(machineTask.getStatus());
-        holder.costTxt.setText(machineTask.getCost()+"");
+        holder.costTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" " + NumberFormat.getInstance().format(machineTask.getCost())+"");
 
         if(machineTask.getDescription() != null){
 

@@ -98,8 +98,7 @@
                             <EditText
                                 android:id="@+id/txt_crop_nutrients_calculator_yield"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/textColor"
+                                android:layout_height="match_parent"
                                 android:textSize="14sp"
                                 android:layout_weight="0.7"
                                 android:inputType="number|numberDecimal"
@@ -108,11 +107,13 @@
 
                             <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:text="Tonnes"
-                                android:textColor="@color/textColor"
+                                android:textColor="@color/colorPrimary"
+                                android:background="@drawable/input_shapes_grey_units_right"
+                                android:gravity="center"
                                 android:layout_weight="0.3"
-                                android:textSize="16sp" />
+                                android:textSize="14sp" />
 
 
 
@@ -129,7 +130,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Economic Impact : "
+                    android:text="Economic Impact "
                     android:textSize="16sp"
                     android:layout_marginStart="4dp"
                     android:textColor="@color/textColor"
@@ -233,7 +234,6 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_nSource_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.5"
                                 android:inputType="number|numberDecimal"
@@ -330,7 +330,6 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_pSource_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.5"
                                 android:inputType="number|numberDecimal"
@@ -427,7 +426,6 @@
                                 android:id="@+id/txt_crop_nutrients_calculator_kSource_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/textColor"
                                 android:textSize="14sp"
                                 android:layout_weight="0.5"
                                 android:inputType="number|numberDecimal"

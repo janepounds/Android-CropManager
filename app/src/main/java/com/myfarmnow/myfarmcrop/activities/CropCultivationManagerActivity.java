@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropCultivationManagerActivity extends AppCompatActivity {
 
@@ -134,6 +135,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
             }
         });
 
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         btn_save = findViewById(R.id.btn_save);
         CropDashboardActivity.addDatePicker(dateTxt,this);
         CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
@@ -152,6 +154,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

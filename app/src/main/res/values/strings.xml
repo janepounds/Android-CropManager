@@ -194,6 +194,9 @@
         <item>Select Type</item>
         <item>Pesticide</item>
         <item>Herbicide</item>
+        <item>Insecticide</item>
+        <item>Fungicide</item>
+        <item>Nematocide</item>
     </string-array>
     <string-array name="crop_fertilizer_application_method_solid">
         <item>Broadcasting</item>
@@ -581,30 +584,28 @@
         <item>Expense</item>
     </string-array>
     <string-array name="sp_crop_income_category">
-        <item>Fertilizer</item>
-        <item>Pesticide</item>
-        <item>Fuel</item>
-        <item>Crop</item>
-        <item>Seed</item>
-        <item>Field</item>
-        <item>Machinery</item>
-        <item>Service</item>
+        <item>Crop Sales</item>
+        <item>Machinery Hire</item>
+        <item>Rent &amp; Lease</item>
+        <item>Grant</item>
+        <item>Services</item>
         <item>General Income</item>
     </string-array>
     <string-array name="sp_crop_expenses_category">
-        <item>All in Income</item>
-        <item>Biological Assets</item>
-        <item>Buildings</item>
-        <item>Electricity</item>
-        <item>Equipment</item>
-        <item>Financial Costs</item>
-        <item>Insurance</item>
+        <item>Fuel</item>
+        <item>Utilities</item>
+        <item>Fertilizer &amp; Lime</item>
+        <item>Pesticides</item>
         <item>Maintenance</item>
         <item>Marketing</item>
-        <item>Rental Costs</item>
+        <item>Commercial Seeds</item>
+        <item>Insurance</item>
+        <item>Marketing</item>
+        <item>Rent &amp; Lease</item>
         <item>Taxes</item>
         <item>Transport</item>
-        <item>General Income</item>
+        <item>Machinery/Equipments</item>
+        <item>General Expenses</item>
     </string-array>
     <string-array name="sp_crop_income_expense_payment_mode">
         <item>Select Mode</item>
@@ -864,12 +865,10 @@
         <item>Employee</item>
         <item>Trainer</item>
         <item>Farmer</item>
-        <item>Rider</item>
-        <item>Vet</item>
         <item>Breeder</item>
         <item>Supplier</item>
-        <item>Judge</item>
-        <item>Other</item>
+        <item>Agronomist</item>
+        <item>Others</item>
     </string-array>
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>

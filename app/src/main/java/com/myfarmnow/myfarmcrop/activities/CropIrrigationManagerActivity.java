@@ -22,10 +22,11 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropIrrigation;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropIrrigationManagerActivity extends AppCompatActivity {
     CropIrrigation cropIrrigation=null;
-    TextView totalWaterQuantityTxt,unitsTxt,quantityPerUnitTxt;
+    TextView totalWaterQuantityTxt,unitsTxt,quantityPerUnitTxt,currencyTxt;
     EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Spinner recurrenceSpinner,remindersSpinner;
     LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
@@ -61,6 +62,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         recurrenceSpinner = findViewById(R.id.sp_crop_irrigation_recurrence);
         remindersSpinner = findViewById(R.id.sp_crop_irrigation_reminders);
         totalCostTxt = findViewById(R.id.txt_crop_irrigation_total_cost);
+        currencyTxt = findViewById(R.id.txt_crop_irrigation_currency);
         weeksTxt = findViewById(R.id.txt_crop_irrigation_weekly_weeks);
         repeatUntilTxt = findViewById(R.id.txt_crop_irrigation_repeat_until);
         daysBeforeTxt = findViewById(R.id.txt_crop_irrigation_days_before);
@@ -142,7 +144,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
         ((ArrayAdapter)recurrenceSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)

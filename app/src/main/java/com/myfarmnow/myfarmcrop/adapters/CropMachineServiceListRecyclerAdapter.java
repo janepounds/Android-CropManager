@@ -22,7 +22,10 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropMachineServiceManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropMachineService;
+import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<CropMachineServiceListRecyclerAdapter.MachineServiceViewHolder> {
@@ -69,11 +72,13 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull final MachineServiceViewHolder holder, int position) {
         CropMachineService machineService = cropMachineServiceList.get(position);
+        holder.taskImg.setVisibility(View.GONE);
+        holder.serviceImg.setVisibility(View.VISIBLE);
         holder.costLayout.setVisibility(View.VISIBLE);
         holder.currentHoursLayout.setVisibility(View.VISIBLE);
 
-        holder.currentHoursTxt.setText(machineService.getCurrentHours()+"");
-        holder.costTxt.setText(machineService.getCost()+"");
+        holder.currentHoursTxt.setText(machineService.getCurrentHours()+" hours");
+        holder.costTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" " + NumberFormat.getInstance().format(machineService.getCost())+" ");
 
         holder.serviceDateTxt.setText(machineService.getDate());
         holder.serviceTypeTxt.setText(machineService.getType());
@@ -122,7 +127,7 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
 
         TextView serviceDateTxt,serviceTypeTxt,personnelTxt,recurrenceTxt,currentHoursTxt,costTxt;
         LinearLayout expandContentLayout,hideShowLayout,statusLayout,currentHoursLayout,costLayout;
-        ImageView showHideRemarksButton,moreButton;
+        ImageView showHideRemarksButton,moreButton,serviceImg,taskImg;
         public MachineServiceViewHolder(View itemView) {
             super(itemView);
             serviceDateTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_start_date);
@@ -131,7 +136,8 @@ public class CropMachineServiceListRecyclerAdapter extends RecyclerView.Adapter<
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_recurring);
             currentHoursTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_current_hours);
             costTxt = itemView.findViewById(R.id.txt_view_crop_machine_task_card_cost);
-
+            serviceImg=itemView.findViewById(R.id.img_crop_service);
+            taskImg=itemView.findViewById(R.id.img_crop_task);
             hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
             statusLayout = itemView.findViewById(R.id.layout_crop_task_status);
             currentHoursLayout = itemView.findViewById(R.id.layout_crop_service_card_current_hours);

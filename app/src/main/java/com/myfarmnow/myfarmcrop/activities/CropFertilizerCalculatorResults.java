@@ -21,7 +21,8 @@ public class CropFertilizerCalculatorResults extends AppCompatActivity {
 
     TextView cropTextView, areaTextView, totalAmountTextView, npkFertilizerTextView,nitrogenousFertilizerTextView,
     potassicFertilizerTextView, npkQuantityTextView, potassicQtyTextView,nitrogenousQtyTextView,
-            npkriceTextView, potassicPriceTextView,nitrogenousPriceTextView,potassicCostTextView,npkCostTextView,nitrogenousCostTextView;
+            npkriceTextView, potassicPriceTextView,nitrogenousPriceTextView,potassicCostTextView,npkCostTextView,nitrogenousCostTextView,
+            quantityTextView,unitPriceTextView,totalCostTextView;
 
     TableRow npkRow,potassicRow,nitrogenousRow;
 
@@ -36,6 +37,10 @@ public class CropFertilizerCalculatorResults extends AppCompatActivity {
     }
 
     public void initializeViews(){
+        quantityTextView = findViewById(R.id.txt_crop_fertilizer_calculator_quantity);
+        unitPriceTextView = findViewById(R.id.txt_crop_fertilizer_calculator_unit_price);
+        totalCostTextView = findViewById(R.id.txt_crop_fertilizer_calculator_total_cost);
+
         areaTextView = findViewById(R.id.txt_crop_fertililizer_calculator_area);
         cropTextView = findViewById(R.id.txt_crop_fertililizer_calculator_crop);
         totalAmountTextView = findViewById(R.id.txt_crop_fertililizer_calculator_total);
@@ -55,17 +60,19 @@ public class CropFertilizerCalculatorResults extends AppCompatActivity {
         potassicCostTextView = findViewById(R.id.text_view_crop_fert_calc_potassic_cost);
         nitrogenousCostTextView = findViewById(R.id.text_view_crop_fert_calc_nitrogenous_cost);
 
-        areaTextView.setText(CropFertilizerCalculator.getInstance().getArea()+""+CropFertilizerCalculator.getInstance().getUnits());
+        areaTextView.setText(CropFertilizerCalculator.getInstance().getArea()+" "+CropFertilizerCalculator.getInstance().getUnits());
         cropTextView.setText(CropFertilizerCalculator.getInstance().getCrop().getName());
+
+        unitPriceTextView.setText("Unit Price ("+CropSettingsSingleton.getInstance().getCurrency()+")");
+        totalCostTextView.setText("Total Cost ("+CropSettingsSingleton.getInstance().getCurrency()+")");
+
 
         if(CropFertilizerCalculator.getInstance().getNpkFertilizer() != null){
            npkFertilizerTextView.setText(CropFertilizerCalculator.getInstance().getNpkFertilizer().getFertilizerName());
             try {
-                npkQuantityTextView.setText(CropFertilizerCalculator.getInstance().computeNpkQuantity()+"Kg");
-                npkriceTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+
-                        NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().getNpkPrice()));
-                npkCostTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+
-                        NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().computeNpkCost()));
+                npkQuantityTextView.setText(CropFertilizerCalculator.getInstance().computeNpkQuantity()+"");
+                npkriceTextView.setText(NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().getNpkPrice()));
+                npkCostTextView.setText(NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().computeNpkCost()));
             } catch (FertilizerCalculationException e) {
                 e.printStackTrace();
             }
@@ -76,10 +83,8 @@ public class CropFertilizerCalculatorResults extends AppCompatActivity {
             potassicFertilizerTextView.setText(CropFertilizerCalculator.getInstance().getPotassicFertilizer().getFertilizerName());
             try {
                 potassicQtyTextView.setText(CropFertilizerCalculator.getInstance().computePotassicQuantity()+"");
-                potassicPriceTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+
-                        NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().getPotassicPrice()));
-                potassicCostTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+
-                        NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().computePotassicCost()));
+                potassicPriceTextView.setText( NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().getPotassicPrice()));
+                potassicCostTextView.setText( NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().computePotassicCost()));
             } catch (FertilizerCalculationException e) {
                 e.printStackTrace();
             }
@@ -90,10 +95,8 @@ public class CropFertilizerCalculatorResults extends AppCompatActivity {
             nitrogenousFertilizerTextView.setText(CropFertilizerCalculator.getInstance().getNitrogenousFertilizer().getFertilizerName());
             try {
                 nitrogenousQtyTextView.setText(CropFertilizerCalculator.getInstance().computeNitrogenousQuantity()+"");
-                nitrogenousPriceTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+
-                        NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().getNitrogenousPrice()));
-                nitrogenousCostTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+
-                        NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().computeNitrogenousCost()));
+                nitrogenousPriceTextView.setText(NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().getNitrogenousPrice()));
+                nitrogenousCostTextView.setText(NumberFormat.getInstance().format(CropFertilizerCalculator.getInstance().computeNitrogenousCost()));
 
             } catch (FertilizerCalculationException e) {
                 e.printStackTrace();

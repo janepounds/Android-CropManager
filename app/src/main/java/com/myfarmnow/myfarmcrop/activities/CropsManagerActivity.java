@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class CropsManagerActivity extends AppCompatActivity {
    EditText dateTxt, varietyTxt, yearTxt,areaTxt,operatorTxt,costTxt,rateTxt;
    EditText estimatedRevenueTxt, estimatedYieldTxt;
-   TextView currencyATxt,currencyBTxt,rateRTxt,estimatedRevenueUnitsTxt;
+   TextView currencyATxt,currencyBTxt,rateRTxt,estimatedRevenueUnitsTxt,estimatedRevenueCTxt;
    Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp,harvestUnitsSp;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
@@ -96,6 +96,26 @@ public class CropsManagerActivity extends AppCompatActivity {
         rateTxt.addTextChangedListener(watcher);
         areaTxt.addTextChangedListener(watcher);
 
+        TextWatcher watcher1 =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                computeEstimatedRevenueC();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                computeEstimatedRevenueC();
+            }
+        };
+
+
+        estimatedRevenueTxt.addTextChangedListener(watcher1);
+        estimatedYieldTxt.addTextChangedListener(watcher1);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -329,6 +349,18 @@ public class CropsManagerActivity extends AppCompatActivity {
             float rateR = (rate/area);
             rateRTxt.setText(rateR+"");
             return rateR;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }
+    public float computeEstimatedRevenueC(){
+        try{
+            float estimatedYield = Float.parseFloat(estimatedYieldTxt.getText().toString());
+            float estimatedRevenuePerUnit = Float.parseFloat(estimatedRevenueTxt.getText().toString());
+            float estimatedRevenueC = (estimatedRevenuePerUnit*estimatedYield);
+            estimatedRevenueCTxt.setText(estimatedRevenueC+"");
+            return estimatedRevenueC;
         }catch (Exception e){
 
         }

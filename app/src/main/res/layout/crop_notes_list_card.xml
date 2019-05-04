@@ -22,7 +22,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/treatment_kit" />
+                android:src="@drawable/notes_notes" />
 
             <View
                 android:id="@+id/txt_view_crop_spraying_card_line"
@@ -115,7 +115,7 @@
                     <TextView
                         android:id="@+id/txt_view_crop_notes_card_notes"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:textSize="14sp"
                         android:inputType="textMultiLine"
                         android:text="The activity was serviced but still has some weakness "

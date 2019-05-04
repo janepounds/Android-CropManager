@@ -48,6 +48,12 @@ public class Crop implements Serializable, CropSpinnerItem {
   return  rateR;
  }
 
+ public float computeEstimatedRevenueC(){
+  float estimatedRevenueC= (estimatedYield*estimatedRevenue);
+  return  estimatedRevenueC;
+
+ }
+
  public String getName() {
   return name;
  }
