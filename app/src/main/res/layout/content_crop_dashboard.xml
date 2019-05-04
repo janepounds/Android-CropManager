@@ -1521,7 +1521,7 @@
                         android:layout_marginStart="0dp"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
-                        android:onClick="openFarmReports">
+                        android:onClick="showHelpOptions">
 
                         <ImageView
 
@@ -1547,6 +1547,111 @@
                             android:textColor="#ffffff"
                             android:textSize="15dp"/>
 
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginStart="15dp"
+                            android:gravity="center_vertical"
+                            android:padding="8dp"
+                            android:src="@drawable/right_arrow_white"
+                            />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_crop_dashboard_help_submenus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="helpSendEmail"
+                            android:paddingTop="5dp"
+                            >
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Email"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="helpFacebook"
+                            android:paddingTop="5dp">
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_icon"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Facebook"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="0dp"
+                            android:paddingBottom="5dp"
+                            android:onClick="helpMakeCall"
+                            android:paddingTop="5dp">
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_icon"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="5dp"
+                                android:text="Call"
+                                android:textColor="#ffffff"
+                                android:textSize="15dp"/>
+
+
+                        </LinearLayout>
 
 
                     </LinearLayout>

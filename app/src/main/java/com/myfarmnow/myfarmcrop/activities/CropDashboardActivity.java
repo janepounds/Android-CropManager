@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 
 import android.net.Uri;
@@ -68,6 +69,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     ImageView imgdrawer, noticationsImageBtn;
     RelativeLayout mainlayout;
+    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu;
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
@@ -146,6 +148,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
 
 
+
         noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +160,14 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 }
             }
         });
+
+        contactsSubMenu = findViewById(R.id.layout_crop_dashboard_contact_submenus);
+        helpSubMenu = findViewById(R.id.layout_crop_dashboard_help_submenus);
+        inventorySubMenu = findViewById(R.id.layout_crop_dashboard_inventory_submenus);
+        cropsSubMenu = findViewById(R.id.layout_crop_dashboard_crops_submenus);
+        financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
+
+
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 supportInvalidateOptionsMenu();
@@ -400,7 +411,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     }
     public void showHideFinancialManager(View view){
-        LinearLayout financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
+
 
         toggleVisibility(financialsSubMenu);
     }
@@ -414,34 +425,81 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
         toggleVisibility(purchasesSubMenu);
     }
+    public void showHelpOptions(View view){
+
+        toggleVisibility(helpSubMenu);
+    }
     public void showHideFieldManager(View view){
         LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);
 
         toggleVisibility(fieldsSubMenu);
     }
     public void showHideCropManager(View view){
-        LinearLayout cropsSubMenu = findViewById(R.id.layout_crop_dashboard_crops_submenus);
+
 
         toggleVisibility(cropsSubMenu);
     }
     public void showHideInventoryManager(View view){
-        LinearLayout inventorySubMenu = findViewById(R.id.layout_crop_dashboard_inventory_submenus);
+
 
         toggleVisibility(inventorySubMenu);
     }
     public void showHideContactsManager(View view){
-        LinearLayout contactsSubMenu = findViewById(R.id.layout_crop_dashboard_contact_submenus);
+
 
         toggleVisibility(contactsSubMenu);
     }
 
 
+    public void helpSendEmail(View view){
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto","cabraltechltd@gmail.com", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+    }
+
+    public void helpMakeCall(View view){
+        Uri number = Uri.parse("tel:+256700353769");
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+        startActivity(callIntent);
+    }
+    public void helpFacebook(View view){
+        Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+        String facebookUrl = getFacebookPageURL(this);
+        facebookIntent.setData(Uri.parse(facebookUrl));
+        startActivity(facebookIntent);
+    }
+
+    //method to get the right URL to use in the intent
+    public String getFacebookPageURL(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + "https://www.facebook.com/cropmanager/";
+            } else { //older versions of fb app
+               return "fb://page/" + "1552608241538614";//FACEBOOK_ID
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return "https://www.facebook.com/cropmanager/"; //normal web url
+        }
+    }
 
 
 
     public void toggleVisibility(View view){
+        LinearLayout [] layouts = new LinearLayout[]{contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu};
         if(view.getVisibility() == View.GONE){
+            for(LinearLayout layout: layouts){
+                if(layout!=view){
+                    layout.setVisibility(View.GONE);
+                }
+            }
             view.setVisibility(View.VISIBLE);
+
         }else{
             view.setVisibility(View.GONE);
         }
@@ -491,7 +549,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
             }
 
             if(item.toLowerCase().equals(id.toLowerCase())){
-                Log.d("ITEMS ",item+" "+id);
+
                 spnr.setSelection(position);
                 return;
             }
