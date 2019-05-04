@@ -349,7 +349,7 @@
                                     android:layout_height="90dp"
                                     android:padding="20dp"
                                     android:background="@color/whiteColor"
-                                    android:src="@drawable/new_income_expenses" />
+                                    android:src="@drawable/income_expenses_two" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -380,7 +380,7 @@
                                     android:layout_height="90dp"
                                     android:background="@color/whiteColor"
                                     android:padding="20dp"
-                                    android:src="@drawable/new_farm_calculator" />
+                                    android:src="@drawable/farm_calculator_two" />
 
                                 <TextView
                                     android:id="@+id/meat_Produced_txt"
@@ -412,7 +412,7 @@
                                     android:layout_height="90dp"
                                     android:background="@color/whiteColor"
                                     android:padding="20dp"
-                                    android:src="@drawable/new_best_practices" />
+                                    android:src="@drawable/best_practices_second" />
 
                                 <TextView
                                     android:layout_width="match_parent"

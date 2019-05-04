@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    android:padding="48dp"
+
+    android:paddingTop="200dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropCalculatorsActivity"
     tools:showIn="@layout/activity_crop_calculators">
@@ -19,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.084">
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/layout_crop_calculators_revenue"
@@ -31,12 +34,12 @@
             android:onClick="openRevenueCalculator"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
 
                 android:padding="10dp"
-                android:src="@drawable/crops" />
+                android:src="@drawable/revenue_calculator" />
 
             <TextView
                 android:id="@+id/tv_matings"
@@ -47,7 +50,7 @@
                 android:gravity="center"
 
                 android:paddingBottom="5dp"
-                android:text="REVENUE CALCULATE"
+                android:text="REVENUE CALCULATOR"
                 android:textAllCaps="true"
                 android:textColor="#000000" />
 
@@ -75,12 +78,12 @@
             android:onClick="openNutrientsCalculator"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
 
                 android:padding="10dp"
-                android:src="@drawable/crops" />
+                android:src="@drawable/nutrient_removal" />
 
             <TextView
 
@@ -112,7 +115,7 @@
                 android:layout_height="70dp"
 
                 android:padding="10dp"
-                android:src="@drawable/crops" />
+                android:src="@drawable/fertilizer_application" />
 
             <TextView
 

@@ -24,6 +24,7 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropScouting;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
 
     EditText scoutingDateTxt,scoutingMethodTxt,costTxt,remarksTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    TextView currencyTxt;
     Spinner infestedSpinner,infestationTypeSpinner,infestationSpinner,infestationLevelSpinner,recurrenceSp,remindersSp;
     LinearLayout infestationShowHideLayout,weeklyRecurrenceLayout,daysBeforeLayout;
     Button saveBtn;
@@ -73,6 +75,8 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         infestationSpinner = findViewById(R.id.sp_crop_scouting_infestation);
         infestationLevelSpinner = findViewById(R.id.sp_crop_scouting_infestation_level);
         costTxt = findViewById(R.id.txt_crop_scouting_cost);
+        currencyTxt = findViewById(R.id.txt_crop_scouting_currency);
+
         remarksTxt = findViewById(R.id.txt_crop_scouting_remarks);
         infestationShowHideLayout = findViewById(R.id.crop_scouting_show_hide_infestation);
         remindersSp = findViewById(R.id.sp_crop_scouting_reminders);
@@ -262,7 +266,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         CropDashboardActivity.addDatePicker(scoutingDateTxt,this);
         CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
-
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         ((ArrayAdapter)infestedSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)infestationTypeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)infestationSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
