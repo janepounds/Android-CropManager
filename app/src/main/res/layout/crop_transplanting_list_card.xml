@@ -115,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.4"
                         android:text="Total Seedlings : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -124,7 +124,7 @@
                         android:id="@+id/txt_view_crop_transplanting_card_total_seedlings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="100 "
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -139,7 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.4"
                         android:text="Seedlings / ha : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -148,7 +148,7 @@
                         android:id="@+id/txt_view_crop_transplanting_card_seedlings_per_ha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="200"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -163,7 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.4"
                         android:text="Variety Earliness : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -172,7 +172,7 @@
                         android:id="@+id/txt_view_crop_transplanting_card_variety_earliness"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="Medium "
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -188,7 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.4"
                         android:text="Harvest Due Date : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -197,7 +197,7 @@
                         android:id="@+id/txt_view_crop_transplanting_card_expected_harvesting_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text=""
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -213,7 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.4"
                         android:text="Expected Yield : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -221,7 +221,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_weight="1">
+    android:layout_weight="0.6">
                     <TextView
                         android:id="@+id/txt_view_crop_transplanting_card_expected_yield"
                         android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.4"
                         android:text="Total Cost : "
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
@@ -259,7 +259,7 @@
                         android:id="@+id/txt_view_crop_transplanting_card_total_cost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:text="UGX 150,000"
                         android:textColor="#899889" />
                 </LinearLayout>

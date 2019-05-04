@@ -1207,7 +1207,8 @@
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
                                     android:onClick="openEstimatesList"
-                                    android:paddingTop="5dp">
+                                    android:paddingTop="5dp"
+                                    android:visibility="gone">
 
 
                                     <TextView
@@ -1293,7 +1294,8 @@
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
                                     android:onClick="openSalesOrderList"
-                                    android:paddingTop="5dp">
+                                    android:paddingTop="5dp"
+                                    android:visibility="gone">
 
 
                                     <TextView
@@ -1376,7 +1378,8 @@
                                     android:layout_marginStart="0dp"
                                     android:paddingBottom="5dp"
                                     android:onClick="openPurchaseOrdersList"
-                                    android:paddingTop="5dp">
+                                    android:paddingTop="5dp"
+                                    android:visibility="gone">
 
 
                                     <TextView

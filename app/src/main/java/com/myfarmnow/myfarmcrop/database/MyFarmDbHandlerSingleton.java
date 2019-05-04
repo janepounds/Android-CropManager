@@ -1540,7 +1540,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_DATE + " +256 704 203849 date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
