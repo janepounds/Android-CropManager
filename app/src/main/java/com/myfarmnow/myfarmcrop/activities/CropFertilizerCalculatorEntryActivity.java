@@ -2,8 +2,7 @@ package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -113,6 +112,7 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
                     CropFertilizer cropFertilizer = (CropFertilizer)((CropSpinnerItem)nitrogenousSp.getSelectedItem());
                     nitrogenousCompoTxt.setText(cropFertilizer.getComposition());
                     CropFertilizerCalculator.getInstance().setNitrogenousFertilizer(cropFertilizer);
+                    nitrogenousCompoTxt.setVisibility(View.VISIBLE);
                 }else{
                     nitrogenousCompoTxt.setVisibility(View.GONE);
                     CropFertilizerCalculator.getInstance().setNitrogenousFertilizer(null);
@@ -131,6 +131,7 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
                     CropFertilizer cropFertilizer = (CropFertilizer)((CropSpinnerItem)potassicSp.getSelectedItem());
                     potassicCompoTxt.setText(cropFertilizer.getComposition());
                     CropFertilizerCalculator.getInstance().setPotassicFertilizer(cropFertilizer);
+                    potassicCompoTxt.setVisibility(View.VISIBLE);
                 } else{
                     potassicCompoTxt.setVisibility(View.GONE);
                     CropFertilizerCalculator.getInstance().setPotassicFertilizer(null);
@@ -217,7 +218,6 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
             nitrogenousPriceTxt.requestFocus();
         }
 
-        // potassiumTxt,, ,
 
 
 

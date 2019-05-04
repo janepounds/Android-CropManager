@@ -373,7 +373,7 @@
                             android:layout_weight="0.5"
                             android:text=""
                             android:textAlignment="center"
-                            android:textColor="@color/gray_mh"
+                            android:textColor="@color/textColor"
                             android:textSize="14sp" />
 
 
@@ -471,7 +471,7 @@
                             android:layout_weight="0.5"
                             android:text=""
                             android:textAlignment="center"
-                            android:textColor="@color/gray_mh"
+                            android:textColor="@color/textColor"
                             android:textSize="14sp" />
 
 
@@ -569,7 +569,7 @@
                             android:layout_weight="0.5"
                             android:text=""
                             android:textAlignment="center"
-                            android:textColor="@color/gray_mh"
+                            android:textColor="@color/textColor"
                             android:textSize="14sp" />
 
 

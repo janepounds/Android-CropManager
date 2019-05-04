@@ -137,6 +137,7 @@ public class CropsManagerActivity extends AppCompatActivity {
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
+        cropsList.add("Select Crop");
         for(CropItem cropItem: dbHandler.getCropItems()){
             cropsList.add(cropItem.getName());
         }

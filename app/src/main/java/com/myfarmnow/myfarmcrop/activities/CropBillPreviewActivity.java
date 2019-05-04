@@ -246,7 +246,7 @@ public class CropBillPreviewActivity extends AppCompatActivity {
             Uri contentUri = Uri.fromFile(file);
             Intent mailIntent = new Intent(Intent.ACTION_SEND);
             mailIntent.setType("message/rfc822");
-            mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"robein@ymail.com"});
+            mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{cropSupplier.getEmail()});
 
             mailIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Invoice : "+cropBill.getOrderNumber());

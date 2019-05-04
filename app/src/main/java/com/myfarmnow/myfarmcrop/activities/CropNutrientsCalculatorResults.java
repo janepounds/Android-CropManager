@@ -52,7 +52,7 @@ public class CropNutrientsCalculatorResults extends AppCompatActivity {
         if(CropNutrientsCalculator.getInstance().isEconomicImpactRequired()){
             nitrogenRemovedCostTextView.setText("N = "+ CropSettingsSingleton.getInstance().getCurrency()+" " + NumberFormat.getInstance().format(CropNutrientsCalculator.getInstance().computeNitrogenLostValue()));
             phoshateRemovedCostTextView.setText("P = "+ (CropSettingsSingleton.getInstance().getCurrency())+" " +NumberFormat.getInstance().format(CropNutrientsCalculator.getInstance().computePhosphorusLostValue()));
-            potassiumRemovedCostTextView.setText("P = "+ (CropSettingsSingleton.getInstance().getCurrency())+" " +NumberFormat.getInstance().format(CropNutrientsCalculator.getInstance().computePotassiumLostValue()));
+            potassiumRemovedCostTextView.setText("K = "+ (CropSettingsSingleton.getInstance().getCurrency())+" " +NumberFormat.getInstance().format(CropNutrientsCalculator.getInstance().computePotassiumLostValue()));
             economicImpactLayout.setVisibility(View.VISIBLE);
         }
 
