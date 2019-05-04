@@ -405,7 +405,7 @@ public class CropDashboardGraphsFragment extends Fragment {
 
 
         HITitle title = new HITitle();
-        title.setText("Total <br />"+"UGX "+ NumberFormat.getInstance().format(total));
+        title.setText("Total <br />"+currency+ NumberFormat.getInstance().format(total));
         title.setAlign("center");
         title.setVerticalAlign("middle");
         title.setY(0);

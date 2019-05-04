@@ -34,6 +34,7 @@ public class CropROICalculatorSingleton {
     float step4SalariedEmployeeCost=0;
     float step4SalariedEmployeeQty=0;
     float step4CasualEmployeeCost=0;
+    float step4CasualEmployeeNumber=0;
     float step4CasualEmployeeHours=0;
     float step4CasualEmployeeWeeks=0;
     float step4CasualEmployeeTotal=0;
@@ -328,7 +329,7 @@ public class CropROICalculatorSingleton {
         return computeStep2TotalVariableCosts()+computeStep3TotalOverheadCosts()+computeStep4TotalLabourCosts();
     }
     public float computeStep4TotalCasualEmployeeCost(){
-        return  step4CasualEmployeeCost *step4CasualEmployeeHours*step4CasualEmployeeWeeks;
+        return  step4CasualEmployeeNumber*(step4CasualEmployeeCost *step4CasualEmployeeHours*step4CasualEmployeeWeeks);
     }
 
     public float computeStep4TotalLabourCosts(){
@@ -417,6 +418,14 @@ public class CropROICalculatorSingleton {
 
         return computeStep1GrossRevenue()-computeStep2TotalVariableCosts();
 
+    }
+
+    public float getStep4CasualEmployeeNumber() {
+        return step4CasualEmployeeNumber;
+    }
+
+    public void setStep4CasualEmployeeNumber(float step4CasualEmployeeNumber) {
+        this.step4CasualEmployeeNumber = step4CasualEmployeeNumber;
     }
 
     @Override

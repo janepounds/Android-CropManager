@@ -23,6 +23,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
+import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -115,6 +116,15 @@ public class CropsManagerActivity extends AppCompatActivity {
             }
         });
 
+        ArrayList<String> cropsList = new ArrayList<>();
+        for(CropItem cropItem: dbHandler.getCropItems()){
+            cropsList.add(cropItem.getName());
+        }
+        cropSP.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, cropsList));
+
+
+
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
         for(CropField x: dbHandler.getCropFields(CropDashboardActivity.getPreferences("userId",this))){
             fieldsItems.add(x);
@@ -125,13 +135,13 @@ public class CropsManagerActivity extends AppCompatActivity {
         ArrayList<CropSpinnerItem> seedItems = new ArrayList<>();
         for(CropInventorySeeds x: dbHandler.getCropSeeds(CropDashboardActivity.getPreferences("userId",this))){
             seedItems.add(x);
-
-
         }
+
+
         seedsSpinnerAdapter = new CropSpinnerAdapter(seedItems,"Seed",this);
         seedSp.setAdapter(seedsSpinnerAdapter);
-//TODO CROPS FROM ARRAY LIST
-        ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+       // ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)growingCycleSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)plantingMethodSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)seasonSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

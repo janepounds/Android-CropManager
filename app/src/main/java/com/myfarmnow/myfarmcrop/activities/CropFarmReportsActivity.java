@@ -25,6 +25,7 @@ import com.highsoft.highcharts.core.HIChartView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -40,7 +41,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
     HIChartView incomesCategoryPieChartView,expensesCategoryPieChartView,cropsExpensesPieChartView,expensesByActivityPieChartView;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner incomeCategoryRangeSpinner,expensesCategoryRangeSpinner,expensesActivityRangeSpinner,yearsSpinner,seasonsSpinner;;
-    String currency ="UGX ";
+    String currency = CropSettingsSingleton.getInstance().getCurrency();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,7 +208,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITitle title = new HITitle();
-        title.setText("Total <br />"+"UGX "+ NumberFormat.getInstance().format(total));
+        title.setText("Total <br />"+currency+ NumberFormat.getInstance().format(total));
         title.setAlign("center");
         title.setVerticalAlign("middle");
         title.setY(0);
@@ -228,27 +229,38 @@ public class CropFarmReportsActivity extends AppCompatActivity {
         if(position==3){
             //Last 12 months
             Calendar rightNow = Calendar.getInstance();
-              endDate= format.format(rightNow.getTime());
+            rightNow.add(Calendar.DAY_OF_MONTH, 1);
+            endDate= format.format(rightNow.getTime());
+            rightNow.add(Calendar.DAY_OF_MONTH, -1); //neutralize the add
             rightNow.add(Calendar.MONTH,-11);
             rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH, -1);
            startDate = format.format(rightNow.getTime());
 
         }
         else if(position==1){
             //3 months
             Calendar rightNow = Calendar.getInstance();
+           // rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH,1);
             endDate = format.format(rightNow.getTime());
+            rightNow.add(Calendar.DAY_OF_MONTH, -1);//neutralize the add
             rightNow.add(Calendar.MONTH,-3);
-            rightNow.set(Calendar.DAY_OF_MONTH, 1);
+           // rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH, -1);
            startDate  = format.format(rightNow.getTime());
 
         }
         else if(position==2){
             //6 months
             Calendar rightNow = Calendar.getInstance();
+            //rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH,1);
             endDate = format.format(rightNow.getTime());
+            rightNow.add(Calendar.DAY_OF_MONTH, -1);//neutralize the add
             rightNow.add(Calendar.MONTH,-6);
             rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH, -1);
            startDate  = format.format(rightNow.getTime());
 
         }
@@ -257,9 +269,13 @@ public class CropFarmReportsActivity extends AppCompatActivity {
             Calendar rightNow = Calendar.getInstance();
             rightNow.add(Calendar.YEAR,-1);
             rightNow.set(Calendar.MONTH,0);
+            rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH,-1);
            startDate = format.format(rightNow.getTime());
+            rightNow.add(Calendar.DAY_OF_MONTH,1);//neutralize the add
             rightNow.add(Calendar.MONTH,11);
             rightNow.set(Calendar.DAY_OF_MONTH, 31);
+            rightNow.add(Calendar.DAY_OF_MONTH, 1);
             endDate = format.format(rightNow.getTime());
 
         }
@@ -267,9 +283,13 @@ public class CropFarmReportsActivity extends AppCompatActivity {
             //This year
             Calendar rightNow = Calendar.getInstance();
             rightNow.set(Calendar.MONTH,0);
-           startDate = format.format(rightNow.getTime());
+            rightNow.set(Calendar.DAY_OF_MONTH, 1);
+            rightNow.add(Calendar.DAY_OF_MONTH,-1);
+            startDate = format.format(rightNow.getTime());
+            rightNow.add(Calendar.DAY_OF_MONTH,1);
             rightNow.add(Calendar.MONTH,11);
             rightNow.set(Calendar.DAY_OF_MONTH, 31);
+            rightNow.add(Calendar.DAY_OF_MONTH, 1);
             endDate = format.format(rightNow.getTime());
 
         }
@@ -337,7 +357,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITitle title = new HITitle();
-        title.setText("Total <br />"+"UGX "+ NumberFormat.getInstance().format(total));
+        title.setText("Total <br />"+currency+ NumberFormat.getInstance().format(total));
         title.setAlign("center");
         title.setVerticalAlign("middle");
         title.setY(0);
@@ -408,14 +428,14 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITitle title = new HITitle();
-        title.setText("Total <br />"+"UGX "+ NumberFormat.getInstance().format(total));
+        title.setText("Total <br />"+currency+ NumberFormat.getInstance().format(total));
         title.setAlign("center");
         title.setVerticalAlign("middle");
         title.setY(0);
         options.setTitle(title);
 
         HISubtitle subtitle = new HISubtitle();
-        subtitle.setText("Exenses By Category");
+        subtitle.setText("Expenses By Category");
         options.setSubtitle(subtitle);
         options.setSeries(new ArrayList<HISeries>(Arrays.asList(series1)));
 
@@ -478,7 +498,7 @@ public class CropFarmReportsActivity extends AppCompatActivity {
 
 
         HITitle title = new HITitle();
-        title.setText("Total <br />"+"UGX "+ NumberFormat.getInstance().format(total));
+        title.setText("Total <br />"+currency+ NumberFormat.getInstance().format(total));
         title.setAlign("center");
         title.setVerticalAlign("middle");
         title.setY(0);

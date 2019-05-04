@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -74,11 +75,22 @@ public class CropPreviewItemListRecyclerAdapter extends RecyclerView.Adapter<Cro
 
         CropProductItem item = cropItemsList.get(position);
 
-        holder.qtyTxt.setText(item.getQuantity()+"");
+        CropProduct product = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropProductById(item.getProductId());
+        if (product != null){
+            holder.qtyTxt.setText(item.getQuantity()+product.getUnits());
+        }
+        else{
+            holder.qtyTxt.setText(item.getQuantity()+"");
+        }
+
+
+
         holder.taxTxt.setText(item.getTax()+"");
         holder.rateTxt.setText(NumberFormat.getInstance().format(item.getRate()));
         holder.numbertTxtView.setText((position+1)+"");
         holder.productTextView.setText(item.gettProductName());
+
+
     }
 
 

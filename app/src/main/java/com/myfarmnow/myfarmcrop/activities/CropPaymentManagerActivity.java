@@ -107,6 +107,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
                 if (position != 0){
                     CropInvoice invoice = (CropInvoice)((CropSpinnerItem)invoiceSp.getSelectedItem());
                     CropDashboardActivity.selectSpinnerItemById(customersSp,invoice.getCustomerId());
+                    amountTxt.setText(invoice.computeBalance()+"");
                     customersSp.setEnabled(false);
 
                 }

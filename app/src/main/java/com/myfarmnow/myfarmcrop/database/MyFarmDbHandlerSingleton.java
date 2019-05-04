@@ -1540,7 +1540,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_DATE + " BETWEEN date('"+startDate+"') AND date('"+endDate+"') " , null);
+        res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_DATE + " +256 704 203849 date('"+startDate+"') AND date('"+endDate+"') " , null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -3154,7 +3154,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             contentValues.put(CROP_PRODUCT_ITEM_TYPE,CROP_PRODUCT_ITEM_TYPE_ESTIMATE);
             if(x.getId() !=null){
                 database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
-
             }
             else{
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
@@ -3264,7 +3263,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         if ( estimate != null) {
             ArrayList<CropProductItem> items_list = new ArrayList();
-
             res = db.rawQuery( "select * from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+CROP_PRODUCT_ITEM_ESTIMATE_ID+" = "+ estimate.getId()+" AND "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_ESTIMATE+ "'", null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
@@ -3333,7 +3331,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<CropProduct> getCropProducts(String fieldId) {
+    public ArrayList<CropProduct> getCropProducts(String userId) {
         openDB();
         ArrayList<CropProduct> array_list = new ArrayList();
 
@@ -3341,7 +3339,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "select "+CROP_PRODUCT_TABLE_NAME+".*, SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed from " + CROP_PRODUCT_TABLE_NAME +"  LEFT JOIN "+CROP_PRODUCT_ITEM_TABLE_NAME+" ON "+
                   CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+
-                " WHERE "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "' OR "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" IS NULL GROUP BY "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID;
+                " WHERE "+CROP_PRODUCT_USER_ID+" = "+userId+" AND "+
+                "( "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "' OR "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" IS NULL) GROUP BY "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID;
         Log.d("PRODUCT QUERY",query);
         Cursor res = db.rawQuery( query, null);
         res.moveToFirst();
@@ -3369,6 +3368,47 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         Log.d("Crop Product", array_list.toString());
         return array_list;
+
+    }
+    public CropProduct getCropProductById(String productId) {
+        openDB();
+       
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select "+CROP_PRODUCT_TABLE_NAME+".*, SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed from " + CROP_PRODUCT_TABLE_NAME +"  LEFT JOIN "+CROP_PRODUCT_ITEM_TABLE_NAME+" ON "+
+                CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+
+                " WHERE "+CROP_PRODUCT_ID+" = "+ productId +" AND "+
+                "( "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "' OR "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" IS NULL) GROUP BY "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID;
+     
+        Cursor res = db.rawQuery( query, null);
+        res.moveToFirst();
+
+        CropProduct cropProduct=null;
+
+
+        if (!res.isAfterLast()) {
+            cropProduct = new CropProduct();
+            cropProduct.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ID)));
+            cropProduct.setUserId(res.getString(res.getColumnIndex(CROP_PRODUCT_USER_ID)));
+            cropProduct.setName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            cropProduct.setType(res.getString(res.getColumnIndex(CROP_PRODUCT_TYPE)));
+            cropProduct.setCode(res.getString(res.getColumnIndex(CROP_PRODUCT_CODE)));
+            cropProduct.setUnits(res.getString(res.getColumnIndex(CROP_PRODUCT_UNITS)));
+            cropProduct.setLinkedAccount(res.getString(res.getColumnIndex(CROP_PRODUCT_LINKED_ACCOUNT)));
+            cropProduct.setOpeningCost(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_COST)));
+            cropProduct.setOpeningQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_QUANTITY)));
+            cropProduct.setQuantityUsed(res.getFloat(res.getColumnIndex("quantityUsed")));
+            cropProduct.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
+            cropProduct.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
+            cropProduct.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
+           
+            res.moveToNext();
+        }
+
+        closeDB();
+       
+        return cropProduct;
 
     }
 
@@ -4391,8 +4431,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(inventorySeeds);
             res.moveToNext();
         }
+        for (CropInventorySeeds seed : array_list) {
+            String query = "select SUM("+CROP_CROP_RATE+") as totalConsumed from " + CROP_CROP_TABLE_NAME +  " where " + CROP_CROP_SEED_ID + " = " + seed.getId();
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
+            if(!res.isAfterLast()){
+                seed.setTotalConsumed(res.getFloat(res.getColumnIndex("totalConsumed")));
+            }
 
+        }
         closeDB();
+
         return array_list;
 
     }
@@ -5118,7 +5167,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<CropPaymentBill> getCropPaymentBills(String billId) {
+    public ArrayList<CropPaymentBill> getCropPaymentBills(String userId) {
         openDB();
         ArrayList<CropPaymentBill> array_list = new ArrayList();
 
@@ -5127,7 +5176,40 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         Cursor res =  db.rawQuery( "select "+CROP_PAYMENT_BILL_TABLE_NAME+".*,"+CROP_SUPPLIER_TABLE_NAME+"."+CROP_SUPPLIER_NAME+", "+CROP_BILL_TABLE_NAME+"."+CROP_BILL_NUMBER+" from "+CROP_PAYMENT_BILL_TABLE_NAME+" LEFT JOIN "+CROP_SUPPLIER_TABLE_NAME+" ON "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_SUPPLIER_ID+" = "+CROP_SUPPLIER_TABLE_NAME+"."+CROP_SUPPLIER_ID+
                 " LEFT JOIN "+CROP_BILL_TABLE_NAME+" ON "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_BILL_ID+" = "+CROP_BILL_TABLE_NAME+"."+CROP_BILL_ID+
-                " where "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_USER_ID+" = "+billId, null );
+                " where "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_USER_ID+" = "+userId, null );
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropPaymentBill paymentBill = new CropPaymentBill();
+            paymentBill.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_ID)));
+            paymentBill.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_USER_ID)));
+            paymentBill.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_DATE)));
+            paymentBill.setAmount(Float.parseFloat(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MADE))));
+            paymentBill.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MODE)));
+            paymentBill.setPaidThrough(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAID_THROUGH)));
+            paymentBill.setReferenceNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_REFERENCE_NUMBER)));
+            paymentBill.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_NOTES)));
+            paymentBill.setBillId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_BILL_ID)));
+            paymentBill.setBillNumber(res.getString(res.getColumnIndex(CROP_BILL_NUMBER)));
+            paymentBill.setSupplierId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_SUPPLIER_ID)));
+            paymentBill.setSupplierName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            array_list.add(paymentBill);
+            res.moveToNext();
+        }
+
+        closeDB();
+        return array_list;
+    }
+    public ArrayList<CropPaymentBill> getCropPaymentBillsByBill(String billId) {
+        openDB();
+        ArrayList<CropPaymentBill> array_list = new ArrayList();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res =  db.rawQuery( "select "+CROP_PAYMENT_BILL_TABLE_NAME+".*,"+CROP_SUPPLIER_TABLE_NAME+"."+CROP_SUPPLIER_NAME+", "+CROP_BILL_TABLE_NAME+"."+CROP_BILL_NUMBER+" from "+CROP_PAYMENT_BILL_TABLE_NAME+" LEFT JOIN "+CROP_SUPPLIER_TABLE_NAME+" ON "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_SUPPLIER_ID+" = "+CROP_SUPPLIER_TABLE_NAME+"."+CROP_SUPPLIER_ID+
+                " LEFT JOIN "+CROP_BILL_TABLE_NAME+" ON "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_BILL_ID+" = "+CROP_BILL_TABLE_NAME+"."+CROP_BILL_ID+
+                " where "+CROP_PAYMENT_BILL_TABLE_NAME+"."+CROP_PAYMENT_BILL_BILL_ID+" = "+billId, null );
         res.moveToFirst();
 
         while (!res.isAfterLast()) {

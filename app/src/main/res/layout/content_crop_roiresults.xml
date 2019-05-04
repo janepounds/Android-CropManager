@@ -234,7 +234,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_weight="0.4"
-                        android:background="@color/gray_mh"
+
                         >
 
                         <TextView

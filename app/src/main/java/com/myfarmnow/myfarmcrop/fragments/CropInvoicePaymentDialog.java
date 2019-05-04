@@ -22,6 +22,7 @@ import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropPayment;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropInvoicePaymentDialog extends DialogFragment {
     MyFarmDbHandlerSingleton dbHandler;
@@ -47,6 +48,8 @@ public class CropInvoicePaymentDialog extends DialogFragment {
         customerLayout = view.findViewById(R.id.layout_record_payment_received_customer);
         invoiceLayout = view.findViewById(R.id.layout_record_payment_received_invoice);
         saveBtn = view.findViewById(R.id.btn_save);
+
+        ((TextView)view.findViewById(R.id.txt_crop_record_payment_currency)).setText(CropSettingsSingleton.getInstance().getCurrency());
         CropDashboardActivity.addDatePicker(dateTxt,getActivity());
         customerLayout.setVisibility(View.GONE);
         invoiceLayout.setVisibility(View.GONE);

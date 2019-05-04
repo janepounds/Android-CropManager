@@ -124,7 +124,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         shippingChargesTextView.setText(NumberFormat.getInstance().format(cropInvoice.getShippingCharges()));
         discountAmountTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeDiscount()));
         balanceDueTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeBalance()));
-        balanceTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeBalance()));
+        balanceTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(cropInvoice.computeBalance()));
         paymentMadeTextView.setText(NumberFormat.getInstance().format(cropInvoice.computeTotalPayments()));
         numberTextView.setText("#"+cropInvoice.getNumber());
         dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDate()));

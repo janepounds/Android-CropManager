@@ -99,7 +99,7 @@ public class CropBillsListRecyclerAdapter extends RecyclerView.Adapter<CropBills
             billDateTextView = itemView.findViewById(R.id.txt_crop_bill_card_bill_date);
             statusTextView = itemView.findViewById(R.id.txt_crop_bill_card_status);
 
-            supplierTextView = itemView.findViewById(R.id.txt_crop_bill_card_status);
+            supplierTextView = itemView.findViewById(R.id.txt_crop_bill_card_supplier_name);
 
 
             moreButton = itemView.findViewById(R.id.img_crop_bill_card_more);

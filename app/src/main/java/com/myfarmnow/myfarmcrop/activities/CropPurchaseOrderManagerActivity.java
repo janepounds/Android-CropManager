@@ -178,6 +178,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
         cropPurchaseOrder.setUserId(CropDashboardActivity.getPreferences("userId",this));
         cropPurchaseOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropPurchaseOrder.setNotes(notesTxt.getText().toString());
+        cropPurchaseOrder.setMethod(methodTxt.getText().toString());
         cropPurchaseOrder.setDeliveryDate(deliveryDateTxt.getText().toString());
         cropPurchaseOrder.setStatus("DRAFT");
         cropPurchaseOrder.setReferenceNumber(referenceNoTxt.getText().toString());
@@ -201,6 +202,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
         if(cropPurchaseOrder != null){
             cropPurchaseOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
             cropPurchaseOrder.setNotes(notesTxt.getText().toString());
+            cropPurchaseOrder.setMethod(methodTxt.getText().toString());
             cropPurchaseOrder.setDeliveryDate(deliveryDateTxt.getText().toString());
             cropPurchaseOrder.setReferenceNumber(referenceNoTxt.getText().toString());
             cropPurchaseOrder.setDiscount(Float.parseFloat(discountPercentageTxt.getText().toString()));

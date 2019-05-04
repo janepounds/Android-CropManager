@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropPreviewItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
@@ -54,8 +55,9 @@ public class CropBillPreviewActivity extends AppCompatActivity {
     CropSupplier cropSupplier;
     Bitmap bitmap;
     TextView subTotalTextView, totalTextView,discountAmountTextView,numberTextView, billDateTextView,notesTextView,
-            termsTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,
+            termsTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,balanceTextView,
             supplierNameTextView, supplierCompanyTextView, supplierCityCountryTextView, supplierStreetTextView;
+    TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int BILL_ACTION_DOWNLOAD = 134;
     public static final int BILL_ACTION_EMAIL = 124;
@@ -97,9 +99,21 @@ public class CropBillPreviewActivity extends AppCompatActivity {
         dueDateTextView = findViewById(R.id.text_view_crop_bill_preview_due_date);
         orderNumberTextView = findViewById(R.id.text_view_crop_bill_preview_order_number);
         notesTextView = findViewById(R.id.txt_view_crop_bill_preview_notes);
+        balanceTextView = findViewById(R.id.text_view_crop_bill_balance_due);
 
         summaryScrollView = findViewById(R.id.scroll_view_bill_summary);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
+
+        farmNameTextView = findViewById(R.id.text_view_crop_invoice_estimate_farm_name);
+        userStreetTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_street);
+        userCityTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_city);
+        userCountryTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_country);
+
+        farmNameTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        userStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
+        userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
+        userCountryTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
+
 
         ArrayList<CropProductItem> suppliersList = new ArrayList<>();
         for(CropProductItem x: cropBill.getItems()){
@@ -118,6 +132,7 @@ public class CropBillPreviewActivity extends AppCompatActivity {
         totalTextView.setText( NumberFormat.getInstance().format(cropBill.computeTotal()));
         discountAmountTextView.setText(NumberFormat.getInstance().format(cropBill.computeDiscount()));
         balanceDueTextView.setText(NumberFormat.getInstance().format(cropBill.computeBalance()));
+        balanceTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(cropBill.computeBalance()));
         paymentMadeTextView.setText(NumberFormat.getInstance().format(cropBill.computeTotalPayments()));
         numberTextView.setText("#"+cropBill.getNumber());
         billDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropBill.getBillDate()));

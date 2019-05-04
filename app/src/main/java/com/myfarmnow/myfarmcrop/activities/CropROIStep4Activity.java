@@ -23,10 +23,12 @@ public class CropROIStep4Activity extends AppCompatActivity {
 
     Button btnNext,btnPrevious;
 
-    EditText ownerAllowanceQtyTxt, ownerAllowanceCostTxt,salariedEmployeeQtyTxt, salariedEmployeeCostTxt , casualEmployeeCostTxt,
+    EditText ownerAllowanceQtyTxt, ownerAllowanceCostTxt,salariedEmployeeQtyTxt, salariedEmployeeCostTxt ,casualEmployeeNumberTxt, casualEmployeeCostTxt,
     casualEmployeeHoursTxt,casualEmployeeWeeksTxt,casualEmployeeTotalTxt,totalLabourCostTxt;
     TextView totalExpensesTxt;
     EditText [] numericFields ;
+
+
 
     String currency= CropSettingsSingleton.getInstance().getCurrency()+" ";
     @Override
@@ -45,6 +47,7 @@ public class CropROIStep4Activity extends AppCompatActivity {
         ownerAllowanceCostTxt = findViewById(R.id.txt_crop_roi_step_4_owner_allowance_cost);
         salariedEmployeeQtyTxt = findViewById(R.id.txt_crop_roi_step_4_salaried_employee_quantity);
         salariedEmployeeCostTxt = findViewById(R.id.txt_crop_roi_step_4_salaried_employee_cost);
+        casualEmployeeNumberTxt = findViewById(R.id.txt_crop_roi_step_4_casual_employee_number);
         casualEmployeeCostTxt = findViewById(R.id.txt_crop_roi_step_4_casual_employee_cost);
         casualEmployeeHoursTxt = findViewById(R.id.txt_crop_roi_step_4_casual_employee_hours);
         casualEmployeeWeeksTxt = findViewById(R.id.txt_crop_roi_step_4_casual_employee_weeks);
@@ -53,7 +56,7 @@ public class CropROIStep4Activity extends AppCompatActivity {
         totalLabourCostTxt = findViewById(R.id.txt_crop_roi_step_4_total_labour_costs);
 
         numericFields =new EditText[]{ownerAllowanceQtyTxt, ownerAllowanceCostTxt,salariedEmployeeQtyTxt, salariedEmployeeCostTxt , casualEmployeeCostTxt,
-                casualEmployeeHoursTxt,casualEmployeeWeeksTxt};
+                casualEmployeeNumberTxt,casualEmployeeHoursTxt,casualEmployeeWeeksTxt};
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +130,11 @@ public class CropROIStep4Activity extends AppCompatActivity {
         }
         try{
             CropROICalculatorSingleton.getInstance().setStep4CasualEmployeeCost(Float.parseFloat(casualEmployeeCostTxt.getText().toString()));
+        }catch (Exception e){
+
+        }
+        try{
+            CropROICalculatorSingleton.getInstance().setStep4CasualEmployeeNumber(Float.parseFloat(casualEmployeeNumberTxt.getText().toString()));
         }catch (Exception e){
 
         }
