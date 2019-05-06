@@ -55,7 +55,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
     Bitmap bitmap;
     TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
     termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,referenceTextView,
-    customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
+    customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView,termsAndConditionsTxt,notesTxt;
 
     TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView;
 
@@ -98,6 +98,8 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         numberTextView = findViewById(R.id.text_view_crop_invoice_estimate_number);
         dateTextView = findViewById(R.id.text_view_crop_invoice_estimate_summary_date);
         termsTextView = findViewById(R.id.text_view_crop_invoice_estimate_terms);
+        termsAndConditionsTxt = findViewById(R.id.txt_crop_invoice_summary_terms);
+        notesTxt = findViewById(R.id.txt_crop_invoice_summary_notes);
         balanceTextView = findViewById(R.id.text_view_crop_invoice_balance);
         balanceDueTextView = findViewById(R.id.txt_view_crop_invoice_balance_due);
         paymentMadeTextView = findViewById(R.id.txt_view_crop_invoice_payment_made);
@@ -130,6 +132,8 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDate()));
         dueDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDueDate()));
         termsTextView.setText(cropInvoice.getTerms());
+        termsAndConditionsTxt.setText("Terms and Conditions: "+" '/n' "+" "+cropInvoice.getTermsAndConditions());
+        notesTxt.setText("Notes:  "+cropInvoice.getCustomerNotes());
         orderNumberTextView.setText(cropInvoice.getOrderNumber());
         customerNameTextView.setText(cropCustomer.getName());
         cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+" , "+cropCustomer.getBillingCountry());

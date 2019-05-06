@@ -409,7 +409,7 @@
                         android:layout_weight="1"
 
                         android:background="@color/whiteColor"
-                        android:onClick="openOnionBestPractices"
+                        android:onClick="openPumpkinBestPractices"
                         android:orientation="vertical"
                         android:paddingBottom="5dp">
 

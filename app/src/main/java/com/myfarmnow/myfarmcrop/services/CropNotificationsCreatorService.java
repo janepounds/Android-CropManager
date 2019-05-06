@@ -45,7 +45,7 @@ public class CropNotificationsCreatorService extends Service {
         AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarm.set(
                 AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime()+(1000 * 60 *10),
+                SystemClock.elapsedRealtime()+(1000 * 60 *60 *24),
                 PendingIntent.getService(this, 0, new Intent(this, CropNotificationsCreatorService.class), 0)
         );
     }

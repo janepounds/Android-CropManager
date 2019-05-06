@@ -162,6 +162,9 @@
                         android:id="@+id/sp_crop_harvest_operator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes"
+                        android:hint="Enter.."
+                        android:textSize="14sp"
                         />
                 </LinearLayout>
 

@@ -143,6 +143,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             notesTextView.setText("Notes : "+field.getNotes());
             View view = new View(mContext);
             view.setMinimumHeight(20);
+            ((CultivationViewHolder) holder).expandContentLayout.removeAllViews();
             ((CultivationViewHolder) holder).expandContentLayout.addView(notesTextView);
 
             ((CultivationViewHolder)holder).expandContentLayout.addView(view);
@@ -202,6 +203,8 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 treatmentReasonTextView.setText("Reason: "+field.getTreatmentReason());
                 View view = new View(mContext);
                 view.setMinimumHeight(20);
+
+            sprayingViewHolder.expandContentLayout.removeAllViews();
                 sprayingViewHolder.expandContentLayout.addView(treatmentReasonTextView);
 
                 sprayingViewHolder.expandContentLayout.addView(view);
@@ -285,9 +288,10 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             if(scouting.getRemarks() != null){
                 //holder.hideShowLayout.setVisibility(View.GONE);
                 TextView remarksTxt = new TextView(mContext);
-                remarksTxt.setText(scouting.getRemarks());
+                remarksTxt.setText("  Remarks:  "+scouting.getRemarks());
                 View view = new View(mContext);
                 view.setMinimumHeight(20);
+                scoutingViewHolder.expandContentLayout.removeAllViews();
                 scoutingViewHolder.expandContentLayout.addView(remarksTxt);
 
                 scoutingViewHolder.expandContentLayout.addView(view);
@@ -379,6 +383,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 quantitySoldTxt.setText("Quantity Sold:   "+harvest.getQuantitySold()+" "+harvest.getUnits());
                 View view = new View(mContext);
                 view.setMinimumHeight(20);
+                harvestViewHolder.expandContentLayout.removeAllViews();
                 harvestViewHolder.expandContentLayout.addView(dateSoldTxt);
                 harvestViewHolder.expandContentLayout.addView(customerTxt);
                 harvestViewHolder.expandContentLayout.addView(quantitySoldTxt);
@@ -396,6 +401,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
                 View view = new View(mContext);
                 view.setMinimumHeight(20);
+                harvestViewHolder.expandContentLayout.removeAllViews();
                 harvestViewHolder.expandContentLayout.addView(storageDateTxt);
                 harvestViewHolder.expandContentLayout.addView(quantityStoredTxt);
 
