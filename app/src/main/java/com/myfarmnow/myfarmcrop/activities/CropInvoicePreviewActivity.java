@@ -136,6 +136,8 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         streetTextView.setText(cropCustomer.getBillingStreet());
         customerCompanyTextView.setText(cropCustomer.getCompany());
 
+        ((TextView)findViewById(R.id.txt_view_crop_estimate_total_label)).setText("Total ("+ CropSettingsSingleton.getInstance().getCurrency()+")");
+
         farmNameTextView = findViewById(R.id.text_view_crop_invoice_estimate_farm_name);
         userStreetTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_street);
         userCityTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_city);

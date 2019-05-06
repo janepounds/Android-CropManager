@@ -35,6 +35,7 @@ import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -106,6 +107,8 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         orderNumberTxt = findViewById(R.id.txt_crop_invoice_order_number);
         saveBtn = findViewById(R.id.btn_save);
         saveAndSendBtn = findViewById(R.id.btn_save_send);
+        ((TextView)findViewById(R.id.txt_view_crop_estimate_total_label)).setText("Total ("+ CropSettingsSingleton.getInstance().getCurrency()+")");
+
         CropDashboardActivity.addDatePicker(invoiceDateTxt,this);
         CropDashboardActivity.addDatePicker(dueDateTxt,this);
         ((ArrayAdapter)termsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

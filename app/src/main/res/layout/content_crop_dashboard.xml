@@ -391,7 +391,7 @@
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:textSize="13sp"
-                                    android:text="Calculator"
+                                    android:text="Farm Calculators"
                                     android:textAllCaps="true"
                                     android:textColor="#FFF" />
 

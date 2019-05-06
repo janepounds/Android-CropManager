@@ -504,7 +504,7 @@
 
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/txt_view_crop_estimate_total_label"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="40dp"

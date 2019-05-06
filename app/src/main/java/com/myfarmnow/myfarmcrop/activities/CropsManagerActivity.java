@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -33,7 +34,8 @@ public class CropsManagerActivity extends AppCompatActivity {
    EditText dateTxt, varietyTxt, yearTxt,areaTxt,operatorTxt,costTxt,rateTxt;
    EditText estimatedRevenueTxt, estimatedYieldTxt;
    TextView currencyATxt,currencyBTxt,rateRTxt,estimatedRevenueUnitsTxt,estimatedRevenueCTxt;
-   Spinner cropSP,growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp,harvestUnitsSp;
+   Spinner growingCycleSp,seedSp,fieldSp,plantingMethodSp, seasonSp,harvestUnitsSp;
+   AutoCompleteTextView cropSP;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
    Button saveBtn;
@@ -271,7 +273,7 @@ public class CropsManagerActivity extends AppCompatActivity {
     public void saveCrop(){
         crop = new Crop();
         crop.setUserId(CropDashboardActivity.getPreferences("userId",this));
-        crop.setName(cropSP.getSelectedItem().toString());
+        crop.setName(cropSP.getText().toString());
         crop.setVariety(varietyTxt.getText().toString());
         crop.setCroppingYear(Integer.parseInt(yearTxt.getText().toString()));
         crop.setFieldId(((CropField)fieldSp.getSelectedItem()).getId());
@@ -296,7 +298,7 @@ public class CropsManagerActivity extends AppCompatActivity {
     }
     public void updateCrop(){
         if(crop != null){
-            crop.setName(cropSP.getSelectedItem().toString());
+            crop.setName(cropSP.getText().toString());
             crop.setVariety(varietyTxt.getText().toString());
             crop.setCroppingYear(Integer.parseInt(yearTxt.getText().toString()));
             crop.setFieldId(((CropField)fieldSp.getSelectedItem()).getId());
@@ -324,8 +326,9 @@ public class CropsManagerActivity extends AppCompatActivity {
 
     public void fillViews(){
         if(crop != null){
-            CropDashboardActivity.selectSpinnerItemByValue(cropSP,crop.getName());
+           // CropDashboardActivity.selectSpinnerItemByValue(cropSP,crop.getName());
             varietyTxt.setText(crop.getVariety());
+            cropSP.setText(crop.getName());
             yearTxt.setText(crop.getCroppingYear()+"");
             CropDashboardActivity.selectSpinnerItemByValue(growingCycleSp,crop.getGrowingCycle());
             CropDashboardActivity.selectSpinnerItemByValue(seasonSp,crop.getSeason());
@@ -385,8 +388,8 @@ public class CropsManagerActivity extends AppCompatActivity {
             message = getString(R.string.operator_not_entered);
             operatorTxt.requestFocus();
         }
-        else if(cropSP.getSelectedItemPosition()==0){
-            message = getString(R.string.crop_not_selected);
+        else if(cropSP.getText().toString().isEmpty()){
+            message = "Crop must be entered";
             cropSP.requestFocus();
         }
         else if(fieldSp.getSelectedItemPosition()==0){

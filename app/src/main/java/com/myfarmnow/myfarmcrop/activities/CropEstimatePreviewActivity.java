@@ -118,6 +118,8 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
         userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
         userCountryTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
 
+        ((TextView)findViewById(R.id.txt_view_crop_estimate_total_label)).setText("Total ("+ CropSettingsSingleton.getInstance().getCurrency()+")");
+
         //android:id="@+id/text_view_crop_invoice_estimate_user_street"
 
         ArrayList<CropProductItem> customersList = new ArrayList<>();

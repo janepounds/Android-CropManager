@@ -576,7 +576,7 @@
                             android:layout_height="70dp"
                             android:padding="10dp"
 
-                            android:src="@drawable/tomatoes" />
+                            android:src="@drawable/sorghum" />
 
                         <TextView
                             android:layout_width="match_parent"

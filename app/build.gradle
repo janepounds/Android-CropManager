@@ -46,7 +46,7 @@ dependencies {
     }
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
-    implementation 'com.itextpdf:itextg:5.5.10'
+    //implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.google.android.gms:play-services:11.8.0'
     implementation 'pub.devrel:easypermissions:0.1.5'
     implementation('com.google.api-client:google-api-client-android:1.22.0') {
@@ -57,18 +57,18 @@ dependencies {
     implementation('com.google.apis:google-api-services-calendar:v3-rev218-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    implementation 'org.greenrobot:greendao:3.2.2'
+   // implementation 'org.greenrobot:greendao:3.2.2'
     // add library
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'gun0912.ted:tedpermission:2.2.0'
-    implementation 'com.google.firebase:firebase-core:11.8.0'
+    //implementation 'com.google.firebase:firebase-core:11.8.0'
     //noinspection GradleCompatible
-    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    //implementation 'com.google.firebase:firebase-messaging:11.8.0'
     implementation 'com.google.android.gms:play-services-location:11.8.0'
     implementation 'com.google.android.gms:play-services-places:11.8.0'
     implementation 'com.github.pwittchen:infinitescroll:0.0.1'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+   // implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.volley:volley:1.0.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
