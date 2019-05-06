@@ -1383,11 +1383,29 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         else{
             CropSettingsSingleton settingsSingleton = CropSettingsSingleton.getInstance();
             settingsSingleton.setUserId(userId);
-            updateSettings(settingsSingleton);
+            /*settingsSingleton.setCurrency("USD");
+            settingsSingleton.setAreaUnits("Acres");
+            settingsSingleton.setWeightUnits("Kg");
+            settingsSingleton.setDateFormat("dd/mm/yyyy");*/
+            insertSettings(settingsSingleton);
+            initializeSettings(userId);
         }
         res.close();
         closeDB();
     }
+    public void insertSettings(CropSettingsSingleton crop) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CROP_SETTINGS_AREA_UNITS, crop.getAreaUnits());
+        contentValues.put(CROP_SETTINGS_CURRENCY, crop.getCurrency());
+        contentValues.put(CROP_SETTINGS_DATE_FORMAT, crop.getDateFormat());
+        contentValues.put(CROP_SETTINGS_WEIGHT_UNITS, crop.getWeightUnits());
+        contentValues.put(CROP_SETTINGS_USER_ID, crop.getUserId());
+        database.insert(CROP_SETTINGS_TABLE_NAME,null, contentValues);
+        closeDB();
+    }
+
     public void updateSettings(CropSettingsSingleton crop) {
         openDB();
         ContentValues contentValues = new ContentValues();
