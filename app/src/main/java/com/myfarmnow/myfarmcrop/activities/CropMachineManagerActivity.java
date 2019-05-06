@@ -103,6 +103,7 @@ public class CropMachineManagerActivity extends AppCompatActivity {
                     Intent toCropMachinesList = new Intent(CropMachineManagerActivity.this, CropMachinesListActivity.class);
                     toCropMachinesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropMachinesList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

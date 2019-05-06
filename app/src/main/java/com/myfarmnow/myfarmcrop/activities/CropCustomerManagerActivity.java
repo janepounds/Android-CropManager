@@ -113,6 +113,7 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
                     Intent toCropCustomersList = new Intent(CropCustomerManagerActivity.this, CropCustomersListActivity.class);
                     toCropCustomersList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropCustomersList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

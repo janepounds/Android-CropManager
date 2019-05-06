@@ -89,6 +89,7 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
                     Intent toCropEmployeesList = new Intent(CropEmployeeManagerActivity.this, CropEmployeesListActivity.class);
                     toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropEmployeesList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

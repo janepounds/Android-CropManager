@@ -134,6 +134,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
                     Intent toCropEmployeesList = new Intent(CropPurchaseOrderManagerActivity.this, CropPurchaseOrdersListActivity.class);
                     toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropEmployeesList);
+                    finish();
                 } else {
                     Log.d("ERROR", "Testing");
                 }

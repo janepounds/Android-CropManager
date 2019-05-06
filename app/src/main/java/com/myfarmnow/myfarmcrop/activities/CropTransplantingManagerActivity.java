@@ -201,6 +201,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
                     cropTransplanting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropTransplanting.putExtra("cropId",cropId);
                     startActivity(cropTransplanting);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

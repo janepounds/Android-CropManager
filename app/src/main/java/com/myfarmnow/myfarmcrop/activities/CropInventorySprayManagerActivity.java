@@ -112,6 +112,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
                     Intent toCropInventoryList = new Intent(CropInventorySprayManagerActivity.this, CropInventoryListActivity.class);
                     toCropInventoryList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropInventoryList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

@@ -132,8 +132,8 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDate()));
         dueDateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(cropInvoice.getDueDate()));
         termsTextView.setText(cropInvoice.getTerms());
-        termsAndConditionsTxt.setText("Terms and Conditions: "+" '/n' "+" "+cropInvoice.getTermsAndConditions());
-        notesTxt.setText("Notes:  "+cropInvoice.getCustomerNotes());
+        termsAndConditionsTxt.setText(cropInvoice.getTermsAndConditions());
+        notesTxt.setText(cropInvoice.getCustomerNotes());
         orderNumberTextView.setText(cropInvoice.getOrderNumber());
         customerNameTextView.setText(cropCustomer.getName());
         cityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+" , "+cropCustomer.getBillingCountry());

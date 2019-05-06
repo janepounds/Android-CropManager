@@ -155,6 +155,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
 
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

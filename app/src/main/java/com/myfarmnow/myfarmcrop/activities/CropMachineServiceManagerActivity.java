@@ -197,6 +197,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
                     toCropMachineServicesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropMachineServicesList.putExtra("machineId",machineId);
                     startActivity(toCropMachineServicesList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

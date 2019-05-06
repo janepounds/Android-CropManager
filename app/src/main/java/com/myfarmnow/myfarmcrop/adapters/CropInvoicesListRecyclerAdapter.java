@@ -79,7 +79,7 @@ public class CropInvoicesListRecyclerAdapter extends RecyclerView.Adapter<CropIn
         holder.orderNumberTxt.setText(estimate.getOrderNumber());
         holder.orderNumberLayout.setVisibility(View.VISIBLE);
 
-        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(estimate.computeBalance()));
+        holder.amountTextView.setText("  "+CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(estimate.computeBalance()));
     }
 
 

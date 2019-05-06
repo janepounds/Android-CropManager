@@ -203,6 +203,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
                     toCropMachineTasksList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropMachineTasksList.putExtra("machineId",machineId);
                     startActivity(toCropMachineTasksList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

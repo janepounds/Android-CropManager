@@ -206,6 +206,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
                     Intent toCropIncomeExpensesList = new Intent(CropIncomeExpenseManagerActivity.this, CropIncomeExpensesListActivity.class);
                     toCropIncomeExpensesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropIncomeExpensesList);
+                    finish();
                 } else {
                     Log.d("ERROR", "Testing");
                 }

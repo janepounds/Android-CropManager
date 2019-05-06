@@ -101,6 +101,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
                     Intent toCropSuppliersList = new Intent(CropSupplierManagerActivity.this, CropSuppliersListActivity.class);
                     toCropSuppliersList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropSuppliersList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

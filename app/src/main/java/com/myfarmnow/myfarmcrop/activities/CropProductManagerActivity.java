@@ -77,6 +77,7 @@ public class CropProductManagerActivity extends AppCompatActivity {
                     Intent toCropProductsList = new Intent(CropProductManagerActivity.this, CropProductsListActivity.class);
                     toCropProductsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropProductsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

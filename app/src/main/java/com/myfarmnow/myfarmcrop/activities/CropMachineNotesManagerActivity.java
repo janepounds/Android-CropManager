@@ -77,6 +77,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
                     toCropNotesList.putExtra("machineId",cropNote.getParentId());
 
                     startActivity(toCropNotesList);
+                    finish();
                 }
             }
         });

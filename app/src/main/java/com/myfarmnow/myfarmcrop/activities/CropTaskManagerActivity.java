@@ -182,6 +182,7 @@ public class CropTaskManagerActivity extends AppCompatActivity {
                     Intent toCropTasksList = new Intent(CropTaskManagerActivity.this, CropTasksListActivity.class);
                     toCropTasksList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropTasksList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

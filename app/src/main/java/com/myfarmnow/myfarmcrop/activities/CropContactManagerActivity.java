@@ -95,6 +95,7 @@ public class CropContactManagerActivity extends AppCompatActivity {
                     Intent toCropContactsList = new Intent(CropContactManagerActivity.this, CropContactsListActivity.class);
                     toCropContactsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropContactsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }
