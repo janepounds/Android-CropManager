@@ -265,6 +265,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                     cropHarvest.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropHarvest.putExtra("cropId",cropId);
                     startActivity(cropHarvest);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

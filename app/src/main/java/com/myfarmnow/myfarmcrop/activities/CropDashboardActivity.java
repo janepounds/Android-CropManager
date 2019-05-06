@@ -69,7 +69,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     ImageView imgdrawer, noticationsImageBtn;
     RelativeLayout mainlayout;
-    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu;
+    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu;
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
@@ -166,6 +166,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
         inventorySubMenu = findViewById(R.id.layout_crop_dashboard_inventory_submenus);
         cropsSubMenu = findViewById(R.id.layout_crop_dashboard_crops_submenus);
         financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
+        slesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
+        purchasesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_purchases_submenus);
 
 
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
@@ -291,7 +293,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -416,14 +418,12 @@ public class CropDashboardActivity extends AppCompatActivity  {
         toggleVisibility(financialsSubMenu);
     }
     public void showSalesManager(View view){
-        LinearLayout slesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
 
-        toggleVisibility(slesSubMenu);
+        toggleSubMenuVisibility(slesSubMenu);
     }
     public void showPurchasesManager(View view){
-        LinearLayout purchasesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_purchases_submenus);
 
-        toggleVisibility(purchasesSubMenu);
+        toggleSubMenuVisibility(purchasesSubMenu);
     }
     public void showHelpOptions(View view){
 
@@ -492,6 +492,21 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     public void toggleVisibility(View view){
         LinearLayout [] layouts = new LinearLayout[]{contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu};
+        if(view.getVisibility() == View.GONE){
+            for(LinearLayout layout: layouts){
+                if(layout!=view){
+                    layout.setVisibility(View.GONE);
+                }
+            }
+            view.setVisibility(View.VISIBLE);
+
+        }else{
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    public void toggleSubMenuVisibility(View view){
+        LinearLayout [] layouts = new LinearLayout[]{slesSubMenu,purchasesSubMenu};
         if(view.getVisibility() == View.GONE){
             for(LinearLayout layout: layouts){
                 if(layout!=view){

@@ -720,7 +720,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_CROP_FIELD_ID+" TEXT NOT NULL," +CROP_CROP_GROWING_CYCLE+" TEXT," +CROP_CROP_SEASON +" TEXT,"+CROP_CROP_DATE_SOWN+" TEXT NOT NULL,"+
                 CROP_CROP_AREA+" REAL,"+CROP_CROP_OPERATOR+" TEXT NOT NULL,"+
                 CROP_CROP_COST+" REAL NOT NULL,"+CROP_CROP_SEED_ID+" TEXT ,"+CROP_CROP_HARVEST_UNITS+" TEXT ,"+CROP_CROP_ESTIMATED_YIELD+" REAL DEFAULT 0,"+
-                CROP_CROP_ESTIMATED_REVENUE+" REAL DEFAULT 0,"+CROP_CROP_RATE+" REAL ,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL )";
+                CROP_CROP_ESTIMATED_REVENUE+" REAL DEFAULT 0,"+CROP_CROP_RATE+" REAL DEFAULT 0,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL )";
 
         String crop_cultivate_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CULTIVATION_TABLE_NAME+" ( "+CROP_CULTIVATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CULTIVATION_USER_ID+" TEXT,"+CROP_CULTIVATION_CROP_ID+" TEXT NOT NULL,"+ CROP_CULTIVATION_DATE+" TEXT NOT NULL,"+ CROP_CULTIVATION_OPERATION+" TEXT NOT NULL,"+CROP_CULTIVATION_OPERATOR+" TEXT NOT NULL,"+
@@ -3378,7 +3378,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "select "+CROP_PRODUCT_TABLE_NAME+".*, SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed from " + CROP_PRODUCT_TABLE_NAME +"  LEFT JOIN "+CROP_PRODUCT_ITEM_TABLE_NAME+" ON "+
                 CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+
-                " WHERE "+CROP_PRODUCT_ID+" = "+ productId +" AND "+
+                " WHERE "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+ productId +" AND "+
                 "( "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "' OR "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" IS NULL) GROUP BY "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID;
      
         Cursor res = db.rawQuery( query, null);
@@ -4878,9 +4878,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select "+CROP_TASK_TABLE_NAME+".*,"+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_FIRST_NAME+","+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_LAST_NAME+","+CROP_CROP_TABLE_NAME+"."+CROP_CROP_NAME+
+        Cursor res = db.rawQuery("select "+CROP_TASK_TABLE_NAME+".*,"+CROP_CROP_TABLE_NAME+"."+CROP_CROP_NAME+
                         " from " + CROP_TASK_TABLE_NAME+
-                        " LEFT JOIN "+CROP_EMPLOYEE_TABLE_NAME+" ON "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_EMPLOYEE_ID+" = "+CROP_EMPLOYEE_TABLE_NAME+"."+CROP_EMPLOYEE_ID+
                         " LEFT JOIN "+CROP_CROP_TABLE_NAME+" ON "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_CROP_ID+" = "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_ID+
                         " where "+CROP_TASK_TABLE_NAME+"."+CROP_TASK_USER_ID+" = "+ userId, null);
         res.moveToFirst();
@@ -4892,8 +4891,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setUserId(res.getString(res.getColumnIndex(CROP_TASK_USER_ID)));
             task.setCropId(res.getString(res.getColumnIndex(CROP_TASK_CROP_ID)));
             task.setCropName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
-            task.setEmployeeId(res.getString(res.getColumnIndex(CROP_TASK_EMPLOYEE_ID)));
-            task.setEmployeeName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_FIRST_NAME))+res.getString(res.getColumnIndex(CROP_EMPLOYEE_LAST_NAME)));
+            task.setEmployeeName(res.getString(res.getColumnIndex(CROP_TASK_EMPLOYEE_ID)));
+        //  task.setEmployeeName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_FIRST_NAME))+res.getString(res.getColumnIndex(CROP_EMPLOYEE_LAST_NAME)));
             task.setDate(res.getString(res.getColumnIndex(CROP_TASK_DATE)));
             task.setTitle(res.getString(res.getColumnIndex(CROP_TASK_TITLE)));
             task.setType(res.getString(res.getColumnIndex(CROP_TASK_TYPE)));

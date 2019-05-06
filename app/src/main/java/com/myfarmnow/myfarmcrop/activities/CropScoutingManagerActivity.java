@@ -315,6 +315,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                     cropScouting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropScouting.putExtra("cropId",cropId);
                     startActivity(cropScouting);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }
@@ -332,9 +333,11 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         cropScouting.setDate(scoutingDateTxt.getText().toString());
         cropScouting.setMethod(scoutingMethodTxt.getText().toString());
         cropScouting.setInfested(infestedSpinner.getSelectedItem().toString());
-        cropScouting.setInfestationType(infestationTypeSpinner.getSelectedItem().toString());
-        cropScouting.setInfestation(infestationSpinner.getSelectedItem().toString());
-        cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
+        if(infestedSpinner.getSelectedItemPosition()==1) {
+            cropScouting.setInfestationType(infestationTypeSpinner.getSelectedItem().toString());
+            cropScouting.setInfestation(infestationSpinner.getSelectedItem().toString());
+            cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
+        }
         cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
         cropScouting.setRemarks(remarksTxt.getText().toString());
         cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
@@ -364,10 +367,11 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
             cropScouting.setDate(scoutingDateTxt.getText().toString());
             cropScouting.setMethod(scoutingMethodTxt.getText().toString());
             cropScouting.setInfested(infestedSpinner.getSelectedItem().toString());
-            cropScouting.setInfestationType(infestationTypeSpinner.getSelectedItem().toString());
-            cropScouting.setInfestation(infestationSpinner.getSelectedItem().toString());
-            cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
-            cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
+            if(infestedSpinner.getSelectedItemPosition()==1) {
+                cropScouting.setInfestationType(infestationTypeSpinner.getSelectedItem().toString());
+                cropScouting.setInfestation(infestationSpinner.getSelectedItem().toString());
+                cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
+            }cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
             cropScouting.setRemarks(remarksTxt.getText().toString());
             cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropScouting.setReminders(remindersSp.getSelectedItem().toString());

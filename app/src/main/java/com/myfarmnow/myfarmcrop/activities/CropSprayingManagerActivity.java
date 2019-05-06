@@ -201,6 +201,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
                     toCropsList.putExtra("cropId",cropId);
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toCropsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

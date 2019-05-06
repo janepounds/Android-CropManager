@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
                         android:hint="Select"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:inputType="none"
                         android:textSize="14sp" />
 

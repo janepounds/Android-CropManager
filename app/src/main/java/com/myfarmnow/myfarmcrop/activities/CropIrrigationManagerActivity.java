@@ -162,6 +162,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
                     cropIrrigation.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     cropIrrigation.putExtra("cropId",cropId);
                     startActivity(cropIrrigation);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

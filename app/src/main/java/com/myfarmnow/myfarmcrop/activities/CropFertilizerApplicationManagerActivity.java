@@ -215,6 +215,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     toCropsList.putExtra("cropId",cropId);
                     startActivity(toCropsList);
+                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }
