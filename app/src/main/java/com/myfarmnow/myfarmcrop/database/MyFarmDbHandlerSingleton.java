@@ -4283,7 +4283,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
         closeDB();
-        Log.d("TESTING", array_list.toString());
         return array_list;
 
     }
