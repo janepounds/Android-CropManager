@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
-       // applicationId "com.myfarmnow.cropmanager"
+        //applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
+        applicationId "com.myfarmnow.cropmanager" //play store id
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 2
