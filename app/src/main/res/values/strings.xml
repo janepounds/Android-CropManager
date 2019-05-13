@@ -1650,6 +1650,9 @@
     <string name="amount_used">Amount Used</string>
     <string name="graph_category_machine_service">Machine Service</string>
     <string name="graph_category_machine_task">Machine task</string>
+    <string name="forgot_password_prompt_request_code">Forgot Password? Request Code!</string>
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="update">Update</string>
 
 
     <string-array name="dateFormatsArray">

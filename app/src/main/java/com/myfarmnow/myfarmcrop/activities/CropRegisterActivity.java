@@ -109,7 +109,6 @@ public class CropRegisterActivity extends PermisoActivity implements
                 try{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getColor(R.color.White));
-
                     }
                     else {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.White)); //Change selected text color
@@ -562,9 +561,9 @@ public class CropRegisterActivity extends PermisoActivity implements
         edtAdressTownorCity.setText(CropDashboardActivity.getPreferences("addressCityOrTown",this));
         CropDashboardActivity.selectSpinnerItemByValue(spinnercountry,CropDashboardActivity.getPreferences("country",this));
         CropDashboardActivity.selectSpinnerItemByValue(addressCountrySp,CropDashboardActivity.getPreferences("addressCountry",this));
-        titleTextView.setText("Edit Profile");
-        btnSignUp.setText("Update");
-        tvlogin.setText("Forgot Password? Request Code!");
+        titleTextView.setText(R.string.edit_profile_title);
+        btnSignUp.setText(R.string.update);
+        tvlogin.setText(R.string.forgot_password_prompt_request_code);
         //CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         //CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
     }
