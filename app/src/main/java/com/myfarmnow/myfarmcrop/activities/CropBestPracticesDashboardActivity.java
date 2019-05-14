@@ -113,4 +113,23 @@ public class CropBestPracticesDashboardActivity extends AppCompatActivity {
         startActivity(openPDF);
     }
 
+    public void openBananaBestPractices(View view){
+        Intent openPDF = new Intent(this, CropPDFViewActivity.class);
+        openPDF.putExtra("fileName","banana.pdf");
+        openPDF.putExtra("pageTitle","Banana Best Practices");
+        startActivity(openPDF);
+    }
+    public void openCoffeeBestPractices(View view){
+        Intent openPDF = new Intent(this, CropPDFViewActivity.class);
+        openPDF.putExtra("fileName","coffee.pdf");
+        openPDF.putExtra("pageTitle","Coffee Best Practices");
+        startActivity(openPDF);
+    }
+    public void openRiceBestPractices(View view){
+        Intent openPDF = new Intent(this, CropPDFViewActivity.class);
+        openPDF.putExtra("fileName","rice.pdf");
+        openPDF.putExtra("pageTitle","Rice Best Practices");
+        startActivity(openPDF);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropSettingsActivity extends AppCompatActivity {
@@ -47,7 +49,7 @@ public class CropSettingsActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     saveSettings();
-                    finish();
+
 
                 }
             });;
@@ -64,6 +66,11 @@ public class CropSettingsActivity extends AppCompatActivity {
             settingsSingleton.setWeightUnits(weightUnitsSp.getSelectedItem().toString());
             settingsSingleton.setAreaUnits(areaUnitsSp.getSelectedItem().toString());
             settingsSingleton.setCurrency(currencySp.getSelectedItem().toString());
+
+            MyFarmDbHandlerSingleton.getHandlerInstance(this).updateSettings(settingsSingleton);
+            startActivity(new Intent(this, CropDashboardActivity.class));
+            finish();
+
         }
 
         public void fillViews(){

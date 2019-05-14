@@ -553,6 +553,7 @@
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
                     android:layout_weight="0.5"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
 
             </LinearLayout>
@@ -583,6 +584,7 @@
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
                     android:layout_weight="0.5"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
 
             </LinearLayout>
@@ -591,15 +593,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="5dp">
                 <Button
                     android:id="@+id/btn_save"
                     style="@style/ButtonFinancial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/estimates_manager_button"
+                    android:backgroundTint="@color/textColor"
                     android:drawableTint="#ffffff"
                     android:text="Save"
                     android:textAllCaps="false"
@@ -609,7 +609,7 @@
                     style="@style/ButtonFinancial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/estimates_manager_button"
+                    android:backgroundTint="@color/textColor"
                     android:drawableTint="#ffffff"
                     android:text="@string/save_send"
                     android:textAllCaps="false"

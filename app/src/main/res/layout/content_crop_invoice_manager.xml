@@ -75,7 +75,7 @@
                             android:textSize="12sp"
                              />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/txt_crop_invoice_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -633,6 +633,7 @@
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
                     android:layout_weight="0.6"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
 
             </LinearLayout>
@@ -662,6 +663,7 @@
                     android:background="@drawable/input_shapes"
                     android:layout_weight="0.6"
                     android:gravity="start"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
 
             </LinearLayout>
@@ -670,14 +672,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginBottom="5dp">
                 <Button
                     android:id="@+id/btn_save"
                     style="@style/ButtonFinancial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/estimates_manager_button"
+                    android:backgroundTint="@color/textColor"
                     android:drawableTint="#ffffff"
                     android:text="Save"
                     android:textAllCaps="false"
@@ -687,9 +688,8 @@
                     style="@style/ButtonFinancial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/estimates_manager_button"
+                    android:backgroundTint="@color/textColor"
                     android:drawableTint="#ffffff"
-                    android:layout_marginStart="4dp"
                     android:text="@string/save_send"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />

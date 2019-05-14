@@ -338,7 +338,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             CropDashboardActivity.selectSpinnerItemById(customersSp,estimate.getCustomerId());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: estimate.getItems()){
-                x.setInvoiceOrEstimateId(null); //remove any associated Estimate
+                x.setParentObjectId(null); //remove any associated Estimate
                
                 items.add(x);
             }
@@ -360,7 +360,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             CropDashboardActivity.selectSpinnerItemById(customersSp,estimate.getCustomerId());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: estimate.getItems()){
-                x.setInvoiceOrEstimateId(null); //remove any associated Estimate
+                x.setParentObjectId(null); //remove any associated Estimate
 
                 items.add(x);
             }
@@ -422,10 +422,14 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             cropInvoice.setOrderNumber(orderNumberTxt.getText().toString());
             cropInvoice.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             invoiceItems.clear();
+
             for(CropProductItem x:itemListRecyclerAdapter.getItems()){
                 invoiceItems.add((CropProductItem)x);
             }
             cropInvoice.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
+            Log.d("Invoice Items",invoiceItems.size()+" ITEMS");
+            Log.d("Item : ",invoiceItems.get(0).print());
+
             cropInvoice.setItems(invoiceItems);
             if(cropPayment != null){
                 cropPayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
@@ -442,6 +446,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             CropDashboardActivity.selectSpinnerItemByValue(termsSp,cropInvoice.getTerms());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: cropInvoice.getItems()){
+                Log.d("IDS ",x.getId());
                 items.add(x);
             }
             itemListRecyclerAdapter.appendList(items);

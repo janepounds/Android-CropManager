@@ -152,7 +152,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
                     }
 
                     if(sourceCropPurchaseOrder != null){
-                        sourceCropPurchaseOrder.setStatus(getString(R.string.estimate_status_invoiced));
+                        sourceCropPurchaseOrder.setStatus(getString(R.string.purchase_order_status_billed));
                         dbHandler.updateCropPurchaseOrder(sourceCropPurchaseOrder);
                     }
                     Intent toCropEmployeesList = new Intent(CropBillManagerActivity.this, CropBillsListActivity.class);
@@ -286,6 +286,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
                 bill_orderItems.add(x);
             }
             cropBill.setItems(bill_orderItems);
+            cropBill.setDeletedItemsIds(itemListRecyclerAdapter.getDeleteItemsId());
             return dbHandler.updateCropBill(cropBill);
         }
         else{
@@ -343,7 +344,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemById(suppliersSp,estimate.getSupplierId());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: estimate.getItems()){
-                x.setInvoiceOrEstimateId(null); //remove any associated Order Id
+                x.setParentObjectId(null); //remove any associated Order Id
 
                 items.add(x);
             }

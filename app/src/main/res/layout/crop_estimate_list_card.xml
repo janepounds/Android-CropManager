@@ -24,7 +24,7 @@
 
                     <TextView
                         android:id="@+id/txt_crop_estimate_card_customer_name"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kleiner Parker Firm "
                         android:layout_marginTop="16dp"
@@ -33,7 +33,7 @@
                         android:textSize="16sp" />
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:layout_weight="0.4"

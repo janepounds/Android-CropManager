@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        //applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
-        applicationId "com.myfarmnow.cropmanager" //play store id
+        applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
+       // applicationId "com.myfarmnow.cropmanager" //play store id
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 2
@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
     //implementation 'com.itextpdf:itextg:5.5.10'
-    implementation 'com.google.android.gms:play-services:11.8.0'
+    //implementation 'com.google.android.gms:play-services:11.8.0'
     implementation 'pub.devrel:easypermissions:0.1.5'
     implementation('com.google.api-client:google-api-client-android:1.22.0') {
 

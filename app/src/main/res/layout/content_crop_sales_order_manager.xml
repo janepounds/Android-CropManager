@@ -578,6 +578,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
 
             </LinearLayout>
@@ -605,6 +606,7 @@
                     android:layout_height="80dp"
                     android:background="@drawable/input_shapes"
                     android:gravity="start"
+                    android:textSize="12sp"
                     android:hint="Enter.." />
 
             </LinearLayout>

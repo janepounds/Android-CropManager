@@ -101,7 +101,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/mainView"
-                android:background="@drawable/home_background">
+                android:background="@drawable/
+">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1208,7 +1209,7 @@
                                     android:paddingBottom="5dp"
                                     android:onClick="openEstimatesList"
                                     android:paddingTop="5dp"
-                                    android:visibility="gone">
+                                   >
 
 
                                     <TextView
@@ -1295,7 +1296,7 @@
                                     android:paddingBottom="5dp"
                                     android:onClick="openSalesOrderList"
                                     android:paddingTop="5dp"
-                                    android:visibility="gone">
+                                    >
 
 
                                     <TextView
@@ -1379,7 +1380,7 @@
                                     android:paddingBottom="5dp"
                                     android:onClick="openPurchaseOrdersList"
                                     android:paddingTop="5dp"
-                                    android:visibility="gone">
+                                   >
 
 
                                     <TextView

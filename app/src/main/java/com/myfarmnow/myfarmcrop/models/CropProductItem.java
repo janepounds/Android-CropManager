@@ -1,12 +1,11 @@
 package com.myfarmnow.myfarmcrop.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class CropProductItem implements Serializable {
     String  id;
     String  productId;
-    String  estimateId;
+    String  parentObjectId;
     float quantity;
     float rate;
     float tax;
@@ -16,21 +15,21 @@ public class CropProductItem implements Serializable {
 
     }
 
-    public CropProductItem( String  productId, String  estimateId, float quantity){
+    public CropProductItem( String  productId, String  parentObjectId, float quantity){
         setProductId(productId);
-        setInvoiceOrEstimateId(estimateId);
+        setParentObjectId(parentObjectId);
         setQuantity(quantity);
     }
-    public CropProductItem( String id, String  productId, String  estimateId, float quantity){
+    public CropProductItem( String id, String  productId, String  parentObjectId, float quantity){
         setId(id);
         setProductId(productId);
-        setInvoiceOrEstimateId(estimateId);
+        setParentObjectId(parentObjectId);
         setQuantity(quantity);
     }
-    public CropProductItem( String id, String  productId, String  estimateId, float quantity,float rate,float tax){
+    public CropProductItem( String id, String  productId, String  parentObjectId, float quantity,float rate,float tax){
         setId(id);
         setProductId(productId);
-        setInvoiceOrEstimateId(estimateId);
+        setParentObjectId(parentObjectId);
         setQuantity(quantity);
         setRate(rate);
         setTax(tax);
@@ -52,12 +51,12 @@ public class CropProductItem implements Serializable {
         this.productId = productId;
     }
 
-    public String getInvoiceOrEstimateId() {
-        return estimateId;
+    public String getParentObjectId() {
+        return parentObjectId;
     }
 
-    public void setInvoiceOrEstimateId(String estimateId) {
-        this.estimateId = estimateId;
+    public void setParentObjectId(String parentObjectId) {
+        this.parentObjectId = parentObjectId;
     }
 
     public float getQuantity() {
@@ -87,7 +86,6 @@ public class CropProductItem implements Serializable {
     public float computeAmount(){
         float total  = rate*quantity;
         float tax = (this.tax/100)*total;
-
         return total+tax;
     }
 
@@ -99,5 +97,9 @@ public class CropProductItem implements Serializable {
 
     public String gettProductName() {
         return this.productName;
+    }
+
+    public String print(){
+        return String.format("%s %s %s ",getId(),getQuantity(),getParentObjectId());
     }
 }
