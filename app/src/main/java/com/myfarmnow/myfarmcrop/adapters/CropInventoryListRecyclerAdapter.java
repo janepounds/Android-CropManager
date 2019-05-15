@@ -3,6 +3,10 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -110,6 +114,14 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
             batchNumberlblTxtView = itemView.findViewById(R.id.txt_view_batch_lbl);
             moreButton = itemView.findViewById(R.id.img_crop_inventory_more);
             //layout_batch_number txt_view_batch_lbl
+
+
+
+
+                consumptionProgressBar.getProgressDrawable().setColorFilter(
+                        Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+
+
 
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override

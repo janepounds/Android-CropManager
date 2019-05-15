@@ -52,15 +52,6 @@
                     android:layout_marginTop="15dp"
                     android:background="@color/whiteColor"
                     />
-                <TextView
-                    android:id="@+id/text_view_crop_user_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="This ie the error we have found at the server end"
-                    android:textColor="@color/yellow"
-                    android:visibility="gone" />
-
                 <EditText
                     android:id="@+id/txt_crop_user_current_password"
                     android:layout_width="fill_parent"
@@ -381,7 +372,6 @@
                         android:layout_height="45.0dip"
 
                         android:layout_weight="0.3"
-
                         android:hint="Code"
                         android:inputType="phone"
                         android:maxLength="3"
@@ -403,6 +393,14 @@
                         android:textColorHint="@color/hintColor"
                         android:textCursorDrawable="@drawable/color_cursor" />
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/text_view_crop_user_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="This ie the error we have found at the server end"
+                    android:textColor="@color/yellow"
+                    android:visibility="gone" />
 
 
                 <Button

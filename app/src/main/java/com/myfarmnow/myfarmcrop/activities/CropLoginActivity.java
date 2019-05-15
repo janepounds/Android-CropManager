@@ -33,7 +33,7 @@ public class CropLoginActivity extends AppCompatActivity {
     EditText edtusername, edtpwd;
     Button btnSignIn;
     TextView tvSignUp;
-    TextView tvForgetpass, errorMessage;
+    TextView tvForgetpass, errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class CropLoginActivity extends AppCompatActivity {
         edtusername = (EditText) findViewById(R.id.edtusername);
         edtpwd = (EditText) findViewById(R.id.edtpwd);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        errorTextView =  findViewById(R.id.text_view_crop_user_error);
 
 
 
@@ -59,11 +60,25 @@ public class CropLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (edtusername.getText().toString().length() <= 0) {
-                    Toast.makeText(CropLoginActivity.this, "Enter Email Address..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CropLoginActivity.this, "Enter Email Address or PhoneNumber..", Toast.LENGTH_SHORT).show();
                 } else if (edtpwd.getText().toString().length() <= 0) {
                     Toast.makeText(CropLoginActivity.this, "Enter password..", Toast.LENGTH_SHORT).show();
                 } else {
-                    checkLogin( edtusername.getText().toString(), null, edtpwd.getText().toString(), CropLoginActivity.this);
+                    String loginEntry =edtusername.getText().toString();
+                    String email = null;
+                    String phoneNumber =null;
+
+                    if(loginEntry.matches(".*[a-zA-Z@].*")){
+                        //maybe Email
+                        email = loginEntry;
+                    }
+                    else if(loginEntry.matches(".*[0-9].*")){
+                        //maybe phone Number
+                        phoneNumber = loginEntry;
+
+                    }
+
+                    checkLogin( email, phoneNumber, edtpwd.getText().toString(), CropLoginActivity.this,errorTextView);
                 }
 
             }
@@ -92,7 +107,13 @@ public class CropLoginActivity extends AppCompatActivity {
 
     }
 
-    public static void checkLogin(String email, String phoneNumber, String password, final Context context) {
+    /**
+     * @param email
+     * @param phoneNumber
+     * @param password
+     * @param context
+     */
+    public static void checkLogin(String email, String phoneNumber, String password, final Context context, final TextView  errorTextView) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
@@ -125,6 +146,7 @@ public class CropLoginActivity extends AppCompatActivity {
 
                 try {
                     if (response.getString("status").equals("failure")) {
+
                         Toast.makeText(context, "Invalid login detail", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -153,7 +175,12 @@ public class CropLoginActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try{
                     if(statusCode==403){
-                        Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+
+                        errorTextView.setText(errorResponse.getString("message"));
+                        errorTextView.setVisibility(View.VISIBLE);
+                        errorTextView.requestFocus();
+
 
                         JSONObject data = errorResponse.getJSONObject("data");
                         if( errorResponse.getString("message").contains("Verification Required")){
