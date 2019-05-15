@@ -63,6 +63,7 @@ public class CropsNotesListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CropsNotesManagerActivity.class);
         intent.putExtra("cropId",cropId);
         startActivity(intent);
+        finish();
     }
 
 }

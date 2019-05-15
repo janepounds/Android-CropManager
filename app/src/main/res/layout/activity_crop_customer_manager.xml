@@ -230,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@color/gray_mh">
+                       >
 
 
                         <TextView
@@ -240,7 +240,7 @@
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="@string/ugx"
                             android:gravity="center_vertical"
-                            
+                            android:background="@drawable/input_shapes_grey_units"
 
                             />
                         <EditText
