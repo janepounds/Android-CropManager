@@ -77,6 +77,7 @@
                         android:ems="10"
                         android:background="@drawable/input_shapes"
                         android:hint="Enter ..."
+                        android:textSize="14sp"
                         />
 
                 </LinearLayout>

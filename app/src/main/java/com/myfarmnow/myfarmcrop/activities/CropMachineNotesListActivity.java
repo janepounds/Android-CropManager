@@ -69,6 +69,7 @@ public class CropMachineNotesListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CropMachineNotesManagerActivity.class);
         intent.putExtra("machineId",machineId);
         startActivity(intent);
+        finish();
     }
 
 }
