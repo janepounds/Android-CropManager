@@ -90,7 +90,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
         for(Crop crop : crops){
             TextView cropNameAreaTextView = new TextView(mContext);
             TextView datePlantedTextView = new TextView(mContext);
-            cropNameAreaTextView.setText(crop.getName()+" ("+crop.getArea()+"ha)");
+            cropNameAreaTextView.setText(crop.getName()+" ("+crop.getArea()+field.getUnits().toLowerCase()+")");
             datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getDateSown())+" ("+crop.computeAge()+")");
             View view = new View(mContext);
             view.setMinimumHeight(20);

@@ -22,7 +22,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
-//TODO  FIX BUG- USAGE UNITS NOT SHOWING
+
     EditText dateTxt,nameTxt,batchNumberTxt,npkNTxt, npkPTxt, npkKTxt,qtyTxt,serialNumberTxt,supplierTxt,costTxt;
     EditText macrosCa,macrosMg,macrosS,microsB,microsMn,microsCl,microsMo,microsCu,microsZn,microsFe,microsNa;
     TextView currencyTxt;

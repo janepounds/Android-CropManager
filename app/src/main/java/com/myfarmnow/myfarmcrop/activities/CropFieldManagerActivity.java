@@ -97,7 +97,7 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         statusSp.setOnItemSelectedListener(onItemSelectedListener);
         layoutTypeSp.setOnItemSelectedListener(onItemSelectedListener);
         typeSp.setOnItemSelectedListener(onItemSelectedListener);
-//TODO SETTING DEFAULT UNITS
+
         //CropDashboardActivity.selectSpinnerItemByValue(unitsSpinner,CropSettingsSingleton.getInstance().getAreaUnits());
 
         fillViews();

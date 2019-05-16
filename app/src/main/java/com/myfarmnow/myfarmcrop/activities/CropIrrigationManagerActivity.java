@@ -169,7 +169,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             }
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
-//TODO TEXT WATCHER ISSUE
+
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -189,6 +189,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         startTimeTxt.addTextChangedListener(watcher);
         endTimeTxt.addTextChangedListener(watcher);
         systemRateTxt.addTextChangedListener(watcher);
+        areaIrrigatedTxt.addTextChangedListener(watcher);
         fillViews();
     }
 
@@ -279,11 +280,12 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
     public void updateWaterQuantity(){
         try{
-            float area = Float.parseFloat(areaIrrigatedTxt.getText().toString());
+
             float rate = Float.parseFloat(systemRateTxt.getText().toString());
             float hours = CropIrrigation.calculateTime(startTimeTxt.getText().toString(),endTimeTxt.getText().toString());
             float quantity = rate*hours;
             totalWaterQuantityTxt.setText(quantity+"");
+            float area = Float.parseFloat(areaIrrigatedTxt.getText().toString());
             float qtyPerArea =quantity/area;
             quantityPerUnitTxt.setText(qtyPerArea+"");
         }catch(Exception e){

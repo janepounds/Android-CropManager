@@ -145,8 +145,6 @@ public class CropBillPreviewActivity extends AppCompatActivity {
         supplierCompanyTextView.setText(cropSupplier.getCompany());
         notesTextView.setText(cropBill.getNotes());
 
-        //TODO replace currencies with user settings
-        //TODO replace date format with user settings format
 
         final ViewTreeObserver observer = summaryScrollView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

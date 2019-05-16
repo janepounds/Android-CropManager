@@ -62,6 +62,8 @@
     <color name="estimates_card_currency_color">#51925E</color>
     <color name="estimates_card_text_color">#899889</color>
     <color name="calaculators_total_color">#D7DCD3</color>
+    <color name="progress_bar_green">#8ABB2A</color>
+    <color name="progress_bar_background_white">#DBEED9</color>
 
 
 </resources>

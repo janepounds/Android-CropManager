@@ -68,7 +68,7 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
         holder.curInventoryTxtView.setText(curInventory.calculateAmountLeft()+"/"+curInventory.getInitialQuantity()+" "+curInventory.getUsageUnits());
 
     }
-//TODO CHANGING THE PROGRESS BAR COLOR
+
     @Override
     public int getItemCount() {
         return inventoryList.size();
@@ -115,11 +115,12 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
             moreButton = itemView.findViewById(R.id.img_crop_inventory_more);
             //layout_batch_number txt_view_batch_lbl
 
-
-
-
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 consumptionProgressBar.getProgressDrawable().setColorFilter(
-                        Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+                        Color.parseColor("#8ABB2A"), PorterDuff.Mode.MULTIPLY);
+            }
+
+
 
 
 

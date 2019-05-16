@@ -70,8 +70,11 @@
                         android:layout_marginRight="8dp"
                         android:max="40"
                         android:progress="20"
+                        android:progressTint="@color/progress_bar_green"
+                        android:progressBackgroundTint="@color/progress_bar_background_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
+                    <!-- style="@android:style/Widget.ProgressBar.Horizontal" -->
 
                     <LinearLayout
                         android:orientation="horizontal"

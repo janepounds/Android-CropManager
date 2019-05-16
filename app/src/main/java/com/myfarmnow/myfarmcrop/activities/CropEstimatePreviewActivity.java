@@ -150,8 +150,7 @@ public class CropEstimatePreviewActivity extends AppCompatActivity {
         streetTextView.setText(cropCustomer.getBillingStreet());
         customerCompanyTextView.setText(cropCustomer.getCompany());
 
-        //TODO replace currencies with user settings
-        //TODO replace date format with user settings format
+
 
         final ViewTreeObserver observer = summaryScrollView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

@@ -152,8 +152,7 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         supplierStreetTextView.setText(cropSupplier.getInvoiceStreet());
         supplierCompanyTextView.setText(cropSupplier.getCompany());
 
-        //TODO replace currencies with user settings
-        //TODO replace date format with user settings format
+
 
         final ViewTreeObserver observer = summaryScrollView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

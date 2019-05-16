@@ -28,7 +28,7 @@
             <View
                 android:id="@+id/txt_view_crop_spraying_card_line"
                 android:layout_width="1dp"
-                android:layout_height="230dp"
+                android:layout_height="290dp"
                 android:layout_marginStart="16dp"
                 android:background="#E7EAE7"
                 android:textAlignment="center" />
@@ -137,11 +137,12 @@
                     android:padding="4dp">
 
                     <TextView
+                        android:id="@+id/txt_view_crop_transplanting_card_seedlings_per_ha_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="38dp"
                         android:layout_weight="0.4"
-                        android:text="Seedlings / ha : "
+                        android:text="Qty/Acre"
                         android:textColor="@color/blackText"
                        android:textSize="14sp" />
 

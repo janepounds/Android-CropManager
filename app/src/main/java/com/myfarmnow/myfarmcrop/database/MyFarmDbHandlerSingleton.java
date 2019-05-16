@@ -4440,6 +4440,50 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
+    public CropInventorySeeds getCropInventorySeed(String seedId) {
+        openDB();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + CROP_INVENTORY_SEEDS_ID + " = " + seedId, null);
+        res.moveToFirst();
+        CropInventorySeeds inventorySeeds=null;
+
+        if (!res.isAfterLast()) {
+            inventorySeeds  = new CropInventorySeeds();
+            inventorySeeds.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_ID)));
+            inventorySeeds.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USER_ID)));
+            inventorySeeds.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_NAME)));
+            inventorySeeds.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
+            inventorySeeds.setVariety(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_VARIETY)));
+            inventorySeeds.setDressing(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DRESSING)));
+            inventorySeeds.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_QUANTITY)));
+            inventorySeeds.setCost(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_COST)));
+            inventorySeeds.setBatchNumber(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_BATCH_NUMBER)));
+            inventorySeeds.setSupplier(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_SUPPLIER)));
+            inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
+            inventorySeeds.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USAGE_UNIT)));
+            inventorySeeds.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TYPE)));
+
+            res.moveToNext();
+        }
+
+            if(inventorySeeds != null){
+                String query = "select SUM("+CROP_CROP_RATE+") as totalConsumed from " + CROP_CROP_TABLE_NAME +  " where " + CROP_CROP_SEED_ID + " = " + inventorySeeds.getId();
+                res = db.rawQuery(query, null);
+                res.moveToFirst();
+                if(!res.isAfterLast()){
+                    inventorySeeds.setTotalConsumed(res.getFloat(res.getColumnIndex("totalConsumed")));
+                }
+            }
+
+
+
+
+        closeDB();
+
+        return inventorySeeds;
+
+    }
     public void insertCropField(CropField field) {
         openDB();
         ContentValues contentValues = new ContentValues();

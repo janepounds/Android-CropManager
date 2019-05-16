@@ -104,13 +104,13 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
     @Override
     public void onBindViewHolder(@NonNull  final RecyclerView.ViewHolder holder, int position) {
         if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_FERTILIZER_APPLICATION){
-            CropFertilizerApplication field = (CropFertilizerApplication)cropsList.get(position);
+            CropFertilizerApplication fertilizerApplication = (CropFertilizerApplication)cropsList.get(position);
             final FertilizerApplicationViewHolder fertilizerApplicationHolder = (FertilizerApplicationViewHolder)holder;
-            fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(field.getCost())); //TODO replace currency
-            fertilizerApplicationHolder.rateTextView.setText(field.getRate()+" Kg");
-            fertilizerApplicationHolder.methodTextView.setText(field.getMethod());
-            fertilizerApplicationHolder.operationTextView.setText(field.getFertilizerName());
-            fertilizerApplicationHolder.recurrenceTxt.setText(field.getRecurrence());
+            fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(fertilizerApplication.getCost())); //TODO replace currency
+            fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" Kg");
+            fertilizerApplicationHolder.methodTextView.setText(fertilizerApplication.getMethod());
+            fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerName());
+            fertilizerApplicationHolder.recurrenceTxt.setText(fertilizerApplication.getRecurrence());
 
             final ViewTreeObserver observer = fertilizerApplicationHolder.operationTextView.getViewTreeObserver();
             observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -122,7 +122,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         fertilizerApplicationHolder.operationTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int containerHeight = (16+fertilizerApplicationHolder.rateTextView.getHeight())*7;
+                    int containerHeight = (32+fertilizerApplicationHolder.rateTextView.getHeight())*7;
                     ViewGroup.LayoutParams params = fertilizerApplicationHolder.verticalLineView.getLayoutParams();
                     params.height = containerHeight;
                     fertilizerApplicationHolder.verticalLineView.requestLayout();
@@ -178,7 +178,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int containerHeight =  (16+((CultivationViewHolder)holder).operationTextView.getHeight())*7+((CultivationViewHolder)holder).notesTextView.getHeight();
+                    int containerHeight =  (32+((CultivationViewHolder)holder).operationTextView.getHeight())*7+((CultivationViewHolder)holder).notesTextView.getHeight();
                     ViewGroup.LayoutParams params =  ((CultivationViewHolder)holder).verticalLineView.getLayoutParams();
                     params.height = containerHeight;
 
@@ -242,7 +242,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         sprayingViewHolder.treatmentReasonTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int lineHeight = (18+sprayingViewHolder.rateTextView.getHeight())*9+sprayingViewHolder.treatmentReasonTextView.getHeight();
+                    int lineHeight = (36+sprayingViewHolder.rateTextView.getHeight())*9+sprayingViewHolder.treatmentReasonTextView.getHeight();
                     ViewGroup.LayoutParams params = sprayingViewHolder.verticalLineView.getLayoutParams();
                     params.height = lineHeight;
                     sprayingViewHolder.verticalLineView.requestLayout();
@@ -254,35 +254,35 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             final CropScouting scouting = (CropScouting)cropsList.get(position);
             scoutingViewHolder.scoutingDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(scouting.getDate()));
             scoutingViewHolder.scoutingMethodTxt.setText(scouting.getMethod());
-            scoutingViewHolder.infestationTypeTxt.setText(scouting.getInfestationType()+" : ");
+
             scoutingViewHolder.infestationTxt.setText(scouting.getInfestation());
             scoutingViewHolder.infestationLevelTxt.setText(scouting.getInfestationLevel());
             scoutingViewHolder.costTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(scouting.getCost()));
             // holder.remarksTxt.setText(scouting.getRemarks());
 
-            //TODO MAKING DROP DOWN GONE WHEN REMARKS NOT ENTERED
             //TODO MAKING infestationLayout and infestationLevelLayout GONE WHEN CROP IS NOT INFESTED
             //TODO ADJUSTING THE SIDE LINE OF THE CARD
 
+            String infestationType ="";
+            String infestation ="";
             if(scouting.getInfested().toLowerCase().equals("yes")) {
 
-                TextView infestationTypeTxt = new TextView(mContext);
-                infestationTypeTxt.setText(scouting.getInfestationType());
-                TextView infestationTxt = new TextView(mContext);
-                infestationTxt.setText(scouting.getInfestation());
+
+                infestationType=scouting.getInfestationType();
+                infestation=scouting.getInfestation();
                 TextView infestationLevelTxt = new TextView(mContext);
                 infestationLevelTxt.setText(scouting.getInfestationLevel());
                 scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
                 scoutingViewHolder.infestationLevelLayout.setVisibility(View.VISIBLE);
             }
             else{
-                TextView infestationTypeTxt = new TextView(mContext);
-                infestationTypeTxt.setText(R.string.infested_card);
-                TextView infestationTxt = new TextView(mContext);
-                infestationTxt.setText(R.string.no);
+                infestationType=mContext.getString(R.string.infested_card);
+                infestation=mContext.getString(R.string.no);
                 scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
-                Log.d("INFESTATION TYPE",scouting.getInfestationType());
+                scoutingViewHolder.infestationTypeTxt.setText(infestationType+" : "+infestation);
+
             }
+
 
 
             if(scouting.getRemarks() != null){
@@ -329,13 +329,17 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                         scoutingViewHolder.costTxt.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
 
-                    int lineHeight = (int)((18+scoutingViewHolder.costTxt.getHeight())*8.5);
+                    int lineHeight = (int)((36+scoutingViewHolder.costTxt.getHeight())*8.5);
+
+
                     if(scouting.getInfested().toLowerCase().equals("no")){
-                        lineHeight=-(16+scoutingViewHolder.costTxt.getHeight());
+                        //lineHeight=-(16+scoutingViewHolder.costTxt.getHeight());
                     }
                     ViewGroup.LayoutParams params = scoutingViewHolder.verticalLineView.getLayoutParams();
                     params.height = lineHeight;
                     scoutingViewHolder.verticalLineView.requestLayout();
+
+                    Log.d("SCOUTING HEIGHT",scoutingViewHolder.verticalLineView.getHeight()+" "+lineHeight);
                 }
             });
 
@@ -387,8 +391,6 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 harvestViewHolder.expandContentLayout.addView(dateSoldTxt);
                 harvestViewHolder.expandContentLayout.addView(customerTxt);
                 harvestViewHolder.expandContentLayout.addView(quantitySoldTxt);
-
-
                 harvestViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
             }
             else if(harvest.getStatus().toLowerCase().equals("stored")){
@@ -405,12 +407,30 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 harvestViewHolder.expandContentLayout.addView(storageDateTxt);
                 harvestViewHolder.expandContentLayout.addView(quantityStoredTxt);
 
-
                 harvestViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
             }
-            else{
 
-            }
+            final ViewTreeObserver observer = harvestViewHolder.costTxt.getViewTreeObserver();
+            observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        harvestViewHolder.costTxt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    } else {
+                        harvestViewHolder.costTxt.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+
+                    int lineHeight = (int)((36+harvestViewHolder.costTxt.getHeight())*10);
+
+
+
+                    ViewGroup.LayoutParams params = harvestViewHolder.verticalLineView.getLayoutParams();
+                    params.height = lineHeight;
+                    harvestViewHolder.verticalLineView.requestLayout();
+
+
+                }
+            });
 
 
             harvestViewHolder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
@@ -420,14 +440,21 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                     if (harvestViewHolder.expandContentLayout.getVisibility()==View.VISIBLE){
                         harvestViewHolder.expandContentLayout.setVisibility(View.GONE);
                         harvestViewHolder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
+                        ViewGroup.LayoutParams params = harvestViewHolder.verticalLineView.getLayoutParams();
+                        params.height = params.height- harvestViewHolder.expandContentLayout.getHeight();
+                        harvestViewHolder.verticalLineView.requestLayout();
 
                     }else{
                         harvestViewHolder.expandContentLayout.setVisibility(View.VISIBLE);
                         harvestViewHolder.showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
+                        ViewGroup.LayoutParams params = harvestViewHolder.verticalLineView.getLayoutParams();
+                        params.height = params.height+(36+harvestViewHolder.expandContentLayout.getHeight());
+                        harvestViewHolder.verticalLineView.requestLayout();
 
                     }
                 }
             });
+
 
 
         }
@@ -754,7 +781,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
     }
 
     public class IrrigationViewHolder extends RecyclerView.ViewHolder {
-        TextView operationDateTxt,areaIrrigationTxt,systemRateTxt,durationTxt,totalWaterQuantity,recurrenceTxt,totalCostTxt, quantityPerAreaTxt;
+        TextView operationDateTxt,areaIrrigationTxt,systemRateTxt,durationTxt,totalWaterQuantity,recurrenceTxt,totalCostTxt, quantityPerAreaTxt,quantityPerAreaLabelTxt;
         ImageView moreButton ;
 
         public IrrigationViewHolder(View itemView) {
@@ -767,7 +794,9 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_recurrence);
             totalCostTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_total_cost);
             quantityPerAreaTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_quantity_per_acre);
+            quantityPerAreaLabelTxt = itemView.findViewById(R.id.txt_view_crop_irrigation_card_quantity_per_acre_label);
 
+            quantityPerAreaLabelTxt.setText("Qty/"+CropSettingsSingleton.getInstance().getAreaUnits());
 
             moreButton = itemView.findViewById(R.id.img_crop_irrigation_card_more);
 
@@ -825,19 +854,22 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
 
     public class TransplantingViewHolder extends RecyclerView.ViewHolder {
-        TextView operationDateTxt,totalSeedlingsTxt,seedlingsPerHaTxt,expectedYieldTxt,totalCostTxt,varietyEarlinessTxt,harvestDueDateTxt;
+        TextView operationDateTxt,totalSeedlingsTxt,seedlingsPerHaLabelTxt,seedlingsPerHaTxt,expectedYieldTxt,totalCostTxt,varietyEarlinessTxt,harvestDueDateTxt;
         ImageView moreButton ;
 
         public TransplantingViewHolder(View itemView) {
             super(itemView);
             operationDateTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_operation_date);
             totalSeedlingsTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_total_seedlings);
+            seedlingsPerHaLabelTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_seedlings_per_ha_label);
             seedlingsPerHaTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_seedlings_per_ha);
             varietyEarlinessTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_variety_earliness);
             harvestDueDateTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_expected_harvesting_date);
             expectedYieldTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_expected_yield);
             totalCostTxt = itemView.findViewById(R.id.txt_view_crop_transplanting_card_total_cost);
             moreButton = itemView.findViewById(R.id.img_crop_irrigation_card_more);
+
+            seedlingsPerHaLabelTxt.setText("Seedlings /" +CropSettingsSingleton.getInstance().getAreaUnits()+ ":" );
 
 
 
@@ -895,6 +927,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         TextView harvestDateTxt,harvestMethodTxt,quantityTxt,statusTxt,costTxt,unitsTxt, incomeGeneratedTxt;
         LinearLayout hideShowLayout,expandContentLayout, incomeGeneratedLayout;
         ImageView moreButton,showHideRemarksButton;
+        View verticalLineView;
 
         public HarvestViewHolder(View itemView) {
             super(itemView);
@@ -904,6 +937,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             statusTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_status);
             unitsTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_units);
             costTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_cost);
+            verticalLineView = itemView.findViewById(R.id.txt_view_crop_harvest_card_line);
             incomeGeneratedTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_income_generated);
             incomeGeneratedLayout = itemView.findViewById(R.id.layout_crop_harvest_card_income_generated);
 

@@ -60,18 +60,23 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     @Override
     public void onBindViewHolder(@NonNull CropCardViewHolder holder, int position) {
         Crop curCrop = cropsList.get(position);
+        CropInventorySeeds seeds = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropInventorySeed(curCrop.getSeedId());
+        String seedUnits ="";
+        if(seeds != null){
+            seedUnits = seeds.getUsageUnits();
+        }
         holder.cropNameTxtView.setText(curCrop.getName());
         holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
         holder.cropAge.setText("(" + curCrop.computeAge() + ")");
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
         holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
-        holder.rateTextView.setText(curCrop.computeRateR() + " "+ curCrop.getHarvestUnits()+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
+        holder.rateTextView.setText(curCrop.computeRateR() + " "+ seedUnits+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
         holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
 
     }
-//TODO AREA UNITS FROM SETTINGS ARE FIRST NULL UNTIL SETTINGS ARE UPDATED
+
     @Override
     public int getItemCount() {
         return cropsList.size();
