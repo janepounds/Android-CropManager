@@ -27,29 +27,44 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/text_view_crop_purchase_order_summary_customer_company"
+                        android:id="@+id/text_view_crop_invoice_estimate_farm_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Karlin Farms"
-                        android:textColor="@color/textColor"
                         android:textSize="12sp"
+                        android:textColor="@color/textColor"
                         />
                     <TextView
+                        android:id="@+id/text_view_crop_invoice_estimate_user_street"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mbarara"
-                        android:textColor="@color/textColor"
-                        android:textSize="12sp"/>
+                        android:text="Namungona"
+                        android:textSize="12sp"
+                        android:textColor="@color/textColor"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:textSize="12sp" android:textColor="@color/textColor">
                         <TextView
+                            android:id="@+id/text_view_crop_invoice_estimate_user_city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kampala, Uganda"
-                            android:textColor="@color/textColor"
-                            android:textSize="12sp"/>
+                            android:text="Kampala"
+                            android:textSize="12sp" android:textColor="@color/textColor"/>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" , "
+                            android:textSize="12sp"
+                            android:textColor="@color/textColor"/>
+                        <TextView
+                            android:id="@+id/text_view_crop_invoice_estimate_user_country"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Uganda"
+                            android:textSize="12sp" android:textColor="@color/textColor"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -93,12 +108,18 @@
                     android:text="Supplier Address"
                     android:textColor="@color/textColor"
                     android:textSize="12sp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/divider_line_color_estimates"/>
+
                 <TextView
                     android:id="@+id/text_view_purchase_order_summary_supplier_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Adam Farms Ltd"
                     android:textColor="@color/textColor"
+                    android:layout_marginTop="8dp"
                     android:textSize="12sp"/>
                 <TextView
                     android:id="@+id/text_view_purchase_order_summary_supplier_street"
@@ -118,12 +139,23 @@
 
 
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deliver To"
+                android:textColor="@color/textColor"
+                android:textSize="12sp"
+                android:layout_marginTop="8dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/divider_line_color_estimates"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="8dp"
+               >
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -131,12 +163,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Deliver To"
-                        android:textColor="@color/textColor"
-                        android:textSize="12sp"/>
+
 
                     <TextView
                         android:id="@+id/text_view_purchase_order_summary_customer_name"
@@ -511,13 +538,15 @@
                     android:layout_weight="0.5"
                     >
                     <TextView
-                        android:layout_width="0dp"
+
+                        android:id="@+id/txt_view_crop_estimate_total_label"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
                         android:text="@string/total_ugx"
 
                         android:textColor="@color/textColor"
                         android:textSize="12sp"
-                        android:layout_weight="0.4"
                         />
 
                     <TextView
@@ -541,12 +570,11 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textColor"
                 android:textSize="12sp"
-
                 android:text="Notes" />
             <TextView
                 android:id="@+id/text_view_crop_purchase_order_summary_terms"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"

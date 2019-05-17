@@ -36,6 +36,7 @@ import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropPurchaseOrder;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -54,7 +55,7 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
     CropCustomer cropCustomer;
     Bitmap bitmap;
     TextView subTotalTextView, totalTextView,discountAmountTextView,referenceNumberTextView, deliveryDateTextView,notesTextView, purchaseDateTextView, shipmentPreferenceTextView,
-    termsTextView,purchaseOrderNumberTextView,customerNameTextView,customerCompanyTextView,customerCityCountryTextView,customerStreetTextView,
+    termsTextView,purchaseOrderNumberTextView,myAddressNameTextView,myAddressCompanyTextView,myAddressCityCountryTextView,myAddressStreetTextView,
     supplierCompanyTextView,supplierCityCountryTextView,supplierStreetTextView;
 
     TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView;
@@ -96,10 +97,10 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         purchaseDateTextView = findViewById(R.id.text_view_crop_purchase_order_summary_purchase_date);
         termsTextView = findViewById(R.id.text_view_crop_purchase_order_summary_terms);
         notesTextView = findViewById(R.id.text_view_crop_purchase_order_summary_notes);
-        customerCompanyTextView = findViewById(R.id.text_view_crop_purchase_order_summary_customer_company);
-        customerNameTextView = findViewById(R.id.text_view_purchase_order_summary_customer_name);
-        customerCityCountryTextView = findViewById(R.id.text_view_purchase_order_summary_supplier_city_country);
-        customerStreetTextView = findViewById(R.id.text_view_purchase_order_summary_supplier_street);
+        myAddressCompanyTextView = findViewById(R.id.text_view_purchase_order_summary_customer_name);
+        myAddressNameTextView = findViewById(R.id.text_view_purchase_order_summary_customer_name);
+        myAddressCityCountryTextView = findViewById(R.id.text_view_purchase_order_summary_customer_city_country);
+        myAddressStreetTextView = findViewById(R.id.text_view_purchase_order_summary_customer_street);
         shipmentPreferenceTextView = findViewById(R.id.text_view_crop_purchase_order_summary_delivery_method);
         deliveryDateTextView = findViewById(R.id.text_view_crop_purchase_order_summary_delivery_date);
         referenceNumberTextView = findViewById(R.id.text_view_crop_purchase_order_summary_reference_number);
@@ -113,10 +114,18 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         userCountryTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_country);
 
         farmNameTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        myAddressCompanyTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
         userStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
+        myAddressStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
         userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
         userCountryTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
+        myAddressCityCountryTextView.setText(
+                CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this)+" , "
+                        +CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
 
+
+
+        ((TextView)findViewById(R.id.txt_view_crop_estimate_total_label)).setText("Total ("+ CropSettingsSingleton.getInstance().getCurrency()+")");
 
         ArrayList<CropProductItem> suppliersList = new ArrayList<>();
         for(CropProductItem x: cropPurchaseOrder.getItems()){
@@ -142,11 +151,11 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         purchaseDateTextView.setText(cropPurchaseOrder.getPurchaseDate());
         notesTextView.setText(cropPurchaseOrder.getNotes());
         termsTextView.setText(cropPurchaseOrder.getTermsAndConditions());
-        /*customerNameTextView.setText(cropCustomer.getName());
-        customerCityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+","+cropCustomer.getBillingCountry());
-        customerStreetTextView.setText(cropCustomer.getBillingStreet());
+        /*myAddressNameTextView.setText(cropCustomer.getName());
+        myAddressCityCountryTextView.setText(cropCustomer.getBillingCityOrTown()+","+cropCustomer.getBillingCountry());
+        myAddressStreetTextView.setText(cropCustomer.getBillingStreet());
 
-        customerCompanyTextView.setText(cropCustomer.getCompany());*/
+        myAddressCompanyTextView.setText(cropCustomer.getCompany());*/
 
         supplierCityCountryTextView.setText(cropSupplier.getInvoiceCityOrTown()+" , "+cropSupplier.getInvoiceCountry());
         supplierStreetTextView.setText(cropSupplier.getInvoiceStreet());

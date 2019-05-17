@@ -146,6 +146,9 @@ public class CropBillPreviewActivity extends AppCompatActivity {
         notesTextView.setText(cropBill.getNotes());
 
 
+        ((TextView)findViewById(R.id.txt_view_crop_estimate_total_label)).setText("Total ("+ CropSettingsSingleton.getInstance().getCurrency()+")");
+
+
         final ViewTreeObserver observer = summaryScrollView.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
