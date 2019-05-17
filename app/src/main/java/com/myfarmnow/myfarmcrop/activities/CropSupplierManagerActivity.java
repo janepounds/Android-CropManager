@@ -21,9 +21,11 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropSupplierManagerActivity extends AppCompatActivity {
     CropSupplier cropSupplier =null;
+    TextView currencyTxt;
     EditText nameTxt, companyTxt, taxRegTxt,phoneTxt, mobileTxt, emailTxt, balanceTxt, invoiceStreetTxt,invoiceCityTxt;
    Spinner invoiceCountryTcxt;
  
@@ -51,6 +53,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
         companyTxt = findViewById(R.id.txt_crop_supplier_company);
         taxRegTxt = findViewById(R.id.txt_crop_supplier_tax_reg_number);
         balanceTxt = findViewById(R.id.txt_crop_supplier_opening_balance);
+        currencyTxt = findViewById(R.id.txt_crop_supplier_currency);
         invoiceStreetTxt = findViewById(R.id.txt_crop_supplier_street);
         invoiceCityTxt = findViewById(R.id.txt_crop_supplier_city_town);
         invoiceCountryTcxt = findViewById(R.id.txt_crop_supplier_country);
@@ -84,6 +87,8 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
             }
         };
         invoiceCountryTcxt.setOnItemSelectedListener(onItemSelectedListener);
+
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         fillViews();
         saveBtn.setOnClickListener(new View.OnClickListener() {
