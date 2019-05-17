@@ -48,7 +48,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes_grey_spinner"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="2.4dp">
                             <Spinner
                                 android:id="@+id/spinner_crop_estimate_customer_name"
                                 android:layout_width="match_parent"
