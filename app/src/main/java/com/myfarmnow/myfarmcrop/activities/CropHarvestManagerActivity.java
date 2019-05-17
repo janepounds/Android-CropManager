@@ -38,7 +38,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     CropHarvest cropHarvest=null;
     EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,
             quantitySoldTxt,storageDateTxt,quantityStoredTxt,costTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
-    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currencyTxt;
+    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currencyTxt,currency2Txt;
     Spinner  harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
     AutoCompleteTextView operatorSpinner;
     LinearLayout harvestSoldLayout,harvestStoredLayout,weeklyRecurrenceLayout,daysBeforeLayout;
@@ -79,6 +79,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         quantityStoredTxt = findViewById(R.id.txt_crop_harvest_quantity_stored);
         costTxt = findViewById(R.id.txt_crop_harvest_cost);
         currencyTxt = findViewById(R.id.txt_crop_harvest_currency);
+        currency2Txt = findViewById(R.id.txt_crop_harvest_currency_2);
         harvestSoldLayout=findViewById(R.id.layout_crop_harvest_sold);
         harvestStoredLayout=findViewById(R.id.layout_crop_harvest_stored);
         quantityStoredUnitsTxt=findViewById(R.id.txt_crop_harvest_stored_unit);
@@ -93,6 +94,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         daysBeforeLayout = findViewById(R.id.layout_crop_harvest_days_before);
 
         currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
