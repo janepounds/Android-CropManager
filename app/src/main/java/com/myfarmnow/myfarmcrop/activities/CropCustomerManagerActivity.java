@@ -22,9 +22,11 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 public class CropCustomerManagerActivity extends AppCompatActivity {
     CropCustomer cropCustomer =null;
+    TextView currencyTxt;
     EditText nameTxt, companyTxt, taxRegTxt,phoneTxt, mobileTxt, emailTxt, balanceTxt, billingStreetTxt,billingCityTxt,shippingStretTxt,shippingCityTxt;
    Spinner billingCountryTcxt,shippingCountryTxt;
    CheckBox billingAsShipping;
@@ -50,6 +52,7 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
         companyTxt = findViewById(R.id.txt_crop_customer_company);
         taxRegTxt = findViewById(R.id.txt_crop_customer_tax_reg_number);
         balanceTxt = findViewById(R.id.txt_crop_customer_opening_balance);
+        currencyTxt = findViewById(R.id.txt_crop_customer_currency);
         billingStreetTxt = findViewById(R.id.txt_crop_customer_street);
         billingCityTxt = findViewById(R.id.txt_crop_customer_city_town);
         billingCountryTcxt = findViewById(R.id.txt_crop_customer_country);
@@ -57,6 +60,8 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
         shippingCityTxt = findViewById(R.id.txt_crop_customer_shipping_add_city_town);
         shippingCountryTxt = findViewById(R.id.txt_crop_customer_shipping_add_country);
         billingAsShipping = findViewById(R.id.check_crop_customer_shipping_as_billing);
+
+        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         billingAsShipping.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

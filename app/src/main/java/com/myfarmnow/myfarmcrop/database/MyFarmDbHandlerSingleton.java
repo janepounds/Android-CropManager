@@ -504,7 +504,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public static final String CROP_MACHINE_TASK_ID = "id";
     public static final String CROP_MACHINE_TASK_MACHINE_ID = "machineId";
-    public static final String CROP_MACHINE_TASK_USER_ID = "userId";
+    //public static final String CROP_MACHINE_TASK_USER_ID = "userId";
     public static final String CROP_MACHINE_TASK_START_DATE= "startDate";
     public static final String CROP_MACHINE_TASK_END_DATE= "endDate";
     public static final String CROP_MACHINE_TASK_TITLE = "title";

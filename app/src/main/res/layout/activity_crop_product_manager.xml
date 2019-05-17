@@ -20,13 +20,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginEnd="20dp">
 
                     <TextView
 
@@ -35,7 +36,7 @@
                         android:text="@string/product_name"
                         android:textColor="@color/textColor"
                        
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_product_name"
@@ -59,20 +60,19 @@
                         android:text="@string/type"
                         android:textColor="@color/textColor"
                        
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes_grey_spinner"
                         android:orientation="vertical"
-                        android:padding="2.4dp">
+                        android:padding="3.4dp">
                             <Spinner
                                 android:id="@+id/sp_crop_product_type"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/sp_crop_product_type"
-                                android:layout_marginLeft="5dp"
                                 android:textSize="14sp"
                                 />
                     </LinearLayout>
@@ -83,14 +83,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                  >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -100,7 +100,7 @@
                         android:text="@string/code"
                         android:textColor="@color/textColor"
                        
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_product_code"
@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/units"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         />
 
                     <LinearLayout
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/input_shapes_grey_spinner"
                         android:orientation="vertical"
-                        android:padding="2.4dp">
+                        android:padding="3.4dp">
                     <Spinner
                         android:id="@+id/sp_crop_product_units"
                         android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
 
@@ -161,7 +161,7 @@
                     android:layout_weight="0.4"
                     android:text="@string/linked_account"
                    
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textColor="@color/textColor"
                     />
 
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_shapes_grey_spinner"
                     android:orientation="vertical"
-                    android:padding="2.4dp">
+                    android:padding="3.4dp">
                     <Spinner
                         android:id="@+id/sp_crop_product_linked_account"
                         android:layout_width="match_parent"
@@ -186,14 +186,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -203,7 +203,7 @@
                         android:text="@string/label_opening_cost"
                         android:textColor="@color/textColor"
                        
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_product_opening_cost"
@@ -230,13 +230,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/label_opening_quantity"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         />
 
                     <EditText
                         android:id="@+id/txt_crop_product_opening_quantity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Enter.."
                         android:background="@drawable/input_shapes"
                         android:inputType="numberDecimal"
                         android:textSize="14sp"
@@ -249,7 +250,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
 
                 <LinearLayout
@@ -262,10 +263,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/selling_price"
                         android:textColor="@color/textColor"
-                       
-
-                        android:layout_marginRight="5dp"
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -288,13 +286,13 @@
 
                         <TextView
 
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:padding="4dp"
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="/ Unit"
-                            android:textColor="@color/textColor"
-                           
+                            android:textColor="@color/colorPrimary"
+                           android:background="@drawable/input_shapes_grey_units_right"
 
                             />
 
@@ -308,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
 
                 <LinearLayout
@@ -321,9 +319,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tax_rate"
                         android:textColor="@color/textColor"
-                       
-                        android:layout_marginRight="5dp"
-                        android:textSize="14sp" />
+
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -352,8 +349,9 @@
                             android:labelFor="@+id/txt_crop_spray_rate"
                             android:text="%"
                             android:gravity="center_vertical"
-                           
-                            android:textSize="16dp"
+                           android:textColor="@color/colorPrimary"
+                            android:background="@drawable/input_shapes_grey_units_right"
+                            android:textSize="14dp"
 
                             />
 
@@ -385,7 +383,7 @@
                     android:text="@string/description"
                     android:textColor="@color/textColor"
                    
-                    android:textSize="14sp" />
+                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/txt_crop_product_description"
