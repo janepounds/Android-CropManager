@@ -64,6 +64,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME ="myfarmdb";
     private static int database_version=1;
+    private static int database_version_2=2;
     public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME ="crop_inventory_fertilizer";
     public static final String CROP_INVENTORY_SEEDS_TABLE_NAME ="crop_inventory_seeds";
     public static final String CROP_INVENTORY_SPRAY_TABLE_NAME ="crop_inventory_spray";
@@ -641,6 +642,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_NOTIFICATION_STATUS ="status";
     public static final String CROP_NOTIFICATION_ACTION_DATE ="actionDate";
     public static final String CROP_NOTIFICATION_TYPE ="type";
+    public static final String CROP_NOTIFICATION_REPORT_FROM ="reportFrom";
+    public static final String CROP_NOTIFICATION_SOURCE_ID ="sourceId"; //cropId, taskId, machineId ....they can be identified when combined with the type
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
@@ -649,7 +652,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     private MyFarmDbHandlerSingleton(Context context) {
 
-        super(context, DATABASE_NAME, null, database_version);
+        super(context, DATABASE_NAME, null, database_version_2);
         this.context = context;
     }
 
@@ -857,11 +860,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
                 CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_REPEAT_UNTIL + " TEXT, " +CROP_IRRIGATION_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_IRRIGATION_FREQUENCY + " REAL DEFAULT 0, " +CROP_IRRIGATION_COST+" REAL DEFAULT 0 " + " ) ";
 
-
-
-
         String crop_notification_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTIFICATION_TABLE_NAME + " ( " + CROP_NOTIFICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTIFICATION_USER_ID + " TEXT NOT NULL, " +
-                CROP_NOTIFICATION_DATE + " TEXT NOT NULL DEFAULT 'dd-mm-2018', " + CROP_NOTIFICATION_MESSAGE + " TEXT NOT NULL DEFAULT 'Message', "  + CROP_NOTIFICATION_STATUS + " TEXT NOT NULL DEFAULT 'Pending', " + CROP_NOTIFICATION_ACTION_DATE + " TEXT NOT NULL DEFAULT 'dd-mm-2018', " +
+                CROP_NOTIFICATION_DATE + " TEXT NOT NULL, " + CROP_NOTIFICATION_MESSAGE + " TEXT NOT NULL, "  + CROP_NOTIFICATION_STATUS + " TEXT NOT NULL DEFAULT 'Pending', " + CROP_NOTIFICATION_ACTION_DATE + " TEXT NOT NULL, " +
+                CROP_NOTIFICATION_REPORT_FROM + " INTEGER NOT NULL DEFAULT 0, " + CROP_NOTIFICATION_SOURCE_ID + " INTEGER NOT NULL, " +
                 CROP_NOTIFICATION_TYPE + " TEXT NOT NULL DEFAULT 'Cultivate' " +" ) ";
 
 
@@ -928,8 +929,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         System.out.println(
-
-
                 ";"+crop_employee_insert_query+
                 ";"+crop_customer_insert_query+
                 ";"+crop_supplier_insert_query+
@@ -937,9 +936,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 ";"+crop_estimates_insert_query+
                 ";"+crop_estimate_item_insert_query+
                 ";"+crop_invoices_insert_query+
-
                 ";"+crop_payment_item_insert_query+
-
                 ";"+crop_sales_order_insert_query +
                         ";"+crop_purchase_order_insert_query);
 
@@ -949,6 +946,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+
+        if(oldVersion==1 && newVersion==2){
+            db.execSQL("DROP TABLE IF EXISTS "+ CROP_NOTIFICATION_TABLE_NAME);
+        }
         onCreate(db);
     }
 
@@ -967,14 +968,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public void insertCropNotification(CropNotification notification) {
         openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + notification.getUserId() +" AND "+CROP_NOTIFICATION_ACTION_DATE+" = '"+notification.getActionDate()+"' AND "+CROP_NOTIFICATION_TYPE+" = '"+notification.getType()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            return;
+        }
         ContentValues contentValues = new ContentValues();
-
         contentValues.put(CROP_NOTIFICATION_USER_ID, notification.getUserId());
         contentValues.put(CROP_NOTIFICATION_DATE, notification.getDate());
         contentValues.put(CROP_NOTIFICATION_MESSAGE, notification.getMessage());
         contentValues.put(CROP_NOTIFICATION_STATUS, notification.getStatus());
         contentValues.put(CROP_NOTIFICATION_ACTION_DATE, notification.getActionDate());
         contentValues.put(CROP_NOTIFICATION_TYPE, notification.getType());
+        contentValues.put(CROP_NOTIFICATION_SOURCE_ID, notification.getSourceId());
+        contentValues.put(CROP_NOTIFICATION_REPORT_FROM, notification.getReportFrom());
 
         database.insert(CROP_NOTIFICATION_TABLE_NAME, null, contentValues);
         closeDB();
@@ -989,15 +997,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_NOTIFICATION_STATUS, notification.getStatus());
         contentValues.put(CROP_NOTIFICATION_ACTION_DATE, notification.getActionDate());
         contentValues.put(CROP_NOTIFICATION_TYPE, notification.getType());
+        contentValues.put(CROP_NOTIFICATION_SOURCE_ID, notification.getSourceId());
+        contentValues.put(CROP_NOTIFICATION_REPORT_FROM, notification.getReportFrom());
 
         database.update(CROP_NOTIFICATION_TABLE_NAME, contentValues, CROP_NOTIFICATION_ID + " = ?", new String[]{notification.getId()});
 
         closeDB();
     }
 
-    public boolean deleteCropNotification(String notificationId) {
+    public boolean deleteCropNotification(String sourceId, String type) {
         openDB();
-        database.delete(CROP_NOTIFICATION_TABLE_NAME, CROP_NOTIFICATION_ID + " = ?", new String[]{notificationId});
+        database.delete(CROP_NOTIFICATION_TABLE_NAME, CROP_NOTIFICATION_SOURCE_ID + " = ? AND "+CROP_NOTIFICATION_TYPE + " = ? AND "+CROP_NOTIFICATION_STATUS + " = ?", new String[]{sourceId,type,context.getString(R.string.notification_status_pending)});
         closeDB();
         return true;
     }
@@ -1020,6 +1030,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             notification.setStatus(res.getString(res.getColumnIndex(CROP_NOTIFICATION_STATUS)));
             notification.setActionDate(res.getString(res.getColumnIndex(CROP_NOTIFICATION_ACTION_DATE)));
             notification.setType(res.getString(res.getColumnIndex(CROP_NOTIFICATION_TYPE)));
+            notification.setReportFrom(res.getString(res.getColumnIndex(CROP_NOTIFICATION_REPORT_FROM)));
 
             array_list.add(notification);
             res.moveToNext();
@@ -1028,7 +1039,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return array_list;
     }
-    private CropNotification createNotification(String reminderType,String starDate, int frequency, int daysBefore){
+    private ArrayList<CropNotification> createNotification(String reminderType,String starDate, int frequency, int daysBefore, String message, String type, String endDate, String sourceId){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar todayCalendar = Calendar.getInstance();
         todayCalendar.set(Calendar.HOUR,0);
@@ -1040,53 +1051,69 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         varyingCalendar.set(Calendar.MINUTE,0);
         varyingCalendar.set(Calendar.SECOND,0);
         varyingCalendar.set(Calendar.MILLISECOND,0);
+        Calendar endDateCalendar = Calendar.getInstance();
+        varyingCalendar.set(Calendar.HOUR,0);
+        varyingCalendar.set(Calendar.MINUTE,0);
+        varyingCalendar.set(Calendar.SECOND,0);
+        varyingCalendar.set(Calendar.MILLISECOND,0);
         int calendarIdentifier =0;
         int repeatFrequency =1;
 
         Date startDate = null;
+        ArrayList <CropNotification> notificationsList = new ArrayList<>();
+
         try {
             startDate = dateFormat.parse(starDate);
             varyingCalendar.setTime(startDate);
+
             if (reminderType.toLowerCase().equals("weekly")){
                 calendarIdentifier = Calendar.DAY_OF_MONTH;
                 repeatFrequency =7*frequency;
+                endDateCalendar.setTime(dateFormat.parse(endDate));
             }else if (reminderType.toLowerCase().equals("monthly")){
                 calendarIdentifier = Calendar.MONTH;
                 repeatFrequency =1;
+                endDateCalendar.add(Calendar.MONTH,5);
             }else if (reminderType.toLowerCase().equals("daily")){
-                calendarIdentifier = Calendar.DAY_OF_MONTH;
-                repeatFrequency =1;
+                return notificationsList;
             }else if (reminderType.toLowerCase().equals("annually")){
                 calendarIdentifier = Calendar.YEAR;
                 repeatFrequency =1;
+                endDateCalendar.add(Calendar.YEAR,1);
             }
 
-            todayCalendar.add(Calendar.DAY_OF_MONTH,daysBefore);
-            while(!varyingCalendar.after(todayCalendar)){
-                System.out.println("Running : "+reminderType+" "+dateFormat.format(varyingCalendar.getTime())+" -> "+dateFormat.format(todayCalendar.getTime()));
-                if(dateFormat.format(todayCalendar.getTime()).equals(dateFormat.format(varyingCalendar.getTime()))){ //equal dates we can notify
+            //return an array of tasks
+             //get all task dates from the start date to the end date (repeat until date)
+            //for each date calculate the report from date using the
+            varyingCalendar.add(calendarIdentifier,repeatFrequency);
+            while(!varyingCalendar.after(endDateCalendar)){
+                    System.out.println("Running : "+reminderType+" "+dateFormat.format(varyingCalendar.getTime())+" -> "+dateFormat.format(endDateCalendar.getTime()));
                     CropNotification notification = new CropNotification();
                     notification.setActionDate(dateFormat.format(varyingCalendar.getTime()));
-                    //get todays date
-                    todayCalendar.add(Calendar.DAY_OF_MONTH,-1*daysBefore);
                     notification.setDate(dateFormat.format(todayCalendar.getTime()));
+                    varyingCalendar.add(Calendar.DAY_OF_MONTH,-1*daysBefore);//get first reporting date
+                    notification.setReportFrom(dateFormat.format(varyingCalendar.getTime()));
+                    varyingCalendar.add(Calendar.DAY_OF_MONTH,daysBefore);//get first reporting date
+                    notification.setSourceId(sourceId);
+                    notification.setMessage(message);
+                    notification.setType(type);
+                    notification.setStatus(context.getString(R.string.notification_status_pending));;
                     notification.setUserId(CropDashboardActivity.getPreferences("userId",context));
-                    System.out.println("There was a match : ");
-                    return notification;
-                }else{
-                    varyingCalendar.add(calendarIdentifier,repeatFrequency);
-                }
+
+                    notificationsList.add(notification);
+                varyingCalendar.add(calendarIdentifier,repeatFrequency);//increase the varying calendar
+
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return notificationsList;
 
     }
 
 
-    public void generateNotifications(){
+    public void generateNotifications(String type, String sourceId){
         //load tasks with reminders yes
         //get reminder type (either monthly, daily, weekly
         //add 1 quantity
@@ -1094,231 +1121,184 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         //if the action date is greater than repeat until then break
         //if the today + days before is equal to the action date
         //generate the message
+        Log.d("Simulating Harvest",type+" -> "+sourceId);
         
         openDB();
         ArrayList<CropNotification> array_list = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        //Crop Task (Activity) Spraying
-        String query = "select " + CROP_SPRAYING_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_SPRAYING_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_SPRAYING_TABLE_NAME + "." + CROP_SPRAYING_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_SPRAYING_REMINDERS + " = 'Yes' AND " +
-                CROP_SPRAYING_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        Cursor res = db.rawQuery(query, null);
-        res.moveToFirst();
+        String query ="";
+        Cursor res;
+       if(type.equals(context.getString(R.string.notification_type_spraying))){
+            //Crop Task (Activity) Spraying
+             query = "select " + CROP_SPRAYING_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_SPRAYING_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_SPRAYING_TABLE_NAME + "." + CROP_SPRAYING_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_SPRAYING_REMINDERS + " = 'Yes' AND " +
+                    CROP_SPRAYING_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_SPRAYING_TABLE_NAME+"."+CROP_SPRAYING_ID+" = "+sourceId;
+             res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_SPRAYING_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_SPRAYING_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_spraying)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-               notification.setStatus(context.getString(R.string.notification_status_pending));
-               notification.setType(context.getString(R.string.notification_type_spraying));
-                array_list.add(notification);
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_SPRAYING_DATE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL));
+                int frequency =res.getInt(res.getColumnIndex(CROP_SPRAYING_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE));
+                String message = context.getString(R.string.notification_type_spraying)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
-            res.moveToNext();
         }
+        else  if(type.equals(context.getString(R.string.notification_type_cultivation))){
+            //Crop Task (Activity) Cultivation
+            query = "select " + CROP_CULTIVATION_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_CULTIVATION_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_CULTIVATION_TABLE_NAME + "." + CROP_CULTIVATION_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_CULTIVATION_REMINDERS + " = 'Yes' AND " +
+                    CROP_CULTIVATION_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_CULTIVATION_TABLE_NAME+"."+CROP_CULTIVATION_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-        //Crop Task (Activity) Cultivation
-        query = "select " + CROP_CULTIVATION_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_CULTIVATION_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_CULTIVATION_TABLE_NAME + "." + CROP_CULTIVATION_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_CULTIVATION_REMINDERS + " = 'Yes' AND " +
-                CROP_CULTIVATION_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_CULTIVATION_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_CULTIVATION_FREQUENCY));;
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL));
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE));
+                String message = context.getString(R.string.notification_type_cultivation)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
 
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_CULTIVATION_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_CULTIVATION_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
+            }
+        } else  if(type.equals(context.getString(R.string.notification_type_harvest))){
+            //Crop Task (Activity) Harvest
+            query = "select " + CROP_HARVEST_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_HARVEST_TABLE_NAME + "." + CROP_HARVEST_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_HARVEST_REMINDERS + " = 'Yes' AND " +
+                    CROP_HARVEST_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_HARVEST_TABLE_NAME+"."+CROP_HARVEST_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
+            if(!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_HARVEST_DATE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL));
+                int frequency =res.getInt(res.getColumnIndex(CROP_HARVEST_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE));
+                String message = context.getString(R.string.notification_type_harvest)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
+            }
+        }
+        else  if(type.equals(context.getString(R.string.notification_type_fertilizer_application))){
+            //Crop Task (Activity) Fertilizer Application
+            query = "select " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + "." + CROP_FERTILIZER_APPLICATION_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_FERTILIZER_APPLICATION_REMINDERS + " = 'Yes' AND " +
+                    CROP_FERTILIZER_APPLICATION_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+"."+CROP_FERTILIZER_APPLICATION_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_cultivation)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-               notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_cultivation));
-                array_list.add(notification);
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY));
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_fertilizer_application)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
 
-            res.moveToNext();
         }
-        //Crop Task (Activity) Harvest
-        query = "select " + CROP_HARVEST_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_HARVEST_TABLE_NAME + "." + CROP_HARVEST_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_HARVEST_REMINDERS + " = 'Yes' AND " +
-                CROP_HARVEST_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
+        else  if(type.equals(context.getString(R.string.notification_type_irrigation))){
 
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_HARVEST_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_HARVEST_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_harvest)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_harvest));
-                array_list.add(notification);
+            //Crop Task (Activity) Irrigation
+            query = "select " + CROP_IRRIGATION_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_IRRIGATION_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_IRRIGATION_TABLE_NAME + "." + CROP_IRRIGATION_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_IRRIGATION_REMINDERS + " = 'Yes' AND " +
+                    CROP_IRRIGATION_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_IRRIGATION_TABLE_NAME+"."+CROP_IRRIGATION_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_IRRIGATION_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_IRRIGATION_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_irrigation)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
-            res.moveToNext();
         }
+        else  if(type.equals(context.getString(R.string.notification_type_transplanting))){
 
-        //Crop Task (Activity) Fertilizer Application
-        query = "select " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + "." + CROP_FERTILIZER_APPLICATION_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_FERTILIZER_APPLICATION_REMINDERS + " = 'Yes' AND " +
-                CROP_FERTILIZER_APPLICATION_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
+            //Crop Task (Activity) Transplanting
+            query = "select " + CROP_TRANSPLANTING_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_TRANSPLANTING_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_TRANSPLANTING_TABLE_NAME + "." + CROP_TRANSPLANTING_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_TRANSPLANTING_REMINDERS + " = 'Yes' AND " +
+                    CROP_TRANSPLANTING_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_TRANSPLANTING_TABLE_NAME+"."+CROP_TRANSPLANTING_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_fertilizer_application)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_fertilizer_application));
-                array_list.add(notification);
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_TRANSPLANTING_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_transplanting)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
-            res.moveToNext();
         }
-
-        //Crop Task (Activity) Irrigation
-        query = "select " + CROP_IRRIGATION_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_IRRIGATION_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_IRRIGATION_TABLE_NAME + "." + CROP_IRRIGATION_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_IRRIGATION_REMINDERS + " = 'Yes' AND " +
-                CROP_IRRIGATION_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_IRRIGATION_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_IRRIGATION_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_irrigation)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_irrigation));
-                array_list.add(notification);
+        else  if(type.equals(context.getString(R.string.notification_type_scouting))){
+            //Crop Task (Activity) Scouting
+            query = "select " + CROP_SCOUTING_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_SCOUTING_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_SCOUTING_TABLE_NAME + "." + CROP_SCOUTING_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_SCOUTING_REMINDERS + " = 'Yes' AND " +
+                    CROP_SCOUTING_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_SCOUTING_TABLE_NAME+"."+CROP_SCOUTING_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_SCOUTING_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_SCOUTING_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_scouting)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
-            res.moveToNext();
+
         }
+        else  if(type.equals(context.getString(R.string.notification_type_service))){
+            //Machine Task (Activity) Service
+            query = "select " + CROP_MACHINE_SERVICE_TABLE_NAME + ".*," + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_NAME + " from " + CROP_MACHINE_SERVICE_TABLE_NAME + " LEFT JOIN " + CROP_MACHINE_TABLE_NAME + " ON " + CROP_MACHINE_SERVICE_TABLE_NAME + "." + CROP_MACHINE_SERVICE_MACHINE_ID + " = " + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_ID + " where " + CROP_MACHINE_SERVICE_REMINDERS + " = 'Yes' AND " +
+                    CROP_MACHINE_SERVICE_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-        //Crop Task (Activity) Transplanting
-        query = "select " + CROP_TRANSPLANTING_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_TRANSPLANTING_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_TRANSPLANTING_TABLE_NAME + "." + CROP_TRANSPLANTING_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_TRANSPLANTING_REMINDERS + " = 'Yes' AND " +
-                CROP_TRANSPLANTING_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_TRANSPLANTING_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_transplanting)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_transplanting));
-                array_list.add(notification);
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_MACHINE_SERVICE_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_MACHINE_SERVICE_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_service)+" ("+res.getString(res.getColumnIndex(CROP_MACHINE_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
-            res.moveToNext();
         }
-        //Crop Task (Activity) Scouting
-        query = "select " + CROP_SCOUTING_TABLE_NAME + ".*," + CROP_CROP_TABLE_NAME + "." + CROP_CROP_NAME + " from " + CROP_SCOUTING_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_SCOUTING_TABLE_NAME + "." + CROP_SCOUTING_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID + " where " + CROP_SCOUTING_REMINDERS + " = 'Yes' AND " +
-                CROP_SCOUTING_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_SCOUTING_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_SCOUTING_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_scouting)+" ("+res.getString(res.getColumnIndex(CROP_CROP_NAME))+")");
-               notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_scouting));
-                array_list.add(notification);
+        else  if(type.equals(context.getString(R.string.notification_type_machine_task))){
+            //Machine Task (Activity) Task
+            query = "select " + CROP_MACHINE_TASK_TABLE_NAME + ".*," + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_NAME + " from " + CROP_MACHINE_TASK_TABLE_NAME + " LEFT JOIN " + CROP_MACHINE_TABLE_NAME + " ON " + CROP_MACHINE_TASK_TABLE_NAME + "." + CROP_MACHINE_TASK_MACHINE_ID + " = " + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_ID + " where " + CROP_MACHINE_TASK_REMINDERS + " = 'Yes' AND " +
+                    CROP_MACHINE_TASK_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_MACHINE_TASK_TABLE_NAME+"."+CROP_MACHINE_TASK_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
+            if(!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_machine_task)+" ("+res.getString(res.getColumnIndex(CROP_MACHINE_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
             }
-            res.moveToNext();
         }
+        else  if(type.equals(context.getString(R.string.notification_type_soil_analysis))){
+            //Field Task (Activity) Soil Analysis
+            query = "select " + CROP_SOIL_ANALYSIS_TABLE_NAME + ".*," + CROP_FIELDS_TABLE_NAME + "." + CROP_FIELD_NAME + " from " + CROP_SOIL_ANALYSIS_TABLE_NAME + " LEFT JOIN " + CROP_FIELDS_TABLE_NAME + " ON " + CROP_SOIL_ANALYSIS_TABLE_NAME + "." + CROP_SOIL_ANALYSIS_FIELD_ID + " = " + CROP_FIELDS_TABLE_NAME + "." + CROP_FIELD_ID + " where " + CROP_SOIL_ANALYSIS_REMINDERS + " = 'Yes' AND " +
+                    CROP_SOIL_ANALYSIS_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"' AND "+CROP_SOIL_ANALYSIS_TABLE_NAME+"."+CROP_SOIL_ANALYSIS_ID+" = "+sourceId;
+            res = db.rawQuery(query, null);
+            res.moveToFirst();
 
-        //Machine Task (Activity) Service
-        query = "select " + CROP_MACHINE_SERVICE_TABLE_NAME + ".*," + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_NAME + " from " + CROP_MACHINE_SERVICE_TABLE_NAME + " LEFT JOIN " + CROP_MACHINE_TABLE_NAME + " ON " + CROP_MACHINE_SERVICE_TABLE_NAME + "." + CROP_MACHINE_SERVICE_MACHINE_ID + " = " + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_ID + " where " + CROP_MACHINE_SERVICE_REMINDERS + " = 'Yes' AND " +
-                CROP_MACHINE_SERVICE_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
+            if (!res.isAfterLast()) {
+                String reminderType = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE));
+                String startDate = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE));
+                int frequency =res.getInt(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY));;
+                int daysBefore = res.getInt(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE));
+                String repeatUntil = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL));
+                String message = context.getString(R.string.notification_type_soil_analysis)+" ("+res.getString(res.getColumnIndex(CROP_FIELD_NAME))+")";
+                array_list.addAll(createNotification(reminderType,startDate,frequency,daysBefore,message,type,repeatUntil,sourceId));
 
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_MACHINE_SERVICE_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_MACHINE_SERVICE_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_service)+" ("+res.getString(res.getColumnIndex(CROP_MACHINE_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_service));
-                array_list.add(notification);
             }
-            res.moveToNext();
         }
-        //Machine Task (Activity) Task
-        query = "select " + CROP_MACHINE_TASK_TABLE_NAME + ".*," + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_NAME + " from " + CROP_MACHINE_TASK_TABLE_NAME + " LEFT JOIN " + CROP_MACHINE_TABLE_NAME + " ON " + CROP_MACHINE_TASK_TABLE_NAME + "." + CROP_MACHINE_TASK_MACHINE_ID + " = " + CROP_MACHINE_TABLE_NAME + "." + CROP_MACHINE_ID + " where " + CROP_MACHINE_TASK_REMINDERS + " = 'Yes' AND " +
-                CROP_MACHINE_TASK_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_machine_task)+" ("+res.getString(res.getColumnIndex(CROP_MACHINE_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_machine_task));
-                array_list.add(notification);
-            }
-            res.moveToNext();
-        }
-        //Field Task (Activity) Soil Analysis
-        query = "select " + CROP_SOIL_ANALYSIS_TABLE_NAME + ".*," + CROP_FIELDS_TABLE_NAME + "." + CROP_FIELD_NAME + " from " + CROP_SOIL_ANALYSIS_TABLE_NAME + " LEFT JOIN " + CROP_FIELDS_TABLE_NAME + " ON " + CROP_SOIL_ANALYSIS_TABLE_NAME + "." + CROP_SOIL_ANALYSIS_FIELD_ID + " = " + CROP_FIELDS_TABLE_NAME + "." + CROP_FIELD_ID + " where " + CROP_SOIL_ANALYSIS_REMINDERS + " = 'Yes' AND " +
-                CROP_SOIL_ANALYSIS_RECURRENCE + " NOT LIKE '"+context.getString(R.string.task_reminder_type)+"'";
-        res = db.rawQuery(query, null);
-        res.moveToFirst();
-
-        while (!res.isAfterLast()) {
-            String reminderType = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE));
-            String startDate = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE));
-            int frequency =res.getInt(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY));;
-            int daysBefore = res.getInt(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE));
-            CropNotification notification = createNotification(reminderType,startDate,frequency,daysBefore);
-
-            if (notification != null){
-                notification.setMessage(context.getString(R.string.notification_type_soil_analysis)+" ("+res.getString(res.getColumnIndex(CROP_FIELD_NAME))+")");
-                notification.setStatus(context.getString(R.string.notification_status_pending));
-                notification.setType(context.getString(R.string.notification_type_soil_analysis));
-                array_list.add(notification);
-            }
-            res.moveToNext();
-        }
-
-
-
-
-
 
 
         closeDB();
@@ -1326,10 +1306,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         for(CropNotification notification : array_list){
             insertCropNotification(notification);
         }
-
-
-
-
 
     }
 
@@ -1927,6 +1903,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
+        res.close();
 
         closeDB();
         return expensesList;
@@ -1990,6 +1967,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_SERVICE_DAYS_BEFORE, service.getDaysBefore());
 
         database.insert(CROP_MACHINE_SERVICE_TABLE_NAME,null,contentValues);
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_MACHINE_SERVICE_TABLE_NAME + " where " + CROP_MACHINE_SERVICE_MACHINE_ID + " = " + service.getMachineId()+" AND "+CROP_MACHINE_SERVICE_DATE + " = '" + service.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_service),id);
         closeDB();
     }
     public void  updateCropMachineService(CropMachineService service){
@@ -2009,10 +1994,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_SERVICE_DAYS_BEFORE, service.getDaysBefore());
         database.update(CROP_MACHINE_SERVICE_TABLE_NAME,contentValues,CROP_MACHINE_SERVICE_ID+" = ?", new String[]{service.getId()});
 
+        deleteCropNotification(service.getId(),context.getString(R.string.notification_type_service));
+        generateNotifications(context.getString(R.string.notification_type_service),service.getId());
+
         closeDB();
     }
     public boolean deleteCropMachineService(String serviceId){
         openDB();
+        deleteCropNotification(serviceId,context.getString(R.string.notification_type_service));
         database.delete(CROP_MACHINE_SERVICE_TABLE_NAME,CROP_MACHINE_SERVICE_ID+" = ?", new String[]{serviceId});
         closeDB();
         return true;
@@ -2130,6 +2119,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_REPEAT_UNTIL, task.getRepeatUntil());
         contentValues.put(CROP_MACHINE_TASK_DAYS_BEFORE, task.getDaysBefore());
         database.insert(CROP_MACHINE_TASK_TABLE_NAME,null,contentValues);
+
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_MACHINE_TASK_TABLE_NAME + " where " + CROP_MACHINE_TASK_MACHINE_ID + " = " + task.getMachineId()+" AND "+CROP_MACHINE_TASK_START_DATE + " = '" + task.getStartDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_machine_task),id);
         closeDB();
     }
     public void  updateCropMachineTask(CropMachineTask task){
@@ -2151,10 +2149,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_DAYS_BEFORE, task.getDaysBefore());
         database.update(CROP_MACHINE_TASK_TABLE_NAME,contentValues,CROP_MACHINE_TASK_ID+" = ?", new String[]{task.getId()});
 
+        deleteCropNotification(task.getId(),context.getString(R.string.notification_type_machine_task));
+        generateNotifications(context.getString(R.string.notification_type_machine_task),task.getId());
+
         closeDB();
     }
     public boolean deleteCropMachineTask(String taskId){
         openDB();
+        deleteCropNotification(taskId,context.getString(R.string.notification_type_machine_task));
         database.delete(CROP_MACHINE_TASK_TABLE_NAME,CROP_MACHINE_TASK_ID+" = ?", new String[]{taskId});
         closeDB();
         return true;
@@ -2955,14 +2957,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             invoice.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_INVOICE_SHIPPING_CHARGES)));
             invoice.setCustomerNotes(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_NOTES)));
             invoice.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_INVOICE_TERMS_AND_CONDITIONS)));
-
             res.moveToNext();
         }
 
 
         if (invoice != null) {
             ArrayList<CropProductItem> items_list = new ArrayList();
-
             res = db.rawQuery( "select "+CROP_PRODUCT_ITEM_TABLE_NAME+".*,"+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_NAME+" from "+CROP_PRODUCT_ITEM_TABLE_NAME+" LEFT JOIN "+CROP_PRODUCT_TABLE_NAME+" ON "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" where "+ CROP_PRODUCT_ITEM_PARENT_OBJECT_ID +" = "+ invoice.getId()+" AND "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "'", null );
             res.moveToFirst();
             while (!res.isAfterLast()) {
@@ -3742,52 +3742,63 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
-    public void insertCropSoilAnalysis(CropSoilAnalysis spraying) {
+    public void insertCropSoilAnalysis(CropSoilAnalysis soilAnalysis) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_SOIL_ANALYSIS_DATE, spraying.getDate());
-        contentValues.put(CROP_SOIL_ANALYSIS_USER_ID, spraying.getUserId());
-        contentValues.put(CROP_SOIL_ANALYSIS_FIELD_ID, spraying.getFieldId());
-        contentValues.put(CROP_SOIL_ANALYSIS_DATE, spraying.getDate());
-        contentValues.put(CROP_SOIL_ANALYSIS_PH, spraying.getPh());
-        contentValues.put(CROP_SOIL_ANALYSIS_AGRONOMIST, spraying.getAgronomist());
-        contentValues.put(CROP_SOIL_ANALYSIS_RESULTS, spraying.getResult());
-        contentValues.put(CROP_SOIL_ANALYSIS_COST, spraying.getCost());
-        contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER, spraying.getOrganicMatter());
-        contentValues.put(CROP_SOIL_ANALYSIS_RECURRENCE, spraying.getRecurrence());
-        contentValues.put(CROP_SOIL_ANALYSIS_REMINDERS, spraying.getReminders());
-        contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, spraying.getFrequency());
-        contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, spraying.getRepeatUntil());
-        contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, spraying.getDaysBefore());
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE, soilAnalysis.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_USER_ID, soilAnalysis.getUserId());
+        contentValues.put(CROP_SOIL_ANALYSIS_FIELD_ID, soilAnalysis.getFieldId());
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE, soilAnalysis.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_PH, soilAnalysis.getPh());
+        contentValues.put(CROP_SOIL_ANALYSIS_AGRONOMIST, soilAnalysis.getAgronomist());
+        contentValues.put(CROP_SOIL_ANALYSIS_RESULTS, soilAnalysis.getResult());
+        contentValues.put(CROP_SOIL_ANALYSIS_COST, soilAnalysis.getCost());
+        contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER, soilAnalysis.getOrganicMatter());
+        contentValues.put(CROP_SOIL_ANALYSIS_RECURRENCE, soilAnalysis.getRecurrence());
+        contentValues.put(CROP_SOIL_ANALYSIS_REMINDERS, soilAnalysis.getReminders());
+        contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, soilAnalysis.getFrequency());
+        contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, soilAnalysis.getRepeatUntil());
+        contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, soilAnalysis.getDaysBefore());
 
         database.insert(CROP_SOIL_ANALYSIS_TABLE_NAME, null, contentValues);
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_SOIL_ANALYSIS_TABLE_NAME + " where " + CROP_SOIL_ANALYSIS_FIELD_ID + " = " + soilAnalysis.getFieldId()+" AND "+CROP_SOIL_ANALYSIS_DATE + " = '" + soilAnalysis.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_soil_analysis),id);
         closeDB();
     }
 
-    public void updateCropSoilAnalysis(CropSoilAnalysis spraying) {
+    public void updateCropSoilAnalysis(CropSoilAnalysis soilAnalysis) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_SOIL_ANALYSIS_DATE, spraying.getDate());
-        contentValues.put(CROP_SOIL_ANALYSIS_USER_ID, spraying.getUserId());
-        contentValues.put(CROP_SOIL_ANALYSIS_FIELD_ID, spraying.getFieldId());
-        contentValues.put(CROP_SOIL_ANALYSIS_DATE, spraying.getDate());
-        contentValues.put(CROP_SOIL_ANALYSIS_PH, spraying.getPh());
-        contentValues.put(CROP_SOIL_ANALYSIS_AGRONOMIST, spraying.getAgronomist());
-        contentValues.put(CROP_SOIL_ANALYSIS_RESULTS, spraying.getResult());
-        contentValues.put(CROP_SOIL_ANALYSIS_COST, spraying.getCost());
-        contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER, spraying.getOrganicMatter());
-        contentValues.put(CROP_SOIL_ANALYSIS_RECURRENCE, spraying.getRecurrence());
-        contentValues.put(CROP_SOIL_ANALYSIS_REMINDERS, spraying.getReminders());
-        contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, spraying.getFrequency());
-        contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, spraying.getRepeatUntil());
-        contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, spraying.getDaysBefore());
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE, soilAnalysis.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_USER_ID, soilAnalysis.getUserId());
+        contentValues.put(CROP_SOIL_ANALYSIS_FIELD_ID, soilAnalysis.getFieldId());
+        contentValues.put(CROP_SOIL_ANALYSIS_DATE, soilAnalysis.getDate());
+        contentValues.put(CROP_SOIL_ANALYSIS_PH, soilAnalysis.getPh());
+        contentValues.put(CROP_SOIL_ANALYSIS_AGRONOMIST, soilAnalysis.getAgronomist());
+        contentValues.put(CROP_SOIL_ANALYSIS_RESULTS, soilAnalysis.getResult());
+        contentValues.put(CROP_SOIL_ANALYSIS_COST, soilAnalysis.getCost());
+        contentValues.put(CROP_SOIL_ANALYSIS_ORGANIC_MATTER, soilAnalysis.getOrganicMatter());
+        contentValues.put(CROP_SOIL_ANALYSIS_RECURRENCE, soilAnalysis.getRecurrence());
+        contentValues.put(CROP_SOIL_ANALYSIS_REMINDERS, soilAnalysis.getReminders());
+        contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, soilAnalysis.getFrequency());
+        contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, soilAnalysis.getRepeatUntil());
+        contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, soilAnalysis.getDaysBefore());
 
-        database.update(CROP_SOIL_ANALYSIS_TABLE_NAME, contentValues, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{spraying.getId()});
+        database.update(CROP_SOIL_ANALYSIS_TABLE_NAME, contentValues, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{soilAnalysis.getId()});
+        deleteCropNotification(soilAnalysis.getId(),context.getString(R.string.notification_type_soil_analysis));
+        generateNotifications(context.getString(R.string.notification_type_soil_analysis),soilAnalysis.getId());
         closeDB();
     }
 
     public boolean deleteCropSoilAnalysis(String id) {
         openDB();
+        deleteCropNotification(id,context.getString(R.string.notification_type_soil_analysis));
         database.delete(CROP_SOIL_ANALYSIS_TABLE_NAME, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{id});
         closeDB();
         return true;
@@ -3855,6 +3866,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
 
         database.insert(CROP_SPRAYING_TABLE_NAME, null, contentValues);
+
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_SPRAYING_TABLE_NAME + " where " + CROP_SPRAYING_CROP_ID + " = " + spraying.getCropId()+" AND "+CROP_SPRAYING_DATE + " = '" + spraying.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_SPRAYING_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_spraying),id);
         closeDB();
     }
 
@@ -3884,11 +3904,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
 
         database.update(CROP_SPRAYING_TABLE_NAME, contentValues, CROP_SPRAYING_ID + " = ?", new String[]{spraying.getId()});
+        deleteCropNotification(spraying.getId(),context.getString(R.string.notification_type_spraying));
+        generateNotifications(context.getString(R.string.notification_type_spraying),spraying.getId());
         closeDB();
     }
 
     public boolean deleteCropSpraying(String fertilizerId) {
         openDB();
+        deleteCropNotification(fertilizerId,context.getString(R.string.notification_type_fertilizer_application));
         database.delete(CROP_SPRAYING_TABLE_NAME, CROP_SPRAYING_ID + " = ?", new String[]{fertilizerId});
         closeDB();
         return true;
@@ -3962,6 +3985,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE, fertilizerApplication.getDaysBefore());
 
         database.insert(CROP_FERTILIZER_APPLICATION_TABLE_NAME, null, contentValues);
+
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " where " + CROP_FERTILIZER_APPLICATION_CROP_ID + " = " + fertilizerApplication.getCropId()+" AND "+CROP_FERTILIZER_APPLICATION_DATE + " = '" + fertilizerApplication.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_fertilizer_application),id);
         closeDB();
     }
 
@@ -3987,11 +4019,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE, fertilizerApplication.getDaysBefore());
 
         database.update(CROP_FERTILIZER_APPLICATION_TABLE_NAME, contentValues, CROP_FERTILIZER_APPLICATION_ID + " = ?", new String[]{fertilizerApplication.getId()});
+        deleteCropNotification(fertilizerApplication.getId(),context.getString(R.string.notification_type_fertilizer_application));
+        generateNotifications(context.getString(R.string.notification_type_fertilizer_application),fertilizerApplication.getId());
         closeDB();
     }
 
     public boolean deleteCropFertilizerApplication(String fertilizerId) {
         openDB();
+        deleteCropNotification(fertilizerId,context.getString(R.string.notification_type_fertilizer_application));
         database.delete(CROP_FERTILIZER_APPLICATION_TABLE_NAME, CROP_FERTILIZER_APPLICATION_ID + " = ?", new String[]{fertilizerId});
         closeDB();
         return true;
@@ -4060,6 +4095,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CULTIVATION_DAYS_BEFORE, cropCultivation.getDaysBefore());
 
         database.insert(CROP_CULTIVATION_TABLE_NAME, null, contentValues);
+
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + CROP_CULTIVATION_CROP_ID + " = " + cropCultivation.getCropId()+" AND "+CROP_CULTIVATION_DATE + " = '" + cropCultivation.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_CULTIVATION_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_cultivation),id);
         closeDB();
     }
 
@@ -4082,11 +4126,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         database.update(CROP_CULTIVATION_TABLE_NAME, contentValues, CROP_CULTIVATION_ID + " = ?", new String[]{cropCultivation.getId()});
 
+        deleteCropNotification(cropCultivation.getId(),context.getString(R.string.notification_type_cultivation));
+        generateNotifications(context.getString(R.string.notification_type_cultivation),cropCultivation.getId());
         closeDB();
     }
 
     public boolean deleteCropCultivate(String cultivateId) {
         openDB();
+        deleteCropNotification(cultivateId,context.getString(R.string.notification_type_cultivation));
         database.delete(CROP_CULTIVATION_TABLE_NAME, CROP_CULTIVATION_ID + " = ?", new String[]{cultivateId});
         closeDB();
         return true;
@@ -5566,8 +5613,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_IRRIGATION_DAYS_BEFORE, irrigation.getDaysBefore());
         contentValues.put(CROP_IRRIGATION_COST, irrigation.getTotalCost());
 
-Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         database.insert(CROP_IRRIGATION_TABLE_NAME, null, contentValues);
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where " + CROP_IRRIGATION_CROP_ID + " = " + irrigation.getCropId()+" AND "+CROP_IRRIGATION_DATE + " = '" + irrigation.getOperationDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_IRRIGATION_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_irrigation),id);
         closeDB();
     }
 
@@ -5589,14 +5643,16 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_IRRIGATION_DAYS_BEFORE, irrigation.getDaysBefore());
         contentValues.put(CROP_IRRIGATION_COST, irrigation.getTotalCost());
 
-
         database.update(CROP_IRRIGATION_TABLE_NAME, contentValues, CROP_IRRIGATION_ID + " = ?", new String[]{irrigation.getId()});
 
+        deleteCropNotification(irrigation.getId(),context.getString(R.string.notification_type_irrigation));
+        generateNotifications(context.getString(R.string.notification_type_irrigation),irrigation.getId());
         closeDB();
     }
 
     public boolean deleteCropIrrigation(String irrigationId) {
         openDB();
+        deleteCropNotification(irrigationId,context.getString(R.string.notification_type_irrigation));
         database.delete(CROP_IRRIGATION_TABLE_NAME, CROP_IRRIGATION_ID + " = ?", new String[]{irrigationId});
         closeDB();
         return true;
@@ -5658,8 +5714,15 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_TRANSPLANTING_DAYS_BEFORE, transplanting.getDaysBefore());
         contentValues.put(CROP_TRANSPLANTING_COST, transplanting.getTotalCost());
 
-
         database.insert(CROP_TRANSPLANTING_TABLE_NAME, null, contentValues);
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + CROP_TRANSPLANTING_CROP_ID + " = " + transplanting.getCropId()+" AND "+CROP_TRANSPLANTING_DATE + " = '" + transplanting.getOperationDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_transplanting),id);
         closeDB();
     }
     public void updateCropTransplanting(CropTransplanting transplanting) {
@@ -5685,12 +5748,17 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
 
         database.update(CROP_TRANSPLANTING_TABLE_NAME, contentValues, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplanting.getId()});
 
+        deleteCropNotification(transplanting.getId(),context.getString(R.string.notification_type_transplanting));
+        generateNotifications(context.getString(R.string.notification_type_transplanting),transplanting.getId());
+
         closeDB();
     }
 
     public boolean deleteCropTransplanting(String transplantingId) {
         openDB();
+        deleteCropNotification(transplantingId,context.getString(R.string.notification_type_transplanting));
         database.delete(CROP_TRANSPLANTING_TABLE_NAME, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplantingId});
+
         closeDB();
         return true;
     }
@@ -5754,6 +5822,15 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_SCOUTING_DAYS_BEFORE, scouting.getDaysBefore());
 
         database.insert(CROP_SCOUTING_TABLE_NAME, null, contentValues);
+
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_SCOUTING_TABLE_NAME + " where " + CROP_SCOUTING_CROP_ID + " = " + scouting.getCropId()+" AND "+CROP_SCOUTING_DATE + " = '" + scouting.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_SCOUTING_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_scouting),id);
         closeDB();
     }
 
@@ -5779,12 +5856,16 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
 
         database.update(CROP_SCOUTING_TABLE_NAME, contentValues, CROP_SCOUTING_ID + " = ?", new String[]{scouting.getId()});
 
+        deleteCropNotification(scouting.getId(),context.getString(R.string.notification_type_scouting));
+        generateNotifications(context.getString(R.string.notification_type_scouting),scouting.getId());
         closeDB();
     }
 
     public boolean deleteCropScouting(String scoutingId) {
         openDB();
+        deleteCropNotification(scoutingId,context.getString(R.string.notification_type_scouting));
         database.delete(CROP_SCOUTING_TABLE_NAME, CROP_SCOUTING_ID + " = ?", new String[]{scoutingId});
+
         closeDB();
         return true;
     }
@@ -5852,6 +5933,14 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
         contentValues.put(CROP_HARVEST_DAYS_BEFORE, harvest.getDaysBefore());
 
         database.insert(CROP_HARVEST_TABLE_NAME, null, contentValues);
+        //generate Notifications
+        String id ="";
+        Cursor res = database.rawQuery("select * from " + CROP_HARVEST_TABLE_NAME + " where " + CROP_HARVEST_CROP_ID + " = " + harvest.getCropId()+" AND "+CROP_HARVEST_DATE + " = '" + harvest.getDate()+"'", null);
+        res.moveToFirst();
+        if(!res.isAfterLast()){
+            id = res.getString(res.getColumnIndex(CROP_HARVEST_ID));
+        }
+        generateNotifications(context.getString(R.string.notification_type_harvest),id);
         closeDB();
     }
 
@@ -5883,6 +5972,8 @@ Log.d("CROP IRRIGATION","IRRIGATION IS INSERTED");
 
         database.update(CROP_HARVEST_TABLE_NAME, contentValues, CROP_HARVEST_ID + " = ?", new String[]{harvest.getId()});
 
+        deleteCropNotification(harvest.getId(),context.getString(R.string.notification_type_harvest));
+        generateNotifications(context.getString(R.string.notification_type_harvest),harvest.getId());
         closeDB();
     }
 
