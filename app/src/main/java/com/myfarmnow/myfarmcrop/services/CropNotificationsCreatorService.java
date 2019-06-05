@@ -33,7 +33,7 @@ public class CropNotificationsCreatorService extends Service {
         // this service is killed, we don't want to start it
         // again automatically
 
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).generateNotifications();
+      //  MyFarmDbHandlerSingleton.getHandlerInstance(this).generateNotifications();
 
         stopSelf();
         return START_NOT_STICKY;

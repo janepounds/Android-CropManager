@@ -6,11 +6,13 @@ public class CropNotification {
     public final static String QUERY_KEY_UPCOMING =">";
     String id;
     String userId;
+    String sourceId;
     String date;
     String message;
     String status;
     String actionDate;
     String type;
+    String reportFrom;
 
     public String getId() {
         return id;
@@ -66,5 +68,21 @@ public class CropNotification {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public String  getReportFrom() {
+        return reportFrom;
+    }
+
+    public void setReportFrom(String reportFrom) {
+        this.reportFrom = reportFrom;
     }
 }
