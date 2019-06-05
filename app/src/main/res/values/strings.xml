@@ -1651,6 +1651,7 @@
     <string name="forgot_password_prompt_request_code">Forgot Password? Request Code!</string>
     <string name="edit_profile_title">Edit Profile</string>
     <string name="update">Update</string>
+    <string name="repeat_until_not_selected">You must select Repeat Until Date</string>
 
 
     <string-array name="dateFormatsArray">

@@ -39,7 +39,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
     Spinner  statusSp, recurrenceSp, remindersSp;
     AutoCompleteTextView personnelSp;
     Button saveBtn;
-    LinearLayout weeklyRecurrenceLayout, daysBeforeLayout;
+    LinearLayout weeklyRecurrenceLayout, daysBeforeLayout,remindersLayout;
     ArrayAdapter<String>   employeesSpinnerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
     String machineId;
@@ -80,6 +80,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         remindersSp = findViewById(R.id.sp_crop_task_reminders);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_machine_task_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_machine_task_days_before);
+        remindersLayout = findViewById(R.id.layout_crop_machine_task_reminders);
 
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -105,7 +106,29 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
                     weeklyRecurrenceLayout.setVisibility(View.GONE);
 
                 }
+                if(selection.toLowerCase().equals("daily")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSp.setSelection(0);
+                }
 
+                if(selection.toLowerCase().equals("once")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSp.setSelection(0);
+                }
+                if(selection.toLowerCase().equals("monthly")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
+                if(selection.toLowerCase().equals("annually")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
 
             }
             @Override
@@ -337,7 +360,10 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
             remindersSp.requestFocus();
         }
 
-
+        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
+            message = getString(R.string.repeat_until_not_selected);
+            repeatUntilTxt.requestFocus();
+        }
 
         if(message != null){
             Toast.makeText(CropMachineTaskManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();

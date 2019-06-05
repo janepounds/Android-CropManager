@@ -41,7 +41,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currencyTxt,currency2Txt;
     Spinner  harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
     AutoCompleteTextView operatorSpinner;
-    LinearLayout harvestSoldLayout,harvestStoredLayout,weeklyRecurrenceLayout,daysBeforeLayout;
+    LinearLayout harvestSoldLayout,harvestStoredLayout,weeklyRecurrenceLayout,daysBeforeLayout,remindersLayout;
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     ArrayAdapter<String>  employeesSpinnerAdapter;
@@ -92,6 +92,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         daysBeforeTxt = findViewById(R.id.txt_crop_harvest_days_before);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_harvest_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_harvest_days_before);
+        remindersLayout = findViewById(R.id.layout_crop_harvest_reminders);
 
         currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
@@ -318,7 +319,29 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                     weeklyRecurrenceLayout.setVisibility(View.GONE);
 
                 }
+                if(selection.toLowerCase().equals("daily")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSp.setSelection(0);
+                }
 
+                if(selection.toLowerCase().equals("once")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSp.setSelection(0);
+                }
+                if(selection.toLowerCase().equals("monthly")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
+                if(selection.toLowerCase().equals("annually")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
 
             }
             @Override
@@ -514,6 +537,10 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         else if(remindersSp.getSelectedItemPosition()==0){
             message = getString(R.string.reminders_not_selected);
             remindersSp.requestFocus();
+        }
+        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
+            message = getString(R.string.repeat_until_not_selected);
+            repeatUntilTxt.requestFocus();
         }
 
         if(message != null){
