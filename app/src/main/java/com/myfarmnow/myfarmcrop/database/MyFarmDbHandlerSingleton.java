@@ -1018,7 +1018,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_ACTION_DATE+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"'", null);
+        Cursor res;
+        if(queryKey.equals(CropNotification.QUERY_KEY_REPORT_FROM_TODAY)){
+            res= db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_REPORT_FROM+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
+        }
+        else{
+            res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_ACTION_DATE+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
+        }
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -1039,6 +1045,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return array_list;
     }
+
+
     private ArrayList<CropNotification> createNotification(String reminderType,String starDate, int frequency, int daysBefore, String message, String type, String endDate, String sourceId){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar todayCalendar = Calendar.getInstance();

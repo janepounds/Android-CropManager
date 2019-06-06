@@ -35,7 +35,7 @@ public class CropNotificationsFireService extends Service {
         // again automatically
 
         ArrayList<CropNotification> todayNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(this).getCropNotifications(CropDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY);
-        ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(this).getCropNotifications(CropDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_UPCOMING);
+        ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(this).getCropNotifications(CropDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_REPORT_FROM_TODAY);
 
         showNotifications(todayNotifications, "Tasks due Today","TODAY",1);
         showNotifications(upcomingNotifications, "Upcoming Tasks","UPCOMING",2);

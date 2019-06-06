@@ -4,6 +4,7 @@ public class CropNotification {
     public final static String QUERY_KEY_TODAY ="=";
     public final static String QUERY_KEY_OVER_DUE ="<";
     public final static String QUERY_KEY_UPCOMING =">";
+    public final static String QUERY_KEY_REPORT_FROM_TODAY ="reportFromToday";
     String id;
     String userId;
     String sourceId;
