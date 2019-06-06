@@ -29,7 +29,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
     TextView totalWaterQuantityTxt,unitsTxt,quantityPerUnitTxt,currencyTxt;
     EditText operationDateTxt, systemRateTxt,startTimeTxt,endTimeTxt,areaIrrigatedTxt,totalCostTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Spinner recurrenceSpinner,remindersSpinner;
-    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout,remindersLayout;
     Button saveBtn;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
@@ -68,6 +68,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         daysBeforeTxt = findViewById(R.id.txt_crop_irrigation_days_before);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_irrigation_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_irrigation_days_before);
+        remindersLayout = findViewById(R.id.layout_crop_irrigation_reminders);
         recurrenceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,7 +94,29 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
                     weeklyRecurrenceLayout.setVisibility(View.GONE);
 
                 }
+                if(selection.toLowerCase().equals("daily")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSpinner.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSpinner.setSelection(0);
+                }
 
+                if(selection.toLowerCase().equals("once")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSpinner.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSpinner.setSelection(0);
+                }
+                if(selection.toLowerCase().equals("monthly")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
+                if(selection.toLowerCase().equals("annually")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
 
             }
             @Override
@@ -310,6 +333,10 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         else if(remindersSpinner.getSelectedItemPosition()==0) {
             message = getString(R.string.reminders_not_selected);
             remindersSpinner.requestFocus();
+        }
+        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
+            message = getString(R.string.repeat_until_not_selected);
+            repeatUntilTxt.requestFocus();
         }
 
         if(message != null){

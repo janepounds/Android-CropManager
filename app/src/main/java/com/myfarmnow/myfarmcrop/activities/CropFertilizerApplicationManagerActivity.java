@@ -35,7 +35,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner methodSp, fertilizerFormSp, fertilizerId,recurrenceSp,remindersSp;
-    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout, remindersLayout;
     boolean applicationMethodSet = false;//
 
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
@@ -76,6 +76,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         daysBeforeTxt = findViewById(R.id.txt_crop_fertilizer_application_days_before);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_fertilizer_application_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_fertilizer_application_days_before);
+        remindersLayout = findViewById(R.id.layout_crop_fertilizer_application_reminders);
 
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Method",this);
         methodSp.setAdapter(applicationMethodAdapter);
@@ -159,6 +160,29 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                 else{
                     weeklyRecurrenceLayout.setVisibility(View.GONE);
 
+                }
+                if(selection.toLowerCase().equals("daily")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSp.setSelection(0);
+                }
+
+                if(selection.toLowerCase().equals("once")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+                else{
+                    remindersSp.setSelection(0);
+                }
+                if(selection.toLowerCase().equals("monthly")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
+                if(selection.toLowerCase().equals("annually")){
+                    remindersLayout.setVisibility(View.VISIBLE);
                 }
 
 
@@ -365,7 +389,10 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             message = getString(R.string.reminders_not_selected);
             remindersSp.requestFocus();
         }
-
+        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
+            message = getString(R.string.repeat_until_not_selected);
+            repeatUntilTxt.requestFocus();
+        }
         if(message != null){
             Toast.makeText(CropFertilizerApplicationManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
             return false;

@@ -582,7 +582,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginRight="20dp">
+                   >
 
                     <TextView
 
@@ -615,6 +615,9 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/layout_crop_harvest_reminders"
+                    android:visibility="gone"
                    >
 
                     <TextView

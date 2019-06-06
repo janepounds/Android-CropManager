@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
+
            >
 
             <TextView
@@ -84,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginStart="10dp"
                 >
             <TextView
 
@@ -92,6 +93,7 @@
                 android:text="@string/end_time"
                 android:textColor="@color/textColor"
                 android:layout_marginBottom="4dp"
+
                 android:textSize="16sp" />
 
             <EditText
@@ -193,7 +195,7 @@
     <LinearLayout
         android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
+
         android:orientation="vertical">
 
         <TextView
@@ -221,7 +223,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
 
         <TextView
 
@@ -469,7 +472,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginRight="10dp"
                 android:layout_weight="1">
 
                 <TextView
@@ -499,7 +501,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:id="@+id/layout_crop_spraying_reminders"
+                android:visibility="gone">
 
                 <TextView
 
