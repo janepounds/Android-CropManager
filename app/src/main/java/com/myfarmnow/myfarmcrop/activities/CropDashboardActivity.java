@@ -69,7 +69,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     ImageView imgdrawer, noticationsImageBtn;
     RelativeLayout mainlayout;
-    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu;
+    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu, digitalWalletLayout;
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
@@ -168,6 +168,10 @@ public class CropDashboardActivity extends AppCompatActivity  {
         financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
         slesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
         purchasesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_purchases_submenus);
+
+
+        digitalWalletLayout = findViewById(R.id.layout_crop_dashboard_digital_wallet);
+
 
 
         mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
@@ -313,13 +317,18 @@ public class CropDashboardActivity extends AppCompatActivity  {
         ed_.setInputType(InputType.TYPE_NULL);
     }
 
+
+    public void openDigitalWallet(View view){
+        Intent openDW = new Intent(this, CropDigitalWalletActivity.class);
+        startActivity(openDW);
+    }
     public void openFarmReports(View view){
         Intent openReports = new Intent(this, CropFarmReportsActivity.class);
         startActivity(openReports);
     }
     public void openSettings(View view){
-        Intent openReports = new Intent(this, CropSettingsActivity.class);
-        startActivity(openReports);
+        Intent openSettings = new Intent(this, CropSettingsActivity.class);
+        startActivity(openSettings);
     }
     public void openEmployeeList(View view){
         Intent openList = new Intent(this, CropEmployeesListActivity.class);
@@ -526,6 +535,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
         editor.putString(key, value);
         editor.commit();
     }
+
+
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
                 0);

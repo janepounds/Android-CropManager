@@ -98,6 +98,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
                     weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                    remindersLayout.setVisibility(View.VISIBLE);
                 }
                 else{
                     weeklyRecurrenceLayout.setVisibility(View.GONE);

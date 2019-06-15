@@ -660,7 +660,8 @@
         <item>Select</item>
         <item>First Season</item>
         <item>Second Season</item>
-    </string-array>.....
+    </string-array>
+    .....
 
     <string-array name="sp_crop_transplanting_variety_earliness">
         <item>Select</item>
@@ -869,6 +870,11 @@
         <item>Supplier</item>
         <item>Agronomist</item>
         <item>Others</item>
+    </string-array>
+
+    <string-array name="sp_crop_digital_wallet_country_code">
+        <item>+256</item>
+
     </string-array>
     <string name="title_activity_crop_fields_list">Fields </string>
     <string name="field_name">Field Name</string>
@@ -1652,6 +1658,10 @@
     <string name="edit_profile_title">Edit Profile</string>
     <string name="update">Update</string>
     <string name="repeat_until_not_selected">You must select Repeat Until Date</string>
+    <string name="transfer">Transfer</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="add_money">Add Money</string>
+    <string name="add_funds">Add Funds</string>
 
 
     <string-array name="dateFormatsArray">

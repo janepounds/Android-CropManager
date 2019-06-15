@@ -57,6 +57,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 
@@ -1116,6 +1117,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             e.printStackTrace();
         }
 
+
         return notificationsList;
 
     }
@@ -1310,6 +1312,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         closeDB();
+
+
+
 
         for(CropNotification notification : array_list){
             insertCropNotification(notification);
@@ -2023,7 +2028,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select "+CROP_MACHINE_SERVICE_TABLE_NAME+".*,"+CROP_MACHINE_TABLE_NAME+"."+CROP_MACHINE_NAME+
                 " from " + CROP_MACHINE_SERVICE_TABLE_NAME+
                 " LEFT JOIN "+CROP_MACHINE_TABLE_NAME+" ON "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_MACHINE_ID+" = "+CROP_MACHINE_TABLE_NAME+"."+CROP_MACHINE_ID+
-                " where "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_MACHINE_ID+" = "+ machineId, null);
+                " where "+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_MACHINE_ID+" = "+ machineId +" ORDER BY date("+CROP_MACHINE_SERVICE_TABLE_NAME+"."+CROP_MACHINE_SERVICE_DATE+") DESC", null);
 
         res.moveToFirst();
 

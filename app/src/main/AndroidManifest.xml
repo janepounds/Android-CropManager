@@ -13,6 +13,16 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.CropDigitalWalletTransferActivity"
+            android:label="Digital Wallet"/>
+        <activity android:name=".activities.CropDigitalWalletWithdrawActivity"
+            android:label="Digital Market"/>
+        <activity
+            android:name=".activities.CropDigitalWalletAddMoneyActivity"
+            android:label="Digital Wallet" />
+        <activity
+            android:name=".activities.CropDigitalWalletActivity"
+            android:label="Digital Wallet" />
         <activity
             android:name=".activities.CropsNotesListActivity"
             android:label="Crop Notes" />
@@ -221,24 +231,24 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropLoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropForgotPasswordRequestCode"
             android:label="Forgot Password"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropForgotPasswordChange"
             android:label="Forgot Password"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropVerifyPhoneNumberActivity"
             android:label="@string/title_activity_crop_verify_phone_number"
@@ -340,7 +350,7 @@
         <service
             android:name=".services.CropNotificationsFireService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
 
 </manifest>

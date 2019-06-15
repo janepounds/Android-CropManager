@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
-       // applicationId "com.myfarmnow.cropmanager" //play store id
+        // applicationId "com.myfarmnow.cropmanager" //play store id
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 2
@@ -58,7 +58,7 @@ dependencies {
     implementation('com.google.apis:google-api-services-calendar:v3-rev218-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-   // implementation 'org.greenrobot:greendao:3.2.2'
+    // implementation 'org.greenrobot:greendao:3.2.2'
     // add library
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'com.android.support:support-v4:27.1.1'
@@ -69,7 +69,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:11.8.0'
     implementation 'com.google.android.gms:play-services-places:11.8.0'
     implementation 'com.github.pwittchen:infinitescroll:0.0.1'
-   // implementation 'com.squareup.picasso:picasso:2.5.2'
+    // implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.volley:volley:1.0.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
