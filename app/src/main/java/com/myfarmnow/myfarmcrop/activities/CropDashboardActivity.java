@@ -319,7 +319,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
 
     public void openDigitalWallet(View view){
-        Intent openDW = new Intent(this, CropDigitalWalletActivity.class);
+        Intent openDW = new Intent(this, CropDigitalWalletAuthenticationManagerActivity.class);
         startActivity(openDW);
     }
     public void openFarmReports(View view){

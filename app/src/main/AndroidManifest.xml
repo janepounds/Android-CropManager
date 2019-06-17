@@ -13,10 +13,13 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropDigitalWalletTransferActivity"
-            android:label="Digital Wallet"/>
-        <activity android:name=".activities.CropDigitalWalletWithdrawActivity"
-            android:label="Digital Market"/>
+        <activity android:name=".activities.CropDigitalWalletAuthenticationManagerActivity"></activity>
+        <activity
+            android:name=".activities.CropDigitalWalletTransferActivity"
+            android:label="Digital Wallet" />
+        <activity
+            android:name=".activities.CropDigitalWalletWithdrawActivity"
+            android:label="Digital Market" />
         <activity
             android:name=".activities.CropDigitalWalletAddMoneyActivity"
             android:label="Digital Wallet" />
