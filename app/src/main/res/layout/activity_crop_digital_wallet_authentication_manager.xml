@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/sign_in_background"
     tools:context=".activities.CropDigitalWalletAuthenticationManagerActivity">
-    <include layout="@layout/activity_login"/>
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tvSessionExpired"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Session expired!"
+                android:textColor="@color/yellow"
+                android:textSize="20sp"
+                android:visibility="gone"
+                />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="20.0dip"
+
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/text_view_crop_user_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="This ie the error we have found at the server end"
+                    android:textColor="@color/yellow"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Please enter your password"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="20sp"
+                    />
+                <EditText
+                    android:id="@+id/edtpwd"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="45.0dip"
+                    android:singleLine="true"
+                    android:layout_marginTop="25.0dip"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_border"
+                    android:drawableLeft="@drawable/password"
+                    android:drawablePadding="20.0dip"
+                    android:hint="Password"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:inputType="textPassword"
+                    android:padding="10.0dip"
+                    android:textColor="@color/whiteColor"
+                    android:textColorHint="@color/hintColor" />
+
+
+
+
+                <Button
+                    android:id="@+id/btnAuthenticate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45.0dip"
+                    android:layout_margin="10.0dip"
+                    android:background="@drawable/sign_up_button"
+                    android:text="@string/authenticate"
+                    android:textAllCaps="false"
+                    android:textColor="@color/submitBtnColor"
+                    android:textSize="18.0sp"
+                    android:textStyle="bold"
+                    android:typeface="sans"
+                   />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

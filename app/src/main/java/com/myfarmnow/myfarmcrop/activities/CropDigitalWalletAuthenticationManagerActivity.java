@@ -30,31 +30,28 @@ import static com.myfarmnow.myfarmcrop.activities.CropLoginActivity.checkLogin;
 
 public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatActivity {
     EditText edtusername, edtpwd;
-    Button btnSignIn;
-    TextView tvSignUp;
+    Button btnSignIn, btnAuthenticate;
+    TextView tvSignUp, tvSignIn;
     TextView tvForgetpass, errorTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_digital_wallet_authentication_manager);
 
-        tvSignUp = (TextView) findViewById(R.id.tvSignUp);
-        tvForgetpass = (TextView) findViewById(R.id.tvForgetPass);
-        edtusername = (EditText) findViewById(R.id.edtusername);
-        edtpwd = (EditText) findViewById(R.id.edtpwd);
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
+
+        edtpwd = findViewById(R.id.edtpwd);
+        btnAuthenticate = findViewById(R.id.btnAuthenticate);
         errorTextView =  findViewById(R.id.text_view_crop_user_error);
 
 
-        tvForgetpass.setVisibility(View.GONE);
-        tvSignUp.setVisibility(View.GONE);
 
         if (!CropDashboardActivity.getPreferences("userId",this).isEmpty() ) {
             startActivity(new Intent(CropDigitalWalletAuthenticationManagerActivity.this, CropDashboardActivity.class));
             finish();
         }
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        btnAuthenticate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

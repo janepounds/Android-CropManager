@@ -30,17 +30,19 @@
             android:id="@+id/layout_add_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+           >
 
             <ImageView
                 android:id="@+id/crop_digital_wallet_currency"
                 android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/nutrient_removal"/>
+                android:src="@drawable/add_money"/>
 
             <TextView
                 android:id="@+id/crop_digital_wallet_amount"
+                android:layout_marginStart="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
@@ -60,9 +62,11 @@
                 android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/nutrient_removal"/>
+                android:src="@drawable/withdraw"
+                />
 
             <TextView
+                android:layout_marginStart="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
@@ -82,9 +86,10 @@
                 android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/nutrient_removal"/>
+                android:src="@drawable/money_transfer"/>
 
             <TextView
+                android:layout_marginStart="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
@@ -181,7 +186,7 @@
             android:layout_gravity="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/add_funds"
+            android:text="@string/add_money"
             android:textAllCaps="false"
             android:textColor="@color/white"
             style="@style/Button_DW"/>
