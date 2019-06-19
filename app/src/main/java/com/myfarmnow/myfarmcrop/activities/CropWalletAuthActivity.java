@@ -18,21 +18,20 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsCreatorService;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsFireService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.myfarmnow.myfarmcrop.activities.CropLoginActivity.checkLogin;
 
-public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatActivity {
+
+public class CropWalletAuthActivity extends AppCompatActivity {
     EditText edtusername, edtpwd;
     Button btnSignIn, btnAuthenticate;
     TextView tvSignUp, tvSignIn;
     TextView tvForgetpass, errorTextView;
+    public static String WALLET_ACCESS_TOKEN=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,20 +44,13 @@ public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatAct
         errorTextView =  findViewById(R.id.text_view_crop_user_error);
 
 
-
-        if (!CropDashboardActivity.getPreferences("userId",this).isEmpty() ) {
-            startActivity(new Intent(CropDigitalWalletAuthenticationManagerActivity.this, CropDashboardActivity.class));
-            finish();
-        }
-
         btnAuthenticate.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-                if (edtusername.getText().toString().length() <= 0) {
-                    Toast.makeText(CropDigitalWalletAuthenticationManagerActivity.this, "Enter Email Address or PhoneNumber..", Toast.LENGTH_SHORT).show();
-                } else if (edtpwd.getText().toString().length() <= 0) {
-                    Toast.makeText(CropDigitalWalletAuthenticationManagerActivity.this, "Enter password..", Toast.LENGTH_SHORT).show();
+               if (edtpwd.getText().toString().length() <= 0) {
+                    Toast.makeText(CropWalletAuthActivity.this, "Enter password..", Toast.LENGTH_SHORT).show();
                 } else {
                     String loginEntry =edtusername.getText().toString();
                     String email = null;
@@ -74,7 +66,7 @@ public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatAct
 
                     }
 
-                    checkLogin( email, phoneNumber, edtpwd.getText().toString(), CropDigitalWalletAuthenticationManagerActivity.this,errorTextView);
+                    checkLogin( CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL, CropWalletAuthActivity.this ), null, edtpwd.getText().toString(),errorTextView);
                 }
 
             }
@@ -89,7 +81,7 @@ public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatAct
 
     }
 
-    public static void checkLogin(String email, String phoneNumber, String password, final Context context, final TextView  errorTextView) {
+    public void checkLogin(String email, String phoneNumber, String password, final TextView  errorTextView) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
@@ -102,13 +94,13 @@ public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatAct
 
 
 
-        client.post(ApiPaths.CROP_LOGIN_GET_ALL, params, new JsonHttpResponseHandler() {
+        client.post(ApiPaths.CROP_WALLET_GET_TOKEN, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
 
             @Override
             public void onStart() {
 
-                dialog = new ProgressDialog(context);
+                dialog = new ProgressDialog(CropWalletAuthActivity.this);
                 dialog.setIndeterminate(true);
                 dialog.setMessage("Please Wait..");
                 dialog.setCancelable(false);
@@ -121,24 +113,16 @@ public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatAct
                 // If the response is JSONObject instead of expected JSONArray
 
                 try {
-                    if (response.getString("status").equals("failure")) {
 
-                        Toast.makeText(context, "Invalid login detail", Toast.LENGTH_SHORT).show();
+                    String accessToken = response.getString("access_token");
+                    WALLET_ACCESS_TOKEN = accessToken;
 
-                    } else {
-                        JSONObject user = response.getJSONObject("user");
-                        Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
-                        Log.e("response", response.toString());
-                        CropDashboardActivity.saveUser(user,context);
-                        ((AppCompatActivity)context).finish();
+                    finish();
+                    Intent goToWallet = new Intent(CropWalletAuthActivity.this,CropWalletActivity.class);
+                    startActivity(goToWallet);
+                    //now you can go to next wallet page
 
-                        //start the notifications services
-                        context.startService(new Intent(context, CropNotificationsCreatorService.class));
-                        context.startService(new Intent(context, CropNotificationsFireService.class));
 
-                        context.startActivity(new Intent(context, CropDigitalWalletAuthenticationManagerActivity.class));
-
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -179,6 +163,12 @@ public class CropDigitalWalletAuthenticationManagerActivity extends AppCompatAct
                 }
             }
         });
+    }
+
+    public static void startAuth(Context context, boolean sessionExpired){
+        Intent authenticate = new Intent(context,CropWalletAuthActivity.class);
+        authenticate.putExtra("sessionExpired",sessionExpired);
+        context.startActivity(authenticate);
     }
 
 

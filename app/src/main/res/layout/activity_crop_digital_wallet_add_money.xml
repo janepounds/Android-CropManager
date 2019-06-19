@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".activities.CropDigitalWalletAddMoneyActivity">
+    tools:context=".activities.CropWalletAddMoneyActivity">
    <ScrollView
        android:layout_width="match_parent"
        android:layout_height="match_parent">
@@ -242,7 +242,7 @@
                android:id="@+id/crop_add_money_balance"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="150,000"/>
+               android:text="0"/>
        </LinearLayout>
    </LinearLayout>
    </ScrollView>

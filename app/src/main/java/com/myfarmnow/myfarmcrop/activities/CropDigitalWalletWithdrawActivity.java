@@ -17,8 +17,9 @@ import com.myfarmnow.myfarmcrop.R;
 public class CropDigitalWalletWithdrawActivity extends AppCompatActivity {
 
     LinearLayout layoutWithdraw, layoutAddMoney, layoutTransfer;
-    Button addMoneyBtn, withdrawBtn, transferBtn;
+    Button addMoneyBtn, withdrawBtn;
     Spinner countryCodeSp;
+    static String PENDING_WITHDRAW_REFERENCE_NUMBER;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
