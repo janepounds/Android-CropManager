@@ -5,7 +5,9 @@
     android:background="@drawable/sign_in_background"
     android:tag="layout/sign_in_0"
     >
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -18,6 +20,7 @@
             />
 
         <TextView
+            android:id="@+id/tvSignIn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -98,6 +101,19 @@
                 android:textSize="18.0sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
+            <Button
+                android:id="@+id/btnAuthenticate"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:layout_margin="10.0dip"
+                android:background="@drawable/sign_up_button"
+                android:text="@string/authenticate"
+                android:textAllCaps="false"
+                android:textColor="@color/submitBtnColor"
+                android:textSize="18.0sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvSignUp"
@@ -110,5 +126,5 @@
                 android:textSize="16.0sp" />
         </LinearLayout>
     </LinearLayout>
-
+</ScrollView>
 </RelativeLayout>

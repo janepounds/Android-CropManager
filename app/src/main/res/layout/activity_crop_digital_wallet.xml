@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
-                android:text="150,000"/>
+                android:text="0"/>
 
         </LinearLayout>
         <View
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="openAddMoney"
-                android:src="@drawable/nutrient_removal"
+                android:src="@drawable/add_money"
                 android:background="@drawable/rectangle_background_white"
                 />
                 <TextView
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:onClick="openWithdraw"
-                android:src="@drawable/nutrient_removal"
+                android:src="@drawable/withdraw"
                 android:background="@drawable/rectangle_background_white"/>
             <TextView
                 android:id="@+id/crop_txt_withdraw"
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:onClick="openTransfer"
-                android:src="@drawable/nutrient_removal"
+                android:src="@drawable/money_transfer"
                 android:background="@drawable/rectangle_background_white"/>
             <TextView
                 android:id="@+id/crop_txt_transfer"

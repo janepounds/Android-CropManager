@@ -28,8 +28,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class CropWalletAuthActivity extends AppCompatActivity {
     EditText edtusername, edtpwd;
-    Button btnSignIn;
-    TextView tvSignUp;
+    Button btnSignIn, btnAuthenticate;
+    TextView tvSignUp, tvSignIn;
     TextView tvForgetpass, errorTextView;
     public static String WALLET_ACCESS_TOKEN=null;
     @Override
@@ -37,24 +37,19 @@ public class CropWalletAuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_digital_wallet_authentication_manager);
 
-        tvSignUp = (TextView) findViewById(R.id.tvSignUp);
-        tvForgetpass = (TextView) findViewById(R.id.tvForgetPass);
-        edtusername = (EditText) findViewById(R.id.edtusername);
-        edtpwd = (EditText) findViewById(R.id.edtpwd);
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
+
+        edtpwd = findViewById(R.id.edtpwd);
+        btnAuthenticate = findViewById(R.id.btnAuthenticate);
         errorTextView =  findViewById(R.id.text_view_crop_user_error);
 
 
-        tvForgetpass.setVisibility(View.GONE);
-        tvSignUp.setVisibility(View.GONE);
+        btnAuthenticate.setOnClickListener(new View.OnClickListener() {
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (edtusername.getText().toString().length() <= 0) {
-                    Toast.makeText(CropWalletAuthActivity.this, "Enter Email Address or PhoneNumber..", Toast.LENGTH_SHORT).show();
-                } else if (edtpwd.getText().toString().length() <= 0) {
+               if (edtpwd.getText().toString().length() <= 0) {
                     Toast.makeText(CropWalletAuthActivity.this, "Enter password..", Toast.LENGTH_SHORT).show();
                 } else {
                     String loginEntry =edtusername.getText().toString();
@@ -71,14 +66,12 @@ public class CropWalletAuthActivity extends AppCompatActivity {
 
                     }
 
-                    checkLogin( email, phoneNumber, edtpwd.getText().toString(),errorTextView);
+                    checkLogin( CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL, CropWalletAuthActivity.this ), null, edtpwd.getText().toString(),errorTextView);
                 }
 
             }
         });
 
-        edtusername.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,this));
-        edtusername.setEnabled(false);
 
     }
     private String getpreferences(String key) {
