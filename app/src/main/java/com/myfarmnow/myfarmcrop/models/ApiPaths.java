@@ -19,6 +19,8 @@ public class ApiPaths {
     public static final String CROP_WALLET_GET_TOKEN =  SERVER_URL + "/api/crop/wallet/token/get";
     public static final String CROP_WALLET_GET_BALANCE =  SERVER_URL + "/api/crop/wallet/balance/request";
     public static final String CROP_WALLET_INITIATE_MOMO_DEPOSIT =  SERVER_URL + "/api/crop/wallet/momo/deposit/initiate";
+    public static final String CROP_WALLET_INITIATE_MOMO_WITHDRAW =  SERVER_URL + "/api/crop/wallet/momo/withdraw/initiate";
+    public static final String CROP_WALLET_INITIATE_TRANSFER =  SERVER_URL + "/api/crop/wallet/transfer/initiate";
     public static final String CROP_WALLET_MOMO_CHECK_WITHDRAW_STATUS =  SERVER_URL + "/api/crop/wallet/momo/withdraw/status/check/";
     public static final String CROP_WALLET_MOMO_CHECK_DEPOSIT_STATUS =  SERVER_URL + "/api/crop/wallet/momo/deposit/status/check/";
 

@@ -53,6 +53,7 @@ public class CropWalletActivity extends AppCompatActivity {
         else{
             pendingTransactionTextView.setVisibility(View.GONE);
         }
+        updateBalance();
 
 
     }
@@ -140,7 +141,8 @@ public class CropWalletActivity extends AppCompatActivity {
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("userId",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID,this));
-        client.post(ApiPaths.CROP_WALLET_MOMO_CHECK_DEPOSIT_STATUS+reference, params, new JsonHttpResponseHandler() {
+        client.setTimeout(20000);
+        client.get(ApiPaths.CROP_WALLET_MOMO_CHECK_DEPOSIT_STATUS+reference, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
             @Override
             public void onStart() {
@@ -204,6 +206,7 @@ public class CropWalletActivity extends AppCompatActivity {
                     Log.e("info : "+statusCode, "Something got very very wrong");
                 }
                 //TODO schedule next try
+                dialog.dismiss();
             }
         });
     }
@@ -214,7 +217,8 @@ public class CropWalletActivity extends AppCompatActivity {
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("userId",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID,this));
-        client.post(ApiPaths.CROP_WALLET_MOMO_CHECK_WITHDRAW_STATUS+reference, params, new JsonHttpResponseHandler() {
+        client.setTimeout(20000);
+        client.get(ApiPaths.CROP_WALLET_MOMO_CHECK_WITHDRAW_STATUS+reference, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
             @Override
             public void onStart() {
@@ -273,6 +277,7 @@ public class CropWalletActivity extends AppCompatActivity {
                     Log.e("info : "+statusCode, "Something got very very wrong");
                 }
                 //TODO schedule next try
+                dialog.dismiss();
             }
         });
     }

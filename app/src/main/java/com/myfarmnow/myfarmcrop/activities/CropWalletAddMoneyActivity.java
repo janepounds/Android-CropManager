@@ -104,7 +104,7 @@ public class CropWalletAddMoneyActivity extends AppCompatActivity {
         params.put("phoneNumber",countryCode+phoneNumber);
         params.put("amount",amount);
         params.put("currency","UGX");
-        client.setTimeout(10000);
+        client.setTimeout(20000);
         client.post(ApiPaths.CROP_WALLET_INITIATE_MOMO_DEPOSIT, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
             @Override
