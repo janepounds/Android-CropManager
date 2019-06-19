@@ -13,7 +13,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropDigitalWalletAuthenticationManagerActivity"></activity>
+        <activity android:name=".activities.CropWalletAuthActivity"></activity>
         <activity
             android:name=".activities.CropDigitalWalletTransferActivity"
             android:label="Digital Wallet" />
@@ -21,10 +21,10 @@
             android:name=".activities.CropDigitalWalletWithdrawActivity"
             android:label="Digital Market" />
         <activity
-            android:name=".activities.CropDigitalWalletAddMoneyActivity"
+            android:name=".activities.CropWalletAddMoneyActivity"
             android:label="Digital Wallet" />
         <activity
-            android:name=".activities.CropDigitalWalletActivity"
+            android:name=".activities.CropWalletActivity"
             android:label="Digital Wallet" />
         <activity
             android:name=".activities.CropsNotesListActivity"

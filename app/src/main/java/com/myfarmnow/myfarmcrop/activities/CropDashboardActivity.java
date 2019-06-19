@@ -1,10 +1,6 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,22 +9,18 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 
 import android.net.Uri;
-import android.os.Build;
 
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,7 +30,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -52,15 +43,12 @@ import com.myfarmnow.myfarmcrop.fragments.NotificationsOverDueFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsCreatorService;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsFireService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CropDashboardActivity extends AppCompatActivity  {
@@ -89,6 +77,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static final String STREET_PREFERENCES_ID ="addressStreet";
     public static final String CITY_PREFERENCES_ID ="addressCityOrTown";
     public static final String COUNTRY_PREFERENCES_ID ="addressCountry";
+    public static final String PREFERENCES_USER_ID ="userId";
+    public static final String PREFERENCES_USER_EMAIL ="email";
 
 
     @Override
@@ -266,7 +256,9 @@ public class CropDashboardActivity extends AppCompatActivity  {
         });
 
 
-
+        if (getPreferences(COUNTRY_PREFERENCES_ID,this).toLowerCase().equals("uganda")) {
+            digitalWalletLayout.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -319,8 +311,15 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
 
     public void openDigitalWallet(View view){
-        Intent openDW = new Intent(this, CropDigitalWalletAuthenticationManagerActivity.class);
-        startActivity(openDW);
+        if(CropWalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+            Intent openDW = new Intent(this, CropWalletAuthActivity.class);
+            startActivity(openDW);
+        }
+        else{
+            Intent openDW = new Intent(this, CropWalletActivity.class);
+            startActivity(openDW);
+        }
+
     }
     public void openFarmReports(View view){
         Intent openReports = new Intent(this, CropFarmReportsActivity.class);
@@ -595,11 +594,11 @@ public class CropDashboardActivity extends AppCompatActivity  {
         CropDashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
         CropDashboardActivity.savePreferences("firstname", user.getString("firstname"), context);
         CropDashboardActivity.savePreferences("email", user.getString("email"), context);
-        CropDashboardActivity.savePreferences("userId", user.getString("id"), context);
+        CropDashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
         CropDashboardActivity.savePreferences("lastname", user.getString("lastname"), context);
         CropDashboardActivity.savePreferences("country", user.getString("country"), context);
         CropDashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
-        CropDashboardActivity.savePreferences("email", user.getString("email"), context);
+        CropDashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
         CropDashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
         CropDashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
         CropDashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
