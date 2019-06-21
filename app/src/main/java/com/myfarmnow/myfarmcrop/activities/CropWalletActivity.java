@@ -25,6 +25,7 @@ import cz.msebera.android.httpclient.Header;
 public class CropWalletActivity extends AppCompatActivity {
 
     TextView balanceTextView, pendingTransactionTextView;
+    double balance=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,7 @@ public class CropWalletActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
                 try {
-                    double balance = response.getDouble("balance");
+                     balance = response.getDouble("balance");
                     balanceTextView.setText(NumberFormat.getInstance().format(balance));
 
                 } catch (JSONException e) {
@@ -124,15 +125,18 @@ public class CropWalletActivity extends AppCompatActivity {
     public void openAddMoney(View view){
 
         Intent openAM = new Intent(this,CropWalletAddMoneyActivity.class);
+        openAM.putExtra("balance", balance);
         startActivity(openAM);
     }
     public void openWithdraw(View view){
 
         Intent openW = new Intent(this, CropDigitalWalletWithdrawActivity.class);
+        openW.putExtra("balance", balance);
         startActivity(openW);
     }
     public void openTransfer(View view){
         Intent openT = new Intent(this,CropDigitalWalletTransferActivity.class);
+        openT.putExtra("balance", balance);
         startActivity(openT);
     }
 
