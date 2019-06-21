@@ -34,7 +34,7 @@ public class CropWalletAddMoneyActivity extends AppCompatActivity {
 
     LinearLayout  layoutAddMoney;
     Button addMoneyImg;
-    TextView addMoneyTxt,phoneNumberTxt;
+    TextView addMoneyTxt,phoneNumberTxt,errorMsgTxt;
     Spinner countryCodeSp;
     static String PENDING_DEPOSIT_REFERENCE_NUMBER;
     TextView balanceTextView, titleTextView;
@@ -55,6 +55,7 @@ public class CropWalletAddMoneyActivity extends AppCompatActivity {
         countryCodeSp = findViewById(R.id.sp_crop_digital_wallet_country_code);
         balanceTextView = findViewById(R.id.crop_add_money_balance);
         titleTextView = findViewById(R.id.crop_digital_wallet_label);
+        errorMsgTxt = findViewById(R.id.text_view_error_message);
         if(getIntent().hasExtra("balance")){
             balance=getIntent().getDoubleExtra("balance",0);
         }
