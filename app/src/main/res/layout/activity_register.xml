@@ -131,9 +131,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toLeftOf="@+id/icoandroid"
-                            android:layout_toRightOf="@+id/country_id"
+                            android:layout_marginStart="5dp"
+                            android:layout_toStartOf="@+id/icoandroid"
+                            android:layout_toEndOf="@+id/country_id"
                             android:background="@null"
                             android:entries="@array/country_list"
                             android:gravity="center"
@@ -319,24 +319,34 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15.0dip"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_dropdown"
+                    android:background="@drawable/rectangle_border"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
-
+                    <ImageView
+                        android:id="@+id/addcountry_id"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/globe" />
                     <Spinner
                         android:id="@+id/spinnerAdressCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
+                        android:layout_toStartOf="@+id/icoandroid2"
+                        android:layout_toEndOf="@+id/addcountry_id"
                         android:background="@null"
                         android:entries="@array/country_list"
                         android:gravity="center"
                         android:spinnerMode="dialog" />
 
                     <ImageView
-
+                        android:id="@+id/icoandroid2"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_alignParentRight="true"

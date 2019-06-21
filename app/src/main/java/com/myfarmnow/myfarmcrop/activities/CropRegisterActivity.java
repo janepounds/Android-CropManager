@@ -146,6 +146,8 @@ public class CropRegisterActivity extends PermisoActivity implements
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if(getIntent().hasExtra("editUser")){
                     updateUser();
                 }
@@ -168,7 +170,18 @@ public class CropRegisterActivity extends PermisoActivity implements
                         Toast.makeText(CropRegisterActivity.this, "Enter Address", Toast.LENGTH_SHORT).show();
                     } else if (edtContact.getText().toString().length() <= 0) {
                         Toast.makeText(CropRegisterActivity.this, "Enter Contact", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }   else if(spinnercountry.getSelectedItemPosition()==0){
+                        spinnercountry.requestFocus();
+                        Toast.makeText(CropRegisterActivity.this, "Select country", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if(addressCountrySp.getSelectedItemPosition()==0){
+                        addressCountrySp.requestFocus();
+                        Toast.makeText(CropRegisterActivity.this, "Select address country", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    else {
+
                         userRegister();
 
                     }
@@ -176,6 +189,29 @@ public class CropRegisterActivity extends PermisoActivity implements
 
             }
         });
+        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.White));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.White)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        addressCountrySp.setOnItemSelectedListener(onItemSelectedListener);
 
         if(getIntent().hasExtra("editUser")){
             fillViews();
@@ -186,6 +222,7 @@ public class CropRegisterActivity extends PermisoActivity implements
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
         return ConnectionResult.SUCCESS == status;
     }
+
 
 
     public void updateUser(){

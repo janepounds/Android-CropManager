@@ -100,16 +100,26 @@
         </LinearLayout>
         <View
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/light_gray"/>
+        <TextView
+            android:id="@+id/text_view_error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Insufficient Funds!"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/red"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp">
+
             <TextView
                 android:layout_weight="0.5"
                 android:layout_width="match_parent"
