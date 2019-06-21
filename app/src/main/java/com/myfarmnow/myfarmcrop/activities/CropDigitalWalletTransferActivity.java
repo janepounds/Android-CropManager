@@ -25,6 +25,8 @@ import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
+
 import cz.msebera.android.httpclient.Header;
 
 public class CropDigitalWalletTransferActivity extends AppCompatActivity {
@@ -32,7 +34,8 @@ public class CropDigitalWalletTransferActivity extends AppCompatActivity {
     Button addMoneyImg;
     TextView addMoneyTxt,phoneNumberTxt;
     Spinner countryCodeSp;
-
+    TextView balanceTextView, titleTextView;
+    double balance=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,16 @@ public class CropDigitalWalletTransferActivity extends AppCompatActivity {
         addMoneyImg = findViewById(R.id.button_add_money);
         addMoneyTxt = findViewById(R.id.crop_add_money_amount);
         countryCodeSp = findViewById(R.id.sp_crop_digital_wallet_country_code);
+        balanceTextView = findViewById(R.id.crop_add_money_balance);
+        titleTextView = findViewById(R.id.crop_digital_wallet_label);
+        if(getIntent().hasExtra("balance")){
+            balance=getIntent().getDoubleExtra("balance",0);
+        }
+
+        balanceTextView.setText(NumberFormat.getInstance().format(balance));
+        titleTextView.setText("Transfer Money");
+        addMoneyImg.setText("Transfer");
+
         ((ArrayAdapter)countryCodeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
@@ -90,7 +103,7 @@ public class CropDigitalWalletTransferActivity extends AppCompatActivity {
 
         float amount = Float.parseFloat(amountEntered);
 
-        countryCode =countryCode.replace("+","");
+
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);

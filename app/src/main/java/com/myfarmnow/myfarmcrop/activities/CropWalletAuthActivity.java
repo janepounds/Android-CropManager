@@ -52,19 +52,7 @@ public class CropWalletAuthActivity extends AppCompatActivity {
                if (edtpwd.getText().toString().length() <= 0) {
                     Toast.makeText(CropWalletAuthActivity.this, "Enter password..", Toast.LENGTH_SHORT).show();
                 } else {
-                    String loginEntry =edtusername.getText().toString();
-                    String email = null;
-                    String phoneNumber =null;
 
-                    if(loginEntry.matches(".*[a-zA-Z@].*")){
-                        //maybe Email
-                        email = loginEntry;
-                    }
-                    else if(loginEntry.matches(".*[0-9].*")){
-                        //maybe phone Number
-                        phoneNumber = loginEntry;
-
-                    }
 
                     checkLogin( CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL, CropWalletAuthActivity.this ), null, edtpwd.getText().toString(),errorTextView);
                 }

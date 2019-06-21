@@ -37,6 +37,8 @@ public class CropWalletAddMoneyActivity extends AppCompatActivity {
     TextView addMoneyTxt,phoneNumberTxt;
     Spinner countryCodeSp;
     static String PENDING_DEPOSIT_REFERENCE_NUMBER;
+    TextView balanceTextView, titleTextView;
+    double balance=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,14 @@ public class CropWalletAddMoneyActivity extends AppCompatActivity {
         addMoneyImg = findViewById(R.id.button_add_money);
         addMoneyTxt = findViewById(R.id.crop_add_money_amount);
         countryCodeSp = findViewById(R.id.sp_crop_digital_wallet_country_code);
+        balanceTextView = findViewById(R.id.crop_add_money_balance);
+        titleTextView = findViewById(R.id.crop_digital_wallet_label);
+        if(getIntent().hasExtra("balance")){
+            balance=getIntent().getDoubleExtra("balance",0);
+        }
+
+        balanceTextView.setText(NumberFormat.getInstance().format(balance));
+        titleTextView.setText("Add Money");
         ((ArrayAdapter)countryCodeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
