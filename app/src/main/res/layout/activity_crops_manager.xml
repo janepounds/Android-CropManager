@@ -276,7 +276,8 @@
                     android:ems="10"
                     android:hint="Enter.."
                     android:inputType="numberDecimal"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text="0"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -354,7 +355,8 @@
                         android:ems="10"
                         android:hint="Enter.."
                         android:inputType="number"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:text="0"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -427,7 +429,7 @@
                         android:hint="Enter.."
                         android:inputType="numberDecimal"
                         android:textSize="14sp"
-
+                        android:text="0"
                         />
 
 
@@ -531,7 +533,7 @@
                     android:hint="Enter.."
                     android:background="@drawable/input_shapes"
                     android:textSize="14sp"
-
+                    android:text="0"
                     />
             </LinearLayout>
 
@@ -583,7 +585,8 @@
                     android:hint="Enter.."
                     android:inputType="number"
                     android:textSize="14sp"
-                    android:layout_weight="0.7"/>
+                    android:layout_weight="0.7"
+                    android:text="0"/>
                 <TextView
                     android:id="@+id/txt_crops_estimated_revenue_units"
                     android:layout_width="wrap_content"

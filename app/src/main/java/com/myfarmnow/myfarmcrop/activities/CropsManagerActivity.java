@@ -378,6 +378,10 @@ public class CropsManagerActivity extends AppCompatActivity {
             message = getString(R.string.date_not_entered_message);
             dateTxt.requestFocus();
         }
+        else if(yearTxt.getText().toString().isEmpty()){
+            message = getString(R.string.cropping_year_not_entered);
+            yearTxt.requestFocus();
+        }
         else if(areaTxt.getText().toString().isEmpty()){
             message = getString(R.string.area_not_entered);
             areaTxt.requestFocus();

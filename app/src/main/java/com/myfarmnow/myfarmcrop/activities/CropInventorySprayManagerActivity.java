@@ -149,7 +149,9 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         sprayInventory.setCost(Float.parseFloat(costTxt.getText().toString()));
         sprayInventory.setBatchNumber(batchTxt.getText().toString());
         sprayInventory.setSupplier(supplierTxt.getText().toString());
+
         sprayInventory.setHarvestInterval(Integer.parseInt(harvestIntervalTxt.getText().toString()));
+
         sprayInventory.setExpiryDate(expiryDateTxt.getText().toString());
 
        // sprayInventory.setTgw(tgwTxt.getText().toString());

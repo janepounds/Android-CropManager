@@ -376,6 +376,14 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
             message = getString(R.string.item_not_entered_message);
             itemTxt.requestFocus();
         }
+        else if(taxesTxt.getText().toString().isEmpty()){
+            message = getString(R.string.taxes_not_entered_message);
+            taxesTxt.requestFocus();
+        }
+        else if(sellingPriceTxt.getText().toString().isEmpty()){
+            message = getString(R.string.selling_price_not_entered_message);
+            sellingPriceTxt.requestFocus();
+        }
         else if(quantityTxt.getText().toString().isEmpty()){
             message = getString(R.string.quantity_not_entered_message);
             quantityTxt.requestFocus();

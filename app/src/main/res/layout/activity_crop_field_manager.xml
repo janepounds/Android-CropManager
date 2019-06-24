@@ -302,7 +302,7 @@
                 android:inputType="numberDecimal"
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
-
+                android:text="0"
                 android:layout_marginRight="10dp"
 
                 />
@@ -329,7 +329,7 @@
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes"
                 android:inputType="numberDecimal"
-
+                android:text="0"
                 />
             </LinearLayout>
 

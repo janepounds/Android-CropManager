@@ -317,7 +317,9 @@
                         android:layout_weight="0.9"
                         android:background="@drawable/input_shapes"
                         android:hint="Enter.."
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:inputType="number"
+                        android:text="0"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
