@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,6 +36,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
@@ -42,6 +47,7 @@ import com.myfarmnow.myfarmcrop.fragments.CropDashboardGraphsFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsOverDueFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
+import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
 
 import org.json.JSONException;
@@ -50,6 +56,8 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
+
+import cz.msebera.android.httpclient.Header;
 
 public class CropDashboardActivity extends AppCompatActivity  {
 
@@ -259,6 +267,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
         if (getPreferences(COUNTRY_PREFERENCES_ID,this).toLowerCase().equals("uganda")) {
             digitalWalletLayout.setVisibility(View.VISIBLE);
         }
+
+        userBackup();
     }
 
 
@@ -606,6 +616,56 @@ public class CropDashboardActivity extends AppCompatActivity  {
         CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
         // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
+
+    }
+
+    public void userBackup() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        params.put("id", CropDashboardActivity.getPreferences(PREFERENCES_USER_ID,this));
+        params.put("firstName",CropDashboardActivity.getPreferences("firstName",this));
+        params.put("lastName",CropDashboardActivity.getPreferences("lastName",this));
+        params.put("country",CropDashboardActivity.getPreferences("country",this));
+        params.put("countryCode",CropDashboardActivity.getPreferences("countryCode",this));
+        params.put("email",CropDashboardActivity.getPreferences("email",this));
+        params.put("farmName",CropDashboardActivity.getPreferences(FARM_NAME_PREFERENCES_ID,this));
+        params.put("addressStreet",CropDashboardActivity.getPreferences(STREET_PREFERENCES_ID,this));
+        params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CITY_PREFERENCES_ID,this));
+        params.put("addressCountry",CropDashboardActivity.getPreferences(COUNTRY_PREFERENCES_ID,this));
+        params.put("phoneNumber",CropDashboardActivity.getPreferences("phoneNumber",this));
+        params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
+        params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
+
+        client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                Log.e("USER BACKUP","Started");
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.e("RESPONSE", response.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.e("RESPONSE", "failed ");
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                if (errorResponse != null) {
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info : "+statusCode, "Something got very very wrong");
+                }
+
+            }
+    });
 
     }
 
