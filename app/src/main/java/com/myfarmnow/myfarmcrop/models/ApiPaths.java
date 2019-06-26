@@ -13,6 +13,7 @@ public class ApiPaths {
     public static final String CROP_USER_RESEND_CODE =  SERVER_URL + "/api/crop/user/resend/code";
     public static final String CROP_FORGOT_PASSWORD_REQUEST_CODE =  SERVER_URL + "/api/crop/user/forgot/password/request/code";
     public static final String CROP_FORGOT_PASSWORD_CHANGE =  SERVER_URL + "/api/crop/user/forgot/password/change";
+    public static final String CROP_SEND_FIREBASE_TOKEN =  SERVER_URL + "/api//crop/user/firebasetoken/save";
 
     //WALLET TRANSACTION
 

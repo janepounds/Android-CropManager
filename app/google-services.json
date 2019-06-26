@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "889092051091",
+    "firebase_url": "https://cropmanager-625f2.firebaseio.com",
+    "project_id": "cropmanager-625f2",
+    "storage_bucket": "cropmanager-625f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889092051091:android:6730c6e585d1ad92",
+        "android_client_info": {
+          "package_name": "com.myfarmnow.myfarmcrop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889092051091-s6bmutup5avd3df7rds5lvjq3poab7is.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeJuDv3P8OrH1DtUYfU0oIWHrBgEngjF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889092051091-s6bmutup5avd3df7rds5lvjq3poab7is.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
