@@ -730,7 +730,6 @@ public class CropDashboardActivity extends AppCompatActivity  {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e("RESPONSE", "failed ");
-
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {

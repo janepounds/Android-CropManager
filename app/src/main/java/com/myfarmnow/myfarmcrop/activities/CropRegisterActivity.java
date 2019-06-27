@@ -495,6 +495,7 @@ public class CropRegisterActivity extends PermisoActivity implements
     private String getpreferences(String key) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
                 0);
+
         return sharedPreferences.getString(key, "0");
 
     }
