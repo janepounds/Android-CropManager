@@ -986,6 +986,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_NOTIFICATION_REPORT_FROM, notification.getReportFrom());
 
         database.insert(CROP_NOTIFICATION_TABLE_NAME, null, contentValues);
+        res.close();
         closeDB();
     }
 
@@ -1021,7 +1022,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res;
         if(queryKey.equals(CropNotification.QUERY_KEY_REPORT_FROM_TODAY)){
-            res= db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_REPORT_FROM+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
+            res= db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_REPORT_FROM+") = date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
         }
         else{
             res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_ACTION_DATE+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
@@ -1773,6 +1774,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
+        res.close();
         closeDB();
         return expensesList;
 
@@ -1885,7 +1887,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
 
-
+        res.close();
         closeDB();
         return expensesList;
 
@@ -1959,6 +1961,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         return expensesList;
 
@@ -1988,6 +1991,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_service),id);
+        res.close();
         closeDB();
     }
     public void  updateCropMachineService(CropMachineService service){
@@ -2054,6 +2058,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("SERVICES ",array_list.size()+"");
         return array_list;
@@ -2109,6 +2114,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("NOTES ",array_list.size()+"");
         return array_list;
@@ -2141,6 +2147,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_MACHINE_TASK_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_machine_task),id);
+
+        res.close();
         closeDB();
     }
     public void  updateCropMachineTask(CropMachineTask task){
@@ -2210,6 +2218,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
+
         closeDB();
 
         return array_list;
@@ -2268,6 +2278,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
 
         if (array_list.size()==0){
@@ -2344,6 +2355,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         if (array_list.size()==0){
             CropDatabaseInitializerSingleton.initializeCrops(this);
@@ -2375,6 +2387,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         if (array_list.size()==0){
             CropDatabaseInitializerSingleton.initializeCrops(this);
@@ -2406,6 +2419,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             return cropItem;
         }
 
+        res.close();
         closeDB();
 
         return null;
@@ -2420,6 +2434,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             lastId = res.getInt(res.getColumnIndex(CROP_SALES_ORDER_ID));
         }
         int id=lastId+1;
+
+        res.close();
         closeDB();
 
         return "SO-"+String.format("%03d", id);
@@ -2462,6 +2478,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
         }
+        res.close();
         closeDB();
         return getCropSalesOrder (salesOrder.getNumber());
     }
@@ -2569,6 +2586,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSalesOrder.setItems(items_list);
         }
 
+        res.close();
         closeDB();
         return array_list;
     }
@@ -2621,6 +2639,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSalesOrder.setItems(items_list);
         }
 
+        res.close();
         closeDB();
         return cropSalesOrder;
     }
@@ -2701,6 +2720,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         return array_list;
 
@@ -2737,6 +2757,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Payment", array_list.toString());
         return array_list;
@@ -2753,6 +2774,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             lastId = res.getInt(res.getColumnIndex(CROP_PAYMENT_ID));
         }
         int id=lastId+1;
+        res.close();
         closeDB();
 
         return String.format("%03d", id);
@@ -2802,6 +2824,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             }
         }
 
+        res.close();
         closeDB();
 
         return getCropInvoice(invoice.getNumber());
@@ -2883,6 +2906,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             lastId = res.getInt(res.getColumnIndex(CROP_INVOICE_ID));
         }
         int id=lastId+1;
+        res.close();
         closeDB();
 
         return "INV-"+String.format("%04d", id);
@@ -2942,6 +2966,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         for(CropInvoice invoice: array_list){
             invoice.setPayments(this.getCropPaymentsByInvoice(invoice.getId()));
         }
+        res.close();
 
         closeDB();
 
@@ -2999,6 +3024,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         invoice.setPayments(this.getCropPaymentsByInvoice(invoice.getId()));
 
 
+        res.close();
         closeDB();
 
         return invoice;
@@ -3061,6 +3087,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             invoice.setPayments(this.getCropPaymentsByInvoice(invoice.getId()));
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Product", array_list.toString());
         return array_list;
@@ -3100,6 +3127,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME, null, contentValues);
             }
         }
+        res.close();
         closeDB();
 
 
@@ -3122,6 +3150,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             }
         }
         int id = lastId + 1;
+        res.close();
         closeDB();
 
 
@@ -3235,6 +3264,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             estimate.setItems(items_list);
         }
 
+        res.close();
         closeDB();
 
         return array_list;
@@ -3288,6 +3318,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             estimate.setItems(items_list);
         }
 
+        res.close();
         closeDB();
 
         return estimate;
@@ -3373,6 +3404,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Product", array_list.toString());
         return array_list;
@@ -3414,6 +3446,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
        
         return cropProduct;
@@ -3492,6 +3525,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Analysis", array_list.toString());
         return array_list;
@@ -3523,6 +3557,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSupplier.setInvoiceCountry(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY)));
             return cropSupplier;
         }
+        res.close();
 
         closeDB();
 
@@ -3612,6 +3647,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Analysis", array_list.toString());
         return array_list;
@@ -3749,6 +3785,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Analysis", array_list.toString());
         return array_list;
@@ -3782,6 +3819,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_soil_analysis),id);
+        res.close();
         closeDB();
     }
 
@@ -3847,6 +3885,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Analysis", array_list.toString());
         return array_list;
@@ -3888,6 +3927,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_SPRAYING_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_spraying),id);
+        res.close();
         closeDB();
     }
 
@@ -3971,6 +4011,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
 
+        res.close();
         closeDB();
         return array_list;
 
@@ -4007,6 +4048,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_fertilizer_application),id);
+
+        res.close();
         closeDB();
     }
 
@@ -4084,6 +4127,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
+        res.close();
         closeDB();
 
         return array_list;
@@ -4117,6 +4161,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_CULTIVATION_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_cultivation),id);
+        res.close();
         closeDB();
     }
 
@@ -4181,6 +4226,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         return array_list;
 
@@ -4279,6 +4325,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         Log.d("TESTING",array_list.toString());
         return array_list;
@@ -4319,6 +4366,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         return array_list;
 
@@ -4408,6 +4456,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             }
 
         }
+        res.close();
         closeDB();
         return array_list;
 
@@ -4494,6 +4543,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             }
 
         }
+        res.close();
         closeDB();
 
         return array_list;
@@ -4538,6 +4588,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
+            res.close();
         closeDB();
 
         return inventorySeeds;
@@ -4684,6 +4735,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             }
 
         }
+
+        res.close();
         closeDB();
 
         //Log.d("HOUSES SIZE",array_list.size()+"");
@@ -4746,6 +4799,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
             res.moveToNext();
         }
+
+        res.close();
         closeDB();
         Log.d("FIELDS SIZE", array_list.size() + "");
 
@@ -4833,6 +4888,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
+        res.close();
         closeDB();
         return array_list;
     }
@@ -4918,7 +4974,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(incomeExpense);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5005,7 +5061,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(task);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
 
         return array_list;
@@ -5020,6 +5076,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             lastId = res.getInt(res.getColumnIndex(CROP_PURCHASE_ORDER_ID));
         }
         int id=lastId+1;
+
+        res.close();
         closeDB();
 
         return "PO-"+String.format("%03d", id);
@@ -5061,6 +5119,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
             }
         }
+        res.close();
         closeDB();
         return getCropPurchaseOrder(estimate.getNumber());
     }
@@ -5165,6 +5224,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropPurchaseOrder.setItems(items_list);
         }
 
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5212,7 +5272,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             }
             cropPurchaseOrder.setItems(items_list);
         }
-
+        res.close();
         closeDB();
         return cropPurchaseOrder;
     }
@@ -5293,7 +5353,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(paymentBill);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5326,7 +5386,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(paymentBill);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5364,7 +5424,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             
 
         }
-
+        res.close();
         closeDB();
         return getCropBill(bill.getNumber());
     }
@@ -5424,6 +5484,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             lastId = res.getInt(res.getColumnIndex(CROP_BILL_ID));
         }
         int id=lastId+1;
+        res.close();
         closeDB();
 
         return "BL-"+String.format("%04d", id);
@@ -5487,6 +5548,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             bill.setPaymentBills(this.getCropPaymentBills(bill.getId()));
         }
 
+        res.close();
         closeDB();
         Log.d("Crop Product", array_list.toString());
         return array_list;
@@ -5542,7 +5604,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         bill.setPaymentBills(this.getCropPaymentBills(bill.getId()));
 
-
+        res.close();
         closeDB();
 
         return bill;
@@ -5601,7 +5663,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         for(CropBill bill: array_list){
             bill.setPaymentBills(this.getCropPaymentBills(bill.getId()));
         }
-
+        res.close();
         closeDB();
         Log.d("Crop Product", array_list.toString());
         return array_list;
@@ -5635,6 +5697,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_IRRIGATION_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_irrigation),id);
+        res.close();
         closeDB();
     }
 
@@ -5701,7 +5764,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(irrigation);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5736,6 +5799,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_TRANSPLANTING_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_transplanting),id);
+        res.close();
         closeDB();
     }
     public void updateCropTransplanting(CropTransplanting transplanting) {
@@ -5809,7 +5873,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(transplanting);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5844,6 +5908,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_SCOUTING_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_scouting),id);
+        res.close();
         closeDB();
     }
 
@@ -5914,7 +5979,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(scouting);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -5954,6 +6019,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             id = res.getString(res.getColumnIndex(CROP_HARVEST_ID));
         }
         generateNotifications(context.getString(R.string.notification_type_harvest),id);
+        res.close();
         closeDB();
     }
 
@@ -6033,7 +6099,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(harvest);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }
@@ -6104,7 +6170,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(contact);
             res.moveToNext();
         }
-
+        res.close();
         closeDB();
         return array_list;
     }

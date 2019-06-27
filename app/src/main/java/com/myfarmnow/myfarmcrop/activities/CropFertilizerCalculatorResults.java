@@ -1,16 +1,14 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.models.CropFertilizer;
 import com.myfarmnow.myfarmcrop.models.FertilizerCalculationException;
 import com.myfarmnow.myfarmcrop.singletons.CropFertilizerCalculator;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;

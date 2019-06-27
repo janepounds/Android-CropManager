@@ -3,9 +3,9 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -18,16 +18,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineNotesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineServicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineTasksListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSupplierManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropMachine;
-import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.util.ArrayList;
 

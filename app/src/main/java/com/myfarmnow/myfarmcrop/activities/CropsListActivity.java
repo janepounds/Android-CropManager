@@ -1,23 +1,19 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.R;
 
 import com.myfarmnow.myfarmcrop.adapters.CropsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;
-import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
-import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 import java.util.ArrayList;
 

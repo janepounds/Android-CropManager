@@ -1,18 +1,13 @@
 package com.myfarmnow.myfarmcrop.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.GravityCompat;
-import android.util.Log;
+import androidx.annotation.RequiresApi;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,9 +17,6 @@ import com.myfarmnow.myfarmcrop.models.NavDrawerItem;
 import com.myfarmnow.myfarmcrop.models.NavDrawerItemchild;
 
 import java.util.ArrayList;
-
-import static android.content.Context.MODE_PRIVATE;
-
 
 
 public class NavigationAdapterExpand extends BaseExpandableListAdapter {

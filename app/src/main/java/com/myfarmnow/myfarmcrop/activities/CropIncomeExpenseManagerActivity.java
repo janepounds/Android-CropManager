@@ -2,8 +2,8 @@ package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -375,6 +375,14 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         else if(itemTxt.getText().toString().isEmpty()){
             message = getString(R.string.item_not_entered_message);
             itemTxt.requestFocus();
+        }
+        else if(taxesTxt.getText().toString().isEmpty()){
+            message = getString(R.string.taxes_not_entered_message);
+            taxesTxt.requestFocus();
+        }
+        else if(sellingPriceTxt.getText().toString().isEmpty()){
+            message = getString(R.string.selling_price_not_entered_message);
+            sellingPriceTxt.requestFocus();
         }
         else if(quantityTxt.getText().toString().isEmpty()){
             message = getString(R.string.quantity_not_entered_message);

@@ -1,6 +1,6 @@
 package com.myfarmnow.myfarmcrop;
 
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 public class CropManagerApp extends MultiDexApplication {
   

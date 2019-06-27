@@ -19,7 +19,7 @@ buildscript {
         //maven {'https://maven.fabric.io/public'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         /*classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-pluin:0.5'
         classpath 'coom.google.gms:google-services:3.1.2'
         classpath 'io.fabric.tools:gradle:1.25.1'*/

@@ -2,7 +2,7 @@ package com.myfarmnow.myfarmcrop.activities;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -377,6 +377,10 @@ public class CropsManagerActivity extends AppCompatActivity {
         if(dateTxt.getText().toString().isEmpty()){
             message = getString(R.string.date_not_entered_message);
             dateTxt.requestFocus();
+        }
+        else if(yearTxt.getText().toString().isEmpty()){
+            message = getString(R.string.cropping_year_not_entered);
+            yearTxt.requestFocus();
         }
         else if(areaTxt.getText().toString().isEmpty()){
             message = getString(R.string.area_not_entered);

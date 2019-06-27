@@ -3,7 +3,6 @@ package com.myfarmnow.myfarmcrop.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
 import java.util.ArrayList;
-
-import static android.support.v4.content.ContextCompat.getColor;
 
 public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
     ArrayList<CropSpinnerItem> values=new ArrayList<>();
