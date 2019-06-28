@@ -13,14 +13,15 @@ import android.net.Uri;
 
 import android.os.Bundle;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,6 +36,12 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -87,6 +94,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static final String COUNTRY_PREFERENCES_ID ="addressCountry";
     public static final String PREFERENCES_USER_ID ="userId";
     public static final String PREFERENCES_USER_EMAIL ="email";
+    public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
 
 
     @Override
@@ -102,6 +110,10 @@ public class CropDashboardActivity extends AppCompatActivity  {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
+
+        if(!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,CropDashboardActivity.this).equals("yes")){
+            getAppToken();
+        }
 
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
@@ -270,8 +282,6 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
         userBackup();
     }
-
-
     public static  void addDatePicker(final EditText ed_, final Context context){
         ed_.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,6 +330,72 @@ public class CropDashboardActivity extends AppCompatActivity  {
     }
 
 
+    public void getAppToken(){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                           // Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        sendFirebaseToken(token,CropDashboardActivity.this);
+                    }
+                });
+
+    }
+
+    public static void sendFirebaseToken(String token, final Context context){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+       // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
+        params.put("email",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,context));
+        params.put("firebaseToken",token);
+        client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new JsonHttpResponseHandler() {
+            ProgressDialog dialog;
+            @Override
+            public void onStart() {
+
+                dialog = new ProgressDialog(context);
+                dialog.setIndeterminate(true);
+                dialog.setMessage("Please Wait..");
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,"yes",context);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                if (errorResponse != null) {
+                    Log.e("info", new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info", "Something got very very wrong");
+                }
+
+                dialog.dismiss();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                if (errorResponse != null) {
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info : "+statusCode, "Something got very very wrong");
+                }
+                dialog.dismiss();
+            }
+        });
+    }
     public void openDigitalWallet(View view){
         if(CropWalletAuthActivity.WALLET_ACCESS_TOKEN==null){
             Intent openDW = new Intent(this, CropWalletAuthActivity.class);
@@ -654,7 +730,6 @@ public class CropDashboardActivity extends AppCompatActivity  {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e("RESPONSE", "failed ");
-
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {

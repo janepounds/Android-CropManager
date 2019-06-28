@@ -1,8 +1,8 @@
 package com.myfarmnow.myfarmcrop.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,11 +12,9 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
-import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

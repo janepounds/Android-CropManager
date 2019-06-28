@@ -9,12 +9,12 @@
     tools:context=".activities.CropPurchaseOrdersListActivity"
     >
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/crop_purchase_order_recyc_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
        android:layout_margin="8dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

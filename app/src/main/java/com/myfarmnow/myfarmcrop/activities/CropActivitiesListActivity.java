@@ -1,10 +1,10 @@
 package com.myfarmnow.myfarmcrop.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -17,7 +17,6 @@ import com.myfarmnow.myfarmcrop.models.CropActivity;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropHarvest;
-import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.CropIrrigation;
 import com.myfarmnow.myfarmcrop.models.CropScouting;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;

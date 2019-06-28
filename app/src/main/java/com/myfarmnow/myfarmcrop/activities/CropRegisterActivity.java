@@ -8,8 +8,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -495,6 +495,7 @@ public class CropRegisterActivity extends PermisoActivity implements
     private String getpreferences(String key) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
                 0);
+
         return sharedPreferences.getString(key, "0");
 
     }

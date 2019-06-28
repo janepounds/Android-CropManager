@@ -3,7 +3,7 @@ package com.myfarmnow.myfarmcrop.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -130,15 +129,10 @@ public class CropDigitalWalletTransferActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
-
                     finish();
                     Intent goToWallet = new Intent(CropDigitalWalletTransferActivity.this,CropWalletActivity.class);
                     startActivity(goToWallet);
-
-
-
-
-                dialog.dismiss();
+                    dialog.dismiss();
             }
 
             @Override
@@ -146,16 +140,30 @@ public class CropDigitalWalletTransferActivity extends AppCompatActivity {
                 if(statusCode==401){
                     CropWalletAuthActivity.startAuth(CropDigitalWalletTransferActivity.this, true);
                 }else if(statusCode == 500){
-                    Toast.makeText(CropDigitalWalletTransferActivity.this, "Error Occurred Try again later", Toast.LENGTH_LONG).show();
+                    errorMsgTxt.setText("Error Occurred Try again later");
                     Log.e("info 500", new String(String.valueOf(errorResponse))+", code: "+statusCode);
                 }
+                else if(statusCode == 400){
+                    errorMsgTxt.setText("Check your input details");
+                    Log.e("info 500", new String(String.valueOf(errorResponse))+", code: "+statusCode);
+                }
+                else if(statusCode == 406){
+                    try {
+                        errorMsgTxt.setText(errorResponse.getString("message"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("info 406", new String(String.valueOf(errorResponse))+", code: "+statusCode);
+                }
                 else {
+                    errorMsgTxt.setText("Error Occurred Try again later");
                     if (errorResponse != null) {
                         Log.e("info", new String(String.valueOf(errorResponse))+", code: "+statusCode);
                     } else {
                         Log.e("info", "Something got very very wrong, code: "+statusCode);
                     }
                 }
+                errorMsgTxt.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
             @Override
@@ -165,7 +173,8 @@ public class CropDigitalWalletTransferActivity extends AppCompatActivity {
                 } else {
                     Log.e("info : "+statusCode, "Something got very very wrong");
                 }
-                Toast.makeText(CropDigitalWalletTransferActivity.this, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
+                errorMsgTxt.setText("Error Occurred Try again later");
+                errorMsgTxt.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
         });
