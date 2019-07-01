@@ -4802,7 +4802,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         res.close();
         closeDB();
-        Log.d("FIELDS SIZE", array_list.size() + "");
+
 
         return array_list;
     }
@@ -6176,7 +6176,40 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<CropField> getCropFields(String userId, boolean b) {
+        openDB();
+        ArrayList<CropField> array_list = new ArrayList();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropField field = new CropField();
+            field.setId(res.getString(res.getColumnIndex(CROP_FIELD_ID)));
+            field.setUserId(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID)));
+            field.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            field.setSoilCategory(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_CATEGORY)));
+            field.setSoilType(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_TYPE)));
+            field.setWatercourse(res.getString(res.getColumnIndex(CROP_FIELD_WATERCOURSE)));
+            field.setTotalArea(res.getFloat(res.getColumnIndex(CROP_FIELD_TOTAL_AREA)));
+            field.setCroppableArea(res.getFloat(res.getColumnIndex(CROP_FIELD_CROPPABLE_AREA)));
+            field.setUnits(res.getString(res.getColumnIndex(CROP_FIELD_UNITS)));
+            field.setFieldType(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
+            field.setLayoutType(res.getString(res.getColumnIndex(CROP_FIELD_LAYOUT_TYPE)));
+            field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
+           // field.setSyncStatus(res.getString(res.getColumnIndex(SYN));
+
+            array_list.add(field);
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
 
 
+        return array_list;
+    }
 }
 

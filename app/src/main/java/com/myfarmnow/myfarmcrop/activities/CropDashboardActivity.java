@@ -44,6 +44,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
@@ -355,45 +356,29 @@ public class CropDashboardActivity extends AppCompatActivity  {
        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("email",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,context));
         params.put("firebaseToken",token);
-        client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
+        client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new AsyncHttpResponseHandler() {
+
             @Override
             public void onStart() {
 
-                dialog = new ProgressDialog(context);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(false);
-                dialog.show();
             }
 
-
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,"yes",context);
-                dialog.dismiss();
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                if (errorResponse != null) {
-                    Log.e("info", new String(String.valueOf(errorResponse)));
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                if (responseBody != null) {
+                    Log.e("info", new String(String.valueOf(responseBody)));
                 } else {
                     Log.e("info", "Something got very very wrong");
                 }
+            }
 
-                dialog.dismiss();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-                dialog.dismiss();
-            }
+
+
         });
     }
     public void openDigitalWallet(View view){
