@@ -2,6 +2,9 @@ package com.myfarmnow.myfarmcrop.models;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -252,5 +255,39 @@ public class Crop implements Serializable, CropSpinnerItem {
 
  public void setHarvestUnits(String harvestUnits) {
   this.harvestUnits = harvestUnits;
+ }
+
+ private String syncStatus="no";
+ private String globalId;
+ public void setSyncStatus(String syncStatus) {
+  this.syncStatus = syncStatus;
+ }
+
+ public String getSyncStatus() {
+  return syncStatus;
+ }
+
+ public void setGlobalId(String globalId) {
+  this.globalId = globalId;
+ }
+
+ public String getGlobalId() {
+  return globalId;
+ }
+
+ public JSONObject toJSON(){
+
+  JSONObject object = new JSONObject();
+
+  try {
+   object.put("id",id);
+   object.put("globalId",globalId);
+
+
+  } catch (JSONException e) {
+   e.printStackTrace();
+  }
+  return object;
+
  }
 }

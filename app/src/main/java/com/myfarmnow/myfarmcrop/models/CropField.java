@@ -1,5 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class CropField  implements CropSpinnerItem,Serializable{
@@ -15,6 +18,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
     float totalArea=0;
     float croppableArea=0;
     String units="";
+
 
     public CropField(){
 
@@ -119,6 +123,49 @@ public class CropField  implements CropSpinnerItem,Serializable{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    private String syncStatus="no";
+    private String globalId;
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setGlobalId(String globalId) {
+        this.globalId = globalId;
+    }
+
+    public String getGlobalId() {
+        return globalId;
+    }
+
+    public JSONObject toJSON(){
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",id);
+            object.put("fieldName",fieldName);
+            object.put("soilCategory",soilCategory);
+            object.put("fieldType",fieldType);
+            object.put("layoutType",layoutType);
+            object.put("status",status);
+            object.put("soilType",soilType);
+            object.put("watercourse",watercourse);
+            object.put("totalArea",totalArea);
+            object.put("croppableArea",croppableArea);
+            object.put("globalId",globalId);
+            object.put("units",units);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+
     }
 }
 

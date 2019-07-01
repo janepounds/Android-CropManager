@@ -104,4 +104,38 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
     public String getComposition(){
         return "("+getnPercentage() +": "+(int)getpPercentage()+" : "+getkPercentage()+" )";
     }
+
+    private String syncStatus="no";
+    private String globalId;
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setGlobalId(String globalId) {
+        this.globalId = globalId;
+    }
+
+    public String getGlobalId() {
+        return globalId;
+    }
+
+    public JSONObject toJSON(){
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",id);
+            object.put("globalId",globalId);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+
+    }
 }

@@ -57,6 +57,7 @@ import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
+import com.myfarmnow.myfarmcrop.services.CropSyncService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -119,6 +120,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
+        startService(new Intent(this, CropSyncService.class));
 
     }
 
