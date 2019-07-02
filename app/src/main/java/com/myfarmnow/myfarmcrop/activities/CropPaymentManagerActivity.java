@@ -19,7 +19,7 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
-import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.models.CropInvoicePayment;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -33,7 +33,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
     EditText dateTxt,amountTxt, referenceNumberTxt,notesTxt;
     TextView paymentNumberTxt;
     TextView currencyLabelTxt;
-    CropPayment cropPayment=null;
+    CropInvoicePayment cropInvoicePayment =null;
     Button saveBtn;
     String submittedInvoiceId;
     @Override
@@ -43,8 +43,8 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(getIntent().hasExtra("cropPayment")){
-            cropPayment = (CropPayment)getIntent().getSerializableExtra("cropPayment");
+        if(getIntent().hasExtra("cropInvoicePayment")){
+            cropInvoicePayment = (CropInvoicePayment)getIntent().getSerializableExtra("cropInvoicePayment");
         }
 
         initializeForm();
@@ -70,7 +70,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateEntries()){
-                    if(cropPayment==null){
+                    if(cropInvoicePayment ==null){
                         savePayment();
                     }
                     else{
@@ -126,30 +126,30 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
     }
 
     public void savePayment(){
-        cropPayment = new CropPayment();
-            cropPayment.setUserId(CropDashboardActivity.getPreferences("userId",this));
-            cropPayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
-            cropPayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
-            cropPayment.setPaymentNumber(paymentNumberTxt.getText().toString());
-            cropPayment.setReferenceNo(referenceNumberTxt.getText().toString());
-            cropPayment.setDate(dateTxt.getText().toString());
-            cropPayment.setMode(paymentModeSp.getSelectedItem().toString());
-            cropPayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
-            cropPayment.setNotes(notesTxt.getText().toString());
-            dbHandler.insertCropPayment(cropPayment);
+        cropInvoicePayment = new CropInvoicePayment();
+            cropInvoicePayment.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
+            cropInvoicePayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
+            cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
+            cropInvoicePayment.setReferenceNo(referenceNumberTxt.getText().toString());
+            cropInvoicePayment.setDate(dateTxt.getText().toString());
+            cropInvoicePayment.setMode(paymentModeSp.getSelectedItem().toString());
+            cropInvoicePayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
+            cropInvoicePayment.setNotes(notesTxt.getText().toString());
+            dbHandler.insertCropPayment(cropInvoicePayment);
     }
     public void updatePayment(){
-        if(cropPayment !=null){
-            cropPayment.setUserId(CropDashboardActivity.getPreferences("userId",this));
-            cropPayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
-            cropPayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
-            cropPayment.setPaymentNumber(paymentNumberTxt.getText().toString());
-            cropPayment.setReferenceNo(referenceNumberTxt.getText().toString());
-            cropPayment.setDate(dateTxt.getText().toString());
-            cropPayment.setMode(paymentModeSp.getSelectedItem().toString());
-            cropPayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
-            cropPayment.setNotes(notesTxt.getText().toString());
-            dbHandler.updateCropPayment(cropPayment);
+        if(cropInvoicePayment !=null){
+            cropInvoicePayment.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
+            cropInvoicePayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
+            cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
+            cropInvoicePayment.setReferenceNo(referenceNumberTxt.getText().toString());
+            cropInvoicePayment.setDate(dateTxt.getText().toString());
+            cropInvoicePayment.setMode(paymentModeSp.getSelectedItem().toString());
+            cropInvoicePayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
+            cropInvoicePayment.setNotes(notesTxt.getText().toString());
+            dbHandler.updateCropPayment(cropInvoicePayment);
 
         }
     }
@@ -162,15 +162,15 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemById(customersSp,getIntent().getStringExtra("customerId"));
             customersSp.setEnabled(false);
         }*/
-        if(cropPayment !=null){
-            dateTxt.setText(cropPayment.getDate());
-            CropDashboardActivity.selectSpinnerItemById(customersSp,cropPayment.getCustomerId());
-            CropDashboardActivity.selectSpinnerItemById(invoiceSp,cropPayment.getInvoiceId());
-            CropDashboardActivity.selectSpinnerItemByValue(paymentModeSp,cropPayment.getMode());
-            paymentNumberTxt.setText(cropPayment.getPaymentNumber());
-            referenceNumberTxt.setText(cropPayment.getReferenceNo());
-            notesTxt.setText(cropPayment.getNotes());
-            amountTxt.setText(cropPayment.getAmount()+"");
+        if(cropInvoicePayment !=null){
+            dateTxt.setText(cropInvoicePayment.getDate());
+            CropDashboardActivity.selectSpinnerItemById(customersSp, cropInvoicePayment.getCustomerId());
+            CropDashboardActivity.selectSpinnerItemById(invoiceSp, cropInvoicePayment.getInvoiceId());
+            CropDashboardActivity.selectSpinnerItemByValue(paymentModeSp, cropInvoicePayment.getMode());
+            paymentNumberTxt.setText(cropInvoicePayment.getPaymentNumber());
+            referenceNumberTxt.setText(cropInvoicePayment.getReferenceNo());
+            notesTxt.setText(cropInvoicePayment.getNotes());
+            amountTxt.setText(cropInvoicePayment.getAmount()+"");
         }
     }
 

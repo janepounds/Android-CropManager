@@ -1,5 +1,8 @@
 package com.myfarmnow.myfarmcrop.singletons;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,5 +86,39 @@ public class CropSettingsSingleton {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    private String syncStatus="no";
+    private String globalId;
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setGlobalId(String globalId) {
+        this.globalId = globalId;
+    }
+
+    public String getGlobalId() {
+        return globalId;
+    }
+
+    public JSONObject toJSON(){
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",id);
+            object.put("globalId",globalId);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+
     }
 }

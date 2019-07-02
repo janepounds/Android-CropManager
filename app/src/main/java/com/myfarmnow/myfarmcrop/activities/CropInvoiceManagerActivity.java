@@ -29,7 +29,7 @@ import com.myfarmnow.myfarmcrop.fragments.CropInvoicePaymentDialog;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropInvoice;
-import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.models.CropInvoicePayment;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropSalesOrder;
@@ -63,7 +63,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
     CropEstimate sourceCropEstimate = null;
     CropSalesOrder sourceCropSalesOrder;
     CropSpinnerAdapter customersSpinnerAdapter;
-    CropPayment cropPayment;
+    CropInvoicePayment cropInvoicePayment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -400,9 +400,9 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         }
         cropInvoice.setItems(invoiceItems);
 
-        if(cropPayment != null){
-            cropPayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
-            cropInvoice.setInitialPayment(cropPayment);
+        if(cropInvoicePayment != null){
+            cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
+            cropInvoice.setInitialPayment(cropInvoicePayment);
         }
 
        return dbHandler.insertCropInvoice(cropInvoice);
@@ -431,9 +431,9 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
             Log.d("Item : ",invoiceItems.get(0).print());
 
             cropInvoice.setItems(invoiceItems);
-            if(cropPayment != null){
-                cropPayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
-                cropInvoice.setInitialPayment(cropPayment);
+            if(cropInvoicePayment != null){
+                cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
+                cropInvoice.setInitialPayment(cropInvoicePayment);
             }
            return dbHandler.updateCropInvoice(cropInvoice);
         }
@@ -530,9 +530,9 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
     }
 
     @Override
-    public void savePayment(CropPayment payment) {
-        cropPayment = payment;
-        amountPaidTxt.setText(cropPayment.getAmount()+"");
+    public void savePayment(CropInvoicePayment payment) {
+        cropInvoicePayment = payment;
+        amountPaidTxt.setText(cropInvoicePayment.getAmount()+"");
         addPaymentBtn.setVisibility(View.GONE);
         paymentMadeLayout.setVisibility(View.VISIBLE);
 

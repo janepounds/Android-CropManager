@@ -10,7 +10,6 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
     String id="";
     String userId="";
 
-
     String cropId="";
     String date="";
     String transaction="";
@@ -22,8 +21,6 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
     float taxes=0;
     String paymentMode="";
     String paymentStatus="";
-
-
 
     public float getSellingPrice() {
         return sellingPrice;

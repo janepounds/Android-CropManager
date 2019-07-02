@@ -1,8 +1,11 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
-public class CropPayment implements Serializable {
+public class CropInvoicePayment implements Serializable {
     String  id;
     String  userId;
     String  customerId;
@@ -109,5 +112,39 @@ public class CropPayment implements Serializable {
 
     public void setInvoiceId(String invoiceId) {
         this.invoiceId = invoiceId;
+    }
+
+    private String syncStatus="no";
+    private String globalId;
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setGlobalId(String globalId) {
+        this.globalId = globalId;
+    }
+
+    public String getGlobalId() {
+        return globalId;
+    }
+
+    public JSONObject toJSON(){
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",id);
+            object.put("globalId",globalId);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+
     }
 }

@@ -1,5 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class CropNote implements Serializable {
@@ -82,4 +85,39 @@ public class CropNote implements Serializable {
     public void setIsFor(String isFor) {
         this.isFor = isFor;
     }
+
+    private String syncStatus="no";
+    private String globalId;
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setGlobalId(String globalId) {
+        this.globalId = globalId;
+    }
+
+    public String getGlobalId() {
+        return globalId;
+    }
+
+    public JSONObject toJSON(){
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",id);
+            object.put("globalId",globalId);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+
+    }
+
 }

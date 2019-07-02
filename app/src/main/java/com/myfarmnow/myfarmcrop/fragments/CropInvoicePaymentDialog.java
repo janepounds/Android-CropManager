@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.models.CropInvoicePayment;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -31,7 +31,7 @@ public class CropInvoicePaymentDialog extends DialogFragment {
     Button saveBtn;
     Dialog dialog;
     Spinner paymentModeSp;
-    CropPayment cropPayment;
+    CropInvoicePayment cropInvoicePayment;
     LinearLayout customerLayout, invoiceLayout;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class CropInvoicePaymentDialog extends DialogFragment {
                     savePayment();
                     dialog.dismiss();
                     PaymentDialogActivity activity = (PaymentDialogActivity) getActivity();
-                    activity.savePayment(cropPayment);
+                    activity.savePayment(cropInvoicePayment);
                 }
             }
         });
@@ -100,15 +100,15 @@ public class CropInvoicePaymentDialog extends DialogFragment {
 
     }
     public void savePayment(){
-        cropPayment = new CropPayment();
-        cropPayment.setUserId(CropDashboardActivity.getPreferences("userId",getActivity()));
-        cropPayment.setPaymentNumber(paymentNumberTxt.getText().toString());
-        cropPayment.setReferenceNo(referenceNumberTxt.getText().toString());
-        cropPayment.setMode(paymentModeSp.getSelectedItem().toString());
-        cropPayment.setDate(dateTxt.getText().toString());
-        cropPayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
-        cropPayment.setNotes(notesTxt.getText().toString());
-        dbHandler.insertCropPayment(cropPayment);
+        cropInvoicePayment = new CropInvoicePayment();
+        cropInvoicePayment.setUserId(CropDashboardActivity.getPreferences("userId",getActivity()));
+        cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
+        cropInvoicePayment.setReferenceNo(referenceNumberTxt.getText().toString());
+        cropInvoicePayment.setMode(paymentModeSp.getSelectedItem().toString());
+        cropInvoicePayment.setDate(dateTxt.getText().toString());
+        cropInvoicePayment.setAmount(Float.parseFloat(amountTxt.getText().toString()));
+        cropInvoicePayment.setNotes(notesTxt.getText().toString());
+        dbHandler.insertCropPayment(cropInvoicePayment);
     }
 
     public boolean validateEntries(){

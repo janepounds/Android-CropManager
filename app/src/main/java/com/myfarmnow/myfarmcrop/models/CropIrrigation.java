@@ -1,5 +1,8 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -198,6 +201,40 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         Date date2 = format.parse(endTime);
         double difference = (date2.getTime() - date1.getTime())/(1000.0*60*60.0);
         return (float)difference;
+
+    }
+
+    private String syncStatus="no";
+    private String globalId;
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+    public String getSyncStatus() {
+        return syncStatus;
+    }
+
+    public void setGlobalId(String globalId) {
+        this.globalId = globalId;
+    }
+
+    public String getGlobalId() {
+        return globalId;
+    }
+
+    public JSONObject toJSON(){
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",id);
+            object.put("globalId",globalId);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
 
     }
 }

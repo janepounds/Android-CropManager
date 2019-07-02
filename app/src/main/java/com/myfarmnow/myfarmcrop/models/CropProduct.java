@@ -131,6 +131,7 @@ public class CropProduct implements CropSpinnerItem, Serializable {
     public String toString(){
         return name;
     }
+
     private String syncStatus="no";
     private String globalId;
     public void setSyncStatus(String syncStatus) {
@@ -150,14 +151,10 @@ public class CropProduct implements CropSpinnerItem, Serializable {
     }
 
     public JSONObject toJSON(){
-
         JSONObject object = new JSONObject();
-
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

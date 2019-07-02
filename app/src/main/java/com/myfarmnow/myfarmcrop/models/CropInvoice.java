@@ -25,9 +25,9 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
      String  orderNumber;
      String customerName;
 
-    CropPayment initialPayment;
+    CropInvoicePayment initialPayment;
      ArrayList<CropProductItem> items = new ArrayList<>();
-    private ArrayList<CropPayment> payments;
+    private ArrayList<CropInvoicePayment> payments;
 
     public String getCustomerName() {
         return customerName;
@@ -151,7 +151,7 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
     }
     public float computeTotalPayments(){
         float subTotal =0;
-        for(CropPayment x :payments ){
+        for(CropInvoicePayment x :payments ){
             subTotal+=x.getAmount();
         }
         return subTotal;
@@ -169,19 +169,19 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         return getNumber();
     }
 
-    public CropPayment getInitialPayment() {
+    public CropInvoicePayment getInitialPayment() {
         return initialPayment;
     }
 
-    public void setInitialPayment(CropPayment initialPayment) {
+    public void setInitialPayment(CropInvoicePayment initialPayment) {
         this.initialPayment = initialPayment;
     }
 
-    public void setPayments(ArrayList<CropPayment> payments) {
+    public void setPayments(ArrayList<CropInvoicePayment> payments) {
         this.payments = payments;
     }
 
-    public ArrayList<CropPayment> getPayments() {
+    public ArrayList<CropInvoicePayment> getPayments() {
         return payments;
     }
 

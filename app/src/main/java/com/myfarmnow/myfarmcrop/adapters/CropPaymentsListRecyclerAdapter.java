@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropPayment;
+import com.myfarmnow.myfarmcrop.models.CropInvoicePayment;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
@@ -30,10 +30,10 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
 
     LayoutInflater layoutInflater;
     Context mContext;
-    ArrayList<CropPayment> cropPaymentsList = new ArrayList<>();
+    ArrayList<CropInvoicePayment> cropInvoicePaymentsList = new ArrayList<>();
 
-    public CropPaymentsListRecyclerAdapter(Context context, ArrayList<CropPayment> cropPayments){
-        cropPaymentsList.addAll(cropPayments);
+    public CropPaymentsListRecyclerAdapter(Context context, ArrayList<CropInvoicePayment> cropInvoicePayments){
+        cropInvoicePaymentsList.addAll(cropInvoicePayments);
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
     }
@@ -45,20 +45,20 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
         return holder;
     }
 
-    public void appendList(ArrayList<CropPayment> cropPayments){
+    public void appendList(ArrayList<CropInvoicePayment> cropInvoicePayments){
 
-        this.cropPaymentsList.addAll(cropPayments);
+        this.cropInvoicePaymentsList.addAll(cropInvoicePayments);
         notifyDataSetChanged();
     }
 
-    public void addCropPayment(CropPayment cropPayment){
-        this.cropPaymentsList.add(cropPayment);
+    public void addCropPayment(CropInvoicePayment cropInvoicePayment){
+        this.cropInvoicePaymentsList.add(cropInvoicePayment);
         notifyItemChanged(getItemCount());
     }
-    public void changeList(ArrayList<CropPayment> cropPayments){
+    public void changeList(ArrayList<CropInvoicePayment> cropInvoicePayments){
 
-        this.cropPaymentsList.clear();
-        this.cropPaymentsList.addAll(cropPayments);
+        this.cropInvoicePaymentsList.clear();
+        this.cropInvoicePaymentsList.addAll(cropInvoicePayments);
 
         notifyDataSetChanged();
     }
@@ -67,7 +67,7 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
     @Override
     public void onBindViewHolder(@NonNull PaymentViewHolder holder, int position) {
 
-        CropPayment payment = cropPaymentsList.get(position);
+        CropInvoicePayment payment = cropInvoicePaymentsList.get(position);
         holder.nameTextView.setText(payment.getCustomerName());
         holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(payment.getDate()));
         holder.modeTextView.setText(payment.getMode());
@@ -83,7 +83,7 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
 
     @Override
     public int getItemCount() {
-        return cropPaymentsList.size();
+        return cropInvoicePaymentsList.size();
     }
 
 
@@ -114,25 +114,25 @@ public class CropPaymentsListRecyclerAdapter extends RecyclerView.Adapter<CropPa
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
-                                final CropPayment cropPayment = cropPaymentsList.get(getAdapterPosition());
+                                final CropInvoicePayment cropInvoicePayment = cropInvoicePaymentsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle(R.string.label_confirm)
-                                        .setMessage(wrapper.getString(R.string.delete_prompt_message)+cropPayment.getPaymentNumber()+" ?")
+                                        .setMessage(wrapper.getString(R.string.delete_prompt_message)+ cropInvoicePayment.getPaymentNumber()+" ?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropPayment(cropPayment.getId());
-                                                cropPaymentsList.remove(getAdapterPosition());
+                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropPayment(cropInvoicePayment.getId());
+                                                cropInvoicePaymentsList.remove(getAdapterPosition());
                                                 notifyItemRemoved(getAdapterPosition());
 
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
-                                CropPayment cropPayment = cropPaymentsList.get(getAdapterPosition());
+                                CropInvoicePayment cropInvoicePayment = cropInvoicePaymentsList.get(getAdapterPosition());
                                 Intent editPayment = new Intent(mContext, CropPaymentManagerActivity.class);
-                                editPayment.putExtra("cropPayment",cropPayment);
+                                editPayment.putExtra("cropInvoicePayment", cropInvoicePayment);
                                 mContext.startActivity(editPayment);
                             }
                             return true;

@@ -196,18 +196,13 @@ public class CropEmployee implements CropSpinnerItem, Serializable {
     }
 
     public JSONObject toJSON(){
-
         JSONObject object = new JSONObject();
-
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
-
     }
 }
