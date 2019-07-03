@@ -1,12 +1,20 @@
 package com.myfarmnow.myfarmcrop.services;
 
+/*
+contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
+ */
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropContact;
@@ -18,7 +26,6 @@ import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropHarvest;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
-import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
@@ -48,6 +55,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
 public class CropSyncService extends Service {
     MyFarmDbHandlerSingleton dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
     String userId = null;
@@ -74,43 +83,6 @@ public class CropSyncService extends Service {
 
     public void prepareSyncRequest(){
         JSONObject requestObject = new JSONObject();
-        try {
-            requestObject.put("fields",prepareFields());
-            requestObject.put("incomeExpenses",prepareIncomeExpense());
-            requestObject.put("bills",prepareBills());
-            requestObject.put("contacts",prepareContacts());
-            requestObject.put("crops",prepareCrops());
-            requestObject.put("cultivations",prepareCultivations());
-            requestObject.put("customers",prepareCustomers());
-            requestObject.put("employees",prepareEmployees());
-            requestObject.put("estimates",prepareEstimates());
-            requestObject.put("harvests",prepareHarvest());
-            requestObject.put("fertilizerApplication",prepareFertilizerApplication());
-            requestObject.put("inventoryFertilizers",prepareInventoryFertilizers());
-            requestObject.put("inventorySeeds",prepareInventorySeeds());
-            requestObject.put("inventorySprays",prepareInventorySprays());
-            requestObject.put("invoices",prepareInvoice());
-            requestObject.put("irrigations",prepareIrrigations());
-            requestObject.put("machines",prepareMachines());
-            requestObject.put("machineServices",prepareMachineServices());
-            requestObject.put("machineTasks",prepareMachineTasks());
-            requestObject.put("notes",prepareNotes());
-            requestObject.put("payments",preparePayments());
-            requestObject.put("paymentBills",preparePaymentBills());
-            requestObject.put("products",prepareProducts());
-            requestObject.put("productItems",prepareProductItems());
-            requestObject.put("purchaseOrders",preparePurchaseOrders());
-            requestObject.put("salesOrders",prepareSalesOrders());
-            requestObject.put("scoutings",prepareScoutings());
-            requestObject.put("settings",prepareSettings());
-            requestObject.put("soilAnalysis",prepareSoilAnalysis());
-            requestObject.put("sprayings",prepareSprayings());
-            requestObject.put("suppliers",prepareSuppliers());
-            requestObject.put("tasks",prepareTasks());
-            requestObject.put("transplantings",prepareTransplantings());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         Log.d("SYNC",requestObject.toString());
     }
 
@@ -145,7 +117,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropIncomeExpense> records = dbHandler.getCropIncomeExpenses(userId,false);
         for(CropIncomeExpense record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop !=null){
                 if(crop.getGlobalId()==null){
                     continue; //do not back up this record since its parent record is not backed up
@@ -160,7 +132,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropBill> records = dbHandler.getCropBills(userId,false);
         for(CropBill record: records){
-            CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId());
+            CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId(),false);
             if(supplier ==null){
                 continue; //item has no assigned supplier
             }
@@ -184,7 +156,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<Crop> records = dbHandler.getCrops(userId,false);
         for(Crop crop: records){
-            CropField field = dbHandler.getCropField(crop.getFieldId());
+            CropField field = dbHandler.getCropField(crop.getFieldId(),false);
             if(field ==null){
                 continue; //crop has no assigned field
             }
@@ -193,7 +165,7 @@ public class CropSyncService extends Service {
             }
             crop.setFieldId(field.getGlobalId());
 
-            CropInventorySeeds seed = dbHandler.getCropSeed(crop.getSeedId());
+            CropInventorySeeds seed = dbHandler.getCropSeed(crop.getSeedId(),false);
 
             if(seed != null){
                 if(seed.getGlobalId()==null){
@@ -210,7 +182,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropCultivation> records = dbHandler.getCropCultivates(userId,false);
         for(CropCultivation record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -232,7 +204,7 @@ public class CropSyncService extends Service {
     }
     private JSONArray prepareEmployees(){
         JSONArray jsonArray = new JSONArray();
-        ArrayList<CropEmployee> records = dbHandler.getCropEmployee(userId,false);
+        ArrayList<CropEmployee> records = dbHandler.getCropEmployees(userId,false);
         for(CropEmployee field: records){
             jsonArray.put(field.toJSON());
         }
@@ -242,7 +214,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropEstimate> records = dbHandler.getCropEstimates(userId,false);
         for(CropEstimate record: records){
-            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId());
+            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned customer
             }
@@ -258,7 +230,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropHarvest> records = dbHandler.getCropHarvests(userId,false);
         for(CropHarvest record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -274,7 +246,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropFertilizerApplication> records = dbHandler.getCropFertilizerApplication(userId,false);
         for(CropFertilizerApplication record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -283,7 +255,7 @@ public class CropSyncService extends Service {
             }
             record.setCropId(crop.getGlobalId());
 
-            CropInventoryFertilizer fertilizer = dbHandler.getCropFertilizerApplicationById(record.getFertilizerId());
+            CropInventoryFertilizer fertilizer = dbHandler.getCropFertilizer(record.getFertilizerId(),false);
             if(fertilizer ==null){
                 continue; //spraying has no assigned spray
             }
@@ -323,7 +295,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInvoice> records = dbHandler.getCropInvoices(userId,false);
         for(CropInvoice record: records){
-            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId());
+            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned bill
             }
@@ -339,7 +311,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropIrrigation> records = dbHandler.getCropIrrigations(userId,false);
         for(CropIrrigation record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -355,7 +327,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropMachineService> records = dbHandler.getCropMachineServices(userId,false);
         for(CropMachineService record: records){
-            CropMachine machine = dbHandler.getCropMachine(record.getMachineId());
+            CropMachine machine = dbHandler.getCropMachine(record.getMachineId(),false);
             if(machine ==null){
                 continue; //note has no assigned machine
             }
@@ -371,7 +343,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropMachineTask> records = dbHandler.getCropMachineTasks(userId,false);
         for(CropMachineTask record: records){
-            CropMachine machine = dbHandler.getCropMachine(record.getMachineId());
+            CropMachine machine = dbHandler.getCropMachine(record.getMachineId(),false);
             if(machine ==null){
                 continue; //note has no assigned machine
             }
@@ -388,7 +360,7 @@ public class CropSyncService extends Service {
         ArrayList<CropNote> records = dbHandler.getCropNotes(userId,false);
         for(CropNote record: records){
             if(record.getIsFor().equals(CropNote.IS_FOR_CROP)){
-                Crop crop = dbHandler.getCrop(record.getParentId());
+                Crop crop = dbHandler.getCrop(record.getParentId(),false);
                 if(crop ==null){
                     continue; //note has no assigned crop
                 }
@@ -397,7 +369,7 @@ public class CropSyncService extends Service {
                 }
                 record.setParentId(crop.getGlobalId());
             }else if(record.getIsFor().equals(CropNote.IS_FOR_MACHINE)){
-                CropMachine machine = dbHandler.getCropMachine(record.getParentId());
+                CropMachine machine = dbHandler.getCropMachine(record.getParentId(),false);
                 if(machine ==null){
                     continue; //note has no assigned machine
                 }
@@ -417,14 +389,14 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInvoicePayment> records = dbHandler.getCropPayments(userId,false);
         for(CropInvoicePayment record: records){
-            CropInvoice invoice = dbHandler.getCropInvoiceById(record.getInvoiceId());
+            CropInvoice invoice = dbHandler.getCropInvoiceById(record.getInvoiceId(),false);
             if(invoice !=null){
                 if(invoice.getGlobalId()==null){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setInvoiceId(invoice.getGlobalId());
             }
-            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId());
+            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned customer
             }
@@ -440,14 +412,14 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropPaymentBill> records = dbHandler.getCropPaymentBills(userId,false);
         for(CropPaymentBill record: records){
-            CropBill bill = dbHandler.getCropBillById(record.getBillId());
+            CropBill bill = dbHandler.getCropBillById(record.getBillId(),false);
             if(bill !=null){
                 if(bill.getGlobalId()==null){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setBillId(bill.getGlobalId());
             }
-            CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId());
+            CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId(),false);
             if(supplier ==null){
                 continue; //item has no assigned customer
             }
@@ -464,7 +436,7 @@ public class CropSyncService extends Service {
         ArrayList<CropProductItem> records = dbHandler.getCropProductItems(userId,false);
         for(CropProductItem record: records){
             if(record.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_BILL)){
-                CropBill bill = dbHandler.getCropBillById(record.getParentObjectId());
+                CropBill bill = dbHandler.getCropBillById(record.getParentObjectId(),false);
                 if(bill ==null){
                     continue; //item has no assigned bill
                 }
@@ -473,7 +445,7 @@ public class CropSyncService extends Service {
                 }
                 record.setParentObjectId(bill.getGlobalId());
             }else  if(record.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_INVOICE)){
-                CropInvoice invoice = dbHandler.getCropInvoiceById(record.getParentObjectId());
+                CropInvoice invoice = dbHandler.getCropInvoiceById(record.getParentObjectId(),false);
                 if(invoice ==null){
                     continue; //item has no assigned bill
                 }
@@ -482,7 +454,7 @@ public class CropSyncService extends Service {
                 }
                 record.setParentObjectId(invoice.getGlobalId());
             }else  if(record.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_ESTIMATE)){
-                CropEstimate estimate = dbHandler.getCropEstimateById(record.getParentObjectId());
+                CropEstimate estimate = dbHandler.getCropEstimateById(record.getParentObjectId(),false);
                 if(estimate ==null){
                     continue; //item has no assigned bill
                 }
@@ -491,7 +463,7 @@ public class CropSyncService extends Service {
                 }
                 record.setParentObjectId(estimate.getGlobalId());
             }else if(record.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_SALES_ORDER)){
-                CropSalesOrder cropSalesOrder = dbHandler.getCropSalesOrderById(record.getParentObjectId());
+                CropSalesOrder cropSalesOrder = dbHandler.getCropSalesOrderById(record.getParentObjectId(),false);
                 if(cropSalesOrder ==null){
                     continue; //item has no assigned bill
                 }
@@ -500,7 +472,7 @@ public class CropSyncService extends Service {
                 }
                 record.setParentObjectId(cropSalesOrder.getGlobalId());
             }else if(record.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER)){
-                CropPurchaseOrder purchaseOrder = dbHandler.getCropPurchaseOrderById(record.getParentObjectId());
+                CropPurchaseOrder purchaseOrder = dbHandler.getCropPurchaseOrderById(record.getParentObjectId(),false);
                 if(purchaseOrder ==null){
                     continue; //item has no assigned bill
                 }
@@ -521,7 +493,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropPurchaseOrder> records = dbHandler.getCropPurchaseOrders(userId,false);
         for(CropPurchaseOrder record: records){
-            CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId());
+            CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId(),false);
             if(supplier ==null){
                 continue; //item has no assigned supplier
             }
@@ -537,7 +509,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSalesOrder> records = dbHandler.getCropSalesOrders(userId,false);
         for(CropSalesOrder record: records){
-            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId());
+            CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned bill
             }
@@ -553,7 +525,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropScouting> records = dbHandler.getCropScoutings(userId,false);
         for(CropScouting record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -576,7 +548,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSoilAnalysis> records = dbHandler.getCropSoilAnalysis(userId,false);
         for(CropSoilAnalysis record: records){
-            CropField field = dbHandler.getCropField(record.getFieldId());
+            CropField field = dbHandler.getCropField(record.getFieldId(),false);
             if(field ==null){
                 continue; //crop has no assigned field
             }
@@ -592,7 +564,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSpraying> records = dbHandler.getCropSprayings(userId,false);
         for(CropSpraying record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -600,7 +572,7 @@ public class CropSyncService extends Service {
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
-            CropInventorySpray spray = dbHandler.getCropSprayById(record.getSprayId());
+            CropInventorySpray spray = dbHandler.getCropSprayById(record.getSprayId(),false);
             if(spray ==null){
                 continue; //spraying has no assigned spray
             }
@@ -624,7 +596,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropTask> records = dbHandler.getCropTasks(userId,false);
         for(CropTask record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -640,7 +612,7 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropTransplanting> records = dbHandler.getCropTransplantings(userId,false);
         for(CropTransplanting record: records){
-            Crop crop = dbHandler.getCrop(record.getCropId());
+            Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
@@ -651,6 +623,648 @@ public class CropSyncService extends Service {
             jsonArray.put(record.toJSON());
         }
         return jsonArray;
+    }
+
+    //Ordered Back up sequence
+
+    /**
+     * 1. send fields, contacts, employees as block 1a
+     * 2. after 1a send Seed, Spray and fertilizer Inventory as block 1b
+     * 3. after 1b send crops, soil analysis, machines as block 1c
+     * 4. after 1c send (harvest, spraying, fertilizer application) as block 1d, (cultivation, scoutings, irrigation) as block 1e,
+     (task, transplantings, income/expense) as block 1f, (machine service, notes, tasks) as 1g
+     *
+     */
+    private void startBlock1TablesBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("fields",prepareFields());
+            requestObject.put("contacts",prepareContacts());
+            requestObject.put("employees",prepareEmployees());
+            requestObject.put("settings",prepareSettings());
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+
+                    try {
+                        JSONArray fields = response.getJSONArray("fields");
+                        for(int i=0; i<fields.length(); i++){
+                            //get Field by Global Id
+
+                            try{
+                                CropField field = dbHandler.getCropField( fields.getJSONObject(i).getString("localId"),false);
+                                field.setGlobalId(fields.getJSONObject(i).getString("globalId"));
+                                field.setSyncStatus("yes");
+                                dbHandler.updateCropField(field);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        JSONArray contacts = response.getJSONArray("contacts");
+                        for(int i=0; i<contacts.length(); i++){
+                            //get Field by Global Id
+
+                            try{
+                                CropContact contact = dbHandler.getCropContact( contacts.getJSONObject(i).getString("localId"),false);
+                                contact.setGlobalId(contacts.getJSONObject(i).getString("globalId"));
+                                contact.setSyncStatus("yes");
+                                dbHandler.updateCropContact(contact);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        JSONArray employees = response.getJSONArray("employees");
+                        for(int i=0; i<employees.length(); i++){
+                            //get Field by Global Id
+
+                            try{
+                                CropEmployee employee = dbHandler.getCropEmployee( employees.getJSONObject(i).getString("localId"),false);
+                                employee.setGlobalId(employees.getJSONObject(i).getString("globalId"));
+                                employee.setSyncStatus("yes");
+                                dbHandler.updateCropEmployee(employee);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    startBlock1bBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void startBlock1bBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("inventoryFertilizers",prepareInventoryFertilizers());
+            requestObject.put("inventorySeeds",prepareInventorySeeds());
+            requestObject.put("inventorySprays",prepareInventorySprays());
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+                    startBlock1cBackup();
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void startBlock1cBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("crops",prepareCrops());
+            requestObject.put("soilAnalysis",prepareSoilAnalysis());
+            requestObject.put("machines",prepareMachines());
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                    startBlock1dBackup();
+                    startBlock1eBackup();
+                    startBlock1fBackup();
+                    startBlock1gBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void startBlock1dBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("harvests",prepareHarvest());
+            requestObject.put("fertilizerApplication",prepareFertilizerApplication());
+            requestObject.put("sprayings",prepareSprayings());
+
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                   // startBlock1dBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void startBlock1eBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("cultivations",prepareCultivations());
+            requestObject.put("scoutings",prepareScoutings());
+            requestObject.put("irrigations",prepareIrrigations());
+
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                   // startBlock1dBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void startBlock1fBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("transplantings",prepareTransplantings());
+            requestObject.put("incomeExpenses",prepareIncomeExpense());
+            requestObject.put("tasks",prepareTasks());
+
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                   // startBlock1dBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void startBlock1gBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("machineServices",prepareMachineServices());
+            requestObject.put("machineTasks",prepareMachineTasks());
+            requestObject.put("notes",prepareNotes());
+
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                   // startBlock1dBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * COVERS FINANCIAL MANAGER
+     * 1. send customers, suppliers, products as block 2a
+     * 2. after 2a send Estimates, Invoice, Sales Order as block 2b
+     * 3. after 2b send Purchase Order, Bills as block 2c
+     * 4. after 2c send Invoice Payments and Bill payments as 2d
+     * 5. After 2d send product items as 2e
+     */
+    private void startBlock2TablesBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("customers",prepareCustomers());
+            requestObject.put("products",prepareProducts());
+            requestObject.put("suppliers",prepareSuppliers());
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                    startBlock2bBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void startBlock2bBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+
+            requestObject.put("estimates",prepareEstimates());
+            requestObject.put("invoices",prepareInvoice());
+            requestObject.put("salesOrders",prepareSalesOrders());
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                    startBlock2cBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private void startBlock2cBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("bills",prepareBills());
+            requestObject.put("purchaseOrders",preparePurchaseOrders());
+            requestObject.put("salesOrders",prepareSalesOrders());
+
+
+
+
+            requestObject.put("suppliers",prepareSuppliers());
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                    startBlock1bBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private void startBlock2dBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("payments",preparePayments());
+            requestObject.put("paymentBills",preparePaymentBills());
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    //logic to save the updated fields
+                    startBlock1eBackup();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private void startBlock2eBackup(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("productItems",prepareProductItems());
+
+            client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onStart() {
+                    Log.e("USER BACKUP","Started");
+
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("RESPONSE", "failed ");
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info : "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }

@@ -234,7 +234,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
 
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployee(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropEmployee x: dbHandler.getCropEmployees(CropDashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getFullName());
         }
         for(CropContact x: dbHandler.getCropContacts(CropDashboardActivity.getPreferences("userId",this))){

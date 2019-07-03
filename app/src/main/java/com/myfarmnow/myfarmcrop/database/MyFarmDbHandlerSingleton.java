@@ -954,7 +954,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         if(oldVersion==1 && newVersion==2){
-            db.execSQL("DROP TABLE IF EXISTS "+ CROP_NOTIFICATION_TABLE_NAME);
+
             upGradingTablesFromVersion1ToVersion2(db);
 
         }
@@ -965,6 +965,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db){
 
         database = db;
+        db.execSQL("DROP TABLE IF EXISTS "+ CROP_NOTIFICATION_TABLE_NAME);
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " INTEGER DEFAULT NULL");
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
 
@@ -2900,7 +2901,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.close();
         closeDB();
 
-        return String.format("%03d", id);
+        return String.format("%04d", id);
     }
     public CropInvoice  insertCropInvoice(CropInvoice invoice){
         openDB();
@@ -3278,7 +3279,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
-        return "EST-"+String.format("%03d", id);
+        return "EST-"+String.format("%04d", id);
     }
 
     public CropEstimate updateCropEstimate(CropEstimate estimate) {
@@ -3532,6 +3533,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
+
+    //TODO duplicate for Sync
     public CropProduct getCropProductById(String productId) {
         openDB();
        
@@ -3654,10 +3657,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
-    public CropSupplier getCropSupplier(String id) {
+    public CropSupplier getCropSupplier(String id, boolean isGlobal) {
         openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_SUPPLIER_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + CROP_SUPPLIER_ID + " = " + id, null);
+        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + key + " = " + id, null);
         res.moveToFirst();
 
 
@@ -3778,13 +3782,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
 
-    public CropCustomer getCropCustomer(String customerId){
+    public CropCustomer getCropCustomer(String customerId, boolean isGlobal){
         openDB();
-        ArrayList<CropCustomer> array_list = new ArrayList();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_CUSTOMER_ID;
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+CROP_CUSTOMER_ID+" = "+customerId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+key+" = "+customerId, null );
         res.moveToFirst();
         
         if(!res.isAfterLast()){
@@ -3863,6 +3867,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_EMPLOYEE_PAY_RATE, s.getPayRate());
         contentValues.put(CROP_EMPLOYEE_PAY_TYPE, s.getPayType());
         contentValues.put(CROP_EMPLOYEE_SUPERVISOR, s.getSupervisor());
+        contentValues.put(CROP_SYNC_STATUS,s.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,s.getGlobalId());
         database.update(CROP_EMPLOYEE_TABLE_NAME, contentValues, CROP_EMPLOYEE_ID + " = ?", new String[]{s.getId()});
         closeDB();
     }
@@ -3874,7 +3880,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<CropEmployee> getCropEmployee(String fieldId) {
+    public ArrayList<CropEmployee> getCropEmployees(String fieldId) {
         openDB();
         ArrayList<CropEmployee> array_list = new ArrayList();
 
@@ -4879,6 +4885,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FIELD_FIELD_TYPE,field.getFieldType());
         contentValues.put(CROP_FIELD_LAYOUT_TYPE,field.getLayoutType());
         contentValues.put(CROP_FIELD_STATUS,field.getStatus());
+        contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
 
         database.update(CROP_FIELDS_TABLE_NAME, contentValues, CROP_FIELD_ID + " = ?", new String[]{field.getId()});
         closeDB();
@@ -5200,7 +5208,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.close();
         closeDB();
 
-        return "PO-"+String.format("%03d", id);
+        return "PO-"+String.format("%04d", id);
     }
     public CropPurchaseOrder  insertCropPurchaseOrder(CropPurchaseOrder estimate){
         openDB();
@@ -6250,6 +6258,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CONTACT_PHONE_NUMBER, contact.getPhoneNumber());
         contentValues.put(CROP_CONTACT_EMAIL, contact.getEmail());
         contentValues.put(CROP_CONTACT_WEBSITE, contact.getWebsite());
+        contentValues.put(CROP_SYNC_STATUS,contact.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,contact.getGlobalId());
 
         database.update(CROP_CONTACT_TABLE_NAME, contentValues, CROP_CONTACT_ID + " = ?", new String[]{contact.getId()});
 
@@ -6370,7 +6380,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
     }
 
-    public ArrayList<CropEmployee> getCropEmployee(String userId, boolean synced) {
+    public ArrayList<CropEmployee> getCropEmployees(String userId, boolean synced) {
         openDB();
         ArrayList<CropEmployee> array_list = new ArrayList();
 
@@ -7423,12 +7433,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return items_list;
     }
 
-    public CropField getCropField(String fieldId) {
+    public CropField getCropField(String fieldId, boolean isGlobal) {
         openDB();
         CropField field = null;
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_FIELD_ID;
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_ID + " = " + fieldId,null);
+        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " +key+ " = " + fieldId,null);
         res.moveToFirst();
 
         if (!res.isAfterLast()) {
@@ -7456,10 +7467,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return field;
     }
 
-    public CropInventorySeeds getCropSeed(String seedId) {
+    public CropInventorySeeds getCropSeed(String seedId, boolean isGlobal) {
         openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_INVENTORY_SEEDS_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + CROP_INVENTORY_SEEDS_ID + " = ?", new String[]{seedId});
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = ?", new String[]{seedId});
         res.moveToFirst();
         CropInventorySeeds inventorySeeds = null;
         if (!res.isAfterLast()) {
@@ -7489,10 +7501,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
-    public Crop getCrop(String cropId) {
+    public Crop getCrop(String cropId, boolean isGlobal) {
         openDB();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " + CROP_CROP_ID+ " = ?", new String[]{cropId});
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_CROP_ID;
+
+        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " +key+ " = ?", new String[]{cropId});
         res.moveToFirst();
         Crop crop = null;
         if (!res.isAfterLast()) {
@@ -7525,9 +7539,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return crop;
     }
 
-    public CropMachine getCropMachine(String machineId) {
+    public CropMachine getCropMachine(String machineId, boolean isGlobal) {
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_MACHINE_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_MACHINE_TABLE_NAME + " where " + CROP_MACHINE_ID + " = ? ", new String[]{machineId});
+        Cursor res = db.rawQuery("select * from " + CROP_MACHINE_TABLE_NAME + " where " + key + " = ? ", new String[]{machineId});
         res.moveToFirst();
         CropMachine machine=null;
         if (!res.isAfterLast()) {
@@ -7554,11 +7569,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return machine;
     }
 
-    public CropInventorySpray getCropSprayById(String sprayId){
+    public CropInventorySpray getCropSprayById(String sprayId, boolean isGlobal){
         openDB();
-
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_INVENTORY_SPRAY_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SPRAY_TABLE_NAME + " where " + CROP_INVENTORY_SPRAY_ID+ " = ?", new String[]{sprayId});
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SPRAY_TABLE_NAME + " where " + key+ " = ?", new String[]{sprayId});
         res.moveToFirst();
         CropInventorySpray spray =null;
         if (!res.isAfterLast()) {
@@ -7629,12 +7644,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
-    public CropInventoryFertilizer getCropFertilizerApplicationById(String fertilizerId) {
+    public CropInventoryFertilizer getCropFertilizer(String fertilizerId, boolean isGlobal) {
         openDB();
-        ArrayList<CropInventoryFertilizer> array_list = new ArrayList();
-
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_INVENTORY_FERTILIZER_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " where " + CROP_INVENTORY_FERTILIZER_ID+ " = ?", new String[]{fertilizerId});
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " where " +key+ " = ?", new String[]{fertilizerId});
         res.moveToFirst();
         CropInventoryFertilizer fertilizer = null;
 
@@ -7675,11 +7689,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return fertilizer;
     }
 
-    public CropBill getCropBillById(String billId) {
+    public CropBill getCropBillById(String billId, boolean isGlobal) {
         openDB();
-
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_BILL_ID;
         SQLiteDatabase db = database;
-        Cursor res =  db.rawQuery( "select * from "+CROP_BILL_TABLE_NAME+" WHERE "+CROP_BILL_ID+ " = ?", new String[]{billId} );
+        Cursor res =  db.rawQuery( "select * from "+CROP_BILL_TABLE_NAME+" WHERE "+key+ " = ?", new String[]{billId} );
         res.moveToFirst();
         CropBill cropBill = null;
 
@@ -7707,10 +7721,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return cropBill;
     }
 
-    public CropInvoice getCropInvoiceById(String invoiceId) {
+    public CropInvoice getCropInvoiceById(String invoiceId, boolean isGlobal) {
         openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_INVOICE_ID;
         SQLiteDatabase db = database;
-        Cursor res =  db.rawQuery( "select * from "+CROP_INVOICE_TABLE_NAME+" WHERE "+CROP_INVOICE_ID+ " = ?", new String[]{invoiceId} );
+        Cursor res =  db.rawQuery( "select * from "+CROP_INVOICE_TABLE_NAME+" WHERE "+key+ " = ?", new String[]{invoiceId} );
         res.moveToFirst();
         CropInvoice cropInvoice =null;
 
@@ -7741,10 +7756,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return cropInvoice;
     }
 
-    public CropEstimate getCropEstimateById(String estimateId) {
+    public CropEstimate getCropEstimateById(String estimateId, boolean isGlobal ) {
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_ESTIMATE_ID;
         openDB();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_ESTIMATE_TABLE_NAME+" WHERE "+CROP_ESTIMATE_ID+ " = ? ", new String[]{estimateId} );
+        Cursor res =  db.rawQuery( "select * from "+CROP_ESTIMATE_TABLE_NAME+" WHERE "+key+ " = ? ", new String[]{estimateId} );
         res.moveToFirst();
         CropEstimate cropEstimate = null;
         if (!res.isAfterLast()) {
@@ -7773,10 +7789,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return cropEstimate;
     }
 
-    public CropSalesOrder getCropSalesOrderById(String salesOrderId) {
+    public CropSalesOrder getCropSalesOrderById(String salesOrderId, boolean isGlobal) {
         openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_SALES_ORDER_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_SALES_ORDER_TABLE_NAME+" WHERE "+CROP_SALES_ORDER_ID+ " = ?", new String[]{salesOrderId} );
+        Cursor res =  db.rawQuery( "select * from "+CROP_SALES_ORDER_TABLE_NAME+" WHERE "+key+ " = ?", new String[]{salesOrderId} );
         res.moveToFirst();
         CropSalesOrder cropSalesOrder = null;
         if(!res.isAfterLast()){
@@ -7805,11 +7822,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return cropSalesOrder;
     }
 
-    public CropPurchaseOrder getCropPurchaseOrderById(String orderId) {
+    public CropPurchaseOrder getCropPurchaseOrderById(String orderId, boolean isGlobal) {
         openDB();
-
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_PURCHASE_ORDER_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_PURCHASE_ORDER_TABLE_NAME+" WHERE "+CROP_PURCHASE_ORDER_ID+ " = ?", new String[]{orderId} );
+        Cursor res =  db.rawQuery( "select * from "+CROP_PURCHASE_ORDER_TABLE_NAME+" WHERE "+key+ " = ?", new String[]{orderId} );
         res.moveToFirst();
         CropPurchaseOrder cropPurchaseOrder =null;
         if(!res.isAfterLast()){
@@ -7835,6 +7852,71 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.close();
         closeDB();
         return cropPurchaseOrder;
+    }
+
+    public CropContact getCropContact(String contactId, boolean isGlobal) {
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_CONTACT_ID;
+        openDB();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_CONTACT_TABLE_NAME + " where " +key+ " = ?", new String[]{contactId});
+        res.moveToFirst();
+        CropContact contact = null;
+        if (!res.isAfterLast()) {
+             contact = new CropContact();
+            contact.setId(res.getString(res.getColumnIndex(CROP_CONTACT_ID)));
+            contact.setUserId(res.getString(res.getColumnIndex(CROP_CONTACT_USER_ID)));
+            contact.setType(res.getString(res.getColumnIndex(CROP_CONTACT_TYPE)));
+            contact.setName(res.getString(res.getColumnIndex(CROP_CONTACT_NAME)));
+            contact.setBusinessName(res.getString(res.getColumnIndex(CROP_CONTACT_BUSINESS_NAME)));
+            contact.setAddress(res.getString(res.getColumnIndex(CROP_CONTACT_ADDRESS)));
+            contact.setPhoneNumber(res.getString(res.getColumnIndex(CROP_CONTACT_PHONE_NUMBER)));
+            contact.setEmail(res.getString(res.getColumnIndex(CROP_CONTACT_EMAIL)));
+            contact.setWebsite(res.getString(res.getColumnIndex(CROP_CONTACT_WEBSITE)));
+
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return contact;
+    }
+
+    public CropEmployee getCropEmployee(String employeeId, boolean isGlobal) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_EMPLOYEE_ID;
+        Cursor res = db.rawQuery("select * from " + CROP_EMPLOYEE_TABLE_NAME + " where " + key + " = ? ", new String[]{employeeId});
+        res.moveToFirst();
+        CropEmployee cropEmployee =null;
+        if (!res.isAfterLast()) {
+            cropEmployee = new CropEmployee();
+            cropEmployee.setId(res.getString(res.getColumnIndex(CROP_EMPLOYEE_ID)));
+            cropEmployee.setUserId(res.getString(res.getColumnIndex(CROP_EMPLOYEE_USER_ID)));
+            cropEmployee.setTitle(res.getString(res.getColumnIndex(CROP_EMPLOYEE_TITLE)));
+            cropEmployee.setFirstName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_FIRST_NAME)));
+            cropEmployee.setLastName(res.getString(res.getColumnIndex(CROP_EMPLOYEE_LAST_NAME)));
+            cropEmployee.setPhone(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PHONE)));
+            cropEmployee.setMobile(res.getString(res.getColumnIndex(CROP_EMPLOYEE_MOBILE)));
+            cropEmployee.setEmployeeId(res.getString(res.getColumnIndex(CROP_EMPLOYEE_EMP_ID)));
+            cropEmployee.setGender(res.getString(res.getColumnIndex(CROP_EMPLOYEE_GENDER)));
+            cropEmployee.setAddress(res.getString(res.getColumnIndex(CROP_EMPLOYEE_ADDRESS)));
+            cropEmployee.setEmail(res.getString(res.getColumnIndex(CROP_EMPLOYEE_EMAIL)));
+            cropEmployee.setDateOfBirth(res.getString(res.getColumnIndex(CROP_EMPLOYEE_DOB)));
+            cropEmployee.setHireDate(res.getString(res.getColumnIndex(CROP_EMPLOYEE_HIRE_DATE)));
+            cropEmployee.setEmploymentStatus(res.getString(res.getColumnIndex(CROP_EMPLOYEE_EMPLOYMENT_STATUS)));
+            cropEmployee.setPayAmount(res.getFloat(res.getColumnIndex(CROP_EMPLOYEE_PAY_AMOUNT)));
+            cropEmployee.setPayRate(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PAY_RATE)));
+            cropEmployee.setPayType(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PAY_TYPE)));
+            cropEmployee.setSupervisor(res.getString(res.getColumnIndex(CROP_EMPLOYEE_SUPERVISOR)));
+            cropEmployee.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            cropEmployee.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return cropEmployee;
     }
 }
 
