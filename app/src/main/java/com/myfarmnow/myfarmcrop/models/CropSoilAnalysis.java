@@ -184,6 +184,19 @@ public class CropSoilAnalysis implements Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("fieldId",fieldId);
+            object.put("date",date);
+            object.put("ph",ph);
+            object.put("organicMatter",organicMatter);
+            object.put("agronomist",agronomist);
+            object.put("cost",cost);
+            object.put("result",result);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
 
 
         } catch (JSONException e) {

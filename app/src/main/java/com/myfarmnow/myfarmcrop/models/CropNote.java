@@ -111,6 +111,11 @@ public class CropNote implements Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("date",date);
+            object.put("parentId",parentId);
+            object.put("category",category);
+            object.put("notes",notes);
+            object.put("isFor",isFor);
 
 
         } catch (JSONException e) {

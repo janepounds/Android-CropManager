@@ -186,6 +186,7 @@ public class CropEstimate  implements Serializable{
         return globalId;
     }
 
+
     public JSONObject toJSON(){
 
         JSONObject object = new JSONObject();
@@ -193,7 +194,18 @@ public class CropEstimate  implements Serializable{
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("customerId",customerId);
+            object.put("number",number);
+            object.put("date",date);
+            object.put("expiryDate",expiryDate);
+            object.put("discount",discount);
+            object.put("shippingCharges",shippingCharges);
+            object.put("customerNotes",customerNotes);
+            object.put("termsAndConditions",termsAndConditions);
+            object.put("customerName",customerName);
+            object.put("referenceNumber",referenceNumber);
+            object.put("status",status);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -225,6 +225,26 @@ public class CropSpraying implements Serializable,CropActivity {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("date",date);
+            object.put("startTime",startTime);
+            object.put("endTime",endTime);
+            object.put("operator",operator);
+            object.put("waterVolume",waterVolume);
+            object.put("waterCondition",waterCondition);
+            object.put("windDirection",windDirection);
+            object.put("equipmentUsed",equipmentUsed);
+            object.put("sprayId",sprayId);
+            object.put("rate",rate);
+            object.put("treatmentReason",treatmentReason);
+            object.put("cost",cost);
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("sprayName",sprayName);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
 
 
         } catch (JSONException e) {

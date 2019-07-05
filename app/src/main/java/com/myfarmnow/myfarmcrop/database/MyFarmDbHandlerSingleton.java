@@ -1486,6 +1486,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SETTINGS_DATE_FORMAT, crop.getDateFormat());
         contentValues.put(CROP_SETTINGS_WEIGHT_UNITS, crop.getWeightUnits());
         contentValues.put(CROP_SETTINGS_USER_ID, crop.getUserId());
+        contentValues.put(CROP_SYNC_STATUS,crop.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,crop.getGlobalId());
         database.insert(CROP_SETTINGS_TABLE_NAME,null, contentValues);
         closeDB();
     }
@@ -1499,6 +1501,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SETTINGS_DATE_FORMAT, crop.getDateFormat());
         contentValues.put(CROP_SETTINGS_WEIGHT_UNITS, crop.getWeightUnits());
         contentValues.put(CROP_SETTINGS_USER_ID, crop.getUserId());
+        contentValues.put(CROP_SYNC_STATUS,crop.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,crop.getGlobalId());
         database.update(CROP_SETTINGS_TABLE_NAME, contentValues, CROP_SETTINGS_ID + " = ? ", new String[]{crop.getId()});
         closeDB();
     }
@@ -2106,7 +2110,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_SERVICE_CURRENT_HOURS, service.getCurrentHours());
         contentValues.put(CROP_MACHINE_SERVICE_REPEAT_UNTIL, service.getRepeatUntil());
         contentValues.put(CROP_MACHINE_SERVICE_DAYS_BEFORE, service.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,service.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,service.getGlobalId());
         database.insert(CROP_MACHINE_SERVICE_TABLE_NAME,null,contentValues);
         //generate Notifications
         String id ="";
@@ -2134,6 +2139,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_SERVICE_COST, service.getCost());
         contentValues.put(CROP_MACHINE_SERVICE_REPEAT_UNTIL, service.getRepeatUntil());
         contentValues.put(CROP_MACHINE_SERVICE_DAYS_BEFORE, service.getDaysBefore());
+        contentValues.put(CROP_SYNC_STATUS,service.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,service.getGlobalId());
         database.update(CROP_MACHINE_SERVICE_TABLE_NAME,contentValues,CROP_MACHINE_SERVICE_ID+" = ?", new String[]{service.getId()});
 
         deleteCropNotification(service.getId(),context.getString(R.string.notification_type_service));
@@ -2195,7 +2202,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_NOTE_CATEGORY, note.getCategory());
         contentValues.put(CROP_NOTE_NOTES, note.getNotes());
         contentValues.put(CROP_NOTE_IS_FOR, note.getIsFor());
-
+        contentValues.put(CROP_SYNC_STATUS,note.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,note.getGlobalId());
         database.insert(CROP_NOTE_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -2207,6 +2215,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_NOTE_CATEGORY, note.getCategory());
         contentValues.put(CROP_NOTE_NOTES, note.getNotes());
         contentValues.put(CROP_NOTE_IS_FOR, note.getIsFor());
+        contentValues.put(CROP_SYNC_STATUS,note.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,note.getGlobalId());
         database.update(CROP_NOTE_TABLE_NAME,contentValues,CROP_NOTE_ID+" = ?", new String[]{note.getId()});
 
         closeDB();
@@ -2258,9 +2268,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_REMINDERS, task.getReminders());
         contentValues.put(CROP_MACHINE_TASK_FREQUENCY, task.getFrequency());
         contentValues.put(CROP_MACHINE_TASK_COST, task.getCost());
-
         contentValues.put(CROP_MACHINE_TASK_REPEAT_UNTIL, task.getRepeatUntil());
         contentValues.put(CROP_MACHINE_TASK_DAYS_BEFORE, task.getDaysBefore());
+        contentValues.put(CROP_SYNC_STATUS,task.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,task.getGlobalId());
         database.insert(CROP_MACHINE_TASK_TABLE_NAME,null,contentValues);
 
         //generate Notifications
@@ -2283,7 +2294,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_END_DATE, task.getEndDate());
         contentValues.put(CROP_MACHINE_TASK_PERSONNEL, task.getEmployeeName());
         contentValues.put(CROP_MACHINE_TASK_TITLE, task.getTitle());
-
         contentValues.put(CROP_MACHINE_TASK_STATUS, task.getStatus());
         contentValues.put(CROP_MACHINE_TASK_DESCRIPTION, task.getDescription());
         contentValues.put(CROP_MACHINE_TASK_RECURRENCE, task.getRecurrence());
@@ -2292,6 +2302,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_TASK_COST, task.getCost());
         contentValues.put(CROP_MACHINE_TASK_REPEAT_UNTIL, task.getRepeatUntil());
         contentValues.put(CROP_MACHINE_TASK_DAYS_BEFORE, task.getDaysBefore());
+        contentValues.put(CROP_SYNC_STATUS,task.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,task.getGlobalId());
         database.update(CROP_MACHINE_TASK_TABLE_NAME,contentValues,CROP_MACHINE_TASK_ID+" = ?", new String[]{task.getId()});
 
         deleteCropNotification(task.getId(),context.getString(R.string.notification_type_machine_task));
@@ -2357,7 +2369,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_N_PERCENTAGE, fertilizer.getnPercentage());
         contentValues.put(CROP_FERTILIZER_K_PERCENTAGE, fertilizer.getkPercentage());
         contentValues.put(CROP_FERTILIZER_P_PERCENTAGE, fertilizer.getpPercentage());
-
+        contentValues.put(CROP_SYNC_STATUS,fertilizer.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,fertilizer.getGlobalId());
 
         database.insert(CROP_FERTILIZER_TABLE_NAME, null, contentValues);
         closeDB();
@@ -2370,6 +2383,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_N_PERCENTAGE, fertilizer.getnPercentage());
         contentValues.put(CROP_FERTILIZER_K_PERCENTAGE, fertilizer.getkPercentage());
         contentValues.put(CROP_FERTILIZER_P_PERCENTAGE, fertilizer.getpPercentage());
+        contentValues.put(CROP_SYNC_STATUS,fertilizer.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,fertilizer.getGlobalId());
         database.update(CROP_FERTILIZER_TABLE_NAME, contentValues, CROP_FERTILIZER_ID + " = ?", new String[]{fertilizer.getId()});
         closeDB();
     }
@@ -2429,6 +2444,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ITEM_N_REMOVED, crop.getnRemoved());
         contentValues.put(CROP_ITEM_K_REMOVED, crop.getkRemoved());
         contentValues.put(CROP_ITEM_IS_FOR, crop.getIsFor());
+
         database.insert(CROP_ITEM_TABLE_NAME, null, contentValues);
 
         closeDB();
@@ -2580,6 +2596,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SALES_ORDER_DISCOUNT,salesOrder.getDiscount());
         contentValues.put(CROP_SALES_ORDER_SHIPPING_CHARGES,salesOrder.getShippingCharges());
         contentValues.put(CROP_SALES_ORDER_CUSTOMER_NOTES,salesOrder.getCustomerNotes());
+        contentValues.put(CROP_SYNC_STATUS,salesOrder.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,salesOrder.getGlobalId());
         contentValues.put(CROP_SALES_ORDER_TERMS_AND_CONDITIONS,salesOrder.getTermsAndConditions());
 
         database.insert(CROP_SALES_ORDER_TABLE_NAME,null,contentValues);
@@ -2623,7 +2641,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SALES_ORDER_SHIPPING_CHARGES,salesOrder.getShippingCharges());
         contentValues.put(CROP_SALES_ORDER_CUSTOMER_NOTES,salesOrder.getCustomerNotes());
         contentValues.put(CROP_SALES_ORDER_TERMS_AND_CONDITIONS,salesOrder.getTermsAndConditions());
-
+        contentValues.put(CROP_SYNC_STATUS,salesOrder.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,salesOrder.getGlobalId());
         database.update(CROP_SALES_ORDER_TABLE_NAME,contentValues,CROP_SALES_ORDER_ID+" = ?", new String[]{salesOrder.getId()});
 
         String estimateId = salesOrder.getId();
@@ -2780,6 +2799,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PAYMENT_REFERENCE_NO, cropInvoicePayment.getReferenceNo());
         contentValues.put(CROP_PAYMENT_INVOICE_ID, cropInvoicePayment.getInvoiceId());
         contentValues.put(CROP_PAYMENT_CUSTOMER_ID, cropInvoicePayment.getCustomerId());
+        contentValues.put(CROP_SYNC_STATUS,cropInvoicePayment.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropInvoicePayment.getGlobalId());
         database.insert(CROP_PAYMENT_TABLE_NAME, null, contentValues);
 
         closeDB();
@@ -2800,6 +2821,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PAYMENT_INVOICE_ID, cropInvoicePayment.getInvoiceId());
         contentValues.put(CROP_PAYMENT_CUSTOMER_ID, cropInvoicePayment.getCustomerId());
         contentValues.put(CROP_PAYMENT_DATE, cropInvoicePayment.getDate());
+        contentValues.put(CROP_SYNC_STATUS,cropInvoicePayment.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropInvoicePayment.getGlobalId());
         database.update(CROP_PAYMENT_TABLE_NAME,contentValues,CROP_PAYMENT_ID+" = ?", new String[]{cropInvoicePayment.getId()});
 
 
@@ -2918,7 +2941,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVOICE_SHIPPING_CHARGES,invoice.getShippingCharges());
         contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getCustomerNotes());
         contentValues.put(CROP_INVOICE_TERMS_AND_CONDITIONS,invoice.getTermsAndConditions());
-
+        contentValues.put(CROP_SYNC_STATUS,invoice.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,invoice.getGlobalId());
         database.insert(CROP_INVOICE_TABLE_NAME, null, contentValues);
 
 
@@ -2968,7 +2992,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVOICE_SHIPPING_CHARGES,invoice.getShippingCharges());
         contentValues.put(CROP_INVOICE_CUSTOMER_NOTES,invoice.getCustomerNotes());
         contentValues.put(CROP_INVOICE_TERMS_AND_CONDITIONS,invoice.getTermsAndConditions());
-
+        contentValues.put(CROP_SYNC_STATUS,invoice.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,invoice.getGlobalId());
 
         database.update(CROP_INVOICE_TABLE_NAME, contentValues, CROP_INVOICE_ID + " = ?", new String[]{invoice.getId()});
 
@@ -3231,6 +3256,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
         contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
         contentValues.put(CROP_ESTIMATE_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+        contentValues.put(CROP_SYNC_STATUS,estimate.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,estimate.getGlobalId());
         database.insert(CROP_ESTIMATE_TABLE_NAME, null, contentValues);
 
         Cursor res =  database.rawQuery( "select "+CROP_ESTIMATE_ID+" from "+CROP_ESTIMATE_TABLE_NAME+" where "+CROP_ESTIMATE_CUSTOMER_ID+" = '"+estimate.getCustomerId()+"' AND "+CROP_ESTIMATE_NO+" = '"+estimate.getNumber()+"'", null );
@@ -3296,7 +3323,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_ESTIMATE_SHIPPING_CHARGES,estimate.getShippingCharges());
         contentValues.put(CROP_ESTIMATE_CUSTOMER_NOTES,estimate.getCustomerNotes());
         contentValues.put(CROP_ESTIMATE_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
-
+        contentValues.put(CROP_SYNC_STATUS,estimate.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,estimate.getGlobalId());
 
         database.update(CROP_ESTIMATE_TABLE_NAME, contentValues, CROP_ESTIMATE_ID + " = ?", new String[]{estimate.getId()});
 
@@ -3462,6 +3490,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PRODUCT_SELLING_PRICE, cropProduct.getSellingPrice());
         contentValues.put(CROP_PRODUCT_TAX_RATE, cropProduct.getTaxRate());
         contentValues.put(CROP_PRODUCT_DESCRIPTION, cropProduct.getDescription());
+        contentValues.put(CROP_SYNC_STATUS,cropProduct.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropProduct.getGlobalId());
         database.insert(CROP_PRODUCT_TABLE_NAME, null, contentValues);
 
         closeDB();
@@ -3481,6 +3511,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PRODUCT_SELLING_PRICE, cropProduct.getSellingPrice());
         contentValues.put(CROP_PRODUCT_TAX_RATE, cropProduct.getTaxRate());
         contentValues.put(CROP_PRODUCT_DESCRIPTION, cropProduct.getDescription());
+        contentValues.put(CROP_SYNC_STATUS,cropProduct.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropProduct.getGlobalId());
         database.update(CROP_PRODUCT_TABLE_NAME, contentValues, CROP_PRODUCT_ID + " = ?", new String[]{cropProduct.getId()});
 
         closeDB();
@@ -3592,6 +3624,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_STREET, spraying.getInvoiceStreet());
         contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_CITY, spraying.getInvoiceCityOrTown());
         contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY, spraying.getInvoiceCountry());
+        contentValues.put(CROP_SYNC_STATUS,spraying.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,spraying.getGlobalId());
         database.insert(CROP_SUPPLIER_TABLE_NAME, null, contentValues);
 
         closeDB();
@@ -3611,6 +3645,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_STREET, customer.getInvoiceStreet());
         contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_CITY, customer.getInvoiceCityOrTown());
         contentValues.put(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY, customer.getInvoiceCountry());
+        contentValues.put(CROP_SYNC_STATUS,customer.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,customer.getGlobalId());
         database.update(CROP_SUPPLIER_TABLE_NAME, contentValues, CROP_SUPPLIER_ID + " = ?", new String[]{customer.getId()});
         closeDB();
     }
@@ -3709,6 +3745,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_STREET, spraying.getShippingStreet());
         contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_CITY, spraying.getShippingCityOrTown());
         contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY, spraying.getShippingCountry());
+        contentValues.put(CROP_SYNC_STATUS,spraying.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,spraying.getGlobalId());
         database.insert(CROP_CUSTOMER_TABLE_NAME, null, contentValues);
 
         closeDB();
@@ -3731,6 +3769,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_STREET, customer.getShippingStreet());
         contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_CITY, customer.getShippingCityOrTown());
         contentValues.put(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY, customer.getShippingCountry());
+        contentValues.put(CROP_SYNC_STATUS,customer.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,customer.getGlobalId());
         database.update(CROP_CUSTOMER_TABLE_NAME, contentValues, CROP_CUSTOMER_ID + " = ?", new String[]{customer.getId()});
         closeDB();
     }
@@ -3839,6 +3879,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_EMPLOYEE_PAY_RATE, spraying.getPayRate());
         contentValues.put(CROP_EMPLOYEE_PAY_TYPE, spraying.getPayType());
         contentValues.put(CROP_EMPLOYEE_SUPERVISOR, spraying.getSupervisor());
+        contentValues.put(CROP_SYNC_STATUS,spraying.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,spraying.getGlobalId());
         database.insert(CROP_EMPLOYEE_TABLE_NAME, null, contentValues);
         /*
         public static final String  ="id";
@@ -3938,7 +3980,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, soilAnalysis.getFrequency());
         contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, soilAnalysis.getRepeatUntil());
         contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, soilAnalysis.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,soilAnalysis.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,soilAnalysis.getGlobalId());
         database.insert(CROP_SOIL_ANALYSIS_TABLE_NAME, null, contentValues);
         //generate Notifications
         String id ="";
@@ -3969,7 +4012,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SOIL_ANALYSIS_FREQUENCY, soilAnalysis.getFrequency());
         contentValues.put(CROP_SOIL_ANALYSIS_REPEAT_UNTIL, soilAnalysis.getRepeatUntil());
         contentValues.put(CROP_SOIL_ANALYSIS_DAYS_BEFORE, soilAnalysis.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,soilAnalysis.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,soilAnalysis.getGlobalId());
         database.update(CROP_SOIL_ANALYSIS_TABLE_NAME, contentValues, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{soilAnalysis.getId()});
         deleteCropNotification(soilAnalysis.getId(),context.getString(R.string.notification_type_soil_analysis));
         generateNotifications(context.getString(R.string.notification_type_soil_analysis),soilAnalysis.getId());
@@ -4045,7 +4089,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_FREQUENCY, spraying.getFrequency());
         contentValues.put(CROP_SPRAYING_REPEAT_UNTIL, spraying.getRepeatUntil());
         contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,spraying.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,spraying.getGlobalId());
         database.insert(CROP_SPRAYING_TABLE_NAME, null, contentValues);
 
         //generate Notifications
@@ -4084,7 +4129,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_FREQUENCY, spraying.getFrequency());
         contentValues.put(CROP_SPRAYING_REPEAT_UNTIL, spraying.getRepeatUntil());
         contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,spraying.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,spraying.getGlobalId());
         database.update(CROP_SPRAYING_TABLE_NAME, contentValues, CROP_SPRAYING_ID + " = ?", new String[]{spraying.getId()});
         deleteCropNotification(spraying.getId(),context.getString(R.string.notification_type_spraying));
         generateNotifications(context.getString(R.string.notification_type_spraying),spraying.getId());
@@ -4163,7 +4209,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_FREQUENCY, fertilizerApplication.getFrequency());
         contentValues.put(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL, fertilizerApplication.getRepeatUntil());
         contentValues.put(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE, fertilizerApplication.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,fertilizerApplication.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,fertilizerApplication.getGlobalId());
         database.insert(CROP_FERTILIZER_APPLICATION_TABLE_NAME, null, contentValues);
 
         //generate Notifications
@@ -4199,7 +4246,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_FREQUENCY, fertilizerApplication.getFrequency());
         contentValues.put(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL, fertilizerApplication.getRepeatUntil());
         contentValues.put(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE, fertilizerApplication.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,fertilizerApplication.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,fertilizerApplication.getGlobalId());
         database.update(CROP_FERTILIZER_APPLICATION_TABLE_NAME, contentValues, CROP_FERTILIZER_APPLICATION_ID + " = ?", new String[]{fertilizerApplication.getId()});
         deleteCropNotification(fertilizerApplication.getId(),context.getString(R.string.notification_type_fertilizer_application));
         generateNotifications(context.getString(R.string.notification_type_fertilizer_application),fertilizerApplication.getId());
@@ -4276,7 +4324,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CULTIVATION_FREQUENCY, cropCultivation.getFrequency());
         contentValues.put(CROP_CULTIVATION_REPEAT_UNTIL, cropCultivation.getRepeatUntil());
         contentValues.put(CROP_CULTIVATION_DAYS_BEFORE, cropCultivation.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,cropCultivation.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropCultivation.getGlobalId());
         database.insert(CROP_CULTIVATION_TABLE_NAME, null, contentValues);
 
         //generate Notifications
@@ -4307,7 +4356,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CULTIVATION_FREQUENCY, cropCultivation.getFrequency());
         contentValues.put(CROP_CULTIVATION_REPEAT_UNTIL, cropCultivation.getRepeatUntil());
         contentValues.put(CROP_CULTIVATION_DAYS_BEFORE, cropCultivation.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,cropCultivation.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropCultivation.getGlobalId());
         database.update(CROP_CULTIVATION_TABLE_NAME, contentValues, CROP_CULTIVATION_ID + " = ?", new String[]{cropCultivation.getId()});
 
         deleteCropNotification(cropCultivation.getId(),context.getString(R.string.notification_type_cultivation));
@@ -4379,6 +4429,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimatedRevenue());
         contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimatedYield());
         contentValues.put(CROP_CROP_PLANTING_METHOD, crop.getPlantingMethod());
+        contentValues.put(CROP_SYNC_STATUS,crop.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,crop.getGlobalId());
         database.insert(CROP_CROP_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4403,6 +4455,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimatedRevenue());
         contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimatedYield());
         contentValues.put(CROP_CROP_PLANTING_METHOD, crop.getPlantingMethod());
+        contentValues.put(CROP_SYNC_STATUS,crop.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,crop.getGlobalId());
         database.update(CROP_CROP_TABLE_NAME, contentValues, CROP_CROP_ID + " = ?", new String[]{crop.getId()});
 
         closeDB();
@@ -4513,6 +4567,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_SPRAY_USAGE_UNIT, inventorySpray.getUsageUnits());
         contentValues.put(CROP_INVENTORY_SPRAY_EXPIRY_DATE, inventorySpray.getExpiryDate());
         contentValues.put(CROP_INVENTORY_SPRAY_HARVEST_INTERVAL, inventorySpray.getHarvestInterval());
+        contentValues.put(CROP_SYNC_STATUS,inventorySpray.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,inventorySpray.getGlobalId());
         database.insert(CROP_INVENTORY_SPRAY_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4532,6 +4588,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_SPRAY_USAGE_UNIT, inventorySpray.getUsageUnits());
         contentValues.put(CROP_INVENTORY_SPRAY_EXPIRY_DATE, inventorySpray.getExpiryDate());
         contentValues.put(CROP_INVENTORY_SPRAY_HARVEST_INTERVAL, inventorySpray.getHarvestInterval());
+        contentValues.put(CROP_SYNC_STATUS,inventorySpray.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,inventorySpray.getGlobalId());
         database.update(CROP_INVENTORY_SPRAY_TABLE_NAME, contentValues, CROP_INVENTORY_SPRAY_ID + " = ?", new String[]{inventorySpray.getId()});
 
         closeDB();
@@ -4603,6 +4661,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_SEEDS_TGW, inventorySeeds.getTgw());
         contentValues.put(CROP_INVENTORY_SEEDS_USAGE_UNIT, inventorySeeds.getUsageUnits());
         contentValues.put(CROP_INVENTORY_SEEDS_TYPE, inventorySeeds.getType());
+        contentValues.put(CROP_SYNC_STATUS,inventorySeeds.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,inventorySeeds.getGlobalId());
         database.insert(CROP_INVENTORY_SEEDS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4622,7 +4682,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_SEEDS_TGW, inventorySeeds.getTgw());
         contentValues.put(CROP_INVENTORY_SEEDS_USAGE_UNIT, inventorySeeds.getUsageUnits());
         contentValues.put(CROP_INVENTORY_SEEDS_TYPE, inventorySeeds.getType());
-
+        contentValues.put(CROP_SYNC_STATUS,inventorySeeds.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,inventorySeeds.getGlobalId());
         database.update(CROP_INVENTORY_SEEDS_TABLE_NAME, contentValues, CROP_INVENTORY_SEEDS_ID + " = ?", new String[]{inventorySeeds.getId()});
         closeDB();
     }
@@ -4735,7 +4796,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FIELD_LAYOUT_TYPE,field.getLayoutType());
         contentValues.put(CROP_FIELD_STATUS,field.getStatus());
         contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
-
+        contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
         database.insert(CROP_FIELDS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4768,7 +4830,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN, fertilizer.getMicroNutrientsZn());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE, fertilizer.getMicroNutrientsFe());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA, fertilizer.getMicroNutrientsNa());
-
+        contentValues.put(CROP_SYNC_STATUS,fertilizer.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,fertilizer.getGlobalId());
         database.insert(CROP_INVENTORY_FERTILIZER_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4799,7 +4862,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN, fertilizer.getMicroNutrientsZn());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE, fertilizer.getMicroNutrientsFe());
         contentValues.put(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA, fertilizer.getMicroNutrientsNa());
-
+        contentValues.put(CROP_SYNC_STATUS,fertilizer.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,fertilizer.getGlobalId());
         database.update(CROP_INVENTORY_FERTILIZER_TABLE_NAME, contentValues, CROP_INVENTORY_FERTILIZER_ID + " = ?", new String[]{fertilizer.getId()});
         closeDB();
     }
@@ -4952,7 +5016,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_PURCHASED_FROM, machine.getPurchasedFrom());
         contentValues.put(CROP_MACHINE_STORAGE_LOCATION, machine.getStorageLocation());
         contentValues.put(CROP_MACHINE_PURCHASE_PRICE, machine.getPurchasePrice());
-
+        contentValues.put(CROP_SYNC_STATUS,machine.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,machine.getGlobalId());
         database.insert(CROP_MACHINE_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -4972,7 +5037,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_MACHINE_PURCHASED_FROM, machine.getPurchasedFrom());
         contentValues.put(CROP_MACHINE_STORAGE_LOCATION, machine.getStorageLocation());
         contentValues.put(CROP_MACHINE_PURCHASE_PRICE, machine.getPurchasePrice());
-
+        contentValues.put(CROP_SYNC_STATUS,machine.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,machine.getGlobalId());
         database.update(CROP_MACHINE_TABLE_NAME, contentValues, CROP_MACHINE_ID + " = ?", new String[]{machine.getId()});
 
         closeDB();
@@ -5040,6 +5106,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
+        contentValues.put(CROP_SYNC_STATUS,incomeExpense.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,incomeExpense.getGlobalId());
         database.insert(CROP_INCOME_EXPENSE_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -5060,7 +5128,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
-
+        contentValues.put(CROP_SYNC_STATUS,incomeExpense.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,incomeExpense.getGlobalId());
         database.update(CROP_INCOME_EXPENSE_TABLE_NAME,contentValues,CROP_INCOME_EXPENSE_ID+" = ?", new String[]{incomeExpense.getId()});
 
         closeDB();
@@ -5124,6 +5193,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TASK_FREQUENCY, task.getFrequency());
         contentValues.put(CROP_TASK_REPEAT_UNTIL, task.getRepeatUntil());
         contentValues.put(CROP_TASK_DAYS_BEFORE, task.getDaysBefore());
+        contentValues.put(CROP_SYNC_STATUS,task.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,task.getGlobalId());
         database.insert(CROP_TASK_TABLE_NAME,null,contentValues);
         closeDB();
     }
@@ -5143,7 +5214,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TASK_FREQUENCY, task.getFrequency());
         contentValues.put(CROP_TASK_REPEAT_UNTIL, task.getRepeatUntil());
         contentValues.put(CROP_TASK_DAYS_BEFORE, task.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,task.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,task.getGlobalId());
         database.update(CROP_TASK_TABLE_NAME,contentValues,CROP_TASK_ID+" = ?", new String[]{task.getId()});
 
         closeDB();
@@ -5266,7 +5338,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PURCHASE_ORDER_DISCOUNT,estimate.getDiscount());
         contentValues.put(CROP_PURCHASE_ORDER_NOTES,estimate.getNotes());
         contentValues.put(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
-
+        contentValues.put(CROP_SYNC_STATUS,estimate.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,estimate.getGlobalId());
         database.update(CROP_PURCHASE_ORDER_TABLE_NAME,contentValues,CROP_PURCHASE_ORDER_ID+" = ?", new String[]{estimate.getId()});
 
         String estimateId = estimate.getId();
@@ -5417,7 +5490,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PAYMENT_BILL_REFERENCE_NUMBER, cropPaymentBill.getReferenceNumber());
         contentValues.put(CROP_PAYMENT_BILL_BILL_ID, cropPaymentBill.getBillId());
         contentValues.put(CROP_PAYMENT_BILL_SUPPLIER_ID, cropPaymentBill.getSupplierId());
-
+        contentValues.put(CROP_SYNC_STATUS,cropPaymentBill.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropPaymentBill.getGlobalId());
         database.insert(CROP_PAYMENT_BILL_TABLE_NAME, null, contentValues);
 
 //        Log.d("ANNOYING",cropPaymentBill.getBillId());
@@ -5438,7 +5512,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PAYMENT_BILL_REFERENCE_NUMBER, cropPaymentBill.getReferenceNumber());
         contentValues.put(CROP_PAYMENT_BILL_BILL_ID, cropPaymentBill.getBillId());
         contentValues.put(CROP_PAYMENT_BILL_SUPPLIER_ID, cropPaymentBill.getSupplierId());
-
+        contentValues.put(CROP_SYNC_STATUS,cropPaymentBill.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,cropPaymentBill.getGlobalId());
         database.update(CROP_PAYMENT_BILL_TABLE_NAME,contentValues,CROP_PAYMENT_ID+" = ?", new String[]{cropPaymentBill.getId()});
 
 
@@ -5531,7 +5606,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_BILL_TERMS,bill.getTerms());
         contentValues.put(CROP_BILL_DISCOUNT,bill.getDiscount());
         contentValues.put(CROP_BILL_NOTES,bill.getNotes());
-
+        contentValues.put(CROP_SYNC_STATUS,bill.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,bill.getGlobalId());
         database.insert(CROP_BILL_TABLE_NAME, null, contentValues);
 
         Cursor res =  database.rawQuery( "select "+CROP_BILL_ID+" from "+CROP_BILL_TABLE_NAME+" where "+CROP_BILL_SUPPLIER_ID+" = '"+bill.getSupplierId()+"' AND "+CROP_BILL_NUMBER+" = '"+bill.getNumber()+"'", null );
@@ -5569,7 +5645,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_BILL_TERMS,bill.getTerms());
         contentValues.put(CROP_BILL_DISCOUNT,bill.getDiscount());
         contentValues.put(CROP_BILL_NOTES,bill.getNotes());
-
+        contentValues.put(CROP_SYNC_STATUS,bill.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,bill.getGlobalId());
 
         database.update(CROP_BILL_TABLE_NAME, contentValues, CROP_BILL_ID + " = ?", new String[]{bill.getId()});
 
@@ -5815,7 +5892,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_IRRIGATION_REPEAT_UNTIL, irrigation.getRepeatUntil());
         contentValues.put(CROP_IRRIGATION_DAYS_BEFORE, irrigation.getDaysBefore());
         contentValues.put(CROP_IRRIGATION_COST, irrigation.getTotalCost());
-
+        contentValues.put(CROP_SYNC_STATUS,irrigation.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,irrigation.getGlobalId());
         database.insert(CROP_IRRIGATION_TABLE_NAME, null, contentValues);
         //generate Notifications
         String id ="";
@@ -5846,7 +5924,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_IRRIGATION_REPEAT_UNTIL, irrigation.getRepeatUntil());
         contentValues.put(CROP_IRRIGATION_DAYS_BEFORE, irrigation.getDaysBefore());
         contentValues.put(CROP_IRRIGATION_COST, irrigation.getTotalCost());
-
+        contentValues.put(CROP_SYNC_STATUS,irrigation.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,irrigation.getGlobalId());
         database.update(CROP_IRRIGATION_TABLE_NAME, contentValues, CROP_IRRIGATION_ID + " = ?", new String[]{irrigation.getId()});
 
         deleteCropNotification(irrigation.getId(),context.getString(R.string.notification_type_irrigation));
@@ -5915,7 +5994,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TRANSPLANTING_REPEAT_UNTIL, transplanting.getRepeatUntil());
         contentValues.put(CROP_TRANSPLANTING_DAYS_BEFORE, transplanting.getDaysBefore());
         contentValues.put(CROP_TRANSPLANTING_COST, transplanting.getTotalCost());
-
+        contentValues.put(CROP_SYNC_STATUS,transplanting.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,transplanting.getGlobalId());
         database.insert(CROP_TRANSPLANTING_TABLE_NAME, null, contentValues);
         //generate Notifications
         String id ="";
@@ -5948,7 +6028,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_TRANSPLANTING_REPEAT_UNTIL, transplanting.getRepeatUntil());
         contentValues.put(CROP_TRANSPLANTING_DAYS_BEFORE, transplanting.getDaysBefore());
         contentValues.put(CROP_TRANSPLANTING_COST, transplanting.getTotalCost());
-
+        contentValues.put(CROP_SYNC_STATUS,transplanting.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,transplanting.getGlobalId());
         database.update(CROP_TRANSPLANTING_TABLE_NAME, contentValues, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplanting.getId()});
 
         deleteCropNotification(transplanting.getId(),context.getString(R.string.notification_type_transplanting));
@@ -6023,7 +6104,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SCOUTING_FREQUENCY, scouting.getFrequency());
         contentValues.put(CROP_SCOUTING_REPEAT_UNTIL, scouting.getRepeatUntil());
         contentValues.put(CROP_SCOUTING_DAYS_BEFORE, scouting.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,scouting.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,scouting.getGlobalId());
         database.insert(CROP_SCOUTING_TABLE_NAME, null, contentValues);
 
         //generate Notifications
@@ -6057,7 +6139,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SCOUTING_FREQUENCY, scouting.getFrequency());
         contentValues.put(CROP_SCOUTING_REPEAT_UNTIL, scouting.getRepeatUntil());
         contentValues.put(CROP_SCOUTING_DAYS_BEFORE, scouting.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,scouting.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,scouting.getGlobalId());
         database.update(CROP_SCOUTING_TABLE_NAME, contentValues, CROP_SCOUTING_ID + " = ?", new String[]{scouting.getId()});
 
         deleteCropNotification(scouting.getId(),context.getString(R.string.notification_type_scouting));
@@ -6134,7 +6217,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_HARVEST_FREQUENCY, harvest.getFrequency());
         contentValues.put(CROP_HARVEST_REPEAT_UNTIL, harvest.getRepeatUntil());
         contentValues.put(CROP_HARVEST_DAYS_BEFORE, harvest.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,harvest.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,harvest.getGlobalId());
         database.insert(CROP_HARVEST_TABLE_NAME, null, contentValues);
         //generate Notifications
         String id ="";
@@ -6173,7 +6257,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_HARVEST_FREQUENCY, harvest.getFrequency());
         contentValues.put(CROP_HARVEST_REPEAT_UNTIL, harvest.getRepeatUntil());
         contentValues.put(CROP_HARVEST_DAYS_BEFORE, harvest.getDaysBefore());
-
+        contentValues.put(CROP_SYNC_STATUS,harvest.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,harvest.getGlobalId());
         database.update(CROP_HARVEST_TABLE_NAME, contentValues, CROP_HARVEST_ID + " = ?", new String[]{harvest.getId()});
 
         deleteCropNotification(harvest.getId(),context.getString(R.string.notification_type_harvest));
@@ -6242,7 +6327,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CONTACT_PHONE_NUMBER, contact.getPhoneNumber());
         contentValues.put(CROP_CONTACT_EMAIL, contact.getEmail());
         contentValues.put(CROP_CONTACT_WEBSITE, contact.getWebsite());
-
+        contentValues.put(CROP_SYNC_STATUS,contact.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,contact.getGlobalId());
         database.insert(CROP_CONTACT_TABLE_NAME, null, contentValues);
         closeDB();
     }

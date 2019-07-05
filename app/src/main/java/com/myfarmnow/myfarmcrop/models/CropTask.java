@@ -183,7 +183,21 @@ public class CropTask implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("employeeId",employeeId);
+            object.put("cropId",cropId);
+            object.put("date",date);
+            object.put("title",title);
+            object.put("type",type);
+            object.put("status",status);
+            object.put("description",description);
+            object.put("employeeName",employeeName);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
+            object.put("cropName",cropName);
 
         } catch (JSONException e) {
             e.printStackTrace();

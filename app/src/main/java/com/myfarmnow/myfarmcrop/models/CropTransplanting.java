@@ -20,7 +20,6 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     float seedlingPerHa = 0;
     String varietyEarliness;
     float cycleLength = 0;
-
     String units;
     float expectedYield = 0;
     float expectedYieldPerHa = 0;
@@ -31,9 +30,6 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     private float frequency;
     private String repeatUntil;
     private String daysBefore;
-
-
-
     float area;
 
     @Override
@@ -257,8 +253,24 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("operationDate",operationDate);
+            object.put("totalSeedling",totalSeedling);
+            object.put("seedlingPerHa",seedlingPerHa);
+            object.put("varietyEarliness",varietyEarliness);
+            object.put("cycleLength",cycleLength);
+            object.put("units",units);
+            object.put("expectedYield",expectedYield);
+            object.put("expectedYieldPerHa",expectedYieldPerHa);
+            object.put("operator",operator);
+            object.put("totalCost",totalCost);
+            object.put("area",area);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
         } catch (JSONException e) {
             e.printStackTrace();
         }

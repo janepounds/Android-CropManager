@@ -229,6 +229,22 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("operationDate",operationDate);
+            object.put("systemRate",systemRate);
+            object.put("startTime",startTime);
+            object.put("endTime",endTime);
+            object.put("totalWaterQuantity",totalWaterQuantity);
+            object.put("areaIrrigated",areaIrrigated);
+            object.put("units",units);
+            object.put("quantityPerUnit",quantityPerUnit);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("totalCost",totalCost);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
 
 
         } catch (JSONException e) {

@@ -149,7 +149,16 @@ public class CropPaymentBill implements Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("amount",amount);
+            object.put("date",date);
+            object.put("mode",mode);
+            object.put("referenceNumber",referenceNumber);
+            object.put("paidThrough",paidThrough);
+            object.put("notes",notes);
+            object.put("supplierId",supplierId);
+            object.put("supplierName",supplierName);
+            object.put("billNumber",billNumber);
 
         } catch (JSONException e) {
             e.printStackTrace();

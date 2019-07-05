@@ -182,7 +182,21 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("date",date);
+            object.put("transaction",transaction);
+            object.put("item",item);
+            object.put("category",category);
+            object.put("quantity",quantity);
+            object.put("grossAmount",grossAmount);
+            object.put("unitPrice",unitPrice);
+            object.put("taxes",taxes);
+            object.put("paymentMode",paymentMode);
+            object.put("paymentStatus",paymentStatus);
+            object.put("sellingPrice",sellingPrice);
+            object.put("customerSupplier",customerSupplier);
+            object.put("amount",amount);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -130,7 +130,11 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("fertilizerName",fertilizerName);
+            object.put("type",type);
+            object.put("nPercentage",nPercentage);
+            object.put("pPercentage",pPercentage);
+            object.put("kPercentage",kPercentage);
 
         } catch (JSONException e) {
             e.printStackTrace();

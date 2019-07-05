@@ -223,7 +223,16 @@ public class CropBill implements Serializable,CropSpinnerItem {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("supplierId",supplierId);
+            object.put("number",number);
+            object.put("billDate",billDate);
+            object.put("dueDate",dueDate);
+            object.put("discount",discount);
+            object.put("notes",notes);
+            object.put("terms",terms);
+            object.put("orderNumber",orderNumber);
+            object.put("supplierName",supplierName);
 
         } catch (JSONException e) {
             e.printStackTrace();

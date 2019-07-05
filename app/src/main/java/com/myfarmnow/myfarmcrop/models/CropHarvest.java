@@ -255,7 +255,27 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("employeeId",employeeId);
+            object.put("date",date);
+            object.put("method",method);
+            object.put("units",units);
+            object.put("quantity",quantity);
+            object.put("status",status);
+            object.put("dateSold",dateSold);
+            object.put("customer",customer);
+            object.put("price",price);
+            object.put("quantitySold",quantitySold);
+            object.put("storageDate",storageDate);
+            object.put("quantityStored",quantityStored);
+            object.put("cost",cost);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
+            object.put("operator",operator);
 
         } catch (JSONException e) {
             e.printStackTrace();

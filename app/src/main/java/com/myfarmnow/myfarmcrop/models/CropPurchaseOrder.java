@@ -15,12 +15,10 @@ public class CropPurchaseOrder implements Serializable {
     String  purchaseDate;
     String  deliveryDate;
     float  discount;
-
     String  notes;
     String  termsAndConditions;
     String  method;
     String  referenceNumber;
-
     String supplierName;
     private String status="DRAFT";
     ArrayList<CropProductItem> items = new ArrayList<>();
@@ -192,6 +190,21 @@ public class CropPurchaseOrder implements Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("supplierId",supplierId);
+            object.put("number",number);
+            object.put("purchaseDate",purchaseDate);
+            object.put("deliveryDate",deliveryDate);
+            object.put("discount",discount);
+            object.put("notes",notes);
+            object.put("termsAndConditions",termsAndConditions);
+            object.put("method",method);
+            object.put("referenceNumber",referenceNumber);
+            object.put("supplierName",supplierName);
+            object.put("status",status);
+
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -171,6 +171,19 @@ public class CropCustomer implements CropSpinnerItem,Serializable{
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("name",name);
+            object.put("company",company);
+            object.put("taxRegNo",taxRegNo);
+            object.put("phone",phone);
+            object.put("mobile",mobile);
+            object.put("email",email);
+            object.put("openingBalance",openingBalance);
+            object.put("billingStreet",billingStreet);
+            object.put("billingCityOrTown",billingCityOrTown);
+            object.put("billingCountry",billingCountry);
+            object.put("shippingStreet",shippingStreet);
+            object.put("shippingCityOrTown",shippingCountry);
 
 
         } catch (JSONException e) {

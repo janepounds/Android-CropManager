@@ -275,6 +275,7 @@ public class Crop implements Serializable, CropSpinnerItem {
   return globalId;
  }
 
+
  public JSONObject toJSON(){
 
   JSONObject object = new JSONObject();
@@ -282,8 +283,24 @@ public class Crop implements Serializable, CropSpinnerItem {
   try {
    object.put("id",id);
    object.put("globalId",globalId);
-
-
+   object.put("userId",userId);
+   object.put("croppingYear",croppingYear);
+   object.put("fieldId",fieldId);
+   object.put("dateSown",dateSown);
+   object.put("variety",variety);
+   object.put("growingCycle",growingCycle);
+   object.put("season",season);
+   object.put("area",area);
+   object.put("cost",cost);
+   object.put("estimatedYield",estimatedYield);
+   object.put("estimatedRevenue",estimatedRevenue);
+   object.put("harvestUnits",harvestUnits);
+   object.put("operator",operator);
+   object.put("seedId",seedId);
+   object.put("rate",rate);
+   object.put("plantingMethod",plantingMethod);
+   object.put("name",name);
+   object.put("age",age);
   } catch (JSONException e) {
    e.printStackTrace();
   }

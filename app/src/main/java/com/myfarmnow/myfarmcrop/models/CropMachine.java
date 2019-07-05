@@ -148,6 +148,7 @@ public class CropMachine implements CropSpinnerItem, Serializable {
         return globalId;
     }
 
+
     public JSONObject toJSON(){
 
         JSONObject object = new JSONObject();
@@ -155,6 +156,18 @@ public class CropMachine implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("name",name);
+            object.put("brand",brand);
+            object.put("category",category);
+            object.put("manufacturer",manufacturer);
+            object.put("model",model);
+            object.put("registrationNumber",registrationNumber);
+            object.put("quantity",quantity);
+            object.put("date",date);
+            object.put("purchasedFrom",purchasedFrom);
+            object.put("storageLocation",storageLocation);
+            object.put("purchasePrice",purchasePrice);
 
 
         } catch (JSONException e) {

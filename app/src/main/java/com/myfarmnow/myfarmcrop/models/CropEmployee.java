@@ -200,6 +200,23 @@ public class CropEmployee implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("title",title);
+            object.put("firstName",firstName);
+            object.put("lastName",lastName);
+            object.put("phone",phone);
+            object.put("mobile",mobile);
+            object.put("employeeId",employeeId);
+            object.put("gender",gender);
+            object.put("address",address);
+            object.put("email",email);
+            object.put("dateOfBirth",dateOfBirth);
+            object.put("hireDate",hireDate);
+            object.put("employmentStatus",employmentStatus);
+            object.put("payAmount",payAmount);
+            object.put("payRate",payRate);
+            object.put("payType",payType);
+            object.put("supervisor",supervisor);
         } catch (JSONException e) {
             e.printStackTrace();
         }

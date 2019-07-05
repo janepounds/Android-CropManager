@@ -157,8 +157,18 @@ public class CropCultivation implements Serializable,CropActivity {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
+            object.put("date",date);
+            object.put("operation",operation);
+            object.put("operator",operator);
+            object.put("cost",cost);
+            object.put("notes",notes);
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
         } catch (JSONException e) {
             e.printStackTrace();
         }
