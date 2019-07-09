@@ -179,7 +179,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
         setTotalArea(Float.parseFloat(object.getString("totalArea")));
         setCroppableArea(Float.parseFloat(object.getString("croppableArea")));
         setUnits(object.getString("units"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
 
     }
 }

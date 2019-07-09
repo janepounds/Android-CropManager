@@ -240,6 +240,6 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
         setExpiryDate(object.getString("expiryDate"));
         setHarvestInterval(Integer.parseInt(object.getString("harvestInterval")));
         setActiveIngredients(object.getString("activeIngredients"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 }

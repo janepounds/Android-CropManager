@@ -280,7 +280,7 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         setTerms(object.getString("terms"));
         setOrderNumber(object.getString("orderNumber"));
         setCustomerName(object.getString("customerName"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
 
 
 

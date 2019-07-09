@@ -253,7 +253,7 @@ public class CropBill implements Serializable,CropSpinnerItem {
         setTerms(object.getString("terms"));
         setOrderNumber(object.getString("orderNumber"));
         setSupplierName(object.getString("supplierName"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 
 }

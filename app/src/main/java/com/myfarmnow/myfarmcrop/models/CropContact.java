@@ -141,6 +141,6 @@ public class CropContact implements CropSpinnerItem, Serializable {
         setPhoneNumber(object.getString("phoneNumber"));
         setEmail(object.getString("email"));
         setWebsite(object.getString("website"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 }

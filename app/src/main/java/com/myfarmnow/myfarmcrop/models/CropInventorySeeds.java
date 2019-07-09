@@ -238,7 +238,7 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         setTgw(object.getString("tgw"));
         setCost(Float.parseFloat(object.getString("cost")));
         setSupplier(object.getString("supplier"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 
 

@@ -243,6 +243,6 @@ public class CropEmployee implements CropSpinnerItem, Serializable {
         setPayRate(object.getString("payRate"));
         setPayType(object.getString("payType"));
         setSupervisor(object.getString("supervisor"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 }

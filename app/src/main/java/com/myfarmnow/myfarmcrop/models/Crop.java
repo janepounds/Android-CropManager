@@ -327,6 +327,6 @@ public class Crop implements Serializable, CropSpinnerItem {
   setRate(Float.parseFloat(object.getString("rate")));
   setPlantingMethod(object.getString("plantingMethod"));
   setName(object.getString("name"));
-  setSyncStatus("no");
+  setSyncStatus("yes");
  }
 }

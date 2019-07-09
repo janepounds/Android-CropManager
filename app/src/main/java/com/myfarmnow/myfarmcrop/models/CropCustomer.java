@@ -209,6 +209,6 @@ public class CropCustomer implements CropSpinnerItem,Serializable{
         setShippingStreet(object.getString("shippingStreet"));
         setShippingCityOrTown(object.getString("shippingCityOrTown"));
         setShippingCountry(object.getString("shippingCountry"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 }

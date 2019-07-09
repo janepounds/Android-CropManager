@@ -222,7 +222,7 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         setPaymentStatus(object.getString("paymentStatus"));
         setSellingPrice(Float.parseFloat(object.getString("sellingPrice")));
         setCustomerSupplier(object.getString("customerSupplier"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 }
 

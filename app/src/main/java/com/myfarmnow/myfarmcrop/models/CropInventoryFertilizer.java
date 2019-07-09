@@ -361,7 +361,7 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         setMicroNutrientsZn(Float.parseFloat(object.getString("microNutrientsZn")));
         setMicroNutrientsFe(Float.parseFloat(object.getString("microNutrientsFe")));
         setMicroNutrientsNa(Float.parseFloat(object.getString("microNutrientsNa")));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 
 

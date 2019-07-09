@@ -37,7 +37,7 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
         setnPercentage(Float.parseFloat(object.getString("nPercentage")));
         setpPercentage(Float.parseFloat(object.getString("pPercentage")));
         setkPercentage(Float.parseFloat(object.getString("kPercentage")));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 
 

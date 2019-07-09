@@ -304,7 +304,7 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         setRepeatUntil(object.getString("repeatUntil"));
         setDaysBefore(object.getString("daysBefore"));
         setOperator(object.getString("operator"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
 
     }
 }

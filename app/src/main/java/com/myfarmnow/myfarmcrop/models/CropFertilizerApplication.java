@@ -233,7 +233,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         setFrequency(Float.parseFloat(object.getString("frequency")));
         setRepeatUntil(object.getString("repeatUntil"));
         setDaysBefore(object.getString("daysBefore"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
 
     }
 }

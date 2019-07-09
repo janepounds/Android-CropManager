@@ -228,6 +228,6 @@ public class CropEstimate  implements Serializable{
         setCustomerName(object.getString("customerName"));
         setReferenceNumber(object.getString("referenceNumber"));
         setStatus(object.getString("status"));
-        setSyncStatus("no");
+        setSyncStatus("yes");
     }
 }
