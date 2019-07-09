@@ -205,4 +205,23 @@ public class CropSoilAnalysis implements Serializable {
         return object;
 
     }
+
+    public CropSoilAnalysis(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setFieldId(object.getString("fieldId"));
+        setUserId(object.getString("userId"));
+        setDate(object.getString("date"));
+        setPh((float)object.getDouble("ph"));
+        setOrganicMatter((float)object.getDouble("organicMatter"));
+        setAgronomist(object.getString("agronomist"));
+        setResult(object.getString("result"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setCost((float)object.getDouble("cost"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus( "yes");
+
+    }
 }

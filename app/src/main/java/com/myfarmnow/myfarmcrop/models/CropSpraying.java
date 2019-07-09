@@ -253,4 +253,30 @@ public class CropSpraying implements Serializable,CropActivity {
         return object;
 
     }
+
+    public CropSpraying(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setCropId(object.getString("cropId"));
+        setUserId(object.getString("userId"));
+        setDate(object.getString("date"));
+        setStartTime(object.getString("startTime"));
+        setEndTime(object.getString("endTime"));
+        setOperator(object.getString("operator"));
+        setWaterCondition(object.getString("waterCondition"));
+        setWaterVolume((float)object.getDouble("waterVolume"));
+        setWindDirection(object.getString("windDirection"));
+        setEquipmentUsed(object.getString("equipmentUsed"));
+        setSprayId(object.getString("sprayId"));
+        setRate((float)object.getDouble("rate"));
+        setTreatmentReason(object.getString("treatmentReason"));
+        setSprayName(object.getString("sprayName"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setCost((float)object.getDouble("cost"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus( "yes");
+
+    }
 }

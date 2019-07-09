@@ -204,4 +204,25 @@ public class CropScouting implements CropSpinnerItem, Serializable, CropActivity
         return object;
 
     }
+
+    public CropScouting(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setCropId(object.getString("cropId"));
+        setUserId(object.getString("userId"));
+        setDate(object.getString("date"));
+        setMethod(object.getString("method"));
+        setInfested(object.getString("infested"));
+        setInfestationType(object.getString("infestationType"));
+        setInfestation(object.getString("infestation"));
+        setInfestationLevel(object.getString("infestationLevel"));
+        setRemarks(object.getString("remarks"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setCost((float)object.getDouble("cost"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus( "yes");
+
+    }
 }

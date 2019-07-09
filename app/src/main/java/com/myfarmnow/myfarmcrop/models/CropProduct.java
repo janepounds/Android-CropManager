@@ -165,7 +165,6 @@ public class CropProduct implements CropSpinnerItem, Serializable {
             object.put("openingQuantity",openingQuantity);
             object.put("sellingPrice",sellingPrice);
             object.put("taxRate",taxRate);
-            object.put("remainingQuantity",remainingQuantity);
             object.put("description",description);
 
         } catch (JSONException e) {
@@ -173,5 +172,21 @@ public class CropProduct implements CropSpinnerItem, Serializable {
         }
         return object;
 
+    }
+
+    public CropProduct(JSONObject object) throws JSONException{
+        setGlobalId( object.getString("id"));
+        setUserId( object.getString("userId"));
+        setSyncStatus( "yes");
+        setName( object.getString("name"));
+        setType( object.getString("type"));
+        setCode( object.getString("code"));
+        setUnits( object.getString("units"));
+        setLinkedAccount( object.getString("linkedAccount"));
+        setDescription( object.getString("description"));
+        setOpeningCost((float)object.getDouble("openingCost"));
+        setOpeningQuantity((float)object.getDouble("openingQuantity"));
+        setSellingPrice((float)object.getDouble("sellingPrice"));
+        setTaxRate((float)object.getDouble("taxRate"));
     }
 }

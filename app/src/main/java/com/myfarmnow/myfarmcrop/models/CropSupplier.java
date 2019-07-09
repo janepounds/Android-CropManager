@@ -164,4 +164,20 @@ public class CropSupplier implements Serializable,CropSpinnerItem{
         return object;
 
     }
+
+    public CropSupplier(JSONObject object) throws JSONException{
+        setGlobalId( object.getString("id"));
+        setUserId( object.getString("userId"));
+        setSyncStatus( "yes");
+        setName( object.getString("name"));
+        setCompany( object.getString("company"));
+        setTaxRegNo( object.getString("taxRegNo"));
+        setPhone( object.getString("phone"));
+        setMobile( object.getString("mobile"));
+        setEmail( object.getString("email"));
+        setOpeningBalance((float)object.getDouble("openingBalance"));
+        setInvoiceStreet( object.getString("invoiceStreet"));
+        setInvoiceCityOrTown( object.getString("invoiceCityOrTown"));
+        setInvoiceCountry( object.getString("invoiceCityOrTown"));
+    }
 }

@@ -196,5 +196,25 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
         return object;
 
     }
+
+    public CropMachineService(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setMachineId(object.getString("machineId"));
+        setDate(object.getString("date"));
+        setTitle(object.getString("title"));
+        setType(object.getString("type"));
+        setServiceType(object.getString("serviceType"));
+        setDescription(object.getString("description"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setEmployeeName(object.getString("employeeName"));
+        setCost((float)object.getDouble("cost"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setCurrentHours((float)object.getDouble("currentHours"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus( "yes");
+
+    }
 }
 

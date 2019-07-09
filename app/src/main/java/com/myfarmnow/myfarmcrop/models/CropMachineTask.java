@@ -220,5 +220,27 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         return object;
 
     }
+    public  CropMachineTask(JSONObject object) throws JSONException{
+
+        setGlobalId(object.getString("id"));
+        setMachineId(object.getString("machineId"));
+        setStartDate(object.getString("startDate"));
+        setEndDate(object.getString("endDate"));
+        setTitle(object.getString("title"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setDaysBefore(object.getString("daysBefore"));
+        setEmployeeName(object.getString("employeeName"));
+        setEmployeeId(object.getString("employeeId"));
+        setCost((float)object.getDouble("cost"));
+        setDescription(object.getString("description"));
+        setStatus(object.getString("status"));
+        setCropName(object.getString("cropName"));
+    }
+
+
 }
+
 

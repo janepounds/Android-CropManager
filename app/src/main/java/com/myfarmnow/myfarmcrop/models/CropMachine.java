@@ -177,5 +177,22 @@ public class CropMachine implements CropSpinnerItem, Serializable {
 
     }
 
+    public CropMachine(JSONObject object) throws JSONException {
+       setGlobalId( object.getString("id"));
+        setUserId( object.getString("userId"));
+        setName( object.getString("name"));
+        setBrand( object.getString("brand"));
+        setCategory( object.getString("category"));
+        setManufacturer( object.getString("manufacturer"));
+        setModel( object.getString("model"));
+        setRegistrationNumber( object.getString("registrationNumber"));
+        setQuantity( (float)object.getDouble("quantity"));
+        setDate( object.getString("date"));
+        setPurchasedFrom( object.getString("purchasedFrom"));
+        setStorageLocation( object.getString("storageLocation"));
+        setPurchasePrice( (float)object.getDouble("date"));
+        setSyncStatus( "yes");
+    }
+
 
 }
