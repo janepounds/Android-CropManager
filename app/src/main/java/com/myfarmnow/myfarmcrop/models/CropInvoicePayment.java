@@ -143,6 +143,7 @@ public class CropInvoicePayment implements Serializable {
             object.put("customerId",customerId);
             object.put("amount",amount);
             object.put("date",mode);
+            object.put("mode",date);
             object.put("referenceNo",referenceNo);
             object.put("paymentNumber",paymentNumber);
             object.put("invoiceNumber",invoiceNumber);
@@ -154,6 +155,23 @@ public class CropInvoicePayment implements Serializable {
             e.printStackTrace();
         }
         return object;
+
+    }
+
+    public  CropInvoicePayment(JSONObject object) throws JSONException{
+        setGlobalId( object.getString("id"));
+        setUserId( object.getString("userId"));
+        setDate( object.getString("date"));
+        setMode( object.getString("mode"));
+        setReferenceNo( object.getString("referenceNo"));
+        setPaymentNumber( object.getString("paymentNumber"));
+        setInvoiceNumber( object.getString("invoiceNumber"));
+        setNotes( object.getString("notes"));
+        setCustomerId( object.getString("customerId"));
+        setCustomerName( object.getString("customerName"));
+        setInvoiceId( object.getString("invoiceId"));
+        setAmount((float)object.getDouble("amount"));
+        setSyncStatus( "yes");
 
     }
 }

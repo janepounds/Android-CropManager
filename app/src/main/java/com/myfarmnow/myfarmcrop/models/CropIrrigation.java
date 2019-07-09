@@ -223,7 +223,6 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
     }
 
     public JSONObject toJSON(){
-
         JSONObject object = new JSONObject();
 
         try {
@@ -238,7 +237,6 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
             object.put("totalWaterQuantity",totalWaterQuantity);
             object.put("areaIrrigated",areaIrrigated);
             object.put("units",units);
-            object.put("quantityPerUnit",quantityPerUnit);
             object.put("recurrence",recurrence);
             object.put("reminders",reminders);
             object.put("totalCost",totalCost);
@@ -252,5 +250,25 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         }
         return object;
 
+    }
+
+    public CropIrrigation(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setCropId(object.getString("cropId"));
+        setUserId(object.getString("userId"));
+        setOperationDate(object.getString("operationDate"));
+        setStartTime(object.getString("startTime"));
+        setEndTime(object.getString("endTime"));
+        setUnits(object.getString("units"));
+        setTotalWaterQuantity((float)object.getDouble("totalWaterQuantity"));
+        setAreaIrrigated((float)object.getDouble("areaIrrigated"));
+        setSystemRate((float)object.getDouble("systemRate"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setTotalCost((float)object.getDouble("totalCost"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus( "yes");
     }
 }

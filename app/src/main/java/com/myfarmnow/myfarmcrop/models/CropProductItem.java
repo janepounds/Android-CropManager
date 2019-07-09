@@ -152,4 +152,18 @@ public class CropProductItem implements Serializable {
         return object;
 
     }
+
+    public CropProductItem(JSONObject object) throws JSONException{
+
+        setGlobalId( object.getString("id"));
+        setSyncStatus( "yes");
+        setProductId( object.getString("productId"));
+        setProductName( object.getString("productName"));
+        setParentObjectId( object.getString("parentObjectId"));
+        setParentObjectType( object.getString("parentObjectType"));
+        setQuantity((float)object.getDouble("quantity"));
+        setRate((float)object.getDouble("rate"));
+        setTax((float)object.getDouble("tax"));
+
+    }
 }

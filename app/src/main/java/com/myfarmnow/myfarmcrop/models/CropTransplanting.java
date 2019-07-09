@@ -278,4 +278,28 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
 
     }
 
+    public CropTransplanting(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setCropId(object.getString("cropId"));
+        setUserId(object.getString("userId"));
+        setOperationDate(object.getString("operationDate"));
+        setTotalSeedling((float)object.getDouble("totalSeedling"));
+        setSeedlingPerHa((float)object.getDouble("seedlingPerHa"));
+        setCycleLength((float)object.getDouble("cycleLength"));
+        setVarietyEarliness(object.getString("varietyEarliness"));
+        setUnits(object.getString("units"));
+        setExpectedYield((float)object.getDouble("expectedYield"));
+        setExpectedYieldPerHa((float)object.getDouble("expectedYieldPerHa"));
+        setOperator(object.getString("operator"));
+        setArea((float)object.getDouble("area"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("totalCost"));
+        setTotalCost((float)object.getDouble("cost"));
+        setFrequency((float)object.getDouble("frequency"));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus( "yes");
+
+    }
+
 }

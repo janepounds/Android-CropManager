@@ -125,4 +125,14 @@ public class CropNote implements Serializable {
 
     }
 
+    public CropNote(JSONObject object) throws JSONException{
+        setGlobalId(object.getString("id"));
+        setParentId(object.getString("parentId"));
+        setDate(object.getString("date"));
+        setNotes(object.getString("notes"));
+        setIsFor(object.getString("isFor"));
+        setCategory(object.getString("category"));
+        setSyncStatus( "yes");
+    }
+
 }

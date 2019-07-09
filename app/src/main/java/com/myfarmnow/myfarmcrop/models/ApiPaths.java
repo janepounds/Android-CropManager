@@ -4,8 +4,9 @@ public class ApiPaths {
 
     public final static String LOCAL_URL = "http://10.0.2.2:8000";
     public final static String LIVE_SERVER_URL = "http://cropmanager.myfarmnow.com";
-    public final static String SERVER_URL = LIVE_SERVER_URL;
-   // public final static String SERVER_URL = LOCAL_URL;
+
+    //public final static String SERVER_URL = LIVE_SERVER_URL;
+    public final static String SERVER_URL = LOCAL_URL;
     public static final String CROP_LOGIN_GET_ALL =  SERVER_URL + "/api/crop/user/authenticate";;
     public static final String CROP_CREATE_USER =  SERVER_URL + "/api/crop/user/create";;
     public static final String CROP_USER_UPDATE =  SERVER_URL + "/api/crop/user/update";;
@@ -18,9 +19,10 @@ public class ApiPaths {
 
     public static final String CROP_USER_BACKUP =  SERVER_URL + "/api/crop/userBackup/post";
 
+    //SYNCHRONISATION
+    public static final String DATA_BACK_UP =  SERVER_URL + "/api/crop/data/backup/block";
 
     //WALLET TRANSACTIONS
-
     public static final String CROP_WALLET_GET_TOKEN =  SERVER_URL + "/api/crop/wallet/token/get";
     public static final String CROP_WALLET_GET_BALANCE =  SERVER_URL + "/api/crop/wallet/balance/request";
     public static final String CROP_WALLET_INITIATE_MOMO_DEPOSIT =  SERVER_URL + "/api/crop/wallet/momo/deposit/initiate";

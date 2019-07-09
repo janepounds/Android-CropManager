@@ -121,7 +121,7 @@ public class CropBillPreviewActivity extends AppCompatActivity {
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
-        cropSupplier = dbHandler.getCropSupplier(cropBill.getSupplierId());
+        cropSupplier = dbHandler.getCropSupplier(cropBill.getSupplierId(), false);
         if(cropSupplier == null){
             finish();
         }

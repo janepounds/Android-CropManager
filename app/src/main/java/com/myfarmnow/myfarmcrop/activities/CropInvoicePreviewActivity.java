@@ -117,7 +117,7 @@ public class CropInvoicePreviewActivity extends AppCompatActivity {
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
-        cropCustomer = dbHandler.getCropCustomer(cropInvoice.getCustomerId());
+        cropCustomer = dbHandler.getCropCustomer(cropInvoice.getCustomerId(),false);
         if(cropCustomer == null){
             finish();
         }

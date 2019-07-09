@@ -212,4 +212,20 @@ public class CropPurchaseOrder implements Serializable {
 
     }
 
+    public  CropPurchaseOrder(JSONObject object) throws JSONException{
+        setGlobalId( object.getString("id"));
+        setUserId( object.getString("userId"));
+        setSyncStatus( "yes");
+        setNumber( object.getString("number"));
+        setSupplierId( object.getString("supplierId"));
+        setSupplierName( object.getString("supplierName"));
+        setReferenceNumber( object.getString("referenceNumber"));
+        setMethod( object.getString("method"));
+        setTermsAndConditions( object.getString("termsAndConditions"));
+        setNotes( object.getString("notes"));
+        setDeliveryDate( object.getString("deliveryDate"));
+        setPurchaseDate( object.getString("purchaseDate"));
+        setDiscount( (float)object.getDouble("discount"));
+    }
+
 }
