@@ -245,7 +245,18 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("customerId",customerId);
+            object.put("number",number);
+            object.put("date",date);
+            object.put("dueDate",dueDate);
+            object.put("discount",discount);
+            object.put("shippingCharges",shippingCharges);
+            object.put("customerNotes",customerNotes);
+            object.put("termsAndConditions",termsAndConditions);
+            object.put("terms",terms);
+            object.put("orderNumber",orderNumber);
+            object.put("customerName",customerName);
 
         } catch (JSONException e) {
             e.printStackTrace();

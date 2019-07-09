@@ -139,8 +139,13 @@ public class CropProductItem implements Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
+            object.put("productId",productId);
+            object.put("parentObjectId",parentObjectId);
+            object.put("quantity",quantity);
+            object.put("rate",rate);
+            object.put("tax",tax);
+            object.put("productName",productName);
+            object.put("parentObjectType",parentObjectType);
         } catch (JSONException e) {
             e.printStackTrace();
         }

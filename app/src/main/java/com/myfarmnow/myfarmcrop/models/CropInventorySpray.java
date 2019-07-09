@@ -231,7 +231,20 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("dateOfPurchase",dateOfPurchase);
+            object.put("name",name);
+            object.put("batchNumber",batchNumber);
+            object.put("quantity",quantity);
+            object.put("totalConsumed",totalConsumed);
+            object.put("usageUnits",usageUnits);
+            object.put("type",type);
+            object.put("userId",userId);
+            object.put("cost",cost);
+            object.put("supplier",supplier);
+            object.put("expiryDate",expiryDate);
+            object.put("harvestInterval",harvestInterval);
+            object.put("activeIngredients",activeIngredients);
+            object.put("sprayType",sprayType);
 
         } catch (JSONException e) {
             e.printStackTrace();

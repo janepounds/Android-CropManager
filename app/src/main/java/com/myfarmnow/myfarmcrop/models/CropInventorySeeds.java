@@ -230,6 +230,19 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("dateOfPurchase",dateOfPurchase);
+            object.put("name",name);
+            object.put("batchNumber",batchNumber);
+            object.put("quantity",quantity);
+            object.put("totalConsumed",totalConsumed);
+            object.put("usageUnits",usageUnits);
+            object.put("type",type);
+            object.put("variety",variety);
+            object.put("dressing",dressing);
+            object.put("tgw",tgw);
+            object.put("userId",userId);
+            object.put("cost",cost);
+            object.put("supplier",supplier);
 
 
         } catch (JSONException e) {

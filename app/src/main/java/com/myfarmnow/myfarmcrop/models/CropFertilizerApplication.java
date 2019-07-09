@@ -191,8 +191,23 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
+            object.put("date",date);
+            object.put("operator",operator);
+            object.put("method",method);
+            object.put("reason",reason);
+            object.put("fertilizerForm",fertilizerForm);
+            object.put("fertilizerId",fertilizerId);
+            object.put("fertilizerName",fertilizerName);
+            object.put("rate",rate);
+            object.put("cost",cost);
+            object.put("id",id);
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
         } catch (JSONException e) {
             e.printStackTrace();
         }

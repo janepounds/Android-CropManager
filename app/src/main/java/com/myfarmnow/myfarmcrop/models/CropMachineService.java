@@ -12,7 +12,6 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
     String date;
     String title;
     String type;
-
     String description;
     String recurrence;
     String reminders;
@@ -175,6 +174,20 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("machineId",machineId);
+            object.put("date",date);
+            object.put("title",title);
+            object.put("type",type);
+            object.put("description",description);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("employeeName",employeeName);
+            object.put("serviceType",serviceType);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("cost",cost);
+            object.put("currentHours",currentHours);
+            object.put("daysBefore",daysBefore);
 
 
         } catch (JSONException e) {

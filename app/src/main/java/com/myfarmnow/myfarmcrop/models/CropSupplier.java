@@ -144,6 +144,18 @@ public class CropSupplier implements Serializable,CropSpinnerItem{
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("name",name);
+            object.put("company",company);
+            object.put("taxRegNo",taxRegNo);
+            object.put("phone",phone);
+            object.put("mobile",mobile);
+            object.put("email",email);
+            object.put("openingBalance",openingBalance);
+            object.put("invoiceStreet",invoiceStreet);
+            object.put("invoiceCityOrTown",invoiceCityOrTown);
+            object.put("invoiceCountry",invoiceCountry);
+
 
 
         } catch (JSONException e) {

@@ -342,7 +342,28 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("purchaseDate",purchaseDate);
+            object.put("fertilizerName",fertilizerName);
+            object.put("batchNumber",batchNumber);
+            object.put("quantity",quantity);
+            object.put("totalConsumed",totalConsumed);
+            object.put("usageUnits",usageUnits);
+            object.put("type",type);
+            object.put("nPercentage",nPercentage);
+            object.put("kPercentage",kPercentage);
+            object.put("pPercentage",pPercentage);
+            object.put("serialNumber",serialNumber);
+            object.put("supplier",supplier);
+            object.put("macroNutrientsCa",macroNutrientsCa);
+            object.put("macroNutrientsMg",macroNutrientsMg);
+            object.put("macroNutrientsS",macroNutrientsS);
+            object.put("microNutrientsB",microNutrientsB);
+            object.put("microNutrientsMn",microNutrientsMn);
+            object.put("microNutrientsCl",microNutrientsCl);
+            object.put("microNutrientsZn",microNutrientsZn);
+            object.put("microNutrientsFe",microNutrientsFe);
+            object.put("microNutrientsNa",microNutrientsNa);
 
         } catch (JSONException e) {
             e.printStackTrace();

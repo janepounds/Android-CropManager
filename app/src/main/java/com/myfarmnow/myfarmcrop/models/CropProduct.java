@@ -155,6 +155,19 @@ public class CropProduct implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("name",name);
+            object.put("type",type);
+            object.put("code",code);
+            object.put("units",units);
+            object.put("linkedAccount",linkedAccount);
+            object.put("openingCost",openingCost);
+            object.put("openingQuantity",openingQuantity);
+            object.put("sellingPrice",sellingPrice);
+            object.put("taxRate",taxRate);
+            object.put("remainingQuantity",remainingQuantity);
+            object.put("description",description);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

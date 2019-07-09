@@ -182,7 +182,21 @@ public class CropScouting implements CropSpinnerItem, Serializable, CropActivity
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
+            object.put("userId",userId);
+            object.put("cropId",cropId);
+            object.put("date",date);
+            object.put("method",method);
+            object.put("infested",infested);
+            object.put("infestationType",infestationType);
+            object.put("infestation",infestation);
+            object.put("infestationLevel",infestationLevel);
+            object.put("cost",cost);
+            object.put("remarks",remarks);
+            object.put("recurrence",recurrence);
+            object.put("reminders",reminders);
+            object.put("frequency",frequency);
+            object.put("repeatUntil",repeatUntil);
+            object.put("daysBefore",daysBefore);
 
         } catch (JSONException e) {
             e.printStackTrace();

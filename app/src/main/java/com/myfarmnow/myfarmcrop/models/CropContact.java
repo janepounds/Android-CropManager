@@ -114,6 +114,14 @@ public class CropContact implements CropSpinnerItem, Serializable {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("type",type);
+            object.put("name",name);
+            object.put("businessName",businessName);
+            object.put("address",address);
+            object.put("phoneNumber",phoneNumber);
+            object.put("email",email);
+            object.put("website",website);
 
 
         } catch (JSONException e) {

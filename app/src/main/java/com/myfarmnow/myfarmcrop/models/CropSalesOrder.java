@@ -201,10 +201,25 @@ public class CropSalesOrder implements Serializable{
         try {
             object.put("id",id);
             object.put("globalId",globalId);
+            object.put("userId",userId);
+            object.put("customerId",customerId);
+            object.put("number",number);
+            object.put("date",date);
+            object.put("shippingDate",shippingDate);
+            object.put("discount",discount);
+            object.put("shippingCharges",shippingCharges);
+            object.put("customerNotes",customerNotes);
+            object.put("termsAndConditions",termsAndConditions);
+            object.put("method",method);
+            object.put("referenceNumber",referenceNumber);
+            object.put("customerName",customerName);
+            object.put("status",status);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
 
     }
+
 }
