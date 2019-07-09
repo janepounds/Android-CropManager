@@ -214,4 +214,26 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         return object;
 
     }
+    public CropFertilizerApplication(JSONObject object) throws JSONException {
+
+        setGlobalId(object.getString("id"));
+        setDate(object.getString("date"));
+        setOperator(object.getString("operator"));
+        setMethod(object.getString("method"));
+        setReason(object.getString("reason"));
+        setFertilizerForm(object.getString("fertilizerForm"));
+        setFertilizerId(object.getString("fertilizerId"));
+        setFertilizerName(object.getString("fertilizerName"));
+        setRate(Float.parseFloat(object.getString("rate")));
+        setCost(Float.parseFloat(object.getString("cost")));
+        setUserId(object.getString("userId"));
+        setCropId(object.getString("cropId"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setFrequency(Float.parseFloat(object.getString("frequency")));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus("no");
+
+    }
 }

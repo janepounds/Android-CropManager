@@ -19,9 +19,7 @@ public class CropCultivation implements Serializable,CropActivity {
     private float frequency;
     private String repeatUntil;
     private String daysBefore;
-    public CropCultivation(){
 
-    }
 
     public String getId() {
         return id;
@@ -174,5 +172,21 @@ public class CropCultivation implements Serializable,CropActivity {
         }
         return object;
 
+    }
+    public CropCultivation(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setDate(object.getString("date"));
+        setOperation(object.getString("operation"));
+        setOperator(object.getString("operator"));
+        setCost(Float.parseFloat(object.getString("cost")));
+        setNotes(object.getString("notes"));
+        setUserId(object.getString("userId"));
+        setCropId(object.getString("cropId"));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setFrequency(Float.parseFloat(object.getString("frequency")));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setSyncStatus("no");
     }
 }

@@ -34,6 +34,8 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String name;
  private String age;
 
+
+
  public float getRateR() {
   return rateR;
  }
@@ -300,11 +302,31 @@ public class Crop implements Serializable, CropSpinnerItem {
    object.put("rate",rate);
    object.put("plantingMethod",plantingMethod);
    object.put("name",name);
-   object.put("age",age);
+
   } catch (JSONException e) {
    e.printStackTrace();
   }
   return object;
-
+ }
+ public Crop(JSONObject object) throws JSONException {
+  setUserId(object.getString("userId"));
+  setGlobalId(object.getString("id"));
+  setCroppingYear(Integer.parseInt(object.getString("croppingYear")));
+  setFieldId(object.getString("fieldId"));
+  setDateSown(object.getString("dateSown"));
+  setVariety(object.getString("variety"));
+  setGrowingCycle(object.getString("growingCycle"));
+  setSeason(object.getString("season"));
+  setArea(Float.parseFloat(object.getString("area")));
+  setCost(Float.parseFloat(object.getString("cost")));
+  setEstimatedYield(Float.parseFloat(object.getString("estimatedYield")));
+  setEstimatedRevenue(Float.parseFloat(object.getString("estimatedRevenue")));
+  setHarvestUnits(object.getString("harvestUnits"));
+  setOperator(object.getString("operator"));
+  setSeedId(object.getString("seedId"));
+  setRate(Float.parseFloat(object.getString("rate")));
+  setPlantingMethod(object.getString("plantingMethod"));
+  setName(object.getString("name"));
+  setSyncStatus("no");
  }
 }

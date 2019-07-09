@@ -130,4 +130,17 @@ public class CropContact implements CropSpinnerItem, Serializable {
         return object;
 
     }
+
+    public CropContact(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setType(object.getString("type"));
+        setName(object.getString("name"));
+        setBusinessName(object.getString("businessName"));
+        setAddress(object.getString("address"));
+        setPhoneNumber(object.getString("phoneNumber"));
+        setEmail(object.getString("email"));
+        setWebsite(object.getString("website"));
+        setSyncStatus("no");
+    }
 }

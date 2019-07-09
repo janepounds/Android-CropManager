@@ -36,40 +36,10 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
     float microNutrientsFe=0;
     float microNutrientsNa=0;
 
-    public CropInventoryFertilizer(){
-
-    }
 
 
 
 
-
-
-    public CropInventoryFertilizer(JSONObject fertilizerJson) throws MissingValueException{
-        try {
-            this.setFertilizerName(fertilizerJson.getString(MyFarmDbHandlerSingleton.CROP_INVENTORY_FERTILIZER_NAME));
-            this.setBatchNumber(fertilizerJson.getString(MyFarmDbHandlerSingleton.CROP_INVENTORY_FERTILIZER_BATCH_NUMBER));
-            this.setPurchaseDate(fertilizerJson.getString(MyFarmDbHandlerSingleton.CROP_INVENTORY_FERTILIZER_DATE));
-            this.setQuantity((float)fertilizerJson.getDouble(MyFarmDbHandlerSingleton.CROP_INVENTORY_FERTILIZER_QUANTITY));
-            //this.setTotalConsumed((float)sheepJson.getDouble("totalConsumed"));
-        }catch (JSONException e){
-            throw new MissingValueException("Missing Key Variables in the JSON Object "+e.getMessage());
-        }
-        try {
-            this.setId(fertilizerJson.getString("id"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.setUsageUnits(fertilizerJson.getString("usageUnits"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-
-        //
-    }
     public void setUsageUnits(String usageUnits) {
 
             this.usageUnits = usageUnits;
@@ -364,11 +334,37 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
             object.put("microNutrientsZn",microNutrientsZn);
             object.put("microNutrientsFe",microNutrientsFe);
             object.put("microNutrientsNa",microNutrientsNa);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        } catch (JSONException e) { e.printStackTrace();        }
         return object;
-
     }
+    public CropInventoryFertilizer(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setPurchaseDate(object.getString("purchaseDate"));
+        setFertilizerName(object.getString("fertilizerName"));
+        setBatchNumber(object.getString("batchNumber"));
+        setQuantity(Float.parseFloat(object.getString("quantity")));
+        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
+        setUsageUnits(object.getString("usageUnits"));
+        setType(object.getString("type"));
+        setnPercentage(Float.parseFloat(object.getString("nPercentage")));
+        setkPercentage(Float.parseFloat(object.getString("kPercentage")));
+        setpPercentage(Float.parseFloat(object.getString("pPercentage")));
+        setSerialNumber(object.getString("serialNumber"));
+        setSupplier(object.getString("supplier"));
+        setMacroNutrientsCa(Float.parseFloat(object.getString("macroNutrientsCa")));
+        setMacroNutrientsMg(Float.parseFloat(object.getString("macroNutrientsMg")));
+        setMacroNutrientsS(Float.parseFloat(object.getString("macroNutrientsS")));
+        setMicroNutrientsB(Float.parseFloat(object.getString("microNutrientsB")));
+        setMicroNutrientsMn(Float.parseFloat(object.getString("microNutrientsMn")));
+        setMicroNutrientsCl(Float.parseFloat(object.getString("microNutrientsCl")));
+        setMicroNutrientsZn(Float.parseFloat(object.getString("microNutrientsZn")));
+        setMicroNutrientsFe(Float.parseFloat(object.getString("microNutrientsFe")));
+        setMicroNutrientsNa(Float.parseFloat(object.getString("microNutrientsNa")));
+        setSyncStatus("no");
+    }
+
+
+
+
 }

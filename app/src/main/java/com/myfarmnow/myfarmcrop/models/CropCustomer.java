@@ -183,13 +183,32 @@ public class CropCustomer implements CropSpinnerItem,Serializable{
             object.put("billingCityOrTown",billingCityOrTown);
             object.put("billingCountry",billingCountry);
             object.put("shippingStreet",shippingStreet);
-            object.put("shippingCityOrTown",shippingCountry);
-
+            object.put("shippingCityOrTown",shippingCityOrTown);
+            object.put("shippingCountry",shippingCountry);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
 
+    }
+
+    public CropCustomer(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setName(object.getString("name"));
+        setCompany(object.getString("company"));
+        setTaxRegNo(object.getString("taxRegNo"));
+        setPhone(object.getString("phone"));
+        setMobile(object.getString("mobile"));
+        setEmail(object.getString("email"));
+        setOpeningBalance(Float.parseFloat(object.getString("openingBalance")));
+        setBillingStreet(object.getString("billingStreet"));
+        setBillingCityOrTown(object.getString("billingCityOrTown"));
+        setBillingCountry(object.getString("billingCountry"));
+        setShippingStreet(object.getString("shippingStreet"));
+        setShippingCityOrTown(object.getString("shippingCityOrTown"));
+        setShippingCountry(object.getString("shippingCountry"));
+        setSyncStatus("no");
     }
 }

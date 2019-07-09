@@ -241,5 +241,19 @@ public class CropBill implements Serializable,CropSpinnerItem {
 
     }
 
+    public CropBill(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setSupplierId(object.getString("supplierId"));
+        setNumber(object.getString("number"));
+        setBillDate(object.getString("billDate"));
+        setDueDate(object.getString("dueDate"));
+        setDiscount(Float.parseFloat(object.getString("discount")));
+        setNotes(object.getString("notes"));
+        setTerms(object.getString("terms"));
+        setOrderNumber(object.getString("orderNumber"));
+        setSupplierName(object.getString("supplierName"));
+        setSyncStatus("no");
+    }
 
 }

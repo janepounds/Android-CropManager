@@ -265,4 +265,24 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
 
     }
 
+    public CropInvoice(JSONObject object) throws JSONException {
+
+        setUserId(object.getString("userId"));
+        setGlobalId(object.getString("globalId"));
+        setCustomerId(object.getString("customerId"));
+        setNumber(object.getString("number"));
+        setDate(object.getString("date"));
+        setDueDate(object.getString("dueDate"));
+        setDiscount(Float.parseFloat(object.getString("discount")));
+        setShippingCharges(Float.parseFloat(object.getString("shippingCharges")));
+        setCustomerNotes(object.getString("customerNotes"));
+        setTermsAndConditions(object.getString("termsAndConditions"));
+        setTerms(object.getString("terms"));
+        setOrderNumber(object.getString("orderNumber"));
+        setCustomerName(object.getString("customerName"));
+        setSyncStatus("no");
+
+
+
+    }
 }

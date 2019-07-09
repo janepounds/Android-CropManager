@@ -204,5 +204,25 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         return object;
 
     }
+
+    public CropIncomeExpense(JSONObject object) throws JSONException {
+
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setCropId(object.getString("cropId"));
+        setDate(object.getString("date"));
+        setTransaction(object.getString("transaction"));
+        setItem(object.getString("item"));
+        setCategory(object.getString("category"));
+        setQuantity(Float.valueOf(object.getString("quantity")));
+        setGrossAmount(Integer.valueOf(object.getString("grossAmount")));
+        setUnitPrice(Float.parseFloat(object.getString("unitPrice")));
+        setTaxes(Float.parseFloat(object.getString("taxes")));
+        setPaymentMode(object.getString("paymentMode"));
+        setPaymentStatus(object.getString("paymentStatus"));
+        setSellingPrice(Float.parseFloat(object.getString("sellingPrice")));
+        setCustomerSupplier(object.getString("customerSupplier"));
+        setSyncStatus("no");
+    }
 }
 

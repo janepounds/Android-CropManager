@@ -222,4 +222,27 @@ public class CropEmployee implements CropSpinnerItem, Serializable {
         }
         return object;
     }
+
+    public CropEmployee(JSONObject object) throws JSONException {
+
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setTitle(object.getString("title"));
+        setFirstName(object.getString("firstName"));
+        setLastName(object.getString("lastName"));
+        setPhone(object.getString("phone"));
+        setMobile(object.getString("mobile"));
+        setEmployeeId(object.getString("employeeId"));
+        setGender(object.getString("gender"));
+        setAddress(object.getString("address"));
+        setEmail(object.getString("email"));
+        setDateOfBirth(object.getString("dateOfBirth"));
+        setHireDate(object.getString("hireDate"));
+        setEmploymentStatus(object.getString("employmentStatus"));
+        setPayAmount(Float.parseFloat(object.getString("payAmount")));
+        setPayRate(object.getString("payRate"));
+        setPayType(object.getString("payType"));
+        setSupervisor(object.getString("supervisor"));
+        setSyncStatus("no");
+    }
 }

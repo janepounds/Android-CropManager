@@ -26,13 +26,18 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
         this.pPercentage = (float)pPercentage;
     }
 
-    public CropFertilizer(){
-
-    }
 
 
-    public CropFertilizer(JSONObject fertilizerJson) throws MissingValueException{
 
+    public CropFertilizer(JSONObject object) throws MissingValueException, JSONException{
+
+        setGlobalId(object.getString("id"));
+        setFertilizerName(object.getString("fertilizerName"));
+        setType(object.getString("type"));
+        setnPercentage(Float.parseFloat(object.getString("nPercentage")));
+        setpPercentage(Float.parseFloat(object.getString("pPercentage")));
+        setkPercentage(Float.parseFloat(object.getString("kPercentage")));
+        setSyncStatus("no");
     }
 
 
@@ -142,4 +147,6 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
         return object;
 
     }
+
+
 }

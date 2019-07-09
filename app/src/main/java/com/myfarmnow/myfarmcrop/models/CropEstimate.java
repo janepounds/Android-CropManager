@@ -213,4 +213,21 @@ public class CropEstimate  implements Serializable{
         return object;
 
     }
+
+    public CropEstimate(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setCustomerId(object.getString("customerId"));
+        setNumber(object.getString("number"));
+        setDate(object.getString("date"));
+        setExpiryDate(object.getString("expiryDate"));
+        setDiscount(Float.parseFloat(object.getString("discount")));
+        setShippingCharges(Float.parseFloat(object.getString("shippingCharges")));
+        setCustomerNotes(object.getString("customerNotes"));
+        setTermsAndConditions(object.getString("termsAndConditions"));
+        setCustomerName(object.getString("customerName"));
+        setReferenceNumber(object.getString("referenceNumber"));
+        setStatus(object.getString("status"));
+        setSyncStatus("no");
+    }
 }

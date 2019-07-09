@@ -20,9 +20,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
     String units="";
 
 
-    public CropField(){
 
-    }
 
     public String getId() {
         return id;
@@ -165,6 +163,23 @@ public class CropField  implements CropSpinnerItem,Serializable{
             e.printStackTrace();
         }
         return object;
+
+    }
+
+    public CropField(JSONObject object) throws JSONException {
+
+        setGlobalId(object.getString("id"));
+        setFieldName(object.getString("fieldName"));
+        setSoilCategory(object.getString("soilCategory"));
+        setFieldType(object.getString("fieldType"));
+        setLayoutType(object.getString("layoutType"));
+        setStatus(object.getString("status"));
+        setSoilType(object.getString("soilType"));
+        setWatercourse(object.getString("watercourse"));
+        setTotalArea(Float.parseFloat(object.getString("totalArea")));
+        setCroppableArea(Float.parseFloat(object.getString("croppableArea")));
+        setUnits(object.getString("units"));
+        setSyncStatus("no");
 
     }
 }

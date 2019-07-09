@@ -76,37 +76,7 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         }
 
     }
-
-
-    public  CropInventorySeeds(){
-
-    }
-    public CropInventorySeeds(JSONObject seedsJson) throws MissingValueException{
-        try {
-            this.setName(seedsJson.getString("name"));
-            this.setType(seedsJson.getString("type"));
-            this.setBatchNumber(seedsJson.getString("batchNumber"));
-            this.setDateOfPurchase(seedsJson.getString(MyFarmDbHandlerSingleton.CROP_INVENTORY_SEEDS_DATE));
-            this.setQuantity((float)seedsJson.getDouble("quantity"));
-            this.setTotalConsumed((float)seedsJson.getDouble("totalConsumed"));
-        }catch (JSONException e){
-            throw new MissingValueException("Missing Key Variables in the JSON Object "+e.getMessage());
-        }
-        try {
-            this.setId(seedsJson.getString("id"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.setUsageUnits(seedsJson.getString("usageUnits"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //
-    }
-
-    public void setId(String id) {
+        public void setId(String id) {
         this.id = id;
     }
 
@@ -251,6 +221,26 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         return object;
 
     }
+
+    public  CropInventorySeeds(JSONObject object) throws JSONException {
+
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setDateOfPurchase(object.getString("dateOfPurchase"));
+        setName(object.getString("name"));
+        setBatchNumber(object.getString("batchNumber"));
+        setQuantity(Float.parseFloat(object.getString("quantity")));
+        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
+        setUsageUnits(object.getString("usageUnits"));
+        setType(object.getString("type"));
+        setVariety(object.getString("variety"));
+        setDressing(object.getString("dressing"));
+        setTgw(object.getString("tgw"));
+        setCost(Float.parseFloat(object.getString("cost")));
+        setSupplier(object.getString("supplier"));
+        setSyncStatus("no");
+    }
+
 
 
 }

@@ -276,12 +276,35 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
             object.put("repeatUntil",repeatUntil);
             object.put("daysBefore",daysBefore);
             object.put("operator",operator);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
+    }
+    public CropHarvest(JSONObject object) throws JSONException {
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setCropId(object.getString("cropId"));
+        setEmployeeId(object.getString("employeeId"));
+        setDate(object.getString("date"));
+        setMethod(object.getString("method"));
+        setUnits(object.getString("units"));
+        setQuantity(Float.parseFloat(object.getString("quantity")));
+        setStatus(object.getString("status"));
+        setDateSold(object.getString("dateSold"));
+        setCustomer(object.getString("customer"));
+        setPrice(Float.parseFloat(object.getString("price")));
+        setQuantitySold(Float.parseFloat(object.getString("quantitySold")));
+        setStorageDate(object.getString("storageDate"));
+        setQuantityStored(Float.parseFloat(object.getString("quantityStored")));
+        setCost(Float.parseFloat(object.getString("cost")));
+        setRecurrence(object.getString("recurrence"));
+        setReminders(object.getString("reminders"));
+        setFrequency(Float.parseFloat(object.getString("frequency")));
+        setRepeatUntil(object.getString("repeatUntil"));
+        setDaysBefore(object.getString("daysBefore"));
+        setOperator(object.getString("operator"));
+        setSyncStatus("no");
 
     }
-
 }
