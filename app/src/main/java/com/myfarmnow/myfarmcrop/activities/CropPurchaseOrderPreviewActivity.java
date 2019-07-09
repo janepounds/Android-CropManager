@@ -136,7 +136,7 @@ public class CropPurchaseOrderPreviewActivity extends AppCompatActivity {
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
-        cropSupplier = dbHandler.getCropSupplier(cropPurchaseOrder.getSupplierId());
+        cropSupplier = dbHandler.getCropSupplier(cropPurchaseOrder.getSupplierId(),false);
         if(cropSupplier == null){
             finish();
         }

@@ -79,11 +79,11 @@ dependencies {
     implementation 'gun0912.ted:tedpermission:2.2.0'
 
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-   // implementation 'com.google.android.gms:play-services-places:17.0.0'
+    // implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.github.pwittchen:infinitescroll:0.0.1'
     // implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.android.volley:volley:1.1.0'
-   /* implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+    /* implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
     }*/
     /*Add QR Library Here */
@@ -103,4 +103,3 @@ dependencies {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 }
-

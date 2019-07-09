@@ -160,7 +160,7 @@ public class CropLoginActivity extends AppCompatActivity {
                         context.startService(new Intent(context, CropNotificationsCreatorService.class));
                         context.startService(new Intent(context, CropNotificationsFireService.class));
 
-                        context.startActivity(new Intent(context, CropDashboardActivity.class));
+                        context.startActivity(new Intent(context, CropLoadBackUpActivity.class));
 
                     }
                 } catch (JSONException e) {
@@ -174,15 +174,18 @@ public class CropLoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try{
+                    if (errorResponse != null) {
+                        Log.e("info", new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info", "Something got very very wrong");
+                    }
                     if(statusCode==403){
                         //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
 
                         errorTextView.setText(errorResponse.getString("message"));
                         errorTextView.setVisibility(View.VISIBLE);
                         errorTextView.requestFocus();
-
-
-                        JSONObject data = errorResponse.getJSONObject("data");
+                        JSONObject data = errorResponse;
                         if( errorResponse.getString("message").contains("Verification Required")){
                             Intent verifyPhoneNumber = new Intent(context, CropVerifyPhoneNumberActivity.class);
                             verifyPhoneNumber.putExtra("userId",data.getString("id"));
@@ -192,11 +195,7 @@ public class CropLoginActivity extends AppCompatActivity {
                             context.startActivity(verifyPhoneNumber);
                         }
                     }
-                if (errorResponse != null) {
-                    Log.e("info", new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info", "Something got very very wrong");
-                }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

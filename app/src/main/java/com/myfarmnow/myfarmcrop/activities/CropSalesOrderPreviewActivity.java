@@ -124,9 +124,9 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerAdapter = new CropPreviewItemListRecyclerAdapter(this,customersList);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
-        cropCustomer = dbHandler.getCropCustomer(cropSalesOrder.getCustomerId());
+        cropCustomer = dbHandler.getCropCustomer(cropSalesOrder.getCustomerId(),false);
         if(cropCustomer == null){
             finish();
         }

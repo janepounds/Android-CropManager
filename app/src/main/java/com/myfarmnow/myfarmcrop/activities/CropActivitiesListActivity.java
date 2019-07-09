@@ -52,7 +52,7 @@ public class CropActivitiesListActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         activitiesListRecyclerView = findViewById(R.id.crop_activities_recyc_view);
 
-        ArrayList<CropFertilizerApplication> cropFertilizerApplications =dbHandler.getCropFertilizerApplication(cropId);
+        ArrayList<CropFertilizerApplication> cropFertilizerApplications =dbHandler.getCropFertilizerApplications(cropId);
 
         for(CropFertilizerApplication application :cropFertilizerApplications ){
             cropActivities.add(application);

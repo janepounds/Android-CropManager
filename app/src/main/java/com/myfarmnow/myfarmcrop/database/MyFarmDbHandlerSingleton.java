@@ -3213,7 +3213,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         res.close();
         closeDB();
-        Log.d("Crop Product", array_list.toString());
+
         return array_list;
     }
 
@@ -4214,7 +4214,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<CropFertilizerApplication> getCropFertilizerApplication(String cropId) {
+    public ArrayList<CropFertilizerApplication> getCropFertilizerApplications(String cropId) {
         openDB();
         ArrayList<CropFertilizerApplication> array_list = new ArrayList();
 
@@ -5868,7 +5868,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where " + CROP_IRRIGATION_CROP_ID + " = '" + cropId+"'", null);
         res.moveToFirst();
-
         while (!res.isAfterLast()) {
             CropIrrigation irrigation = new CropIrrigation();
             irrigation.setId(res.getString(res.getColumnIndex(CROP_IRRIGATION_ID)));
@@ -6077,7 +6076,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public ArrayList<CropScouting> getCropScoutings(String cropId) {
         openDB();
         ArrayList<CropScouting> array_list = new ArrayList();
-       
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + CROP_SCOUTING_TABLE_NAME + " where " + CROP_SCOUTING_CROP_ID + " = '" + cropId+"'", null);
         res.moveToFirst();
@@ -6496,8 +6495,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public ArrayList<CropIncomeExpense> getCropIncomeExpenses(String userId, boolean synced) {
         openDB();
         ArrayList<CropIncomeExpense> array_list = new ArrayList();
-
-       
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME+ " where " + CROP_INCOME_EXPENSE_USER_ID + " = ? AND "+CROP_SYNC_STATUS+" = ?", new String[]{userId,synced?"yes":"no"});
         res.moveToFirst();
@@ -7601,7 +7598,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return spray;
     }
 
-    public ArrayList<CropFertilizerApplication> getCropFertilizerApplication(String userId, boolean synced) {
+    public ArrayList<CropFertilizerApplication> getCropFertilizerApplications(String userId, boolean synced) {
         openDB();
         ArrayList<CropFertilizerApplication> array_list = new ArrayList();
 
@@ -7917,6 +7914,601 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
 
         return cropEmployee;
+    }
+
+    public CropSoilAnalysis getCropSoilAnalysisById(String analysisId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_SOIL_ANALYSIS_ID;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_SOIL_ANALYSIS_TABLE_NAME + " where " + key + " = ? ", new String[]{analysisId});
+        res.moveToFirst();
+        CropSoilAnalysis soilAnalysis= null;
+
+        if (!res.isAfterLast()) {
+            soilAnalysis = new CropSoilAnalysis();
+            soilAnalysis.setId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_ID)));
+            soilAnalysis.setUserId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_USER_ID)));
+            soilAnalysis.setDate(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE)));
+            soilAnalysis.setAgronomist(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_AGRONOMIST)));
+            soilAnalysis.setResult(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RESULTS)));
+            soilAnalysis.setOrganicMatter(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_ORGANIC_MATTER)));
+            soilAnalysis.setPh(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_PH)));
+            soilAnalysis.setCost(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
+            soilAnalysis.setFieldId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_FIELD_ID)));
+            soilAnalysis.setFrequency(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY)));
+            soilAnalysis.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
+            soilAnalysis.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
+            soilAnalysis.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
+            soilAnalysis.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return soilAnalysis;
+
+    }
+
+    public CropHarvest getCropHarvest(String harvestId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_HARVEST_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_HARVEST_TABLE_NAME + " where "  + key + " = ? ", new String[]{harvestId});
+        res.moveToFirst();
+        CropHarvest harvest =null;
+        if (!res.isAfterLast()) {
+            harvest= new CropHarvest();
+            harvest.setId(res.getString(res.getColumnIndex(CROP_HARVEST_ID)));
+            harvest.setUserId(res.getString(res.getColumnIndex(CROP_HARVEST_USER_ID)));
+            harvest.setCropId(res.getString(res.getColumnIndex(CROP_HARVEST_CROP_ID)));
+            harvest.setEmployeeId(res.getString(res.getColumnIndex(CROP_HARVEST_EMPLOYEE_ID)));
+            harvest.setDate(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)));
+            harvest.setMethod(res.getString(res.getColumnIndex(CROP_HARVEST_METHOD)));
+            harvest.setUnits(res.getString(res.getColumnIndex(CROP_HARVEST_UNITS)));
+            harvest.setQuantity(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_QUANTITY))));
+            harvest.setOperator(res.getString(res.getColumnIndex(CROP_HARVEST_OPERATOR)));
+            harvest.setStatus(res.getString(res.getColumnIndex(CROP_HARVEST_STATUS)));
+            harvest.setDateSold(res.getString(res.getColumnIndex(CROP_HARVEST_DATE_SOLD)));
+            harvest.setCustomer(res.getString(res.getColumnIndex(CROP_HARVEST_CUSTOMER)));
+            harvest.setPrice(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_PRICE))));
+            harvest.setQuantitySold(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_QUANTITY_SOLD))));
+            harvest.setStorageDate(res.getString(res.getColumnIndex(CROP_HARVEST_STORAGE_DATE)));
+            harvest.setQuantityStored(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_QUANTITY_STORED))));
+            harvest.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_COST))));
+            harvest.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_FREQUENCY))));
+            harvest.setRecurrence(res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE)));
+            harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
+            harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
+            harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
+
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return harvest;
+    }
+
+    public CropIrrigation getCropIrrigation(String irrigationId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_IRRIGATION_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_IRRIGATION_TABLE_NAME + " where "  + key + " = ? ", new String[]{irrigationId});
+        res.moveToFirst();
+        CropIrrigation irrigation = null;
+        if (!res.isAfterLast()) {
+            irrigation = new CropIrrigation();
+            irrigation.setId(res.getString(res.getColumnIndex(CROP_IRRIGATION_ID)));
+            irrigation.setUserId(res.getString(res.getColumnIndex(CROP_IRRIGATION_USER_ID)));
+            irrigation.setCropId(res.getString(res.getColumnIndex(CROP_IRRIGATION_CROP_ID)));
+            irrigation.setOperationDate(res.getString(res.getColumnIndex(CROP_IRRIGATION_DATE)));
+            irrigation.setSystemRate(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_SYSTEM_RATE)));
+            irrigation.setStartTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_START_TIME)));
+            irrigation.setEndTime(res.getString(res.getColumnIndex(CROP_IRRIGATION_END_TIME)));
+            irrigation.setUnits(res.getString(res.getColumnIndex(CROP_IRRIGATION_UNITS)));
+            irrigation.setAreaIrrigated(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_AREA_IRRIGATED)));
+            irrigation.setFrequency(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_FREQUENCY)));
+            irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
+            irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
+            irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
+            irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
+            irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return irrigation;
+    }
+
+    public CropScouting getCropScouting(String scoutingId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_SCOUTING_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_SCOUTING_TABLE_NAME + " where "  + key + " = ? ", new String[]{scoutingId});
+        res.moveToFirst();
+        CropScouting scouting = null;
+
+        if (!res.isAfterLast()) {
+            scouting = new CropScouting();
+            scouting.setId(res.getString(res.getColumnIndex(CROP_SCOUTING_ID)));
+            scouting.setUserId(res.getString(res.getColumnIndex(CROP_SCOUTING_USER_ID)));
+            scouting.setCropId(res.getString(res.getColumnIndex(CROP_SCOUTING_CROP_ID)));
+            scouting.setDate(res.getString(res.getColumnIndex(CROP_SCOUTING_DATE)));
+            scouting.setMethod(res.getString(res.getColumnIndex(CROP_SCOUTING_METHOD)));
+            scouting.setInfested(res.getString(res.getColumnIndex(CROP_SCOUTING_INFESTED)));
+            scouting.setInfestationType(res.getString(res.getColumnIndex(CROP_SCOUTING_INFESTATION_TYPE)));
+            scouting.setInfestation(res.getString(res.getColumnIndex(CROP_SCOUTING_INFESTATION)));
+            scouting.setInfestationLevel(res.getString(res.getColumnIndex(CROP_SCOUTING_INFESTATION_LEVEL)));
+            scouting.setCost(res.getFloat(res.getColumnIndex(CROP_SCOUTING_COST)));
+            scouting.setRemarks(res.getString(res.getColumnIndex(CROP_SCOUTING_REMARKS)));
+            scouting.setFrequency(res.getFloat(res.getColumnIndex(CROP_SCOUTING_FREQUENCY)));
+            scouting.setRecurrence(res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE)));
+            scouting.setReminders(res.getString(res.getColumnIndex(CROP_SCOUTING_REMINDERS)));
+            scouting.setDaysBefore(res.getString(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
+            scouting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL)));
+            scouting.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            scouting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return scouting;
+    }
+
+    public CropCultivation getCropCultivate(String cultivationId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_CULTIVATION_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_CULTIVATION_TABLE_NAME + " where " + key + " = ? ", new String[]{cultivationId});
+        res.moveToFirst();
+        CropCultivation cultivation = null;
+
+        if (!res.isAfterLast()) {
+            cultivation = new CropCultivation();
+            cultivation.setId(res.getString(res.getColumnIndex(CROP_CULTIVATION_ID)));
+            cultivation.setUserId(res.getString(res.getColumnIndex(CROP_CULTIVATION_USER_ID)));
+            cultivation.setDate(res.getString(res.getColumnIndex(CROP_CULTIVATION_DATE)));
+            cultivation.setCropId(res.getString(res.getColumnIndex(CROP_CULTIVATION_CROP_ID)));
+            cultivation.setOperation(res.getString(res.getColumnIndex(CROP_CULTIVATION_OPERATION)));
+            cultivation.setCost(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_COST)));
+            cultivation.setOperator(res.getString(res.getColumnIndex(CROP_CULTIVATION_OPERATOR)));
+            cultivation.setNotes(res.getString(res.getColumnIndex(CROP_CULTIVATION_NOTES)));
+            cultivation.setFrequency(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_FREQUENCY)));
+            cultivation.setRecurrence(res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE)));
+            cultivation.setReminders(res.getString(res.getColumnIndex(CROP_CULTIVATION_REMINDERS)));
+            cultivation.setDaysBefore(res.getString(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
+            cultivation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL)));
+            cultivation.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            cultivation.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return cultivation;
+    }
+
+    public CropFertilizerApplication getCropFertilizerApplication(String applicationId, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_FERTILIZER_APPLICATION_ID;
+        Cursor res =  db.rawQuery( "select * from "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" where "+ key + " = ? ", new String[]{applicationId});
+        res.moveToFirst();
+        CropFertilizerApplication fertilizerApplication = null;
+
+        if (!res.isAfterLast()) {
+            fertilizerApplication = new CropFertilizerApplication();
+            fertilizerApplication.setId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_ID)));
+            fertilizerApplication.setUserId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_USER_ID)));
+            fertilizerApplication.setDate(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DATE)));
+            fertilizerApplication.setCropId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_CROP_ID)));
+            fertilizerApplication.setMethod(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_METHOD)));
+            fertilizerApplication.setCost(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_COST)));
+            fertilizerApplication.setOperator(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_OPERATOR)));
+            fertilizerApplication.setReason(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REASON)));
+            fertilizerApplication.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
+            fertilizerApplication.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
+            fertilizerApplication.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
+            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+            fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
+            fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
+            fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
+            fertilizerApplication.setDaysBefore(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
+            fertilizerApplication.setRepeatUntil(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL)));
+            fertilizerApplication.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            fertilizerApplication.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return fertilizerApplication;
+
+    }
+
+    public CropSpraying getCropSpraying(String sprayingId, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_SPRAYING_ID;
+        String query = "select * from " + CROP_SPRAYING_TABLE_NAME + " where " +key+" = ?";
+        Cursor res = db.rawQuery(query, new String[]{sprayingId});
+        res.moveToFirst();
+        CropSpraying crop=null;
+
+        if (!res.isAfterLast()) {
+            crop = new CropSpraying();
+            crop.setId(res.getString(res.getColumnIndex(CROP_SPRAYING_ID)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_SPRAYING_USER_ID)));
+            crop.setDate(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)));
+            crop.setCropId(res.getString(res.getColumnIndex(CROP_SPRAYING_CROP_ID)));
+            crop.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_START_TIME)));
+            crop.setEndTime(res.getString(res.getColumnIndex(CROP_SPRAYING_END_TIME)));
+            crop.setCost(res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
+            crop.setOperator(res.getString(res.getColumnIndex(CROP_SPRAYING_OPERATOR)));
+            crop.setWaterCondition(res.getString(res.getColumnIndex(CROP_SPRAYING_WATER_CONDITION)));
+            crop.setWaterVolume(res.getFloat(res.getColumnIndex(CROP_SPRAYING_WATER_VOLUME)));
+            crop.setWindDirection(res.getString(res.getColumnIndex(CROP_SPRAYING_WIND_DIRECTION)));
+            crop.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
+            crop.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
+            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
+            crop.setSprayName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
+            crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));
+            crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_SPRAYING_FREQUENCY)));
+            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE)));
+            crop.setReminders(res.getString(res.getColumnIndex(CROP_SPRAYING_REMINDERS)));
+            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE)));
+            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
+            crop.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return crop;
+    }
+
+    public CropNote getCropNote(String noteId, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_NOTE_ID;
+        Cursor res = db.rawQuery("select * from " + CROP_NOTE_TABLE_NAME+ " where " + key+" = ?", new String[]{noteId});
+        res.moveToFirst();
+        CropNote note = null;
+        if (!res.isAfterLast()) {
+            note = new CropNote();
+            note.setId(res.getString(res.getColumnIndex(CROP_NOTE_ID)));
+            note.setParentId(res.getString(res.getColumnIndex(CROP_NOTE_PARENT_ID)));
+            note.setDate(res.getString(res.getColumnIndex(CROP_NOTE_DATE)));
+            note.setCategory(res.getString(res.getColumnIndex(CROP_NOTE_CATEGORY)));
+            note.setIsFor(res.getString(res.getColumnIndex(CROP_NOTE_IS_FOR)));
+            note.setNotes(res.getString(res.getColumnIndex(CROP_NOTE_NOTES)));
+            note.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            note.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return note;
+
+    }
+
+    public CropMachineTask getCropMachineTask(String taskId, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_MACHINE_TASK_ID;
+        Cursor res = db.rawQuery("select * from " + CROP_MACHINE_TASK_TABLE_NAME + " where " + key+" = ?", new String[]{taskId});
+        res.moveToFirst();
+        CropMachineTask task = null;
+        if (!res.isAfterLast()) {
+            task= new CropMachineTask();
+            task.setId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_ID)));
+            task.setMachineId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_MACHINE_ID)));
+            task.setCropName(res.getString(res.getColumnIndex(CROP_MACHINE_NAME)));
+            task.setEmployeeName(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_PERSONNEL)));
+            task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
+            task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
+            task.setTitle(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_TITLE)));
+            task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY))));
+            task.setStatus(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_STATUS)));
+            task.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DESCRIPTION)));
+            task.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE)));
+            task.setReminders(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REMINDERS)));
+            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
+            task.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_COST))));
+            task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REPEAT_UNTIL)));
+            task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return task;
+    }
+
+    public CropMachineService getCropMachineService(String serviceId, boolean isGlobal) {
+        openDB();
+
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_MACHINE_SERVICE_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_MACHINE_SERVICE_TABLE_NAME + " where "  + key+" = ?", new String[]{serviceId});
+        res.moveToFirst();
+        CropMachineService service = null;
+        if (!res.isAfterLast()) {
+            service = new CropMachineService();
+            service.setId(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_ID)));
+            service.setMachineId(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_MACHINE_ID)));
+            service.setEmployeeName(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_PERSONNEL)));
+            service.setCurrentHours(res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_CURRENT_HOURS)));
+            service.setServiceType(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_TYPE)));
+            service.setType(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_TYPE)));
+            service.setDate(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DATE)));
+            service.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DESCRIPTION)));
+            service.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_RECURRENCE)));
+            service.setReminders(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_REMINDERS)));
+            service.setDaysBefore(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_DAYS_BEFORE)));
+            service.setCost(res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_COST)));
+            service.setFrequency(res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_FREQUENCY)));
+            service.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_REPEAT_UNTIL)));
+            service.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            service.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return service;
+    }
+
+    public CropTask getCropTask(String taskId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_TASK_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_TASK_TABLE_NAME + " where " +key+" = ?", new String[]{taskId});
+        res.moveToFirst();
+        CropTask task= null;
+        if (!res.isAfterLast()) {
+            task = new CropTask();
+            task.setId(res.getString(res.getColumnIndex(CROP_TASK_ID)));
+            task.setUserId(res.getString(res.getColumnIndex(CROP_TASK_USER_ID)));
+            task.setCropId(res.getString(res.getColumnIndex(CROP_TASK_CROP_ID)));
+            task.setEmployeeName(res.getString(res.getColumnIndex(CROP_TASK_EMPLOYEE_ID)));
+            task.setDate(res.getString(res.getColumnIndex(CROP_TASK_DATE)));
+            task.setTitle(res.getString(res.getColumnIndex(CROP_TASK_TITLE)));
+            task.setType(res.getString(res.getColumnIndex(CROP_TASK_TYPE)));
+            task.setStatus(res.getString(res.getColumnIndex(CROP_TASK_STATUS)));
+            task.setDescription(res.getString(res.getColumnIndex(CROP_TASK_DESCRIPTION)));
+            task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
+            task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
+            task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
+            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
+            task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+
+        return task;
+    }
+
+    public CropIncomeExpense getCropIncomeExpense(String incomeExpenseId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_INCOME_EXPENSE_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME+ " where " +key+" = ?", new String[]{incomeExpenseId});
+        res.moveToFirst();
+        CropIncomeExpense incomeExpense=null;
+        if (!res.isAfterLast()) {
+            incomeExpense = new CropIncomeExpense();
+            incomeExpense.setId(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_ID)));
+            incomeExpense.setUserId(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_USER_ID)));
+            incomeExpense.setCropId(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CROP_ID)));
+            incomeExpense.setDate(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_DATE)));
+            incomeExpense.setTransaction(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_TRANSACTION)));
+            incomeExpense.setItem(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_ITEM)));
+            incomeExpense.setCategory(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CATEGORY)));
+            incomeExpense.setQuantity(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_QUANTITY)));
+            incomeExpense.setGrossAmount(res.getInt(res.getColumnIndex(CROP_INCOME_EXPENSE_GROSS_AMOUNT)));
+            incomeExpense.setUnitPrice(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_UNIT_PRICE)));
+            incomeExpense.setTaxes(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_TAXES)));
+            incomeExpense.setPaymentMode(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_MODE)));
+            incomeExpense.setPaymentStatus(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_STATUS)));
+            incomeExpense.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_SELLING_PRICE)));
+            incomeExpense.setCustomerSupplier(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER)));
+            incomeExpense.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            incomeExpense.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return incomeExpense;
+    }
+
+    public CropTransplanting getCropTransplanting(String transplantingId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_TRANSPLANTING_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + key+" = ?", new String[]{transplantingId});
+        res.moveToFirst();
+        CropTransplanting transplanting =null;
+        if (!res.isAfterLast()) {
+            transplanting = new CropTransplanting();
+            transplanting.setId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_ID)));
+            transplanting.setUserId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_USER_ID)));
+            transplanting.setCropId(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_CROP_ID)));
+            transplanting.setOperationDate(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DATE)));
+            transplanting.setTotalSeedling(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_TOTAL_SEEDLING)));
+            transplanting.setSeedlingPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_SEEDLINGS_PER_HA)));
+            transplanting.setVarietyEarliness(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_VARIETY_EARLINESS)));
+            transplanting.setCycleLength(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_CYCLE_LENGTH)));
+            transplanting.setUnits(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_UNITS)));
+            transplanting.setExpectedYield(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD)));
+            transplanting.setExpectedYieldPerHa(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA)));
+            transplanting.setFrequency(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_FREQUENCY)));
+            transplanting.setOperator(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATOR)));
+            transplanting.setRecurrence(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE)));
+            transplanting.setReminders(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REMINDERS)));
+            transplanting.setDaysBefore(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
+            transplanting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL)));
+            transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
+            transplanting.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            transplanting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return transplanting;
+    }
+
+    public CropProduct getCropProductById(String productId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_PRODUCT_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select * from " + CROP_PRODUCT_TABLE_NAME +" where ";
+        Cursor res = db.rawQuery( query+ key+" = ?", new String[]{productId});
+        res.moveToFirst();
+        CropProduct cropProduct=null;
+
+        if (!res.isAfterLast()) {
+            cropProduct = new CropProduct();
+            cropProduct.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ID)));
+            cropProduct.setUserId(res.getString(res.getColumnIndex(CROP_PRODUCT_USER_ID)));
+            cropProduct.setType(res.getString(res.getColumnIndex(CROP_PRODUCT_TYPE)));
+            cropProduct.setCode(res.getString(res.getColumnIndex(CROP_PRODUCT_CODE)));
+            cropProduct.setUnits(res.getString(res.getColumnIndex(CROP_PRODUCT_UNITS)));
+            cropProduct.setLinkedAccount(res.getString(res.getColumnIndex(CROP_PRODUCT_LINKED_ACCOUNT)));
+            cropProduct.setOpeningCost(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_COST)));
+            cropProduct.setOpeningQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_QUANTITY)));
+            cropProduct.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
+            cropProduct.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
+            cropProduct.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
+            cropProduct.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            cropProduct.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return cropProduct;
+
+    }
+
+    public CropInvoicePayment getCropPayment(String paymentId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_PAYMENT_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_PAYMENT_TABLE_NAME+ " where " + key+" = ?", new String[]{paymentId});
+        res.moveToFirst();
+        CropInvoicePayment cropInvoicePayment =null;
+
+        while(!res.isAfterLast()){
+            cropInvoicePayment = new CropInvoicePayment();
+            cropInvoicePayment.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_ID)));
+            cropInvoicePayment.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_USER_ID)));
+            cropInvoicePayment.setAmount(res.getFloat(res.getColumnIndex(CROP_PAYMENT_AMOUNT)));
+            cropInvoicePayment.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_MODE)));
+            cropInvoicePayment.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_DATE)));
+            cropInvoicePayment.setReferenceNo(res.getString(res.getColumnIndex(CROP_PAYMENT_REFERENCE_NO)));
+            cropInvoicePayment.setPaymentNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_NUMBER)));
+            cropInvoicePayment.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_NOTES)));
+            cropInvoicePayment.setCustomerId(res.getString(res.getColumnIndex(CROP_PAYMENT_CUSTOMER_ID)));
+            cropInvoicePayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
+            cropInvoicePayment.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            cropInvoicePayment.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return cropInvoicePayment;
+    }
+
+    public CropPaymentBill getCropPaymentBill(String paymentId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_PAYMENT_BILL_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_PAYMENT_BILL_TABLE_NAME+ " where " + key+" = ?", new String[]{paymentId});
+        res.moveToFirst();
+        CropPaymentBill paymentBill=null;
+        if (!res.isAfterLast()) {
+            paymentBill = new CropPaymentBill();
+            paymentBill.setId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_ID)));
+            paymentBill.setUserId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_USER_ID)));
+            paymentBill.setDate(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_DATE)));
+            paymentBill.setAmount(Float.parseFloat(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MADE))));
+            paymentBill.setMode(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAYMENT_MODE)));
+            paymentBill.setPaidThrough(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_PAID_THROUGH)));
+            paymentBill.setReferenceNumber(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_REFERENCE_NUMBER)));
+            paymentBill.setNotes(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_NOTES)));
+            paymentBill.setBillId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_BILL_ID)));
+            paymentBill.setSupplierId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_SUPPLIER_ID)));
+            paymentBill.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            paymentBill.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return paymentBill;
+    }
+
+    public void updateCropProductItem(CropProductItem x) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+        contentValues.put(CROP_PRODUCT_ITEM_PARENT_OBJECT_ID,x.getParentObjectId());
+        contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+        contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+        contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+        contentValues.put(CROP_PRODUCT_ITEM_TYPE,x.getParentObjectType());
+        database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
+        closeDB();
+    }
+    public void insertCropProductItem(CropProductItem x) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_PRODUCT_ITEM_PRODUCT_ID,x.getProductId());
+        contentValues.put(CROP_PRODUCT_ITEM_PARENT_OBJECT_ID,x.getParentObjectId());
+        contentValues.put(CROP_PRODUCT_ITEM_QUANTITY,x.getQuantity());
+        contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
+        contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
+        contentValues.put(CROP_PRODUCT_ITEM_TYPE,x.getParentObjectType());
+        database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
+        closeDB();
+    }
+
+    public CropProductItem getCropProductItem(String itemId, boolean isGlobal) {
+        openDB();
+        String key = isGlobal?CROP_GLOBAL_ID:CROP_PRODUCT_ITEM_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_PRODUCT_ITEM_TABLE_NAME+ " where " + key+" = ?", new String[]{itemId});
+        res.moveToFirst();
+        CropProductItem item = null;
+        if(!res.isAfterLast()) {
+            item = new CropProductItem();
+            item.setId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_ID)));
+            item.setProductId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_PRODUCT_ID)));;
+            item.setParentObjectId(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_PARENT_OBJECT_ID)));
+            item.setQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_QUANTITY)));
+            item.setTax(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_TAX)));
+            item.setRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_RATE)));
+            item.setParentObjectType(res.getString(res.getColumnIndex(CROP_PRODUCT_ITEM_TYPE)));
+            item.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            item.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return item;
     }
 }
 
