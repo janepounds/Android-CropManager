@@ -191,7 +191,7 @@ public class CropSoilAnalysis implements Serializable {
             object.put("organicMatter",organicMatter);
             object.put("agronomist",agronomist);
             object.put("cost",cost);
-            object.put("result",result);
+            object.put("results",result);
             object.put("recurrence",recurrence);
             object.put("reminders",reminders);
             object.put("frequency",frequency);
@@ -214,7 +214,7 @@ public class CropSoilAnalysis implements Serializable {
         setPh((float)object.getDouble("ph"));
         setOrganicMatter((float)object.getDouble("organicMatter"));
         setAgronomist(object.getString("agronomist"));
-        setResult(object.getString("result"));
+        setResult(object.getString("results"));
         setRecurrence(object.getString("recurrence"));
         setReminders(object.getString("reminders"));
         setCost((float)object.getDouble("cost"));
@@ -224,4 +224,6 @@ public class CropSoilAnalysis implements Serializable {
         setSyncStatus( "yes");
 
     }
+
+
 }

@@ -307,4 +307,7 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         setSyncStatus("yes");
 
     }
+    public CropHarvest(){
+
+    }
 }

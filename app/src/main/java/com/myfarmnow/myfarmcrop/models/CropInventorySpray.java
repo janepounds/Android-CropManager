@@ -1,7 +1,5 @@
 package com.myfarmnow.myfarmcrop.models;
 
-import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,7 +8,7 @@ import java.io.Serializable;
 
 public class CropInventorySpray implements CropInventory, Serializable,CropSpinnerItem{
     String id;
-    String dateOfPurchase;
+    String purchaseDate;
     String name;
     String batchNumber;
     float quantity;
@@ -29,8 +27,8 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
         return id;
     }
 
-    public String getDateOfPurchase() {
-        return dateOfPurchase;
+    public String getPurchaseDate() {
+        return purchaseDate;
     }
 
     public float getQuantity() {
@@ -59,8 +57,8 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
         this.id = id;
     }
 
-    public void setDateOfPurchase(String dateOfPurchase) {
-        this.dateOfPurchase = dateOfPurchase;
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public void setName(String name) {
@@ -202,13 +200,13 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-            object.put("dateOfPurchase",dateOfPurchase);
-            object.put("name",name);
+            object.put("purchaseDate", purchaseDate);
+            object.put("sprayName",name);
             object.put("batchNumber",batchNumber);
             object.put("quantity",quantity);
             object.put("totalConsumed",totalConsumed);
             object.put("usageUnits",usageUnits);
-            object.put("type",type);
+            object.put("sprayType",type);
             object.put("userId",userId);
             object.put("cost",cost);
             object.put("supplier",supplier);
@@ -228,18 +226,22 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
 
         setUserId(object.getString("userId"));
         setGlobalId(object.getString("id"));
-        setDateOfPurchase(object.getString("dateOfPurchase"));
-        setName(object.getString("name"));
+        setPurchaseDate(object.getString("purchaseDate"));
+        setName(object.getString("sprayName"));
         setBatchNumber(object.getString("batchNumber"));
         setQuantity(Float.parseFloat(object.getString("quantity")));
-        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
+//        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
         setUsageUnits(object.getString("usageUnits"));
-        setType(object.getString("type"));
+        setType(object.getString("sprayType"));
         setCost(Float.parseFloat(object.getString("cost")));
         setSupplier(object.getString("supplier"));
         setExpiryDate(object.getString("expiryDate"));
         setHarvestInterval(Integer.parseInt(object.getString("harvestInterval")));
         setActiveIngredients(object.getString("activeIngredients"));
         setSyncStatus("yes");
+    }
+
+    public CropInventorySpray(){
+
     }
 }

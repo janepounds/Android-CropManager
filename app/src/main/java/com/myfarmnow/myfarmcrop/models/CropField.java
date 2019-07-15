@@ -169,6 +169,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
     public CropField(JSONObject object) throws JSONException {
 
         setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
         setFieldName(object.getString("fieldName"));
         setSoilCategory(object.getString("soilCategory"));
         setFieldType(object.getString("fieldType"));
@@ -180,6 +181,9 @@ public class CropField  implements CropSpinnerItem,Serializable{
         setCroppableArea(Float.parseFloat(object.getString("croppableArea")));
         setUnits(object.getString("units"));
         setSyncStatus("yes");
+
+    }
+    public CropField(){
 
     }
 }

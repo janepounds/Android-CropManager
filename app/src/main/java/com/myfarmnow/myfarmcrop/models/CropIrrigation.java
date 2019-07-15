@@ -271,4 +271,7 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         setDaysBefore(object.getString("daysBefore"));
         setSyncStatus( "yes");
     }
+    public CropIrrigation(){
+
+    }
 }

@@ -210,7 +210,7 @@ public class CropSalesOrder implements Serializable{
             object.put("shippingCharges",shippingCharges);
             object.put("customerNotes",customerNotes);
             object.put("termsAndConditions",termsAndConditions);
-            object.put("method",method);
+            object.put("shippingMethod",method);
             object.put("referenceNumber",referenceNumber);
             object.put("customerName",customerName);
             object.put("status",status);
@@ -227,15 +227,19 @@ public class CropSalesOrder implements Serializable{
         setSyncStatus( "yes");
         setNumber( object.getString("number"));
         setCustomerId( object.getString("customerId"));
-        setCustomerName( object.getString("customerName"));
+//        setCustomerName( object.getString("customerName"));
         setReferenceNumber( object.getString("referenceNumber"));
-        setMethod( object.getString("method"));
+        setMethod( object.getString("shippingMethod"));
         setTermsAndConditions( object.getString("termsAndConditions"));
-        setCustomerNotes( object.getString("notes"));
+        setCustomerNotes( object.getString("customerNotes"));
         setShippingDate( object.getString("shippingDate"));
         setDate( object.getString("date"));
         setDiscount( (float)object.getDouble("discount"));
         setShippingCharges( (float)object.getDouble("shippingCharges"));
+    }
+
+    public  CropSalesOrder(){
+
     }
 
 }

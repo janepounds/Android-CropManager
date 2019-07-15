@@ -223,7 +223,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         setReason(object.getString("reason"));
         setFertilizerForm(object.getString("fertilizerForm"));
         setFertilizerId(object.getString("fertilizerId"));
-        setFertilizerName(object.getString("fertilizerName"));
+     //   setFertilizerName(object.getString("fertilizerName"));
         setRate(Float.parseFloat(object.getString("rate")));
         setCost(Float.parseFloat(object.getString("cost")));
         setUserId(object.getString("userId"));
@@ -234,6 +234,10 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         setRepeatUntil(object.getString("repeatUntil"));
         setDaysBefore(object.getString("daysBefore"));
         setSyncStatus("yes");
+
+    }
+
+    public CropFertilizerApplication(){
 
     }
 }

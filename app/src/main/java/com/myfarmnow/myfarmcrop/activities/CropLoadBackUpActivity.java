@@ -81,6 +81,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
      */
     private void loadBlock1TablesData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
 
         client.get(ApiPaths.DATA_BACK_UP+"/1a/"+userId, params, new JsonHttpResponseHandler() {
@@ -99,15 +100,18 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     dialog.dismiss();
                     //logic to save the insertd fields
 
+
+
                     try {
                         JSONArray fields = response.getJSONArray("fields");
                         for(int i=0; i<fields.length(); i++){
 
                             try{
                                 CropField field =new CropField(fields.getJSONObject(i));
-                                field.setGlobalId(fields.getJSONObject(i).getString("globalId"));
+                                field.setGlobalId(fields.getJSONObject(i).getString("id"));
                                 field.setSyncStatus("yes");
                                 dbHandler.insertCropField(field);
+
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -125,7 +129,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                             try{
                                 CropContact contact = new CropContact(contacts.getJSONObject(i));
-                                contact.setGlobalId(contacts.getJSONObject(i).getString("globalId"));
+                                contact.setGlobalId(contacts.getJSONObject(i).getString("id"));
                                 contact.setSyncStatus("yes");
                                 dbHandler.insertCropContact(contact);
                             }catch (JSONException e) {
@@ -144,8 +148,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
 
                             try{
-                                CropEmployee employee = new CropEmployee(employee.getJSONObject(i));
-                                employee.setGlobalId(employees.getJSONObject(i).getString("globalId"));
+                                CropEmployee employee = new CropEmployee(employees.getJSONObject(i));
+                                employee.setGlobalId(employees.getJSONObject(i).getString("id"));
                                 employee.setSyncStatus("yes");
                                 dbHandler.insertCropEmployee(employee);
                             }catch (JSONException e) {
@@ -162,7 +166,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<settings.length(); i++){
                             try{
                                 CropSettingsSingleton settingsSingleton =new CropSettingsSingleton(settings.getJSONObject(i));
-                                settingsSingleton.setGlobalId(settings.getJSONObject(i).getString("globalId"));
+                                settingsSingleton.setGlobalId(settings.getJSONObject(i).getString("id"));
                                 settingsSingleton.setSyncStatus("yes");
                                 dbHandler.insertSettings(settingsSingleton);
                             }catch (JSONException e) {
@@ -199,6 +203,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
     private void loadBlock1bData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
+
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/1b/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -221,10 +227,12 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                             try{
                                 CropInventorySeeds inventorySeed =  new CropInventorySeeds(inventorySeeds.getJSONObject(i));
-                                inventorySeed.setGlobalId(inventorySeeds.getJSONObject(i).getString("globalId"));
+                                inventorySeed.setGlobalId(inventorySeeds.getJSONObject(i).getString("id"));
                                 inventorySeed.setSyncStatus("yes");
                                 dbHandler.insertCropSeeds(inventorySeed);
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
 
@@ -240,10 +248,12 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                             try{
                                 CropInventoryFertilizer cropFertilizer = new CropInventoryFertilizer(inventoryFertilizers.getJSONObject(i));
-                                cropFertilizer.setGlobalId(inventoryFertilizers.getJSONObject(i).getString("globalId"));
+                                cropFertilizer.setGlobalId(inventoryFertilizers.getJSONObject(i).getString("id"));
                                 cropFertilizer.setSyncStatus("yes");
                                 dbHandler.insertCropFertilizerInventory(cropFertilizer);
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
 
@@ -251,13 +261,15 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }catch (Exception e) {
+                        e.printStackTrace();
                     }
                     try {
                         JSONArray inventorySprays = response.getJSONArray("inventorySprays");
                         for(int i=0; i<inventorySprays.length(); i++){
                             try{
                                 CropInventorySpray inventorySeed = new CropInventorySpray(inventorySprays.getJSONObject(i));
-                                inventorySeed.setGlobalId(inventorySprays.getJSONObject(i).getString("globalId"));
+                                inventorySeed.setGlobalId(inventorySprays.getJSONObject(i).getString("id"));
                                 inventorySeed.setSyncStatus("yes");
                                 dbHandler.insertCropSpray(inventorySeed);
                             }catch (JSONException e) {
@@ -267,6 +279,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                         }
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    }catch (Exception e) {
                         e.printStackTrace();
                     }
                     loadBlock1cData();
@@ -292,6 +306,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock1cData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/1c/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -313,7 +328,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<crops.length(); i++){
                             try{
                                 Crop crop =  new Crop(crops.getJSONObject(i));
-                                crop.setGlobalId(crops.getJSONObject(i).getString("globalId"));
+                                crop.setGlobalId(crops.getJSONObject(i).getString("id"));
                                 crop.setSyncStatus("yes");
                                 CropField field = dbHandler.getCropField(crop.getFieldId(),true);
                                 if(field != null){
@@ -327,19 +342,25 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                             }catch (JSONException e) {
                                 e.printStackTrace();
+                            }catch (Exception e) {
+                                e.printStackTrace();
                             }
+
 
 
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }catch (Exception e) {
+                        e.printStackTrace();
                     }
+
                     try {
                         JSONArray crops = response.getJSONArray("soilAnalysis");
                         for(int i=0; i<crops.length(); i++){
                             try{
                                 CropSoilAnalysis analysis = new CropSoilAnalysis(crops.getJSONObject(i));
-                                analysis.setGlobalId(crops.getJSONObject(i).getString("globalId"));
+                                analysis.setGlobalId(crops.getJSONObject(i).getString("id"));
                                 analysis.setSyncStatus("yes");
                                 CropField field = dbHandler.getCropField(analysis.getFieldId(),true);
                                 if(field != null){
@@ -354,6 +375,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }catch (Exception e) {
+                        e.printStackTrace();
                     }
                     try {
                         JSONArray machines = response.getJSONArray("machines");
@@ -362,7 +385,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                             try{
                                 CropMachine machine = new CropMachine(machines.getJSONObject(i));
-                                machine.setGlobalId(machines.getJSONObject(i).getString("globalId"));
+                                machine.setGlobalId(machines.getJSONObject(i).getString("id"));
                                 machine.setSyncStatus("yes");
                                 dbHandler.insertCropMachine(machine);
                             }catch (JSONException e) {
@@ -372,6 +395,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                         }
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    }catch (Exception e) {
                         e.printStackTrace();
                     }
                     loadBlock1dData();
@@ -399,6 +424,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock1dData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/1d/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -420,7 +446,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<crops.length(); i++){
                             try{
                                 CropHarvest harvest = new CropHarvest(crops.getJSONObject(i));
-                                harvest.setGlobalId(crops.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(crops.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -440,7 +466,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<application.length(); i++){
                             try{
                                 CropSpraying harvest = new CropSpraying(application.getJSONObject(i));
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(application.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -459,7 +485,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<application.length(); i++){
                             try{
                                 CropFertilizerApplication harvest = new CropFertilizerApplication(application.getJSONObject(i));
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(application.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -497,6 +523,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock1eData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/1e/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -517,7 +544,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<application.length(); i++){
                             try{
                                 CropCultivation harvest =  new CropCultivation(application.getJSONObject(i));
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(application.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -537,7 +564,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<application.length(); i++){
                             try{
                                 CropScouting harvest = new CropScouting(application.getJSONObject(i));
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(application.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -557,7 +584,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<application.length(); i++){
                             try{
                                 CropIrrigation harvest = new CropIrrigation(application.getJSONObject(i));
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(application.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -592,6 +619,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock1fData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/1f/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -613,7 +641,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<transplantings.length(); i++){
                             try{
                                 CropTransplanting harvest =  new CropTransplanting(transplantings.getJSONObject(i));
-                                harvest.setGlobalId(transplantings.getJSONObject(i).getString("globalId"));
+                                harvest.setGlobalId(transplantings.getJSONObject(i).getString("id"));
                                 harvest.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
                                 if(crop != null){
@@ -635,7 +663,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<incomeExpenses.length(); i++){
                             try{
                                 CropIncomeExpense incomeExpense = new CropIncomeExpense(incomeExpenses.getJSONObject(i));
-                                incomeExpense.setGlobalId(incomeExpenses.getJSONObject(i).getString("globalId"));
+                                incomeExpense.setGlobalId(incomeExpenses.getJSONObject(i).getString("id"));
                                 incomeExpense.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(incomeExpense.getCropId(),true);
                                 if(crop != null){
@@ -657,7 +685,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropTask cropTask = new CropTask(tasks.getJSONObject(i));
-                                cropTask.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+                                cropTask.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 cropTask.setSyncStatus("yes");
                                 Crop crop = dbHandler.getCrop(cropTask.getCropId(),true);
                                 if(crop != null){
@@ -694,6 +722,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock1gData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/1g/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -715,7 +744,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<services.length(); i++){
                             try{
                                 CropMachineService service =new CropMachineService(services.getJSONObject(i));
-                                service.setGlobalId(services.getJSONObject(i).getString("globalId"));
+                                service.setGlobalId(services.getJSONObject(i).getString("id"));
                                 service.setSyncStatus("yes");
                                 CropMachine machine = dbHandler.getCropMachine(service.getMachineId(),true);
                                 if(machine != null){
@@ -736,7 +765,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropMachineTask cropTask = dbHandler.getCropMachineTask( tasks.getJSONObject(i).getString("localId"),false);
-                                cropTask.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+                                cropTask.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 cropTask.setSyncStatus("yes");
                                 CropMachine machine = dbHandler.getCropMachine(cropTask.getMachineId(),true);
                                 if(machine != null){
@@ -758,7 +787,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropNote note = new CropNote(tasks.getJSONObject(i));
-                                note.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+                                note.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 note.setSyncStatus("yes");
 
                                 if(note.getIsFor().equals(CropNote.IS_FOR_MACHINE)){
@@ -815,6 +844,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
      */
     private void loadBlock2TablesData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/2a/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -839,7 +869,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                             try{
                                 CropCustomer field = new CropCustomer(customers.getJSONObject(i));
-                                field.setGlobalId(customers.getJSONObject(i).getString("globalId"));
+                                field.setGlobalId(customers.getJSONObject(i).getString("id"));
                                 field.setSyncStatus("yes");
                                 dbHandler.insertCropCustomer(field);
                             }catch (JSONException e) {
@@ -857,7 +887,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<suppliers.length(); i++){
                             try{
                                 CropSupplier field = new CropSupplier(suppliers.getJSONObject(i));
-                                field.setGlobalId(suppliers.getJSONObject(i).getString("globalId"));
+                                field.setGlobalId(suppliers.getJSONObject(i).getString("id"));
                                 field.setSyncStatus("yes");
                                 dbHandler.insertCropSupplier(field);
                             }catch (JSONException e) {
@@ -874,8 +904,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
 
                             try{
-                                CropProduct field =  new CropProduct(field.getJSONObject(i));
-                                field.setGlobalId(fields.getJSONObject(i).getString("globalId"));
+                                CropProduct field =  new CropProduct(fields.getJSONObject(i));
+                                field.setGlobalId(fields.getJSONObject(i).getString("id"));
                                 field.setSyncStatus("yes");
                                 dbHandler.insertCropProduct(field);
                             }catch (JSONException e) {
@@ -909,6 +939,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
     private void loadBlock2bData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/2b/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -930,7 +961,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropEstimate estimate = new CropEstimate(tasks.getJSONObject(i));
-                                estimate.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+                                estimate.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 estimate.setSyncStatus("yes");
                                 CropCustomer customer = dbHandler.getCropCustomer(estimate.getCustomerId(),true);
                                 if(customer != null){
@@ -948,8 +979,8 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         JSONArray invoices = response.getJSONArray("invoices");
                         for(int i=0; i<invoices.length(); i++){
                             try{
-                                CropInvoice invoice = new CropEstimate(invoices.getJSONObject(i));
-                                invoice.setGlobalId(invoices.getJSONObject(i).getString("globalId"));
+                                CropInvoice invoice = new CropInvoice(invoices.getJSONObject(i));
+                                invoice.setGlobalId(invoices.getJSONObject(i).getString("id"));
                                 invoice.setSyncStatus("yes");
                                 CropCustomer customer = dbHandler.getCropCustomer(invoice.getCustomerId(),true);
                                 if(customer != null){
@@ -968,7 +999,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<salesOrders.length(); i++){
                             try{
                                 CropSalesOrder salesOrder = new CropSalesOrder(salesOrders.getJSONObject(i));
-                                salesOrder.setGlobalId(salesOrders.getJSONObject(i).getString("globalId"));
+                                salesOrder.setGlobalId(salesOrders.getJSONObject(i).getString("id"));
                                 salesOrder.setSyncStatus("yes");
                                 CropCustomer customer = dbHandler.getCropCustomer(salesOrder.getCustomerId(),true);
                                 if(customer != null){
@@ -1004,6 +1035,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock2cData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/2c/"+userId, params, new JsonHttpResponseHandler() {
                 @Override
@@ -1022,7 +1054,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<bills.length(); i++){
                             try{
                                 CropBill bill = new CropBill(bills.getJSONObject(i));
-                                bill.setGlobalId(bills.getJSONObject(i).getString("globalId"));
+                                bill.setGlobalId(bills.getJSONObject(i).getString("id"));
                                 bill.setSyncStatus("yes");
                                 CropCustomer customer = dbHandler.getCropCustomer(bill.getSupplierId(),true);
                                 if(customer != null){
@@ -1042,7 +1074,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<purchaseOrders.length(); i++){
                             try{
                                 CropPurchaseOrder purchaseOrder = new CropPurchaseOrder(purchaseOrders.getJSONObject(i));
-                                purchaseOrder.setGlobalId(purchaseOrders.getJSONObject(i).getString("globalId"));
+                                purchaseOrder.setGlobalId(purchaseOrders.getJSONObject(i).getString("id"));
                                 purchaseOrder.setSyncStatus("yes");
                                 CropCustomer customer = dbHandler.getCropCustomer(purchaseOrder.getSupplierId(),true);
                                 if(customer != null){
@@ -1079,6 +1111,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock2dData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/2d/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -1099,7 +1132,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropInvoicePayment cropPayment =    new CropInvoicePayment(tasks.getJSONObject(i));
-                                cropPayment.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+                                cropPayment.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 cropPayment.setSyncStatus("yes");
                                 CropCustomer machine = dbHandler.getCropCustomer(cropPayment.getCustomerId(),true);
                                 if(machine != null){
@@ -1124,7 +1157,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<paymentBills.length(); i++){
                             try{
                                 CropPaymentBill cropPayment =    new CropPaymentBill(paymentBills.getJSONObject(i));
-                                cropPayment.setGlobalId(paymentBills.getJSONObject(i).getString("globalId"));
+                                cropPayment.setGlobalId(paymentBills.getJSONObject(i).getString("id"));
                                 cropPayment.setSyncStatus("yes");
                                 CropSupplier machine = dbHandler.getCropSupplier(cropPayment.getSupplierId(),true);
                                 if(machine != null){
@@ -1166,6 +1199,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     }
     private void loadBlock2eData(){
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
         final RequestParams params = new RequestParams();
         client.get(ApiPaths.DATA_BACK_UP+"/2e/"+userId, params, new JsonHttpResponseHandler() {
 
@@ -1186,7 +1220,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropProductItem productItem =  new CropProductItem(tasks.getJSONObject(i));
-                                productItem.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+                                productItem.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 productItem.setSyncStatus("yes");
                                 if(productItem.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_BILL)){
                                     CropBill bill = dbHandler.getCropBillById(productItem.getParentObjectId(),true);

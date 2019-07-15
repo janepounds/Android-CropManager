@@ -36,6 +36,7 @@ public class Crop implements Serializable, CropSpinnerItem {
 
 
 
+
  public float getRateR() {
   return rateR;
  }
@@ -317,14 +318,14 @@ public class Crop implements Serializable, CropSpinnerItem {
   setVariety(object.getString("variety"));
   setGrowingCycle(object.getString("growingCycle"));
   setSeason(object.getString("season"));
-  setArea(Float.parseFloat(object.getString("area")));
-  setCost(Float.parseFloat(object.getString("cost")));
-  setEstimatedYield(Float.parseFloat(object.getString("estimatedYield")));
-  setEstimatedRevenue(Float.parseFloat(object.getString("estimatedRevenue")));
+  setArea((float)object.getDouble("area"));
+  setCost((float)object.getDouble("cost"));
+  setEstimatedYield((float)object.getDouble("estimatedYield"));
+  setEstimatedRevenue((float)object.getDouble("estimatedRevenue"));
   setHarvestUnits(object.getString("harvestUnits"));
   setOperator(object.getString("operator"));
   setSeedId(object.getString("seedId"));
-  setRate(Float.parseFloat(object.getString("rate")));
+  setRate((float)object.getDouble("rate"));
   setPlantingMethod(object.getString("plantingMethod"));
   setName(object.getString("name"));
   setSyncStatus("yes");

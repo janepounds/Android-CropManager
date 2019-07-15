@@ -204,7 +204,7 @@ public class CropEstimate  implements Serializable{
             object.put("customerNotes",customerNotes);
             object.put("termsAndConditions",termsAndConditions);
             object.put("customerName",customerName);
-            object.put("referenceNumber",referenceNumber);
+            object.put("referenceNo",referenceNumber);
             object.put("status",status);
 
         } catch (JSONException e) {
@@ -225,9 +225,12 @@ public class CropEstimate  implements Serializable{
         setShippingCharges(Float.parseFloat(object.getString("shippingCharges")));
         setCustomerNotes(object.getString("customerNotes"));
         setTermsAndConditions(object.getString("termsAndConditions"));
-        setCustomerName(object.getString("customerName"));
-        setReferenceNumber(object.getString("referenceNumber"));
+       // setCustomerName(object.getString("customerName"));
+        setReferenceNumber(object.getString("referenceNo"));
         setStatus(object.getString("status"));
         setSyncStatus("yes");
+    }
+    public CropEstimate(){
+
     }
 }

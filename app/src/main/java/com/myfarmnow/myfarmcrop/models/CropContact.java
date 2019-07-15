@@ -143,4 +143,7 @@ public class CropContact implements CropSpinnerItem, Serializable {
         setWebsite(object.getString("website"));
         setSyncStatus("yes");
     }
+    public CropContact(){
+
+    }
 }

@@ -4555,7 +4555,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertCropSpray(CropInventorySpray inventorySpray) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_INVENTORY_SPRAY_DATE, inventorySpray.getDateOfPurchase());
+        contentValues.put(CROP_INVENTORY_SPRAY_DATE, inventorySpray.getPurchaseDate());
         contentValues.put(CROP_INVENTORY_SPRAY_USER_ID, inventorySpray.getUserId());
         contentValues.put(CROP_INVENTORY_SPRAY_TYPE, inventorySpray.getType());
         contentValues.put(CROP_INVENTORY_SPRAY_QUANTITY, inventorySpray.getQuantity());
@@ -4576,7 +4576,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateCropSpray(CropInventorySpray inventorySpray) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_INVENTORY_SPRAY_DATE, inventorySpray.getDateOfPurchase());
+        contentValues.put(CROP_INVENTORY_SPRAY_DATE, inventorySpray.getPurchaseDate());
         contentValues.put(CROP_INVENTORY_SPRAY_USER_ID, inventorySpray.getUserId());
         contentValues.put(CROP_INVENTORY_SPRAY_TYPE, inventorySpray.getType());
         contentValues.put(CROP_INVENTORY_SPRAY_QUANTITY, inventorySpray.getQuantity());
@@ -4616,7 +4616,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             CropInventorySpray spray = new CropInventorySpray();
             spray.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_ID)));
             spray.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_USER_ID)));
-            spray.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)));
+            spray.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)));
             spray.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
             spray.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_TYPE)));
             spray.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_QUANTITY)));
@@ -4649,7 +4649,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertCropSeeds(CropInventorySeeds inventorySeeds) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_INVENTORY_SEEDS_DATE, inventorySeeds.getDateOfPurchase());
+        contentValues.put(CROP_INVENTORY_SEEDS_DATE, inventorySeeds.getPurchaseDate());
         contentValues.put(CROP_INVENTORY_SEEDS_USER_ID, inventorySeeds.getUserId());
         contentValues.put(CROP_INVENTORY_SEEDS_VARIETY, inventorySeeds.getVariety());
         contentValues.put(CROP_INVENTORY_SEEDS_NAME, inventorySeeds.getName());
@@ -4670,7 +4670,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateCropSeeds(CropInventorySeeds inventorySeeds) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_INVENTORY_SEEDS_DATE, inventorySeeds.getDateOfPurchase());
+        contentValues.put(CROP_INVENTORY_SEEDS_DATE, inventorySeeds.getPurchaseDate());
         contentValues.put(CROP_INVENTORY_SEEDS_USER_ID, inventorySeeds.getUserId());
         contentValues.put(CROP_INVENTORY_SEEDS_VARIETY, inventorySeeds.getVariety());
         contentValues.put(CROP_INVENTORY_SEEDS_NAME, inventorySeeds.getName());
@@ -4708,7 +4708,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_ID)));
             inventorySeeds.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USER_ID)));
             inventorySeeds.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_NAME)));
-            inventorySeeds.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
+            inventorySeeds.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
             inventorySeeds.setVariety(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_VARIETY)));
             inventorySeeds.setDressing(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DRESSING)));
             inventorySeeds.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_QUANTITY)));
@@ -4749,7 +4749,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_ID)));
             inventorySeeds.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USER_ID)));
             inventorySeeds.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_NAME)));
-            inventorySeeds.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
+            inventorySeeds.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
             inventorySeeds.setVariety(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_VARIETY)));
             inventorySeeds.setDressing(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DRESSING)));
             inventorySeeds.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_QUANTITY)));
@@ -4799,6 +4799,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
         database.insert(CROP_FIELDS_TABLE_NAME, null, contentValues);
+        Log.d("FIELDS LIST",contentValues.toString());
         closeDB();
     }
 
@@ -4995,7 +4996,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.close();
         closeDB();
 
-
+        Log.d("FIELDS LIST",array_list.toString());
         return array_list;
     }
 
@@ -6653,7 +6654,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_ID)));
             inventorySeeds.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USER_ID)));
             inventorySeeds.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_NAME)));
-            inventorySeeds.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
+            inventorySeeds.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
             inventorySeeds.setVariety(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_VARIETY)));
             inventorySeeds.setDressing(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DRESSING)));
             inventorySeeds.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_QUANTITY)));
@@ -6687,7 +6688,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             CropInventorySpray spray = new CropInventorySpray();
             spray.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_ID)));
             spray.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_USER_ID)));
-            spray.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)));
+            spray.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)));
             spray.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
             spray.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_TYPE)));
             spray.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_QUANTITY)));
@@ -7562,7 +7563,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_ID)));
             inventorySeeds.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USER_ID)));
             inventorySeeds.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_NAME)));
-            inventorySeeds.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
+            inventorySeeds.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DATE)));
             inventorySeeds.setVariety(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_VARIETY)));
             inventorySeeds.setDressing(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_DRESSING)));
             inventorySeeds.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SEEDS_QUANTITY)));
@@ -7663,7 +7664,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             spray = new CropInventorySpray();
             spray.setId(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_ID)));
             spray.setUserId(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_USER_ID)));
-            spray.setDateOfPurchase(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)));
+            spray.setPurchaseDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_DATE)));
             spray.setName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
             spray.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_TYPE)));
             spray.setQuantity(res.getFloat(res.getColumnIndex(CROP_INVENTORY_SPRAY_QUANTITY)));

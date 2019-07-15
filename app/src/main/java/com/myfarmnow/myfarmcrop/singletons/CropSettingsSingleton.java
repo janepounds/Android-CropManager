@@ -113,12 +113,23 @@ public class CropSettingsSingleton {
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-
-
+            object.put("dateFormat",dateFormat);
+            object.put("currency",currency);
+            object.put("weightUnits",weightUnits);
+            object.put("areaUnits",areaUnits);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
 
+    }
+
+    public CropSettingsSingleton(JSONObject object) throws JSONException{
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setDateFormat(object.getString("dateFormat"));
+        setCurrency(object.getString("currency"));
+        setWeightUnits(object.getString("weightUnits"));
+        setAreaUnits(object.getString("areaUnits"));
     }
 }

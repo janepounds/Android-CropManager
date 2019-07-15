@@ -174,4 +174,8 @@ public class CropInvoicePayment implements Serializable {
         setSyncStatus( "yes");
 
     }
+
+    public CropInvoicePayment(){
+
+    }
 }

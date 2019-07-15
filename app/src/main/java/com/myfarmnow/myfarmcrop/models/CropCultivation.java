@@ -189,4 +189,8 @@ public class CropCultivation implements Serializable,CropActivity {
         setDaysBefore(object.getString("daysBefore"));
         setSyncStatus("yes");
     }
+
+    public CropCultivation(){
+
+    }
 }

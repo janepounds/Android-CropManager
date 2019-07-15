@@ -240,7 +240,9 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         setCropName(object.getString("cropName"));
     }
 
+    public  CropMachineTask(){
 
+    }
 }
 
 

@@ -189,4 +189,8 @@ public class CropProduct implements CropSpinnerItem, Serializable {
         setSellingPrice((float)object.getDouble("sellingPrice"));
         setTaxRate((float)object.getDouble("taxRate"));
     }
+
+    public CropProduct(){
+
+    }
 }

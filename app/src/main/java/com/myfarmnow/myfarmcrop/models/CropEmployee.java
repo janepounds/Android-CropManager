@@ -245,4 +245,8 @@ public class CropEmployee implements CropSpinnerItem, Serializable {
         setSupervisor(object.getString("supervisor"));
         setSyncStatus("yes");
     }
+
+    public CropEmployee(){
+
+    }
 }
