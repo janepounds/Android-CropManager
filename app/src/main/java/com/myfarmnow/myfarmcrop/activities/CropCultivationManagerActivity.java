@@ -88,6 +88,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                     remindersLayout.setVisibility(View.VISIBLE);
                 }
                 else{
+                    remindersLayout.setVisibility(View.GONE);
                     weeklyRecurrenceLayout.setVisibility(View.GONE);
 
                 }
@@ -111,8 +112,14 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                 if(selection.toLowerCase().equals("monthly")){
                     remindersLayout.setVisibility(View.VISIBLE);
                 }
+                else{
+                    remindersLayout.setVisibility(View.GONE);
+                }
                 if(selection.toLowerCase().equals("annually")){
                     remindersLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    remindersLayout.setVisibility(View.GONE);
                 }
             }
             @Override
