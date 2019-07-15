@@ -225,4 +225,7 @@ public class CropScouting implements CropSpinnerItem, Serializable, CropActivity
         setSyncStatus( "yes");
 
     }
+    public CropScouting(){
+
+    }
 }

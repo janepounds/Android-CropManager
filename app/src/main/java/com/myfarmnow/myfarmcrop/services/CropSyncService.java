@@ -53,9 +53,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
+
 
 public class CropSyncService extends Service {
     MyFarmDbHandlerSingleton dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -89,6 +95,8 @@ public class CropSyncService extends Service {
         for(CropField field: fields){
             fieldsJson.put(field.toJSON());
         }
+
+        Log.d("FIELDS",fieldsJson.toString());
         return fieldsJson;
     }
 
@@ -536,8 +544,7 @@ public class CropSyncService extends Service {
     private JSONArray prepareSettings(){
         JSONArray jsonArray = new JSONArray();
         CropSettingsSingleton  singleton= dbHandler.getSettings(userId,false);
-        jsonArray.put(singleton);
-
+        jsonArray.put(singleton.toJSON());
         return jsonArray;
     }
     private JSONArray prepareSoilAnalysis(){
@@ -632,7 +639,8 @@ public class CropSyncService extends Service {
      */
     private void startBlock1TablesBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -641,10 +649,19 @@ public class CropSyncService extends Service {
             requestObject.put("contacts",prepareContacts());
             requestObject.put("employees",prepareEmployees());
             requestObject.put("settings",prepareSettings());
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
 
-            Log.d("PATH",ApiPaths.CROP_USER_BACKUP+"/1a");
+                e.printStackTrace();
+                return;
+            }
+            Log.d("PATH 1A",params.toString());
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1a", params, new JsonHttpResponseHandler() {
+            client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1a",params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -732,14 +749,14 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    Log.e("BACCKUP RESPONSE 1A"+statusCode,errorResponse.toString());
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1A: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1A: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -755,7 +772,8 @@ public class CropSyncService extends Service {
 
     private void startBlock1bBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -764,8 +782,19 @@ public class CropSyncService extends Service {
             requestObject.put("inventorySeeds",prepareInventorySeeds());
             requestObject.put("inventorySprays",prepareInventorySprays());
             requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+              ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
+                
+                e.printStackTrace();
+                return;
+            }
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1b", params, new JsonHttpResponseHandler() {
+
+          //  client.post()
+            client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1b",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -837,14 +866,16 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("BACCKUP RESPONSE 1B"+statusCode,errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1B: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1B: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -857,7 +888,8 @@ public class CropSyncService extends Service {
     }
     private void startBlock1cBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -865,8 +897,17 @@ public class CropSyncService extends Service {
             requestObject.put("crops",prepareCrops());
             requestObject.put("soilAnalysis",prepareSoilAnalysis());
             requestObject.put("machines",prepareMachines());
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1c", params, new JsonHttpResponseHandler() {
+                e.printStackTrace();
+                return;
+            }
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1c",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -951,14 +992,16 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("BACCKUP RESPONSE 1C"+statusCode,errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1C: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1C: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -971,7 +1014,8 @@ public class CropSyncService extends Service {
     }
     private void startBlock1dBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -979,9 +1023,18 @@ public class CropSyncService extends Service {
             requestObject.put("harvests",prepareHarvest());
             requestObject.put("fertilizerApplication",prepareFertilizerApplication());
             requestObject.put("sprayings",prepareSprayings());
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
 
+                e.printStackTrace();
+                return;
+            }
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1d", params, new JsonHttpResponseHandler() {
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1d",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1062,9 +1115,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1D: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1D: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1077,7 +1130,8 @@ public class CropSyncService extends Service {
     }
     private void startBlock1eBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -1085,9 +1139,18 @@ public class CropSyncService extends Service {
             requestObject.put("cultivations",prepareCultivations());
             requestObject.put("scoutings",prepareScoutings());
             requestObject.put("irrigations",prepareIrrigations());
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
 
+                e.printStackTrace();
+                return;
+            }
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1e", params, new JsonHttpResponseHandler() {
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1e",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1165,9 +1228,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1E: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1E: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1180,7 +1243,8 @@ public class CropSyncService extends Service {
     }
     private void startBlock1fBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -1188,10 +1252,18 @@ public class CropSyncService extends Service {
             requestObject.put("transplantings",prepareTransplantings());
             requestObject.put("incomeExpenses",prepareIncomeExpense());
             requestObject.put("tasks",prepareTasks());
-            requestObject.put("userId",userId);
+           requestObject.put("userId",userId);
+            StringEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+            } catch (UnsupportedEncodingException e) {
+                
+                e.printStackTrace();
+                return;
+            }
 
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1f", params, new JsonHttpResponseHandler() {
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1f",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1276,9 +1348,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1F: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1F: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1291,7 +1363,8 @@ public class CropSyncService extends Service {
     }
     private void startBlock1gBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -1299,9 +1372,18 @@ public class CropSyncService extends Service {
             requestObject.put("machineServices",prepareMachineServices());
             requestObject.put("machineTasks",prepareMachineTasks());
             requestObject.put("notes",prepareNotes());
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
 
+                e.printStackTrace();
+                return;
+            }
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/1g", params, new JsonHttpResponseHandler() {
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1g",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1396,9 +1478,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 1G: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 1G: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1420,7 +1502,8 @@ public class CropSyncService extends Service {
      */
     private void startBlock2TablesBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
@@ -1429,8 +1512,18 @@ public class CropSyncService extends Service {
             requestObject.put("products",prepareProducts());
             requestObject.put("suppliers",prepareSuppliers());
             requestObject.put("userId",userId);
+            StringEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+            } catch (UnsupportedEncodingException e) {
+                
+                e.printStackTrace();
+                return;
+            }
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/2a", params, new JsonHttpResponseHandler() {
+
+            Log.e("URL +2A", ApiPaths.DATA_BACK_UP+"/2a");
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/2a",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1506,9 +1599,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 2A: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 2A: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1524,14 +1617,26 @@ public class CropSyncService extends Service {
 
     private void startBlock2bBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        Log.e("URL +2B", ApiPaths.DATA_BACK_UP+"/2a");
+        
 
         JSONObject requestObject = new JSONObject();
         try {
             requestObject.put("estimates",prepareEstimates());
             requestObject.put("invoices",prepareInvoice());
             requestObject.put("salesOrders",prepareSalesOrders());
-            client.post(ApiPaths.CROP_USER_BACKUP+"/2b", params, new JsonHttpResponseHandler() {
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
+
+                e.printStackTrace();
+                return;
+            }
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/2b",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1609,9 +1714,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 2B : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 2B : "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1626,15 +1731,26 @@ public class CropSyncService extends Service {
     }
     private void startBlock2cBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
         try {
             requestObject.put("bills",prepareBills());
             requestObject.put("purchaseOrders",preparePurchaseOrders());
+            requestObject.put("userId",userId);
+            HttpEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (UnsupportedEncodingException e) {
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/2c", params, new JsonHttpResponseHandler() {
+                e.printStackTrace();
+                return;
+            }
+
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/2c",           params,"application/json", new JsonHttpResponseHandler() {
                 @Override
                 public void onStart() {
                 }
@@ -1692,9 +1808,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 2C: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 2C: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1709,15 +1825,26 @@ public class CropSyncService extends Service {
     }
     private void startBlock2dBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+        
 
         JSONObject requestObject = new JSONObject();
 
         try {
             requestObject.put("invoicePayments",preparePayments());
             requestObject.put("paymentBills",preparePaymentBills());
-            requestObject.put("userId",userId);
-            client.post(ApiPaths.CROP_USER_BACKUP+"/2d", params, new JsonHttpResponseHandler() {
+           requestObject.put("userId",userId);
+            StringEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+            } catch (UnsupportedEncodingException e) {
+                
+                e.printStackTrace();
+                return;
+            }
+
+            Log.e("URL +2D", ApiPaths.DATA_BACK_UP+"/2d");
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/2d",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1789,9 +1916,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 2D: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 2D: "+statusCode, "Something got very very wrong");
                     }
 
                 }
@@ -1809,15 +1936,27 @@ public class CropSyncService extends Service {
     }
     private void startBlock2eBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+        client.setTimeout(20000);
+
+        
 
         JSONObject requestObject = new JSONObject();
 
         try {
             requestObject.put("productItems",prepareProductItems());
-            requestObject.put("userId",userId);
+           requestObject.put("userId",userId);
+            StringEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+            } catch (UnsupportedEncodingException e) {
+                
+                e.printStackTrace();
+                return;
+            }
 
-            client.post(ApiPaths.CROP_USER_BACKUP+"/2e", params, new JsonHttpResponseHandler() {
+            Log.e("URL +2E", ApiPaths.DATA_BACK_UP+"/2e");
+
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/2e",           params,"application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onStart() {
@@ -1889,9 +2028,9 @@ public class CropSyncService extends Service {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
                     if (errorResponse != null) {
-                        Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                        Log.e("info 2E: "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
-                        Log.e("info : "+statusCode, "Something got very very wrong");
+                        Log.e("info 2E: "+statusCode, "Something got very very wrong");
                     }
 
                 }

@@ -211,4 +211,7 @@ public class CropCustomer implements CropSpinnerItem,Serializable{
         setShippingCountry(object.getString("shippingCountry"));
         setSyncStatus("yes");
     }
+    public CropCustomer(){
+
+    }
 }

@@ -269,7 +269,7 @@ public class CropSpraying implements Serializable,CropActivity {
         setSprayId(object.getString("sprayId"));
         setRate((float)object.getDouble("rate"));
         setTreatmentReason(object.getString("treatmentReason"));
-        setSprayName(object.getString("sprayName"));
+//        setSprayName(object.getString("sprayName"));
         setRecurrence(object.getString("recurrence"));
         setReminders(object.getString("reminders"));
         setCost((float)object.getDouble("cost"));
@@ -277,6 +277,10 @@ public class CropSpraying implements Serializable,CropActivity {
         setRepeatUntil(object.getString("repeatUntil"));
         setDaysBefore(object.getString("daysBefore"));
         setSyncStatus( "yes");
+
+    }
+
+    public CropSpraying(){
 
     }
 }

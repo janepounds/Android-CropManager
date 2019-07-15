@@ -302,4 +302,8 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
 
     }
 
+    public CropTransplanting(){
+
+    }
+
 }

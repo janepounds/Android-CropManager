@@ -183,6 +183,9 @@ public class CropPaymentBill implements Serializable {
         setSyncStatus( "yes");
 
     }
+    public  CropPaymentBill(){
+
+    }
 
 
 }

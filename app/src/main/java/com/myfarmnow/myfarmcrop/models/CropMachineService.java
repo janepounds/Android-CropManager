@@ -216,5 +216,9 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
         setSyncStatus( "yes");
 
     }
+
+    public CropMachineService(){
+
+    }
 }
 

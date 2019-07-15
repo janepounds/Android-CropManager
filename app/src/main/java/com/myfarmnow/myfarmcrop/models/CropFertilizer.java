@@ -148,5 +148,9 @@ public class CropFertilizer implements Serializable,CropSpinnerItem {
 
     }
 
+    public CropFertilizer(){
+
+    }
+
 
 }

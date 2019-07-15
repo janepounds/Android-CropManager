@@ -1,7 +1,5 @@
 package com.myfarmnow.myfarmcrop.models;
 
-import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,7 +8,7 @@ import java.io.Serializable;
 
 public class CropInventorySeeds implements CropInventory,Serializable,CropSpinnerItem{
     String id;
-    String dateOfPurchase;
+    String purchaseDate;
     String name;
     String batchNumber;
     float quantity;
@@ -30,8 +28,8 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         return id;
     }
 
-    public String getDateOfPurchase() {
-        return dateOfPurchase;
+    public String getPurchaseDate() {
+        return purchaseDate;
     }
 
     public float getQuantity() {
@@ -80,8 +78,8 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         this.id = id;
     }
 
-    public void setDateOfPurchase(String dateOfPurchase) {
-        this.dateOfPurchase = dateOfPurchase;
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public void setName(String name) {
@@ -200,8 +198,8 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         try {
             object.put("id",id);
             object.put("globalId",globalId);
-            object.put("dateOfPurchase",dateOfPurchase);
-            object.put("name",name);
+            object.put("purchaseDate", purchaseDate);
+            object.put("seedName",name);
             object.put("batchNumber",batchNumber);
             object.put("quantity",quantity);
             object.put("totalConsumed",totalConsumed);
@@ -226,13 +224,13 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
 
         setGlobalId(object.getString("id"));
         setUserId(object.getString("userId"));
-        setDateOfPurchase(object.getString("dateOfPurchase"));
-        setName(object.getString("name"));
+        setPurchaseDate(object.getString("purchaseDate"));
+        setName(object.getString("seedName"));
         setBatchNumber(object.getString("batchNumber"));
         setQuantity(Float.parseFloat(object.getString("quantity")));
-        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
+//        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
         setUsageUnits(object.getString("usageUnits"));
-        setType(object.getString("type"));
+        setType(object.getString("seedType"));
         setVariety(object.getString("variety"));
         setDressing(object.getString("dressing"));
         setTgw(object.getString("tgw"));
@@ -241,6 +239,8 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         setSyncStatus("yes");
     }
 
+    public CropInventorySeeds(){
 
+    }
 
 }

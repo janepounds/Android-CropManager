@@ -228,4 +228,7 @@ public class CropPurchaseOrder implements Serializable {
         setDiscount( (float)object.getDouble("discount"));
     }
 
+    public  CropPurchaseOrder(){
+
+    }
 }

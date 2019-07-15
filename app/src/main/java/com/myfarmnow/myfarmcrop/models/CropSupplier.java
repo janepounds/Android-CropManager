@@ -180,4 +180,8 @@ public class CropSupplier implements Serializable,CropSpinnerItem{
         setInvoiceCityOrTown( object.getString("invoiceCityOrTown"));
         setInvoiceCountry( object.getString("invoiceCityOrTown"));
     }
+
+    public CropSupplier(){
+
+    }
 }

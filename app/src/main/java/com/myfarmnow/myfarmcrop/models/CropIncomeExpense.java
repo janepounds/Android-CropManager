@@ -224,5 +224,8 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         setCustomerSupplier(object.getString("customerSupplier"));
         setSyncStatus("yes");
     }
+    public CropIncomeExpense(){
+
+    }
 }
 

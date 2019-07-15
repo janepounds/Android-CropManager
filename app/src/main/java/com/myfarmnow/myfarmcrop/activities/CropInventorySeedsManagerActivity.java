@@ -121,7 +121,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
 
             CropDashboardActivity.selectSpinnerItemByValue(usageUnitSpinner,seedsInventoryToEdit.getUsageUnits());
             CropDashboardActivity.selectSpinnerItemByValue(typeSp,seedsInventoryToEdit.getType());
-            purchaseDatTxt.setText(seedsInventoryToEdit.getDateOfPurchase());
+            purchaseDatTxt.setText(seedsInventoryToEdit.getPurchaseDate());
             seedNameTxt.setText(seedsInventoryToEdit.getName());
             varietyTxt.setText(seedsInventoryToEdit.getVariety());
             dressingTxt.setText(seedsInventoryToEdit.getDressing());
@@ -138,7 +138,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         seedsInventoryToEdit = new CropInventorySeeds();
         seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
         seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
-        seedsInventoryToEdit.setDateOfPurchase(purchaseDatTxt.getText().toString());
+        seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
         seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
         seedsInventoryToEdit.setVariety(varietyTxt.getText().toString());
         seedsInventoryToEdit.setDressing(dressingTxt.getText().toString());
@@ -160,7 +160,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
 
             seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId", this));
             seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
-            seedsInventoryToEdit.setDateOfPurchase(purchaseDatTxt.getText().toString());
+            seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
             seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
             seedsInventoryToEdit.setVariety(varietyTxt.getText().toString());
             seedsInventoryToEdit.setDressing(dressingTxt.getText().toString());

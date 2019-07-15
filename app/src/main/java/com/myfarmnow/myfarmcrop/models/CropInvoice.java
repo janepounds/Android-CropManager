@@ -281,8 +281,9 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         setOrderNumber(object.getString("orderNumber"));
         setCustomerName(object.getString("customerName"));
         setSyncStatus("yes");
+    }
 
-
+    public CropInvoice(){
 
     }
 }

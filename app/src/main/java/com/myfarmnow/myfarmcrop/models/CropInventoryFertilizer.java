@@ -318,8 +318,8 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
             object.put("batchNumber",batchNumber);
             object.put("quantity",quantity);
             object.put("totalConsumed",totalConsumed);
-            object.put("usageUnits",usageUnits);
-            object.put("type",type);
+            object.put("usageUnit",usageUnits);
+            object.put("fertilizerType",type);
             object.put("nPercentage",nPercentage);
             object.put("kPercentage",kPercentage);
             object.put("pPercentage",pPercentage);
@@ -344,9 +344,8 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         setFertilizerName(object.getString("fertilizerName"));
         setBatchNumber(object.getString("batchNumber"));
         setQuantity(Float.parseFloat(object.getString("quantity")));
-        setTotalConsumed(Float.parseFloat(object.getString("totalConsumed")));
-        setUsageUnits(object.getString("usageUnits"));
-        setType(object.getString("type"));
+        setUsageUnits(object.getString("usageUnit"));
+        setType(object.getString("fertilizerType"));
         setnPercentage(Float.parseFloat(object.getString("nPercentage")));
         setkPercentage(Float.parseFloat(object.getString("kPercentage")));
         setpPercentage(Float.parseFloat(object.getString("pPercentage")));
@@ -364,6 +363,9 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         setSyncStatus("yes");
     }
 
+    public CropInventoryFertilizer(){
+
+    }
 
 
 

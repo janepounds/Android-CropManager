@@ -166,4 +166,6 @@ public class CropProductItem implements Serializable {
         setTax((float)object.getDouble("tax"));
 
     }
+
+
 }

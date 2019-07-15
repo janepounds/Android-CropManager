@@ -226,5 +226,9 @@ public class CropTask implements CropSpinnerItem, Serializable {
         setSyncStatus( "yes");
 
     }
+
+    public CropTask(){
+
+    }
 }
 
