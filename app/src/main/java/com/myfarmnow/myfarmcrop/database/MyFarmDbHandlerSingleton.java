@@ -1221,6 +1221,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
              //get all task dates from the start date to the end date (repeat until date)
             //for each date calculate the report from date using the
             varyingCalendar.add(calendarIdentifier,repeatFrequency);
+            if(repeatFrequency <1){
+                return notificationsList;
+            }
             while(!varyingCalendar.after(endDateCalendar)){
                     System.out.println("Running : "+reminderType+" "+dateFormat.format(varyingCalendar.getTime())+" -> "+dateFormat.format(endDateCalendar.getTime()));
                     CropNotification notification = new CropNotification();
@@ -2184,7 +2187,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             service.setCost(res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_COST)));
             service.setFrequency(res.getFloat(res.getColumnIndex(CROP_MACHINE_SERVICE_FREQUENCY)));
             service.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_SERVICE_REPEAT_UNTIL)));
-
+            service.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(service);
             res.moveToNext();
         }
@@ -2243,6 +2246,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             note.setCategory(res.getString(res.getColumnIndex(CROP_NOTE_CATEGORY)));
             note.setIsFor(res.getString(res.getColumnIndex(CROP_NOTE_IS_FOR)));
             note.setNotes(res.getString(res.getColumnIndex(CROP_NOTE_NOTES)));
+            note.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(note);
             res.moveToNext();
         }
@@ -2348,7 +2352,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setDaysBefore(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
             task.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_COST))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REPEAT_UNTIL)));
-
+            task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(task);
             res.moveToNext();
         }
@@ -2704,6 +2708,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSalesOrder.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_CHARGES)));
             cropSalesOrder.setCustomerNotes(res.getString(res.getColumnIndex(CROP_SALES_ORDER_CUSTOMER_NOTES)));
             cropSalesOrder.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_SALES_ORDER_TERMS_AND_CONDITIONS)));
+            cropSalesOrder.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropSalesOrder);
             res.moveToNext();
         }
@@ -2757,7 +2762,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSalesOrder.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_SALES_ORDER_SHIPPING_CHARGES)));
             cropSalesOrder.setCustomerNotes(res.getString(res.getColumnIndex(CROP_SALES_ORDER_CUSTOMER_NOTES)));
             cropSalesOrder.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_SALES_ORDER_TERMS_AND_CONDITIONS)));
-
+            cropSalesOrder.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
 
@@ -2862,6 +2867,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropInvoicePayment.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropInvoicePayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
             cropInvoicePayment.setInvoiceNumber(res.getString(res.getColumnIndex(CROP_INVOICE_NO)));
+            cropInvoicePayment.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropInvoicePayment);
             res.moveToNext();
         }
@@ -2899,6 +2905,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropInvoicePayment.setCustomerName(res.getString(res.getColumnIndex(CROP_CUSTOMER_NAME)));
             cropInvoicePayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
             cropInvoicePayment.setInvoiceNumber(res.getString(res.getColumnIndex(CROP_INVOICE_NO)));
+            cropInvoicePayment.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropInvoicePayment);
             res.moveToNext();
         }
@@ -3082,6 +3089,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropInvoice.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_INVOICE_SHIPPING_CHARGES)));
             cropInvoice.setCustomerNotes(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_NOTES)));
             cropInvoice.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_INVOICE_TERMS_AND_CONDITIONS)));
+            cropInvoice.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropInvoice);
             res.moveToNext();
         }
@@ -3143,6 +3151,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             invoice.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_INVOICE_SHIPPING_CHARGES)));
             invoice.setCustomerNotes(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_NOTES)));
             invoice.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_INVOICE_TERMS_AND_CONDITIONS)));
+            invoice.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
 
@@ -3203,6 +3212,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropInvoice.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_INVOICE_SHIPPING_CHARGES)));
             cropInvoice.setCustomerNotes(res.getString(res.getColumnIndex(CROP_INVOICE_CUSTOMER_NOTES)));
             cropInvoice.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_INVOICE_TERMS_AND_CONDITIONS)));
+            cropInvoice.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropInvoice);
             res.moveToNext();
         }
@@ -3390,6 +3400,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropEstimate.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_SHIPPING_CHARGES)));
             cropEstimate.setCustomerNotes(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_NOTES)));
             cropEstimate.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_ESTIMATE_TERMS_AND_CONDITIONS)));
+            cropEstimate.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropEstimate);
             res.moveToNext();
         }
@@ -3445,6 +3456,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             estimate.setShippingCharges(res.getFloat(res.getColumnIndex(CROP_ESTIMATE_SHIPPING_CHARGES)));
             estimate.setCustomerNotes(res.getString(res.getColumnIndex(CROP_ESTIMATE_CUSTOMER_NOTES)));
             estimate.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_ESTIMATE_TERMS_AND_CONDITIONS)));
+            estimate.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(estimate);
             res.moveToNext();
         }
@@ -3555,6 +3567,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropProduct.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
             cropProduct.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
             cropProduct.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
+            cropProduct.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropProduct);
             res.moveToNext();
         }
@@ -3598,7 +3611,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropProduct.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
             cropProduct.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
             cropProduct.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
-           
+            cropProduct.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
 
@@ -3681,7 +3694,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSupplier.setInvoiceStreet(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_STREET)));
             cropSupplier.setInvoiceCityOrTown(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_CITY)));
             cropSupplier.setInvoiceCountry(res.getString(res.getColumnIndex(CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY)));
-            cropSupplier.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+          //  cropSupplier.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             cropSupplier.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropSupplier);
             res.moveToNext();
@@ -3808,6 +3821,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropEmployee.setShippingStreet(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_STREET)));
             cropEmployee.setShippingCityOrTown(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_CITY)));
             cropEmployee.setShippingCountry(res.getString(res.getColumnIndex(CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY)));
+            cropEmployee.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropEmployee);
             res.moveToNext();
         }
@@ -3951,6 +3965,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropEmployee.setPayRate(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PAY_RATE)));
             cropEmployee.setPayType(res.getString(res.getColumnIndex(CROP_EMPLOYEE_PAY_TYPE)));
             cropEmployee.setSupervisor(res.getString(res.getColumnIndex(CROP_EMPLOYEE_SUPERVISOR)));
+            cropEmployee.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropEmployee);
             res.moveToNext();
         }
@@ -4052,7 +4067,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
             crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
-
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
         }
@@ -4177,7 +4192,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setReminders(res.getString(res.getColumnIndex(CROP_SPRAYING_REMINDERS)));
             crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
-
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
         }
@@ -4293,7 +4308,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
             crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL)));
-
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
         }
@@ -4395,7 +4410,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setReminders(res.getString(res.getColumnIndex(CROP_CULTIVATION_REMINDERS)));
             crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL)));
-
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             array_list.add(crop);
             res.moveToNext();
@@ -4499,7 +4514,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
             crop.setEstimatedRevenue(res.getFloat(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE)));
             crop.setEstimatedYield(res.getFloat(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)));
-
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
         }
@@ -4540,7 +4555,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
             crop.setEstimatedRevenue(res.getFloat(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE)));
             crop.setEstimatedYield(res.getFloat(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)));
-
+            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
         }
@@ -4626,6 +4641,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             spray.setActiveIngredients(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_ACTIVE_INGREDIENTS)));
             spray.setExpiryDate(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_EXPIRY_DATE)));
             spray.setHarvestInterval(res.getInt(res.getColumnIndex(CROP_INVENTORY_SPRAY_HARVEST_INTERVAL)));
+            spray.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(spray);
             res.moveToNext();
         }
@@ -4717,6 +4733,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
             inventorySeeds.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USAGE_UNIT)));
             inventorySeeds.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TYPE)));
+            inventorySeeds.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(inventorySeeds);
             res.moveToNext();
         }
@@ -4758,7 +4775,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
             inventorySeeds.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USAGE_UNIT)));
             inventorySeeds.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TYPE)));
-
+            inventorySeeds.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
 
@@ -4909,6 +4926,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizer.setMicroNutrientsZn(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_ZN)));
             fertilizer.setMicroNutrientsFe(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_FE)));
             fertilizer.setMicroNutrientsNa(res.getFloat(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_MICRO_NUTRIENTS_NA)));
+            fertilizer.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(fertilizer);
 
             res.moveToNext();
@@ -4952,6 +4970,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
 
+        Log.d("UPDATE FIELD CALLED",contentValues.toString());
         database.update(CROP_FIELDS_TABLE_NAME, contentValues, CROP_FIELD_ID + " = ?", new String[]{field.getId()});
         closeDB();
     }
@@ -4986,9 +5005,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             field.setFieldType(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
             field.setLayoutType(res.getString(res.getColumnIndex(CROP_FIELD_LAYOUT_TYPE)));
             field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
-
+            field.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(field);
-
             res.moveToNext();
         }
 
@@ -5076,7 +5094,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             machine.setPurchasedFrom(res.getString(res.getColumnIndex(CROP_MACHINE_PURCHASED_FROM)));
             machine.setStorageLocation(res.getString(res.getColumnIndex(CROP_MACHINE_STORAGE_LOCATION)));
             machine.setPurchasePrice(res.getFloat(res.getColumnIndex(CROP_MACHINE_PURCHASE_PRICE)));
-
+            machine.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             array_list.add(machine);
             res.moveToNext();
@@ -5166,8 +5184,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             incomeExpense.setPaymentStatus(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_STATUS)));
             incomeExpense.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_SELLING_PRICE)));
             incomeExpense.setCustomerSupplier(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER)));
-
-
+            incomeExpense.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(incomeExpense);
             res.moveToNext();
         }
@@ -5257,6 +5274,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
             task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
+            task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             array_list.add(task);
             res.moveToNext();
@@ -5297,6 +5315,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PURCHASE_ORDER_DISCOUNT,estimate.getDiscount());
         contentValues.put(CROP_PURCHASE_ORDER_NOTES,estimate.getNotes());
         contentValues.put(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS,estimate.getTermsAndConditions());
+        contentValues.put(CROP_SYNC_STATUS,estimate.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID,estimate.getGlobalId());
         Log.d("PURCHASE ORDER INSERTED",contentValues.toString());
 
         database.insert(CROP_PURCHASE_ORDER_TABLE_NAME,null,contentValues);
@@ -5401,6 +5421,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropPurchaseOrder.setDiscount(res.getFloat(res.getColumnIndex(CROP_PURCHASE_ORDER_DISCOUNT)));
             cropPurchaseOrder.setNotes(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_NOTES)));
             cropPurchaseOrder.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS)));
+            cropPurchaseOrder.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropPurchaseOrder);
             res.moveToNext();
         }
@@ -5451,6 +5472,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropPurchaseOrder.setDiscount(res.getFloat(res.getColumnIndex(CROP_PURCHASE_ORDER_DISCOUNT)));
             cropPurchaseOrder.setNotes(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_NOTES)));
             cropPurchaseOrder.setTermsAndConditions(res.getString(res.getColumnIndex(CROP_PURCHASE_ORDER_TERMS_AND_CONDITIONS)));
+            cropPurchaseOrder.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
 
@@ -5553,6 +5575,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             paymentBill.setBillNumber(res.getString(res.getColumnIndex(CROP_BILL_NUMBER)));
             paymentBill.setSupplierId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_SUPPLIER_ID)));
             paymentBill.setSupplierName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            paymentBill.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(paymentBill);
             res.moveToNext();
         }
@@ -5586,6 +5609,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             paymentBill.setBillNumber(res.getString(res.getColumnIndex(CROP_BILL_NUMBER)));
             paymentBill.setSupplierId(res.getString(res.getColumnIndex(CROP_PAYMENT_BILL_SUPPLIER_ID)));
             paymentBill.setSupplierName(res.getString(res.getColumnIndex(CROP_SUPPLIER_NAME)));
+            paymentBill.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(paymentBill);
             res.moveToNext();
         }
@@ -5722,6 +5746,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropBill.setTerms(res.getString(res.getColumnIndex(CROP_BILL_TERMS)));
             cropBill.setDiscount(res.getFloat(res.getColumnIndex(CROP_BILL_DISCOUNT)));
             cropBill.setNotes(res.getString(res.getColumnIndex(CROP_BILL_NOTES)));
+            cropBill.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropBill);
             res.moveToNext();
         }
@@ -5779,6 +5804,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             bill.setTerms(res.getString(res.getColumnIndex(CROP_BILL_TERMS)));
             bill.setDiscount(res.getFloat(res.getColumnIndex(CROP_BILL_DISCOUNT)));
             bill.setNotes(res.getString(res.getColumnIndex(CROP_BILL_NOTES)));
+            bill.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             res.moveToNext();
         }
@@ -5838,6 +5864,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropBill.setTerms(res.getString(res.getColumnIndex(CROP_BILL_TERMS)));
             cropBill.setDiscount(res.getFloat(res.getColumnIndex(CROP_BILL_DISCOUNT)));
             cropBill.setNotes(res.getString(res.getColumnIndex(CROP_BILL_NOTES)));
+            cropBill.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropBill);
             res.moveToNext();
         }
@@ -5964,7 +5991,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
            irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
             irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
-
+            irrigation.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(irrigation);
             res.moveToNext();
         }
@@ -6074,7 +6101,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             transplanting.setDaysBefore(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
             transplanting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL)));
             transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
-
+            transplanting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             array_list.add(transplanting);
             res.moveToNext();
@@ -6182,7 +6209,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             scouting.setReminders(res.getString(res.getColumnIndex(CROP_SCOUTING_REMINDERS)));
             scouting.setDaysBefore(res.getString(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
             scouting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL)));
-
+            scouting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(scouting);
             res.moveToNext();
         }
@@ -6304,6 +6331,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
             harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
             harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
+            harvest.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             array_list.add(harvest);
             res.moveToNext();
@@ -6378,6 +6406,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             contact.setPhoneNumber(res.getString(res.getColumnIndex(CROP_CONTACT_PHONE_NUMBER)));
             contact.setEmail(res.getString(res.getColumnIndex(CROP_CONTACT_EMAIL)));
             contact.setWebsite(res.getString(res.getColumnIndex(CROP_CONTACT_WEBSITE)));
+            contact.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
             array_list.add(contact);
             res.moveToNext();
@@ -6391,8 +6420,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public ArrayList<CropField> getCropFields(String userId, boolean synced) {
         openDB();
         ArrayList<CropField> array_list = new ArrayList();
-
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = " + userId+" AND "+CROP_SYNC_STATUS+" = ?", new String[]{synced?"yes":"no"});
         res.moveToFirst();
@@ -7373,7 +7400,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_ID)));
             //   task.setUserId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_USER_ID)));
             task.setMachineId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_MACHINE_ID)));
-            task.setCropName(res.getString(res.getColumnIndex(CROP_MACHINE_NAME)));
+//            task.setCropName(res.getString(res.getColumnIndex(CROP_MACHINE_NAME)));
             task.setEmployeeName(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_PERSONNEL)));
             task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
             task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
@@ -7538,6 +7565,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             field.setLayoutType(res.getString(res.getColumnIndex(CROP_FIELD_LAYOUT_TYPE)));
             field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
             field.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            field.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             res.moveToNext();
         }
 
@@ -7587,7 +7615,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_CROP_ID;
 
-        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " +key+ " = ?", new String[]{cropId});
+        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " +key+ " = "+cropId, null);
         res.moveToFirst();
         Crop crop = null;
         if (!res.isAfterLast()) {
@@ -7704,7 +7732,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizerApplication.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
             fertilizerApplication.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
             fertilizerApplication.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
-            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+//            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
             fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
@@ -7952,7 +7980,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             contact.setPhoneNumber(res.getString(res.getColumnIndex(CROP_CONTACT_PHONE_NUMBER)));
             contact.setEmail(res.getString(res.getColumnIndex(CROP_CONTACT_EMAIL)));
             contact.setWebsite(res.getString(res.getColumnIndex(CROP_CONTACT_WEBSITE)));
-
+            contact.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            contact.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
         res.close();
@@ -8023,7 +8052,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             soilAnalysis.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
             soilAnalysis.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
             soilAnalysis.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
-
+            soilAnalysis.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            soilAnalysis.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             res.moveToNext();
         }
 
@@ -8064,7 +8094,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
             harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
             harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
-
+            harvest.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            harvest.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             res.moveToNext();
         }
         res.close();
@@ -8096,6 +8127,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
             irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
+            irrigation.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
         res.close();
@@ -8193,7 +8225,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizerApplication.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
             fertilizerApplication.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
             fertilizerApplication.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
-            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+//            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
             fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
@@ -8291,7 +8323,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task= new CropMachineTask();
             task.setId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_ID)));
             task.setMachineId(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_MACHINE_ID)));
-            task.setCropName(res.getString(res.getColumnIndex(CROP_MACHINE_NAME)));
+           // task.setCropName(res.getString(res.getColumnIndex(CROP_MACHINE_NAME)));
             task.setEmployeeName(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_PERSONNEL)));
             task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
             task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
@@ -8506,6 +8538,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropInvoicePayment.setCustomerId(res.getString(res.getColumnIndex(CROP_PAYMENT_CUSTOMER_ID)));
             cropInvoicePayment.setInvoiceId(res.getString(res.getColumnIndex(CROP_PAYMENT_INVOICE_ID)));
             cropInvoicePayment.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            cropInvoicePayment.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             cropInvoicePayment.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }

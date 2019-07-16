@@ -161,6 +161,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
             object.put("croppableArea",croppableArea);
             object.put("globalId",globalId);
             object.put("units",units);
+            object.put("syncStatus",syncStatus);
 
         } catch (JSONException e) {
             e.printStackTrace();

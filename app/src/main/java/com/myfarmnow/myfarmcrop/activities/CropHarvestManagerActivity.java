@@ -411,16 +411,12 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
             String weeks = weeksTxt.getText().toString();
             String repeatUntil = repeatUntilTxt.getText().toString();
-
             cropHarvest.setFrequency(Float.parseFloat(weeks));
             cropHarvest.setRepeatUntil(repeatUntil);
         }
         if(daysBeforeLayout.getVisibility()==View.VISIBLE){
             String days = daysBeforeTxt.getText().toString();
-
-
             cropHarvest.setDaysBefore(days);
-
         }
 
         dbHandler.insertCropHarvest(cropHarvest);

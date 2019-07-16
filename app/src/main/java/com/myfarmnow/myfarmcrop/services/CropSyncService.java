@@ -95,6 +95,7 @@ public class CropSyncService extends Service {
 
     private JSONArray prepareFields(){
         ArrayList<CropField> fields = dbHandler.getCropFields(userId,false);
+        Log.d("FIELDS COUNT",fields.size()+"");
         JSONArray fieldsJson = new JSONArray();
         for(CropField field: fields){
             if(field.getGlobalId()==null){
@@ -193,6 +194,7 @@ public class CropSyncService extends Service {
     private JSONArray prepareCrops(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<Crop> records = dbHandler.getCrops(userId,false);
+        Log.d("CROPS ",records.size()+"");
         for(Crop record: records){
             if(record.getGlobalId()==null){
                 record.setGlobalId(generateUUID());
@@ -203,6 +205,7 @@ public class CropSyncService extends Service {
             if(field ==null){
                 continue; //crop has no assigned field
             }
+            Log.d("CROPS FIELD",field.toJSON().toString());
             if(field.getSyncStatus().equals("no")){
                 continue; //do not back up this crop since its parent field is not backed up
             }

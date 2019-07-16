@@ -303,6 +303,7 @@ public class Crop implements Serializable, CropSpinnerItem {
    object.put("rate",rate);
    object.put("plantingMethod",plantingMethod);
    object.put("name",name);
+   object.put("syncStatus",syncStatus);
 
   } catch (JSONException e) {
    e.printStackTrace();

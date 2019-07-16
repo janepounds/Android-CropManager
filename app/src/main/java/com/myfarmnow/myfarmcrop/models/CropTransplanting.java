@@ -257,7 +257,7 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
             object.put("cropId",cropId);
             object.put("operationDate",operationDate);
             object.put("totalSeedling",totalSeedling);
-            object.put("seedlingPerHa",seedlingPerHa);
+            object.put("seedlingsPerHa",seedlingPerHa);
             object.put("varietyEarliness",varietyEarliness);
             object.put("cycleLength",cycleLength);
             object.put("units",units);
@@ -284,7 +284,7 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
         setUserId(object.getString("userId"));
         setOperationDate(object.getString("operationDate"));
         setTotalSeedling((float)object.getDouble("totalSeedling"));
-        setSeedlingPerHa((float)object.getDouble("seedlingPerHa"));
+        setSeedlingPerHa((float)object.getDouble("seedlingsPerHa"));
         setCycleLength((float)object.getDouble("cycleLength"));
         setVarietyEarliness(object.getString("varietyEarliness"));
         setUnits(object.getString("units"));

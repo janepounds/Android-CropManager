@@ -260,7 +260,7 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
             object.put("employeeId",employeeId);
             object.put("date",date);
             object.put("method",method);
-            object.put("units",units);
+            object.put("harvestUnits",units);
             object.put("quantity",quantity);
             object.put("status",status);
             object.put("dateSold",dateSold);
@@ -285,10 +285,10 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         setGlobalId(object.getString("id"));
         setUserId(object.getString("userId"));
         setCropId(object.getString("cropId"));
-        setEmployeeId(object.getString("employeeId"));
+        setEmployeeId(object.getString("operator"));
         setDate(object.getString("date"));
         setMethod(object.getString("method"));
-        setUnits(object.getString("units"));
+        setUnits(object.getString("harvestUnits"));
         setQuantity(Float.parseFloat(object.getString("quantity")));
         setStatus(object.getString("status"));
         setDateSold(object.getString("dateSold"));
