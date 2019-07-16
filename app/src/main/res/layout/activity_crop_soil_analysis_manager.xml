@@ -295,6 +295,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_crop_soil_analysis_reminders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

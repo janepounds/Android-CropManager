@@ -95,19 +95,15 @@ public class CropTaskManagerActivity extends AppCompatActivity {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
-                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    weeklyRecurrenceLayout.setVisibility(View.GONE);
 
+                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
                 }
+
                 if(selection.toLowerCase().equals("daily")){
                     remindersLayout.setVisibility(View.GONE);
                     remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
-                }
-                else{
-                    remindersSp.setSelection(0);
                 }
 
                 if(selection.toLowerCase().equals("once")){
@@ -115,15 +111,19 @@ public class CropTaskManagerActivity extends AppCompatActivity {
                     remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
                 }
-                else{
-                    remindersSp.setSelection(0);
-                }
+
+
                 if(selection.toLowerCase().equals("monthly")){
                     remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
                 }
+
+
                 if(selection.toLowerCase().equals("annually")){
                     remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
                 }
+
 
 
             }
@@ -150,10 +150,16 @@ public class CropTaskManagerActivity extends AppCompatActivity {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
+
                     daysBeforeLayout.setVisibility(View.VISIBLE);
+                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
+                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                    }
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
+
+                        weeklyRecurrenceLayout.setVisibility(View.GONE);
 
                 }
 
@@ -249,12 +255,13 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         cropTask.setDescription(descriptionTxt.getText().toString());
         cropTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropTask.setReminders(remindersSp.getSelectedItem().toString());
+        cropTask.setRepeatUntil(repeatUntilTxt.getText().toString());
         if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
             String weeks = weeksTxt.getText().toString();
-            String repeatUntil = repeatUntilTxt.getText().toString();
+
 
             cropTask.setFrequency(Float.parseFloat(weeks));
-            cropTask.setRepeatUntil(repeatUntil);
+
         }
         if(daysBeforeLayout.getVisibility()==View.VISIBLE){
             String days = daysBeforeTxt.getText().toString();
@@ -281,12 +288,13 @@ public class CropTaskManagerActivity extends AppCompatActivity {
             cropTask.setDescription(descriptionTxt.getText().toString());
             cropTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropTask.setReminders(remindersSp.getSelectedItem().toString());
+            cropTask.setRepeatUntil(repeatUntilTxt.getText().toString());
             if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
                 String weeks = weeksTxt.getText().toString();
-                String repeatUntil = repeatUntilTxt.getText().toString();
+
 
                 cropTask.setFrequency(Float.parseFloat(weeks));
-                cropTask.setRepeatUntil(repeatUntil);
+
             }
             if(daysBeforeLayout.getVisibility()==View.VISIBLE){
                 String days = daysBeforeTxt.getText().toString();
