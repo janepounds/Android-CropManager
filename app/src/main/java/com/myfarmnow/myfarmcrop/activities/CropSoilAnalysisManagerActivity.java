@@ -27,7 +27,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
     EditText dateTxt,phTxt,organicMatterTxt,agronomistTxt,costTxt,resultsTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt ;
     TextView currencyTxt;
     Spinner recurrenceSp,remindersSp;
-    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout;
+    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout,remindersLayout;
     Button btn_save;
     CropSoilAnalysis soilAnalysis;
     String fieldId;
@@ -88,11 +88,33 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
-                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    weeklyRecurrenceLayout.setVisibility(View.GONE);
 
+                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
+                }
+
+                if(selection.toLowerCase().equals("daily")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+
+                if(selection.toLowerCase().equals("once")){
+                    remindersLayout.setVisibility(View.GONE);
+                    remindersSp.setSelection(2);
+                    daysBeforeLayout.setVisibility(View.GONE);
+                }
+
+
+                if(selection.toLowerCase().equals("monthly")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
+                }
+
+
+                if(selection.toLowerCase().equals("annually")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
                 }
 
 
@@ -122,6 +144,9 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
+                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
+                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                    }
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
@@ -177,12 +202,12 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         soilAnalysis.setOrganicMatter(Float.parseFloat(organicMatterTxt.getText().toString()));
         soilAnalysis.setRecurrence(recurrenceSp.getSelectedItem().toString());
         soilAnalysis.setReminders(remindersSp.getSelectedItem().toString());
+        soilAnalysis.setRepeatUntil(repeatUntilTxt.getText().toString());
         if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
             String weeks = weeksTxt.getText().toString();
-            String repeatUntil = repeatUntilTxt.getText().toString();
 
             soilAnalysis.setFrequency(Float.parseFloat(weeks));
-            soilAnalysis.setRepeatUntil(repeatUntil);
+
         }
         if(daysBeforeLayout.getVisibility()==View.VISIBLE){
             String days = daysBeforeTxt.getText().toString();
@@ -206,12 +231,12 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
             soilAnalysis.setOrganicMatter(Float.parseFloat(organicMatterTxt.getText().toString()));
             soilAnalysis.setRecurrence(recurrenceSp.getSelectedItem().toString());
             soilAnalysis.setReminders(remindersSp.getSelectedItem().toString());
+            soilAnalysis.setRepeatUntil(repeatUntilTxt.getText().toString());
             if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
                 String weeks = weeksTxt.getText().toString();
-                String repeatUntil = repeatUntilTxt.getText().toString();
 
                 soilAnalysis.setFrequency(Float.parseFloat(weeks));
-                soilAnalysis.setRepeatUntil(repeatUntil);
+
             }
             if(daysBeforeLayout.getVisibility()==View.VISIBLE){
                 String days = daysBeforeTxt.getText().toString();

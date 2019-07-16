@@ -212,19 +212,15 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("weekly")){
-                    weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    weeklyRecurrenceLayout.setVisibility(View.GONE);
 
+                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
                 }
+
                 if(selection.toLowerCase().equals("daily")){
                     remindersLayout.setVisibility(View.GONE);
                     remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
-                }
-                else{
-                    remindersSp.setSelection(0);
                 }
 
                 if(selection.toLowerCase().equals("once")){
@@ -232,16 +228,18 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                     remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
                 }
-                else{
-                    remindersSp.setSelection(0);
-                }
+
+
                 if(selection.toLowerCase().equals("monthly")){
                     remindersLayout.setVisibility(View.VISIBLE);
-                }
-                if(selection.toLowerCase().equals("annually")){
-                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
                 }
 
+
+                if(selection.toLowerCase().equals("annually")){
+                    remindersLayout.setVisibility(View.VISIBLE);
+                    remindersSp.setSelection(0);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -268,6 +266,9 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
+                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
+                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                    }
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
@@ -363,12 +364,12 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         cropScouting.setRemarks(remarksTxt.getText().toString());
         cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropScouting.setReminders(remindersSp.getSelectedItem().toString());
+        cropScouting.setRepeatUntil(repeatUntilTxt.getText().toString());
         if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
             String weeks = weeksTxt.getText().toString();
-            String repeatUntil = repeatUntilTxt.getText().toString();
 
             cropScouting.setFrequency(Float.parseFloat(weeks));
-            cropScouting.setRepeatUntil(repeatUntil);
+
         }
         if(daysBeforeLayout.getVisibility()==View.VISIBLE){
             String days = daysBeforeTxt.getText().toString();
@@ -396,12 +397,13 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
             cropScouting.setRemarks(remarksTxt.getText().toString());
             cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropScouting.setReminders(remindersSp.getSelectedItem().toString());
+            cropScouting.setRepeatUntil(repeatUntilTxt.getText().toString());
+
             if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
                 String weeks = weeksTxt.getText().toString();
-                String repeatUntil = repeatUntilTxt.getText().toString();
 
                 cropScouting.setFrequency(Float.parseFloat(weeks));
-                cropScouting.setRepeatUntil(repeatUntil);
+
             }
             if(daysBeforeLayout.getVisibility()==View.VISIBLE){
                 String days = daysBeforeTxt.getText().toString();
