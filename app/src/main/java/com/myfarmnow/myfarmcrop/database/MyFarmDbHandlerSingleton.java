@@ -4532,7 +4532,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " + CROP_CROP_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select "+CROP_CROP_TABLE_NAME+".*,"+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_NAME+" from " + CROP_CROP_TABLE_NAME +" LEFT JOIN "+CROP_FIELDS_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_FIELD_ID+"="+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_ID+" where " + CROP_CROP_USER_ID + " = " + userId, null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -4547,6 +4547,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
             crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
             crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
+            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
             crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
             crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
             crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
