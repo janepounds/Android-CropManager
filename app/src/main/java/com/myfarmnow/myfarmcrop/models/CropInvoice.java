@@ -36,7 +36,7 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    private ArrayList<String> deletedItemsIds;
+    private ArrayList<String> deletedItemsIds= new ArrayList<>();
 
     public String getId() {
         return id;
@@ -268,7 +268,7 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
     public CropInvoice(JSONObject object) throws JSONException {
 
         setUserId(object.getString("userId"));
-        setGlobalId(object.getString("globalId"));
+        setGlobalId(object.getString("id"));
         setCustomerId(object.getString("customerId"));
         setNumber(object.getString("number"));
         setDate(object.getString("date"));
@@ -279,7 +279,7 @@ public class CropInvoice implements Serializable,CropSpinnerItem {
         setTermsAndConditions(object.getString("termsAndConditions"));
         setTerms(object.getString("terms"));
         setOrderNumber(object.getString("orderNumber"));
-        setCustomerName(object.getString("customerName"));
+//        setCustomerName(object.getString("customerName"));
         setSyncStatus("yes");
     }
 

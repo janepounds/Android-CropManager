@@ -21,7 +21,7 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
     private String repeatUntil;
     private float cost;
     public float currentHours;
-    private String daysBefore;
+    private float daysBefore;
 
     @Override
     public String getId() {
@@ -125,11 +125,11 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
         this.cost = cost;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
 
@@ -181,7 +181,7 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
             object.put("description",description);
             object.put("recurrence",recurrence);
             object.put("reminders",reminders);
-            object.put("employeeName",employeeName);
+            object.put("responsible",employeeName);
             object.put("serviceType",serviceType);
             object.put("frequency",frequency);
             object.put("repeatUntil",repeatUntil);
@@ -201,18 +201,18 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
         setGlobalId(object.getString("id"));
         setMachineId(object.getString("machineId"));
         setDate(object.getString("date"));
-        setTitle(object.getString("title"));
+//        setTitle(object.getString("title"));
         setType(object.getString("type"));
-        setServiceType(object.getString("serviceType"));
+        //setServiceType(object.getString("serviceType"));
         setDescription(object.getString("description"));
         setRecurrence(object.getString("recurrence"));
         setReminders(object.getString("reminders"));
-        setEmployeeName(object.getString("employeeName"));
+        setEmployeeName(object.getString("responsible"));
         setCost((float)object.getDouble("cost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
         setCurrentHours((float)object.getDouble("currentHours"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore((float)object.getDouble("daysBefore"));
         setSyncStatus( "yes");
 
     }

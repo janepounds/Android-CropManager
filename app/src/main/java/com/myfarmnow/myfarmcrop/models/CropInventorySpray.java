@@ -1,5 +1,7 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -199,6 +201,9 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
 
         try {
             object.put("id",id);
+
+//            Log.d("GLOBAL ID",globalId);
+
             object.put("globalId",globalId);
             object.put("purchaseDate", purchaseDate);
             object.put("sprayName",name);

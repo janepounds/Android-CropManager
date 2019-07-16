@@ -95,6 +95,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static final String STREET_PREFERENCES_ID ="addressStreet";
     public static final String CITY_PREFERENCES_ID ="addressCityOrTown";
     public static final String COUNTRY_PREFERENCES_ID ="addressCountry";
+    public static final String PREFERENCES_FIRST_NAME ="firstname";
+    public static final String PREFERENCES_LAST_NAME ="lastname";
     public static final String PREFERENCES_USER_ID ="userId";
     public static final String PREFERENCES_USER_EMAIL ="email";
     public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
@@ -666,10 +668,10 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static void saveUser(JSONObject user, Context context) throws JSONException{
 
         CropDashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
-        CropDashboardActivity.savePreferences("firstname", user.getString("firstname"), context);
+        CropDashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
         CropDashboardActivity.savePreferences("email", user.getString("email"), context);
         CropDashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
-        CropDashboardActivity.savePreferences("lastname", user.getString("lastname"), context);
+        CropDashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
         CropDashboardActivity.savePreferences("country", user.getString("country"), context);
         CropDashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
         CropDashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
@@ -688,9 +690,9 @@ public class CropDashboardActivity extends AppCompatActivity  {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
 
-        params.put("id", CropDashboardActivity.getPreferences(PREFERENCES_USER_ID,this));
-        params.put("firstName",CropDashboardActivity.getPreferences("firstName",this));
-        params.put("lastName",CropDashboardActivity.getPreferences("lastName",this));
+        params.put("userId", CropDashboardActivity.getPreferences(PREFERENCES_USER_ID,this));
+        params.put("firstName",CropDashboardActivity.getPreferences(PREFERENCES_FIRST_NAME,this));
+        params.put("lastName",CropDashboardActivity.getPreferences(PREFERENCES_LAST_NAME,this));
         params.put("country",CropDashboardActivity.getPreferences("country",this));
         params.put("countryCode",CropDashboardActivity.getPreferences("countryCode",this));
         params.put("email",CropDashboardActivity.getPreferences("email",this));
@@ -717,7 +719,11 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("RESPONSE", "failed ");
+                if (errorResponse != null) {
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info : "+statusCode, "Something got very very wrong");
+                }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {

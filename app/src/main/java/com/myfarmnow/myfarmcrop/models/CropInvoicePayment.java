@@ -142,8 +142,8 @@ public class CropInvoicePayment implements Serializable {
             object.put("userId",userId);
             object.put("customerId",customerId);
             object.put("amount",amount);
-            object.put("date",mode);
-            object.put("mode",date);
+            object.put("date",date);
+            object.put("mode",mode);
             object.put("referenceNo",referenceNo);
             object.put("paymentNumber",paymentNumber);
             object.put("invoiceNumber",invoiceNumber);
@@ -165,10 +165,10 @@ public class CropInvoicePayment implements Serializable {
         setMode( object.getString("mode"));
         setReferenceNo( object.getString("referenceNo"));
         setPaymentNumber( object.getString("paymentNumber"));
-        setInvoiceNumber( object.getString("invoiceNumber"));
+//        setInvoiceNumber( object.getString("invoiceNumber"));
         setNotes( object.getString("notes"));
         setCustomerId( object.getString("customerId"));
-        setCustomerName( object.getString("customerName"));
+//        setCustomerName( object.getString("customerName"));
         setInvoiceId( object.getString("invoiceId"));
         setAmount((float)object.getDouble("amount"));
         setSyncStatus( "yes");

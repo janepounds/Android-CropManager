@@ -318,7 +318,8 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
             object.put("batchNumber",batchNumber);
             object.put("quantity",quantity);
             object.put("totalConsumed",totalConsumed);
-            object.put("usageUnit",usageUnits);
+            object.put("usageUnits",usageUnits);
+            object.put("cost",cost);
             object.put("fertilizerType",type);
             object.put("nPercentage",nPercentage);
             object.put("kPercentage",kPercentage);
@@ -334,6 +335,8 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
             object.put("microNutrientsZn",microNutrientsZn);
             object.put("microNutrientsFe",microNutrientsFe);
             object.put("microNutrientsNa",microNutrientsNa);
+            object.put("microNutrientsCu",microNutrientsCu);
+            object.put("microNutrientsMo",microNutrientsMo);
         } catch (JSONException e) { e.printStackTrace();        }
         return object;
     }
@@ -344,8 +347,9 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         setFertilizerName(object.getString("fertilizerName"));
         setBatchNumber(object.getString("batchNumber"));
         setQuantity(Float.parseFloat(object.getString("quantity")));
-        setUsageUnits(object.getString("usageUnit"));
+        setUsageUnits(object.getString("usageUnits"));
         setType(object.getString("fertilizerType"));
+        setCost(Float.parseFloat(object.getString("cost")));
         setnPercentage(Float.parseFloat(object.getString("nPercentage")));
         setkPercentage(Float.parseFloat(object.getString("kPercentage")));
         setpPercentage(Float.parseFloat(object.getString("pPercentage")));
@@ -360,6 +364,8 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
         setMicroNutrientsZn(Float.parseFloat(object.getString("microNutrientsZn")));
         setMicroNutrientsFe(Float.parseFloat(object.getString("microNutrientsFe")));
         setMicroNutrientsNa(Float.parseFloat(object.getString("microNutrientsNa")));
+        setMicroNutrientsMo(Float.parseFloat(object.getString("microNutrientsMo")));
+        setMicroNutrientsCu(Float.parseFloat(object.getString("microNutrientsCu")));
         setSyncStatus("yes");
     }
 

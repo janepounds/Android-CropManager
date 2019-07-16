@@ -10,7 +10,7 @@ public class CropNote implements Serializable {
     private String id;
     private String date;
     private String parentId;
-    private String category;
+    private String category="";
     private String notes;
     private String isFor;
 
@@ -116,6 +116,7 @@ public class CropNote implements Serializable {
             object.put("category",category);
             object.put("notes",notes);
             object.put("isFor",isFor);
+            object.put("syncStatus",syncStatus);
 
 
         } catch (JSONException e) {

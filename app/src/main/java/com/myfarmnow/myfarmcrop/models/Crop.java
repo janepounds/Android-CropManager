@@ -18,6 +18,7 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String userId;
  private int croppingYear;
  private String fieldId;
+ private String fieldName;
  private String dateSown;
  private String variety;
  private String growingCycle;
@@ -34,8 +35,13 @@ public class Crop implements Serializable, CropSpinnerItem {
  private String name;
  private String age;
 
+ public String getFieldName() {
+  return fieldName;
+ }
 
-
+ public void setFieldName(String fieldName) {
+  this.fieldName = fieldName;
+ }
 
  public float getRateR() {
   return rateR;
@@ -303,6 +309,7 @@ public class Crop implements Serializable, CropSpinnerItem {
    object.put("rate",rate);
    object.put("plantingMethod",plantingMethod);
    object.put("name",name);
+   object.put("syncStatus",syncStatus);
 
   } catch (JSONException e) {
    e.printStackTrace();

@@ -269,7 +269,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
             String days = daysBeforeTxt.getText().toString();
 
 
-            cropMachineService.setDaysBefore(days);
+            cropMachineService.setDaysBefore(Float.parseFloat(days));
 
         }
         dbHandler.insertCropMachineService(cropMachineService);
@@ -300,7 +300,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
                 String days = daysBeforeTxt.getText().toString();
 
 
-                cropMachineService.setDaysBefore(days);
+                cropMachineService.setDaysBefore(Float.parseFloat(days));
 
             }
             dbHandler.updateCropMachineService(cropMachineService);
@@ -320,7 +320,7 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
             weeksTxt.setText(cropMachineService.getFrequency()+"");
             personnelSp.setText(cropMachineService.getEmployeeName());
             repeatUntilTxt.setText(cropMachineService.getRepeatUntil());
-            daysBeforeTxt.setText(cropMachineService.getDaysBefore());
+            daysBeforeTxt.setText(cropMachineService.getDaysBefore()+"");
 
         }
 
@@ -360,6 +360,9 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
             repeatUntilTxt.requestFocus();
         }
 
+        if(daysBeforeTxt.getText().toString().length()==0){
+            daysBeforeTxt.setText("0");
+        }
 
         if(message != null){
             Toast.makeText(CropMachineServiceManagerActivity.this, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();

@@ -204,7 +204,7 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
             object.put("description",description);
             object.put("recurrence",recurrence);
             object.put("reminders",reminders);
-            object.put("employeeName",employeeName);
+            object.put("responsible",employeeName);
             object.put("cropName",cropName);
             object.put("endDate",endDate);
             object.put("startDate",startDate);
@@ -232,7 +232,7 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         setRecurrence(object.getString("recurrence"));
         setReminders(object.getString("reminders"));
         setDaysBefore(object.getString("daysBefore"));
-        setEmployeeName(object.getString("employeeName"));
+        setEmployeeName(object.getString("responsible"));
         setEmployeeId(object.getString("employeeId"));
         setCost((float)object.getDouble("cost"));
         setDescription(object.getString("description"));

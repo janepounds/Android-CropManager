@@ -230,7 +230,7 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
             object.put("globalId",globalId);
             object.put("userId",userId);
             object.put("cropId",cropId);
-            object.put("operationDate",operationDate);
+            object.put("date",operationDate);
             object.put("systemRate",systemRate);
             object.put("startTime",startTime);
             object.put("endTime",endTime);
@@ -256,11 +256,11 @@ public class CropIrrigation implements CropSpinnerItem, Serializable, CropActivi
         setGlobalId(object.getString("id"));
         setCropId(object.getString("cropId"));
         setUserId(object.getString("userId"));
-        setOperationDate(object.getString("operationDate"));
+        setOperationDate(object.getString("date"));
         setStartTime(object.getString("startTime"));
         setEndTime(object.getString("endTime"));
         setUnits(object.getString("units"));
-        setTotalWaterQuantity((float)object.getDouble("totalWaterQuantity"));
+//        setTotalWaterQuantity((float)object.getDouble("totalWaterQuantity"));
         setAreaIrrigated((float)object.getDouble("areaIrrigated"));
         setSystemRate((float)object.getDouble("systemRate"));
         setRecurrence(object.getString("recurrence"));

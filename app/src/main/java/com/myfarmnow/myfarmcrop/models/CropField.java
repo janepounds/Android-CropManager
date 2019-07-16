@@ -1,5 +1,7 @@
 package com.myfarmnow.myfarmcrop.models;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -135,6 +137,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
 
     public void setGlobalId(String globalId) {
         this.globalId = globalId;
+
     }
 
     public String getGlobalId() {
@@ -158,6 +161,7 @@ public class CropField  implements CropSpinnerItem,Serializable{
             object.put("croppableArea",croppableArea);
             object.put("globalId",globalId);
             object.put("units",units);
+            object.put("syncStatus",syncStatus);
 
         } catch (JSONException e) {
             e.printStackTrace();
