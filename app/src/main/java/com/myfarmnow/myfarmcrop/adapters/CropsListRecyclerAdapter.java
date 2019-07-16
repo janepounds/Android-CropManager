@@ -66,6 +66,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             seedUnits = seeds.getUsageUnits();
         }
         holder.cropNameTxtView.setText(curCrop.getName());
+        holder.cropFieldTextView.setText(curCrop.getFieldId());
         holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
         holder.cropAge.setText("(" + curCrop.computeAge() + ")");
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
@@ -111,13 +112,14 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         ImageView  moreButton;
         TextView cropNameTxtView, cropVarietyTextView, rateTextView, cropAge, croppingYearTxt, seasonTxt;
 
-        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt;
+        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
 
         Button activitiesBtn, notesBtn;
 
         public CropCardViewHolder(View itemView) {
             super(itemView);
             cropNameTxtView = itemView.findViewById(R.id.txt_crop_card_name);
+            cropFieldTextView = itemView.findViewById(R.id.txt_crop_card_field);
             cropVarietyTextView = itemView.findViewById(R.id.txt_crop_card_variety);
             rateTextView = itemView.findViewById(R.id.txt_crop_card_rate);
             datePlantedTxt = itemView.findViewById(R.id.txt_crop_card_actual_date_planted);

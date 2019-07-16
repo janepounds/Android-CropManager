@@ -4443,6 +4443,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_VARIETY, crop.getVariety());
         contentValues.put(CROP_CROP_AREA, crop.getArea());
         contentValues.put(CROP_CROP_COST, crop.getCost());
+        contentValues.put(CROP_CROP_NAME, crop.getName());
         contentValues.put(CROP_CROP_YEAR, crop.getCroppingYear());
         contentValues.put(CROP_CROP_OPERATOR, crop.getOperator());
         contentValues.put(CROP_CROP_FIELD_ID, crop.getFieldId());
