@@ -66,7 +66,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             seedUnits = seeds.getUsageUnits();
         }
         holder.cropNameTxtView.setText(curCrop.getName());
-        holder.cropFieldTextView.setText(curCrop.getFieldId());
+        holder.cropFieldTextView.setText(curCrop.getFieldName());
         holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
         holder.cropAge.setText("(" + curCrop.computeAge() + ")");
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));

@@ -221,7 +221,7 @@ public class CropSyncService extends Service {
                 record.setSeedId(seed.getGlobalId()); //change the seedId it to map the global Id
             }
             else{
-                Log.d("CROPS SEED ",record.getSeedId());
+//                Log.d("CROPS SEED ",record.getSeedId());
             }
 
             jsonArray.put(record.toJSON());

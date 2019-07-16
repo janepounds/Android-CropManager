@@ -4533,7 +4533,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select "+CROP_CROP_TABLE_NAME+".*,"+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_NAME+" from " + CROP_CROP_TABLE_NAME +" LEFT JOIN "+CROP_FIELDS_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_FIELD_ID+"="+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_ID+" where " + CROP_CROP_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select "+CROP_CROP_TABLE_NAME+".*,"+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_NAME+" from " + CROP_CROP_TABLE_NAME +" LEFT JOIN "+CROP_FIELDS_TABLE_NAME+" ON "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_FIELD_ID+"="+CROP_FIELDS_TABLE_NAME+"."+CROP_FIELD_ID+" where " +CROP_CROP_TABLE_NAME +"." +CROP_CROP_USER_ID + " = " + userId, null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -7582,7 +7582,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_INVENTORY_SEEDS_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = ?", new String[]{seedId});
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = "+seedId, null);
         res.moveToFirst();
         CropInventorySeeds inventorySeeds = null;
         if (!res.isAfterLast()) {
