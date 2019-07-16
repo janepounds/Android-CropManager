@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -69,6 +70,11 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
         loadBlock1TablesData();
         loadBlock2TablesData();
+    }
+
+    public void continueToDashboard(View view){
+        finish();
+        startActivity(new Intent(this, CropDashboardActivity.class));
     }
 
     /**
@@ -243,6 +249,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     }
                     try {
                         JSONArray inventoryFertilizers = response.getJSONArray("inventoryFertilizers");
+                        Log.d("Fertilizers LIST",inventoryFertilizers.toString());
                         for(int i=0; i<inventoryFertilizers.length(); i++){
 
 
@@ -266,6 +273,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     }
                     try {
                         JSONArray inventorySprays = response.getJSONArray("inventorySprays");
+                        Log.d("Fertilizers LIST",inventorySprays.toString());
                         for(int i=0; i<inventorySprays.length(); i++){
                             try{
                                 CropInventorySpray inventorySeed = new CropInventorySpray(inventorySprays.getJSONObject(i));
@@ -332,6 +340,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                                 crop.setSyncStatus("yes");
                                 CropField field = dbHandler.getCropField(crop.getFieldId(),true);
                                 if(field != null){
+                                    Log.d("FIELD FOR CROP",field.toJSON().toString());
                                     crop.setFieldId(field.getId());
                                     CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getSeedId(),true);
                                     if(inventorySeed != null){
@@ -381,8 +390,6 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     try {
                         JSONArray machines = response.getJSONArray("machines");
                         for(int i=0; i<machines.length(); i++){
-
-
                             try{
                                 CropMachine machine = new CropMachine(machines.getJSONObject(i));
                                 machine.setGlobalId(machines.getJSONObject(i).getString("id"));
@@ -528,7 +535,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         client.get(ApiPaths.DATA_BACK_UP+"/1e/"+userId, params, new JsonHttpResponseHandler() {
 
                 @Override
-                             public void onStart() {
+                public void onStart() {
                     dialog.setMessage("Please Wait..");
                     dialog.setCancelable(false);
                     dialog.show();

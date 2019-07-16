@@ -143,9 +143,7 @@ public class CropPaymentBill implements Serializable {
     }
 
     public JSONObject toJSON(){
-
         JSONObject object = new JSONObject();
-
         try {
             object.put("id",id);
             object.put("globalId",globalId);
@@ -155,33 +153,30 @@ public class CropPaymentBill implements Serializable {
             object.put("mode",mode);
             object.put("billId",billId);
             object.put("referenceNumber",referenceNumber);
-            object.put("paidThrough",paidThrough);
+            object.put("paidThrough",mode);
             object.put("notes",notes);
             object.put("supplierId",supplierId);
             object.put("supplierName",supplierName);
             object.put("billNumber",billNumber);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
-
     }
     public  CropPaymentBill(JSONObject object) throws JSONException{
-        setGlobalId( object.getString("id"));
-        setUserId( object.getString("userId"));
-        setDate( object.getString("date"));
-        setMode( object.getString("mode"));
-        setReferenceNumber( object.getString("referenceNumber"));
-        setPaidThrough( object.getString("paidThrough"));
-        setNotes( object.getString("notes"));
-        setSupplierId( object.getString("supplierId"));
-        setSupplierName( object.getString("supplierName"));
-        setSupplierName( object.getString("billNumber"));
+        setGlobalId(object.getString("id"));
+        setUserId(object.getString("userId"));
+        setDate(object.getString("date"));
+        setMode(object.getString("mode"));
+        setReferenceNumber(object.getString("referenceNumber"));
+        setPaidThrough(object.getString("paidThrough"));
+        setNotes(object.getString("notes"));
+        setSupplierId(object.getString("supplierId"));
+        //setSupplierName(object.getString("supplierName"));
+//        setBillNumber(object.getString("billNumber"));
         setBillId( object.getString("billId"));
         setAmount((float)object.getDouble("amount"));
         setSyncStatus( "yes");
-
     }
     public  CropPaymentBill(){
 

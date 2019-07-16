@@ -198,7 +198,7 @@ public class CropPurchaseOrder implements Serializable {
             object.put("discount",discount);
             object.put("notes",notes);
             object.put("termsAndConditions",termsAndConditions);
-            object.put("method",method);
+            object.put("deliveryMethod",method);
             object.put("referenceNumber",referenceNumber);
             object.put("supplierName",supplierName);
             object.put("status",status);
@@ -218,9 +218,9 @@ public class CropPurchaseOrder implements Serializable {
         setSyncStatus( "yes");
         setNumber( object.getString("number"));
         setSupplierId( object.getString("supplierId"));
-        setSupplierName( object.getString("supplierName"));
+//        setSupplierName( object.getString("supplierName"));
         setReferenceNumber( object.getString("referenceNumber"));
-        setMethod( object.getString("method"));
+        setMethod( object.getString("deliveryMethod"));
         setTermsAndConditions( object.getString("termsAndConditions"));
         setNotes( object.getString("notes"));
         setDeliveryDate( object.getString("deliveryDate"));

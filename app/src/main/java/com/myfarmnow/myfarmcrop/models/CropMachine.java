@@ -190,7 +190,7 @@ public class CropMachine implements CropSpinnerItem, Serializable {
         setDate( object.getString("date"));
         setPurchasedFrom( object.getString("purchasedFrom"));
         setStorageLocation( object.getString("storageLocation"));
-        setPurchasePrice( (float)object.getDouble("date"));
+        setPurchasePrice( (float)object.getDouble("purchasePrice"));
         setSyncStatus( "yes");
     }
 

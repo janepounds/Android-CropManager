@@ -158,7 +158,7 @@ public class CropProductItem implements Serializable {
         setGlobalId( object.getString("id"));
         setSyncStatus( "yes");
         setProductId( object.getString("productId"));
-        setProductName( object.getString("productName"));
+//        setProductName( object.getString("productName"));
         setParentObjectId( object.getString("parentObjectId"));
         setParentObjectType( object.getString("parentObjectType"));
         setQuantity((float)object.getDouble("quantity"));

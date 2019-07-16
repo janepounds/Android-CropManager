@@ -27,7 +27,7 @@ public class CropBill implements Serializable,CropSpinnerItem {
     ArrayList<CropProductItem> items = new ArrayList<>();
     private ArrayList<CropPaymentBill> paymentBills;
 
-    private ArrayList<String> deletedItemsIds;
+    private ArrayList<String> deletedItemsIds= new ArrayList<>();
 
     @Override
     public String getId() {
@@ -230,6 +230,7 @@ public class CropBill implements Serializable,CropSpinnerItem {
             object.put("dueDate",dueDate);
             object.put("discount",discount);
             object.put("notes",notes);
+
             object.put("terms",terms);
             object.put("orderNumber",orderNumber);
             object.put("supplierName",supplierName);
@@ -254,6 +255,7 @@ public class CropBill implements Serializable,CropSpinnerItem {
         setOrderNumber(object.getString("orderNumber"));
         //setSupplierName(object.getString("supplierName"));
         setSyncStatus("yes");
+
     }
 
     public CropBill(){

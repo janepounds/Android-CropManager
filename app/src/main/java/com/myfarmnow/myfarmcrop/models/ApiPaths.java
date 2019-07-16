@@ -17,7 +17,7 @@ public class ApiPaths {
 
     public static final String CROP_SEND_FIREBASE_TOKEN =  SERVER_URL + "/api//crop/user/firebasetoken/save";
 
-    public static final String CROP_USER_BACKUP =  SERVER_URL + "/api/crop/userBackup/post";
+    public static final String CROP_USER_BACKUP =  SERVER_URL + "/api/crop/user/backup/post";
 
     //SYNCHRONISATION
     public static final String DATA_BACK_UP =  SERVER_URL + "/api/crop/data/backup/block";

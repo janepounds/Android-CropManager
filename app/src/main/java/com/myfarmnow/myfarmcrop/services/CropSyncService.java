@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
@@ -55,6 +54,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
@@ -64,6 +64,10 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 
 
 public class CropSyncService extends Service {
+
+    public String generateUUID(){
+        return UUID.randomUUID().toString();
+    }
     MyFarmDbHandlerSingleton dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
     String userId = null;
     public CropSyncService() {
@@ -93,6 +97,10 @@ public class CropSyncService extends Service {
         ArrayList<CropField> fields = dbHandler.getCropFields(userId,false);
         JSONArray fieldsJson = new JSONArray();
         for(CropField field: fields){
+            if(field.getGlobalId()==null){
+                field.setGlobalId(generateUUID());
+                dbHandler.updateCropField(field);
+            }
             fieldsJson.put(field.toJSON());
         }
 
@@ -104,8 +112,13 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropMachine> records = dbHandler.getCropMachines(userId,false);
         for(CropMachine record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropMachine(record);
+            }
             jsonArray.put(record.toJSON());
         }
+        Log.d("MACHINE LIST",jsonArray.toString());
         return jsonArray;
     }
 
@@ -113,8 +126,13 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropProduct> records = dbHandler.getCropProducts(userId,false);
         for(CropProduct record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropProduct(record);
+            }
             jsonArray.put(record.toJSON());
         }
+        Log.d("PRODUCT LIST",jsonArray.toString());
         return jsonArray;
     }
 
@@ -122,76 +140,105 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropIncomeExpense> records = dbHandler.getCropIncomeExpenses(userId,false);
         for(CropIncomeExpense record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropIncomeExpense(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop !=null){
-                if(crop.getGlobalId()==null){
+                if(crop.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setCropId(crop.getGlobalId());
             }
             jsonArray.put(record.toJSON());
         }
+        Log.d("INCOME EXPENSE LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareBills(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropBill> records = dbHandler.getCropBills(userId,false);
         for(CropBill record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropBill(record);
+            }
             CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId(),false);
             if(supplier ==null){
                 continue; //item has no assigned supplier
             }
-            if(supplier.getGlobalId()==null){
+            if(supplier.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setSupplierId(supplier.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("BILLS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareContacts(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropContact> records = dbHandler.getCropContacts(userId,false);
-        for(CropContact field: records){
-            jsonArray.put(field.toJSON());
+        for(CropContact record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropContact(record);
+            }
+            jsonArray.put(record.toJSON());
         }
+        Log.d("CONTACTS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareCrops(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<Crop> records = dbHandler.getCrops(userId,false);
-        for(Crop crop: records){
-            CropField field = dbHandler.getCropField(crop.getFieldId(),false);
+        for(Crop record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCrop(record);
+            }
+            CropField field = dbHandler.getCropField(record.getFieldId(),false);
+
             if(field ==null){
                 continue; //crop has no assigned field
             }
-            if(field.getGlobalId()==null){
+            if(field.getSyncStatus().equals("no")){
                 continue; //do not back up this crop since its parent field is not backed up
             }
-            crop.setFieldId(field.getGlobalId());
+            record.setFieldId(field.getGlobalId());
 
-            CropInventorySeeds seed = dbHandler.getCropSeed(crop.getSeedId(),false);
+            CropInventorySeeds seed = dbHandler.getCropSeed(record.getSeedId(),false);
 
             if(seed != null){
-                if(seed.getGlobalId()==null){
+                Log.d("CROPS SEED ",seed.toJSON().toString());
+                if(seed.getSyncStatus().equals("no")){
                     continue; //do not back up this crop since its parent seed inventory is not backed up
                 }
-                crop.setSeedId(seed.getGlobalId()); //change the seedId it to map the global Id
+                record.setSeedId(seed.getGlobalId()); //change the seedId it to map the global Id
+            }
+            else{
+                Log.d("CROPS SEED ",record.getSeedId());
             }
 
-            jsonArray.put(crop.toJSON());
+            jsonArray.put(record.toJSON());
         }
+        Log.d("CROPS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareCultivations(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropCultivation> records = dbHandler.getCropCultivates(userId,false);
         for(CropCultivation record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropCultivate(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
@@ -202,60 +249,90 @@ public class CropSyncService extends Service {
     private JSONArray prepareCustomers(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropCustomer> records = dbHandler.getCropCustomers(userId,false);
-        for(CropCustomer field: records){
-            jsonArray.put(field.toJSON());
+        for(CropCustomer record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropCustomer(record);
+            }
+            jsonArray.put(record.toJSON());
         }
+        Log.d("CUSTOMERS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareEmployees(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropEmployee> records = dbHandler.getCropEmployees(userId,false);
-        for(CropEmployee field: records){
-            jsonArray.put(field.toJSON());
+        for(CropEmployee record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropEmployee(record);
+            }
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropEmployee(record);
+            }
+            jsonArray.put(record.toJSON());
         }
+        Log.d("EMPLOYEES LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareEstimates(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropEstimate> records = dbHandler.getCropEstimates(userId,false);
         for(CropEstimate record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropEstimate(record);
+            }
             CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned customer
             }
-            if(customer.getGlobalId()==null){
+            if(customer.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setCustomerId(customer.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("ESTIMATES LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareHarvest(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropHarvest> records = dbHandler.getCropHarvests(userId,false);
         for(CropHarvest record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropHarvest(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
+
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            Log.d("HARVEST LIST", crop.getId());
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("HARVEST LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareFertilizerApplication(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropFertilizerApplication> records = dbHandler.getCropFertilizerApplications(userId,false);
         for(CropFertilizerApplication record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropFertilizerApplication(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
@@ -264,63 +341,88 @@ public class CropSyncService extends Service {
             if(fertilizer ==null){
                 continue; //spraying has no assigned spray
             }
-            if(fertilizer.getGlobalId()==null){
+            if(fertilizer.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setFertilizerId(fertilizer.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("FERTILIZER APPLICATION",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareInventoryFertilizers(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInventoryFertilizer> records = dbHandler.getCropFertilizerInventorys(userId,false);
         for(CropInventoryFertilizer record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropFertilizerInventory(record);
+            }
             jsonArray.put(record.toJSON());
         }
+        Log.d("FERTILIZERS",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareInventorySeeds(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInventorySeeds> records = dbHandler.getCropSeeds(userId,false);
         for(CropInventorySeeds record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropSeeds(record);
+            }
             jsonArray.put(record.toJSON());
         }
+        Log.d("SEEDS",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareInventorySprays(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInventorySpray> records = dbHandler.getCropSpray(userId,false);
         for(CropInventorySpray record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropSpray(record);
+            }
             jsonArray.put(record.toJSON());
         }
+        Log.d("SPRAYS",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareInvoice(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInvoice> records = dbHandler.getCropInvoices(userId,false);
         for(CropInvoice record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropInvoice(record);
+            }
             CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned bill
             }
-            if(customer.getGlobalId()==null){
+            if(customer.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setCustomerId(customer.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("INVOICE LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareIrrigations(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropIrrigation> records = dbHandler.getCropIrrigations(userId,false);
         for(CropIrrigation record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropIrrigation(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
@@ -332,44 +434,60 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropMachineService> records = dbHandler.getCropMachineServices(userId,false);
         for(CropMachineService record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropMachineService(record);
+            }
             CropMachine machine = dbHandler.getCropMachine(record.getMachineId(),false);
             if(machine ==null){
-                continue; //note has no assigned machine
+                continue; //machine has no assigned machine
             }
-            if(machine.getGlobalId()==null){
+            if(machine.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setMachineId(machine.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("SERVICES LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareMachineTasks(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropMachineTask> records = dbHandler.getCropMachineTasks(userId,false);
         for(CropMachineTask record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropMachineTask(record);
+            }
             CropMachine machine = dbHandler.getCropMachine(record.getMachineId(),false);
             if(machine ==null){
                 continue; //note has no assigned machine
             }
-            if(machine.getGlobalId()==null){
+            if(machine.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setMachineId(machine.getGlobalId());
+
             jsonArray.put(record.toJSON());
         }
+        Log.d("MACHINE TASKS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareNotes(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropNote> records = dbHandler.getCropNotes(userId,false);
+        Log.d("NOTES "," "+records.size());
         for(CropNote record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropNote(record);
+            }
             if(record.getIsFor().equals(CropNote.IS_FOR_CROP)){
                 Crop crop = dbHandler.getCrop(record.getParentId(),false);
                 if(crop ==null){
                     continue; //note has no assigned crop
                 }
-                if(crop.getGlobalId()==null){
+                if(crop.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent field is not backed up
                 }
                 record.setParentId(crop.getGlobalId());
@@ -378,7 +496,7 @@ public class CropSyncService extends Service {
                 if(machine ==null){
                     continue; //note has no assigned machine
                 }
-                if(machine.getGlobalId()==null){
+                if(machine.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent field is not backed up
                 }
                 record.setParentId(machine.getGlobalId());
@@ -388,15 +506,20 @@ public class CropSyncService extends Service {
             }
             jsonArray.put(record.toJSON());
         }
+        Log.d("NOTES LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray preparePayments(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropInvoicePayment> records = dbHandler.getCropPayments(userId,false);
         for(CropInvoicePayment record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropPayment(record);
+            }
             CropInvoice invoice = dbHandler.getCropInvoiceById(record.getInvoiceId(),false);
             if(invoice !=null){
-                if(invoice.getGlobalId()==null){
+                if(invoice.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setInvoiceId(invoice.getGlobalId());
@@ -405,21 +528,27 @@ public class CropSyncService extends Service {
             if(customer ==null){
                 continue; //item has no assigned customer
             }
-            if(customer.getGlobalId()==null){
+            if(customer.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setCustomerId(customer.getGlobalId());
+            Log.d("PAYMENTS LIST",jsonArray.toString());
             jsonArray.put(record.toJSON());
         }
         return jsonArray;
     }
     private JSONArray preparePaymentBills(){
+
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropPaymentBill> records = dbHandler.getCropPaymentBills(userId,false);
         for(CropPaymentBill record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropPaymentBill(record);
+            }
             CropBill bill = dbHandler.getCropBillById(record.getBillId(),false);
             if(bill !=null){
-                if(bill.getGlobalId()==null){
+                if(bill.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setBillId(bill.getGlobalId());
@@ -428,7 +557,7 @@ public class CropSyncService extends Service {
             if(supplier ==null){
                 continue; //item has no assigned customer
             }
-            if(supplier.getGlobalId()==null){
+            if(supplier.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setSupplierId(supplier.getGlobalId());
@@ -440,12 +569,16 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropProductItem> records = dbHandler.getCropProductItems(userId,false);
         for(CropProductItem record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropProductItem(record);
+            }
             if(record.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_BILL)){
                 CropBill bill = dbHandler.getCropBillById(record.getParentObjectId(),false);
                 if(bill ==null){
                     continue; //item has no assigned bill
                 }
-                if(bill.getGlobalId()==null){
+                if(bill.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setParentObjectId(bill.getGlobalId());
@@ -454,7 +587,7 @@ public class CropSyncService extends Service {
                 if(invoice ==null){
                     continue; //item has no assigned bill
                 }
-                if(invoice.getGlobalId()==null){
+                if(invoice.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setParentObjectId(invoice.getGlobalId());
@@ -463,7 +596,7 @@ public class CropSyncService extends Service {
                 if(estimate ==null){
                     continue; //item has no assigned bill
                 }
-                if(estimate.getGlobalId()==null){
+                if(estimate.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setParentObjectId(estimate.getGlobalId());
@@ -472,7 +605,7 @@ public class CropSyncService extends Service {
                 if(cropSalesOrder ==null){
                     continue; //item has no assigned bill
                 }
-                if(cropSalesOrder.getGlobalId()==null){
+                if(cropSalesOrder.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setParentObjectId(cropSalesOrder.getGlobalId());
@@ -481,7 +614,7 @@ public class CropSyncService extends Service {
                 if(purchaseOrder ==null){
                     continue; //item has no assigned bill
                 }
-                if(purchaseOrder.getGlobalId()==null){
+                if(purchaseOrder.getSyncStatus().equals("no")){
                     continue; //do not back up this record since its parent record is not backed up
                 }
                 record.setParentObjectId(purchaseOrder.getGlobalId());
@@ -497,53 +630,74 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropPurchaseOrder> records = dbHandler.getCropPurchaseOrders(userId,false);
         for(CropPurchaseOrder record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropPurchaseOrder(record);
+            }
             CropSupplier supplier = dbHandler.getCropSupplier(record.getSupplierId(),false);
             if(supplier ==null){
                 continue; //item has no assigned supplier
             }
-            if(supplier.getGlobalId()==null){
+            if(supplier.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setSupplierId(supplier.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("PURCHASE ORDER LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareSalesOrders(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSalesOrder> records = dbHandler.getCropSalesOrders(userId,false);
         for(CropSalesOrder record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropSalesOrder(record);
+            }
             CropCustomer customer = dbHandler.getCropCustomer(record.getCustomerId(),false);
             if(customer ==null){
                 continue; //item has no assigned bill
             }
-            if(customer.getGlobalId()==null){
+            if(customer.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent record is not backed up
             }
             record.setCustomerId(customer.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("SALES ORDER LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareScoutings(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropScouting> records = dbHandler.getCropScoutings(userId,false);
         for(CropScouting record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropScouting(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
+            Log.d("SCOUTING LIST",crop.toJSON().toString());
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
+
             record.setCropId(crop.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+
         return jsonArray;
     }
     private JSONArray prepareSettings(){
         JSONArray jsonArray = new JSONArray();
         CropSettingsSingleton  singleton= dbHandler.getSettings(userId,false);
+        if(singleton.getGlobalId()==null){
+            singleton.setGlobalId(generateUUID());
+            dbHandler.updateSettings(singleton);
+        }
         jsonArray.put(singleton.toJSON());
         return jsonArray;
     }
@@ -551,11 +705,15 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSoilAnalysis> records = dbHandler.getCropSoilAnalysis(userId,false);
         for(CropSoilAnalysis record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropSoilAnalysis(record);
+            }
             CropField field = dbHandler.getCropField(record.getFieldId(),false);
             if(field ==null){
                 continue; //crop has no assigned field
             }
-            if(field.getGlobalId()==null){
+            if(field.getSyncStatus().equals("no")){
                 continue; //do not back up this analysis since its parent field is not backed up
             }
             record.setFieldId(field.getGlobalId());
@@ -567,11 +725,15 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSpraying> records = dbHandler.getCropSprayings(userId,false);
         for(CropSpraying record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropSpraying(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
@@ -579,7 +741,7 @@ public class CropSyncService extends Service {
             if(spray ==null){
                 continue; //spraying has no assigned spray
             }
-            if(spray.getGlobalId()==null){
+            if(spray.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setSprayId(spray.getGlobalId());
@@ -591,6 +753,10 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropSupplier> records = dbHandler.getCropSuppliers(userId,false);
         for(CropSupplier record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropSupplier(record);
+            }
             jsonArray.put(record.toJSON());
         }
         return jsonArray;
@@ -599,27 +765,36 @@ public class CropSyncService extends Service {
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropTask> records = dbHandler.getCropTasks(userId,false);
         for(CropTask record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropTask(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("TASKS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareTransplantings(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<CropTransplanting> records = dbHandler.getCropTransplantings(userId,false);
         for(CropTransplanting record: records){
+            if(record.getGlobalId()==null){
+                record.setGlobalId(generateUUID());
+                dbHandler.updateCropTransplanting(record);
+            }
             Crop crop = dbHandler.getCrop(record.getCropId(), false);
             if(crop ==null){
                 continue; //crop has no assigned field
             }
-            if(crop.getGlobalId()==null){
+            if(crop.getSyncStatus().equals("no")){
                 continue; //do not back up this record since its parent field is not backed up
             }
             record.setCropId(crop.getGlobalId());
@@ -675,6 +850,7 @@ public class CropSyncService extends Service {
 
                     try {
                         JSONArray fields = response.getJSONArray("fields");
+                        Log.d("FIELDS RESPONSE",fields.toString());
                         for(int i=0; i<fields.length(); i++){
                           
 
@@ -749,7 +925,10 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("BACCKUP RESPONSE 1A"+statusCode,errorResponse.toString());
+                   if(errorResponse != null){
+                       Log.e("BACKUP RESPONSE 1A"+statusCode,errorResponse.toString());
+                   }
+
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -928,7 +1107,7 @@ public class CropSyncService extends Service {
                                 CropField field = dbHandler.getCropField(crop.getFieldId(),true);
                                 if(field != null){
                                     crop.setFieldId(field.getId());
-                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getSeedId(),true);
+                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getSeedId(),false);
                                     if(inventorySeed != null){
                                         crop.setSeedId(inventorySeed.getId());
                                     }
@@ -951,7 +1130,7 @@ public class CropSyncService extends Service {
                                 CropSoilAnalysis analysis = dbHandler.getCropSoilAnalysisById( crops.getJSONObject(i).getString("localId"),false);
                                 analysis.setGlobalId(crops.getJSONObject(i).getString("globalId"));
                                 analysis.setSyncStatus("yes");
-                                CropField field = dbHandler.getCropField(analysis.getFieldId(),true);
+                                CropField field = dbHandler.getCropField(analysis.getFieldId(),false);
                                 if(field != null){
                                     analysis.setFieldId(field.getId());
                                     dbHandler.updateCropSoilAnalysis(analysis);
@@ -1052,12 +1231,7 @@ public class CropSyncService extends Service {
                                 CropHarvest harvest = dbHandler.getCropHarvest( crops.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(crops.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropHarvest(harvest);
-                                }
-
+                                dbHandler.updateCropHarvest(harvest);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1072,11 +1246,7 @@ public class CropSyncService extends Service {
                                 CropSpraying harvest = dbHandler.getCropSpraying( application.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropSpraying(harvest);
-                                }
+                                dbHandler.updateCropSpraying(harvest);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1091,11 +1261,7 @@ public class CropSyncService extends Service {
                                 CropFertilizerApplication harvest = dbHandler.getCropFertilizerApplication( application.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropFertilizerApplication(harvest);
-                                }
+                                dbHandler.updateCropFertilizerApplication(harvest);
 
                             }catch (JSONException e) {
                                 e.printStackTrace();
@@ -1110,7 +1276,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    Log.e("RESPONSE 1D", errorResponse.toString());
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1167,11 +1333,7 @@ public class CropSyncService extends Service {
                                 CropCultivation harvest = dbHandler.getCropCultivate( application.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropCultivate(harvest);
-                                }
+                                dbHandler.updateCropCultivate(harvest);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1187,11 +1349,7 @@ public class CropSyncService extends Service {
                                 CropScouting harvest = dbHandler.getCropScouting( application.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropScouting(harvest);
-                                }
+                                dbHandler.updateCropScouting(harvest);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1207,11 +1365,7 @@ public class CropSyncService extends Service {
                                 CropIrrigation harvest = dbHandler.getCropIrrigation( application.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropIrrigation(harvest);
-                                }
+                                dbHandler.updateCropIrrigation(harvest);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1223,7 +1377,10 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse!=null){
+                        Log.e("RESPONSE 1E", errorResponse.toString());
+                    }
+                    Log.e("RESPONSE 1E", errorResponse.toString());
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1281,11 +1438,7 @@ public class CropSyncService extends Service {
                                 CropTransplanting harvest = dbHandler.getCropTransplanting( transplantings.getJSONObject(i).getString("localId"),false);
                                 harvest.setGlobalId(transplantings.getJSONObject(i).getString("globalId"));
                                 harvest.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(harvest.getCropId(),true);
-                                if(crop != null){
-                                    harvest.setCropId(crop.getId());
-                                    dbHandler.updateCropTransplanting(harvest);
-                                }
+                                dbHandler.updateCropTransplanting(harvest);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {
@@ -1303,10 +1456,6 @@ public class CropSyncService extends Service {
                                 CropIncomeExpense incomeExpense = dbHandler.getCropIncomeExpense( incomeExpenses.getJSONObject(i).getString("localId"),false);
                                 incomeExpense.setGlobalId(incomeExpenses.getJSONObject(i).getString("globalId"));
                                 incomeExpense.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(incomeExpense.getCropId(),true);
-                                if(crop != null){
-                                    incomeExpense.setCropId(crop.getId());
-                                }
                                 dbHandler.updateCropIncomeExpense(incomeExpense);
                             }catch (JSONException e) {
                                 e.printStackTrace();
@@ -1325,11 +1474,8 @@ public class CropSyncService extends Service {
                                 CropTask cropTask = dbHandler.getCropTask( tasks.getJSONObject(i).getString("localId"),false);
                                 cropTask.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 cropTask.setSyncStatus("yes");
-                                Crop crop = dbHandler.getCrop(cropTask.getCropId(),true);
-                                if(crop != null){
-                                    cropTask.setCropId(crop.getId());
-                                    dbHandler.updateCropTask(cropTask);
-                                }
+                                dbHandler.updateCropTask(cropTask);
+
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {
@@ -1343,7 +1489,9 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE", errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1401,11 +1549,7 @@ public class CropSyncService extends Service {
                                 CropMachineService service = dbHandler.getCropMachineService( services.getJSONObject(i).getString("localId"),false);
                                 service.setGlobalId(services.getJSONObject(i).getString("globalId"));
                                 service.setSyncStatus("yes");
-                                CropMachine machine = dbHandler.getCropMachine(service.getMachineId(),true);
-                                if(machine != null){
-                                    service.setMachineId(machine.getId());
-                                    dbHandler.updateCropMachineService(service);
-                                }
+                                dbHandler.updateCropMachineService(service);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {
@@ -1422,11 +1566,7 @@ public class CropSyncService extends Service {
                                 CropMachineTask cropTask = dbHandler.getCropMachineTask( tasks.getJSONObject(i).getString("localId"),false);
                                 cropTask.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 cropTask.setSyncStatus("yes");
-                                CropMachine machine = dbHandler.getCropMachine(cropTask.getMachineId(),true);
-                                if(machine != null){
-                                    cropTask.setMachineId(machine.getId());
-                                    dbHandler.updateCropMachineTask(cropTask);
-                                }
+                                dbHandler.updateCropMachineTask(cropTask);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {
@@ -1444,21 +1584,7 @@ public class CropSyncService extends Service {
                                 CropNote note = dbHandler.getCropNote( tasks.getJSONObject(i).getString("localId"),false);
                                 note.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 note.setSyncStatus("yes");
-
-                                if(note.getIsFor().equals(CropNote.IS_FOR_MACHINE)){
-                                    CropMachine machine = dbHandler.getCropMachine(note.getParentId(),true);
-                                    if(machine != null){
-                                        note.setParentId(machine.getId());
-                                        dbHandler.updateCropNote(note);
-                                    }
-                                }
-                                else if(note.getIsFor().equals(CropNote.IS_FOR_CROP)){
-                                    Crop crop = dbHandler.getCrop(note.getParentId(),true);
-                                    if(crop != null){
-                                        note.setParentId(crop.getId());
-                                        dbHandler.updateCropNote(note);
-                                    }
-                                }
+                                dbHandler.updateCropNote(note);
 
                             }catch (JSONException e) {
                                 e.printStackTrace();
@@ -1473,7 +1599,10 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 1G", errorResponse.toString());
+                    }
+
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1565,6 +1694,8 @@ public class CropSyncService extends Service {
                                 dbHandler.updateCropSupplier(field);
                             }catch (JSONException e) {
                                 e.printStackTrace();
+                            }catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     } catch (JSONException e) {
@@ -1583,9 +1714,13 @@ public class CropSyncService extends Service {
                                 dbHandler.updateCropProduct(field);
                             }catch (JSONException e) {
                                 e.printStackTrace();
+                            }catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    }catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -1594,7 +1729,10 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 2A", errorResponse.toString());
+                    }
+
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1648,18 +1786,17 @@ public class CropSyncService extends Service {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     //logic to save the updated fields
                     try {
+
                         JSONArray tasks = response.getJSONArray("estimates");
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropEstimate estimate = dbHandler.getCropEstimateById( tasks.getJSONObject(i).getString("localId"),false);
                                 estimate.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 estimate.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(estimate.getCustomerId(),true);
-                                if(customer != null){
-                                    estimate.setCustomerId(customer.getId());
-                                    dbHandler.updateCropEstimate(estimate);
-                                }
+                                dbHandler.updateCropEstimate(estimate);
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -1668,17 +1805,17 @@ public class CropSyncService extends Service {
                     }
                     try {
                         JSONArray tasks = response.getJSONArray("invoices");
+                        Log.d("INVOICES",tasks.toString());
+
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 CropInvoice invoice = dbHandler.getCropInvoiceById( tasks.getJSONObject(i).getString("localId"),false);
                                 invoice.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 invoice.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(invoice.getCustomerId(),true);
-                                if(customer != null){
-                                    invoice.setCustomerId(customer.getId());
-                                    dbHandler.updateCropInvoice(invoice);
-                                }
+                                dbHandler.updateCropInvoice(invoice);
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -1692,12 +1829,11 @@ public class CropSyncService extends Service {
                                 CropSalesOrder salesOrder = dbHandler.getCropSalesOrderById( tasks.getJSONObject(i).getString("localId"),false);
                                 salesOrder.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 salesOrder.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(salesOrder.getCustomerId(),true);
-                                if(customer != null){
-                                    salesOrder.setCustomerId(customer.getId());
-                                    dbHandler.updateCropSalesOrder(salesOrder);
-                                }
+                                dbHandler.updateCropSalesOrder(salesOrder);
+
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -1709,7 +1845,9 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 2B", errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1765,12 +1903,11 @@ public class CropSyncService extends Service {
                                 CropBill bill = dbHandler.getCropBillById( bills.getJSONObject(i).getString("localId"),false);
                                 bill.setGlobalId(bills.getJSONObject(i).getString("globalId"));
                                 bill.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(bill.getSupplierId(),true);
-                                if(customer != null){
-                                    bill.setSupplierId(customer.getId());
-                                    dbHandler.updateCropBill(bill);
-                                }
+                                dbHandler.updateCropBill(bill);
+
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -1785,12 +1922,10 @@ public class CropSyncService extends Service {
                                 CropPurchaseOrder purchaseOrder = dbHandler.getCropPurchaseOrderById( purchaseOrders.getJSONObject(i).getString("localId"),false);
                                 purchaseOrder.setGlobalId(purchaseOrders.getJSONObject(i).getString("globalId"));
                                 purchaseOrder.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(purchaseOrder.getSupplierId(),true);
-                                if(customer != null){
-                                    purchaseOrder.setSupplierId(customer.getId());
-                                    dbHandler.updateCropPurchaseOrder(purchaseOrder);
-                                }
+                                dbHandler.updateCropPurchaseOrder(purchaseOrder);
                             }catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -1803,7 +1938,9 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 2B", errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1863,15 +2000,8 @@ public class CropSyncService extends Service {
                                 CropInvoicePayment cropPayment = dbHandler.getCropPayment( tasks.getJSONObject(i).getString("localId"),false);
                                 cropPayment.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 cropPayment.setSyncStatus("yes");
-                                CropCustomer machine = dbHandler.getCropCustomer(cropPayment.getCustomerId(),true);
-                                if(machine != null){
-                                    cropPayment.setCustomerId(machine.getId());
-                                    CropInvoice invoice = dbHandler.getCropInvoiceById(cropPayment.getInvoiceId(),true);
-                                    if(invoice != null){
-                                        cropPayment.setInvoiceId(invoice.getId());
-                                        dbHandler.updateCropPayment(cropPayment);
-                                    }
-                                }
+                                dbHandler.updateCropPayment(cropPayment);
+
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {
@@ -1888,15 +2018,7 @@ public class CropSyncService extends Service {
                                 CropPaymentBill cropPayment = dbHandler.getCropPaymentBill( tasks.getJSONObject(i).getString("localId"),false);
                                 cropPayment.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 cropPayment.setSyncStatus("yes");
-                                CropSupplier machine = dbHandler.getCropSupplier(cropPayment.getSupplierId(),true);
-                                if(machine != null){
-                                    cropPayment.setSupplierId(machine.getId());
-                                    CropBill invoice = dbHandler.getCropBillById(cropPayment.getBillId(),true);
-                                    if(invoice != null){
-                                        cropPayment.setBillId(invoice.getId());
-                                        dbHandler.updateCropPaymentBill(cropPayment);
-                                    }
-                                }
+                                dbHandler.updateCropPaymentBill(cropPayment);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {
@@ -1911,7 +2033,9 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 2D", errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1973,40 +2097,6 @@ public class CropSyncService extends Service {
                                 CropProductItem productItem = dbHandler.getCropProductItem( tasks.getJSONObject(i).getString("localId"),false);
                                 productItem.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
                                 productItem.setSyncStatus("yes");
-                                if(productItem.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_BILL)){
-                                    CropBill bill = dbHandler.getCropBillById(productItem.getParentObjectId(),true);
-                                    if(bill ==null){
-                                        continue; //item has no assigned bill
-                                    }
-                                    productItem.setParentObjectId(bill.getId());
-                                }else  if(productItem.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_INVOICE)){
-                                    CropInvoice invoice = dbHandler.getCropInvoiceById(productItem.getParentObjectId(),true);
-                                    if(invoice ==null){
-                                        continue; //item has no assigned bill
-                                    }
-                                    productItem.setParentObjectId(invoice.getId());
-                                }else  if(productItem.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_ESTIMATE)){
-                                    CropEstimate estimate = dbHandler.getCropEstimateById(productItem.getParentObjectId(),true);
-                                    if(estimate ==null){
-                                        continue; //item has no assigned bill
-                                    }
-                                    productItem.setParentObjectId(estimate.getId());
-                                }else if(productItem.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_SALES_ORDER)){
-                                    CropSalesOrder cropSalesOrder = dbHandler.getCropSalesOrderById(productItem.getParentObjectId(),true);
-                                    if(cropSalesOrder ==null){
-                                        continue; //item has no assigned bill
-                                    }
-                                    productItem.setParentObjectId(cropSalesOrder.getId());
-                                }else if(productItem.getParentObjectType().equals(MyFarmDbHandlerSingleton.CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER)){
-                                    CropPurchaseOrder purchaseOrder = dbHandler.getCropPurchaseOrderById(productItem.getParentObjectId(),true);
-                                    if(purchaseOrder ==null){
-                                        continue; //item has no assigned bill
-                                    }
-                                    productItem.setParentObjectId(purchaseOrder.getId());
-                                }
-                                else{
-                                    continue;//ignore unallocated items
-                                }
                                 dbHandler.updateCropProductItem(productItem);
                             }catch (JSONException e) {
                                 e.printStackTrace();
@@ -2023,7 +2113,9 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE", "failed ");
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 2E", errorResponse.toString());
+                    }
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
