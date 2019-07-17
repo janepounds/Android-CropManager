@@ -7629,7 +7629,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_INVENTORY_SEEDS_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = "+seedId, null);
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = '"+seedId+"'", null);
         res.moveToFirst();
         CropInventorySeeds inventorySeeds = null;
         if (!res.isAfterLast()) {
