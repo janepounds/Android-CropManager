@@ -333,6 +333,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                     try {
                         JSONArray crops = response.getJSONArray("crops");
+
                         for(int i=0; i<crops.length(); i++){
                             try{
                                 Crop crop =  new Crop(crops.getJSONObject(i));
@@ -346,9 +347,11 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                                     if(inventorySeed != null){
                                         crop.setSeedId(inventorySeed.getId());
                                     }
+                                    Log.d("RETURNED CROP:",crop.toJSON().toString());
+                                    Log.d("CORRESPONDING FIELD:",field.toJSON().toString());
                                     dbHandler.insertCrop(crop);
                                 }
-
+                                Log.d("RETURNED CROP:",crop.toJSON().toString());
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }catch (Exception e) {

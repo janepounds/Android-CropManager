@@ -1383,7 +1383,7 @@ public class CropSyncService extends Service {
                     if(errorResponse!=null){
                         Log.e("RESPONSE 1E", errorResponse.toString());
                     }
-                    Log.e("RESPONSE 1E", errorResponse.toString());
+                 //   Log.e("RESPONSE 1E", errorResponse.toString());
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {

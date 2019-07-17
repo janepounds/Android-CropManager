@@ -158,7 +158,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
-
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 

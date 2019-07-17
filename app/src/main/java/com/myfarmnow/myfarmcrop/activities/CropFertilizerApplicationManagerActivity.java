@@ -212,10 +212,11 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     if(recurrenceSp.getSelectedItem().equals("Weekly")){
                         weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
                     }
+
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
-
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 

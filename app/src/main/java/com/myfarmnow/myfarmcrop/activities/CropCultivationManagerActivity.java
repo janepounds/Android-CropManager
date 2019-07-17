@@ -149,7 +149,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
                 } else if (selection.toLowerCase().equals("no")) {
 
                     daysBeforeLayout.setVisibility(View.GONE);
-
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 
