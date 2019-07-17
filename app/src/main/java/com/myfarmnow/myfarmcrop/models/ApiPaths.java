@@ -21,6 +21,7 @@ public class ApiPaths {
 
     //SYNCHRONISATION
     public static final String DATA_BACK_UP =  SERVER_URL + "/api/crop/data/backup/block";
+    public static final String DATA_BACK_UP_DELETED_RECORDS =  SERVER_URL + "/api/crop/data/backup/sync/deleted/records";
 
     //WALLET TRANSACTIONS
     public static final String CROP_WALLET_GET_TOKEN =  SERVER_URL + "/api/crop/wallet/token/get";
