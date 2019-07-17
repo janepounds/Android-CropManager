@@ -179,7 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="@string/status"
+                        android:text="@string/syncStatus"
                         android:layout_marginBottom="4dp"
                         android:textSize="15sp"
                         android:textColor="@color/textColor" />

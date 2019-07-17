@@ -49,6 +49,7 @@ import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.CropTask;
 import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 import com.myfarmnow.myfarmcrop.models.CropYieldRecord;
+import com.myfarmnow.myfarmcrop.models.DeletedRecord;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -65,6 +66,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     private static final String DATABASE_NAME ="myfarmdb";
     private static int database_version=1;
     private static int database_version_2=2;
+
     public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME ="crop_inventory_fertilizer";
     public static final String CROP_INVENTORY_SEEDS_TABLE_NAME ="crop_inventory_seeds";
     public static final String CROP_INVENTORY_SPRAY_TABLE_NAME ="crop_inventory_spray";
@@ -101,6 +103,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SCOUTING_TABLE_NAME ="crop_scouting";
     public static final String CROP_HARVEST_TABLE_NAME ="crop_harvest";
     public static final String CROP_CONTACT_TABLE_NAME ="crop_contact";
+    public static final String CROP_DELETED_RECORDS_TABLE_NAME ="crop_contact";
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
@@ -648,6 +651,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_GLOBAL_ID = "globalId";
     public static final String CROP_SYNC_STATUS = "syncStatus";
 
+
+
+    public static final String CROP_DELETED_DATE ="date";
+    public static final String CROP_DELETED_TYPE ="type";
+    public static final String CROP_DELETED_ID ="id";
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -872,6 +881,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_settings_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_SETTINGS_TABLE_NAME + " ( " + CROP_SETTINGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_SETTINGS_USER_ID + " TEXT NOT NULL, " + CROP_SETTINGS_AREA_UNITS + " TEXT NOT NULL DEFAULT 'Acres', " + CROP_SETTINGS_DATE_FORMAT + " TEXT NOT NULL DEFAULT 'dd-mm-yyyy', " +
                 CROP_SETTINGS_CURRENCY + " TEXT NOT NULL DEFAULT 'UGX', "+ CROP_SETTINGS_WEIGHT_UNITS + " TEXT NOT NULL DEFAULT 'Kg', "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
 
+        String crop_deleted_records_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_DELETED_RECORDS_TABLE_NAME+ " ( " + CROP_DELETED_ID + " TEXT PRIMARY KEY , " + CROP_DELETED_TYPE + " TEXT NOT NULL, " + CROP_DELETED_DATE + " TEXT NOT NULL, " + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+ " ) ";
+
+
 
 
 
@@ -929,20 +941,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_contact_insert_query);
         database.execSQL(crop_settings_insert_query);
         database.execSQL(crop_notification_insert_query);
-
-
-        System.out.println(
-                ";"+crop_employee_insert_query+
-                ";"+crop_customer_insert_query+
-                ";"+crop_supplier_insert_query+
-                ";"+crop_product_insert_query+
-                ";"+crop_estimates_insert_query+
-                ";"+crop_estimate_item_insert_query+
-                ";"+crop_invoices_insert_query+
-                ";"+crop_payment_item_insert_query+
-                ";"+crop_sales_order_insert_query +
-                        ";"+crop_purchase_order_insert_query);
-
+        database.execSQL(crop_deleted_records_insert_query);
     }
 
 
@@ -1094,6 +1093,24 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         this.close();
     }
 
+    public void recordDeletedRecord(String type, String id){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_DELETED_DATE, new SimpleDateFormat("yyyy-mm-dd").format(new Date()));
+        contentValues.put(CROP_DELETED_TYPE, type);
+        contentValues.put(CROP_DELETED_ID, id);
+        database.insert(CROP_DELETED_RECORDS_TABLE_NAME,null, contentValues);
+        closeDB();
+    }
+    public void updateDeletedRecord(DeletedRecord record){
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_DELETED_DATE, record.getDate());
+        contentValues.put(CROP_DELETED_TYPE, record.getType());
+        contentValues.put(CROP_SYNC_STATUS, record.getSyncStatus());
+        database.update(CROP_DELETED_RECORDS_TABLE_NAME,contentValues,CROP_TRANSPLANTING_ID + " = ?", new String[]{record.getId()});
+        closeDB();
+    }
     public void insertCropNotification(CropNotification notification) {
         openDB();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -2155,6 +2172,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(serviceId,context.getString(R.string.notification_type_service));
         database.delete(CROP_MACHINE_SERVICE_TABLE_NAME,CROP_MACHINE_SERVICE_ID+" = ?", new String[]{serviceId});
         closeDB();
+        recordDeletedRecord("machineService",serviceId);
         return true;
     }
     public ArrayList<CropMachineService> getCropMachineServices(String machineId){
@@ -2227,6 +2245,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_NOTE_TABLE_NAME,CROP_NOTE_ID+" = ?", new String[]{noteId});
         closeDB();
+        recordDeletedRecord("note",noteId);
         return true;
     }
     public ArrayList<CropNote> getCropNotes(String parentId, String isFor){
@@ -2319,6 +2338,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(taskId,context.getString(R.string.notification_type_machine_task));
         database.delete(CROP_MACHINE_TASK_TABLE_NAME,CROP_MACHINE_TASK_ID+" = ?", new String[]{taskId});
         closeDB();
+        recordDeletedRecord("machineTask",taskId);
         return true;
     }
     public ArrayList<CropMachineTask> getCropMachineTasks(String machineId){
@@ -2681,6 +2701,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ? AND "+CROP_PRODUCT_ITEM_TYPE+" = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER});
         database.delete(CROP_SALES_ORDER_TABLE_NAME,CROP_SALES_ORDER_ID+" = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("salesOrder",id);
         return true;
     }
     public ArrayList<CropSalesOrder> getCropSalesOrders(String userId){
@@ -2838,6 +2859,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_PAYMENT_TABLE_NAME, CROP_PAYMENT_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("invoicePayment",id);
         return true;
     }
 
@@ -3047,6 +3069,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_INVOICE});
         database.delete(CROP_INVOICE_TABLE_NAME, CROP_INVOICE_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("invoice",id);
         return true;
     }
 
@@ -3372,6 +3395,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_ESTIMATE});
         database.delete(CROP_ESTIMATE_TABLE_NAME, CROP_ESTIMATE_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("estimate",id);
         return true;
     }
 
@@ -3534,6 +3558,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_PRODUCT_TABLE_NAME, CROP_PRODUCT_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("product",id);
         return true;
     }
 
@@ -3667,6 +3692,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_SUPPLIER_TABLE_NAME, CROP_SUPPLIER_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("supplier",id);
         return true;
     }
 
@@ -3791,6 +3817,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_CUSTOMER_TABLE_NAME, CROP_CUSTOMER_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("customer",id);
         return true;
     }
 
@@ -3932,6 +3959,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_EMPLOYEE_TABLE_NAME, CROP_EMPLOYEE_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("employee",id);
         return true;
     }
 
@@ -4039,6 +4067,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(id,context.getString(R.string.notification_type_soil_analysis));
         database.delete(CROP_SOIL_ANALYSIS_TABLE_NAME, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("soilAnalysis",id);
         return true;
     }
 
@@ -4156,6 +4185,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(fertilizerId,context.getString(R.string.notification_type_fertilizer_application));
         database.delete(CROP_SPRAYING_TABLE_NAME, CROP_SPRAYING_ID + " = ?", new String[]{fertilizerId});
         closeDB();
+        recordDeletedRecord("spraying",fertilizerId);
         return true;
     }
 
@@ -4273,6 +4303,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(fertilizerId,context.getString(R.string.notification_type_fertilizer_application));
         database.delete(CROP_FERTILIZER_APPLICATION_TABLE_NAME, CROP_FERTILIZER_APPLICATION_ID + " = ?", new String[]{fertilizerId});
         closeDB();
+        recordDeletedRecord("fertilizerApplication",fertilizerId);
         return true;
     }
 
@@ -4384,6 +4415,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(cultivateId,context.getString(R.string.notification_type_cultivation));
         database.delete(CROP_CULTIVATION_TABLE_NAME, CROP_CULTIVATION_ID + " = ?", new String[]{cultivateId});
         closeDB();
+        recordDeletedRecord("cultivation",cultivateId);
         return true;
     }
 
@@ -4481,6 +4513,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_CROP_TABLE_NAME, CROP_CROP_ID + " = ?", new String[]{cropId});
         closeDB();
+        recordDeletedRecord("crop",cropId);
         return true;
     }
 
@@ -4491,7 +4524,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_CROP_TABLE_NAME+" where "+CROP_CROP_FIELD_ID+" = "+fieldId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_CROP_TABLE_NAME+" where "+CROP_CROP_FIELD_ID+" = '"+fieldId+"'", null );
         res.moveToFirst();
 
         while(!res.isAfterLast()){
@@ -4615,6 +4648,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_INVENTORY_SPRAY_TABLE_NAME, CROP_INVENTORY_SPRAY_ID + " = ?", new String[]{sprayId});
         closeDB();
+        recordDeletedRecord("sprayInventory",sprayId);
         return true;
     }
 
@@ -4709,6 +4743,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_INVENTORY_SEEDS_TABLE_NAME, CROP_INVENTORY_SEEDS_ID + " = ?", new String[]{seedsId});
         closeDB();
+        recordDeletedRecord("seedInventory",seedsId);
         return true;
     }
 
@@ -4890,6 +4925,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_INVENTORY_FERTILIZER_TABLE_NAME, CROP_INVENTORY_FERTILIZER_ID + " = ?", new String[]{fertilizerId});
         closeDB();
+        recordDeletedRecord("fertilizerInventory",fertilizerId);
         return true;
     }
     public ArrayList<CropInventoryFertilizer> getCropFertilizerInventorys(String userId) {
@@ -4982,6 +5018,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_FIELDS_TABLE_NAME, CROP_FIELD_ID + " = ?", new String[]{fieldId});
         closeDB();
+        recordDeletedRecord("field",fieldId);
         return true;
     }
 
@@ -5068,6 +5105,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_MACHINE_TABLE_NAME, CROP_MACHINE_ID + " = ?", new String[]{machineId});
         closeDB();
+        recordDeletedRecord("machine",machineId);
         return true;
     }
 
@@ -5158,6 +5196,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_INCOME_EXPENSE_TABLE_NAME,CROP_INCOME_EXPENSE_ID+" = ?", new String[]{incomeExpenseId});
         closeDB();
+        recordDeletedRecord("incomeExpense",incomeExpenseId);
         return true;
     }
     public ArrayList<CropIncomeExpense> getCropIncomeExpenses(String userId){
@@ -5243,6 +5282,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_TASK_TABLE_NAME,CROP_TASK_ID+" = ?", new String[]{taskId});
         closeDB();
+        recordDeletedRecord("task",taskId);
         return true;
     }
     public ArrayList<CropTask> getCropTasks(String userId){
@@ -5397,6 +5437,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ? AND "+CROP_PRODUCT_ITEM_TYPE+" = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER});
         database.delete(CROP_PURCHASE_ORDER_TABLE_NAME,CROP_PURCHASE_ORDER_ID+" = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("purchaseOrder",id);
         return true;
     }
     public ArrayList<CropPurchaseOrder> getCropPurchaseOrders(String userId){
@@ -5548,6 +5589,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_PAYMENT_BILL_TABLE_NAME, CROP_PAYMENT_BILL_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("billPayment",id);
         return true;
     }
 
@@ -5725,6 +5767,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_BILL});
         database.delete(CROP_BILL_TABLE_NAME, CROP_BILL_ID + " = ?", new String[]{id});
         closeDB();
+        recordDeletedRecord("bill",id);
         return true;
     }
     public ArrayList<CropBill> getCropBills(String userId){
@@ -5967,6 +6010,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         deleteCropNotification(irrigationId,context.getString(R.string.notification_type_irrigation));
         database.delete(CROP_IRRIGATION_TABLE_NAME, CROP_IRRIGATION_ID + " = ?", new String[]{irrigationId});
         closeDB();
+        recordDeletedRecord("irrigation",irrigationId);
         return true;
     }
 
@@ -6070,8 +6114,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         deleteCropNotification(transplantingId,context.getString(R.string.notification_type_transplanting));
         database.delete(CROP_TRANSPLANTING_TABLE_NAME, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplantingId});
-
         closeDB();
+        recordDeletedRecord("transplanting",transplantingId);
         return true;
     }
     public ArrayList<CropTransplanting> getCropTransplantings(String cropId) {
@@ -6182,6 +6226,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.delete(CROP_SCOUTING_TABLE_NAME, CROP_SCOUTING_ID + " = ?", new String[]{scoutingId});
 
         closeDB();
+        recordDeletedRecord("scouting",scoutingId);
         return true;
     }
 
@@ -6298,6 +6343,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_HARVEST_TABLE_NAME, CROP_HARVEST_ID + " = ?", new String[]{harvestId});
         closeDB();
+        recordDeletedRecord("harvest",harvestId);
         return true;
     }
     public ArrayList<CropHarvest> getCropHarvests(String cropId) {
@@ -6385,6 +6431,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         database.delete(CROP_CONTACT_TABLE_NAME, CROP_CONTACT_ID + " = ?", new String[]{contactId});
         closeDB();
+        recordDeletedRecord("contact",contactId);
         return true;
     }
 
@@ -7549,7 +7596,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String key = isGlobal?CROP_GLOBAL_ID:CROP_FIELD_ID;
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " +key+ " = " + fieldId,null);
+        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " +key+ " = '" + fieldId+"'",null);
         res.moveToFirst();
 
         if (!res.isAfterLast()) {
@@ -7582,7 +7629,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_INVENTORY_SEEDS_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = "+seedId, null);
+        Cursor res = db.rawQuery("select * from " + CROP_INVENTORY_SEEDS_TABLE_NAME + " where " + key + " = '"+seedId+"'", null);
         res.moveToFirst();
         CropInventorySeeds inventorySeeds = null;
         if (!res.isAfterLast()) {
@@ -7617,7 +7664,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_CROP_ID;
 
-        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " +key+ " = "+cropId, null);
+        Cursor res = db.rawQuery("select * from " + CROP_CROP_TABLE_NAME + " where " +key+ " = '"+cropId+"'", null);
         res.moveToFirst();
         Crop crop = null;
         if (!res.isAfterLast()) {
@@ -8627,6 +8674,53 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.close();
         closeDB();
         return item;
+    }
+
+
+
+    public ArrayList<DeletedRecord> getDeletedRecords(String userId, boolean synced) {
+        ArrayList<DeletedRecord> items_list = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_DELETED_RECORDS_TABLE_NAME+ " where " + CROP_SYNC_STATUS+" = ?", new String[]{synced?"yes":"no"});
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            DeletedRecord deletedRecord = new DeletedRecord();
+            deletedRecord.setId(res.getString(res.getColumnIndex(CROP_DELETED_ID)));
+            deletedRecord.setType(res.getString(res.getColumnIndex(CROP_DELETED_TYPE)));
+            deletedRecord.setDate(res.getString(res.getColumnIndex(CROP_DELETED_DATE)));
+            deletedRecord.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return items_list;
+
+    }
+    public DeletedRecord getDeletedRecord(String id) {
+        ArrayList<DeletedRecord> items_list = new ArrayList();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_DELETED_RECORDS_TABLE_NAME+ " where " + CROP_DELETED_ID+" = ?", new String[]{id});
+        res.moveToFirst();
+        DeletedRecord deletedRecord= null;
+
+        if (!res.isAfterLast()) {
+            deletedRecord= new DeletedRecord();
+            deletedRecord.setId(res.getString(res.getColumnIndex(CROP_DELETED_ID)));
+            deletedRecord.setType(res.getString(res.getColumnIndex(CROP_DELETED_TYPE)));
+            deletedRecord.setDate(res.getString(res.getColumnIndex(CROP_DELETED_DATE)));
+            deletedRecord.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return deletedRecord;
+
     }
 }
 

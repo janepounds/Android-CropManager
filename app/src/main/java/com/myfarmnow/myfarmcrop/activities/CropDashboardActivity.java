@@ -23,6 +23,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -361,30 +364,39 @@ public class CropDashboardActivity extends AppCompatActivity  {
        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("email",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,context));
         params.put("firebaseToken",token);
-        client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new AsyncHttpResponseHandler() {
 
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        Runnable myRunnable = new Runnable() {
             @Override
-            public void onStart() {
+            public void run() {
+                client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new AsyncHttpResponseHandler() {
 
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,"yes",context);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        if (responseBody != null) {
+                            Log.e("info", new String(String.valueOf(responseBody)));
+                        } else {
+                            Log.e("info", "Something got very very wrong");
+                        }
+                    }
+
+
+
+                });
             }
+        };
+        mainHandler.post(myRunnable);
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,"yes",context);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                if (responseBody != null) {
-                    Log.e("info", new String(String.valueOf(responseBody)));
-                } else {
-                    Log.e("info", "Something got very very wrong");
-                }
-            }
-
-
-
-        });
     }
     public void openDigitalWallet(View view){
         if(CropWalletAuthActivity.WALLET_ACCESS_TOKEN==null){

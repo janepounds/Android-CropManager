@@ -46,6 +46,7 @@ import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.CropTask;
 import com.myfarmnow.myfarmcrop.models.CropTransplanting;
+import com.myfarmnow.myfarmcrop.models.DeletedRecord;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import org.json.JSONArray;
@@ -91,8 +92,19 @@ public class CropSyncService extends Service {
     public void prepareSyncRequest(){
         startBlock1TablesBackup();
         startBlock2TablesBackup();
+        backupDeletedRecords();
     }
 
+    private JSONArray prepareDeleteRecords(){
+        JSONArray jsonArray = new JSONArray();
+        ArrayList<DeletedRecord> records = dbHandler.getDeletedRecords(userId,false);
+        for(DeletedRecord record: records){
+
+            jsonArray.put(record.toJSON());
+        }
+
+        return jsonArray;
+    }
     private JSONArray prepareFields(){
         ArrayList<CropField> fields = dbHandler.getCropFields(userId,false);
         Log.d("FIELDS COUNT",fields.size()+"");
@@ -2118,6 +2130,78 @@ public class CropSyncService extends Service {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     if(errorResponse != null){
                         Log.e("RESPONSE 2E", errorResponse.toString());
+                    }
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                    if (errorResponse != null) {
+                        Log.e("info 2E: "+statusCode, new String(String.valueOf(errorResponse)));
+                    } else {
+                        Log.e("info 2E: "+statusCode, "Something got very very wrong");
+                    }
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private void backupDeletedRecords(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(20000);
+
+
+
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("delete",prepareDeleteRecords());
+           requestObject.put("userId",userId);
+            StringEntity params = null;
+            try {
+                params = new StringEntity(requestObject.toString());
+            } catch (UnsupportedEncodingException e) {
+
+                e.printStackTrace();
+                return;
+            }
+
+
+           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP_DELETED_RECORDS,           params,"application/json", new JsonHttpResponseHandler() {
+                @Override
+                public void onStart() {
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        JSONArray tasks = response.getJSONArray("deleted");
+                        for(int i=0; i<tasks.length(); i++){
+                            try{
+                                DeletedRecord productItem = dbHandler.getDeletedRecord( tasks.getJSONObject(i).getString("id"));
+                                productItem.setSyncStatus("yes");
+                                dbHandler.updateDeletedRecord(productItem);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    if(errorResponse != null){
+                        Log.e("RESPONSE DELETES", errorResponse.toString());
                     }
                 }
                 @Override
