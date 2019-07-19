@@ -149,7 +149,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
-
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 
@@ -234,20 +234,9 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
         cropIrrigation.setReminders(remindersSp.getSelectedItem().toString());
         cropIrrigation.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
         cropIrrigation.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        cropIrrigation.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropIrrigation.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-
-            cropIrrigation.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropIrrigation.setDaysBefore(days);
-
-        }
         dbHandler.insertCropIrrigation(cropIrrigation);
     }
 
@@ -266,20 +255,10 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             cropIrrigation.setReminders(remindersSp.getSelectedItem().toString());
             cropIrrigation.setTotalCost(Float.parseFloat(totalCostTxt.getText().toString()));
             cropIrrigation.setRepeatUntil(repeatUntilTxt.getText().toString());
-
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
-
-                cropIrrigation.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
+            cropIrrigation.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropIrrigation.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
 
-                cropIrrigation.setDaysBefore(days);
-
-            }
             dbHandler.updateCropIrrigation(cropIrrigation);
         }
     }
@@ -298,7 +277,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
             totalCostTxt.setText(cropIrrigation.getTotalCost()+"");
             weeksTxt.setText(cropIrrigation.getFrequency()+"");
             repeatUntilTxt.setText(cropIrrigation.getRepeatUntil());
-            daysBeforeTxt.setText(cropIrrigation.getDaysBefore());
+            daysBeforeTxt.setText(cropIrrigation.getDaysBefore()+"");
 
         }
 

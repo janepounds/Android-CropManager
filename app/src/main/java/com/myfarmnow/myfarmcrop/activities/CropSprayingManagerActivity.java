@@ -165,7 +165,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
-
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 

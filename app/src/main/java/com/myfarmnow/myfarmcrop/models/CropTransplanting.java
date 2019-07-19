@@ -291,10 +291,10 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
         setExpectedYield((float)object.getDouble("expectedYield"));
         setExpectedYieldPerHa((float)object.getDouble("expectedYieldPerHa"));
         setOperator(object.getString("operator"));
-        setArea((float)object.getDouble("area"));
+//        setArea((float)object.getDouble("area"));
         setRecurrence(object.getString("recurrence"));
         setReminders(object.getString("totalCost"));
-        setTotalCost((float)object.getDouble("cost"));
+        setTotalCost((float)object.getDouble("totalCost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
         setDaysBefore(object.getString("daysBefore"));

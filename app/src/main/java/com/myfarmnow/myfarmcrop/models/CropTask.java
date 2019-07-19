@@ -20,7 +20,16 @@ public class CropTask implements CropSpinnerItem, Serializable {
     String employeeName;
     private float frequency;
     private String repeatUntil;
-    private String daysBefore;
+
+    public float getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(float daysBefore) {
+        this.daysBefore = daysBefore;
+    }
+
+    private float daysBefore;
     private String cropName;
 
 
@@ -150,13 +159,6 @@ public class CropTask implements CropSpinnerItem, Serializable {
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
-        return daysBefore;
-    }
-
-    public void setDaysBefore(String daysBefore) {
-        this.daysBefore = daysBefore;
-    }
 
     private String syncStatus="no";
     private String globalId;
@@ -184,7 +186,7 @@ public class CropTask implements CropSpinnerItem, Serializable {
             object.put("id",id);
             object.put("globalId",globalId);
             object.put("userId",userId);
-            object.put("employeeId",employeeId);
+            //object.put("employeeId",employeeId);
             object.put("cropId",cropId);
             object.put("date",date);
             object.put("title",title);
@@ -211,7 +213,7 @@ public class CropTask implements CropSpinnerItem, Serializable {
         setCropId(object.getString("cropId"));
         setUserId(object.getString("userId"));
         setDate(object.getString("date"));
-        setEmployeeId(object.getString("employeeId"));
+        //setEmployeeId(object.getString("employeeId"));
         setEmployeeName(object.getString("employeeName"));
         setTitle(object.getString("title"));
         setType(object.getString("type"));
@@ -222,7 +224,7 @@ public class CropTask implements CropSpinnerItem, Serializable {
         //setCost((float)object.getDouble("cost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore((float)object.getDouble("daysBefore"));
         setSyncStatus( "yes");
 
     }

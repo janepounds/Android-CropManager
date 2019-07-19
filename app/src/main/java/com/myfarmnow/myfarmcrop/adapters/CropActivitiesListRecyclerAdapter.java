@@ -272,14 +272,16 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 infestation=scouting.getInfestation();
                 TextView infestationLevelTxt = new TextView(mContext);
                 infestationLevelTxt.setText(scouting.getInfestationLevel());
-                scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
+                //scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
                 scoutingViewHolder.infestationLevelLayout.setVisibility(View.VISIBLE);
             }
             else{
-                infestationType=mContext.getString(R.string.infested_card);
-                infestation=mContext.getString(R.string.no);
-                scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
-                scoutingViewHolder.infestationTypeTxt.setText(infestationType+" : "+infestation);
+                //infestationType=mContext.getString(R.string.infested_card);
+                //infestation=mContext.getString(R.string.no);
+                //scoutingViewHolder.infestationLayout.setVisibility(View.VISIBLE);
+                scoutingViewHolder.infestationLevelLayout.setVisibility(View.GONE);
+                scoutingViewHolder.infestationTypeTxt.setText("Infested  "+" :  ");
+                scoutingViewHolder.infestationTxt.setText("  No");
 
             }
 

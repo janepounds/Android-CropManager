@@ -272,7 +272,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
-
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 
@@ -355,29 +355,19 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
         cropScouting.setDate(scoutingDateTxt.getText().toString());
         cropScouting.setMethod(scoutingMethodTxt.getText().toString());
         cropScouting.setInfested(infestedSpinner.getSelectedItem().toString());
-        if(infestedSpinner.getSelectedItemPosition()==1) {
+        //if(infestedSpinner.getSelectedItemPosition()==1) {
             cropScouting.setInfestationType(infestationTypeSpinner.getSelectedItem().toString());
             cropScouting.setInfestation(infestationSpinner.getSelectedItem().toString());
             cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
-        }
+
         cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
         cropScouting.setRemarks(remarksTxt.getText().toString());
         cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropScouting.setReminders(remindersSp.getSelectedItem().toString());
         cropScouting.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        cropScouting.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropScouting.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            cropScouting.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropScouting.setDaysBefore(days);
-
-        }
 
         dbHandler.insertCropScouting(cropScouting);
     }
@@ -389,29 +379,17 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
             cropScouting.setDate(scoutingDateTxt.getText().toString());
             cropScouting.setMethod(scoutingMethodTxt.getText().toString());
             cropScouting.setInfested(infestedSpinner.getSelectedItem().toString());
-            if(infestedSpinner.getSelectedItemPosition()==1) {
+           // if(infestedSpinner.getSelectedItemPosition()==1) {
                 cropScouting.setInfestationType(infestationTypeSpinner.getSelectedItem().toString());
                 cropScouting.setInfestation(infestationSpinner.getSelectedItem().toString());
                 cropScouting.setInfestationLevel(infestationLevelSpinner.getSelectedItem().toString());
-            }cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
+            cropScouting.setCost(Float.parseFloat(costTxt.getText().toString()));
             cropScouting.setRemarks(remarksTxt.getText().toString());
             cropScouting.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropScouting.setReminders(remindersSp.getSelectedItem().toString());
             cropScouting.setRepeatUntil(repeatUntilTxt.getText().toString());
-
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
-
-                cropScouting.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cropScouting.setDaysBefore(days);
-
-            }
+            cropScouting.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropScouting.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
             dbHandler.updateCropScouting(cropScouting);
         }
@@ -431,7 +409,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
             remarksTxt.setText(cropScouting.getRemarks());
             weeksTxt.setText(cropScouting.getFrequency()+"");
             repeatUntilTxt.setText(cropScouting.getRepeatUntil());
-            daysBeforeTxt.setText(cropScouting.getDaysBefore());
+            daysBeforeTxt.setText(cropScouting.getDaysBefore()+"");
 
         }
 

@@ -91,14 +91,19 @@ public class CropSyncService extends GcmTaskService {
         super.onStartCommand(intent,flags,startId);
         userId = CropDashboardActivity.getPreferences(CropDashboardActivity
                 .PREFERENCES_USER_ID, this);
+        if(userId.equals("")){
+            Log.d("STOPPING SERVICE", "NO USER LOGGED IN");
+            stopSelf();
+        }
+        Log.d("USER ID SERVICE", userId);
         prepareSyncRequest();
-
-        return super.onStartCommand(intent,flags,startId);
+        return START_NOT_STICKY;
     }
 
 
     public  void attemptToStopService(){
         if(block1Completed && block2Completed && deletesCompleted){
+            Log.d("STOPPING SERVICE", "SYNC SERVICE STOPPED");
             stopSelf();
         }
     }
@@ -107,11 +112,11 @@ public class CropSyncService extends GcmTaskService {
 
     public void prepareSyncRequest(){
 
-        new Thread(() -> {
+
             startBlock1TablesBackup();
             startBlock2TablesBackup();
             backupDeletedRecords();
-        }).start();
+
 
 
 
@@ -730,6 +735,9 @@ public class CropSyncService extends GcmTaskService {
     private JSONArray prepareSettings(){
         JSONArray jsonArray = new JSONArray();
         CropSettingsSingleton  singleton= dbHandler.getSettings(userId,false);
+        if(singleton == null){
+            return  jsonArray;
+        }
         if(singleton.getGlobalId()==null){
             singleton.setGlobalId(generateUUID());
             dbHandler.updateSettings(singleton);
@@ -1435,6 +1443,7 @@ public class CropSyncService extends GcmTaskService {
                     }
                     block1Completed = true;
                     attemptToStopService();
+
 
                 }
                 @Override

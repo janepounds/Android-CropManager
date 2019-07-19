@@ -132,7 +132,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
-       // startService(new Intent(this, CropSyncService.class));
+        startService(new Intent(this, CropSyncService.class));
 
         GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);
 
@@ -382,7 +382,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     }
 
     public static void sendFirebaseToken(String token, final Context context){
-        AsyncHttpClient client = new AsyncHttpClient();
+        final AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("email",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,context));
@@ -418,7 +418,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 });
             }
         };
-        //mainHandler.post(myRunnable);
+        mainHandler.post(myRunnable);
 
     }
     public void openDigitalWallet(View view){

@@ -696,7 +696,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SCOUTING_CROP_ID+" TEXT, "+CROP_SCOUTING_DATE+" TEXT NOT NULL, "+CROP_SCOUTING_METHOD+" TEXT, "+CROP_SCOUTING_INFESTED+" TEXT NOT NULL, "+
                 CROP_SCOUTING_INFESTATION_TYPE+" TEXT, "+CROP_SCOUTING_INFESTATION+" TEXT, "+CROP_SCOUTING_INFESTATION_LEVEL+" TEXT, "+
                 CROP_SCOUTING_COST+" REAL NOT NULL DEFAULT 0, "+ CROP_SCOUTING_REMARKS+" TEXT, "+CROP_SCOUTING_REPEAT_UNTIL + " TEXT, " +CROP_SCOUTING_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_SCOUTING_RECURRENCE + " TEXT NOT NULL, " +CROP_SCOUTING_FREQUENCY + " REAL DEFAULT 0, " + CROP_SCOUTING_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
+                CROP_SCOUTING_RECURRENCE + " TEXT NOT NULL, " +CROP_SCOUTING_FREQUENCY + " REAL DEFAULT 1, " + CROP_SCOUTING_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
 
 
         String crop_transplanting_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_TRANSPLANTING_TABLE_NAME+" ( "+CROP_TRANSPLANTING_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -738,13 +738,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_cultivate_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CULTIVATION_TABLE_NAME+" ( "+CROP_CULTIVATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CULTIVATION_USER_ID+" TEXT,"+CROP_CULTIVATION_CROP_ID+" TEXT NOT NULL,"+ CROP_CULTIVATION_DATE+" TEXT NOT NULL,"+ CROP_CULTIVATION_OPERATION+" TEXT NOT NULL,"+CROP_CULTIVATION_OPERATOR+" TEXT NOT NULL,"+
                 CROP_CULTIVATION_COST+" REAL,"+CROP_CULTIVATION_NOTES+" TEXT, "+CROP_CULTIVATION_REPEAT_UNTIL + " TEXT, " +CROP_CULTIVATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_CULTIVATION_RECURRENCE + " TEXT NOT NULL, " +CROP_CULTIVATION_FREQUENCY + " REAL DEFAULT 0, " + CROP_CULTIVATION_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
+                CROP_CULTIVATION_RECURRENCE + " TEXT NOT NULL, " +CROP_CULTIVATION_FREQUENCY + " REAL DEFAULT 1, " + CROP_CULTIVATION_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
 
         String crop_fertilizer_application_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" ( "+CROP_FERTILIZER_APPLICATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_FERTILIZER_APPLICATION_USER_ID+" TEXT,"+CROP_FERTILIZER_APPLICATION_CROP_ID+" TEXT NOT NULL,"+ CROP_FERTILIZER_APPLICATION_DATE+" TEXT NOT NULL,"+CROP_FERTILIZER_APPLICATION_OPERATOR+" TEXT,"+
                 CROP_FERTILIZER_APPLICATION_METHOD+" TEXT NOT NULL,"+CROP_FERTILIZER_APPLICATION_REASON+" TEXT, "+CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM+" TEXT NOT NULL, "+CROP_FERTILIZER_APPLICATION_FERTILIZER_ID+" TEXT NOT NULL,"+
                  CROP_FERTILIZER_APPLICATION_RATE+" REAL NOT NULL ,"+CROP_FERTILIZER_APPLICATION_COST+" REAL, "+CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " +CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_FERTILIZER_APPLICATION_RECURRENCE + " TEXT NOT NULL, " +CROP_FERTILIZER_APPLICATION_FREQUENCY + " REAL DEFAULT 0, " + CROP_FERTILIZER_APPLICATION_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
+                CROP_FERTILIZER_APPLICATION_RECURRENCE + " TEXT NOT NULL, " +CROP_FERTILIZER_APPLICATION_FREQUENCY + " REAL DEFAULT 1, " + CROP_FERTILIZER_APPLICATION_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
 
 
         String crop_spraying_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SPRAYING_TABLE_NAME+" ( "+CROP_SPRAYING_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -822,7 +822,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL, " +CROP_TASK_REPEAT_UNTIL + " TEXT, " +CROP_TASK_DAYS_BEFORE
-                + " REAL DEFAULT 0, " +CROP_TASK_FREQUENCY + " REAL DEFAULT 0, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
+                + " REAL DEFAULT 0, " +CROP_TASK_FREQUENCY + " REAL DEFAULT 1, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
 
         String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
@@ -870,7 +870,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_irrigation_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_IRRIGATION_TABLE_NAME + " ( " +CROP_IRRIGATION_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 CROP_IRRIGATION_USER_ID+ " TEXT, "+ CROP_IRRIGATION_CROP_ID + " TEXT NOT NULL, " +CROP_IRRIGATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
                 CROP_IRRIGATION_END_TIME + " TEXT, "+ CROP_IRRIGATION_AREA_IRRIGATED+" REAL DEFAULT 0, "+CROP_IRRIGATION_UNITS+" TEXT, "+ CROP_IRRIGATION_RECURRENCE+" TEXT NOT NULL, " +
-                CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_REPEAT_UNTIL + " TEXT, " +CROP_IRRIGATION_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_IRRIGATION_FREQUENCY + " REAL DEFAULT 0, " +CROP_IRRIGATION_COST+" REAL DEFAULT 0, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+ " ) ";
+                CROP_IRRIGATION_REMINDERS+" TEXT NOT NULL, "+CROP_IRRIGATION_REPEAT_UNTIL + " TEXT, " +CROP_IRRIGATION_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_IRRIGATION_FREQUENCY + " REAL DEFAULT 1, " +CROP_IRRIGATION_COST+" REAL DEFAULT 0, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+ " ) ";
 
         String crop_notification_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTIFICATION_TABLE_NAME + " ( " + CROP_NOTIFICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTIFICATION_USER_ID + " TEXT NOT NULL, " +
                 CROP_NOTIFICATION_DATE + " TEXT NOT NULL, " + CROP_NOTIFICATION_MESSAGE + " TEXT NOT NULL, "  + CROP_NOTIFICATION_STATUS + " TEXT NOT NULL DEFAULT 'Pending', " + CROP_NOTIFICATION_ACTION_DATE + " TEXT NOT NULL, " +
@@ -3769,7 +3769,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_SUPPLIER_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + key + " = " + id, null);
+        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + key + " = '" + id+"'", null);
         res.moveToFirst();
 
 
@@ -3905,7 +3905,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+key+" = "+customerId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+key+" = '"+customerId+"'", null );
         res.moveToFirst();
         
         if(!res.isAfterLast()){
@@ -4387,7 +4387,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             crop.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             crop.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
-            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
+            crop.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL)));
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
@@ -4494,7 +4494,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_FREQUENCY)));
             crop.setRecurrence(res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE)));
             crop.setReminders(res.getString(res.getColumnIndex(CROP_CULTIVATION_REMINDERS)));
-            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
+            crop.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL)));
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
@@ -5394,7 +5394,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
@@ -6128,7 +6128,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             irrigation.setFrequency(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_FREQUENCY)));
             irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
             irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
-           irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
+           irrigation.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
             irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
             irrigation.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -6352,7 +6352,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             scouting.setFrequency(res.getFloat(res.getColumnIndex(CROP_SCOUTING_FREQUENCY)));
             scouting.setRecurrence(res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE)));
             scouting.setReminders(res.getString(res.getColumnIndex(CROP_SCOUTING_REMINDERS)));
-            scouting.setDaysBefore(res.getString(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
+            scouting.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
             scouting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL)));
             scouting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(scouting);
@@ -7102,7 +7102,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             scouting.setFrequency(res.getFloat(res.getColumnIndex(CROP_SCOUTING_FREQUENCY)));
             scouting.setRecurrence(res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE)));
             scouting.setReminders(res.getString(res.getColumnIndex(CROP_SCOUTING_REMINDERS)));
-            scouting.setDaysBefore(res.getString(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
+            scouting.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
             scouting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL)));
             scouting.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             scouting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -7279,7 +7279,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
             task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -7415,7 +7415,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_FREQUENCY)));
             crop.setRecurrence(res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE)));
             crop.setReminders(res.getString(res.getColumnIndex(CROP_CULTIVATION_REMINDERS)));
-            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
+            crop.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL)));
             crop.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -7492,7 +7492,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             irrigation.setFrequency(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_FREQUENCY)));
             irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
             irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
-            irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
+            irrigation.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
             irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
             irrigation.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
@@ -7888,7 +7888,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
-            fertilizerApplication.setDaysBefore(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
+            fertilizerApplication.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
             fertilizerApplication.setRepeatUntil(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL)));
             fertilizerApplication.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             fertilizerApplication.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8276,7 +8276,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             irrigation.setFrequency(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_FREQUENCY)));
             irrigation.setRecurrence(res.getString(res.getColumnIndex(CROP_IRRIGATION_RECURRENCE)));
             irrigation.setReminders(res.getString(res.getColumnIndex(CROP_IRRIGATION_REMINDERS)));
-            irrigation.setDaysBefore(res.getString(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
+            irrigation.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_DAYS_BEFORE)));
             irrigation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_IRRIGATION_REPEAT_UNTIL)));
             irrigation.setTotalCost(res.getFloat(res.getColumnIndex(CROP_IRRIGATION_COST)));
             irrigation.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8311,7 +8311,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             scouting.setFrequency(res.getFloat(res.getColumnIndex(CROP_SCOUTING_FREQUENCY)));
             scouting.setRecurrence(res.getString(res.getColumnIndex(CROP_SCOUTING_RECURRENCE)));
             scouting.setReminders(res.getString(res.getColumnIndex(CROP_SCOUTING_REMINDERS)));
-            scouting.setDaysBefore(res.getString(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
+            scouting.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SCOUTING_DAYS_BEFORE)));
             scouting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SCOUTING_REPEAT_UNTIL)));
             scouting.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             scouting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8343,7 +8343,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cultivation.setFrequency(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_FREQUENCY)));
             cultivation.setRecurrence(res.getString(res.getColumnIndex(CROP_CULTIVATION_RECURRENCE)));
             cultivation.setReminders(res.getString(res.getColumnIndex(CROP_CULTIVATION_REMINDERS)));
-            cultivation.setDaysBefore(res.getString(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
+            cultivation.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_CULTIVATION_DAYS_BEFORE)));
             cultivation.setRepeatUntil(res.getString(res.getColumnIndex(CROP_CULTIVATION_REPEAT_UNTIL)));
             cultivation.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             cultivation.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8381,7 +8381,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
-            fertilizerApplication.setDaysBefore(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
+            fertilizerApplication.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_DAYS_BEFORE)));
             fertilizerApplication.setRepeatUntil(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL)));
             fertilizerApplication.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             fertilizerApplication.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8553,7 +8553,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
             task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
