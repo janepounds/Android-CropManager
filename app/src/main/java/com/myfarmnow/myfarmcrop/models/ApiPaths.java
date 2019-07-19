@@ -6,7 +6,9 @@ public class ApiPaths {
     public final static String LIVE_SERVER_URL = "http://cropmanager.myfarmnow.com";
 
     public final static String SERVER_URL = LIVE_SERVER_URL;
-   // public final static String SERVER_URL = LOCAL_URL;
+
+    //public final static String SERVER_URL = LOCAL_URL;
+
     public static final String CROP_LOGIN_GET_ALL =  SERVER_URL + "/api/crop/user/authenticate";;
     public static final String CROP_CREATE_USER =  SERVER_URL + "/api/crop/user/create";;
     public static final String CROP_USER_UPDATE =  SERVER_URL + "/api/crop/user/update";;

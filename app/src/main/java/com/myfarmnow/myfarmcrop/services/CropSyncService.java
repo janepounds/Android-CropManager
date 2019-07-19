@@ -4,11 +4,13 @@ package com.myfarmnow.myfarmcrop.services;
 contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
  */
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.android.gms.gcm.GcmNetworkManager;
+import com.google.android.gms.gcm.GcmTaskService;
+import com.google.android.gms.gcm.TaskParams;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
@@ -64,42 +66,66 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
 
-public class CropSyncService extends Service {
+public class CropSyncService extends GcmTaskService {
 
     public String generateUUID(){
         return UUID.randomUUID().toString();
     }
     MyFarmDbHandlerSingleton dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
     String userId = null;
+    Boolean block1Completed = false;
+    Boolean block2Completed = false;
+    Boolean deletesCompleted = false;
     public CropSyncService() {
 
     }
     @Override
+    public int onRunTask(TaskParams taskParams) {
+        // IMPORTANT: This method will not be run, since we have overridden the onStartCommand() to handle the tasks run ourselves,
+        // which was needed because our tasks are asynchronous
+
+        return GcmNetworkManager.RESULT_SUCCESS;
+    }
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent,flags,startId);
         userId = CropDashboardActivity.getPreferences(CropDashboardActivity
                 .PREFERENCES_USER_ID, this);
+        if(userId.equals("")){
+            Log.d("STOPPING SERVICE", "NO USER LOGGED IN");
+            stopSelf();
+        }
+        Log.d("USER ID SERVICE", userId);
         prepareSyncRequest();
-        stopSelf();
         return START_NOT_STICKY;
     }
 
 
-    @Override
-    public IBinder onBind(Intent intent) {
-       return null;
+    public  void attemptToStopService(){
+        if(block1Completed && block2Completed && deletesCompleted){
+            Log.d("STOPPING SERVICE", "SYNC SERVICE STOPPED");
+            stopSelf();
+        }
     }
 
+
+
     public void prepareSyncRequest(){
-        startBlock1TablesBackup();
-        startBlock2TablesBackup();
-        backupDeletedRecords();
+
+
+            startBlock1TablesBackup();
+            startBlock2TablesBackup();
+            backupDeletedRecords();
+
+
+
+
     }
 
     private JSONArray prepareDeleteRecords(){
         JSONArray jsonArray = new JSONArray();
         ArrayList<DeletedRecord> records = dbHandler.getDeletedRecords(userId,false);
         for(DeletedRecord record: records){
-
             jsonArray.put(record.toJSON());
         }
 
@@ -709,6 +735,9 @@ public class CropSyncService extends Service {
     private JSONArray prepareSettings(){
         JSONArray jsonArray = new JSONArray();
         CropSettingsSingleton  singleton= dbHandler.getSettings(userId,false);
+        if(singleton == null){
+            return  jsonArray;
+        }
         if(singleton.getGlobalId()==null){
             singleton.setGlobalId(generateUUID());
             dbHandler.updateSettings(singleton);
@@ -830,7 +859,6 @@ public class CropSyncService extends Service {
     private void startBlock1TablesBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
 
         JSONObject requestObject = new JSONObject();
 
@@ -943,7 +971,8 @@ public class CropSyncService extends Service {
                    if(errorResponse != null){
                        Log.e("BACKUP RESPONSE 1A"+statusCode,errorResponse.toString());
                    }
-
+                    block1Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -952,7 +981,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1A: "+statusCode, "Something got very very wrong");
                     }
-
+                    block1Completed = true;
+                    attemptToStopService();
                 }
             });
 
@@ -1063,6 +1093,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("BACCKUP RESPONSE 1B"+statusCode,errorResponse.toString());
                     }
+                    block1Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1071,7 +1103,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1B: "+statusCode, "Something got very very wrong");
                     }
-
+                    block1Completed = true;
+                    attemptToStopService();
                 }
             });
 
@@ -1189,6 +1222,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("BACCKUP RESPONSE 1C"+statusCode,errorResponse.toString());
                     }
+                    block1Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1197,8 +1232,11 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1C: "+statusCode, "Something got very very wrong");
                     }
+                    block1Completed = true;
+                    attemptToStopService();
 
                 }
+
             });
 
 
@@ -1285,7 +1323,8 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    block1Completed = true;
+                    attemptToStopService();
 
                 }
 
@@ -1294,7 +1333,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 1D", errorResponse.toString());
                     }
-
+                    block1Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1303,7 +1343,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1D: "+statusCode, "Something got very very wrong");
                     }
-
+                    block1Completed = true;
+                    attemptToStopService();
                 }
             });
 
@@ -1391,6 +1432,8 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    block1Completed = true;
+                    attemptToStopService();
                 }
 
                 @Override
@@ -1398,6 +1441,8 @@ public class CropSyncService extends Service {
                     if(errorResponse!=null){
                         Log.e("RESPONSE 1E", errorResponse.toString());
                     }
+                    block1Completed = true;
+                    attemptToStopService();
 
 
                 }
@@ -1408,7 +1453,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1E: "+statusCode, "Something got very very wrong");
                     }
-
+                    block1Completed = true;
+                    attemptToStopService();
                 }
             });
 
@@ -1504,13 +1550,18 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    block1Completed = true;
+                    attemptToStopService();
                 }
+
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     if(errorResponse != null){
                         Log.e("RESPONSE", errorResponse.toString());
                     }
+                    block1Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1519,6 +1570,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1F: "+statusCode, "Something got very very wrong");
                     }
+                    block1Completed = true;
+                    attemptToStopService();
 
                 }
             });
@@ -1614,6 +1667,8 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    block1Completed = true;
+                    attemptToStopService();
                 }
 
                 @Override
@@ -1621,6 +1676,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 1G", errorResponse.toString());
                     }
+                    block1Completed = true;
+                    attemptToStopService();
 
                 }
                 @Override
@@ -1630,6 +1687,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 1G: "+statusCode, "Something got very very wrong");
                     }
+                    block1Completed = true;
+                    attemptToStopService();
 
                 }
             });
@@ -1750,6 +1809,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 2A", errorResponse.toString());
                     }
+                    block2Completed = true;
+                    attemptToStopService();
 
                 }
                 @Override
@@ -1759,7 +1820,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 2A: "+statusCode, "Something got very very wrong");
                     }
-
+                    block2Completed = true;
+                    attemptToStopService();
                 }
             });
 
@@ -1866,6 +1928,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 2B", errorResponse.toString());
                     }
+                    block2Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1874,6 +1938,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 2B : "+statusCode, "Something got very very wrong");
                     }
+                    block2Completed = true;
+                    attemptToStopService();
 
                 }
             });
@@ -1959,6 +2025,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 2B", errorResponse.toString());
                     }
+                    block2Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1967,6 +2035,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 2C: "+statusCode, "Something got very very wrong");
                     }
+                    block2Completed = true;
+                    attemptToStopService();
 
                 }
             });
@@ -2046,7 +2116,8 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    startBlock1eBackup();
+                    block2Completed = true;
+                    attemptToStopService();
                 }
 
                 @Override
@@ -2054,6 +2125,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 2D", errorResponse.toString());
                     }
+                    block2Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -2062,6 +2135,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 2D: "+statusCode, "Something got very very wrong");
                     }
+                    block2Completed = true;
+                    attemptToStopService();
 
                 }
             });
@@ -2127,6 +2202,9 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    block2Completed = true;
+                    attemptToStopService();
                 }
 
                 @Override
@@ -2134,6 +2212,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE 2E", errorResponse.toString());
                     }
+                    block2Completed = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -2142,6 +2222,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 2E: "+statusCode, "Something got very very wrong");
                     }
+                    block2Completed = true;
+                    attemptToStopService();
 
                 }
             });
@@ -2201,6 +2283,8 @@ public class CropSyncService extends Service {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    deletesCompleted = true;
+                    attemptToStopService();
                 }
 
                 @Override
@@ -2208,6 +2292,8 @@ public class CropSyncService extends Service {
                     if(errorResponse != null){
                         Log.e("RESPONSE DELETES", errorResponse.toString());
                     }
+                    deletesCompleted = true;
+                    attemptToStopService();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -2216,7 +2302,8 @@ public class CropSyncService extends Service {
                     } else {
                         Log.e("info 2E: "+statusCode, "Something got very very wrong");
                     }
-
+                    deletesCompleted = true;
+                    attemptToStopService();
                 }
             });
 

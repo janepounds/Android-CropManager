@@ -233,7 +233,7 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         setReminders(object.getString("reminders"));
         setDaysBefore(object.getString("daysBefore"));
         setEmployeeName(object.getString("responsible"));
-        setEmployeeId(object.getString("employeeId"));
+//        setEmployeeId(object.getString("employeeId"));
         setCost((float)object.getDouble("cost"));
         setDescription(object.getString("description"));
         setStatus(object.getString("status"));

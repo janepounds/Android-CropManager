@@ -41,6 +41,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.gcm.GcmNetworkManager;
+import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
@@ -104,6 +106,10 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static final String PREFERENCES_USER_EMAIL ="email";
     public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
 
+    public static final String GCM_TASK_MANAGER_LOG_TAG ="SYNC SERVICE";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +133,23 @@ public class CropDashboardActivity extends AppCompatActivity  {
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
         startService(new Intent(this, CropSyncService.class));
+
+        GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);
+
+        PeriodicTask task = new PeriodicTask.Builder()
+                .setService(CropSyncService.class)
+                .setPeriod(60)
+                .setFlex(10)
+                .setTag(GCM_TASK_MANAGER_LOG_TAG)
+                .setRequiredNetwork(com.google.android.gms.gcm.Task.NETWORK_STATE_CONNECTED)
+                .setPersisted(true)
+                .build();
+        new Thread(() -> {
+            mGcmNetworkManager.schedule(task);
+        }).start();
+
+
+
 
     }
 
@@ -395,7 +418,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 });
             }
         };
-        //mainHandler.post(myRunnable);
+        mainHandler.post(myRunnable);
 
     }
     public void openDigitalWallet(View view){

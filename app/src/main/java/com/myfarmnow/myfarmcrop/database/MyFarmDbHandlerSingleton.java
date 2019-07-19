@@ -1169,10 +1169,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res;
         if(queryKey.equals(CropNotification.QUERY_KEY_REPORT_FROM_TODAY)){
-            res= db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_REPORT_FROM+") = date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
+            res= db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = '" + userId +"' AND date("+CROP_NOTIFICATION_REPORT_FROM+") = date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
         }
         else{
-            res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = " + userId +" AND date("+CROP_NOTIFICATION_ACTION_DATE+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
+            res = db.rawQuery("select * from " + CROP_NOTIFICATION_TABLE_NAME + " where " + CROP_NOTIFICATION_USER_ID + " = '" + userId +"' AND date("+CROP_NOTIFICATION_ACTION_DATE+") "+queryKey+" date('now') AND "+CROP_NOTIFICATION_STATUS+" = '"+context.getString(R.string.notification_status_pending)+"' ORDER BY date("+CROP_NOTIFICATION_ACTION_DATE+") ASC", null);
         }
         res.moveToFirst();
 
@@ -3769,7 +3769,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_SUPPLIER_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + key + " = " + id, null);
+        Cursor res = db.rawQuery("select * from " + CROP_SUPPLIER_TABLE_NAME + " where " + key + " = '" + id+"'", null);
         res.moveToFirst();
 
 
@@ -6575,7 +6575,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         ArrayList<CropField> array_list = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = " + userId+" AND "+CROP_SYNC_STATUS+" = ?", new String[]{synced?"yes":"no"});
+        Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = '" + userId+"' AND "+CROP_SYNC_STATUS+" = ?", new String[]{synced?"yes":"no"});
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -7295,7 +7295,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public CropSettingsSingleton getSettings(String userId, boolean synced) {
         openDB();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_SETTINGS_TABLE_NAME+ " where " + CROP_SETTINGS_ID + " = " + userId , null);
+        Cursor res = db.rawQuery("select * from " + CROP_SETTINGS_TABLE_NAME+ " where " + CROP_SETTINGS_ID + " = '" + userId+"'" , null);
         res.moveToFirst();
         CropSettingsSingleton settingsSingleton =null;
         if (!res.isAfterLast()) {
