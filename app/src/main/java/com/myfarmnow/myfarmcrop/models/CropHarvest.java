@@ -15,18 +15,18 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
     String units;
     float quantity=0;
     String status;
-    String dateSold;
-    String customer;
+    String dateSold="";
+    String customer="";
     float price=0;
     float quantitySold=0;
-    String storageDate;
+    String storageDate="";
     float quantityStored=0;
     float cost=0;
     String recurrence;
     String reminders;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
-    private String daysBefore;
+    private float daysBefore=0;
     String operator;
 
 
@@ -222,11 +222,11 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
 
@@ -302,7 +302,7 @@ public class CropHarvest implements CropSpinnerItem, Serializable,CropActivity {
         setReminders(object.getString("reminders"));
         setFrequency(Float.parseFloat(object.getString("frequency")));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore(Float.parseFloat(object.getString("daysBefore")));
         setOperator(object.getString("operator"));
         setSyncStatus("yes");
 

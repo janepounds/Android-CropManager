@@ -688,9 +688,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_harvest_insert_query =" CREATE TABLE IF NOT EXISTS " + CROP_HARVEST_TABLE_NAME+ " ( "+CROP_HARVEST_ID+" INTEGER PRIMARY KEY AUTOINCREMENT , "+
                 CROP_HARVEST_USER_ID+" TEXT, "+CROP_HARVEST_CROP_ID+" TEXT, "+CROP_HARVEST_EMPLOYEE_ID+ " TEXT, "+CROP_HARVEST_DATE+" TEXT NOT NULL, "+CROP_HARVEST_METHOD+ " TEXT, "+
                 CROP_HARVEST_UNITS+" TEXT NOT NULL, "+CROP_HARVEST_QUANTITY+" REAL NOT NULL, "+CROP_HARVEST_OPERATOR+" TEXT, "+CROP_HARVEST_STATUS+" TEXT NOT NULL, "+
-                CROP_HARVEST_DATE_SOLD+" TEXT, "+CROP_HARVEST_CUSTOMER+" TEXT, "+CROP_HARVEST_PRICE+" REAL DEFAULT 0, "+CROP_HARVEST_QUANTITY_SOLD+" REAL, "+
-                CROP_HARVEST_STORAGE_DATE+" TEXT, "+CROP_HARVEST_QUANTITY_STORED+" REAL, "+CROP_HARVEST_COST+ " REAL, "+CROP_HARVEST_REPEAT_UNTIL + " TEXT, " +CROP_HARVEST_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_HARVEST_RECURRENCE + " TEXT NOT NULL, " +CROP_HARVEST_FREQUENCY + " REAL DEFAULT 0, " + CROP_HARVEST_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
+                CROP_HARVEST_DATE_SOLD+" TEXT DEFAULT '', "+CROP_HARVEST_CUSTOMER+" TEXT DEFAULT '', "+CROP_HARVEST_PRICE+" REAL DEFAULT 0, "+CROP_HARVEST_QUANTITY_SOLD+" REAL DEFAULT 0, "+
+                CROP_HARVEST_STORAGE_DATE+" TEXT DEFAULT '', "+CROP_HARVEST_QUANTITY_STORED+" REAL DEFAULT 0, "+CROP_HARVEST_COST+ " REAL DEFAULT 0, "+CROP_HARVEST_REPEAT_UNTIL + " TEXT, " +CROP_HARVEST_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_HARVEST_RECURRENCE + " TEXT NOT NULL, " +CROP_HARVEST_FREQUENCY + " REAL DEFAULT 1, " + CROP_HARVEST_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
 
         String crop_scouting_insert_query = "CREATE TABLE IF NOT EXISTS "+CROP_SCOUTING_TABLE_NAME+" ( "+CROP_SCOUTING_ID+" INTEGER PRIMARY KEY AUTOINCREMENT , "+CROP_SCOUTING_USER_ID+" TEXT , "+
                 CROP_SCOUTING_CROP_ID+" TEXT, "+CROP_SCOUTING_DATE+" TEXT NOT NULL, "+CROP_SCOUTING_METHOD+" TEXT, "+CROP_SCOUTING_INFESTED+" TEXT NOT NULL, "+
@@ -704,7 +704,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_TRANSPLANTING_SEEDLINGS_PER_HA+ " REAL, "+CROP_TRANSPLANTING_VARIETY_EARLINESS+" TEXT NOT NULL, "+CROP_TRANSPLANTING_CYCLE_LENGTH+" REAL NOT NULL, "+
                 CROP_TRANSPLANTING_UNITS+" TEXT, "+CROP_TRANSPLANTING_EXPECTED_YIELD+" REAL DEFAULT 0, "+CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA +" REAL DEFAULT 0, "+
                 CROP_TRANSPLANTING_OPERATOR+" TEXT NOT NULL, "+CROP_TRANSPLANTING_COST+" REAL NOT NULL, "+CROP_TRANSPLANTING_REPEAT_UNTIL + " TEXT, " +CROP_TRANSPLANTING_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_TRANSPLANTING_RECURRENCE + " TEXT NOT NULL, " +CROP_TRANSPLANTING_FREQUENCY + " REAL DEFAULT 0, " + CROP_TRANSPLANTING_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
+                CROP_TRANSPLANTING_RECURRENCE + " TEXT NOT NULL, " +CROP_TRANSPLANTING_FREQUENCY + " REAL DEFAULT 1, " + CROP_TRANSPLANTING_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" ) ";
 
 
         String crop_inventory_fertilizer_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_FERTILIZER_TABLE_NAME+" ( "+CROP_INVENTORY_FERTILIZER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -6240,7 +6240,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             transplanting.setOperator(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATOR)));
             transplanting.setRecurrence(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE)));
             transplanting.setReminders(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REMINDERS)));
-            transplanting.setDaysBefore(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
+            transplanting.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
             transplanting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL)));
             transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
             transplanting.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -6479,7 +6479,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             harvest.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_FREQUENCY))));
             harvest.setRecurrence(res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE)));
             harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
-            harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
+            harvest.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
             harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
             harvest.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
@@ -7340,7 +7340,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             transplanting.setOperator(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATOR)));
             transplanting.setRecurrence(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE)));
             transplanting.setReminders(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REMINDERS)));
-            transplanting.setDaysBefore(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
+            transplanting.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
             transplanting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL)));
             transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
             transplanting.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
@@ -7459,7 +7459,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             harvest.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_FREQUENCY))));
             harvest.setRecurrence(res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE)));
             harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
-            harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
+            harvest.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
             harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
             harvest.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             harvest.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8244,7 +8244,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             harvest.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_HARVEST_FREQUENCY))));
             harvest.setRecurrence(res.getString(res.getColumnIndex(CROP_HARVEST_RECURRENCE)));
             harvest.setReminders(res.getString(res.getColumnIndex(CROP_HARVEST_REMINDERS)));
-            harvest.setDaysBefore(res.getString(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
+            harvest.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_HARVEST_DAYS_BEFORE)));
             harvest.setRepeatUntil(res.getString(res.getColumnIndex(CROP_HARVEST_REPEAT_UNTIL)));
             harvest.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             harvest.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
@@ -8622,7 +8622,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             transplanting.setOperator(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_OPERATOR)));
             transplanting.setRecurrence(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_RECURRENCE)));
             transplanting.setReminders(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REMINDERS)));
-            transplanting.setDaysBefore(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
+            transplanting.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_DAYS_BEFORE)));
             transplanting.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TRANSPLANTING_REPEAT_UNTIL)));
             transplanting.setTotalCost(res.getFloat(res.getColumnIndex(CROP_TRANSPLANTING_COST)));
             transplanting.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));

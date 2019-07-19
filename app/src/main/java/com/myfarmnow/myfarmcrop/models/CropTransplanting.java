@@ -27,9 +27,9 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
     float totalCost = 0;
     String recurrence;
     String reminders;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
-    private String daysBefore;
+    private float daysBefore=0;
     float area;
 
     @Override
@@ -187,11 +187,11 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
     public float getArea() {
@@ -297,7 +297,7 @@ public class CropTransplanting implements CropSpinnerItem, Serializable,CropActi
         setTotalCost((float)object.getDouble("cost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore((float)object.getDouble("daysBefore"));
         setSyncStatus( "yes");
 
     }

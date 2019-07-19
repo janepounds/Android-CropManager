@@ -261,6 +261,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
+            android:text=""
             android:background="@drawable/input_shapes"
             android:hint="Enter.."
             />
@@ -435,6 +436,7 @@
                         android:layout_weight="1"
                         android:inputType="none"
                         android:hint="Select"
+                        android:text=""
                         android:background="@drawable/input_shapes"
                         android:textSize="14sp"
 
@@ -681,7 +683,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="@color/black"
-                            android:text="@string/default_numeric_value"
+                            android:text="1"
                             android:background="@drawable/input_shapes"
                             android:inputType="numberDecimal"
                             android:textSize="14sp"
@@ -742,7 +744,7 @@
                     android:id="@+id/txt_crop_harvest_days_before"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Enter.."
+                    android:text="0"
                     android:background="@drawable/input_shapes"
                     android:inputType="numberDecimal"
                     android:textSize="14sp"
