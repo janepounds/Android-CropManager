@@ -61,8 +61,7 @@ dependencies {
 
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
-    //implementation 'com.itextpdf:itextg:5.5.10'
-    //implementation 'com.google.android.gms:play-services:11.8.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'pub.devrel:easypermissions:0.1.5'
     implementation('com.google.api-client:google-api-client-android:1.22.0') {
 
