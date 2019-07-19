@@ -791,6 +791,7 @@ public class CropSyncService extends GcmTaskService {
             record.setSprayId(spray.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("SPRAYINGS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareSuppliers(){
