@@ -12,16 +12,16 @@ public class CropScouting implements CropSpinnerItem, Serializable, CropActivity
     String date;
     String method;
     String infested;
-    String infestationType;
-    String infestation;
-    String infestationLevel;
+    String infestationType="";
+    String infestation="";
+    String infestationLevel="";
     float cost=0;
     String remarks;
     String recurrence;
     String reminders;
     private float frequency;
     private String repeatUntil;
-    private String daysBefore;
+    private float daysBefore;
 
 
     @Override
@@ -150,11 +150,11 @@ public class CropScouting implements CropSpinnerItem, Serializable, CropActivity
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
     private String syncStatus="no";
@@ -221,7 +221,7 @@ public class CropScouting implements CropSpinnerItem, Serializable, CropActivity
         setCost((float)object.getDouble("cost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore(Float.parseFloat(object.getString("daysBefore")));
         setSyncStatus( "yes");
 
     }

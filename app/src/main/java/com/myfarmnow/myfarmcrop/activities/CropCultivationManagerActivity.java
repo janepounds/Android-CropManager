@@ -232,21 +232,8 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
         cultivation.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cultivation.setReminders(remindersSp.getSelectedItem().toString());
         cultivation.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
-
-
-            cultivation.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cultivation.setDaysBefore(days);
-
-        }
-
+        cultivation.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cultivation.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
         dbHandler.insertCropCultivate(cultivation);
 
@@ -263,20 +250,8 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
             cultivation.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cultivation.setReminders(remindersSp.getSelectedItem().toString());
             cultivation.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
-
-
-                cultivation.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cultivation.setDaysBefore(days);
-
-            }
+            cultivation.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cultivation.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
             dbHandler.updateCropCultivate(cultivation);
         }
@@ -294,7 +269,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
             CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cultivation.getReminders());
             weeksTxt.setText(cultivation.getFrequency()+"");
             repeatUntilTxt.setText(cultivation.getRepeatUntil());
-            daysBeforeTxt.setText(cultivation.getDaysBefore());
+            daysBeforeTxt.setText(cultivation.getDaysBefore()+"");
 
         }
     }

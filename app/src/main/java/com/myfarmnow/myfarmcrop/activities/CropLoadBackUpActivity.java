@@ -433,6 +433,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
             });
     }
     private void loadBlock1dData(){
+        Log.d("BLOCK-1D DATA", "block 1d data");
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
         final RequestParams params = new RequestParams();
@@ -451,6 +452,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     dialog.dismiss();
                     //logic to save the insertd fields
+                    Log.d("RESPONSE FA:",response.toString());
                     try {
                         JSONArray crops = response.getJSONArray("harvests");
                         for(int i=0; i<crops.length(); i++){
@@ -492,6 +494,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     }
                     try {
                         JSONArray application = response.getJSONArray("fertilizerApplication");
+                        Log.d("FERTILIZER-APPLICATION",application.toString());
                         for(int i=0; i<application.length(); i++){
                             try{
                                 CropFertilizerApplication harvest = new CropFertilizerApplication(application.getJSONObject(i));
@@ -774,7 +777,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         JSONArray tasks = response.getJSONArray("machineTasks");
                         for(int i=0; i<tasks.length(); i++){
                             try{
-                                CropMachineTask cropTask = dbHandler.getCropMachineTask( tasks.getJSONObject(i).getString("localId"),false);
+                                CropMachineTask cropTask = new CropMachineTask( tasks.getJSONObject(i));
                                 cropTask.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 cropTask.setSyncStatus("yes");
                                 CropMachine machine = dbHandler.getCropMachine(cropTask.getMachineId(),true);
@@ -1187,7 +1190,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    loadBlock1eData();
+
                 }
 
                 @Override

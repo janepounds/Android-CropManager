@@ -282,19 +282,9 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
         fertilizerApplication.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            fertilizerApplication.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            fertilizerApplication.setDaysBefore(days);
-
-        }
 
 
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
@@ -314,20 +304,9 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
             fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
             fertilizerApplication.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
+            fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-
-                fertilizerApplication.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                fertilizerApplication.setDaysBefore(days);
-
-            }
 
             dbHandler.updateCropFertilizerApplication(fertilizerApplication);
 
@@ -348,7 +327,7 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
             rateTxt.setText(fertilizerApplication.getRate()+"");
             weeksTxt.setText(fertilizerApplication.getFrequency()+"");
             repeatUntilTxt.setText(fertilizerApplication.getRepeatUntil());
-            daysBeforeTxt.setText(fertilizerApplication.getDaysBefore());
+            daysBeforeTxt.setText(fertilizerApplication.getDaysBefore()+"");
 
             CropDashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getFertilizerId());
         }

@@ -359,7 +359,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     }
 
     public static void sendFirebaseToken(String token, final Context context){
-        AsyncHttpClient client = new AsyncHttpClient();
+        final AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("email",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,context));
@@ -395,7 +395,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 });
             }
         };
-        mainHandler.post(myRunnable);
+        //mainHandler.post(myRunnable);
 
     }
     public void openDigitalWallet(View view){
@@ -712,7 +712,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
         params.put("addressStreet",CropDashboardActivity.getPreferences(STREET_PREFERENCES_ID,this));
         params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CITY_PREFERENCES_ID,this));
         params.put("addressCountry",CropDashboardActivity.getPreferences(COUNTRY_PREFERENCES_ID,this));
-        params.put("phoneNumber",CropDashboardActivity.getPreferences("phoneNumber",this));
+        params.put("" +
+                "",CropDashboardActivity.getPreferences("phoneNumber",this));
         params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
         params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
 

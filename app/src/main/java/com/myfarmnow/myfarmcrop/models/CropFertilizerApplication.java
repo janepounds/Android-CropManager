@@ -22,7 +22,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
     String reminders;
     private float frequency;
     private String repeatUntil;
-    private String daysBefore;
+    private float daysBefore;
 
     public String getDate() {
         return date;
@@ -157,11 +157,11 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
 
@@ -232,7 +232,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         setReminders(object.getString("reminders"));
         setFrequency(Float.parseFloat(object.getString("frequency")));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore(Float.parseFloat(object.getString("daysBefore")));
         setSyncStatus("yes");
 
     }
