@@ -822,7 +822,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " +CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL, " +CROP_TASK_REPEAT_UNTIL + " TEXT, " +CROP_TASK_DAYS_BEFORE
-                + " REAL DEFAULT 0, " +CROP_TASK_FREQUENCY + " REAL DEFAULT 0, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
+                + " REAL DEFAULT 0, " +CROP_TASK_FREQUENCY + " REAL DEFAULT 1, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
 
         String crop_sales_order_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_SALES_ORDER_TABLE_NAME+" ( "+CROP_SALES_ORDER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SALES_ORDER_USER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_CUSTOMER_ID+" TEXT NOT NULL,"+CROP_SALES_ORDER_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_REFERENCE_NO+" TEXT NOT NULL,"+CROP_SALES_ORDER_DATE+" TEXT NOT NULL,"+
@@ -3868,7 +3868,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+key+" = "+customerId, null );
+        Cursor res =  db.rawQuery( "select * from "+CROP_CUSTOMER_TABLE_NAME+" where "+key+" = '"+customerId+"'", null );
         res.moveToFirst();
         
         if(!res.isAfterLast()){
@@ -5314,7 +5314,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
@@ -7174,7 +7174,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
             task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8450,7 +8450,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_FREQUENCY))));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE)));
+            task.setDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(CROP_TASK_DAYS_BEFORE))));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_TASK_REPEAT_UNTIL)));
             task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));

@@ -256,20 +256,9 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         cropTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropTask.setReminders(remindersSp.getSelectedItem().toString());
         cropTask.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        cropTask.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropTask.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-
-            cropTask.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropTask.setDaysBefore(days);
-
-        }
         dbHandler.insertCropTask(cropTask);
 
 
@@ -289,20 +278,9 @@ public class CropTaskManagerActivity extends AppCompatActivity {
             cropTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropTask.setReminders(remindersSp.getSelectedItem().toString());
             cropTask.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
+            cropTask.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropTask.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-
-                cropTask.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cropTask.setDaysBefore(days);
-
-            }
             dbHandler.updateCropTask(cropTask);
         }
     }
@@ -322,7 +300,7 @@ public class CropTaskManagerActivity extends AppCompatActivity {
             descriptionTxt.setText(cropTask.getDescription());
             weeksTxt.setText(cropTask.getFrequency()+"");
             repeatUntilTxt.setText(cropTask.getRepeatUntil());
-            daysBeforeTxt.setText(cropTask.getDaysBefore());
+            daysBeforeTxt.setText(cropTask.getDaysBefore()+"");
 
 
         }
