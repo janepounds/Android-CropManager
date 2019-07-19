@@ -412,15 +412,8 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
         cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
         cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
-            cropHarvest.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-            cropHarvest.setDaysBefore(days);
-        }
+        cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
         dbHandler.insertCropHarvest(cropHarvest);
     }
@@ -448,20 +441,8 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
             cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
-                cropHarvest.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cropHarvest.setDaysBefore(days);
-
-            }
-
-
+            cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
             dbHandler.updateCropHarvest(cropHarvest);
         }
     }
@@ -487,7 +468,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             quantitySoldUnitsTxt.setText(cropHarvest.getUnits());
             weeksTxt.setText(cropHarvest.getFrequency()+"");
             repeatUntilTxt.setText(cropHarvest.getRepeatUntil());
-            daysBeforeTxt.setText(cropHarvest.getDaysBefore());
+            daysBeforeTxt.setText(cropHarvest.getDaysBefore()+"");
 
         }
 

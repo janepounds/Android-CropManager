@@ -99,8 +99,7 @@ public class CropSyncService extends GcmTaskService {
             stopSelf();
         }
 
-
-        return START_NOT_STICKY;
+        return  super.onStartCommand(intent, flags, startId);
     }
 
 
@@ -666,6 +665,7 @@ public class CropSyncService extends GcmTaskService {
             else{
                 continue;//ignore unallocated items
             }
+            Log.d("PRODUCT ITEMS LIST",jsonArray.toString());
             jsonArray.put(record.toJSON());
         }
         return jsonArray;
@@ -794,6 +794,7 @@ public class CropSyncService extends GcmTaskService {
             record.setSprayId(spray.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+
         return jsonArray;
     }
     private JSONArray prepareSuppliers(){

@@ -132,7 +132,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
-        startService(new Intent(this, CropSyncService.class));
+       // startService(new Intent(this, CropSyncService.class));
 
         GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);
 

@@ -312,19 +312,9 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
         cropTransplanting.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropTransplanting.setReminders(remindersSp.getSelectedItem().toString());
         cropTransplanting.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        cropTransplanting.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropTransplanting.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            cropTransplanting.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropTransplanting.setDaysBefore(days);
-
-        }
 
         dbHandler.insertCropTransplanting(cropTransplanting);
     }
@@ -383,20 +373,9 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             cropTransplanting.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropTransplanting.setReminders(remindersSp.getSelectedItem().toString());
             cropTransplanting.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
+            cropTransplanting.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropTransplanting.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-
-                cropTransplanting.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cropTransplanting.setDaysBefore(days);
-
-            }
 
             dbHandler.updateCropTransplanting(cropTransplanting);
         }
@@ -419,7 +398,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
             totalCostTxt.setText(cropTransplanting.getTotalCost()+"");
             weeksTxt.setText(cropTransplanting.getFrequency()+"");
             repeatUntilTxt.setText(cropTransplanting.getRepeatUntil());
-            daysBeforeTxt.setText(cropTransplanting.getDaysBefore());
+            daysBeforeTxt.setText(cropTransplanting.getDaysBefore()+"");
 
         }
 
