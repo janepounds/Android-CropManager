@@ -450,8 +450,6 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
             cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
             if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
                 String weeks = weeksTxt.getText().toString();
-
-
                 cropHarvest.setFrequency(Float.parseFloat(weeks));
 
             }

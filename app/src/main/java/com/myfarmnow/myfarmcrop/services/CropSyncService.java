@@ -91,19 +91,22 @@ public class CropSyncService extends GcmTaskService {
         super.onStartCommand(intent,flags,startId);
         userId = CropDashboardActivity.getPreferences(CropDashboardActivity
                 .PREFERENCES_USER_ID, this);
-        if(userId.equals("")){
+        if(!userId.equals("")){
+            prepareSyncRequest();
+
+        }else{
             Log.d("STOPPING SERVICE", "NO USER LOGGED IN");
             stopSelf();
         }
-        Log.d("USER ID SERVICE", userId);
-        prepareSyncRequest();
+
+
         return START_NOT_STICKY;
     }
 
 
     public  void attemptToStopService(){
         if(block1Completed && block2Completed && deletesCompleted){
-            Log.d("STOPPING SERVICE", "SYNC SERVICE STOPPED");
+            Log.d("STOPPING SERVICE", "SYNC SERVICE FINISHED");
             stopSelf();
         }
     }

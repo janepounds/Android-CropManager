@@ -155,7 +155,6 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     public void initializeDashboard(){
 
-
         mDrawerLayout = findViewById(R.id.drawer_layout);
         //expandableListView = findViewById(R.id.drawer_menu_list);
         mainlayout = findViewById(R.id.mainlayout);

@@ -8737,6 +8737,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
         contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
         contentValues.put(CROP_PRODUCT_ITEM_TYPE,x.getParentObjectType());
+        contentValues.put(CROP_SYNC_STATUS,x.getSyncStatus());
         database.update(CROP_PRODUCT_ITEM_TABLE_NAME,contentValues,CROP_PRODUCT_ITEM_ID+" = ?", new String[]{x.getId()});
         closeDB();
     }
@@ -8749,6 +8750,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_PRODUCT_ITEM_TAX,x.getTax());
         contentValues.put(CROP_PRODUCT_ITEM_RATE,x.getRate());
         contentValues.put(CROP_PRODUCT_ITEM_TYPE,x.getParentObjectType());
+        contentValues.put(CROP_SYNC_STATUS,x.getSyncStatus());
         database.insert(CROP_PRODUCT_ITEM_TABLE_NAME,null,contentValues);
         closeDB();
     }
