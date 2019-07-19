@@ -103,7 +103,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SCOUTING_TABLE_NAME ="crop_scouting";
     public static final String CROP_HARVEST_TABLE_NAME ="crop_harvest";
     public static final String CROP_CONTACT_TABLE_NAME ="crop_contact";
-    public static final String CROP_DELETED_RECORDS_TABLE_NAME ="crop_contact";
+    public static final String CROP_DELETED_RECORDS_TABLE_NAME ="crop_deleted_records";
 
     public static final String CROP_INVENTORY_FERTILIZER_ID ="id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID ="userId";
@@ -1094,12 +1094,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public void recordDeletedRecord(String type, String id){
+        if(id ==null || type==null){
+            return;
+        }
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_DELETED_DATE, new SimpleDateFormat("yyyy-mm-dd").format(new Date()));
         contentValues.put(CROP_DELETED_TYPE, type);
         contentValues.put(CROP_DELETED_ID, id);
         database.insert(CROP_DELETED_RECORDS_TABLE_NAME,null, contentValues);
+        Log.d("INSERTED",contentValues.toString())
         closeDB();
     }
     public void updateDeletedRecord(DeletedRecord record){
@@ -1185,7 +1189,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             array_list.add(notification);
             res.moveToNext();
         }
-
         closeDB();
         return array_list;
     }
@@ -2168,11 +2171,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
     public boolean deleteCropMachineService(String serviceId){
+        CropMachineService service = getCropMachineService(serviceId, false);
         openDB();
         deleteCropNotification(serviceId,context.getString(R.string.notification_type_service));
         database.delete(CROP_MACHINE_SERVICE_TABLE_NAME,CROP_MACHINE_SERVICE_ID+" = ?", new String[]{serviceId});
         closeDB();
-        recordDeletedRecord("machineService",serviceId);
+        if(service != null){
+            recordDeletedRecord("machineService",service.getGlobalId());
+        }
+
         return true;
     }
     public ArrayList<CropMachineService> getCropMachineServices(String machineId){
@@ -2242,10 +2249,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
     public boolean deleteCropNote(String noteId){
+        CropNote note = getCropNote(noteId,false);
         openDB();
         database.delete(CROP_NOTE_TABLE_NAME,CROP_NOTE_ID+" = ?", new String[]{noteId});
         closeDB();
-        recordDeletedRecord("note",noteId);
+        if(note != null){
+            recordDeletedRecord("note",note.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropNote> getCropNotes(String parentId, String isFor){
@@ -2334,11 +2344,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
     public boolean deleteCropMachineTask(String taskId){
+        CropMachineTask task = getCropMachineTask(taskId, false);
         openDB();
         deleteCropNotification(taskId,context.getString(R.string.notification_type_machine_task));
         database.delete(CROP_MACHINE_TASK_TABLE_NAME,CROP_MACHINE_TASK_ID+" = ?", new String[]{taskId});
         closeDB();
-        recordDeletedRecord("machineTask",taskId);
+        if(task != null){
+            recordDeletedRecord("machineTask",task.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropMachineTask> getCropMachineTasks(String machineId){
@@ -2697,11 +2710,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return getCropSalesOrder (salesOrder.getNumber());
     }
     public boolean deleteCropSalesOrder(String id){
+        CropSalesOrder cropSalesOrder = getCropSalesOrderById(id,false);
         openDB();
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ? AND "+CROP_PRODUCT_ITEM_TYPE+" = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_SALES_ORDER});
         database.delete(CROP_SALES_ORDER_TABLE_NAME,CROP_SALES_ORDER_ID+" = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("salesOrder",id);
+        if(cropSalesOrder != null){
+            recordDeletedRecord("salesOrder",cropSalesOrder.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropSalesOrder> getCropSalesOrders(String userId){
@@ -2856,10 +2872,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropPayment(String id) {
+        CropInvoicePayment cropInvoicePayment = getCropPayment(id,false);
         openDB();
         database.delete(CROP_PAYMENT_TABLE_NAME, CROP_PAYMENT_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("invoicePayment",id);
+        if(cropInvoicePayment != null){
+            recordDeletedRecord("invoicePayment",cropInvoicePayment.getGlobalId());
+        }
+
         return true;
     }
 
@@ -3065,11 +3085,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropInvoice(String id) {
+        CropInvoice invoice = getCropInvoiceById(id, false);
         openDB();
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_INVOICE});
         database.delete(CROP_INVOICE_TABLE_NAME, CROP_INVOICE_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("invoice",id);
+        if(invoice != null){
+            recordDeletedRecord("invoice",invoice.getGlobalId());
+        }
         return true;
     }
 
@@ -3391,11 +3414,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropEstimate(String id) {
+        CropEstimate estimate = getCropEstimateById(id,false);
         openDB();
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_ESTIMATE});
         database.delete(CROP_ESTIMATE_TABLE_NAME, CROP_ESTIMATE_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("estimate",id);
+        if(estimate != null){
+            recordDeletedRecord("estimate",estimate.getGlobalId());
+        }
+
         return true;
     }
 
@@ -3555,10 +3582,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropProduct(String id) {
+        CropProduct cropProduct = getCropProductById(id,false);
         openDB();
         database.delete(CROP_PRODUCT_TABLE_NAME, CROP_PRODUCT_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("product",id);
+        if(cropProduct!= null){
+            recordDeletedRecord("product",cropProduct.getGlobalId());
+        }
+
         return true;
     }
 
@@ -3689,10 +3720,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropSupplier(String id) {
+        CropSupplier cropSupplier = getCropSupplier(id,false);
         openDB();
         database.delete(CROP_SUPPLIER_TABLE_NAME, CROP_SUPPLIER_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("supplier",id);
+        if(cropSupplier != null){
+            recordDeletedRecord("supplier",cropSupplier.getGlobalId());
+        }
         return true;
     }
 
@@ -3814,10 +3848,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropCustomer(String id) {
+        CropCustomer customer = getCropCustomer(id,false);
         openDB();
         database.delete(CROP_CUSTOMER_TABLE_NAME, CROP_CUSTOMER_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("customer",id);
+        if(customer != null){
+            recordDeletedRecord("customer",customer.getGlobalId());
+        }
         return true;
     }
 
@@ -3956,10 +3993,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropEmployee(String id) {
+        CropEmployee employee = getCropEmployee(id,false);
         openDB();
         database.delete(CROP_EMPLOYEE_TABLE_NAME, CROP_EMPLOYEE_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("employee",id);
+        if(employee !=  null){
+            recordDeletedRecord("employee",employee.getGlobalId());
+        }
         return true;
     }
 
@@ -4063,11 +4103,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropSoilAnalysis(String id) {
+        CropSoilAnalysis cropSoilAnalysis = getCropSoilAnalysisById(id,false);
         openDB();
         deleteCropNotification(id,context.getString(R.string.notification_type_soil_analysis));
         database.delete(CROP_SOIL_ANALYSIS_TABLE_NAME, CROP_SOIL_ANALYSIS_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("soilAnalysis",id);
+        if(cropSoilAnalysis != null){
+            recordDeletedRecord("soilAnalysis",cropSoilAnalysis.getGlobalId());
+        }
         return true;
     }
 
@@ -4081,23 +4124,23 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
-            CropSoilAnalysis crop = new CropSoilAnalysis();
-            crop.setId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_ID)));
-            crop.setUserId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_USER_ID)));
-            crop.setDate(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE)));
-            crop.setAgronomist(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_AGRONOMIST)));
-            crop.setResult(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RESULTS)));
-            crop.setOrganicMatter(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_ORGANIC_MATTER)));
-            crop.setPh(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_PH)));
-            crop.setCost(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
-            crop.setFieldId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_FIELD_ID)));
-            crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY)));
-            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
-            crop.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
-            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
-            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
-            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
-            array_list.add(crop);
+            CropSoilAnalysis cropSoilAnalysis = new CropSoilAnalysis();
+            cropSoilAnalysis.setId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_ID)));
+            cropSoilAnalysis.setUserId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_USER_ID)));
+            cropSoilAnalysis.setDate(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DATE)));
+            cropSoilAnalysis.setAgronomist(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_AGRONOMIST)));
+            cropSoilAnalysis.setResult(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RESULTS)));
+            cropSoilAnalysis.setOrganicMatter(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_ORGANIC_MATTER)));
+            cropSoilAnalysis.setPh(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_PH)));
+            cropSoilAnalysis.setCost(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_COST)));
+            cropSoilAnalysis.setFieldId(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_FIELD_ID)));
+            cropSoilAnalysis.setFrequency(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY)));
+            cropSoilAnalysis.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
+            cropSoilAnalysis.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
+            cropSoilAnalysis.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
+            cropSoilAnalysis.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
+            cropSoilAnalysis.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            array_list.add(cropSoilAnalysis);
             res.moveToNext();
         }
 
@@ -4180,16 +4223,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
 
-    public boolean deleteCropSpraying(String fertilizerId) {
+    public boolean deleteCropSpraying(String id) {
+        CropSpraying spraying = getCropSpraying(id,false);
         openDB();
-        deleteCropNotification(fertilizerId,context.getString(R.string.notification_type_fertilizer_application));
-        database.delete(CROP_SPRAYING_TABLE_NAME, CROP_SPRAYING_ID + " = ?", new String[]{fertilizerId});
+        deleteCropNotification(id,context.getString(R.string.notification_type_fertilizer_application));
+        database.delete(CROP_SPRAYING_TABLE_NAME, CROP_SPRAYING_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("spraying",fertilizerId);
+        if(spraying != null){
+            recordDeletedRecord("spraying",spraying.getGlobalId());
+        }
         return true;
     }
 
     public ArrayList<CropSpraying> getCropSprayings(String cropId) {
+
         openDB();
         ArrayList<CropSpraying> array_list = new ArrayList();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -4199,31 +4246,31 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
-            CropSpraying crop = new CropSpraying();
-            Log.d("COLUMN", res.getColumnIndex(CROP_SPRAYING_START_TIME) + "");
-            crop.setId(res.getString(res.getColumnIndex(CROP_SPRAYING_ID)));
-            crop.setUserId(res.getString(res.getColumnIndex(CROP_SPRAYING_USER_ID)));
-            crop.setDate(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)));
-            crop.setCropId(res.getString(res.getColumnIndex(CROP_SPRAYING_CROP_ID)));
-            crop.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_START_TIME)));
-            crop.setEndTime(res.getString(res.getColumnIndex(CROP_SPRAYING_END_TIME)));
-            crop.setCost(res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
-            crop.setOperator(res.getString(res.getColumnIndex(CROP_SPRAYING_OPERATOR)));
-            crop.setWaterCondition(res.getString(res.getColumnIndex(CROP_SPRAYING_WATER_CONDITION)));
-            crop.setWaterVolume(res.getFloat(res.getColumnIndex(CROP_SPRAYING_WATER_VOLUME)));
-            crop.setWindDirection(res.getString(res.getColumnIndex(CROP_SPRAYING_WIND_DIRECTION)));
-            crop.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
-            crop.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
-            crop.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
-            crop.setSprayName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
-            crop.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));
-            crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_SPRAYING_FREQUENCY)));
-            crop.setRecurrence(res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE)));
-            crop.setReminders(res.getString(res.getColumnIndex(CROP_SPRAYING_REMINDERS)));
-            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE)));
-            crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
-            crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
-            array_list.add(crop);
+            CropSpraying spraying = new CropSpraying();
+
+            spraying.setId(res.getString(res.getColumnIndex(CROP_SPRAYING_ID)));
+            spraying.setUserId(res.getString(res.getColumnIndex(CROP_SPRAYING_USER_ID)));
+            spraying.setDate(res.getString(res.getColumnIndex(CROP_SPRAYING_DATE)));
+            spraying.setCropId(res.getString(res.getColumnIndex(CROP_SPRAYING_CROP_ID)));
+            spraying.setStartTime(res.getString(res.getColumnIndex(CROP_SPRAYING_START_TIME)));
+            spraying.setEndTime(res.getString(res.getColumnIndex(CROP_SPRAYING_END_TIME)));
+            spraying.setCost(res.getFloat(res.getColumnIndex(CROP_SPRAYING_COST)));
+            spraying.setOperator(res.getString(res.getColumnIndex(CROP_SPRAYING_OPERATOR)));
+            spraying.setWaterCondition(res.getString(res.getColumnIndex(CROP_SPRAYING_WATER_CONDITION)));
+            spraying.setWaterVolume(res.getFloat(res.getColumnIndex(CROP_SPRAYING_WATER_VOLUME)));
+            spraying.setWindDirection(res.getString(res.getColumnIndex(CROP_SPRAYING_WIND_DIRECTION)));
+            spraying.setTreatmentReason(res.getString(res.getColumnIndex(CROP_SPRAYING_TREATMENT_REASON)));
+            spraying.setEquipmentUsed(res.getString(res.getColumnIndex(CROP_SPRAYING_EQUIPMENT_USED)));
+            spraying.setSprayId(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_ID)));
+            spraying.setSprayName(res.getString(res.getColumnIndex(CROP_INVENTORY_SPRAY_NAME)));
+            spraying.setRate(res.getFloat(res.getColumnIndex(CROP_SPRAYING_RATE)));
+            spraying.setFrequency(res.getFloat(res.getColumnIndex(CROP_SPRAYING_FREQUENCY)));
+            spraying.setRecurrence(res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE)));
+            spraying.setReminders(res.getString(res.getColumnIndex(CROP_SPRAYING_REMINDERS)));
+            spraying.setDaysBefore(res.getString(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE)));
+            spraying.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
+            spraying.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            array_list.add(spraying);
             res.moveToNext();
         }
 
@@ -4299,11 +4346,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropFertilizerApplication(String fertilizerId) {
+        CropFertilizerApplication application = getCropFertilizerApplication(fertilizerId, false);
         openDB();
         deleteCropNotification(fertilizerId,context.getString(R.string.notification_type_fertilizer_application));
         database.delete(CROP_FERTILIZER_APPLICATION_TABLE_NAME, CROP_FERTILIZER_APPLICATION_ID + " = ?", new String[]{fertilizerId});
         closeDB();
-        recordDeletedRecord("fertilizerApplication",fertilizerId);
+        if(application != null){
+            recordDeletedRecord("fertilizerApplication",application.getGlobalId());
+        }
         return true;
     }
 
@@ -4411,11 +4461,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropCultivate(String cultivateId) {
+        CropCultivation cultivate = getCropCultivate(cultivateId,false);
         openDB();
         deleteCropNotification(cultivateId,context.getString(R.string.notification_type_cultivation));
         database.delete(CROP_CULTIVATION_TABLE_NAME, CROP_CULTIVATION_ID + " = ?", new String[]{cultivateId});
         closeDB();
-        recordDeletedRecord("cultivation",cultivateId);
+        if(cultivate != null){
+            recordDeletedRecord("cultivation",cultivate.getGlobalId());
+        }
+
         return true;
     }
 
@@ -4510,10 +4564,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCrop(String cropId) {
+        Crop crop = getCrop(cropId,false);
         openDB();
         database.delete(CROP_CROP_TABLE_NAME, CROP_CROP_ID + " = ?", new String[]{cropId});
         closeDB();
-        recordDeletedRecord("crop",cropId);
+        if(crop != null){
+            recordDeletedRecord("crop",crop.getGlobalId());
+        }
         return true;
     }
 
@@ -4645,10 +4702,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropSpray(String sprayId) {
+        CropInventorySpray spray = getCropSprayById(sprayId,false);
         openDB();
         database.delete(CROP_INVENTORY_SPRAY_TABLE_NAME, CROP_INVENTORY_SPRAY_ID + " = ?", new String[]{sprayId});
         closeDB();
-        recordDeletedRecord("sprayInventory",sprayId);
+        if(spray != null){
+            recordDeletedRecord("sprayInventory",spray.getGlobalId());
+        }
+
         return true;
     }
 
@@ -4740,10 +4801,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropSeeds(String seedsId) {
+        CropInventorySeeds inventorySeeds = getCropSeed(seedsId,false);
         openDB();
         database.delete(CROP_INVENTORY_SEEDS_TABLE_NAME, CROP_INVENTORY_SEEDS_ID + " = ?", new String[]{seedsId});
         closeDB();
-        recordDeletedRecord("seedInventory",seedsId);
+        if(inventorySeeds != null){
+            recordDeletedRecord("seedInventory",inventorySeeds.getGlobalId());
+        }
         return true;
     }
 
@@ -4922,10 +4986,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
     public boolean deleteCropFertilizerInventory(String fertilizerId) {
+        CropInventoryFertilizer fertilizer = getCropFertilizer(fertilizerId,false);
         openDB();
         database.delete(CROP_INVENTORY_FERTILIZER_TABLE_NAME, CROP_INVENTORY_FERTILIZER_ID + " = ?", new String[]{fertilizerId});
         closeDB();
-        recordDeletedRecord("fertilizerInventory",fertilizerId);
+        if(fertilizer != null){
+            recordDeletedRecord("fertilizerInventory",fertilizer.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropInventoryFertilizer> getCropFertilizerInventorys(String userId) {
@@ -5015,10 +5082,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
     public boolean deleteCropField(String fieldId) {
+        CropField field = getCropField(fieldId,false);
         openDB();
         database.delete(CROP_FIELDS_TABLE_NAME, CROP_FIELD_ID + " = ?", new String[]{fieldId});
         closeDB();
-        recordDeletedRecord("field",fieldId);
+        if(field != null){
+            recordDeletedRecord("field",field.getGlobalId());
+        }
         return true;
     }
 
@@ -5102,10 +5172,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropMachine(String machineId) {
+        CropMachine machine = getCropMachine(machineId, false);
         openDB();
         database.delete(CROP_MACHINE_TABLE_NAME, CROP_MACHINE_ID + " = ?", new String[]{machineId});
         closeDB();
-        recordDeletedRecord("machine",machineId);
+        if(machine != null){
+            recordDeletedRecord("machine",machine.getGlobalId());
+        }
+
         return true;
     }
 
@@ -5193,10 +5267,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
     public boolean deleteCropIncomeExpense(String incomeExpenseId){
+        CropIncomeExpense incomeExpense = getCropIncomeExpense(incomeExpenseId,false);
         openDB();
         database.delete(CROP_INCOME_EXPENSE_TABLE_NAME,CROP_INCOME_EXPENSE_ID+" = ?", new String[]{incomeExpenseId});
         closeDB();
-        recordDeletedRecord("incomeExpense",incomeExpenseId);
+        if (incomeExpense != null){
+            recordDeletedRecord("incomeExpense",incomeExpense.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropIncomeExpense> getCropIncomeExpenses(String userId){
@@ -5279,10 +5356,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
     public boolean deleteCropTask(String taskId){
+        CropTask task = getCropTask(taskId,false);
         openDB();
         database.delete(CROP_TASK_TABLE_NAME,CROP_TASK_ID+" = ?", new String[]{taskId});
         closeDB();
-        recordDeletedRecord("task",taskId);
+        if(task != null){
+            recordDeletedRecord("task",task.getGlobalId());
+        }
+
         return true;
     }
     public ArrayList<CropTask> getCropTasks(String userId){
@@ -5298,7 +5379,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
-            Log.d("TASKS",array_list.size()+"");
             CropTask task = new CropTask();
             task.setId(res.getString(res.getColumnIndex(CROP_TASK_ID)));
             task.setUserId(res.getString(res.getColumnIndex(CROP_TASK_USER_ID)));
@@ -5433,11 +5513,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return getCropPurchaseOrder(estimate.getNumber());
     }
     public boolean deleteCropPurchaseOrder(String id){
+        CropPurchaseOrder cropPurchaseOrder = getCropPurchaseOrderById(id,false);
         openDB();
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME,CROP_PRODUCT_ITEM_ID+" = ? AND "+CROP_PRODUCT_ITEM_TYPE+" = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_PURCHASE_ORDER});
         database.delete(CROP_PURCHASE_ORDER_TABLE_NAME,CROP_PURCHASE_ORDER_ID+" = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("purchaseOrder",id);
+        if(cropPurchaseOrder != null){
+            recordDeletedRecord("purchaseOrder",cropPurchaseOrder.getGlobalId());
+        }
+
         return true;
     }
     public ArrayList<CropPurchaseOrder> getCropPurchaseOrders(String userId){
@@ -5586,10 +5670,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
     public boolean deleteCropPaymentBill(String id) {
+        CropPaymentBill paymentBill = getCropPaymentBill(id,false);
         openDB();
         database.delete(CROP_PAYMENT_BILL_TABLE_NAME, CROP_PAYMENT_BILL_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("billPayment",id);
+        if(paymentBill != null){
+            recordDeletedRecord("billPayment",paymentBill.getGlobalId());
+        }
         return true;
     }
 
@@ -5763,11 +5850,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return "BL-"+String.format("%04d", id);
     }
     public boolean deleteCropBill(String id) {
+        CropBill bill = getCropBillById(id,false);
         openDB();
         database.delete(CROP_PRODUCT_ITEM_TABLE_NAME, CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " = ? AND "+CROP_PRODUCT_ITEM_TYPE + " = ?", new String[]{id,CROP_PRODUCT_ITEM_TYPE_BILL});
         database.delete(CROP_BILL_TABLE_NAME, CROP_BILL_ID + " = ?", new String[]{id});
         closeDB();
-        recordDeletedRecord("bill",id);
+        if(bill != null){
+            recordDeletedRecord("bill",bill.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropBill> getCropBills(String userId){
@@ -6006,11 +6096,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropIrrigation(String irrigationId) {
+        CropIrrigation irrigation = getCropIrrigation(irrigationId, false);
         openDB();
         deleteCropNotification(irrigationId,context.getString(R.string.notification_type_irrigation));
         database.delete(CROP_IRRIGATION_TABLE_NAME, CROP_IRRIGATION_ID + " = ?", new String[]{irrigationId});
         closeDB();
-        recordDeletedRecord("irrigation",irrigationId);
+        if(irrigation != null){
+            recordDeletedRecord("irrigation",irrigation.getGlobalId());
+        }
+
         return true;
     }
 
@@ -6111,18 +6205,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropTransplanting(String transplantingId) {
+        CropTransplanting transplanting = getCropTransplanting(transplantingId,false);
         openDB();
         deleteCropNotification(transplantingId,context.getString(R.string.notification_type_transplanting));
         database.delete(CROP_TRANSPLANTING_TABLE_NAME, CROP_TRANSPLANTING_ID + " = ?", new String[]{transplantingId});
         closeDB();
-        recordDeletedRecord("transplanting",transplantingId);
+        if(transplanting != null){
+            recordDeletedRecord("transplanting",transplanting.getGlobalId());
+        }
         return true;
     }
     public ArrayList<CropTransplanting> getCropTransplantings(String cropId) {
         openDB();
         ArrayList<CropTransplanting> array_list = new ArrayList();
 
-       
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + CROP_TRANSPLANTING_TABLE_NAME + " where " + CROP_TRANSPLANTING_CROP_ID + " = '" + cropId+"'", null);
         res.moveToFirst();
@@ -6160,7 +6256,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertCropScouting(CropScouting scouting) {
         openDB();
         ContentValues contentValues = new ContentValues();
-
         contentValues.put(CROP_SCOUTING_USER_ID, scouting.getUserId());
         contentValues.put(CROP_SCOUTING_CROP_ID, scouting.getCropId());
         contentValues.put(CROP_SCOUTING_DATE, scouting.getDate());
@@ -6221,12 +6316,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropScouting(String scoutingId) {
+        CropScouting scouting = getCropScouting(scoutingId, false);
         openDB();
         deleteCropNotification(scoutingId,context.getString(R.string.notification_type_scouting));
         database.delete(CROP_SCOUTING_TABLE_NAME, CROP_SCOUTING_ID + " = ?", new String[]{scoutingId});
-
         closeDB();
-        recordDeletedRecord("scouting",scoutingId);
+        if(scouting != null){
+            recordDeletedRecord("scouting",scouting.getGlobalId());
+        }
+
         return true;
     }
 
@@ -6340,10 +6438,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropHarvest(String harvestId) {
+        CropHarvest harvest = getCropHarvest(harvestId, false);
         openDB();
         database.delete(CROP_HARVEST_TABLE_NAME, CROP_HARVEST_ID + " = ?", new String[]{harvestId});
         closeDB();
-        recordDeletedRecord("harvest",harvestId);
+        if(harvest!= null){
+            recordDeletedRecord("harvest",harvest.getGlobalId());
+        }
+
         return true;
     }
     public ArrayList<CropHarvest> getCropHarvests(String cropId) {
@@ -6428,10 +6530,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     public boolean deleteCropContact(String contactId) {
+        CropContact contact = getCropContact(contactId,false);
         openDB();
         database.delete(CROP_CONTACT_TABLE_NAME, CROP_CONTACT_ID + " = ?", new String[]{contactId});
         closeDB();
-        recordDeletedRecord("contact",contactId);
+        if(contact != null){
+            recordDeletedRecord("contact",contact.getGlobalId());
+        }
         return true;
     }
 
@@ -7762,8 +7867,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public ArrayList<CropFertilizerApplication> getCropFertilizerApplications(String userId, boolean synced) {
         openDB();
         ArrayList<CropFertilizerApplication> array_list = new ArrayList();
-
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from "+CROP_FERTILIZER_APPLICATION_TABLE_NAME+" where " +CROP_SYNC_STATUS+" = ?", new String[]{synced?"yes":"no"});
         res.moveToFirst();

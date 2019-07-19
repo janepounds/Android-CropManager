@@ -1291,7 +1291,10 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.e("RESPONSE 1D", errorResponse.toString());
+                    if(errorResponse != null){
+                        Log.e("RESPONSE 1D", errorResponse.toString());
+                    }
+
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1395,7 +1398,7 @@ public class CropSyncService extends Service {
                     if(errorResponse!=null){
                         Log.e("RESPONSE 1E", errorResponse.toString());
                     }
-                    Log.e("RESPONSE 1E", errorResponse.toString());
+
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
@@ -1671,8 +1674,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
-
+                    
                 }
 
                 @Override
@@ -2160,8 +2162,9 @@ public class CropSyncService extends Service {
 
         try {
             requestObject.put("delete",prepareDeleteRecords());
-           requestObject.put("userId",userId);
+            requestObject.put("userId",userId);
             StringEntity params = null;
+            Log.d("Deleted this", requestObject.toString());
             try {
                 params = new StringEntity(requestObject.toString());
             } catch (UnsupportedEncodingException e) {
@@ -2180,6 +2183,7 @@ public class CropSyncService extends Service {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     try {
                         JSONArray tasks = response.getJSONArray("deleted");
+                        Log.d("Deleted stuff", tasks.toString());
                         for(int i=0; i<tasks.length(); i++){
                             try{
                                 DeletedRecord productItem = dbHandler.getDeletedRecord( tasks.getJSONObject(i).getString("id"));

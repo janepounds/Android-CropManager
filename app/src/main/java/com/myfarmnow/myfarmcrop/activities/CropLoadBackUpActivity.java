@@ -771,7 +771,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         JSONArray tasks = response.getJSONArray("machineTasks");
                         for(int i=0; i<tasks.length(); i++){
                             try{
-                                CropMachineTask cropTask = dbHandler.getCropMachineTask( tasks.getJSONObject(i).getString("localId"),false);
+                                CropMachineTask cropTask = new CropMachineTask( tasks.getJSONObject(i));
                                 cropTask.setGlobalId(tasks.getJSONObject(i).getString("id"));
                                 cropTask.setSyncStatus("yes");
                                 CropMachine machine = dbHandler.getCropMachine(cropTask.getMachineId(),true);

@@ -126,7 +126,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
-        startService(new Intent(this, CropSyncService.class));
+       // startService(new Intent(this, CropSyncService.class));
 
     }
 
@@ -395,7 +395,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 });
             }
         };
-        mainHandler.post(myRunnable);
+        //mainHandler.post(myRunnable);
 
     }
     public void openDigitalWallet(View view){
@@ -712,7 +712,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
         params.put("addressStreet",CropDashboardActivity.getPreferences(STREET_PREFERENCES_ID,this));
         params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CITY_PREFERENCES_ID,this));
         params.put("addressCountry",CropDashboardActivity.getPreferences(COUNTRY_PREFERENCES_ID,this));
-        params.put("phoneNumber",CropDashboardActivity.getPreferences("phoneNumber",this));
+        params.put("" +
+                "",CropDashboardActivity.getPreferences("phoneNumber",this));
         params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
         params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
 
