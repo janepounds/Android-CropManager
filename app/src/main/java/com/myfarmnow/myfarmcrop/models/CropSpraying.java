@@ -24,9 +24,9 @@ public class CropSpraying implements Serializable,CropActivity {
     String sprayName;
     String recurrence;
     String reminders;
-    private float frequency;
+    private float frequency = 1;
     private String repeatUntil;
-    private String daysBefore;
+    private float daysBefore=0;
 
     public String getSprayName() {
         return sprayName;
@@ -193,11 +193,11 @@ public class CropSpraying implements Serializable,CropActivity {
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
     private String syncStatus="no";
@@ -275,7 +275,7 @@ public class CropSpraying implements Serializable,CropActivity {
         setCost((float)object.getDouble("cost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore((float)object.getDouble("daysBefore"));
         setSyncStatus( "yes");
 
     }

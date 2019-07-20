@@ -4,9 +4,15 @@ package com.myfarmnow.myfarmcrop.services;
 contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
  */
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
@@ -66,7 +72,7 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
 
-public class CropSyncService extends GcmTaskService {
+public class CropSyncService extends Service {
 
     public String generateUUID(){
         return UUID.randomUUID().toString();
@@ -79,13 +85,7 @@ public class CropSyncService extends GcmTaskService {
     public CropSyncService() {
 
     }
-    @Override
-    public int onRunTask(TaskParams taskParams) {
-        // IMPORTANT: This method will not be run, since we have overridden the onStartCommand() to handle the tasks run ourselves,
-        // which was needed because our tasks are asynchronous
 
-        return GcmNetworkManager.RESULT_SUCCESS;
-    }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent,flags,startId);
@@ -102,11 +102,26 @@ public class CropSyncService extends GcmTaskService {
         return  super.onStartCommand(intent, flags, startId);
     }
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
 
     public  void attemptToStopService(){
         if(block1Completed && block2Completed && deletesCompleted){
             Log.d("STOPPING SERVICE", "SYNC SERVICE FINISHED");
             stopSelf();
+
+            if(!CropDashboardActivity.isGooglePlayServicesAvailable(this)){
+                AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
+                alarm.set(
+                        AlarmManager.ELAPSED_REALTIME,
+                        SystemClock.elapsedRealtime()+(1000 * 60 ),
+                        PendingIntent.getService(this, 0, new Intent(this, CropSyncService.class), 0)
+                );
+            }
         }
     }
 
@@ -795,6 +810,7 @@ public class CropSyncService extends GcmTaskService {
             jsonArray.put(record.toJSON());
         }
 
+        Log.d("SPRAYINGS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray prepareSuppliers(){

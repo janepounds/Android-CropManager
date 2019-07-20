@@ -282,19 +282,9 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
         cropSpraying.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        cropSpraying.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            cropSpraying.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropSpraying.setDaysBefore(days);
-
-        }
 
 
         if(waterConditionSp.getSelectedItemPosition()!=0){
@@ -322,20 +312,9 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
             cropSpraying.setRepeatUntil(repeatUntilTxt.getText().toString());
+            cropSpraying.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
-
-                cropSpraying.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cropSpraying.setDaysBefore(days);
-
-            }
 
             if(waterConditionSp.getSelectedItemPosition()!=0){
                 cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
@@ -365,7 +344,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             rateTxt.setText(cropSpraying.getRate()+"");
             weeksTxt.setText(cropSpraying.getFrequency()+"");
             repeatUntilTxt.setText(cropSpraying.getRepeatUntil());
-            daysBeforeTxt.setText(cropSpraying.getDaysBefore());
+            daysBeforeTxt.setText(cropSpraying.getDaysBefore()+"");
 
 
             CropDashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getId());

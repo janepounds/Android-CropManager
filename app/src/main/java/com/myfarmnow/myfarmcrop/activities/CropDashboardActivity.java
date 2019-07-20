@@ -23,6 +23,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -40,7 +44,10 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,6 +70,7 @@ import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
+import com.myfarmnow.myfarmcrop.services.BackupWorker;
 import com.myfarmnow.myfarmcrop.services.CropSyncService;
 
 import org.json.JSONException;
@@ -71,6 +79,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -132,25 +141,54 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
-       // startService(new Intent(this, CropSyncService.class));
 
-        GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(true)
+                .setRequiresStorageNotLow(false)
 
-        PeriodicTask task = new PeriodicTask.Builder()
-                .setService(CropSyncService.class)
-                .setPeriod(60)
-                .setFlex(10)
-                .setTag(GCM_TASK_MANAGER_LOG_TAG)
-                .setRequiredNetwork(com.google.android.gms.gcm.Task.NETWORK_STATE_CONNECTED)
-                .setPersisted(true)
                 .build();
-        new Thread(() -> {
-            mGcmNetworkManager.schedule(task);
-        }).start();
+
+        PeriodicWorkRequest backupData =
+                new PeriodicWorkRequest.Builder(BackupWorker.class, 1, TimeUnit.MINUTES)
+                        .setConstraints(constraints)
+                        .build();
+        WorkManager.getInstance().enqueue(backupData);
+
+        if(isGooglePlayServicesAvailable(CropDashboardActivity.this)) {
+          /*  GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);
+
+            PeriodicTask task = new PeriodicTask.Builder()
+                    .setService(CropSyncService.class)
+                    .setPeriod(60)
+                    .setFlex(10)
+                    .setTag(GCM_TASK_MANAGER_LOG_TAG)
+                    .setRequiredNetwork(com.google.android.gms.gcm.Task.NETWORK_STATE_CONNECTED)
+                    .setPersisted(true)
+                    .setUpdateCurrent(false)
+                    .build();
+            new Thread(() -> {
+
+                mGcmNetworkManager.schedule(task);
+
+            }).start();
+            Log.d("PALY", "Google Play Services");*/
+        }
+        else{
+            //startService(new Intent(this, CropSyncService.class));
+            Log.d("PLAY", "No Google Play Services");
+        }
 
 
 
 
+    }
+
+    public static boolean isGooglePlayServicesAvailable(Context context){
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
+        return resultCode == ConnectionResult.SUCCESS;
     }
 
     public void initializeDashboard(){
