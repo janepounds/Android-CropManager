@@ -1084,7 +1084,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public MyFarmDbHandlerSingleton openDB() throws SQLException {
 
         database = this.getWritableDatabase();
-       // onCreate(database);
+        onCreate(database);
 
         return this;
     }
@@ -1095,6 +1095,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public void recordDeletedRecord(String type, String id){
         if(id ==null || type==null){
+            Log.d("ID:","NULL FOR"+type);
             return;
         }
         openDB();
