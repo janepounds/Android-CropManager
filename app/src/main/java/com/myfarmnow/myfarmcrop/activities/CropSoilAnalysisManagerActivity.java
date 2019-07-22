@@ -203,19 +203,9 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         soilAnalysis.setRecurrence(recurrenceSp.getSelectedItem().toString());
         soilAnalysis.setReminders(remindersSp.getSelectedItem().toString());
         soilAnalysis.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        soilAnalysis.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        soilAnalysis.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            soilAnalysis.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            soilAnalysis.setDaysBefore(days);
-
-        }
 
         dbHandler.insertCropSoilAnalysis(soilAnalysis);
 
@@ -232,19 +222,9 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
             soilAnalysis.setRecurrence(recurrenceSp.getSelectedItem().toString());
             soilAnalysis.setReminders(remindersSp.getSelectedItem().toString());
             soilAnalysis.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
+            soilAnalysis.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            soilAnalysis.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-                soilAnalysis.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                soilAnalysis.setDaysBefore(days);
-
-            }
 
             dbHandler.updateCropSoilAnalysis(soilAnalysis);
         }
@@ -304,7 +284,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
             resultsTxt.setText(soilAnalysis.getResult());
             weeksTxt.setText(soilAnalysis.getFrequency()+"");
             repeatUntilTxt.setText(soilAnalysis.getRepeatUntil());
-            daysBeforeTxt.setText(soilAnalysis.getDaysBefore());
+            daysBeforeTxt.setText(soilAnalysis.getDaysBefore()+"");
 
         }
     }

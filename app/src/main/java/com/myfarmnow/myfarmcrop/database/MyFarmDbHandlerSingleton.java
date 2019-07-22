@@ -762,7 +762,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_soil_analysis_insert_query ="CREATE TABLE IF NOT EXISTS "+ CROP_SOIL_ANALYSIS_TABLE_NAME +" ( "+ CROP_SOIL_ANALYSIS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_SOIL_ANALYSIS_USER_ID+" TEXT ,"+CROP_SOIL_ANALYSIS_FIELD_ID+" TEXT,"+CROP_SOIL_ANALYSIS_DATE+" TEXT NOT NULL,"+ CROP_SOIL_ANALYSIS_PH+" REAL,"+ CROP_SOIL_ANALYSIS_ORGANIC_MATTER+" TEXT,"+
                 CROP_SOIL_ANALYSIS_AGRONOMIST +" TEXT NOT NULL ,"+ CROP_SOIL_ANALYSIS_COST+" REAL  NOT NULL  ,"+ CROP_SOIL_ANALYSIS_RESULTS+" TEXT NOT NULL, "+CROP_SOIL_ANALYSIS_REPEAT_UNTIL + " TEXT, " +CROP_SOIL_ANALYSIS_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_SOIL_ANALYSIS_RECURRENCE + " TEXT NOT NULL, " +CROP_SOIL_ANALYSIS_FREQUENCY + " REAL DEFAULT 0, " + CROP_SOIL_ANALYSIS_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+ " ) ";
+                CROP_SOIL_ANALYSIS_RECURRENCE + " TEXT NOT NULL, " +CROP_SOIL_ANALYSIS_FREQUENCY + " REAL DEFAULT 1, " + CROP_SOIL_ANALYSIS_REMINDERS + " TEXT NOT NULL, " +CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+ " ) ";
 
         String crop_machine_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_MACHINE_TABLE_NAME+" ( "+CROP_MACHINE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_MACHINE_USER_ID+" TEXT,"+CROP_MACHINE_NAME+" TEXT NOT NULL,"+CROP_MACHINE_BRAND+" TEXT ,"+CROP_MACHINE_CATEGORY+" TEXT NOT NULL,"+CROP_MACHINE_MANUFACTURER+" TEXT ,"+ CROP_MACHINE_MODEL+" TEXT ,"+
@@ -856,7 +856,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_machine_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_MACHINE_TASK_TABLE_NAME + " ( " + CROP_MACHINE_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_MACHINE_TASK_MACHINE_ID + " TEXT NOT NULL, " + CROP_MACHINE_TASK_START_DATE + " TEXT NOT NULL, " +
                 CROP_MACHINE_TASK_END_DATE + " TEXT NOT NULL, " + CROP_MACHINE_TASK_TITLE + " TEXT NOT NULL, " + CROP_MACHINE_TASK_PERSONNEL + " TEXT NOT NULL, "
                 + CROP_MACHINE_TASK_STATUS + " TEXT NOT NULL, " + CROP_MACHINE_TASK_DESCRIPTION + " TEXT , " +CROP_MACHINE_TASK_REPEAT_UNTIL + " TEXT, " +CROP_MACHINE_TASK_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_MACHINE_TASK_COST + " REAL DEFAULT 0, " +
-                CROP_MACHINE_TASK_RECURRENCE + " TEXT NOT NULL, " +CROP_MACHINE_TASK_FREQUENCY + " REAL DEFAULT 0, " + CROP_MACHINE_TASK_REMINDERS + " TEXT NOT NULL, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
+                CROP_MACHINE_TASK_RECURRENCE + " TEXT NOT NULL, " +CROP_MACHINE_TASK_FREQUENCY + " REAL DEFAULT 1, " + CROP_MACHINE_TASK_REMINDERS + " TEXT NOT NULL, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
 
 
         String crop_note_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTE_TABLE_NAME + " ( " + CROP_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTE_PARENT_ID + " TEXT NOT NULL, " + CROP_NOTE_DATE + " TEXT NOT NULL, " + CROP_NOTE_CATEGORY + " TEXT, "  + CROP_NOTE_NOTES + " TEXT NOT NULL, " +CROP_NOTE_IS_FOR + " TEXT, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+ " ) ";
@@ -865,7 +865,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_machine_service_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_MACHINE_SERVICE_TABLE_NAME + " ( " + CROP_MACHINE_SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_MACHINE_SERVICE_MACHINE_ID + " TEXT NOT NULL, " +CROP_MACHINE_SERVICE_DATE + " TEXT NOT NULL, " +
                 CROP_MACHINE_SERVICE_CURRENT_HOURS + " REAL DEFAULT 0, " + CROP_MACHINE_SERVICE_PERSONNEL + " TEXT NOT NULL, "+CROP_MACHINE_SERVICE_TYPE + " TEXT NOT NULL, "
                 + CROP_MACHINE_SERVICE_DESCRIPTION + " TEXT , " +CROP_MACHINE_SERVICE_REPEAT_UNTIL + " TEXT, " +CROP_MACHINE_SERVICE_DAYS_BEFORE + " REAL DEFAULT 0, " +CROP_MACHINE_SERVICE_COST + " REAL DEFAULT 0, " +
-                CROP_MACHINE_SERVICE_RECURRENCE + " TEXT NOT NULL, " +CROP_MACHINE_SERVICE_FREQUENCY + " REAL DEFAULT 0, " + CROP_MACHINE_SERVICE_REMINDERS + " TEXT NOT NULL, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
+                CROP_MACHINE_SERVICE_RECURRENCE + " TEXT NOT NULL, " +CROP_MACHINE_SERVICE_FREQUENCY + " REAL DEFAULT 1, " + CROP_MACHINE_SERVICE_REMINDERS + " TEXT NOT NULL, "+ CROP_GLOBAL_ID +" INTEGER DEFAULT NULL ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' " + " ) ";
 
         String crop_irrigation_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_IRRIGATION_TABLE_NAME + " ( " +CROP_IRRIGATION_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 CROP_IRRIGATION_USER_ID+ " TEXT, "+ CROP_IRRIGATION_CROP_ID + " TEXT NOT NULL, " +CROP_IRRIGATION_DATE+ " TEXT NOT NULL, "+CROP_IRRIGATION_SYSTEM_RATE+" REAL DEFAULT 0, "+ CROP_IRRIGATION_START_TIME+ " TEXT, "+
@@ -2378,13 +2378,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
             task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
             task.setTitle(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_TITLE)));
-            task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY))));
+            task.setFrequency(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY)));
             task.setStatus(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_STATUS)));
             task.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DESCRIPTION)));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
-            task.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_COST))));
+            task.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
+            task.setCost(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_COST)));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REPEAT_UNTIL)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(task);
@@ -4138,7 +4138,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropSoilAnalysis.setFrequency(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY)));
             cropSoilAnalysis.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
             cropSoilAnalysis.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
-            cropSoilAnalysis.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
+            cropSoilAnalysis.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
             cropSoilAnalysis.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
             cropSoilAnalysis.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(cropSoilAnalysis);
@@ -7165,7 +7165,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY)));
             crop.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
             crop.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
-            crop.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
+            crop.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
             crop.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
             crop.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -7560,13 +7560,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
             task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
             task.setTitle(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_TITLE)));
-            task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY))));
+            task.setFrequency(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY)));
             task.setStatus(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_STATUS)));
             task.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DESCRIPTION)));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
-            task.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_COST))));
+            task.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
+            task.setCost(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_COST)));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REPEAT_UNTIL)));
             task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
@@ -8203,7 +8203,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             soilAnalysis.setFrequency(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_FREQUENCY)));
             soilAnalysis.setRecurrence(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_RECURRENCE)));
             soilAnalysis.setReminders(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REMINDERS)));
-            soilAnalysis.setDaysBefore(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
+            soilAnalysis.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SOIL_ANALYSIS_DAYS_BEFORE)));
             soilAnalysis.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SOIL_ANALYSIS_REPEAT_UNTIL)));
             soilAnalysis.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             soilAnalysis.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
@@ -8481,13 +8481,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             task.setEndDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_START_DATE)));
             task.setStartDate(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_END_DATE)));
             task.setTitle(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_TITLE)));
-            task.setFrequency(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY))));
+            task.setFrequency(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_FREQUENCY)));
             task.setStatus(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_STATUS)));
             task.setDescription(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DESCRIPTION)));
             task.setRecurrence(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_RECURRENCE)));
             task.setReminders(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REMINDERS)));
-            task.setDaysBefore(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
-            task.setCost(Float.parseFloat(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_COST))));
+            task.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_DAYS_BEFORE)));
+            task.setCost(res.getFloat(res.getColumnIndex(CROP_MACHINE_TASK_COST)));
             task.setRepeatUntil(res.getString(res.getColumnIndex(CROP_MACHINE_TASK_REPEAT_UNTIL)));
             task.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
             task.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));

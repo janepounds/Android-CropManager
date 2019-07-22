@@ -141,7 +141,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
-
+        startService(new Intent(this, CropSyncService.class));
         Constraints constraints = new Constraints.Builder()
                 .setRequiresCharging(false)
                 .setRequiredNetworkType(NetworkType.CONNECTED)

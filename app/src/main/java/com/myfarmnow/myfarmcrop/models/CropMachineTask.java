@@ -24,7 +24,7 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
     private float frequency;
     private String repeatUntil;
     private float cost;
-    private String daysBefore;
+    private float daysBefore;
 
 
     public String getUserId() {
@@ -164,11 +164,11 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         this.cost = cost;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
 
@@ -231,7 +231,7 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
         setRepeatUntil(object.getString("repeatUntil"));
         setRecurrence(object.getString("recurrence"));
         setReminders(object.getString("reminders"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore((float)object.getDouble("daysBefore"));
         setEmployeeName(object.getString("responsible"));
 //        setEmployeeId(object.getString("employeeId"));
         setCost((float)object.getDouble("cost"));

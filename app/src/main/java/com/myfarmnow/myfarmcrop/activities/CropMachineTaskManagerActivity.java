@@ -263,19 +263,9 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
         cropMachineTask.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropMachineTask.setReminders(remindersSp.getSelectedItem().toString());
         cropMachineTask.setRepeatUntil(repeatUntilTxt.getText().toString());
+        cropMachineTask.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropMachineTask.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
-
-            cropMachineTask.setFrequency(Float.parseFloat(weeks));
-                 }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropMachineTask.setDaysBefore(days);
-
-        }
 
         dbHandler.insertCropMachineTask(cropMachineTask);
 
@@ -298,7 +288,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
             cropMachineTask.setReminders(remindersSp.getSelectedItem().toString());
             cropMachineTask.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
             cropMachineTask.setRepeatUntil(repeatUntilTxt.getText().toString());
-            cropMachineTask.setDaysBefore(daysBeforeTxt.getText().toString());
+            cropMachineTask.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
 
             dbHandler.updateCropMachineTask(cropMachineTask);
         }
@@ -317,7 +307,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
             descriptionTxt.setText(cropMachineTask.getDescription());
             weeksTxt.setText(cropMachineTask.getFrequency()+"");
             repeatUntilTxt.setText(cropMachineTask.getRepeatUntil());
-            daysBeforeTxt.setText(cropMachineTask.getDaysBefore());
+            daysBeforeTxt.setText(cropMachineTask.getDaysBefore()+"");
         }
 
     }
