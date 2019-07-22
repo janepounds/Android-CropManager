@@ -60,6 +60,9 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     MyFarmDbHandlerSingleton dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
     String userId = null;
     ProgressDialog dialog;
+    Boolean block1Completed = false;
+    Boolean block2Completed = false;
+    Boolean deletesCompleted = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +70,18 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         userId = CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID, this);
         dialog = new ProgressDialog(CropLoadBackUpActivity.this);
         dialog.setIndeterminate(true);
-
+        dialog.setMessage("Synchronizing! Please wait..");
+        dialog.setCancelable(false);
+        dialog.show();
         loadBlock1TablesData();
         loadBlock2TablesData();
+    }
+
+    public  void attemptToStopProgress(){
+        if(block1Completed && block2Completed ){
+            Log.d("STOPPING SERVICE", "SYNC SERVICE FINISHED");
+            dialog.dismiss();
+        }
     }
 
     public void continueToDashboard(View view){
@@ -93,17 +105,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         client.get(ApiPaths.DATA_BACK_UP+"/1a/"+userId, params, new JsonHttpResponseHandler() {
 
                 @Override
-                             public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
-
-
+                public void onStart() {
+                   
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     //logic to save the insertd fields
 
 
@@ -168,40 +176,43 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     try {
-                        JSONArray settings = response.getJSONArray("settings");
-                        for(int i=0; i<settings.length(); i++){
-                            try{
-                                CropSettingsSingleton settingsSingleton =new CropSettingsSingleton(settings.getJSONObject(i));
-                                settingsSingleton.setGlobalId(settings.getJSONObject(i).getString("id"));
-                                settingsSingleton.setSyncStatus("yes");
-                                dbHandler.insertSettings(settingsSingleton);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        JSONObject settings = response.getJSONObject("settings");
 
+                        try{
+                            CropSettingsSingleton settingsSingleton =new CropSettingsSingleton(settings);
+                            settingsSingleton.setGlobalId(settings.getString("id"));
+                            settingsSingleton.setSyncStatus("yes");
+                            dbHandler.insertSettings(settingsSingleton);
+                        }catch (JSONException e) {
+                            e.printStackTrace();
                         }
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     loadBlock1bData();
-                    dialog.dismiss();
+                   
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
+              
                   
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    dialog.dismiss();
+                   
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
                         Log.e("info : "+statusCode, "Something got very very wrong");
                     }
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
 
                 }
             });
@@ -216,15 +227,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+                   
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     //logic to  insertd the synced tables
                     try {
                         JSONArray inventorySeeds = response.getJSONArray("inventorySeeds");
@@ -297,12 +306,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                  
-                     dialog.dismiss();
+
+                     block1Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -320,16 +331,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+
 
                     try {
                         JSONArray crops = response.getJSONArray("crops");
@@ -418,11 +427,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -441,16 +452,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+
                     //logic to save the insertd fields
                     Log.d("RESPONSE FA:",response.toString());
                     try {
@@ -513,18 +522,21 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    block1Completed = true;
+                    attemptToStopProgress();
 
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -542,16 +554,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                 public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     try {
                         JSONArray application = response.getJSONArray("cultivations");
                         for(int i=0; i<application.length(); i++){
@@ -611,16 +621,20 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -638,16 +652,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                    
 
                     try {
                         JSONArray transplantings = response.getJSONArray("transplantings");
@@ -714,16 +726,20 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -741,17 +757,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
-                    //logic to save the insertd fields
+                    
                     try {
                         JSONArray services = response.getJSONArray("machineServices");
                         for(int i=0; i<services.length(); i++){
@@ -827,16 +840,20 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block1Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -862,17 +879,15 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         client.get(ApiPaths.DATA_BACK_UP+"/2a/"+userId, params, new JsonHttpResponseHandler() {
 
                 @Override
-                             public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+                public void onStart() {
+                    
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     //logic to save the insertd fields
                     Log.d("BLOCK 2A",response.toString());
                     try {
@@ -935,11 +950,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -958,16 +975,14 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+                    
 
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
 
                     Log.d("BLOCK 2B",response.toString());
 
@@ -1034,11 +1049,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -1055,13 +1072,11 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         client.get(ApiPaths.DATA_BACK_UP+"/2c/"+userId, params, new JsonHttpResponseHandler() {
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+                   ;
                 }
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     Log.d("BLOCK 2C",response.toString());
                     try {
                         JSONArray bills = response.getJSONArray("bills");
@@ -1109,11 +1124,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -1131,14 +1148,12 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
                 @Override
                              public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
+
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     //logic to save the insertd fields
 
                     try {
@@ -1191,17 +1206,20 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
@@ -1218,17 +1236,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         client.get(ApiPaths.DATA_BACK_UP+"/2e/"+userId, params, new JsonHttpResponseHandler() {
 
                 @Override
-                             public void onStart() {
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
-
+                public void onStart() {
 
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    dialog.dismiss();
+                   
                     try {
                         JSONArray tasks = response.getJSONArray("productItems");
                         for(int i=0; i<tasks.length(); i++){
@@ -1270,6 +1284,12 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                                 else{
                                     continue;//ignore unallocated items
                                 }
+
+                                CropProduct product = dbHandler.getCropProductById(productItem.getProductId(),true);
+                                if(product ==null){
+                                    continue; //item has no assigned product
+                                }
+                                productItem.setProductId(product.getId());
                                 dbHandler.insertCropProductItem(productItem);
                             }catch (JSONException e) {
                                 e.printStackTrace();
@@ -1282,22 +1302,26 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e("RESPONSE", "failed ");
-                    dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                     dialog.dismiss();
+                     block2Completed = true;
+                    attemptToStopProgress();
                     if (errorResponse != null) {
                         Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                     } else {
                         Log.e("info : "+statusCode, "Something got very very wrong");
                     }
-                    dialog.dismiss();
+                   
 
                 }
             });

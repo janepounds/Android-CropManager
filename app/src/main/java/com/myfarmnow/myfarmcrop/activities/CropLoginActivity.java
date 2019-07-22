@@ -21,7 +21,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.services.CropNotificationsCreatorService;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsFireService;
+import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -157,8 +157,8 @@ public class CropLoginActivity extends AppCompatActivity {
                         ((AppCompatActivity)context).finish();
 
                         //start the notifications services
-                        context.startService(new Intent(context, CropNotificationsCreatorService.class));
-                        context.startService(new Intent(context, CropNotificationsFireService.class));
+                        // context.startService(new Intent(context, CropNotificationsCreatorService.class));
+                        // context.startService(new Intent(context, CropNotificationsSendWorker.class));
 
                         context.startActivity(new Intent(context, CropLoadBackUpActivity.class));
 

@@ -4,11 +4,13 @@ package com.myfarmnow.myfarmcrop.services;
 contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
  */
-import android.app.AlarmManager;
+
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -19,6 +21,7 @@ import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
@@ -72,6 +75,8 @@ import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
 
+
+
 public class CropSyncService extends Service {
 
     public String generateUUID(){
@@ -89,8 +94,7 @@ public class CropSyncService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent,flags,startId);
-        userId = CropDashboardActivity.getPreferences(CropDashboardActivity
-                .PREFERENCES_USER_ID, this);
+        userId = CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID, this);
         if(!userId.equals("")){
             prepareSyncRequest();
 
@@ -114,27 +118,18 @@ public class CropSyncService extends Service {
             Log.d("STOPPING SERVICE", "SYNC SERVICE FINISHED");
             stopSelf();
 
-          /*  if(!CropDashboardActivity.isGooglePlayServicesAvailable(this)){
-                AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
-                alarm.set(
-                        AlarmManager.ELAPSED_REALTIME,
-                        SystemClock.elapsedRealtime()+(1000 * 60 ),
-                        PendingIntent.getService(this, 0, new Intent(this, CropSyncService.class), 0)
-                );
-            }*/
         }
     }
 
 
 
     public void prepareSyncRequest(){
-
-
-            startBlock1TablesBackup();
-            startBlock2TablesBackup();
-            backupDeletedRecords();
-
-
+        startBlock1TablesBackup();
+        startBlock2TablesBackup();
+        backupDeletedRecords();
+        if(!CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,CropSyncService.this).equals("yes")){
+            userBackup();
+        }
 
 
     }
@@ -911,7 +906,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -923,7 +918,7 @@ public class CropSyncService extends Service {
                         JSONArray fields = response.getJSONArray("fields");
                         Log.d("FIELDS RESPONSE",fields.toString());
                         for(int i=0; i<fields.length(); i++){
-                          
+
 
                             try{
                                 CropField field = dbHandler.getCropField( fields.getJSONObject(i).getString("localId"),false);
@@ -943,7 +938,7 @@ public class CropSyncService extends Service {
                     try {
                         JSONArray contacts = response.getJSONArray("contacts");
                         for(int i=0; i<contacts.length(); i++){
-                          
+
 
                             try{
                                 CropContact contact = dbHandler.getCropContact( contacts.getJSONObject(i).getString("localId"),false);
@@ -1025,7 +1020,7 @@ public class CropSyncService extends Service {
     private void startBlock1bBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1039,7 +1034,7 @@ public class CropSyncService extends Service {
                 params = new StringEntity(requestObject.toString());
               ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             } catch (UnsupportedEncodingException e) {
-                
+
                 e.printStackTrace();
                 return;
             }
@@ -1050,7 +1045,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
 
                 }
@@ -1061,7 +1056,7 @@ public class CropSyncService extends Service {
                     try {
                         JSONArray inventorySeeds = response.getJSONArray("inventorySeeds");
                         for(int i=0; i<inventorySeeds.length(); i++){
-                          
+
 
                             try{
                                 CropInventorySeeds inventorySeed = dbHandler.getCropSeed( inventorySeeds.getJSONObject(i).getString("localId"),false);
@@ -1080,7 +1075,7 @@ public class CropSyncService extends Service {
                     try {
                         JSONArray inventoryFertilizers = response.getJSONArray("inventoryFertilizers");
                         for(int i=0; i<inventoryFertilizers.length(); i++){
-                          
+
 
                             try{
                                 CropInventoryFertilizer cropFertilizer = dbHandler.getCropFertilizer( inventoryFertilizers.getJSONObject(i).getString("localId"),false);
@@ -1144,7 +1139,7 @@ public class CropSyncService extends Service {
     private void startBlock1cBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1166,7 +1161,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -1275,7 +1270,7 @@ public class CropSyncService extends Service {
     private void startBlock1dBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1298,7 +1293,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -1384,7 +1379,7 @@ public class CropSyncService extends Service {
     private void startBlock1eBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1407,7 +1402,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -1494,7 +1489,7 @@ public class CropSyncService extends Service {
     private void startBlock1fBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1507,7 +1502,7 @@ public class CropSyncService extends Service {
             try {
                 params = new StringEntity(requestObject.toString());
             } catch (UnsupportedEncodingException e) {
-                
+
                 e.printStackTrace();
                 return;
             }
@@ -1517,7 +1512,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -1612,7 +1607,7 @@ public class CropSyncService extends Service {
     private void startBlock1gBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1635,7 +1630,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -1738,7 +1733,7 @@ public class CropSyncService extends Service {
     private void startBlock2TablesBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -1751,7 +1746,7 @@ public class CropSyncService extends Service {
             try {
                 params = new StringEntity(requestObject.toString());
             } catch (UnsupportedEncodingException e) {
-                
+
                 e.printStackTrace();
                 return;
             }
@@ -1762,7 +1757,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                    
+
                 }
 
                 @Override
@@ -1865,7 +1860,7 @@ public class CropSyncService extends Service {
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
         Log.e("URL +2B", ApiPaths.DATA_BACK_UP+"/2a");
-        
+
 
         JSONObject requestObject = new JSONObject();
         try {
@@ -1886,7 +1881,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -1982,7 +1977,7 @@ public class CropSyncService extends Service {
     private void startBlock2cBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -2079,7 +2074,7 @@ public class CropSyncService extends Service {
     private void startBlock2dBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -2091,7 +2086,7 @@ public class CropSyncService extends Service {
             try {
                 params = new StringEntity(requestObject.toString());
             } catch (UnsupportedEncodingException e) {
-                
+
                 e.printStackTrace();
                 return;
             }
@@ -2101,7 +2096,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -2183,7 +2178,7 @@ public class CropSyncService extends Service {
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
 
-        
+
 
         JSONObject requestObject = new JSONObject();
 
@@ -2194,7 +2189,7 @@ public class CropSyncService extends Service {
             try {
                 params = new StringEntity(requestObject.toString());
             } catch (UnsupportedEncodingException e) {
-                
+
                 e.printStackTrace();
                 return;
             }
@@ -2205,7 +2200,7 @@ public class CropSyncService extends Service {
 
                 @Override
                 public void onStart() {
-                   
+
 
                 }
 
@@ -2340,6 +2335,63 @@ public class CropSyncService extends Service {
             e.printStackTrace();
         }
 
+
+    }
+
+    public  void userBackup() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+
+        params.put("userId", CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID,this));
+        params.put("firstName",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_FIRST_NAME,this));
+        params.put("lastName",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_LAST_NAME,this));
+        params.put("country",CropDashboardActivity.getPreferences("country",this));
+        params.put("countryCode",CropDashboardActivity.getPreferences("countryCode",this));
+        params.put("email",CropDashboardActivity.getPreferences("email",this));
+        params.put("farmName",CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        params.put("addressStreet",CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
+        params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
+        params.put("addressCountry",CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
+        params.put("phoneNumber" ,CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_PHONE_NUMBER,this));
+        params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
+        params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
+
+        client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                Log.e("USER BACKUP","Started");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                CropDashboardActivity.savePreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (errorResponse != null) {
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info : "+statusCode, "Something got very very wrong");
+                }
+                if(statusCode==400){
+                    CropDashboardActivity.savePreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
+                }
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+
+                if (errorResponse != null) {
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                } else {
+                    Log.e("info : "+statusCode, "Something got very very wrong");
+                }
+
+            }
+        });
 
     }
 

@@ -33,7 +33,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -56,7 +55,6 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
@@ -69,6 +67,7 @@ import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
+import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
 import com.myfarmnow.myfarmcrop.services.CropSyncService;
 
 import org.json.JSONException;
@@ -82,6 +81,7 @@ import java.util.concurrent.TimeUnit;
 import cz.msebera.android.httpclient.Header;
 
 public class CropDashboardActivity extends AppCompatActivity  {
+
 
     public static DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -113,9 +113,13 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static final String PREFERENCES_LAST_NAME ="lastname";
     public static final String PREFERENCES_USER_ID ="userId";
     public static final String PREFERENCES_USER_EMAIL ="email";
-    public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
+    public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
 
-    public static final String GCM_TASK_MANAGER_LOG_TAG ="SYNC_SERVICE";
+    public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
+    public static final String PREFERENCES_USER_BACKED_UP ="userBackedUp";
+
+    public static final String TASK_BACKUP_DATA_TAG ="SYNC_SERVICE";
+    public static final String TASK_SEND_NOTIFICATIONS_TAG ="SEND_NOTIFICATIONS";
 
 
 
@@ -138,61 +142,55 @@ public class CropDashboardActivity extends AppCompatActivity  {
             getAppToken();
         }
 
-        //start the notifications services
-       /* startService(new Intent(this, CropNotificationsCreatorService.class));
-        startService(new Intent(this, CropNotificationsFireService.class));*/
         startService(new Intent(this, CropSyncService.class));
+        scheduleBackgroundWork();
 
-        Constraints constraints = new Constraints.Builder()
-                .setRequiresCharging(false)
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(true)
-                .setRequiresStorageNotLow(false)
-
-
-
-                .build();
-
-        PeriodicWorkRequest backupData =
-                new PeriodicWorkRequest.Builder(BackupWorker.class, 15, TimeUnit.MINUTES)
-                        .setConstraints(constraints)
-                       // .setInitialRunAttemptCount(10)
-                    //    .setPeriodStartTime(1,TimeUnit.MINUTES)
-                        .build();
-
-        WorkManager.getInstance().enqueueUniquePeriodicWork(GCM_TASK_MANAGER_LOG_TAG, ExistingPeriodicWorkPolicy.KEEP, backupData);
-
-
-
-        if(isGooglePlayServicesAvailable(CropDashboardActivity.this)) {
-          /*  GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);
-
-            PeriodicTask task = new PeriodicTask.Builder()
-                    .setService(CropSyncService.class)
-                    .setPeriod(60)
-                    .setFlex(10)
-                    .setTag(GCM_TASK_MANAGER_LOG_TAG)
-                    .setRequiredNetwork(com.google.android.gms.gcm.Task.NETWORK_STATE_CONNECTED)
-                    .setPersisted(true)
-                    .setUpdateCurrent(false)
-                    .build();
-            new Thread(() -> {
-
-                mGcmNetworkManager.schedule(task);
-
-            }).start();
-            Log.d("PALY", "Google Play Services");*/
-        }
-        else{
-            //startService(new Intent(this, CropSyncService.class));
-            Log.d("PLAY", "No Google Play Services");
-        }
 
 
 
 
     }
 
+    /**
+     * Schedules the background tasks such as synchronisation and notification
+     * It uses the WorkerManager library
+     */
+    public static void scheduleBackgroundWork(){
+        Constraints backupConstraints = new Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(true)
+                .setRequiresStorageNotLow(false)
+
+                .build();
+
+        PeriodicWorkRequest backupData =
+                new PeriodicWorkRequest.Builder(BackupWorker.class, 15, TimeUnit.MINUTES)
+                        .setConstraints(backupConstraints)
+                        // .setInitialRunAttemptCount(10)
+                        //    .setPeriodStartTime(1,TimeUnit.MINUTES)
+                        .build();
+
+        WorkManager.getInstance().enqueueUniquePeriodicWork(TASK_BACKUP_DATA_TAG, ExistingPeriodicWorkPolicy.KEEP, backupData);
+        //SChedule notification
+        Constraints sendNotificationsConstraints = new Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiresBatteryNotLow(true)
+                .setRequiresStorageNotLow(false)
+                .build();
+
+        PeriodicWorkRequest sendNotifications =
+                new PeriodicWorkRequest.Builder(CropNotificationsSendWorker.class, 1, TimeUnit.HOURS)
+                        .setConstraints(sendNotificationsConstraints)
+
+                        .build();
+
+
+        WorkManager.getInstance().enqueueUniquePeriodicWork(TASK_SEND_NOTIFICATIONS_TAG, ExistingPeriodicWorkPolicy.KEEP, sendNotifications);
+
+
+
+    }
     public static boolean isGooglePlayServicesAvailable(Context context){
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
@@ -337,9 +335,6 @@ public class CropDashboardActivity extends AppCompatActivity  {
             }
         });
 
-
-
-
         textViewUserName.setText(getPreferences("firstname",this)+" "+getPreferences("lastname",this));
         textViewUserEmail.setText(getPreferences("email",this));
 
@@ -351,13 +346,10 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 startActivity(editUser);
             }
         });
-
-
         if (getPreferences(COUNTRY_PREFERENCES_ID,this).toLowerCase().equals("uganda")) {
-            digitalWalletLayout.setVisibility(View.VISIBLE);
+            //digitalWalletLayout.setVisibility(View.VISIBLE);
         }
 
-        userBackup();
     }
     public static  void addDatePicker(final EditText ed_, final Context context){
         ed_.setOnClickListener(new View.OnClickListener() {
@@ -766,58 +758,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     }
 
-    public void userBackup() {
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-
-        params.put("userId", CropDashboardActivity.getPreferences(PREFERENCES_USER_ID,this));
-        params.put("firstName",CropDashboardActivity.getPreferences(PREFERENCES_FIRST_NAME,this));
-        params.put("lastName",CropDashboardActivity.getPreferences(PREFERENCES_LAST_NAME,this));
-        params.put("country",CropDashboardActivity.getPreferences("country",this));
-        params.put("countryCode",CropDashboardActivity.getPreferences("countryCode",this));
-        params.put("email",CropDashboardActivity.getPreferences("email",this));
-        params.put("farmName",CropDashboardActivity.getPreferences(FARM_NAME_PREFERENCES_ID,this));
-        params.put("addressStreet",CropDashboardActivity.getPreferences(STREET_PREFERENCES_ID,this));
-        params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CITY_PREFERENCES_ID,this));
-        params.put("addressCountry",CropDashboardActivity.getPreferences(COUNTRY_PREFERENCES_ID,this));
-        params.put("phoneNumber" ,CropDashboardActivity.getPreferences("phoneNumber",this));
-        params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
-        params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
-
-        client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                Log.e("USER BACKUP","Started");
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.e("RESPONSE", response.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-
-            }
-    });
-
-    }
 
 
     public void logout(View view){
@@ -841,7 +782,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 //remove database
                 CropDashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
 
-                WorkManager.getInstance().cancelAllWorkByTag(GCM_TASK_MANAGER_LOG_TAG);
+                WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
+                WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
                 finish();
                 Intent openList = new Intent(CropDashboardActivity.this, CropLoginActivity.class);
                 startActivity(openList);

@@ -3034,6 +3034,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         for (CropProductItem x : items) {
             x.setParentObjectType(CROP_PRODUCT_ITEM_TYPE_INVOICE);
+            x.setParentObjectId(invoiceId);
             if(x.getId() !=null){
                 updateCropProductItem(x);
             }
