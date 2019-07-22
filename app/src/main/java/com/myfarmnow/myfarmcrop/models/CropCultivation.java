@@ -16,9 +16,9 @@ public class CropCultivation implements Serializable,CropActivity {
     String cropId="";
     String recurrence;
     String reminders;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
-    private float daysBefore;
+    private float daysBefore=0;
 
 
     public String getId() {
