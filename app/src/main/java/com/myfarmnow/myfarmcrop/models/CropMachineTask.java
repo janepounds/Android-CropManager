@@ -21,10 +21,10 @@ public class CropMachineTask implements CropSpinnerItem, Serializable {
     private String cropName;
     private String endDate;
     private String startDate;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
     private float cost;
-    private float daysBefore;
+    private float daysBefore=0;
 
 
     public String getUserId() {

@@ -17,11 +17,11 @@ public class CropMachineService implements CropSpinnerItem, Serializable {
     String reminders;
     String employeeName;
     String serviceType;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
     private float cost;
     public float currentHours;
-    private float daysBefore;
+    private float daysBefore =0;
 
     @Override
     public String getId() {

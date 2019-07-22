@@ -17,9 +17,9 @@ public class CropSoilAnalysis implements Serializable {
     String result;
     String recurrence;
     String reminders;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
-    private float daysBefore;
+    private float daysBefore=0;
 
     public CropSoilAnalysis(){
     }

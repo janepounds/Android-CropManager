@@ -67,8 +67,10 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         daysBeforeTxt = findViewById(R.id.txt_crop_soil_analysis_days_before);
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_soil_analysis_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_soil_analysis_days_before);
+        remindersLayout = findViewById(R.id.layout_crop_soil_analysis_reminders);
         CropDashboardActivity.addDatePicker(dateTxt,this);
         CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

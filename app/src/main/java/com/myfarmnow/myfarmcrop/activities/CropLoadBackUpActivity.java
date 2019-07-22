@@ -874,7 +874,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     dialog.dismiss();
                     //logic to save the insertd fields
-
+                    Log.d("BLOCK 2A",response.toString());
                     try {
                         JSONArray customers = response.getJSONArray("customers");
                         for(int i=0; i<customers.length(); i++){
@@ -968,7 +968,9 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     dialog.dismiss();
-                    //logic to save the insertd fields
+
+                    Log.d("BLOCK 2B",response.toString());
+
                     try {
                         JSONArray tasks = response.getJSONArray("estimates");
                         for(int i=0; i<tasks.length(); i++){
@@ -1060,8 +1062,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     dialog.dismiss();
-                    //logic to save the insertd fields
-
+                    Log.d("BLOCK 2C",response.toString());
                     try {
                         JSONArray bills = response.getJSONArray("bills");
                         for(int i=0; i<bills.length(); i++){
@@ -1069,7 +1070,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                                 CropBill bill = new CropBill(bills.getJSONObject(i));
                                 bill.setGlobalId(bills.getJSONObject(i).getString("id"));
                                 bill.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(bill.getSupplierId(),true);
+                                CropSupplier customer = dbHandler.getCropSupplier(bill.getSupplierId(),true);
                                 if(customer != null){
                                     bill.setSupplierId(customer.getId());
                                     dbHandler.insertCropBill(bill);
@@ -1089,7 +1090,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                                 CropPurchaseOrder purchaseOrder = new CropPurchaseOrder(purchaseOrders.getJSONObject(i));
                                 purchaseOrder.setGlobalId(purchaseOrders.getJSONObject(i).getString("id"));
                                 purchaseOrder.setSyncStatus("yes");
-                                CropCustomer customer = dbHandler.getCropCustomer(purchaseOrder.getSupplierId(),true);
+                                CropSupplier customer = dbHandler.getCropSupplier(purchaseOrder.getSupplierId(),true);
                                 if(customer != null){
                                     purchaseOrder.setSupplierId(customer.getId());
                                     dbHandler.insertCropPurchaseOrder(purchaseOrder);

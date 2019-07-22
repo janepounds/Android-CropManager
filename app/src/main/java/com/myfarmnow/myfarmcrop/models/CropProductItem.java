@@ -146,6 +146,7 @@ public class CropProductItem implements Serializable {
             object.put("tax",tax);
             object.put("productName",productName);
             object.put("parentObjectType",parentObjectType);
+            object.put("syncStatus",syncStatus);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -157,7 +158,7 @@ public class CropProductItem implements Serializable {
 
         setGlobalId( object.getString("id"));
         setSyncStatus( "yes");
-        setProductId( object.getString("productId"));
+        setProductId(object.getString("productId"));
 //        setProductName( object.getString("productName"));
         setParentObjectId( object.getString("parentObjectId"));
         setParentObjectType( object.getString("parentObjectType"));
