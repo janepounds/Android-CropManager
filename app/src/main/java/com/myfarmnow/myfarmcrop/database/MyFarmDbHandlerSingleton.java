@@ -63,7 +63,7 @@ import java.util.Date;
 
 public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME ="myfarmdb";
+    public static final String DATABASE_NAME ="myfarmdb";
     private static int database_version=1;
     private static int database_version_2=2;
 
@@ -3554,11 +3554,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
        
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select "+CROP_PRODUCT_TABLE_NAME+".*, SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed from " + CROP_PRODUCT_TABLE_NAME +"  LEFT JOIN "+CROP_PRODUCT_ITEM_TABLE_NAME+" ON "+
-                  CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+
-                " WHERE "+CROP_PRODUCT_USER_ID+" = "+userId+" AND "+
-                "( "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "' OR "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" IS NULL) GROUP BY "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID;
+        String query = "select "+CROP_PRODUCT_TABLE_NAME+".*  from " + CROP_PRODUCT_TABLE_NAME+
+              " WHERE "+CROP_PRODUCT_USER_ID+" = "+userId;
 
+//SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed
         Cursor res = db.rawQuery( query, null);
         res.moveToFirst();
 
@@ -3574,7 +3573,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropProduct.setLinkedAccount(res.getString(res.getColumnIndex(CROP_PRODUCT_LINKED_ACCOUNT)));
             cropProduct.setOpeningCost(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_COST)));
             cropProduct.setOpeningQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_QUANTITY)));
-            cropProduct.setQuantityUsed(res.getFloat(res.getColumnIndex("quantityUsed")));
+            cropProduct.setQuantityUsed(computeProductQuantityUsed(res.getString(res.getColumnIndex(CROP_PRODUCT_ID))));
+            cropProduct.setQuantityAdded(computeProductQuantityAdded(res.getString(res.getColumnIndex(CROP_PRODUCT_ID))));
             cropProduct.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
             cropProduct.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
             cropProduct.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
@@ -3589,18 +3589,49 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
 
-    //TODO duplicate for Sync
+
+    public float computeProductQuantityUsed(String productId){
+        openDB();
+        float quantity =0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select  SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed from " + CROP_PRODUCT_ITEM_TABLE_NAME+
+                " WHERE "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+ productId +" AND "+
+                CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "'";
+
+        Cursor res = db.rawQuery( query, null);
+        res.moveToFirst();
+
+        if (!res.isAfterLast()) {
+            quantity =res.getFloat(res.getColumnIndex("quantityUsed"));
+        }
+        res.close();
+        closeDB();
+        return quantity;
+    }
+
+    public float computeProductQuantityAdded(String productId){
+        openDB();
+        float quantity =0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select  SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityBought from " + CROP_PRODUCT_ITEM_TABLE_NAME+
+                " WHERE "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+" = "+ productId +" AND "+
+                CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_BILL+ "'";
+
+        Cursor res = db.rawQuery( query, null);
+        res.moveToFirst();
+
+        if (!res.isAfterLast()) {
+            quantity =res.getFloat(res.getColumnIndex("quantityBought"));
+        }
+        res.close();
+        closeDB();
+        return quantity;
+    }
     public CropProduct getCropProductById(String productId) {
         openDB();
-       
-
-       
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select "+CROP_PRODUCT_TABLE_NAME+".*, SUM("+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_QUANTITY+") as quantityUsed from " + CROP_PRODUCT_TABLE_NAME +"  LEFT JOIN "+CROP_PRODUCT_ITEM_TABLE_NAME+" ON "+
-                CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_PRODUCT_ID+
-                " WHERE "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID+" = "+ productId +" AND "+
-                "( "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" = '"+CROP_PRODUCT_ITEM_TYPE_INVOICE+ "' OR "+CROP_PRODUCT_ITEM_TABLE_NAME+"."+CROP_PRODUCT_ITEM_TYPE+" IS NULL) GROUP BY "+CROP_PRODUCT_TABLE_NAME+"."+CROP_PRODUCT_ID;
-     
+        String query = "select "+CROP_PRODUCT_TABLE_NAME+".*  from " + CROP_PRODUCT_TABLE_NAME+
+                " WHERE "+CROP_PRODUCT_ID+" = "+productId;
         Cursor res = db.rawQuery( query, null);
         res.moveToFirst();
 
@@ -3618,7 +3649,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             cropProduct.setLinkedAccount(res.getString(res.getColumnIndex(CROP_PRODUCT_LINKED_ACCOUNT)));
             cropProduct.setOpeningCost(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_COST)));
             cropProduct.setOpeningQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_OPENING_QUANTITY)));
-            cropProduct.setQuantityUsed(res.getFloat(res.getColumnIndex("quantityUsed")));
+            cropProduct.setQuantityUsed(computeProductQuantityUsed(res.getString(res.getColumnIndex(CROP_PRODUCT_ID))));
+            cropProduct.setQuantityAdded(computeProductQuantityAdded(res.getString(res.getColumnIndex(CROP_PRODUCT_ID))));
             cropProduct.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_PRODUCT_SELLING_PRICE)));
             cropProduct.setTaxRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_TAX_RATE)));
             cropProduct.setDescription(res.getString(res.getColumnIndex(CROP_PRODUCT_DESCRIPTION)));
@@ -8771,6 +8803,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return deletedRecord;
 
     }
+
+
+
+
 }
 
 

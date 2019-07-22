@@ -103,6 +103,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
     FrameLayout notificationsFrameLayout;
     MyFarmDbHandlerSingleton dbHandler;
 
+    public static final String PREFERENCES_FILE_NAME ="pref";
+
     public static final String FARM_NAME_PREFERENCES_ID ="farmname";
     public static final String STREET_PREFERENCES_ID ="addressStreet";
     public static final String CITY_PREFERENCES_ID ="addressCityOrTown";
@@ -737,7 +739,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         }
     }
     public static void  savePreferences(String key, String value, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME ,
                 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
@@ -779,8 +781,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         params.put("addressStreet",CropDashboardActivity.getPreferences(STREET_PREFERENCES_ID,this));
         params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CITY_PREFERENCES_ID,this));
         params.put("addressCountry",CropDashboardActivity.getPreferences(COUNTRY_PREFERENCES_ID,this));
-        params.put("" +
-                "",CropDashboardActivity.getPreferences("phoneNumber",this));
+        params.put("phoneNumber" ,CropDashboardActivity.getPreferences("phoneNumber",this));
         params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
         params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
 
@@ -819,6 +820,39 @@ public class CropDashboardActivity extends AppCompatActivity  {
     }
 
 
+    public void logout(View view){
+
+        startService(new Intent(this, CropSyncService.class));
+        ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Logging out..");
+        dialog.setCancelable(false);
+        dialog.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                dialog.dismiss();
+                //remove shared preferences
+                SharedPreferences sharedPreferences = CropDashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME , 0);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+
+                //remove database
+                CropDashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
+
+                WorkManager.getInstance().cancelAllWorkByTag(GCM_TASK_MANAGER_LOG_TAG);
+                finish();
+                Intent openList = new Intent(CropDashboardActivity.this, CropLoginActivity.class);
+                startActivity(openList);
+            }
+        }, 10000);
+
+
+
+
+
+    }
 
 
 

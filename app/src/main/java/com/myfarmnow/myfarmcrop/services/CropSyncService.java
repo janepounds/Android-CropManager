@@ -680,9 +680,17 @@ public class CropSyncService extends Service {
             else{
                 continue;//ignore unallocated items
             }
-            Log.d("PRODUCT ITEMS LIST",jsonArray.toString());
+            CropProduct product = dbHandler.getCropProductById(record.getProductId(),false);
+            if(product ==null){
+                continue; //item has no assigned product
+            }
+            if(product.getSyncStatus().equals("no")){
+                continue; //do not back up this record since its parent record is not backed up
+            }
+            record.setProductId(product.getGlobalId());
             jsonArray.put(record.toJSON());
         }
+        Log.d("PRODUCT ITEMS LIST",jsonArray.toString());
         return jsonArray;
     }
     private JSONArray preparePurchaseOrders(){

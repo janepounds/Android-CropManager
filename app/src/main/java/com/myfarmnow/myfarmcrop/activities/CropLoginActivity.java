@@ -152,7 +152,7 @@ public class CropLoginActivity extends AppCompatActivity {
                     } else {
                         JSONObject user = response.getJSONObject("user");
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
-                        Log.e("response", response.toString());
+                       // Log.e("response", response.toString());
                         CropDashboardActivity.saveUser(user,context);
                         ((AppCompatActivity)context).finish();
 
@@ -168,7 +168,12 @@ public class CropLoginActivity extends AppCompatActivity {
                 }
 
 
-                dialog.dismiss();
+                try{
+                    dialog.dismiss();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
