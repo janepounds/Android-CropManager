@@ -114,14 +114,14 @@ public class CropSyncService extends Service {
             Log.d("STOPPING SERVICE", "SYNC SERVICE FINISHED");
             stopSelf();
 
-            if(!CropDashboardActivity.isGooglePlayServicesAvailable(this)){
+          /*  if(!CropDashboardActivity.isGooglePlayServicesAvailable(this)){
                 AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
                 alarm.set(
                         AlarmManager.ELAPSED_REALTIME,
                         SystemClock.elapsedRealtime()+(1000 * 60 ),
                         PendingIntent.getService(this, 0, new Intent(this, CropSyncService.class), 0)
                 );
-            }
+            }*/
         }
     }
 

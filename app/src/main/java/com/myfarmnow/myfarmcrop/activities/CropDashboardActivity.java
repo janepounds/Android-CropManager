@@ -24,6 +24,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -44,12 +45,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
@@ -115,7 +113,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public static final String PREFERENCES_USER_EMAIL ="email";
     public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
 
-    public static final String GCM_TASK_MANAGER_LOG_TAG ="SYNC SERVICE";
+    public static final String GCM_TASK_MANAGER_LOG_TAG ="SYNC_SERVICE";
 
 
 
@@ -141,6 +139,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         //start the notifications services
        /* startService(new Intent(this, CropNotificationsCreatorService.class));
         startService(new Intent(this, CropNotificationsFireService.class));*/
+        startService(new Intent(this, CropSyncService.class));
 
         Constraints constraints = new Constraints.Builder()
                 .setRequiresCharging(false)
@@ -148,13 +147,20 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 .setRequiresBatteryNotLow(true)
                 .setRequiresStorageNotLow(false)
 
+
+
                 .build();
 
         PeriodicWorkRequest backupData =
-                new PeriodicWorkRequest.Builder(BackupWorker.class, 1, TimeUnit.MINUTES)
+                new PeriodicWorkRequest.Builder(BackupWorker.class, 15, TimeUnit.MINUTES)
                         .setConstraints(constraints)
+                       // .setInitialRunAttemptCount(10)
+                    //    .setPeriodStartTime(1,TimeUnit.MINUTES)
                         .build();
-        WorkManager.getInstance().enqueue(backupData);
+
+        WorkManager.getInstance().enqueueUniquePeriodicWork(GCM_TASK_MANAGER_LOG_TAG, ExistingPeriodicWorkPolicy.KEEP, backupData);
+
+
 
         if(isGooglePlayServicesAvailable(CropDashboardActivity.this)) {
           /*  GcmNetworkManager mGcmNetworkManager = GcmNetworkManager.getInstance(this);

@@ -199,7 +199,13 @@ public class CropLoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                dialog.dismiss();
+
+                try{
+                    dialog.dismiss();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {

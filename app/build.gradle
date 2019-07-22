@@ -42,7 +42,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
     implementation 'androidx.core:core-ktx:1.0.1'
-    implementation "android.arch.work:work-runtime:1.0.0-alpha02"
+    implementation "android.arch.work:work-runtime:1.0.1"
     implementation 'com.google.code.gson:gson:2.8.0'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
