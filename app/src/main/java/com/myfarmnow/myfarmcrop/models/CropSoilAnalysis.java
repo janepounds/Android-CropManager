@@ -17,9 +17,9 @@ public class CropSoilAnalysis implements Serializable {
     String result;
     String recurrence;
     String reminders;
-    private float frequency;
+    private float frequency=1;
     private String repeatUntil;
-    private String daysBefore;
+    private float daysBefore=0;
 
     public CropSoilAnalysis(){
     }
@@ -151,11 +151,11 @@ public class CropSoilAnalysis implements Serializable {
         this.repeatUntil = repeatUntil;
     }
 
-    public String getDaysBefore() {
+    public float getDaysBefore() {
         return daysBefore;
     }
 
-    public void setDaysBefore(String daysBefore) {
+    public void setDaysBefore(float daysBefore) {
         this.daysBefore = daysBefore;
     }
 
@@ -220,7 +220,7 @@ public class CropSoilAnalysis implements Serializable {
         setCost((float)object.getDouble("cost"));
         setFrequency((float)object.getDouble("frequency"));
         setRepeatUntil(object.getString("repeatUntil"));
-        setDaysBefore(object.getString("daysBefore"));
+        setDaysBefore((float)object.getDouble("daysBefore"));
         setSyncStatus( "yes");
 
     }

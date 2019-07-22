@@ -259,19 +259,9 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         cropMachineService.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropMachineService.setReminders(remindersSp.getSelectedItem().toString());
         cropMachineService.setRepeatUntil(repeatUntilTxt.getText().toString());
-        if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-            String weeks = weeksTxt.getText().toString();
+        cropMachineService.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropMachineService.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-            cropMachineService.setFrequency(Float.parseFloat(weeks));
-
-        }
-        if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-            String days = daysBeforeTxt.getText().toString();
-
-
-            cropMachineService.setDaysBefore(Float.parseFloat(days));
-
-        }
         dbHandler.insertCropMachineService(cropMachineService);
 
 
@@ -290,19 +280,9 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
             cropMachineService.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropMachineService.setReminders(remindersSp.getSelectedItem().toString());
             cropMachineService.setRepeatUntil(repeatUntilTxt.getText().toString());
-            if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE){
-                String weeks = weeksTxt.getText().toString();
+            cropMachineService.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+            cropMachineService.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
-                cropMachineService.setFrequency(Float.parseFloat(weeks));
-
-            }
-            if(daysBeforeLayout.getVisibility()==View.VISIBLE){
-                String days = daysBeforeTxt.getText().toString();
-
-
-                cropMachineService.setDaysBefore(Float.parseFloat(days));
-
-            }
             dbHandler.updateCropMachineService(cropMachineService);
         }
     }
