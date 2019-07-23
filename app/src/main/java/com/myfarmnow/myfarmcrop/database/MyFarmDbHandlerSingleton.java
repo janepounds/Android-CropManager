@@ -1186,6 +1186,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             notification.setStatus(res.getString(res.getColumnIndex(CROP_NOTIFICATION_STATUS)));
             notification.setActionDate(res.getString(res.getColumnIndex(CROP_NOTIFICATION_ACTION_DATE)));
             notification.setType(res.getString(res.getColumnIndex(CROP_NOTIFICATION_TYPE)));
+            notification.setSourceId(res.getString(res.getColumnIndex(CROP_NOTIFICATION_SOURCE_ID)));
             notification.setReportFrom(res.getString(res.getColumnIndex(CROP_NOTIFICATION_REPORT_FROM)));
             array_list.add(notification);
             res.moveToNext();

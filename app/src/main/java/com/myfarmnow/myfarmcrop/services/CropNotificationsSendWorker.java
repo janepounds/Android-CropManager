@@ -24,6 +24,7 @@ import com.myfarmnow.myfarmcrop.activities.CropLoginActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CropNotificationsSendWorker extends Worker {
@@ -39,14 +40,20 @@ public class CropNotificationsSendWorker extends Worker {
     @Override
     public Result doWork() {
 
-        ArrayList<CropNotification> todayNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(CropDashboardActivity.getPreferences("userId",context), CropNotification.QUERY_KEY_TODAY);
-        ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(CropDashboardActivity.getPreferences("userId",context), CropNotification.QUERY_KEY_REPORT_FROM_TODAY);
+        try{
+            ArrayList<CropNotification> todayNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(CropDashboardActivity.getPreferences("userId",context), CropNotification.QUERY_KEY_TODAY);
+            ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(CropDashboardActivity.getPreferences("userId",context), CropNotification.QUERY_KEY_REPORT_FROM_TODAY);
 
-        showNotifications(todayNotifications, "Tasks due Today","TODAY",1);
-        showNotifications(upcomingNotifications, "Upcoming Tasks","UPCOMING",2);
-        Log.d("NOTIFICATION ","THE NOTIFICATION WORKER RAN FINALLY");
-        Log.d("NOTIFICATION ","TODAY "+todayNotifications.size());
-        Log.d("NOTIFICATION ","UPCOMING "+upcomingNotifications.size());
+            showNotifications(todayNotifications, "Tasks due Today","TODAY",1);
+            showNotifications(upcomingNotifications, "Upcoming Tasks","UPCOMING",2);
+            Log.d("NOTIFICATION ","THE NOTIFICATION WORKER RAN FINALLY");
+            Log.d("NOTIFICATION ","TODAY "+todayNotifications.size());
+            Log.d("NOTIFICATION ","UPCOMING "+upcomingNotifications.size());
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.retry();
+        }
+
         return Result.success();
     }
     

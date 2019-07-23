@@ -15,6 +15,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.work.ListenableWorker;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
@@ -46,6 +47,7 @@ import com.myfarmnow.myfarmcrop.models.CropMachineService;
 import com.myfarmnow.myfarmcrop.models.CropMachineTask;
 import com.myfarmnow.myfarmcrop.models.CropNote;
 import com.myfarmnow.myfarmcrop.models.CropInvoicePayment;
+import com.myfarmnow.myfarmcrop.models.CropNotification;
 import com.myfarmnow.myfarmcrop.models.CropPaymentBill;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
@@ -124,13 +126,17 @@ public class CropSyncService extends Service {
 
 
     public void prepareSyncRequest(){
-        startBlock1TablesBackup();
-        startBlock2TablesBackup();
-        backupDeletedRecords();
-        if(!CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,CropSyncService.this).equals("yes")){
-            userBackup();
+        try{
+            startBlock1TablesBackup();
+            startBlock2TablesBackup();
+            backupDeletedRecords();
+            if(!CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,CropSyncService.this).equals("yes")){
+                userBackup();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            stopSelf();
         }
-
 
     }
 
