@@ -91,7 +91,7 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
                             Toast.makeText(CropVerifyPhoneNumberActivity.this, "Phone Number Verified", Toast.LENGTH_SHORT).show();
                             Log.e("response", response.toString());
                             CropDashboardActivity.saveUser(user,CropVerifyPhoneNumberActivity.this);
-                            Intent verifyPhoneNumber = new Intent(CropVerifyPhoneNumberActivity.this, CropDashboardActivity.class);
+                            Intent verifyPhoneNumber = new Intent(CropVerifyPhoneNumberActivity.this,  CropLoadBackUpActivity.class);
                             startActivity(verifyPhoneNumber);
                             finish();
 

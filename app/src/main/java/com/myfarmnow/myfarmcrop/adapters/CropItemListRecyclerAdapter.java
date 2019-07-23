@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -64,13 +65,12 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
 
     public void addCropProductItem(CropProductItem cropItem){
         this.cropItemsList.add(cropItem);
-        notifyItemChanged(getItemCount());
+        notifyDataSetChanged();
     }
     public void changeList(ArrayList<CropProductItem> cropItems){
 
         this.cropItemsList.clear();
         this.cropItemsList.addAll(cropItems);
-
         notifyDataSetChanged();
     }
 
@@ -117,7 +117,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
     public class ItemViewHolder extends RecyclerView.ViewHolder{
 
         TextView amountTextView;
-        ImageView  deleteButton;
+        LinearLayout deleteButton;
         Spinner productSpinner;
         EditText qtyTxt,rateTxt,taxTxt;
         
@@ -130,7 +130,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
             rateTxt = itemView.findViewById(R.id.txt_crop_invoice_rate);
             taxTxt = itemView.findViewById(R.id.txt_crop_invoice_tax);
             amountTextView = itemView.findViewById(R.id.txt_view_crop_invoice_amount);
-            deleteButton = itemView.findViewById(R.id.img_crop_invoice_delete);
+            deleteButton = itemView.findViewById(R.id.layout_item_delete);
             spinnerAdapter = new CropSpinnerAdapter(productArrayList,"Item",mContext);
             taxTxt.setEnabled(false);
             rateTxt.setEnabled(false);
@@ -196,10 +196,13 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
                 @Override
                 public void onClick(View v) {
                     try{
+
                         deleteItemsId.add(cropItemsList.get(getAdapterPosition()).getId());
                         cropItemsList.remove(getAdapterPosition());
-                        notifyItemRemoved(getAdapterPosition());
+                        notifyDataSetChanged();
+                        //notifyItemRemoved(getAdapterPosition());
                         updateSum();
+
                     }catch (Exception e){
 
                     }

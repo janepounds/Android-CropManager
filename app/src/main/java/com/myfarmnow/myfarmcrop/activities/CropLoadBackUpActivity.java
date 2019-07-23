@@ -81,6 +81,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
         if(block1Completed && block2Completed ){
             Log.d("STOPPING SERVICE", "SYNC SERVICE FINISHED");
             dialog.dismiss();
+            continueToDashboard(null);
         }
     }
 

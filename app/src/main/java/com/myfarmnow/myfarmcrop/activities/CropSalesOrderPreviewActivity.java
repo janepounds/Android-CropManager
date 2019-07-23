@@ -54,7 +54,7 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
     TextView subTotalTextView, totalTextView,shippingChargesTextView,discountAmountTextView,numberTextView, dateTextView,
             termsTextView,balanceTextView,balanceDueTextView,paymentMadeTextView, dueDateTextView,orderNumberTextView,
             customerNameTextView,customerCompanyTextView,cityCountryTextView,streetTextView;
-    TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView;
+    TextView farmNameTextView, userStreetTextView, userCityTextView, userCountryTextView,termsAndConditionsTxt,notesTxt;
     private static final int PERMISSION_REQUEST_CODE = 1;
     public static final int SALES_ORDER_ACTION_DOWNLOAD = 134;
     public static final int SALES_ORDER_ACTION_EMAIL = 124;
@@ -111,6 +111,9 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
         userCityTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_city);
         userCountryTextView = findViewById(R.id.text_view_crop_invoice_estimate_user_country);
 
+        termsAndConditionsTxt = findViewById(R.id.txt_crop_invoice_summary_terms);
+        notesTxt = findViewById(R.id.txt_crop_invoice_summary_notes);
+
         farmNameTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
         userStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
         userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
@@ -134,6 +137,9 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
         totalTextView.setText( NumberFormat.getInstance().format(cropSalesOrder.computeTotal()));
         shippingChargesTextView.setText(NumberFormat.getInstance().format(cropSalesOrder.getShippingCharges()));
         discountAmountTextView.setText(NumberFormat.getInstance().format(cropSalesOrder.computeDiscount()));
+
+        termsAndConditionsTxt.setText(cropSalesOrder.getTermsAndConditions());
+        notesTxt.setText(cropSalesOrder.getCustomerNotes());
 
         numberTextView.setText("#"+cropSalesOrder.getNumber());
         dateTextView.setText(cropSalesOrder.getDate());

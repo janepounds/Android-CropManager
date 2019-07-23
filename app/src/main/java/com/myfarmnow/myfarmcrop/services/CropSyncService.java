@@ -986,10 +986,14 @@ public class CropSyncService extends Service {
                                 dbHandler.updateSettings(settingsSingleton);
                             }catch (JSONException e) {
                                 e.printStackTrace();
+                            }catch (Exception e) {
+                                e.printStackTrace();
                             }
 
                         }
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    }catch (Exception e) {
                         e.printStackTrace();
                     }
                     startBlock1bBackup();

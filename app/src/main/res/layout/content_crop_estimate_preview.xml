@@ -524,14 +524,48 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <TextView
-                android:id="@+id/txt_view_crop_estimate_notes"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="12sp"
-                android:textColor="@color/textColor"
-                android:text="@string/looking_forward_for_your_business" />
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notes:"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/txt_crop_invoice_summary_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"
+                    android:text="Notes" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Terms and Conditions:"
+                    android:textSize="13sp"/>
+                <TextView
+                    android:id="@+id/txt_crop_invoice_summary_terms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/textColor"
+
+                    android:text="@string/thank_you_for_your_business" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
