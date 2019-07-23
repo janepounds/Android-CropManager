@@ -78,7 +78,7 @@ public class CropSalesOrdersListRecyclerAdapter extends RecyclerView.Adapter<Cro
         holder.estimateNumberTextView.setText(cropSalesOrder.getNumber());
        // holder.referenceNumberTxtView.setVisibility(View.VISIBLE);
 
-        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+NumberFormat.getInstance().format(cropSalesOrder.computeTotal()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(cropSalesOrder.computeTotal()));
     }
 
 

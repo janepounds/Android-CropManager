@@ -72,7 +72,7 @@ public class CropPurchaseOrdersListRecyclerAdapter extends RecyclerView.Adapter<
         holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(estimate.getDeliveryDate()));
         holder.purchaseOrderNumberTxt.setText(estimate.getNumber());
         holder.statusTextView.setText(estimate.getStatus());
-        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+NumberFormat.getInstance().format(estimate.computeTotal()));
+        holder.amountTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+NumberFormat.getInstance().format(estimate.computeTotal()));
     }
 
 
