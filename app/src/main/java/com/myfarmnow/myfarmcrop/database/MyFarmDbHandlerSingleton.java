@@ -2076,6 +2076,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         res.close();
 
         closeDB();
+        Log.d("INCOMES BY CROP",expensesList.size()+" => "+expensesList.toString());
         return expensesList;
 
     }
@@ -2118,6 +2119,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         res.close();
         closeDB();
+
         return expensesList;
 
     }
