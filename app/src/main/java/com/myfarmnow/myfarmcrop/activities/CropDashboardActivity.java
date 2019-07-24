@@ -56,6 +56,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
@@ -94,7 +95,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView;
+    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
 
 
     private TabLayout notificationsTabLayout;
@@ -221,6 +222,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
         textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
+
         notificationTabsLayoutAdapter = new NotificationTabsLayoutAdapter(getSupportFragmentManager());
         notificationTabsLayoutAdapter.addFragment(new NotificationsTodayFragment(),"Today");
         notificationTabsLayoutAdapter.addFragment(new NotificationsUpcomingFragment(),"Upcoming");
@@ -232,7 +234,8 @@ public class CropDashboardActivity extends AppCompatActivity  {
         unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(CropDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
 
 
-
+        textViewVersion =  findViewById(R.id.text_view_crop_dashboard_android_version);
+        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
 
         noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -508,7 +511,11 @@ public class CropDashboardActivity extends AppCompatActivity  {
         startActivity(openList);
     }
     public void openContactList(View view){
-        Intent openList = new Intent(this, CropsListActivity.class);
+        Intent openList = new Intent(this, CropContactsListActivity.class);
+        startActivity(openList);
+    }
+    public void openContactManager(View view){
+        Intent openList = new Intent(this, CropContactManagerActivity.class);
         startActivity(openList);
     }
 
@@ -796,6 +803,18 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     }
 
+    public void shareApp(View view){
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+        String shareMessage= "\nLet me recommend you this application\n\n";
+        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+        startActivity(Intent.createChooser(shareIntent, "choose one"));
+
+
+    }
 
 
 }
