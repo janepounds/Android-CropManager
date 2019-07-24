@@ -5545,6 +5545,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 item.setQuantity(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_QUANTITY)));
                 item.setTax(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_TAX)));
                 item.setRate(res.getFloat(res.getColumnIndex(CROP_PRODUCT_ITEM_RATE)));
+                item.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
 
                 items_list.add(item);
                 res.moveToNext();
@@ -8740,7 +8741,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         String key = isGlobal?CROP_GLOBAL_ID:CROP_PRODUCT_ITEM_ID;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + CROP_PRODUCT_ITEM_TABLE_NAME+ " where " + key+" = ?", new String[]{itemId});
+        Cursor res = db.rawQuery("select * from " + CROP_PRODUCT_ITEM_TABLE_NAME+ " where " + key+" = '"+itemId+"'", null);
         res.moveToFirst();
         CropProductItem item = null;
         if(!res.isAfterLast()) {

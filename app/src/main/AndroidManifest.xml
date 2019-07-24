@@ -106,13 +106,15 @@
             android:label="Bill Manager" />
         <activity
             android:name=".activities.CropPurchaseOrderPreviewActivity"
-            android:label="Purchase Order Preview" />
+            android:label="Purchase Order Preview"
+            />
         <activity
             android:name=".activities.CropPurchaseOrdersListActivity"
             android:label="Purchase Orders" />
         <activity
             android:name=".activities.CropPurchaseOrderManagerActivity"
-            android:label="Purchase Order Manager" />
+            android:label="Purchase Order Manager"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.CropTasksListActivity"
             android:label="Tasks" />
@@ -214,7 +216,8 @@
         <activity
             android:name=".activities.CropProductsListActivity"
             android:label="@string/title_activity_crop_products_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.CropSuppliersListActivity"
             android:label="@string/title_activity_crop_supplies_list"

@@ -93,7 +93,7 @@
                     android:drawableLeft="@drawable/user"
                     android:drawablePadding="20.0dip"
                     android:hint="Last Name"
-                    android:maxLength="10"
+
                     android:padding="10.0dip"
                     android:singleLine="true"
                     android:textColor="@color/whiteColor"
@@ -163,7 +163,7 @@
                     android:drawablePadding="20.0dip"
                     android:drawableTint="@color/White"
                     android:hint="Country"
-                    android:maxLength="10"
+
                     android:padding="10.0dip"
                     android:singleLine="true"
                     android:textColor="@color/whiteColor"
@@ -384,7 +384,7 @@
                         android:layout_weight="0.3"
                         android:hint="Code"
                         android:inputType="phone"
-                        android:maxLength="3"
+                        android:maxLength="4"
                         android:singleLine="true"
                         android:textColor="@color/whiteColor"
                         android:textColorHint="@color/hintColor"
