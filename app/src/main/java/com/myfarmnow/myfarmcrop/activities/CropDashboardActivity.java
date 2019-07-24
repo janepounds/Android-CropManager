@@ -815,6 +815,15 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
 
     }
+    public void rateApp(View view) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.myfarmnow.cropmanager" )));
 
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager" )));
+        }
+    }
 
 }

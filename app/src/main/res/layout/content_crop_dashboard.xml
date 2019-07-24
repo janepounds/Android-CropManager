@@ -1754,6 +1754,51 @@
                         </LinearLayout>
 
                     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginStart="0dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:onClick="rateApp">
+
+            <ImageView
+
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/heart"
+                android:padding="8dp"
+                android:visibility="visible"
+                />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="Rate App"
+                android:textColor="#ffffff"
+                android:textSize="15dp"/>
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
