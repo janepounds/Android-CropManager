@@ -384,7 +384,7 @@
                         android:layout_weight="0.3"
                         android:hint="Code"
                         android:inputType="phone"
-                        android:maxLength="4"
+                        android:maxLength="3"
                         android:singleLine="true"
                         android:textColor="@color/whiteColor"
                         android:textColorHint="@color/hintColor"

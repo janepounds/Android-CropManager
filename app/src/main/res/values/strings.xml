@@ -1666,6 +1666,7 @@
     <string name="taxes_not_entered_message">You must enter Taxes</string>
     <string name="selling_price_not_entered_message">You must enter Selling Price</string>
     <string name="cropping_year_not_entered">Cropping Year has not been entered</string>
+    <string name="dialog_message">Please re-enter your phone number</string>
 
 
     <string-array name="dateFormatsArray">

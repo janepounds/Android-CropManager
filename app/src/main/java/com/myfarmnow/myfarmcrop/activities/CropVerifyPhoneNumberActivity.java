@@ -1,15 +1,19 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -135,10 +139,14 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
             }
         });
 
+
+
         resendCodeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resendCode();
+
+
             }
         });
         messageTextView.setText("A code has been sent to " +phoneNumber+". Enter it below to verify your account");
@@ -153,72 +161,96 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
 
     public void resendCode(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        params.put("verificationMethod","sms");
-        params.put("userId",userId);
-        params.put("phoneNumber",phoneNumber);
-        params.put("countryCode",countryCode);
-        client.post(ApiPaths.CROP_USER_RESEND_CODE, params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
-
-            @Override
-            public void onStart() {
-
-                dialog = new ProgressDialog(CropVerifyPhoneNumberActivity.this);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-
-                dialog.setCancelable(false);
-                dialog.show();
-            }
 
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                try {
-
-                    messageTextView.setText(response.getString("message")+". Enter the code below to verify your account");
-                    Log.d("response", response.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
 
 
-                    if (errorResponse != null) {
-                        String message = errorResponse.getString("message");
-                        //
+        AlertDialog.Builder builder = new AlertDialog.Builder(CropVerifyPhoneNumberActivity.this);
 
-                        Toast.makeText(CropVerifyPhoneNumberActivity.this, message, Toast.LENGTH_SHORT).show();
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_popup_edittext,null);
 
-                        Log.e("info", new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info", "Something got very very wrong");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                dialog.dismiss();
 
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-                dialog.dismiss();
+        builder.setMessage("Please confirm your phone number!");
+
+        final EditText codeTxt = findViewById(R.id.edtCountryCode);
+        final EditText numberTxt = findViewById(R.id.edtContact);
+
+        builder.setView(dialogView);
+        builder.setPositiveButton("RE-SEND", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    final RequestParams params = new RequestParams();
+                    params.put("verificationMethod","sms");
+                    params.put("userId",userId);
+                    params.put("phoneNumber",phoneNumber);
+                    params.put("countryCode",countryCode);
+                    client.post(ApiPaths.CROP_USER_RESEND_CODE, params, new JsonHttpResponseHandler() {
+                        ProgressDialog dialog;
+
+                        @Override
+                        public void onStart() {
+
+                            dialog = new ProgressDialog(CropVerifyPhoneNumberActivity.this);
+                            dialog.setIndeterminate(true);
+                            dialog.setMessage("Please Wait..");
+
+                            dialog.setCancelable(false);
+                            dialog.show();
+                        }
+
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            // If the response is JSONObject instead of expected JSONArray
+                            try {
+
+                                messageTextView.setText(response.getString("message")+". Enter the code below to verify your account");
+                                Log.d("response", response.toString());
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            try {
+
+
+                                if (errorResponse != null) {
+                                    String message = errorResponse.getString("message");
+                                    //
+
+                                    Toast.makeText(CropVerifyPhoneNumberActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                                    Log.e("info", new String(String.valueOf(errorResponse)));
+                                } else {
+                                    Log.e("info", "Something got very very wrong");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            dialog.dismiss();
+
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+                            if (errorResponse != null) {
+                                Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                            } else {
+                                Log.e("info : "+statusCode, "Something got very very wrong");
+                            }
+                            dialog.dismiss();
+                        }
+                    });
             }
         });
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
