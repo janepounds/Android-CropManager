@@ -181,7 +181,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
                 .build();
 
         PeriodicWorkRequest sendNotifications =
-                new PeriodicWorkRequest.Builder(CropNotificationsSendWorker.class, 2, TimeUnit.HOURS)
+                new PeriodicWorkRequest.Builder(CropNotificationsSendWorker.class, 6, TimeUnit.HOURS)
                         .setConstraints(sendNotificationsConstraints)
 
                         .build();
