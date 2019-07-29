@@ -172,8 +172,8 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
         builder.setMessage("Please confirm your phone number!");
 
-        final EditText codeTxt = findViewById(R.id.edtCountryCode);
-        final EditText numberTxt = findViewById(R.id.edtContact);
+        final EditText codeTxt = dialogView.findViewById(R.id.edtCountryCode);
+        final EditText numberTxt = dialogView.findViewById(R.id.edtContact);
 
         builder.setView(dialogView);
         builder.setPositiveButton("RE-SEND", new DialogInterface.OnClickListener() {
@@ -181,6 +181,8 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
                     AsyncHttpClient client = new AsyncHttpClient();
                     final RequestParams params = new RequestParams();
+                    phoneNumber ="+" +codeTxt.getText().toString()+ numberTxt.getText().toString();
+                    countryCode = codeTxt.getText().toString();
                     params.put("verificationMethod","sms");
                     params.put("userId",userId);
                     params.put("phoneNumber",phoneNumber);
@@ -202,10 +204,14 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            CropDashboardActivity.savePreferences("phoneNumber",phoneNumber,CropVerifyPhoneNumberActivity.this);
+                            CropDashboardActivity.savePreferences("countryCode",countryCode,CropVerifyPhoneNumberActivity.this);
+
                             // If the response is JSONObject instead of expected JSONArray
                             try {
 
-                                messageTextView.setText(response.getString("message")+". Enter the code below to verify your account");
+                                messageTextView.setText(response.getString("message")+ " Enter the code below to verify your account");
                                 Log.d("response", response.toString());
 
                             } catch (JSONException e) {
