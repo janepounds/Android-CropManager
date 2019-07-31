@@ -279,7 +279,7 @@ public class CropRegisterActivity extends PermisoActivity implements
         final RequestParams params = new RequestParams();
 
         //   String tokens = SharedPreferences.(this).gettoken();
-
+        String countryCode = edtCountryCode.getText().toString().replace("+","");
         params.put("id", CropDashboardActivity.getPreferences("userId",this));
         params.put("firstname", "" + edtfirstname.getText().toString());
         params.put("lastname", "" + edtlastname.getText().toString());
@@ -289,8 +289,8 @@ public class CropRegisterActivity extends PermisoActivity implements
         params.put("addressCityOrTown", "" + edtAdressTownorCity.getText().toString());
         params.put("email", "" + edtemail.getText().toString());
         params.put("farmname", "" + edtfarmname.getText().toString());
-        params.put("phoneNumber", "+" +edtCountryCode.getText().toString()+edtContact.getText().toString());
-        params.put("countryCode", "" + edtCountryCode.getText().toString());
+        params.put("phoneNumber", "+" +countryCode+edtContact.getText().toString());
+        params.put("countryCode", countryCode);
         params.put("oldPassword", currentPasswordTxt.getText().toString());
         params.put("latitude", "" + lat);
         params.put("longitude", "" + lng);
@@ -389,7 +389,7 @@ public class CropRegisterActivity extends PermisoActivity implements
         final RequestParams params = new RequestParams();
 
      //   String tokens = SharedPreferences.(this).gettoken();
-
+        String countryCode = edtCountryCode.getText().toString().replace("+","");
         params.put("firstname", "" + edtfirstname.getText().toString());
         params.put("lastname", "" + edtlastname.getText().toString());
         params.put("country", "" + spinnercountry.getSelectedItem().toString());
@@ -399,8 +399,8 @@ public class CropRegisterActivity extends PermisoActivity implements
         params.put("email", "" + edtemail.getText().toString());
         params.put("password", "" + edtpassword.getText().toString());
         params.put("farmname", "" + edtfarmname.getText().toString());
-        params.put("phoneNumber", "+" +edtCountryCode.getText().toString()+edtContact.getText().toString());
-        params.put("countryCode", "" + edtCountryCode.getText().toString());
+        params.put("phoneNumber", "+" +countryCode+edtContact.getText().toString());
+        params.put("countryCode", countryCode);
         params.put("latitude", "" + lat);
         params.put("longitude", "" + lng);
 
@@ -425,7 +425,7 @@ public class CropRegisterActivity extends PermisoActivity implements
                 // If the response is JSONObject instead of expected JSONArray
                 try {
                         JSONObject user = response.getJSONObject("user");
-                        Toast.makeText(CropRegisterActivity.this, "Successfully Loged in..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CropRegisterActivity.this, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                         Log.e("response", response.toString());
                         CropDashboardActivity.saveUser(user,CropRegisterActivity.this);
                         Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
@@ -466,7 +466,21 @@ public class CropRegisterActivity extends PermisoActivity implements
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.e("info", new String(String.valueOf(errorResponse)));
+                    if(statusCode==403){
+                        try {
+                            errorTextView.setText(errorResponse.getString("message"));
+                            errorTextView.setVisibility(View.VISIBLE);
+                            errorTextView.requestFocus();
+                            Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
+                    Log.e("info response", new String(String.valueOf(errorResponse)));
                 } else {
                     Log.e("info", "Something got very very wrong");
                 }

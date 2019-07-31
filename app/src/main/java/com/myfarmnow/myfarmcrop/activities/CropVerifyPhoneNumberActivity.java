@@ -175,6 +175,9 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
         final EditText codeTxt = dialogView.findViewById(R.id.edtCountryCode);
         final EditText numberTxt = dialogView.findViewById(R.id.edtContact);
 
+        codeTxt.setText(countryCode);
+        numberTxt.setText(phoneNumber.replace("+"+ countryCode,""));
+
         builder.setView(dialogView);
         builder.setPositiveButton("RE-SEND", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

@@ -190,20 +190,20 @@ public class CropLoginActivity extends AppCompatActivity {
                         errorTextView.setText(errorResponse.getString("message"));
                         errorTextView.setVisibility(View.VISIBLE);
                         errorTextView.requestFocus();
-                        JSONObject data = errorResponse;
-                        if( errorResponse.getString("message").contains("Verification Required")){
+                        JSONObject data = errorResponse.getJSONObject("data");
+                        if( errorResponse.getString("message").replace(" ","").toLowerCase().contains("verificationrequired")){
                             Intent verifyPhoneNumber = new Intent(context, CropVerifyPhoneNumberActivity.class);
                             verifyPhoneNumber.putExtra("userId",data.getString("id"));
                             verifyPhoneNumber.putExtra("phoneNumber",data.getString("phoneNumber"));
                             verifyPhoneNumber.putExtra("countryCode",data.getString("countryCode"));
                             verifyPhoneNumber.putExtra("resendCode","yes");
                             context.startActivity(verifyPhoneNumber);
-                        }
+                            }
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                  }
 
                 try{
                     dialog.dismiss();

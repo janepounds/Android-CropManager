@@ -129,6 +129,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes_grey_spinner"
                             android:hint="Select"
+                            android:focusable="false"
+                            android:inputType="none"
                             android:textColor="@color/blackText"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -164,6 +166,7 @@
                             android:background="@drawable/input_shapes_grey_spinner"
                             android:hint="Select"
                             android:inputType="none"
+                            android:focusable="false"
                             android:textSize="12sp" />
                     </LinearLayout>
 

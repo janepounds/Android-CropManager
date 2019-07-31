@@ -45,6 +45,7 @@
                     android:ems="10"
                     android:hint="Select"
                     android:inputType="none"
+                    android:focusable="false"
                     android:background="@drawable/input_shapes_grey_spinner"
                     android:textSize="14sp"
 

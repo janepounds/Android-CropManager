@@ -260,10 +260,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Enter.."
+                    android:hint="Select"
                     android:inputType="none"
+                    android:focusable="false"
                     android:textSize="14sp"
-                    android:background="@drawable/input_shapes"
+                    android:background="@drawable/input_shapes_grey_spinner"
                     android:layout_weight="1"
 
                     />

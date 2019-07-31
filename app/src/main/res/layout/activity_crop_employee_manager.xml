@@ -366,7 +366,7 @@
                     android:textSize="14sp"
                     android:inputType="none"
                     android:background="@drawable/input_shapes_grey_spinner"
-
+                    android:focusable="false"
 
 
                     />
@@ -404,7 +404,7 @@
                         android:textSize="14sp"
                         android:background="@drawable/input_shapes_grey_spinner"
                         android:layout_weight="0.4"
-
+                        android:focusable="false"
 
                         />
 

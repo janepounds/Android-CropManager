@@ -41,6 +41,7 @@
                 android:ems="10"
                 android:hint="Select"
                 android:inputType="none"
+                android:focusable="false"
                 android:textSize="14sp"
                 android:background="@drawable/input_shapes_grey_spinner"
 
@@ -470,6 +471,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:hint="Select"
+                    android:focusable="false"
                     android:background="@drawable/input_shapes_grey_spinner"
                     android:inputType="none"
                     android:textSize="14sp"
