@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -17,15 +17,20 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CropLoadBackUpActivity"></activity>
+        <service
+            android:name=".services.CropNotificationsFireService"
+            android:enabled="false"
+            android:exported="false"></service>
+
+        <activity android:name=".activities.CropLoadBackUpActivity" />
 
         <service
             android:name=".services.CropSyncService"
             android:enabled="true"
-            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
-            android:exported="true">
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
             <intent-filter>
-                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
             </intent-filter>
         </service>
 
@@ -106,15 +111,14 @@
             android:label="Bill Manager" />
         <activity
             android:name=".activities.CropPurchaseOrderPreviewActivity"
-            android:label="Purchase Order Preview"
-            />
+            android:label="Purchase Order Preview" />
         <activity
             android:name=".activities.CropPurchaseOrdersListActivity"
             android:label="Purchase Orders" />
         <activity
             android:name=".activities.CropPurchaseOrderManagerActivity"
             android:label="Purchase Order Manager"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.CropTasksListActivity"
             android:label="Tasks" />
@@ -217,7 +221,7 @@
             android:name=".activities.CropProductsListActivity"
             android:label="@string/title_activity_crop_products_list"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.CropSuppliersListActivity"
             android:label="@string/title_activity_crop_supplies_list"
@@ -340,7 +344,11 @@
         <activity
             android:name=".activities.CropBestPracticesDashboardActivity"
             android:label="@string/title_activity_crop_best_practices_dashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                </intent-filter>
+        </activity>
         <activity
             android:name=".activities.CropMachineTaskManagerActivity"
             android:label="@string/title_activity_crop_machine_task_manager" />
@@ -383,10 +391,7 @@
             android:name=".services.CropNotificationsCreatorService"
             android:enabled="true"
             android:exported="true" />
-        <service
-            android:name=".services.CropNotificationsSendWorker"
-            android:enabled="true"
-            android:exported="true" />
+
         <service
             android:name=".services.MyFirebaseInstanceIdService"
             android:permission="false">

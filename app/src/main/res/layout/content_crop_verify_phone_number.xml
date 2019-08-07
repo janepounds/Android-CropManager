@@ -63,10 +63,26 @@
         android:text="@string/didn_t_receive_code_resend"
         android:textColor="@color/hintColor"
         android:textSize="16.0sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_crop_verify_phone"
         app:layout_constraintVertical_bias="0.11" />
-
+    <TextView
+        android:id="@+id/text_view_verify_code_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="108dp"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
+        android:text="Errror Message"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_crop_verify_resend_code"
+        app:layout_constraintVertical_bias="0.11"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

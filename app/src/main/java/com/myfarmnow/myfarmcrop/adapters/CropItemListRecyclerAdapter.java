@@ -74,6 +74,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
         notifyDataSetChanged();
     }
 
+
     public ArrayList<String> getDeleteItemsId() {
         return deleteItemsId;
     }

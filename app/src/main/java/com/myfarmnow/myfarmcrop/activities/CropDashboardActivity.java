@@ -772,7 +772,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
     public void logout(View view){
 
         startService(new Intent(this, CropSyncService.class));
-        ProgressDialog dialog = new ProgressDialog(this);
+        final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setIndeterminate(true);
         dialog.setMessage("Logging out..");
         dialog.setCancelable(false);

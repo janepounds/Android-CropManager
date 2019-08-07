@@ -36,19 +36,23 @@ public class CropNotificationsSendWorker extends Worker {
         this.context = context;
     }
 
+    public CropNotificationsSendWorker(){
+        super(null,null);
+    }
+
     @NonNull
     @Override
     public Result doWork() {
-
+        if(context==null){
+            return Result.failure();
+        }
         try{
             ArrayList<CropNotification> todayNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(CropDashboardActivity.getPreferences("userId",context), CropNotification.QUERY_KEY_TODAY);
             ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(CropDashboardActivity.getPreferences("userId",context), CropNotification.QUERY_KEY_REPORT_FROM_TODAY);
 
             showNotifications(todayNotifications, "Tasks due Today","TODAY",1);
             showNotifications(upcomingNotifications, "Upcoming Tasks","UPCOMING",2);
-            Log.d("NOTIFICATION ","THE NOTIFICATION WORKER RAN FINALLY");
-            Log.d("NOTIFICATION ","TODAY "+todayNotifications.size());
-            Log.d("NOTIFICATION ","UPCOMING "+upcomingNotifications.size());
+
         }catch (Exception e){
             e.printStackTrace();
             return Result.retry();
@@ -90,8 +94,7 @@ public class CropNotificationsSendWorker extends Worker {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder
-
-                    .setSmallIcon(android.R.drawable.ic_popup_reminder)
+                    .setSmallIcon(R.drawable.logo)
                     .setContentTitle(title)// required
                     .setContentText(context.getString(R.string.app_name)) // required
                     .setDefaults(Notification.DEFAULT_ALL)
@@ -108,7 +111,7 @@ public class CropNotificationsSendWorker extends Worker {
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder
                     .setContentTitle(title)
-                    .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
+                    .setSmallIcon(R.drawable.logo)   // required
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
                     .setContentText(upComingMessage)
@@ -118,6 +121,8 @@ public class CropNotificationsSendWorker extends Worker {
                     .setPriority(Notification.PRIORITY_HIGH);
         }
         Notification notification = builder.build();
-        notifManager.notify(NOTIFY_ID, notification);
+        if (notifManager != null) {
+            notifManager.notify(NOTIFY_ID, notification);
+        }
     }
 }

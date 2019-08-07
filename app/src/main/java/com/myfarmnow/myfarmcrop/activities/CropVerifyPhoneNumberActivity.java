@@ -30,7 +30,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
-    TextView messageTextView, resendCodeTextView;
+    TextView messageTextView, resendCodeTextView, errorTextView;
     EditText codeTxt;
     Button verifyButton;
     String phoneNumber, countryCode, userId;
@@ -54,6 +54,7 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
         messageTextView = findViewById(R.id.text_view_crop_verify_phone_message);
         resendCodeTextView = findViewById(R.id.text_view_crop_verify_resend_code);
+        errorTextView = findViewById(R.id.text_view_verify_code_error);
         codeTxt = findViewById(R.id.txt_crop_verify_phone_code);
         verifyButton = findViewById(R.id.btn_crop_verify_phone);
 
@@ -115,7 +116,12 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
                                 //
                                 if(message.contains("No pending verifications")){
                                     Toast.makeText(CropVerifyPhoneNumberActivity.this, "The Code has expired. Request new code", Toast.LENGTH_SHORT).show();
+                                    errorTextView.setText("The Code has expired. Request new code");
                                 }
+                                else{
+                                    errorTextView.setText(message);
+                                }
+                                errorTextView.setVisibility(View.VISIBLE);
                                 Log.e("info", new String(String.valueOf(errorResponse)));
                             } else {
                                 Log.e("info", "Something got very very wrong");
@@ -210,8 +216,6 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
 
                             CropDashboardActivity.savePreferences("phoneNumber",phoneNumber,CropVerifyPhoneNumberActivity.this);
                             CropDashboardActivity.savePreferences("countryCode",countryCode,CropVerifyPhoneNumberActivity.this);
-
-                            // If the response is JSONObject instead of expected JSONArray
                             try {
 
                                 messageTextView.setText(response.getString("message")+ " Enter the code below to verify your account");

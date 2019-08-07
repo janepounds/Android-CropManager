@@ -18,8 +18,6 @@ public class CropBroadcastsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            context.startService(new Intent(context, CropNotificationsSendWorker.class));
-            context.startService(new Intent(context, CropNotificationsCreatorService.class));
             CropDashboardActivity.scheduleBackgroundWork(); //
         }
 
