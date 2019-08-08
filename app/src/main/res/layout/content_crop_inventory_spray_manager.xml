@@ -45,6 +45,7 @@
                         android:background="@drawable/input_shapes_grey_spinner"
                         android:hint="Select"
                         android:inputType="none"
+                        android:focusable="false"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -384,6 +385,7 @@
                         android:inputType="none"
                         android:background="@drawable/input_shapes_grey_spinner"
                         android:hint="Select"
+                        android:focusable="false"
                         android:textSize="14sp" />
 
                 </LinearLayout>

@@ -48,7 +48,8 @@
                         android:ems="10"
                         android:hint="Select"
                         android:background="@drawable/input_shapes_grey_spinner"
-
+                        android:focusable="false"
+                        android:inputType="none"
                         android:textSize="14sp"
                         />
                 </LinearLayout>
@@ -387,6 +388,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Select"
+                        android:inputType="none"
+                        android:focusable="false"
                         android:textSize="14sp"
                         android:background="@drawable/input_shapes_grey_spinner"
                         android:layout_weight="0.7"/>
