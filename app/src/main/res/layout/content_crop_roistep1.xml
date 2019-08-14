@@ -7,7 +7,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.CropROIStep1Activity"
     tools:showIn="@layout/activity_crop_roistep1">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -266,4 +269,5 @@
 
         </LinearLayout>
     </LinearLayout>
+</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
