@@ -5,8 +5,8 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
-        //applicationId "com.myfarmnow.cropmanager" //play store id
+       // applicationId "com.myfarmnow.myfarmcrop" //this id is for testing purposes
+        applicationId "com.myfarmnow.cropmanager" //play store id
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 4

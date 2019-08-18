@@ -39,8 +39,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
+                        android:hint="Select"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:background="@drawable/input_shapes_grey_spinner"
                         android:layout_weight="0.7"
                         android:textSize="14sp"
                         />
