@@ -162,6 +162,7 @@ public class CropSyncService extends Service {
 
     private JSONArray prepareMachines(){
         JSONArray jsonArray = new JSONArray();
+
         ArrayList<CropMachine> records = dbHandler.getCropMachines(userId,false);
         for(CropMachine record: records){
             if(record.getGlobalId()==null){
@@ -265,7 +266,7 @@ public class CropSyncService extends Service {
             CropInventorySeeds seed = dbHandler.getCropSeed(record.getSeedId(),false);
 
             if(seed != null){
-                Log.d("CROPS SEED ",seed.toJSON().toString());
+
                 if(seed.getSyncStatus().equals("no")){
                     continue; //do not back up this crop since its parent seed inventory is not backed up
                 }
@@ -1015,7 +1016,14 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block1Completed = true;
+            attemptToStopService();
+            e.printStackTrace();
+        }catch (Exception e) {
+            block1Completed = true;
+            attemptToStopService();
             e.printStackTrace();
         }
 
@@ -1137,7 +1145,11 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }  catch (JSONException e) {
+            block1Completed = true;
+            e.printStackTrace();
+        }catch (Exception e) {
+            block1Completed = true;
             e.printStackTrace();
         }
     }
@@ -1268,7 +1280,12 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block1Completed = true;
+            e.printStackTrace();
+        }catch (Exception e) {
+            block1Completed = true;
             e.printStackTrace();
         }
     }
@@ -1377,15 +1394,18 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block1Completed = true;
+            e.printStackTrace();
+        }catch (Exception e) {
+            block1Completed = true;
             e.printStackTrace();
         }
     }
     private void startBlock1eBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-
-
         JSONObject requestObject = new JSONObject();
 
         try {
@@ -1487,8 +1507,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block1Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block1Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
     }
     private void startBlock1fBackup(){
@@ -1605,8 +1632,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block1Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block1Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
     }
     private void startBlock1gBackup(){
@@ -1722,8 +1756,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block1Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block1Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
     }
 
@@ -1854,8 +1895,14 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }catch (JSONException e) {
+            block2Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block2Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
 
 
@@ -1973,8 +2020,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block2Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block2Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
 
 
@@ -1982,10 +2036,7 @@ public class CropSyncService extends Service {
     private void startBlock2cBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-
-
         JSONObject requestObject = new JSONObject();
-
         try {
             requestObject.put("bills",prepareBills());
             requestObject.put("purchaseOrders",preparePurchaseOrders());
@@ -2070,8 +2121,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            block2Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block2Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
 
 
@@ -2170,11 +2228,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        catch (Exception e) {
+        catch (JSONException e) {
+            block2Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block2Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
 
 
@@ -2258,7 +2320,13 @@ public class CropSyncService extends Service {
 
 
         } catch (JSONException e) {
+            block2Completed = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            block2Completed = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
 
 
@@ -2266,9 +2334,6 @@ public class CropSyncService extends Service {
     private void backupDeletedRecords(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
-
-
-
         JSONObject requestObject = new JSONObject();
 
         try {
@@ -2336,8 +2401,15 @@ public class CropSyncService extends Service {
             });
 
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            deletesCompleted = true;
             e.printStackTrace();
+            attemptToStopService();
+        }catch (Exception e) {
+            deletesCompleted = true;
+            e.printStackTrace();
+            attemptToStopService();
         }
 
 

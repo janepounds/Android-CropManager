@@ -6915,6 +6915,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<CropInvoice> array_list = new ArrayList();
 
         SQLiteDatabase db = database;
+
         Cursor res =  db.rawQuery( "select * from "+CROP_INVOICE_TABLE_NAME+" WHERE "+CROP_INVOICE_USER_ID+ " = ? AND "+CROP_SYNC_STATUS+" = ?", new String[]{userId,synced?"yes":"no"} );
         res.moveToFirst();
 
