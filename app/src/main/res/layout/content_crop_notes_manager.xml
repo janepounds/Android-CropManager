@@ -165,7 +165,9 @@
                 android:drawableTint="#ffffff"
                 android:text="Save "
                 android:textAllCaps="false"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"/>
 
 
 

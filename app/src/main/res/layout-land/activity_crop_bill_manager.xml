@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CropPurchaseOrderManagerActivity">
+    tools:context=".activities.CropBillManagerActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,22 +37,24 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
                             android:text="@string/supplier"
                             android:textColor="@color/textColor"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                             />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes_grey_spinner"
                             android:orientation="vertical"
-                            android:padding="2.4dp">
-                            <Spinner
-                                android:id="@+id/spinner_crop_purchase_order_supplier"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textSize="12sp" />
+                            android:padding="3.4dp">
+                        <Spinner
+                            android:id="@+id/spinner_crop_bill_supplier"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select"
+                            android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
@@ -64,18 +66,19 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/purchase_order_number"
+                            android:layout_weight="0.6"
+                            android:text="@string/bill_number"
                             android:textColor="@color/textColor"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                             />
 
                         <TextView
-                            android:id="@+id/txt_crop_purchase_order_number"
+                            android:id="@+id/txt_crop_bill_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
                             android:textColor="@color/blackText"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -87,50 +90,52 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:layout_marginEnd="12dp"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/reference_number"
+                            android:layout_weight="0.6"
+                            android:text="@string/order_number"
                             android:textColor="@color/textColor"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                             />
 
                         <EditText
-                            android:id="@+id/txt_crop_purchase_order_reference_number"
+                            android:id="@+id/txt_crop_bill_order_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes"
                             android:textColor="@color/blackText"
                             android:hint="Enter.."
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:layout_marginStart="12dp"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/purchase_order_date"
+                            android:layout_weight="0.6"
+                            android:text="@string/bill_date"
                             android:textColor="@color/textColor"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                             />
 
                         <EditText
-                            android:id="@+id/txt_crop_purchase_order_purchase_date"
+                            android:id="@+id/txt_crop_bill_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/input_shapes_grey_spinner"
+                            android:textColor="@color/blackText"
+                            android:textSize="14sp"
                             android:hint="Select"
                             android:focusable="false"
-                            android:inputType="none"
-                            android:textColor="@color/blackText"
-                            android:textSize="12sp" />
+                            android:inputType="none"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -140,10 +145,43 @@
                     android:layout_marginBottom="12dp"
                     android:orientation="horizontal">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:text="@string/terms"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp"
+
+                             />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_shapes_grey_spinner"
+                            android:orientation="vertical"
+                            android:padding="3.4dp">
+                        <Spinner
+                            android:id="@+id/txt_crop_bill_terms"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.4"
+                            android:entries="@array/invoice_terms_list"
+                            android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -151,46 +189,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
-                            android:text="@string/delivery_date_label"
+                            android:text="@string/due_date"
                             android:textColor="@color/textColor"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            />
 
                         <EditText
-                            android:id="@+id/txt_crop_purchase_order_delivery_date"
+                            android:id="@+id/txt_crop_bill_due_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
                             android:background="@drawable/input_shapes_grey_spinner"
                             android:hint="Select"
                             android:inputType="none"
-                            android:focusable="false"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                           android:text="@string/delivery_method"
-                            android:textColor="@color/textColor"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/txt_crop_purchase_order_delivery_method"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
-                            android:background="@drawable/input_shapes"
-                            android:inputType="none"
-                            android:textSize="12sp" />
+                            android:textSize="14sp"
+                            android:focusable="false"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -238,10 +251,10 @@
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
                                         android:gravity="center"
-                                        android:textColor="@color/textColor"
                                         android:text="@string/item_details_label"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                        android:textSize="14sp"
+                                        android:textColor="@color/textColor"
+                                         />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -259,7 +272,7 @@
                                         android:text="@string/quantity"
                                         android:textColor="@color/textColor"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                         />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -277,7 +290,7 @@
                                         android:text="@string/rate"
                                         android:textColor="@color/textColor"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                         />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -292,10 +305,10 @@
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
                                         android:gravity="center"
-                                        android:text="@string/label_tax"
                                         android:textColor="@color/textColor"
+                                        android:text="@string/label_tax"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                         />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -313,7 +326,7 @@
                                         android:textColor="@color/textColor"
                                         android:text="@string/amount_label"
                                         android:textSize="12sp"
-                                        android:textStyle="bold" />
+                                         />
                                 </LinearLayout>
 
 
@@ -344,7 +357,7 @@
                     android:minWidth="1dp"
                     android:backgroundTint="@color/textColor"
                     android:drawableTint="#ffffff"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:text="@string/label_add_item"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />
@@ -353,28 +366,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="4dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sub_total"
-                        android:textColor="@color/textColor"
-                        android:layout_weight="0.7"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+
 
                     <TextView
-                        android:id="@+id/txt_view_crop_purchase_order_sub_total"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="@string/sub_total"
+                        android:textColor="@color/textColor"
+                        android:textSize="12sp"
+                         />
+
+                    <TextView
+
+                        android:id="@+id/txt_view_crop_bill_sub_total"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:layout_weight="0.4"
+                        android:layout_weight="0.3"
                         android:text="@string/default_numeric_value" />
 
                 </LinearLayout>
@@ -384,19 +400,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="0.3"
                     android:orientation="horizontal">
 
                     <TextView
-
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/discount"
-                        android:textColor="@color/textColor"
                         android:layout_weight="0.4"
+                        android:textColor="@color/textColor"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                         />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -407,7 +421,7 @@
 
 
                         <EditText
-                            android:id="@+id/txt_crop_purchase_order_discount_percentage"
+                            android:id="@+id/txt_crop_bill_discount_percentage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.9"
@@ -416,7 +430,7 @@
                             android:hint="Enter.."
 
                             android:inputType="number"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
 
                             />
 
@@ -430,7 +444,7 @@
                             android:layout_marginEnd="8dp"
                             android:textAlignment="center"
                             android:textSize="18sp"
-                            android:textStyle="bold"
+
 
                             />
 
@@ -439,12 +453,12 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txt_crop_purchase_order_discount"
+                            android:id="@+id/txt_crop_bill_discount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
@@ -459,8 +473,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/divider_line_color_estimates"
-                    android:padding="8dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
 
                     <TextView
@@ -471,15 +485,15 @@
                         android:text="@string/total_ugx"
                         android:textColor="@color/textColor"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
-
-                        android:id="@+id/txt_crop_purchase_order_total"
+                        android:id="@+id/txt_crop_bill_total"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:gravity="end"
+                        android:layout_weight="0.5"
+                        android:textColor="@color/textColor"
                         android:text="@string/default_numeric_value" />
 
                 </LinearLayout>
@@ -498,52 +512,26 @@
                     android:layout_weight="1"
                     android:layout_marginRight="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/notes"
-                    android:textColor="@color/textColor"
-                    android:layout_weight="0.5"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/txt_crop_purchase_order_notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/input_shapes"
-                    android:gravity="start"
-                    android:textSize="12sp"
-                    android:hint="Enter.." />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:text="@string/terms_and_conditions"
+                        android:layout_marginRight="30dp"
+                        android:text="@string/notes"
                         android:textColor="@color/textColor"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                         />
 
                     <EditText
-                        android:id="@+id/txt_crop_purchase_order_terms_and_conditions"
+                        android:id="@+id/txt_crop_bill_notes"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/input_shapes"
                         android:gravity="start"
-                        android:textSize="12sp"
-                        android:hint="Enter.." />
-
+                        android:hint="Enter.."
+                        android:textSize="12sp"/>
                 </LinearLayout>
-            </LinearLayout>
+                           </LinearLayout>
 
 
             <LinearLayout
@@ -558,7 +546,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColor"
-                    android:text="Save"
+                    android:drawableTint="#ffffff"
+                    android:text="Save "
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />
                 <Button
@@ -567,11 +556,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/textColor"
+
                     android:text="@string/save_send"
                     android:textAllCaps="false"
                     android:textColor="#ffffff" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

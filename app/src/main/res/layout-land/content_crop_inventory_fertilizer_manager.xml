@@ -23,7 +23,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -46,16 +47,14 @@
                         android:textSize="14sp" />
 
                 </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+
                     >
 
                     <TextView
@@ -68,6 +67,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="3.4dp"
                     android:background="@drawable/input_shapes_grey_spinner">
                     <Spinner
                         android:id="@+id/spinner_crop_fertilizer_fertilizer_type"
@@ -87,7 +87,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -108,6 +109,34 @@
                         android:textSize="14sp" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity"
+
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/txt_crop_fertilizer_qty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+
+                        android:inputType="number|numberDecimal"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
             </LinearLayout>
             
 
@@ -117,15 +146,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="N-P-K"
-                        android:layout_weight="1"
+                        android:layout_weight="0.9"
                         android:textColor="@color/textColor"
                         android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.1">
                 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_npk_n"
@@ -137,7 +172,7 @@
 
                         android:layout_weight="1"
                         android:background="@drawable/input_shapes"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="10dp"
                         android:textSize="14sp" />
 
                     <EditText
@@ -149,7 +184,7 @@
                         android:inputType="number|numberDecimal"
 
                         android:layout_weight="1"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="10dp"
 
                         android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
@@ -164,41 +199,12 @@
                         android:layout_weight="1"
                         android:background="@drawable/input_shapes"
                         android:textSize="14sp" />
-                
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Quantity"
-                        android:layout_weight="0.8"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/txt_crop_fertilizer_qty"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-
-                        android:inputType="number|numberDecimal"
-                        android:textSize="14sp" />
-
                 </LinearLayout>
+
             </LinearLayout>
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -209,7 +215,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginEnd="12dp">
 
 
                     <TextView
@@ -225,7 +232,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
                         android:background="@drawable/input_shapes"
-                        android:layout_marginRight="10dp"
+
                         android:textSize="14sp" />
 
 
@@ -234,7 +241,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -264,7 +272,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginEnd="12dp">
 
 
                     <TextView
@@ -280,7 +289,6 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
                         android:background="@drawable/input_shapes"
-                        android:layout_marginRight="10dp"
                         android:textSize="14sp" />
 
 
@@ -289,7 +297,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -604,7 +613,9 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableTint="#ffffff"
                 android:text="Save"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"/>
         </LinearLayout>
     </ScrollView>
 

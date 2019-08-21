@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context=".activities.CropProductManagerActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/product_name"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/txt_crop_product_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                       android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/type"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="3.4dp">
+                            <Spinner
+                                android:id="@+id/sp_crop_product_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/sp_crop_product_type"
+                                android:textSize="14sp"
+                                />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                 >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/code"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/txt_crop_product_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+
+                        android:textSize="14sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/units"
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:orientation="vertical"
+                        android:padding="3.4dp">
+                    <Spinner
+                        android:id="@+id/sp_crop_product_units"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
+                        android:entries="@array/sp_crop_product_units"
+                        android:textSize="14sp"
+
+                        />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="@string/linked_account"
+                   
+                    android:textSize="15sp"
+                    android:textColor="@color/textColor"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_shapes_grey_spinner"
+                    android:orientation="vertical"
+                    android:padding="3.4dp">
+                    <Spinner
+                        android:id="@+id/sp_crop_product_linked_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
+                        android:entries="@array/sp_crop_linked_account"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_opening_cost"
+                        android:textColor="@color/textColor"
+                       
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/txt_crop_product_opening_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Enter.."
+                        android:inputType="numberDecimal"
+                        android:background="@drawable/input_shapes"
+
+                        android:textSize="14sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_opening_quantity"
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/txt_crop_product_opening_quantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter.."
+                        android:background="@drawable/input_shapes"
+                        android:inputType="numberDecimal"
+                        android:textSize="14sp"
+
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp">
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/selling_price"
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/txt_crop_product_selling_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_shapes"
+                            android:ems="10"
+                            android:hint="Enter.."
+                            android:inputType="numberDecimal"
+                            android:textSize="14sp"
+                            android:layout_weight="0.2"
+                            />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="4dp"
+                            android:labelFor="@+id/txt_crop_spray_rate"
+                            android:text="/ Unit"
+                            android:textColor="@color/colorPrimary"
+                           android:background="@drawable/input_shapes_grey_units_right"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
+                            />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1">
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tax_rate"
+                        android:textColor="@color/textColor"
+
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@color/gray_mh"
+                        >
+
+                        <EditText
+                            android:id="@+id/txt_crop_product_rate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/input_shapes"
+                            android:ems="10"
+                            android:hint="Enter.."
+                            android:inputType="numberDecimal"
+                            android:textSize="14sp"
+                            android:layout_weight="0.1"
+                            />
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="4dp"
+                            android:labelFor="@+id/txt_crop_spray_rate"
+                            android:text="%"
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@drawable/input_shapes_grey_units_right"
+                            android:textSize="14dp"
+                            android:layout_weight="0.9"
+                            />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/description"
+                    android:textColor="@color/textColor"
+                   
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/txt_crop_product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Enter.."
+                    android:gravity="start"
+                    android:textSize="14sp"
+                   android:inputType="textMultiLine"
+                    android:background="@drawable/input_shapes"
+                    />
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_save"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/textColor"
+                android:drawableTint="#ffffff"
+                android:text="Save "
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
