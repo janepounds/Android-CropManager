@@ -52,7 +52,7 @@ public class CropSettingsActivity extends AppCompatActivity {
 
 
                 }
-            });;
+            });
             fillViews();
             ((ArrayAdapter)currencySp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
             ((ArrayAdapter)weightUnitsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
