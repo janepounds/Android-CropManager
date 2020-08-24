@@ -3,13 +3,13 @@ package com.myfarmnow.myfarmcrop.services;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 
 public class MyFirebaseInstanceIdService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        CropDashboardActivity.sendFirebaseToken(s,this);
+        DashboardActivity.sendFirebaseToken(s,this);
     }
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

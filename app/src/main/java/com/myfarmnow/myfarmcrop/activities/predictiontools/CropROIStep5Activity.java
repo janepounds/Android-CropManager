@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities;
+package com.myfarmnow.myfarmcrop.activities.predictiontools;
 
 import android.content.Intent;
 import android.os.Bundle;

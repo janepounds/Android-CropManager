@@ -167,8 +167,8 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
         });
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(serviceDateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(serviceDateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -230,11 +230,11 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getFullName());
         }
 
-        for(CropContact x: dbHandler.getCropContacts(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getName());
         }
 
@@ -289,9 +289,9 @@ public class CropMachineServiceManagerActivity extends AppCompatActivity {
 
     public void fillViews(){
         if(cropMachineService != null){
-            CropDashboardActivity.selectSpinnerItemByValue(typeSp, cropMachineService.getType());
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropMachineService.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropMachineService.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(typeSp, cropMachineService.getType());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropMachineService.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropMachineService.getReminders());
 
             costTxt.setText(cropMachineService.getCost()+"");
             serviceDateTxt.setText(cropMachineService.getDate());

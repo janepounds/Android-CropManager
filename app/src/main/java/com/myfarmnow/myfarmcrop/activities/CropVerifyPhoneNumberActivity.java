@@ -95,7 +95,7 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
                             JSONObject user = response.getJSONObject("user");
                             Toast.makeText(CropVerifyPhoneNumberActivity.this, "Phone Number Verified", Toast.LENGTH_SHORT).show();
                             Log.e("response", response.toString());
-                            CropDashboardActivity.saveUser(user,CropVerifyPhoneNumberActivity.this);
+                            DashboardActivity.saveUser(user,CropVerifyPhoneNumberActivity.this);
                             Intent verifyPhoneNumber = new Intent(CropVerifyPhoneNumberActivity.this,  CropLoadBackUpActivity.class);
                             startActivity(verifyPhoneNumber);
                             finish();
@@ -214,8 +214,8 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                            CropDashboardActivity.savePreferences("phoneNumber",phoneNumber,CropVerifyPhoneNumberActivity.this);
-                            CropDashboardActivity.savePreferences("countryCode",countryCode,CropVerifyPhoneNumberActivity.this);
+                            DashboardActivity.savePreferences("phoneNumber",phoneNumber,CropVerifyPhoneNumberActivity.this);
+                            DashboardActivity.savePreferences("countryCode",countryCode,CropVerifyPhoneNumberActivity.this);
                             try {
 
                                 messageTextView.setText(response.getString("message")+ " Enter the code below to verify your account");

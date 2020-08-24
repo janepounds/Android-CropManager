@@ -18,8 +18,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropEstimateManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropEstimatePreviewActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimateManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatePreviewActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;

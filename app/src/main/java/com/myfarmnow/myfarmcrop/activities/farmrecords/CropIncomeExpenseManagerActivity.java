@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities;
+package com.myfarmnow.myfarmcrop.activities.farmrecords;
 
 import android.content.Intent;
 import android.os.Build;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;

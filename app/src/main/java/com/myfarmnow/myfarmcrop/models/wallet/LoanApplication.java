@@ -1,22 +1,19 @@
-package com.cabral.emaisha.wallet.models;
+package com.myfarmnow.myfarmcrop.models.wallet;
 
 
 import android.util.Log;
 
+import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.cabral.emaisha.wallet.singletons.WalletSettingsSingleton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class LoanApplication implements Serializable {
 

@@ -77,19 +77,19 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
         referenceNoTxt = findViewById(R.id.txt_crop_sales_order_reference_number);
         saveBtn = findViewById(R.id.btn_save);
         saveAndSendBtn = findViewById(R.id.btn_save_send);
-        CropDashboardActivity.addDatePicker(salesOrderDateTxt,this);
-        CropDashboardActivity.addDatePicker(expiryDateTxt,this);
+        DashboardActivity.addDatePicker(salesOrderDateTxt,this);
+        DashboardActivity.addDatePicker(expiryDateTxt,this);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
-        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(CropDashboardActivity.getPreferences("userId",this)),subTotalTextView);
+        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(DashboardActivity.getPreferences("userId",this)),subTotalTextView);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
         addItemBtn = findViewById(R.id.btn_add_item);
 
         ArrayList<CropSpinnerItem> customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.getPreferences("userId",this))){
             customersList.add(x);
         }
         customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
@@ -213,7 +213,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
 
     public CropSalesOrder saveSalesOrder(){
         cropSalesOrder = new CropSalesOrder();
-        cropSalesOrder.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropSalesOrder.setUserId(DashboardActivity.getPreferences("userId",this));
         cropSalesOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropSalesOrder.setCustomerNotes(notesTxt.getText().toString());
         cropSalesOrder.setShippingDate(expiryDateTxt.getText().toString());
@@ -265,7 +265,7 @@ public class CropSalesOrderManagerActivity extends AppCompatActivity {
 
     public void fillViews(){
         if(cropSalesOrder != null){
-            CropDashboardActivity.selectSpinnerItemById(customersSp,cropSalesOrder.getCustomerId());
+            DashboardActivity.selectSpinnerItemById(customersSp,cropSalesOrder.getCustomerId());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: cropSalesOrder.getItems()){
                 items.add(x);

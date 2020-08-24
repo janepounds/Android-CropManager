@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities;
+package com.myfarmnow.myfarmcrop.activities.predictiontools;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;

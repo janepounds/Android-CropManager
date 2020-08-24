@@ -68,7 +68,7 @@ public class CropSettingsActivity extends AppCompatActivity {
             settingsSingleton.setCurrency(currencySp.getSelectedItem().toString());
 
             MyFarmDbHandlerSingleton.getHandlerInstance(this).updateSettings(settingsSingleton);
-            startActivity(new Intent(this, CropDashboardActivity.class));
+            startActivity(new Intent(this, DashboardActivity.class));
             finish();
 
         }
@@ -76,10 +76,10 @@ public class CropSettingsActivity extends AppCompatActivity {
         public void fillViews(){
             if(settingsSingleton != null){
 
-                CropDashboardActivity.selectSpinnerItemByValue(dateFormatSp,settingsSingleton.getDateFormat());
-                CropDashboardActivity.selectSpinnerItemByValue(weightUnitsSp,settingsSingleton.getWeightUnits());
-                CropDashboardActivity.selectSpinnerItemByValue(areaUnitsSp,settingsSingleton.getAreaUnits());
-                CropDashboardActivity.selectSpinnerItemByValue(currencySp,settingsSingleton.getCurrency());
+                DashboardActivity.selectSpinnerItemByValue(dateFormatSp,settingsSingleton.getDateFormat());
+                DashboardActivity.selectSpinnerItemByValue(weightUnitsSp,settingsSingleton.getWeightUnits());
+                DashboardActivity.selectSpinnerItemByValue(areaUnitsSp,settingsSingleton.getAreaUnits());
+                DashboardActivity.selectSpinnerItemByValue(currencySp,settingsSingleton.getCurrency());
 
             }
         }

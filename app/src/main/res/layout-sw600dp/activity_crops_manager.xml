@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:orientation="vertical"
-    tools:context=".activities.CropsManagerActivity">
+    tools:context=".activities.agronomy.CropsManagerActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

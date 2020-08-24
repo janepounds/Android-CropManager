@@ -108,7 +108,7 @@ public class CropContactManagerActivity extends AppCompatActivity {
 
     public void saveContacts(){
         cropContact = new CropContact();
-        cropContact.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropContact.setUserId(DashboardActivity.getPreferences("userId",this));
         cropContact.setType(typeSpinner.getSelectedItem().toString());
         cropContact.setName(nameTxt.getText().toString());
         cropContact.setBusinessName(businessNameTxt.getText().toString());
@@ -125,7 +125,7 @@ public class CropContactManagerActivity extends AppCompatActivity {
 
     public void updateContacts(){
         if(cropContact != null){
-            cropContact.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropContact.setUserId(DashboardActivity.getPreferences("userId",this));
             cropContact.setType(typeSpinner.getSelectedItem().toString());
             cropContact.setName(nameTxt.getText().toString());
             cropContact.setBusinessName(businessNameTxt.getText().toString());
@@ -139,7 +139,7 @@ public class CropContactManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropContact != null){
-            CropDashboardActivity.selectSpinnerItemByValue(typeSpinner, cropContact.getType());
+            DashboardActivity.selectSpinnerItemByValue(typeSpinner, cropContact.getType());
             nameTxt.setText(cropContact.getName());
             businessNameTxt.setText(cropContact.getBusinessName());
             addressTxt.setText(cropContact.getAddress());

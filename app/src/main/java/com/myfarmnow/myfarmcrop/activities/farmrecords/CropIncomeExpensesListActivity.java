@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities;
+package com.myfarmnow.myfarmcrop.activities.farmrecords;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropIncomeExpensesListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 

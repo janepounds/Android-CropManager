@@ -162,8 +162,8 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
 
         currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         btn_save = findViewById(R.id.btn_save);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +222,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
 
     public void saveCultivation(){
         cultivation = new CropCultivation();
-        cultivation.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cultivation.setUserId(DashboardActivity.getPreferences("userId",this));
         cultivation.setDate(dateTxt.getText().toString());
         cultivation.setOperator(operatorTxt.getText().toString());
         cultivation.setOperation(operationTxt.getSelectedItem().toString());
@@ -262,11 +262,11 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
 
             dateTxt.setText(cultivation.getDate());
             operatorTxt.setText(cultivation.getOperator());
-            CropDashboardActivity.selectSpinnerItemByValue(operationTxt, cultivation.getOperation());
+            DashboardActivity.selectSpinnerItemByValue(operationTxt, cultivation.getOperation());
             notesTxt.setText(cultivation.getNotes());
             costTxt.setText(cultivation.getCost()+"");
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cultivation.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cultivation.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cultivation.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cultivation.getReminders());
             weeksTxt.setText(cultivation.getFrequency()+"");
             repeatUntilTxt.setText(cultivation.getRepeatUntil());
             daysBeforeTxt.setText(cultivation.getDaysBefore()+"");

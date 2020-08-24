@@ -28,7 +28,7 @@ public class CropSuppliersListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         customerListRecyclerView = findViewById(R.id.crop_customer_recyc_view);
-        cropSuppliersListRecyclerAdapter = new CropSuppliersListRecyclerAdapter(this,dbHandler.getCropSuppliers(CropDashboardActivity.getPreferences("userId",this)));
+        cropSuppliersListRecyclerAdapter = new CropSuppliersListRecyclerAdapter(this,dbHandler.getCropSuppliers(DashboardActivity.getPreferences("userId",this)));
         customerListRecyclerView.setAdapter(cropSuppliersListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         customerListRecyclerView.setLayoutManager(linearLayoutManager);

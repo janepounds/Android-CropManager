@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="#F4F4F4"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropFieldsListActivity"
+    tools:context=".activities.farmrecords.CropFieldsListActivity"
     tools:showIn="@layout/activity_crop_fields_list">
 
     <androidx.recyclerview.widget.RecyclerView

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropROIStep1Activity"
+    tools:context=".activities.predictiontools.CropROIStep1Activity"
     tools:showIn="@layout/activity_crop_roistep1">
 <ScrollView
     android:layout_width="match_parent"

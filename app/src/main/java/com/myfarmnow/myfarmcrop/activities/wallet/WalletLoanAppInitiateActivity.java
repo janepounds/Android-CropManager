@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.activities;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.kofigyan.stateprogressbar.StateProgressBar;
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.models.LoanApplication;
 
 public class WalletLoanAppInitiateActivity extends AppCompatActivity {
 

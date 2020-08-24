@@ -183,7 +183,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                     infestationSpinner.setEnabled(false);
                 }
                 if(!infestationSet && cropScouting != null){
-                    CropDashboardActivity.selectSpinnerItemById(infestationSpinner, cropScouting.getInfestation());
+                    DashboardActivity.selectSpinnerItemById(infestationSpinner, cropScouting.getInfestation());
                     infestationSet =true;
                 }
 
@@ -286,8 +286,8 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(scoutingDateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(scoutingDateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
         currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         ((ArrayAdapter)infestedSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)infestationTypeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -350,7 +350,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
     }
     public void saveScouting() {
         cropScouting = new CropScouting();
-        cropScouting.setUserId(CropDashboardActivity.getPreferences("userId", this));
+        cropScouting.setUserId(DashboardActivity.getPreferences("userId", this));
         cropScouting.setCropId(cropId);
         cropScouting.setDate(scoutingDateTxt.getText().toString());
         cropScouting.setMethod(scoutingMethodTxt.getText().toString());
@@ -374,7 +374,7 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
 
     public void updateScouting(){
         if(cropScouting != null){
-            cropScouting.setUserId(CropDashboardActivity.getPreferences("userId", this));
+            cropScouting.setUserId(DashboardActivity.getPreferences("userId", this));
             cropScouting.setCropId(cropId);
             cropScouting.setDate(scoutingDateTxt.getText().toString());
             cropScouting.setMethod(scoutingMethodTxt.getText().toString());
@@ -396,12 +396,12 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropScouting != null){
-            CropDashboardActivity.selectSpinnerItemByValue(infestedSpinner, cropScouting.getInfested());
-            CropDashboardActivity.selectSpinnerItemByValue(infestationTypeSpinner, cropScouting.getInfestationType());
-           // CropDashboardActivity.selectSpinnerItemById(infestationSpinner, cropScouting.getInfestation());
-            CropDashboardActivity.selectSpinnerItemByValue(infestationLevelSpinner, cropScouting.getInfestationLevel());
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropScouting.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropScouting.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(infestedSpinner, cropScouting.getInfested());
+            DashboardActivity.selectSpinnerItemByValue(infestationTypeSpinner, cropScouting.getInfestationType());
+           // DashboardActivity.selectSpinnerItemById(infestationSpinner, cropScouting.getInfestation());
+            DashboardActivity.selectSpinnerItemByValue(infestationLevelSpinner, cropScouting.getInfestationLevel());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropScouting.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropScouting.getReminders());
 
             scoutingDateTxt.setText(cropScouting.getDate());
             scoutingMethodTxt.setText(cropScouting.getMethod());

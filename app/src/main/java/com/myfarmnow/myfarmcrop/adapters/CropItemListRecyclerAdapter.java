@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.CropProductItem;
 import com.myfarmnow.myfarmcrop.models.CropProduct;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -88,7 +88,7 @@ public class CropItemListRecyclerAdapter extends RecyclerView.Adapter<CropItemLi
             holder.qtyTxt.setText(item.getQuantity()+"");
             holder.taxTxt.setText(item.getTax()+"");
             holder.rateTxt.setText(item.getRate()+"");
-            CropDashboardActivity.selectSpinnerItemById(holder.productSpinner,item.getProductId());
+            DashboardActivity.selectSpinnerItemById(holder.productSpinner,item.getProductId());
         }
 
 

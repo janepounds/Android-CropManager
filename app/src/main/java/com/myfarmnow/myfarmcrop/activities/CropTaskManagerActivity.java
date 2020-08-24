@@ -72,8 +72,8 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         remindersLayout = findViewById(R.id.layout_crop_task_reminders);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)statusSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -220,17 +220,17 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         });
 
         ArrayList<CropSpinnerItem> cropsItems = new ArrayList<>();
-        for(Crop x: dbHandler.getCrops(CropDashboardActivity.getPreferences("userId",this))){
+        for(Crop x: dbHandler.getCrops(DashboardActivity.getPreferences("userId",this))){
             cropsItems.add(x);
         }
         cropsSpinnerAdapter = new CropSpinnerAdapter(cropsItems,"Crops",this);
         cropSp.setAdapter(cropsSpinnerAdapter);
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getFullName());
         }
-        for(CropContact x: dbHandler.getCropContacts(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getName());
         }
         employeesSpinnerAdapter  = new ArrayAdapter<String>(this,
@@ -245,7 +245,7 @@ public class CropTaskManagerActivity extends AppCompatActivity {
 
     public void saveFields(){
         cropTask = new CropTask();
-        cropTask.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropTask.setUserId(DashboardActivity.getPreferences("userId",this));
         cropTask.setCropId(((CropSpinnerItem)cropSp.getSelectedItem()).getId());
         cropTask.setTitle(titleTxt.getText().toString());
         cropTask.setDate(dateTxt.getText().toString());
@@ -267,7 +267,7 @@ public class CropTaskManagerActivity extends AppCompatActivity {
 
     public void updateField(){
         if(cropTask != null){
-            cropTask.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropTask.setUserId(DashboardActivity.getPreferences("userId",this));
             cropTask.setCropId(((CropSpinnerItem)cropSp.getSelectedItem()).getId());
             cropTask.setTitle(titleTxt.getText().toString());
             cropTask.setDate(dateTxt.getText().toString());
@@ -287,11 +287,11 @@ public class CropTaskManagerActivity extends AppCompatActivity {
 
     public void fillViews(){
         if(cropTask != null){
-            CropDashboardActivity.selectSpinnerItemById(cropSp, cropTask.getCropId());
-            CropDashboardActivity.selectSpinnerItemByValue(typeSp, cropTask.getType());
-            CropDashboardActivity.selectSpinnerItemByValue(statusSp, cropTask.getStatus());
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropTask.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropTask.getReminders());
+            DashboardActivity.selectSpinnerItemById(cropSp, cropTask.getCropId());
+            DashboardActivity.selectSpinnerItemByValue(typeSp, cropTask.getType());
+            DashboardActivity.selectSpinnerItemByValue(statusSp, cropTask.getStatus());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropTask.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropTask.getReminders());
 
 
             dateTxt.setText(cropTask.getDate());

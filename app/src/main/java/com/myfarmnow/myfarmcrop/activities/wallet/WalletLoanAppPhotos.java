@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.activities;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,13 +31,13 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.helpers.ImageUtils;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.helpers.ImageUtils;
-import com.cabral.emaisha.wallet.models.ApiPaths;
-import com.cabral.emaisha.wallet.models.LoanApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +45,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 

@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs;
+package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,11 +21,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.activities.WalletAuthActivity;
-import com.cabral.emaisha.wallet.activities.WalletHomeActivity;
-import com.cabral.emaisha.wallet.activities.WalletLoansListActivity;
-import com.cabral.emaisha.wallet.models.ApiPaths;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoansListActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 

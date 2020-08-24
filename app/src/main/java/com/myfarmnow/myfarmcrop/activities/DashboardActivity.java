@@ -58,10 +58,17 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
+import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.fragments.CropDashboardGraphsFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsOverDueFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
@@ -81,7 +88,7 @@ import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 
-public class CropDashboardActivity extends AppCompatActivity  {
+public class DashboardActivity extends AppCompatActivity  {
 
 
     public static DrawerLayout mDrawerLayout;
@@ -118,6 +125,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
     public static final String PREFERENCES_USER_BACKED_UP ="userBackedUp";
+    public static final String PREFERENCES_USER_PASSWORD ="password";
 
     public static final String TASK_BACKUP_DATA_TAG ="SYNC_SERVICE";
     public static final String TASK_SEND_NOTIFICATIONS_TAG ="SEND_NOTIFICATIONS";
@@ -137,9 +145,9 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
+        //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
-        if(!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,CropDashboardActivity.this).equals("yes")){
+        if(!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,DashboardActivity.this).equals("yes")){
             getAppToken();
         }
 
@@ -231,7 +239,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         notificationsTabLayout.setupWithViewPager(notificationsViewPager);
         notificationsTabLayout.setSelectedTabIndicatorColor(Color.GREEN);
 
-        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(CropDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
+        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(DashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
 
 
         textViewVersion =  findViewById(R.id.text_view_crop_dashboard_android_version);
@@ -262,7 +270,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
 
 
-        mDrawerToggle = new ActionBarDrawerToggle(CropDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
+        mDrawerToggle = new ActionBarDrawerToggle(DashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 supportInvalidateOptionsMenu();
             }
@@ -290,7 +298,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openInventory = new Intent(CropDashboardActivity.this, CropInventoryListActivity.class);
+                Intent openInventory = new Intent(DashboardActivity.this, CropInventoryListActivity.class);
                 startActivity(openInventory);
             }
         });
@@ -298,42 +306,42 @@ public class CropDashboardActivity extends AppCompatActivity  {
         fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openFields = new Intent(CropDashboardActivity.this, CropFieldsListActivity.class);
+                Intent openFields = new Intent(DashboardActivity.this, CropFieldsListActivity.class);
                 startActivity(openFields);
             }
         });
         machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openMachines = new Intent(CropDashboardActivity.this, CropMachinesListActivity.class);
-                startActivity(openMachines);
+               // Intent openMachines = new Intent(DashboardActivity.this, CropMachinesListActivity.class);
+                //startActivity(openMachines);
             }
         });
         cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openCrops = new Intent(CropDashboardActivity.this, CropsListActivity.class);
+                Intent openCrops = new Intent(DashboardActivity.this, CropsListActivity.class);
                 startActivity(openCrops);
             }
         });
         incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(CropDashboardActivity.this, CropIncomeExpensesListActivity.class);
+                Intent openIncomeExpense = new Intent(DashboardActivity.this, CropIncomeExpensesListActivity.class);
                 startActivity(openIncomeExpense);
             }
         });
         tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openTasks = new Intent(CropDashboardActivity.this, CropTasksListActivity.class);
+                Intent openTasks = new Intent(DashboardActivity.this, CropTasksListActivity.class);
                 startActivity(openTasks);
             }
         });
         contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openContacts = new Intent(CropDashboardActivity.this, CropContactsListActivity.class);
+                Intent openContacts = new Intent(DashboardActivity.this, CropContactsListActivity.class);
                 startActivity(openContacts);
             }
         });
@@ -344,7 +352,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         userProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editUser = new Intent(CropDashboardActivity.this, CropRegisterActivity.class);
+                Intent editUser = new Intent(DashboardActivity.this, CropRegisterActivity.class);
                 editUser.putExtra("editUser","yes");
                 startActivity(editUser);
             }
@@ -416,7 +424,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
-                        sendFirebaseToken(token,CropDashboardActivity.this);
+                        sendFirebaseToken(token,DashboardActivity.this);
                     }
                 });
 
@@ -426,7 +434,7 @@ public class CropDashboardActivity extends AppCompatActivity  {
         final AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_EMAIL,context));
+        params.put("email",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context));
         params.put("firebaseToken",token);
 
         Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -748,21 +756,22 @@ public class CropDashboardActivity extends AppCompatActivity  {
 
     public static void saveUser(JSONObject user, Context context) throws JSONException{
 
-        CropDashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
-        CropDashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
-        CropDashboardActivity.savePreferences("email", user.getString("email"), context);
-        CropDashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
-        CropDashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
-        CropDashboardActivity.savePreferences("country", user.getString("country"), context);
-        CropDashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
-        CropDashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
-        CropDashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
-        CropDashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
-        CropDashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
-        CropDashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
-        CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
-        CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
-        // CropDashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
+        DashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
+        DashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
+        DashboardActivity.savePreferences("email", user.getString("email"), context);
+        DashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
+        DashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
+        DashboardActivity.savePreferences("country", user.getString("country"), context);
+        DashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
+        DashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
+        DashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
+        DashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
+        DashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
+        DashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
+        DashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
+        DashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
+        DashboardActivity.savePreferences(PREFERENCES_USER_PASSWORD, user.getString("password"), context);
+        // DashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
 
     }
 
@@ -782,18 +791,18 @@ public class CropDashboardActivity extends AppCompatActivity  {
             public void run() {
                 dialog.dismiss();
                 //remove shared preferences
-                SharedPreferences sharedPreferences = CropDashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME , 0);
+                SharedPreferences sharedPreferences = DashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME , 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
 
                 //remove database
-                CropDashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
+                DashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
 
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
                 finish();
-                Intent openList = new Intent(CropDashboardActivity.this, CropLoginActivity.class);
+                Intent openList = new Intent(DashboardActivity.this, CropLoginActivity.class);
                 startActivity(openList);
             }
         }, 10000);

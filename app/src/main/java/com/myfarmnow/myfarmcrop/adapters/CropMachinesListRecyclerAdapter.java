@@ -18,7 +18,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropMachineManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineNotesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineServicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropMachineTasksListActivity;

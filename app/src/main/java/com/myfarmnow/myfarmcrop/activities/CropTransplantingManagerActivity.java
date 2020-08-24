@@ -176,8 +176,8 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(operationDateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(operationDateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
         currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         ((ArrayAdapter)varietyEarlinessSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -296,7 +296,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     }
     public void saveTransplanting() {
         cropTransplanting = new CropTransplanting();
-        cropTransplanting.setUserId(CropDashboardActivity.getPreferences("userId", this));
+        cropTransplanting.setUserId(DashboardActivity.getPreferences("userId", this));
         cropTransplanting.setCropId(cropId);
         cropTransplanting.setOperationDate(operationDateTxt.getText().toString());
         cropTransplanting.setTotalSeedling(Float.parseFloat(totalSeedlingTxt.getText().toString()));
@@ -357,7 +357,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     }*/
     public void updateTransplanting(){
         if(cropTransplanting != null){
-            cropTransplanting.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropTransplanting.setUserId(DashboardActivity.getPreferences("userId",this));
             cropTransplanting.setCropId(cropId);
             cropTransplanting.setOperationDate(operationDateTxt.getText().toString());
             cropTransplanting.setTotalSeedling(Float.parseFloat(totalSeedlingTxt.getText().toString()));
@@ -382,10 +382,10 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropTransplanting != null){
-            CropDashboardActivity.selectSpinnerItemByValue(varietyEarlinessSpinner, cropTransplanting.getVarietyEarliness());
-            CropDashboardActivity.selectSpinnerItemByValue(unitsSpinner, cropTransplanting.getUnits());
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropTransplanting.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropTransplanting.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(varietyEarlinessSpinner, cropTransplanting.getVarietyEarliness());
+            DashboardActivity.selectSpinnerItemByValue(unitsSpinner, cropTransplanting.getUnits());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropTransplanting.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropTransplanting.getReminders());
 
             operationDateTxt.setText(cropTransplanting.getOperationDate());
             totalSeedlingTxt.setText(cropTransplanting.getTotalSeedling()+"");

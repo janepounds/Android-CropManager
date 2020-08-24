@@ -1,9 +1,10 @@
-package com.cabral.emaisha.utils.layout;
+package com.myfarmnow.myfarmcrop.utils.layout;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import androidx.appcompat.widget.AppCompatEditText;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 /**
  * Created by Muhammad Nabeel on 07/01/2019.

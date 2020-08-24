@@ -57,7 +57,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
         typeSp = findViewById(R.id.sp_crop_seed_type);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(purchaseDatTxt,this);
+        DashboardActivity.addDatePicker(purchaseDatTxt,this);
 
         ((ArrayAdapter)usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -119,8 +119,8 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(seedsInventoryToEdit != null){
 
-            CropDashboardActivity.selectSpinnerItemByValue(usageUnitSpinner,seedsInventoryToEdit.getUsageUnits());
-            CropDashboardActivity.selectSpinnerItemByValue(typeSp,seedsInventoryToEdit.getType());
+            DashboardActivity.selectSpinnerItemByValue(usageUnitSpinner,seedsInventoryToEdit.getUsageUnits());
+            DashboardActivity.selectSpinnerItemByValue(typeSp,seedsInventoryToEdit.getType());
             purchaseDatTxt.setText(seedsInventoryToEdit.getPurchaseDate());
             seedNameTxt.setText(seedsInventoryToEdit.getName());
             varietyTxt.setText(seedsInventoryToEdit.getVariety());
@@ -136,7 +136,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
     }
     public void saveSeeds(){
         seedsInventoryToEdit = new CropInventorySeeds();
-        seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        seedsInventoryToEdit.setUserId(DashboardActivity.getPreferences("userId",this));
         seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
         seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
         seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
@@ -158,7 +158,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
 
         if(seedsInventoryToEdit != null) {
 
-            seedsInventoryToEdit.setUserId(CropDashboardActivity.getPreferences("userId", this));
+            seedsInventoryToEdit.setUserId(DashboardActivity.getPreferences("userId", this));
             seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
             seedsInventoryToEdit.setName(seedNameTxt.getText().toString());

@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs;
+package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
 
 import android.app.Activity;
@@ -23,11 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.cabral.emaisha.BuildConfig;
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.activities.WalletAuthActivity;
-import com.cabral.emaisha.wallet.activities.WalletHomeActivity;
-import com.cabral.emaisha.wallet.models.ApiPaths;
+import com.myfarmnow.myfarmcrop.BuildConfig;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.flutterwave.raveandroid.rave_presentation.RaveNonUIManager;
 import com.flutterwave.raveandroid.rave_presentation.ugmobilemoney.UgandaMobileMoneyPaymentCallback;
 import com.flutterwave.raveandroid.rave_presentation.ugmobilemoney.UgandaMobileMoneyPaymentManager;

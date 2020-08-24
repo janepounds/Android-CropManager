@@ -280,7 +280,7 @@ public class CropRegisterActivity extends PermisoActivity implements
 
         //   String tokens = SharedPreferences.(this).gettoken();
         String countryCode = edtCountryCode.getText().toString().replace("+","");
-        params.put("id", CropDashboardActivity.getPreferences("userId",this));
+        params.put("id", DashboardActivity.getPreferences("userId",this));
         params.put("firstname", "" + edtfirstname.getText().toString());
         params.put("lastname", "" + edtlastname.getText().toString());
         params.put("country", "" + spinnercountry.getSelectedItem().toString());
@@ -319,7 +319,7 @@ public class CropRegisterActivity extends PermisoActivity implements
                     JSONObject user = response.getJSONObject("user");
                     Toast.makeText(CropRegisterActivity.this, "Successfully Loged in..", Toast.LENGTH_SHORT).show();
                     Log.e("response", response.toString());
-                    CropDashboardActivity.saveUser(user,CropRegisterActivity.this);
+                    DashboardActivity.saveUser(user,CropRegisterActivity.this);
 
                     if(response.getString("message").equals("Verification required")){
                         Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
@@ -427,7 +427,7 @@ public class CropRegisterActivity extends PermisoActivity implements
                         JSONObject user = response.getJSONObject("user");
                         Toast.makeText(CropRegisterActivity.this, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                         Log.e("response", response.toString());
-                        CropDashboardActivity.saveUser(user,CropRegisterActivity.this);
+                        DashboardActivity.saveUser(user,CropRegisterActivity.this);
                         Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
                         verifyPhoneNumber.putExtra("userId",user.getString("id"));
                         verifyPhoneNumber.putExtra("phoneNumber",user.getString("phoneNumber"));
@@ -603,20 +603,20 @@ public class CropRegisterActivity extends PermisoActivity implements
     public void fillViews(){
         //, edtcountry, edtconemail, edtpassword, edtconpwd, , edtAddress,   edtAdressTownorCity,;
         currentPasswordTxt.setVisibility(View.VISIBLE);
-        edtfirstname.setText(CropDashboardActivity.getPreferences("firstname",this));
-        edtlastname.setText(CropDashboardActivity.getPreferences("lastname",this));
-        edtemail.setText(CropDashboardActivity.getPreferences("email",this));
-        edtfarmname.setText(CropDashboardActivity.getPreferences("farmname",this));
-        edtContact.setText(CropDashboardActivity.getPreferences("phoneNumber",this).replace("+"+CropDashboardActivity.getPreferences("countryCode",this),""));
-        edtCountryCode.setText(CropDashboardActivity.getPreferences("countryCode",this));
-        edtAddress.setText(CropDashboardActivity.getPreferences("addressStreet",this));
-        edtAdressTownorCity.setText(CropDashboardActivity.getPreferences("addressCityOrTown",this));
-        CropDashboardActivity.selectSpinnerItemByValue(spinnercountry,CropDashboardActivity.getPreferences("country",this));
-        CropDashboardActivity.selectSpinnerItemByValue(addressCountrySp,CropDashboardActivity.getPreferences("addressCountry",this));
+        edtfirstname.setText(DashboardActivity.getPreferences("firstname",this));
+        edtlastname.setText(DashboardActivity.getPreferences("lastname",this));
+        edtemail.setText(DashboardActivity.getPreferences("email",this));
+        edtfarmname.setText(DashboardActivity.getPreferences("farmname",this));
+        edtContact.setText(DashboardActivity.getPreferences("phoneNumber",this).replace("+"+DashboardActivity.getPreferences("countryCode",this),""));
+        edtCountryCode.setText(DashboardActivity.getPreferences("countryCode",this));
+        edtAddress.setText(DashboardActivity.getPreferences("addressStreet",this));
+        edtAdressTownorCity.setText(DashboardActivity.getPreferences("addressCityOrTown",this));
+        DashboardActivity.selectSpinnerItemByValue(spinnercountry,DashboardActivity.getPreferences("country",this));
+        DashboardActivity.selectSpinnerItemByValue(addressCountrySp,DashboardActivity.getPreferences("addressCountry",this));
         titleTextView.setText(R.string.edit_profile_title);
         btnSignUp.setText(R.string.update);
         tvlogin.setText(R.string.forgot_password_prompt_request_code);
-        //CropDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
-        //CropDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
+        //DashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
+        //DashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
     }
 }

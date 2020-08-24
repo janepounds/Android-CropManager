@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropsNotificationsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
@@ -78,7 +78,7 @@ public class NotificationsUpcomingFragment extends Fragment {
         notificationsListRecyView = view.findViewById(R.id.recyc_view_notifications_list);
         notificationsNoDataTextView = view.findViewById(R.id.text_view_notifications_no_data);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(getActivity());
-        notificationsListRecyclerAdapter = new CropsNotificationsListRecyclerAdapter(getActivity(),dbHandler.getCropNotifications(CropDashboardActivity.getPreferences("userId",getActivity()), CropNotification.QUERY_KEY_UPCOMING));
+        notificationsListRecyclerAdapter = new CropsNotificationsListRecyclerAdapter(getActivity(),dbHandler.getCropNotifications(DashboardActivity.getPreferences("userId",getActivity()), CropNotification.QUERY_KEY_UPCOMING));
         notificationsListRecyView.setAdapter(notificationsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         notificationsListRecyView.setLayoutManager(linearLayoutManager);

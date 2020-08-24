@@ -1,11 +1,9 @@
-package com.cabral.emaisha.wallet.adapters;
+package com.myfarmnow.myfarmcrop.adapters.wallet;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import com.cabral.emaisha.wallet.activities.WalletHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;

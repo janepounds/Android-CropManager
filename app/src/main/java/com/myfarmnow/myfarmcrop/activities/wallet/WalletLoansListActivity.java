@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.activities;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,18 +19,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cabral.emaisha.activities.MainActivity;
-import com.cabral.emaisha.app.MyAppPrefsManager;
-import com.cabral.emaisha.constant.ConstantValues;
-import com.cabral.emaisha.network.StartAppRequests;
-import com.cabral.emaisha.wallet.popupDailogs.PayLoan;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.PayLoan;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.adapters.LoansListAdapter;
-import com.cabral.emaisha.wallet.models.ApiPaths;
-import com.cabral.emaisha.wallet.models.LoanApplication;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -163,16 +159,7 @@ public class WalletLoansListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // todo: goto back activity from here
-                sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-                // Set UserLoggedIn in MyAppPrefsManager
 
-                MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(WalletLoansListActivity.this);
-                myAppPrefsManager.setUserLoggedIn(true);
-
-                // Set isLogged_in of ConstantValues
-                ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
-                Log.e("USERID CHECK:",ConstantValues.IS_USER_LOGGED_IN+"" );
-                StartAppRequests.RegisterDeviceForFCM(WalletLoansListActivity.this);
 
                 startActivity(new Intent(WalletLoansListActivity.this, WalletHomeActivity.class));
                 finish();

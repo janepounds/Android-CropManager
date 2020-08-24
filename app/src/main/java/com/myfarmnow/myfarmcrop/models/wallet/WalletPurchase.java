@@ -1,6 +1,4 @@
-package com.cabral.emaisha.wallet.models;
-
-import java.util.ArrayList;
+package com.myfarmnow.myfarmcrop.models.wallet;
 
 public class WalletPurchase {
     static WalletPurchase purchase = new WalletPurchase();

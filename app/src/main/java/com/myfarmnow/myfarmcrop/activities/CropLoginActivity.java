@@ -50,8 +50,8 @@ public class CropLoginActivity extends AppCompatActivity {
 
 
 
-        if (!CropDashboardActivity.getPreferences("userId",this).isEmpty() ) {
-            startActivity(new Intent(CropLoginActivity.this, CropDashboardActivity.class));
+        if (!DashboardActivity.getPreferences("userId",this).isEmpty() ) {
+            startActivity(new Intent(CropLoginActivity.this, DashboardActivity.class));
             finish();
         }
 
@@ -153,12 +153,8 @@ public class CropLoginActivity extends AppCompatActivity {
                         JSONObject user = response.getJSONObject("user");
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                        // Log.e("response", response.toString());
-                        CropDashboardActivity.saveUser(user,context);
+                        DashboardActivity.saveUser(user,context);
                         ((AppCompatActivity)context).finish();
-
-                        //start the notifications services
-                        // context.startService(new Intent(context, CropNotificationsCreatorService.class));
-                        // context.startService(new Intent(context, CropNotificationsSendWorker.class));
 
                         context.startActivity(new Intent(context, CropLoadBackUpActivity.class));
 
@@ -222,8 +218,6 @@ public class CropLoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
 }

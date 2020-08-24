@@ -24,7 +24,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/mainView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#344834"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -99,13 +99,13 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/mainView"
                 android:background="@drawable/home_background">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
 
@@ -127,19 +127,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginEnd="10dp"
-
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:paddingBottom="5dp"
                                 >
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/fields"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -161,18 +159,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_weight="1"
-
                                 android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                >
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/crops"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -197,19 +194,16 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_weight="1"
-
-
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/inventory"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -240,18 +234,15 @@
                                 android:id="@+id/layout_crop_dashboard_machines"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
-
-
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/machinery"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -273,18 +264,16 @@
                                 android:id="@+id/layout_crop_dashboard_contacts"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
-
-
                                 android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                >
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/contacts"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -306,15 +295,15 @@
                                 android:id="@+id/layout_crop_dashboard_tasks"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/tasks_icon"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -343,16 +332,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/income_expenses_two"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -374,17 +362,16 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_weight="1"
                                 android:onClick="openCalculators"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/farm_calculator_two"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -407,17 +394,16 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_weight="1"
                                 android:onClick="openBestPractices"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="120dp"
-                                    android:layout_height="90dp"
+                                    android:layout_height="80dp"
                                     android:background="@drawable/background_round_white"
-                                    android:padding="15dp"
+                                    android:padding="10dp"
                                     android:src="@drawable/best_practices_second"
                                     android:layout_gravity="center_horizontal"/>
 
@@ -458,6 +444,22 @@
 
                 </RelativeLayout>
             </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical" >
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottom_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="wrap_content"
+                    app:menu="@menu/bottom_navigation_menu" />
+
+            </LinearLayout>
+
 
             <FrameLayout
                 android:id="@+id/frame_layout_notifications"

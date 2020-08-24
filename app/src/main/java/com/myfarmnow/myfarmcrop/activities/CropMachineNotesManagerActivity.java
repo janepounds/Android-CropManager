@@ -57,7 +57,7 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
         descriptionTxt = findViewById(R.id.txt_crop_note_description);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
         categoryLayout.setVisibility(View.VISIBLE);
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -150,12 +150,12 @@ public class CropMachineNotesManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropNote != null){
 
-            CropDashboardActivity.selectSpinnerItemByValue(categorySp, cropNote.getCategory());
+            DashboardActivity.selectSpinnerItemByValue(categorySp, cropNote.getCategory());
             dateTxt.setText(cropNote.getDate());
 
             if (categorySp.getSelectedItemPosition()==0 && cropNote.getCategory()
                      != null){
-                CropDashboardActivity.selectSpinnerItemByValue(categorySp, "Other");
+                DashboardActivity.selectSpinnerItemByValue(categorySp, "Other");
                 otherCategoryTxt.setText(cropNote.getCategory());
             }
 

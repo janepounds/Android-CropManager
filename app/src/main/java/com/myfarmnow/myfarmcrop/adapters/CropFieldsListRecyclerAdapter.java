@@ -21,7 +21,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropFieldManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.Crop;

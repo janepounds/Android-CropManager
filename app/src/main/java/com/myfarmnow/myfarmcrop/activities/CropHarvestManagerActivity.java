@@ -227,17 +227,17 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(harvestDateTxt,this);
-        CropDashboardActivity.addDatePicker(dateSoldTxt,this);
-        CropDashboardActivity.addDatePicker(storageDateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(harvestDateTxt,this);
+        DashboardActivity.addDatePicker(dateSoldTxt,this);
+        DashboardActivity.addDatePicker(storageDateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
 
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getFullName());
         }
-        for(CropContact x: dbHandler.getCropContacts(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.getPreferences("userId",this))){
             employeesItems.add(x.getName());
         }
         employeesSpinnerAdapter = new ArrayAdapter<String>(this,
@@ -391,7 +391,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     }
     public void saveHarvest() {
         cropHarvest = new CropHarvest();
-        cropHarvest.setUserId(CropDashboardActivity.getPreferences("userId", this));
+        cropHarvest.setUserId(DashboardActivity.getPreferences("userId", this));
         cropHarvest.setCropId(cropId);
         cropHarvest.setDate(harvestDateTxt.getText().toString());
         cropHarvest.setMethod(harvestMethodTxt.getText().toString());
@@ -420,7 +420,7 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
 
     public void updateHarvest(){
         if(cropHarvest != null){
-            cropHarvest.setUserId(CropDashboardActivity.getPreferences("userId", this));
+            cropHarvest.setUserId(DashboardActivity.getPreferences("userId", this));
             cropHarvest.setCropId(cropId);
             cropHarvest.setDate(harvestDateTxt.getText().toString());
             cropHarvest.setMethod(harvestMethodTxt.getText().toString());
@@ -448,10 +448,10 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropHarvest != null){
-            CropDashboardActivity.selectSpinnerItemByValue(harvestUnitsSpinner, cropHarvest.getUnits());
-            CropDashboardActivity.selectSpinnerItemByValue(statusSpinner, cropHarvest.getStatus());
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropHarvest.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropHarvest.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(harvestUnitsSpinner, cropHarvest.getUnits());
+            DashboardActivity.selectSpinnerItemByValue(statusSpinner, cropHarvest.getStatus());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropHarvest.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropHarvest.getReminders());
             harvestDateTxt.setText(cropHarvest.getDate());
             operatorSpinner.setText(cropHarvest.getEmployeeId());
             harvestMethodTxt.setText(cropHarvest.getMethod());

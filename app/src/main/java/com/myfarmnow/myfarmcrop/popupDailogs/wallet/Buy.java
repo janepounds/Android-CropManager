@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs;
+package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,8 +22,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.models.WalletPurchase;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
 
 public class Buy extends DialogFragment {
     TextView mechantIdTextView, text_coupon;

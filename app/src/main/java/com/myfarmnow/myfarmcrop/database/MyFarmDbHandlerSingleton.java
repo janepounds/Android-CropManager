@@ -10,7 +10,7 @@ import android.util.Log;
 
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropContact;
@@ -1259,7 +1259,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                     notification.setMessage(message);
                     notification.setType(type);
                     notification.setStatus(context.getString(R.string.notification_status_pending));;
-                    notification.setUserId(CropDashboardActivity.getPreferences("userId",context));
+                    notification.setUserId(DashboardActivity.getPreferences("userId",context));
 
                     notificationsList.add(notification);
                 varyingCalendar.add(calendarIdentifier,repeatFrequency);//increase the varying calendar

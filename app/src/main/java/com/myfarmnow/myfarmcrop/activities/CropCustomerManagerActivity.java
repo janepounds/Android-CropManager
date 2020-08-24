@@ -83,7 +83,7 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
                     if(message == null){
                         shippingCityTxt.setText(billingCityTxt.getText().toString());
                         shippingStretTxt.setText(billingStreetTxt.getText().toString());
-                        CropDashboardActivity.selectSpinnerItemByValue(shippingCountryTxt,billingCountryTcxt.getSelectedItem().toString());
+                        DashboardActivity.selectSpinnerItemByValue(shippingCountryTxt,billingCountryTcxt.getSelectedItem().toString());
                     }
                     else{
                         billingAsShipping.setChecked(false);
@@ -149,7 +149,7 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
     }
     public void saveFields(){
         cropCustomer = new CropCustomer();
-        cropCustomer.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropCustomer.setUserId(DashboardActivity.getPreferences("userId",this));
         cropCustomer.setName(nameTxt.getText().toString());
         cropCustomer.setPhone( phoneTxt.getText().toString());
         cropCustomer.setMobile( mobileTxt.getText().toString());
@@ -194,8 +194,8 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropCustomer !=null){
             nameTxt.setText(cropCustomer.getName());
-            CropDashboardActivity.selectSpinnerItemByValue(billingCountryTcxt,cropCustomer.getBillingCountry());
-            CropDashboardActivity.selectSpinnerItemByValue(shippingCountryTxt,cropCustomer.getShippingCountry());
+            DashboardActivity.selectSpinnerItemByValue(billingCountryTcxt,cropCustomer.getBillingCountry());
+            DashboardActivity.selectSpinnerItemByValue(shippingCountryTxt,cropCustomer.getShippingCountry());
             companyTxt.setText(cropCustomer.getCompany()+"");
             taxRegTxt.setText(cropCustomer.getTaxRegNo()+"");
             phoneTxt.setText(cropCustomer.getPhone());

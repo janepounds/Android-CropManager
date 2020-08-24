@@ -67,7 +67,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_load_back_up);
-        userId = CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID, this);
+        userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this);
         dialog = new ProgressDialog(CropLoadBackUpActivity.this);
         dialog.setIndeterminate(true);
         dialog.setMessage("Synchronizing! Please wait..");
@@ -87,7 +87,7 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
 
     public void continueToDashboard(View view){
         finish();
-        startActivity(new Intent(this, CropDashboardActivity.class));
+        startActivity(new Intent(this, DashboardActivity.class));
     }
 
     /**

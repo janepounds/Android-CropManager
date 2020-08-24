@@ -60,8 +60,8 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
 
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(date0fBirthTxt,this);
-        CropDashboardActivity.addDatePicker(hireDateTxt,this);
+        DashboardActivity.addDatePicker(date0fBirthTxt,this);
+        DashboardActivity.addDatePicker(hireDateTxt,this);
 
         ((ArrayAdapter)genderTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)employeeStatusTxt.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -120,7 +120,7 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
     }
     public void saveEmployee(){
         cropEmployee = new CropEmployee();
-        cropEmployee.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropEmployee.setUserId(DashboardActivity.getPreferences("userId",this));
         cropEmployee.setTitle(titleTxt.getText().toString());
         cropEmployee.setPhone( phoneTxt.getText().toString());
         cropEmployee.setMobile( mobileTxt.getText().toString());
@@ -150,7 +150,7 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
     public void updateEmployee(){
         if(cropEmployee !=null){
 
-            cropEmployee.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropEmployee.setUserId(DashboardActivity.getPreferences("userId",this));
             cropEmployee.setTitle(titleTxt.getText().toString());
             cropEmployee.setPhone( phoneTxt.getText().toString());
             cropEmployee.setMobile( mobileTxt.getText().toString());
@@ -176,10 +176,10 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropEmployee !=null){
             titleTxt.setText(cropEmployee.getTitle());
-            CropDashboardActivity.selectSpinnerItemByValue(genderTxt,cropEmployee.getGender());
-            CropDashboardActivity.selectSpinnerItemByValue(employeeStatusTxt,cropEmployee.getEmploymentStatus());
-            CropDashboardActivity.selectSpinnerItemByValue(perTxt,cropEmployee.getPayRate());
-            CropDashboardActivity.selectSpinnerItemByValue(payTypeTxt,cropEmployee.getPayType());
+            DashboardActivity.selectSpinnerItemByValue(genderTxt,cropEmployee.getGender());
+            DashboardActivity.selectSpinnerItemByValue(employeeStatusTxt,cropEmployee.getEmploymentStatus());
+            DashboardActivity.selectSpinnerItemByValue(perTxt,cropEmployee.getPayRate());
+            DashboardActivity.selectSpinnerItemByValue(payTypeTxt,cropEmployee.getPayType());
 
             firstNameTxt.setText(cropEmployee.getFirstName());
             lastNameTxt.setText(cropEmployee.getLastName());

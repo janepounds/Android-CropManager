@@ -113,7 +113,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
     }
     public void saveFields(){
         cropSupplier = new CropSupplier();
-        cropSupplier.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropSupplier.setUserId(DashboardActivity.getPreferences("userId",this));
         cropSupplier.setName(nameTxt.getText().toString());
         cropSupplier.setPhone( phoneTxt.getText().toString());
         cropSupplier.setMobile( mobileTxt.getText().toString());
@@ -153,7 +153,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropSupplier !=null){
             nameTxt.setText(cropSupplier.getName());
-            CropDashboardActivity.selectSpinnerItemByValue(invoiceCountryTcxt,cropSupplier.getInvoiceCountry());
+            DashboardActivity.selectSpinnerItemByValue(invoiceCountryTcxt,cropSupplier.getInvoiceCountry());
             companyTxt.setText(cropSupplier.getCompany()+"");
             taxRegTxt.setText(cropSupplier.getTaxRegNo()+"");
             phoneTxt.setText(cropSupplier.getPhone());

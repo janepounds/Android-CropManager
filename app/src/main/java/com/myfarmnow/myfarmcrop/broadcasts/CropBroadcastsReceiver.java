@@ -4,9 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsCreatorService;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 
 
 
@@ -18,7 +16,7 @@ public class CropBroadcastsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            CropDashboardActivity.scheduleBackgroundWork(); //
+            DashboardActivity.scheduleBackgroundWork(); //
         }
 
     }

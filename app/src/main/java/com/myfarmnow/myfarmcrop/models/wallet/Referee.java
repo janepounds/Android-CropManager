@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.models;
+package com.myfarmnow.myfarmcrop.models.wallet;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

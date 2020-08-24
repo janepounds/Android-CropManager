@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.Crop;
@@ -91,7 +91,7 @@ public class CropSyncService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent,flags,startId);
-        userId = CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID, this);
+        userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this);
         if(!userId.equals("")){
             prepareSyncRequest();
 
@@ -125,7 +125,7 @@ public class CropSyncService extends Service {
             startBlock1TablesBackup();
             startBlock2TablesBackup();
             backupDeletedRecords();
-            if(!CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,CropSyncService.this).equals("yes")){
+            if(!DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,CropSyncService.this).equals("yes")){
                 userBackup();
             }
         }catch (Exception e){
@@ -2241,6 +2241,7 @@ public class CropSyncService extends Service {
 
 
     }
+
     private void startBlock2eBackup(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
@@ -2331,6 +2332,7 @@ public class CropSyncService extends Service {
 
 
     }
+
     private void backupDeletedRecords(){
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(20000);
@@ -2420,19 +2422,19 @@ public class CropSyncService extends Service {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
 
-        params.put("userId", CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_USER_ID,this));
-        params.put("firstName",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_FIRST_NAME,this));
-        params.put("lastName",CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_LAST_NAME,this));
-        params.put("country",CropDashboardActivity.getPreferences("country",this));
-        params.put("countryCode",CropDashboardActivity.getPreferences("countryCode",this));
-        params.put("email",CropDashboardActivity.getPreferences("email",this));
-        params.put("farmName",CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
-        params.put("addressStreet",CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
-        params.put("addressCityOrTown",CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
-        params.put("addressCountry",CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
-        params.put("phoneNumber" ,CropDashboardActivity.getPreferences(CropDashboardActivity.PREFERENCES_PHONE_NUMBER,this));
-        params.put("latitude",CropDashboardActivity.getPreferences("latitude",this));
-        params.put("longitude",CropDashboardActivity.getPreferences("longitude",this));
+        params.put("userId", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID,this));
+        params.put("firstName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME,this));
+        params.put("lastName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,this));
+        params.put("country",DashboardActivity.getPreferences("country",this));
+        params.put("countryCode",DashboardActivity.getPreferences("countryCode",this));
+        params.put("email",DashboardActivity.getPreferences("email",this));
+        params.put("farmName",DashboardActivity.getPreferences(DashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        params.put("addressStreet",DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID,this));
+        params.put("addressCityOrTown",DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID,this));
+        params.put("addressCountry",DashboardActivity.getPreferences(DashboardActivity.COUNTRY_PREFERENCES_ID,this));
+        params.put("phoneNumber" ,DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,this));
+        params.put("latitude",DashboardActivity.getPreferences("latitude",this));
+        params.put("longitude",DashboardActivity.getPreferences("longitude",this));
 
         client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
 
@@ -2443,7 +2445,7 @@ public class CropSyncService extends Service {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                CropDashboardActivity.savePreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
+                DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
             }
 
             @Override
@@ -2454,7 +2456,7 @@ public class CropSyncService extends Service {
                     Log.e("info : "+statusCode, "Something got very very wrong");
                 }
                 if(statusCode==400){
-                    CropDashboardActivity.savePreferences(CropDashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
+                    DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
                 }
 
             }

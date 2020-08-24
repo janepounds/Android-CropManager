@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.adapters;
+package com.myfarmnow.myfarmcrop.adapters.wallet;
 
 import android.content.Intent;
 import android.util.Log;
@@ -9,14 +9,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.activities.WalletPurchaseCardPreviewActivity;
-import com.cabral.emaisha.wallet.models.WalletTransaction;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletPurchaseCardPreviewActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

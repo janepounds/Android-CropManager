@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.helpers;
+package com.myfarmnow.myfarmcrop.helpers;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,8 +17,8 @@ import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
-import com.cabral.emaisha.BuildConfig;
-import com.cabral.emaisha.R;
+import com.myfarmnow.myfarmcrop.BuildConfig;
+import com.myfarmnow.myfarmcrop.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

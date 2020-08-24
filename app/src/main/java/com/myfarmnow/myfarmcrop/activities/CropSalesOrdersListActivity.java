@@ -30,7 +30,7 @@ public class CropSalesOrdersListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         salesOrderListRecyclerView = findViewById(R.id.crop_sales_order_recyc_view);
-        cropSalesOrdersListRecyclerAdapter = new CropSalesOrdersListRecyclerAdapter(this,dbHandler.getCropSalesOrders(CropDashboardActivity.getPreferences("userId",this)));
+        cropSalesOrdersListRecyclerAdapter = new CropSalesOrdersListRecyclerAdapter(this,dbHandler.getCropSalesOrders(DashboardActivity.getPreferences("userId",this)));
         salesOrderListRecyclerView.setAdapter(cropSalesOrdersListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         salesOrderListRecyclerView.setLayoutManager(linearLayoutManager);

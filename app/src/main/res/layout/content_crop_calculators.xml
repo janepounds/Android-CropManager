@@ -11,7 +11,7 @@
     android:paddingStart="15dp"
     android:paddingEnd="15dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropCalculatorsActivity"
+    tools:context=".activities.predictiontools.CropCalculatorsActivity"
     tools:showIn="@layout/activity_crop_calculators">
 
     <LinearLayout

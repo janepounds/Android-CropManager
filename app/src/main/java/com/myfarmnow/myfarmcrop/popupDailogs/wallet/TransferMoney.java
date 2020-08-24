@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs;
+package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.cabral.emaisha.R;
+import com.myfarmnow.myfarmcrop.R;
 
 import java.text.NumberFormat;
 

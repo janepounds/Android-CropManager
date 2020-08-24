@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationManagerActivity;
 
-import com.myfarmnow.myfarmcrop.activities.CropFertilizerApplicationManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerApplicationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;

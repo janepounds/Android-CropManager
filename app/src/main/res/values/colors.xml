@@ -66,4 +66,45 @@
     <color name="progress_bar_background_white">#DBEED9</color>
 
 
+    <color name="colorAccentDark">#000</color>
+    <color name="colorAccentLight">#F6F6F6</color>
+
+    <color name="colorAccentRed">#ff0000</color>
+    <color name="colorAccentBlue">#03a9f4</color>
+    <color name="colorAccentGrey">#b3b3b3</color>
+    <color name="colorAccentGreen">#557f5f</color>
+    <color name="colorAccentOrange">#f04e42</color>
+
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorPrimaryDark">#757575</color>
+    <color name="textColorPrimaryLight">#bfbfbf</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="textColorSecondaryDark">#212121</color>
+    <color name="textColorSecondaryLight">#666666</color>
+
+
+    <color name="background_home">#FFF</color>
+    <color name="grey_darker">#424242</color>
+    <color name="grey_dark">#606060</color>
+
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="windowBackgroundDark">#e6e6e6</color>
+    <color name="windowBackgroundLight">#f2f2f2</color>
+
+    <color name="layoutBackground">#d9d9d9</color>
+    <color name="layoutBackgroundDark">#cccccc</color>
+    <color name="layoutBackgroundLight">#e0e0e0</color>
+
+    <color name="socialColorGoogle">#dd4b39</color>
+    <color name="socialColorTwitter">#55acee</color>
+    <color name="socialColorFacebook">#3b5998</color>
+    <color name="socialColorLinkedin">#007bb5</color>
+    <color name="socialColorInstagram">#125688</color>
+    <color name="progressGreen">#78c8a1</color>
+    <color name="progressGreenLight">#aed787</color>
+    <color name="progressYellow">#ffd834</color>
+    <color name="progressOrange">#ffb234</color>
+    <color name="progressRed">#ff8b5a</color>
+    <color name="palebrown">#F6F4ED</color>
+
 </resources>

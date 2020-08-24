@@ -114,10 +114,10 @@ public class CropSalesOrderPreviewActivity extends AppCompatActivity {
         termsAndConditionsTxt = findViewById(R.id.txt_crop_invoice_summary_terms);
         notesTxt = findViewById(R.id.txt_crop_invoice_summary_notes);
 
-        farmNameTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.FARM_NAME_PREFERENCES_ID,this));
-        userStreetTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.STREET_PREFERENCES_ID,this));
-        userCityTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.CITY_PREFERENCES_ID,this));
-        userCountryTextView.setText(CropDashboardActivity.getPreferences(CropDashboardActivity.COUNTRY_PREFERENCES_ID,this));
+        farmNameTextView.setText(DashboardActivity.getPreferences(DashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+        userStreetTextView.setText(DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID,this));
+        userCityTextView.setText(DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID,this));
+        userCountryTextView.setText(DashboardActivity.getPreferences(DashboardActivity.COUNTRY_PREFERENCES_ID,this));
 
 
         ArrayList<CropProductItem> customersList = new ArrayList<>();

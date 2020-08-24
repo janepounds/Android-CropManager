@@ -60,7 +60,7 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
         currencyLabelTxt = findViewById(R.id.txt_crop_payment_bill_currency);
         saveBtn = findViewById(R.id.btn_save);
 
-        CropDashboardActivity.addDatePicker(paymentDateTxt,this);
+        DashboardActivity.addDatePicker(paymentDateTxt,this);
 
         currencyLabelTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
@@ -85,14 +85,14 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)paymentModeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> billsList = new ArrayList<>();
-        for(CropBill x: dbHandler.getCropBills(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropBill x: dbHandler.getCropBills(DashboardActivity.getPreferences("userId",this))){
             billsList.add(x);
         }
         billsSpinnerAdapter = new CropSpinnerAdapter(billsList,"Bill",this);
         billSp.setAdapter(billsSpinnerAdapter);
 
         ArrayList<CropSpinnerItem> suppliersList = new ArrayList<>();
-        for(CropSupplier x: dbHandler.getCropSuppliers(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.getPreferences("userId",this))){
             suppliersList.add(x);
         }
         supplierSpinnerAdapter = new CropSpinnerAdapter(suppliersList,"Supplier",this);
@@ -103,7 +103,7 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0){
                     CropBill invoice = (CropBill)((CropSpinnerItem)billSp.getSelectedItem());
-                    CropDashboardActivity.selectSpinnerItemById(supplierSp,invoice.getSupplierId());
+                    DashboardActivity.selectSpinnerItemById(supplierSp,invoice.getSupplierId());
                     supplierSp.setEnabled(false);
 
                 }
@@ -122,7 +122,7 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
 
     public void savePayment(){
         cropPaymentBill = new CropPaymentBill();
-        cropPaymentBill.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropPaymentBill.setUserId(DashboardActivity.getPreferences("userId",this));
         cropPaymentBill.setReferenceNumber(referenceNumberTxt.getText().toString());
         cropPaymentBill.setDate(paymentDateTxt.getText().toString());
         cropPaymentBill.setMode(paymentModeSp.getSelectedItem().toString());
@@ -134,7 +134,7 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
     }
     public void updatePayment(){
         if(cropPaymentBill !=null){
-            cropPaymentBill.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropPaymentBill.setUserId(DashboardActivity.getPreferences("userId",this));
             cropPaymentBill.setReferenceNumber(referenceNumberTxt.getText().toString());
             cropPaymentBill.setDate(paymentDateTxt.getText().toString());
             cropPaymentBill.setMode(paymentModeSp.getSelectedItem().toString());
@@ -150,12 +150,12 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
     public void fillViews(){
 
         if(getIntent().hasExtra("billId")){
-            CropDashboardActivity.selectSpinnerItemById(billSp,getIntent().getStringExtra("billId"));
+            DashboardActivity.selectSpinnerItemById(billSp,getIntent().getStringExtra("billId"));
         }
         if(cropPaymentBill !=null){
             paymentDateTxt.setText(cropPaymentBill.getDate());
-            CropDashboardActivity.selectSpinnerItemByValue(paymentModeSp,cropPaymentBill.getMode());
-            CropDashboardActivity.selectSpinnerItemById(billSp,cropPaymentBill.getBillId());
+            DashboardActivity.selectSpinnerItemByValue(paymentModeSp,cropPaymentBill.getMode());
+            DashboardActivity.selectSpinnerItemById(billSp,cropPaymentBill.getBillId());
             paymentMadeTxt.setText(cropPaymentBill.getAmount()+"");
             referenceNumberTxt.setText(cropPaymentBill.getReferenceNumber());
             notesTxt.setText(cropPaymentBill.getNotes());

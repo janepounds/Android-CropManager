@@ -179,10 +179,10 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
 
 
         btn_save = findViewById(R.id.btn_save);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
-        CropDashboardActivity.addTimePicker(startTimeTxt,this);
-        CropDashboardActivity.addTimePicker(endTimeTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addTimePicker(startTimeTxt,this);
+        DashboardActivity.addTimePicker(endTimeTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
 
         ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -238,7 +238,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
-        for(CropInventorySpray x: dbHandler.getCropSpray(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.getPreferences("userId",this))){
             spraysList.add(x);
         }
         CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",this);
@@ -267,7 +267,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
 
     public void saveSpraying(){
         cropSpraying = new CropSpraying();
-        cropSpraying.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropSpraying.setUserId(DashboardActivity.getPreferences("userId",this));
         cropSpraying.setDate(dateTxt.getText().toString());
         cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
         cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
@@ -327,10 +327,10 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropSpraying != null){
-            CropDashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
-            CropDashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropSpraying.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
+            DashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropSpraying.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
 
             rateTxt.setText(cropSpraying.getRate()+"");
             waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
@@ -347,7 +347,7 @@ public class CropSprayingManagerActivity extends AppCompatActivity {
             daysBeforeTxt.setText(cropSpraying.getDaysBefore()+"");
 
 
-            CropDashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getId());
+            DashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getId());
         }
 
     }

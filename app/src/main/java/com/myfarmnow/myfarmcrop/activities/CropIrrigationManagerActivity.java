@@ -163,10 +163,10 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(operationDateTxt,this);
-        CropDashboardActivity.addTimePicker(startTimeTxt,this);
-        CropDashboardActivity.addTimePicker(endTimeTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(operationDateTxt,this);
+        DashboardActivity.addTimePicker(startTimeTxt,this);
+        DashboardActivity.addTimePicker(endTimeTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
 
         ((ArrayAdapter)recurrenceSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -221,7 +221,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
     public void saveIrrigation() {
         cropIrrigation = new CropIrrigation();
-        cropIrrigation.setUserId(CropDashboardActivity.getPreferences("userId", this));
+        cropIrrigation.setUserId(DashboardActivity.getPreferences("userId", this));
         cropIrrigation.setOperationDate(operationDateTxt.getText().toString());
         cropIrrigation.setSystemRate(Float.parseFloat(systemRateTxt.getText().toString()));
         cropIrrigation.setStartTime(startTimeTxt.getText().toString());
@@ -242,7 +242,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
     public void updateIrrigation(){
         if(cropIrrigation != null){
-            cropIrrigation.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropIrrigation.setUserId(DashboardActivity.getPreferences("userId",this));
             cropIrrigation.setOperationDate(operationDateTxt.getText().toString());
             cropIrrigation.setSystemRate(Float.parseFloat(systemRateTxt.getText().toString()));
             cropIrrigation.setStartTime(startTimeTxt.getText().toString());
@@ -264,8 +264,8 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropIrrigation != null){
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSpinner, cropIrrigation.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, cropIrrigation.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSpinner, cropIrrigation.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropIrrigation.getReminders());
             operationDateTxt.setText(cropIrrigation.getOperationDate());
             systemRateTxt.setText(cropIrrigation.getSystemRate()+"");
             startTimeTxt.setText(cropIrrigation.getStartTime());

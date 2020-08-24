@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.helpers;
+package com.myfarmnow.myfarmcrop.helpers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,13 +9,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cabral.emaisha.models.user_model.UserDetails;
-import com.cabral.emaisha.wallet.activities.WalletAuthActivity;
-import com.cabral.emaisha.wallet.activities.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.cabral.emaisha.wallet.models.ApiPaths;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,14 +25,14 @@ import cz.msebera.android.httpclient.Header;
 public class WalletLoginHelper {
 
 
-    public static void checkLogin(final UserDetails userInfo,final String rawpassword, final Context context, final TextView errorTextView, final ProgressDialog dialog) {
+    public static void checkLogin(final String rawpassword, final Context context, final TextView errorTextView, final ProgressDialog dialog) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
 
         dialog.show();
-        final String email=userInfo.getEmail();
-        final String phoneNumber=userInfo.getPhone();
+        final String email= DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context);
+        final String phoneNumber=DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,context);
 
         params.put("email", email);
         params.put("password", rawpassword);
@@ -62,7 +62,7 @@ public class WalletLoginHelper {
                              WalletHomeActivity.saveUser(user,context);
                            ((AppCompatActivity)context).finish();
                         dialog.dismiss();
-                        WalletAuthActivity.getLoginToken(userInfo, email, phoneNumber, rawpassword,errorTextView,context);
+                        WalletAuthActivity.getLoginToken( email, phoneNumber, context);
 
 
                     }
@@ -94,7 +94,7 @@ public class WalletLoginHelper {
 
                     }else if(statusCode==404){
 
-                        WalletLoginHelper.userRegister( dialog, context,userInfo,rawpassword);
+                        WalletLoginHelper.userRegister( dialog, context, rawpassword);
                     }
 
                 } catch (JSONException e) {
@@ -121,18 +121,18 @@ public class WalletLoginHelper {
         });
     }
 
-    public static void userRegister(final ProgressDialog dialog, final Context context, final UserDetails userInfo, final String rawPassword) {
+    public static void userRegister(final ProgressDialog dialog, final Context context, final String rawPassword) {
         AsyncHttpClient client = new AsyncHttpClient();
 
         final RequestParams params = new RequestParams();
 
-        params.put("firstname", "" +  userInfo.getFirstName());
-        params.put("lastname", "" + userInfo.getLastName());
-        params.put("addressStreet", "" + userInfo.getDefaultAddressId());
-        params.put("addressCityOrTown", "" + userInfo.getDefaultAddressId());
-        params.put("email", "" + userInfo.getEmail());
-        params.put("password", "" + userInfo.getPassword());
-        params.put("phoneNumber", userInfo.getPhone());
+        params.put("firstname", "" +  DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME,context));
+        params.put("lastname", "" + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,context));
+        params.put("addressStreet", "" + DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID,context));
+        params.put("addressCityOrTown", "" + DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID,context));
+        params.put("email", "" + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context));
+        params.put("password", "" + rawPassword);
+        params.put("phoneNumber", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,context));
 
         client.post(ApiPaths.Wallet_CREATE_USER, params, new JsonHttpResponseHandler() {
 
@@ -154,7 +154,7 @@ public class WalletLoginHelper {
 
                     dialog.dismiss();
 
-                    WalletAuthActivity.getLoginToken(userInfo, userInfo.getEmail(), userInfo.getPhone(), rawPassword,null,context);
+                    WalletAuthActivity.getLoginToken(rawPassword,null,context);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -173,7 +173,7 @@ public class WalletLoginHelper {
 
                         }else if(statusCode == 400 &&  ( errorResponse.getJSONObject("errors").getString("email").equals("[\"The email has already been taken.\"]") || errorResponse.getJSONObject("errors").getString("phoneNumber").equals("[\"The phone number has already been taken.\"]") ) ){//user has account
                             Log.w("Account Exists", "Attempting  User Login" );
-                            WalletLoginHelper.checkLogin(userInfo, rawPassword, context, null, dialog);
+                            WalletLoginHelper.checkLogin(rawPassword, context, null, dialog);
 
                         }else{
 

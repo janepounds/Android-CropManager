@@ -63,7 +63,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.btn_save);
 
 
-        CropDashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
         currencyLabelTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,13 +88,13 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         paymentNumberTxt.setText(dbHandler.getNextPaymentNumber());
         ArrayList<CropSpinnerItem> customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.getPreferences("userId",this))){
             customersList.add(x);
         }
         customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
         customersSp.setAdapter(customersSpinnerAdapter);
         ArrayList<CropSpinnerItem> invoicesList = new ArrayList<>();
-        for(CropInvoice x: dbHandler.getCropInvoices(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInvoice x: dbHandler.getCropInvoices(DashboardActivity.getPreferences("userId",this))){
             invoicesList.add(x);
         }
         invoicesSpinnerAdapter = new CropSpinnerAdapter(invoicesList,"Invoice",this);
@@ -105,7 +105,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0){
                     CropInvoice invoice = (CropInvoice)((CropSpinnerItem)invoiceSp.getSelectedItem());
-                    CropDashboardActivity.selectSpinnerItemById(customersSp,invoice.getCustomerId());
+                    DashboardActivity.selectSpinnerItemById(customersSp,invoice.getCustomerId());
                     amountTxt.setText(invoice.computeBalance()+"");
                     customersSp.setEnabled(false);
 
@@ -127,7 +127,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
 
     public void savePayment(){
         cropInvoicePayment = new CropInvoicePayment();
-            cropInvoicePayment.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropInvoicePayment.setUserId(DashboardActivity.getPreferences("userId",this));
             cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             cropInvoicePayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
             cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
@@ -140,7 +140,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
     }
     public void updatePayment(){
         if(cropInvoicePayment !=null){
-            cropInvoicePayment.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropInvoicePayment.setUserId(DashboardActivity.getPreferences("userId",this));
             cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             cropInvoicePayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
             cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
@@ -155,18 +155,18 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(getIntent().hasExtra("invoiceId") ){
-            CropDashboardActivity.selectSpinnerItemById(invoiceSp,getIntent().getStringExtra("invoiceId"));
+            DashboardActivity.selectSpinnerItemById(invoiceSp,getIntent().getStringExtra("invoiceId"));
             invoiceSp.setEnabled(false);
         }
        /* if(getIntent().hasExtra("customerId") ){
-            CropDashboardActivity.selectSpinnerItemById(customersSp,getIntent().getStringExtra("customerId"));
+            DashboardActivity.selectSpinnerItemById(customersSp,getIntent().getStringExtra("customerId"));
             customersSp.setEnabled(false);
         }*/
         if(cropInvoicePayment !=null){
             dateTxt.setText(cropInvoicePayment.getDate());
-            CropDashboardActivity.selectSpinnerItemById(customersSp, cropInvoicePayment.getCustomerId());
-            CropDashboardActivity.selectSpinnerItemById(invoiceSp, cropInvoicePayment.getInvoiceId());
-            CropDashboardActivity.selectSpinnerItemByValue(paymentModeSp, cropInvoicePayment.getMode());
+            DashboardActivity.selectSpinnerItemById(customersSp, cropInvoicePayment.getCustomerId());
+            DashboardActivity.selectSpinnerItemById(invoiceSp, cropInvoicePayment.getInvoiceId());
+            DashboardActivity.selectSpinnerItemByValue(paymentModeSp, cropInvoicePayment.getMode());
             paymentNumberTxt.setText(cropInvoicePayment.getPaymentNumber());
             referenceNumberTxt.setText(cropInvoicePayment.getReferenceNo());
             notesTxt.setText(cropInvoicePayment.getNotes());

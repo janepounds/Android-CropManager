@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs;
+package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,13 +25,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.cabral.emaisha.BuildConfig;
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.databases.User_Info_DB;
-import com.cabral.emaisha.models.user_model.UserDetails;
-import com.cabral.emaisha.wallet.activities.WalletAuthActivity;
-import com.cabral.emaisha.wallet.activities.WalletHomeActivity;
-import com.cabral.emaisha.wallet.models.ApiPaths;
+import com.myfarmnow.myfarmcrop.BuildConfig;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.flutterwave.raveandroid.rave_core.models.SavedCard;
 import com.flutterwave.raveandroid.rave_java_commons.RaveConstants;
 import com.flutterwave.raveandroid.rave_presentation.RaveNonUIManager;
@@ -154,19 +152,16 @@ public class DepositMoneyVisa extends DialogFragment implements
         double amount = Double.parseDouble(amountEntered);
 
         txRef=WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
-        Log.e("PUBK : ",BuildConfig.PUBLIC_KEY+" : "+expiryDate.substring(0,2)+" : "+expiryDate.substring(3,5));
+        Log.e("PUBK : ", BuildConfig.PUBLIC_KEY+" : "+expiryDate.substring(0,2)+" : "+expiryDate.substring(3,5));
 
-        UserDetails userInfo;
-        User_Info_DB userInfoDB = new User_Info_DB();
-        String customers_id = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
-        userInfo = userInfoDB.getUserData(customers_id);
+
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
                 .setEmail( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity) )
                 .setfName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME,this.activity) )
                 .setlName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME,this.activity) )
-                .setPhoneNumber(userInfo.getPhone())
+                //.setPhoneNumber(userInfo.getPhone())
                 .setNarration("Cabral Tech Ltd")
                 .setPublicKey(BuildConfig.PUBLIC_KEY)
                 .setEncryptionKey(BuildConfig.ENCRYPTION_KEY)
@@ -176,7 +171,6 @@ public class DepositMoneyVisa extends DialogFragment implements
                 .initialize();
 
 
-                Log.w("contact",userInfo.getPhone());
 
 
          cardPayManager = new CardPaymentManager(

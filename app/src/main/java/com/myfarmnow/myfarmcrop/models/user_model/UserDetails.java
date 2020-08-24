@@ -1,4 +1,4 @@
-package com.cabral.emaisha.models.user_model;
+package com.myfarmnow.myfarmcrop.models.user_model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

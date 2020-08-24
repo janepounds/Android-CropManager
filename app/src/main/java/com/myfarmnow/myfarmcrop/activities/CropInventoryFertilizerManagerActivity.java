@@ -73,7 +73,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         microsNa= findViewById(R.id.txt_crop_fertilizer_micros_na);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)usageUnitSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
@@ -133,9 +133,9 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(fertilizerInventory != null){
 
-            CropDashboardActivity.selectSpinnerItemByValue(usageUnitSp,fertilizerInventory.getUsageUnits());
+            DashboardActivity.selectSpinnerItemByValue(usageUnitSp,fertilizerInventory.getUsageUnits());
             Log.d("USAGE UNITS", fertilizerInventory.getUsageUnits());
-            CropDashboardActivity.selectSpinnerItemByValue(typeSp,fertilizerInventory.getType());
+            DashboardActivity.selectSpinnerItemByValue(typeSp,fertilizerInventory.getType());
             dateTxt.setText(fertilizerInventory.getPurchaseDate());
             nameTxt.setText(fertilizerInventory.getName());
             npkNTxt.setText(fertilizerInventory.getnPercentage()+"");
@@ -165,7 +165,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
     }
     public void saveSeeds(){
         fertilizerInventory = new CropInventoryFertilizer();
-        fertilizerInventory.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        fertilizerInventory.setUserId(DashboardActivity.getPreferences("userId",this));
         fertilizerInventory.setPurchaseDate(dateTxt.getText().toString());
         fertilizerInventory.setFertilizerName(nameTxt.getText().toString());
         fertilizerInventory.setType(typeSp.getSelectedItem().toString());
@@ -200,7 +200,7 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
 
         if(fertilizerInventory != null) {
 
-            fertilizerInventory.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            fertilizerInventory.setUserId(DashboardActivity.getPreferences("userId",this));
             fertilizerInventory.setPurchaseDate(dateTxt.getText().toString());
             fertilizerInventory.setFertilizerName(nameTxt.getText().toString());
             fertilizerInventory.setType(typeSp.getSelectedItem().toString());

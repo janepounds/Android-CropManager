@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities;
+package com.myfarmnow.myfarmcrop.activities.farmrecords;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -8,27 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-
 import android.net.Uri;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
@@ -45,6 +26,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,15 +48,35 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropBestPracticesDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
+import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.CropContactsListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropFarmReportsActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
+import com.myfarmnow.myfarmcrop.activities.CropInventoryListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropLoginActivity;
+import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropProductsListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropRegisterActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
+import com.myfarmnow.myfarmcrop.activities.CropTasksListActivity;
+import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
+import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -83,7 +99,7 @@ import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 
-public class DashboardActivity extends AppCompatActivity  {
+public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 
 
     public static DrawerLayout mDrawerLayout;
@@ -125,8 +141,6 @@ public class DashboardActivity extends AppCompatActivity  {
     public static final String TASK_SEND_NOTIFICATIONS_TAG ="SEND_NOTIFICATIONS";
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +155,7 @@ public class DashboardActivity extends AppCompatActivity  {
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
-        if(!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,DashboardActivity.this).equals("yes")){
+        if(!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, FarmRecordsDashboardActivity.this).equals("yes")){
             getAppToken();
         }
 
@@ -233,7 +247,7 @@ public class DashboardActivity extends AppCompatActivity  {
         notificationsTabLayout.setupWithViewPager(notificationsViewPager);
         notificationsTabLayout.setSelectedTabIndicatorColor(Color.GREEN);
 
-        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(DashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
+        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(FarmRecordsDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
 
 
         textViewVersion =  findViewById(R.id.text_view_crop_dashboard_android_version);
@@ -264,7 +278,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
 
 
-        mDrawerToggle = new ActionBarDrawerToggle(DashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
+        mDrawerToggle = new ActionBarDrawerToggle(FarmRecordsDashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
                 supportInvalidateOptionsMenu();
             }
@@ -292,7 +306,7 @@ public class DashboardActivity extends AppCompatActivity  {
         inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openInventory = new Intent(DashboardActivity.this, CropInventoryListActivity.class);
+                Intent openInventory = new Intent(FarmRecordsDashboardActivity.this, CropInventoryListActivity.class);
                 startActivity(openInventory);
             }
         });
@@ -300,42 +314,42 @@ public class DashboardActivity extends AppCompatActivity  {
         fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openFields = new Intent(DashboardActivity.this, CropFieldsListActivity.class);
+                Intent openFields = new Intent(FarmRecordsDashboardActivity.this, CropFieldsListActivity.class);
                 startActivity(openFields);
             }
         });
         machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openMachines = new Intent(DashboardActivity.this, CropMachinesListActivity.class);
-                startActivity(openMachines);
+//                Intent openMachines = new Intent(FarmRecordsDashboardActivity.this, CropMachinesListActivity.class);
+//                startActivity(openMachines);
             }
         });
         cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openCrops = new Intent(DashboardActivity.this, CropsListActivity.class);
+                Intent openCrops = new Intent(FarmRecordsDashboardActivity.this, CropsListActivity.class);
                 startActivity(openCrops);
             }
         });
         incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(DashboardActivity.this, CropIncomeExpensesListActivity.class);
+                Intent openIncomeExpense = new Intent(FarmRecordsDashboardActivity.this, CropIncomeExpensesListActivity.class);
                 startActivity(openIncomeExpense);
             }
         });
         tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openTasks = new Intent(DashboardActivity.this, CropTasksListActivity.class);
+                Intent openTasks = new Intent(FarmRecordsDashboardActivity.this, CropTasksListActivity.class);
                 startActivity(openTasks);
             }
         });
         contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openContacts = new Intent(DashboardActivity.this, CropContactsListActivity.class);
+                Intent openContacts = new Intent(FarmRecordsDashboardActivity.this, CropContactsListActivity.class);
                 startActivity(openContacts);
             }
         });
@@ -346,7 +360,7 @@ public class DashboardActivity extends AppCompatActivity  {
         userProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editUser = new Intent(DashboardActivity.this, CropRegisterActivity.class);
+                Intent editUser = new Intent(FarmRecordsDashboardActivity.this, CropRegisterActivity.class);
                 editUser.putExtra("editUser","yes");
                 startActivity(editUser);
             }
@@ -418,7 +432,7 @@ public class DashboardActivity extends AppCompatActivity  {
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
-                        sendFirebaseToken(token,DashboardActivity.this);
+                        sendFirebaseToken(token, FarmRecordsDashboardActivity.this);
                     }
                 });
 
@@ -428,7 +442,7 @@ public class DashboardActivity extends AppCompatActivity  {
         final AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context));
+        params.put("email", FarmRecordsDashboardActivity.getPreferences(FarmRecordsDashboardActivity.PREFERENCES_USER_EMAIL,context));
         params.put("firebaseToken",token);
 
         Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -750,20 +764,20 @@ public class DashboardActivity extends AppCompatActivity  {
 
     public static void saveUser(JSONObject user, Context context) throws JSONException{
 
-        DashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
-        DashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
-        DashboardActivity.savePreferences("email", user.getString("email"), context);
-        DashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
-        DashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
-        DashboardActivity.savePreferences("country", user.getString("country"), context);
-        DashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
-        DashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
-        DashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
-        DashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
-        DashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
-        DashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
-        DashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
-        DashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
+        FarmRecordsDashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
+        FarmRecordsDashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
+        FarmRecordsDashboardActivity.savePreferences("email", user.getString("email"), context);
+        FarmRecordsDashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
+        FarmRecordsDashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
+        FarmRecordsDashboardActivity.savePreferences("country", user.getString("country"), context);
+        FarmRecordsDashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
+        FarmRecordsDashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
+        FarmRecordsDashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
+        FarmRecordsDashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
+        FarmRecordsDashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
+        FarmRecordsDashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
+        FarmRecordsDashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
+        FarmRecordsDashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
         // DashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
 
     }
@@ -784,18 +798,18 @@ public class DashboardActivity extends AppCompatActivity  {
             public void run() {
                 dialog.dismiss();
                 //remove shared preferences
-                SharedPreferences sharedPreferences = DashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME , 0);
+                SharedPreferences sharedPreferences = FarmRecordsDashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME , 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
 
                 //remove database
-                DashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
+                FarmRecordsDashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
 
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
                 finish();
-                Intent openList = new Intent(DashboardActivity.this, CropLoginActivity.class);
+                Intent openList = new Intent(FarmRecordsDashboardActivity.this, CropLoginActivity.class);
                 startActivity(openList);
             }
         }, 10000);

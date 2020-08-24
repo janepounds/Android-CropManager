@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.models.ApiPaths;
-import com.cabral.emaisha.wallet.models.WalletTransaction;
-import com.cabral.emaisha.wallet.singletons.WalletSettingsSingleton;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
+import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -27,7 +27,7 @@ import java.util.TimeZone;
 
 import cz.msebera.android.httpclient.Header;
 
-//import com.cabral.emaisha.wallet.database.MyFarmDbHandlerSingleton;
+//import com.myfarmnow.myfarmcrop.wallet.database.MyFarmDbHandlerSingleton;
 
 public class WalletPurchaseCardPreviewActivity extends AppCompatActivity {
 

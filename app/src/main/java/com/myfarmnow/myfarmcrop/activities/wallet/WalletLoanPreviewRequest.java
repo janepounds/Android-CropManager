@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.activities;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.models.ApiPaths;
-import com.cabral.emaisha.wallet.models.LoanApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;

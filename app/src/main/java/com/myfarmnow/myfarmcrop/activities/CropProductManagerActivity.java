@@ -109,7 +109,7 @@ public class CropProductManagerActivity extends AppCompatActivity {
     }
     public void saveFields(){
         cropProduct = new CropProduct();
-        cropProduct.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropProduct.setUserId(DashboardActivity.getPreferences("userId",this));
         cropProduct.setName(nameTxt.getText().toString());
         cropProduct.setCode( codeTxt.getText().toString());
         cropProduct.setSellingPrice(Float.parseFloat(priceTxt.getText().toString()));
@@ -157,9 +157,9 @@ public class CropProductManagerActivity extends AppCompatActivity {
     public void fillViews(){
         if(cropProduct !=null){
             nameTxt.setText(cropProduct.getName());
-            CropDashboardActivity.selectSpinnerItemByValue(typeSp,cropProduct.getType());
-            CropDashboardActivity.selectSpinnerItemByValue(unitsSp,cropProduct.getUnits());
-            CropDashboardActivity.selectSpinnerItemByValue(linkedAccountSp,cropProduct.getLinkedAccount());
+            DashboardActivity.selectSpinnerItemByValue(typeSp,cropProduct.getType());
+            DashboardActivity.selectSpinnerItemByValue(unitsSp,cropProduct.getUnits());
+            DashboardActivity.selectSpinnerItemByValue(linkedAccountSp,cropProduct.getLinkedAccount());
             codeTxt.setText(cropProduct.getCode()+"");
             openingQuantity.setText(cropProduct.getOpeningQuantity()+"");
             openingCostTxt.setText(cropProduct.getOpeningCost()+"");

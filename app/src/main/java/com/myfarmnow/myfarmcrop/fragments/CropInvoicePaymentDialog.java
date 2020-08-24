@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInvoicePayment;
 import com.myfarmnow.myfarmcrop.models.PaymentDialogActivity;
@@ -50,7 +50,7 @@ public class CropInvoicePaymentDialog extends DialogFragment {
         saveBtn = view.findViewById(R.id.btn_save);
 
         ((TextView)view.findViewById(R.id.txt_crop_payment_currency)).setText(CropSettingsSingleton.getInstance().getCurrency());
-        CropDashboardActivity.addDatePicker(dateTxt,getActivity());
+        DashboardActivity.addDatePicker(dateTxt,getActivity());
         customerLayout.setVisibility(View.GONE);
         invoiceLayout.setVisibility(View.GONE);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +101,7 @@ public class CropInvoicePaymentDialog extends DialogFragment {
     }
     public void savePayment(){
         cropInvoicePayment = new CropInvoicePayment();
-        cropInvoicePayment.setUserId(CropDashboardActivity.getPreferences("userId",getActivity()));
+        cropInvoicePayment.setUserId(DashboardActivity.getPreferences("userId",getActivity()));
         cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
         cropInvoicePayment.setReferenceNo(referenceNumberTxt.getText().toString());
         cropInvoicePayment.setMode(paymentModeSp.getSelectedItem().toString());

@@ -68,8 +68,8 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
         weeklyRecurrenceLayout = findViewById(R.id.layout_crop_soil_analysis_weekly_reminder);
         daysBeforeLayout = findViewById(R.id.layout_crop_soil_analysis_days_before);
         remindersLayout = findViewById(R.id.layout_crop_soil_analysis_reminders);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
-        CropDashboardActivity.addDatePicker(repeatUntilTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(repeatUntilTxt,this);
 
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -194,7 +194,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
 
     public void saveSoilAnalysis(){
         soilAnalysis = new CropSoilAnalysis();
-        soilAnalysis.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        soilAnalysis.setUserId(DashboardActivity.getPreferences("userId",this));
         soilAnalysis.setDate(dateTxt.getText().toString());
         soilAnalysis.setResult(resultsTxt.getText().toString());
         soilAnalysis.setAgronomist(agronomistTxt.getText().toString());
@@ -275,8 +275,8 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
 
     public void fillViews() {
         if (soilAnalysis != null) {
-            CropDashboardActivity.selectSpinnerItemByValue(recurrenceSp, soilAnalysis.getRecurrence());
-            CropDashboardActivity.selectSpinnerItemByValue(remindersSp, soilAnalysis.getReminders());
+            DashboardActivity.selectSpinnerItemByValue(recurrenceSp, soilAnalysis.getRecurrence());
+            DashboardActivity.selectSpinnerItemByValue(remindersSp, soilAnalysis.getReminders());
 
             dateTxt.setText(soilAnalysis.getDate());
             organicMatterTxt.setText(soilAnalysis.getOrganicMatter()+"");

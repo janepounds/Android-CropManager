@@ -102,13 +102,13 @@ public class CropInventoryListActivity extends AppCompatActivity {
 
     private void loadCropInventories(){
         AsyncHttpClient client = new AsyncHttpClient();
-        for(CropInventorySeeds seedsInventory:dbHandler.getCropSeeds(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInventorySeeds seedsInventory:dbHandler.getCropSeeds(DashboardActivity.getPreferences("userId",this))){
             cropListRecyclerAdapter.addInventory(seedsInventory);
         }
-        for(CropInventoryFertilizer fertilizerInventory:dbHandler.getCropFertilizerInventorys(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInventoryFertilizer fertilizerInventory:dbHandler.getCropFertilizerInventorys(DashboardActivity.getPreferences("userId",this))){
             cropListRecyclerAdapter.addInventory(fertilizerInventory);
         }
-        for(CropInventorySpray spraysInventory:dbHandler.getCropSpray(CropDashboardActivity.getPreferences("userId",this))){
+        for(CropInventorySpray spraysInventory:dbHandler.getCropSpray(DashboardActivity.getPreferences("userId",this))){
             cropListRecyclerAdapter.addInventory(spraysInventory);
         }
     }

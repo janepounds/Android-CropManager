@@ -11,10 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.wallet.activities.LoanStatusPreviewActivity;
-import com.cabral.emaisha.wallet.models.LoanApplication;
-import com.cabral.emaisha.wallet.singletons.WalletSettingsSingleton;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.wallet.LoanStatusPreviewActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
+import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

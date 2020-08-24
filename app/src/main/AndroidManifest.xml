@@ -46,22 +46,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".activities.CropWalletAuthActivity"
-            android:label="Authentication" />
-        <activity
-            android:name=".activities.CropDigitalWalletTransferActivity"
-            android:label="Digital Wallet" />
-        <activity
-            android:name=".activities.CropDigitalWalletWithdrawActivity"
-            android:label="Digital Wallet" />
-        <activity
-            android:name=".activities.CropWalletAddMoneyActivity"
-            android:label="Digital Wallet" />
-        <activity
-            android:name=".activities.CropWalletActivity"
-            android:label="Digital Wallet" />
         <activity
             android:name=".activities.CropsNotesListActivity"
             android:label="Crop Notes" />
@@ -128,10 +116,10 @@
             android:name=".activities.CropTaskManagerActivity"
             android:label="Task Manager" />
         <activity
-            android:name=".activities.CropIncomeExpensesListActivity"
+            android:name=".activities.farmrecords.CropIncomeExpensesListActivity"
             android:label="Income / Expenses " />
         <activity
-            android:name=".activities.CropIncomeExpenseManagerActivity"
+            android:name=".activities.farmrecords.CropIncomeExpenseManagerActivity"
             android:label="Income / Expenses Manager" />
 
         <provider
@@ -157,7 +145,7 @@
             android:name=".activities.CropEmployeeManagerActivity"
             android:label="Employee Manager" />
         <activity
-            android:name=".activities.CropsListActivity"
+            android:name=".activities.agronomy.CropsListActivity"
             android:label="@string/activity_crops_list" />
         <activity
             android:name=".activities.CropSoilAnalysisListActivity"
@@ -169,30 +157,24 @@
             android:name=".activities.CropSprayingManagerActivity"
             android:label="@string/activity_spraying_manager_label" />
         <activity
-            android:name=".activities.CropFertilizerApplicationManagerActivity"
+            android:name=".activities.predictiontools.CropFertilizerApplicationManagerActivity"
             android:label="@string/activity_fertilizer_application_manager_label" />
         <activity
             android:name=".activities.CropCultivationManagerActivity"
             android:label="@string/activity_cultivate_manage" />
         <activity
-            android:name=".activities.CropsManagerActivity"
+            android:name=".activities.agronomy.CropsManagerActivity"
             android:label="@string/activity_crop_manager" />
         <activity
-            android:name=".activities.CropMachinesListActivity"
-            android:label="@string/machines_list" />
-        <activity
-            android:name=".activities.CropMachineManagerActivity"
-            android:label="@string/activity_crop_machine_manager" />
-        <activity
-            android:name=".activities.CropFieldsListActivity"
+            android:name=".activities.farmrecords.CropFieldsListActivity"
             android:label="@string/title_activity_crop_fields_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropFieldManagerActivity"
+            android:name=".activities.farmrecords.CropFieldManagerActivity"
             android:label="@string/activity_crop_field_manager_title"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropDashboardActivity"
+            android:name=".activities.DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -212,7 +194,7 @@
             android:label="@string/title_activity_crop_inventory_spray_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropEstimateManagerActivity"
+            android:name=".activities.predictiontools.CropEstimateManagerActivity"
             android:label="@string/title_activity_crop_estimate_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -232,7 +214,7 @@
             android:name=".activities.CropSupplierManagerActivity"
             android:label="@string/title_activity_crop_supplier_manager" />
         <activity
-            android:name=".activities.CropEstimatesListActivity"
+            android:name=".activities.predictiontools.CropEstimatesListActivity"
             android:label="@string/title_activity_crop_estimates_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -256,7 +238,7 @@
             android:label="@string/title_activity_crop_invoice_preview"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropEstimatePreviewActivity"
+            android:name=".activities.predictiontools.CropEstimatePreviewActivity"
             android:label="@string/title_activity_crop_estimate_preview"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -296,47 +278,47 @@
             android:label="@string/title_activity_crop_verify_phone_number"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropROIStep1Activity"
+            android:name=".activities.predictiontools.CropROIStep1Activity"
             android:label="@string/title_activity_crop_roistep1"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropROIStep2Activity"
+            android:name=".activities.predictiontools.CropROIStep2Activity"
             android:label="@string/title_activity_crop_roistep2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropROIStep3Activity"
+            android:name=".activities.predictiontools.CropROIStep3Activity"
             android:label="@string/title_activity_crop_roistep3"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropROIStep4Activity"
+            android:name=".activities.predictiontools.CropROIStep4Activity"
             android:label="@string/title_activity_crop_roistep4"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropROIStep5Activity"
+            android:name=".activities.predictiontools.CropROIStep5Activity"
             android:label="@string/title_activity_crop_roistep5"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropROIResultsActivity"
+            android:name=".activities.predictiontools.CropROIResultsActivity"
             android:label="@string/title_activity_crop_roiresults"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropFertilizerCalculatorEntryActivity"
+            android:name=".activities.predictiontools.CropFertilizerCalculatorEntryActivity"
             android:label="@string/title_activity_crop_fertilizer_calculator_entry"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropFertilizerCalculatorResults"
+            android:name=".activities.predictiontools.CropFertilizerCalculatorResults"
             android:label="@string/title_activity_crop_fertilizer_calculator_results"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropCalculatorsActivity"
+            android:name=".activities.predictiontools.CropCalculatorsActivity"
             android:label="@string/title_activity_crop_calculators"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropNutrientsCalculatorEntryActivity"
+            android:name=".activities.predictiontools.CropNutrientsCalculatorEntryActivity"
             android:label="@string/title_activity_crop_nutrients_calculator_entry"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropNutrientsCalculatorResults"
+            android:name=".activities.predictiontools.CropNutrientsCalculatorResults"
             android:label="@string/title_activity_crop_nutrients_calculator_results"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

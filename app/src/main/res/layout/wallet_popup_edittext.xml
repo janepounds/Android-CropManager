@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15.0dip"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+
+            android:layout_weight="0.2"
+
+            android:text="+"
+            android:textAlignment="center"
+
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/edtCountryCode"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+
+            android:layout_weight="0.3"
+            android:hint="Code"
+            android:inputType="phone"
+            android:maxLength="3"
+            android:singleLine="true"
+
+            android:textColorHint="@color/hintColor"
+            android:textCursorDrawable="@drawable/color_cursor" />
+
+        <EditText
+            android:id="@+id/edtContact"
+            android:layout_marginEnd="10dp"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="1"
+            android:hint="Phone Number"
+            android:inputType="phone"
+
+            android:singleLine="true"
+
+            android:textColorHint="@color/hintColor"
+            android:textCursorDrawable="@drawable/color_cursor" />
+    </LinearLayout>
+
+</LinearLayout>

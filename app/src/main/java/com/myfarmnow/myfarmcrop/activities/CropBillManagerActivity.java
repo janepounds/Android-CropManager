@@ -89,21 +89,21 @@ public class CropBillManagerActivity extends AppCompatActivity {
         suppliersSp = findViewById(R.id.spinner_crop_bill_supplier);
         saveBtn = findViewById(R.id.btn_save);
         saveAndSendBtn = findViewById(R.id.btn_save_send);
-        CropDashboardActivity.addDatePicker(billDateTxt, this);
-        CropDashboardActivity.addDatePicker(dueDateTxt, this);
+        DashboardActivity.addDatePicker(billDateTxt, this);
+        DashboardActivity.addDatePicker(dueDateTxt, this);
         ((ArrayAdapter) termsSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
-        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this, new ArrayList<CropProductItem>(), dbHandler.getCropProducts(CropDashboardActivity.getPreferences("userId", this)), subTotalTextView);
+        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this, new ArrayList<CropProductItem>(), dbHandler.getCropProducts(DashboardActivity.getPreferences("userId", this)), subTotalTextView);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
         addItemBtn = findViewById(R.id.btn_add_item);
 
         ArrayList<CropSpinnerItem> suppliersList = new ArrayList<>();
-        for (CropSupplier x : dbHandler.getCropSuppliers(CropDashboardActivity.getPreferences("userId", this))) {
+        for (CropSupplier x : dbHandler.getCropSuppliers(DashboardActivity.getPreferences("userId", this))) {
             suppliersList.add(x);
         }
         suppliersSpinnerAdapter = new CropSpinnerAdapter(suppliersList, "Supplier", this);
@@ -248,7 +248,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
 
     public CropBill saveBill(){
         cropBill = new CropBill();
-        cropBill.setUserId(CropDashboardActivity.getPreferences("userId",this));
+        cropBill.setUserId(DashboardActivity.getPreferences("userId",this));
         cropBill.setTerms(termsSp.getSelectedItem().toString());
         cropBill.setNotes(notesTxt.getText().toString());
         cropBill.setDueDate(dueDateTxt.getText().toString());
@@ -271,7 +271,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
 
     public CropBill updateBill(){
         if(cropBill != null){
-            cropBill.setUserId(CropDashboardActivity.getPreferences("userId",this));
+            cropBill.setUserId(DashboardActivity.getPreferences("userId",this));
             cropBill.setTerms(termsSp.getSelectedItem().toString());
             cropBill.setNotes(notesTxt.getText().toString());
             cropBill.setDueDate(dueDateTxt.getText().toString());
@@ -295,8 +295,8 @@ public class CropBillManagerActivity extends AppCompatActivity {
     }
     public void fillViews(){
         if(cropBill != null){
-            CropDashboardActivity.selectSpinnerItemById(suppliersSp,cropBill.getSupplierId());
-            CropDashboardActivity.selectSpinnerItemByValue(termsSp,cropBill.getTerms());
+            DashboardActivity.selectSpinnerItemById(suppliersSp,cropBill.getSupplierId());
+            DashboardActivity.selectSpinnerItemByValue(termsSp,cropBill.getTerms());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: cropBill.getItems()){
                 items.add(x);
@@ -341,7 +341,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
     public void loadPurchaseOrderAsBill(CropPurchaseOrder estimate){
         if(estimate != null){
             sourceCropPurchaseOrder = estimate;
-            CropDashboardActivity.selectSpinnerItemById(suppliersSp,estimate.getSupplierId());
+            DashboardActivity.selectSpinnerItemById(suppliersSp,estimate.getSupplierId());
             ArrayList <CropProductItem> items = new ArrayList<>();
             for(CropProductItem x: estimate.getItems()){
                 x.setParentObjectId(null); //remove any associated Order Id

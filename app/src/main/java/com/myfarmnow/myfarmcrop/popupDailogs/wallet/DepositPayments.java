@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs;
+package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.cabral.emaisha.R;
+import com.myfarmnow.myfarmcrop.R;
 
 public class DepositPayments extends DialogFragment {
     LinearLayout layoutAddMoney;

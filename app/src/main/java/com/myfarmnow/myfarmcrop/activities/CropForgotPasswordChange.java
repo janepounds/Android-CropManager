@@ -111,7 +111,7 @@ public class CropForgotPasswordChange extends AppCompatActivity {
                     Log.d("USER",response.toString());
                     JSONObject user = response.getJSONObject("user");
 
-                    CropDashboardActivity.saveUser(user,CropForgotPasswordChange.this);
+                    DashboardActivity.saveUser(user,CropForgotPasswordChange.this);
                     Intent verifyPhoneNumber = new Intent(CropForgotPasswordChange.this, CropLoadBackUpActivity.class);
                     startActivity(verifyPhoneNumber);
                     finish();

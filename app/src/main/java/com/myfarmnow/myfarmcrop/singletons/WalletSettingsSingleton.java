@@ -1,4 +1,4 @@
-package com.cabral.emaisha.wallet.singletons;
+package com.myfarmnow.myfarmcrop.singletons;
 
 import org.json.JSONException;
 import org.json.JSONObject;

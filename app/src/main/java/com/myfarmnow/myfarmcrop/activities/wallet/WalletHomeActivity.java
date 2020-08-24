@@ -1,40 +1,33 @@
-package com.cabral.emaisha.wallet.activities;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.cabral.emaisha.R;
-
-import com.cabral.emaisha.activities.MainActivity;
-import com.cabral.emaisha.app.MyAppPrefsManager;
-import com.cabral.emaisha.constant.ConstantValues;
-import com.cabral.emaisha.network.StartAppRequests;
-import com.cabral.emaisha.wallet.models.ApiPaths;
-import com.cabral.emaisha.wallet.popupDailogs.Buy;
-import com.cabral.emaisha.wallet.popupDailogs.DepositMoneyMobile;
-import com.cabral.emaisha.wallet.popupDailogs.DepositMoneyVisa;
-import com.cabral.emaisha.wallet.popupDailogs.DepositMoneyVoucher;
-import com.cabral.emaisha.wallet.popupDailogs.DepositPayments;
-import com.cabral.emaisha.wallet.popupDailogs.TransferMoney;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.Buy;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyMobile;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVisa;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVoucher;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositPayments;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.TransferMoney;
 import com.google.android.material.tabs.TabLayout;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -49,8 +42,7 @@ import java.text.NumberFormat;
 import cz.msebera.android.httpclient.Header;
 
 
-
-public class WalletHomeActivity extends AppCompatActivity  {
+public class WalletHomeActivity extends AppCompatActivity {
 
     public static final String PREFERENCES_FILE_NAME ="pref";
     public static final String STREET_PREFERENCES_ID ="addressStreet";
@@ -115,18 +107,9 @@ public class WalletHomeActivity extends AppCompatActivity  {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // todo: goto back activity from here
-                sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-                // Set UserLoggedIn in MyAppPrefsManager
 
-                MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(WalletHomeActivity.this);
-                myAppPrefsManager.setUserLoggedIn(true);
 
-                // Set isLogged_in of ConstantValues
-                ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
-                Log.e("USERID CHECK:",ConstantValues.IS_USER_LOGGED_IN+"" );
-                StartAppRequests.RegisterDeviceForFCM(WalletHomeActivity.this);
-
-                startActivity(new Intent(WalletHomeActivity.this, MainActivity.class));
+                startActivity(new Intent(WalletHomeActivity.this, DashboardActivity.class));
                 finish();
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
 

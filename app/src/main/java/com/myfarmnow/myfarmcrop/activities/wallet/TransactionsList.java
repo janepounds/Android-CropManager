@@ -1,30 +1,23 @@
-package com.cabral.emaisha.wallet.activities;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.cabral.emaisha.R;
-import com.cabral.emaisha.activities.MainActivity;
-import com.cabral.emaisha.app.MyAppPrefsManager;
-import com.cabral.emaisha.constant.ConstantValues;
-import com.cabral.emaisha.network.StartAppRequests;
-import com.cabral.emaisha.wallet.adapters.WalletTransactionsListAdapter;
-import com.cabral.emaisha.wallet.models.ApiPaths;
-import com.cabral.emaisha.wallet.models.WalletTransaction;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -164,13 +157,6 @@ public class TransactionsList extends AppCompatActivity {
                 sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
                 // Set UserLoggedIn in MyAppPrefsManager
 
-                MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(TransactionsList.this);
-                myAppPrefsManager.setUserLoggedIn(true);
-
-                // Set isLogged_in of ConstantValues
-                ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
-                Log.e("USERID CHECK:",ConstantValues.IS_USER_LOGGED_IN+"" );
-                StartAppRequests.RegisterDeviceForFCM(TransactionsList.this);
 
                 startActivity(new Intent(TransactionsList.this, WalletHomeActivity.class));
                 finish();

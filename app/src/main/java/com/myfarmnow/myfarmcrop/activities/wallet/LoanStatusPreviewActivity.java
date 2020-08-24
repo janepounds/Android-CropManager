@@ -1,11 +1,10 @@
-package com.cabral.emaisha.wallet.activities;
+package com.myfarmnow.myfarmcrop.activities.wallet;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,14 +20,11 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.cabral.emaisha.constant.ConstantValues;
-import com.cabral.emaisha.wallet.models.LoanApplication;
-import com.cabral.emaisha.wallet.models.Referee;
-import com.cabral.emaisha.R;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoanStatusPreviewActivity extends AppCompatActivity {
 

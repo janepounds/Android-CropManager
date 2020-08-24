@@ -46,7 +46,7 @@ public class CropsNotesManagerActivity extends AppCompatActivity {
         descriptionTxt = findViewById(R.id.txt_crop_note_description);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        CropDashboardActivity.addDatePicker(dateTxt,this);
+        DashboardActivity.addDatePicker(dateTxt,this);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
