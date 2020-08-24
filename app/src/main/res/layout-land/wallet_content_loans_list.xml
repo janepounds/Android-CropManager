@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/parent_constraintLayout"
+    android:layout_height="match_parent"
+    tools:context=".wallet.activities.WalletLoansListActivity"
+    tools:showIn="@layout/wallet_loans_list"
+    android:background="@color/textColorPrimaryLight"
+    android:padding="8dp" >
+
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="@+id/parent_constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="45dp">
+
+        <Button
+            android:id="@+id/wallet_appyly_loan_btn"
+            android:onClick="newLoanApplication"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:text="Apply for Loan"
+            android:textAllCaps="false"
+            android:layout_gravity="end"
+            style="@style/Button_DW"
+            android:textColor="@color/white"
+            android:background="@drawable/rectangular_green_solid"
+            android:textSize="12sp"
+            />
+
+        <Button
+            android:id="@+id/wallet_pay_loan_btn"
+            android:visibility="gone"
+            android:onClick="payLoan"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:text="Pay Loan"
+            android:textAllCaps="false"
+            android:layout_gravity="end"
+            style="@style/Button_DW"
+            android:textColor="@color/white"
+            android:background="@drawable/rectangular_green_solid"
+            android:textSize="12sp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="vertical"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/loans_list_recycler_view"
+                android:layout_width="380dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
