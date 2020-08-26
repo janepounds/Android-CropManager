@@ -1673,6 +1673,11 @@
     <string name="text_label_2">Offers</string>
     <string name="text_label_3">Account</string>
     <string name="label_farmrecords">Farm Records</string>
+    <string name="label_croprecords">Crop Records</string>
+    <string name="label_livestockrecords">Livestock Records</string>
+    <string name="label_store">Store</string>
+    <string name="label_financial_records">Financial Records</string>
+    <string name="title_farm_records">Farm Records</string>
 
 
     <string-array name="dateFormatsArray">

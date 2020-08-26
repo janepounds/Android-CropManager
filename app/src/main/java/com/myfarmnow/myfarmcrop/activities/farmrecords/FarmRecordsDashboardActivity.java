@@ -144,7 +144,7 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_dashboard);
+        setContentView(R.layout.activity_farm_records_dashboard);
         toolbar=  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -247,23 +247,23 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         notificationsTabLayout.setupWithViewPager(notificationsViewPager);
         notificationsTabLayout.setSelectedTabIndicatorColor(Color.GREEN);
 
-        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(FarmRecordsDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
+//        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(FarmRecordsDashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
 
 
         textViewVersion =  findViewById(R.id.text_view_crop_dashboard_android_version);
         textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
 
-        noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(notificationsFrameLayout.getVisibility()==View.GONE){
-                    notificationsFrameLayout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    notificationsFrameLayout.setVisibility(View.GONE);
-                }
-            }
-        });
+//        noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(notificationsFrameLayout.getVisibility()==View.GONE){
+//                    notificationsFrameLayout.setVisibility(View.VISIBLE);
+//                }
+//                else{
+//                    notificationsFrameLayout.setVisibility(View.GONE);
+//                }
+//            }
+//        });
 
         contactsSubMenu = findViewById(R.id.layout_crop_dashboard_contact_submenus);
         helpSubMenu = findViewById(R.id.layout_crop_dashboard_help_submenus);
@@ -303,56 +303,56 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
             }
         });
 
-        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openInventory = new Intent(FarmRecordsDashboardActivity.this, CropInventoryListActivity.class);
-                startActivity(openInventory);
-            }
-        });
-
-        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openFields = new Intent(FarmRecordsDashboardActivity.this, CropFieldsListActivity.class);
-                startActivity(openFields);
-            }
-        });
-        machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent openMachines = new Intent(FarmRecordsDashboardActivity.this, CropMachinesListActivity.class);
-//                startActivity(openMachines);
-            }
-        });
-        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openCrops = new Intent(FarmRecordsDashboardActivity.this, CropsListActivity.class);
-                startActivity(openCrops);
-            }
-        });
-        incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(FarmRecordsDashboardActivity.this, CropIncomeExpensesListActivity.class);
-                startActivity(openIncomeExpense);
-            }
-        });
-        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openTasks = new Intent(FarmRecordsDashboardActivity.this, CropTasksListActivity.class);
-                startActivity(openTasks);
-            }
-        });
-        contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openContacts = new Intent(FarmRecordsDashboardActivity.this, CropContactsListActivity.class);
-                startActivity(openContacts);
-            }
-        });
+//        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openInventory = new Intent(FarmRecordsDashboardActivity.this, CropInventoryListActivity.class);
+//                startActivity(openInventory);
+//            }
+//        });
+//
+//        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openFields = new Intent(FarmRecordsDashboardActivity.this, CropFieldsListActivity.class);
+//                startActivity(openFields);
+//            }
+//        });
+//        machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent openMachines = new Intent(FarmRecordsDashboardActivity.this, CropMachinesListActivity.class);
+////                startActivity(openMachines);
+//            }
+//        });
+//        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openCrops = new Intent(FarmRecordsDashboardActivity.this, CropsListActivity.class);
+//                startActivity(openCrops);
+//            }
+//        });
+//        incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openIncomeExpense = new Intent(FarmRecordsDashboardActivity.this, CropIncomeExpensesListActivity.class);
+//                startActivity(openIncomeExpense);
+//            }
+//        });
+//        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openTasks = new Intent(FarmRecordsDashboardActivity.this, CropTasksListActivity.class);
+//                startActivity(openTasks);
+//            }
+//        });
+//        contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openContacts = new Intent(FarmRecordsDashboardActivity.this, CropContactsListActivity.class);
+//                startActivity(openContacts);
+//            }
+//        });
 
         textViewUserName.setText(getPreferences("firstname",this)+" "+getPreferences("lastname",this));
         textViewUserEmail.setText(getPreferences("email",this));
