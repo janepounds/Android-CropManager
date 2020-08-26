@@ -66,6 +66,8 @@ import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListAct
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -99,7 +101,7 @@ public class DashboardActivity extends AppCompatActivity  {
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
+    LinearLayout walletLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
@@ -211,7 +213,7 @@ public class DashboardActivity extends AppCompatActivity  {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         //expandableListView = findViewById(R.id.drawer_menu_list);
         mainlayout = findViewById(R.id.mainlayout);
-        inventoryLinearLayout =findViewById(R.id.layout_crop_dashboard_inventory);
+        walletLinearLayout =findViewById(R.id.layout_dashboard_wallet);
         fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
         machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
         incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
@@ -295,11 +297,20 @@ public class DashboardActivity extends AppCompatActivity  {
             }
         });
 
-        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
+        walletLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openInventory = new Intent(DashboardActivity.this, CropInventoryListActivity.class);
-                startActivity(openInventory);
+                if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+                    startActivity(new Intent(DashboardActivity.this, WalletAuthActivity.class));
+                    //finish();
+                    overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                }
+                else {
+                    //WalletAuthActivity.startAuth(context, true);
+                    Intent authenticate = new Intent(DashboardActivity.this, WalletHomeActivity.class);
+                    startActivity(authenticate);
+                    finish();
+                }
             }
         });
 
@@ -511,9 +522,19 @@ public class DashboardActivity extends AppCompatActivity  {
         Intent openList = new Intent(this, CropsManagerActivity.class);
         startActivity(openList);
     }
-    public void openInventoryList(View view){
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
+    public void openWallet(View view){
+
+        if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+            startActivity(new Intent(DashboardActivity.this, WalletAuthActivity.class));
+            //finish();
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+        }
+        else {
+            //WalletAuthActivity.startAuth(context, true);
+            Intent authenticate = new Intent(this, WalletHomeActivity.class);
+            startActivity(authenticate);
+            finish();
+        }
     }
     public void openInventoryManager(View view){
         Intent openList = new Intent(this, CropInventoryListActivity.class);
