@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
@@ -33,6 +34,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -49,6 +51,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -69,9 +72,12 @@ import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalcula
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
+import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsOverDueFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
 import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
+import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
@@ -88,21 +94,23 @@ import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 
-public class DashboardActivity extends AppCompatActivity  {
+public class DashboardActivity extends AppCompatActivity {
+    private static final String TAG = "DashboardActivity";
+    private BottomNavigationView bottomNavigationView;
 
 
     public static DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     ImageView imgdrawer, noticationsImageBtn;
     RelativeLayout mainlayout;
-    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu, digitalWalletLayout;
+    LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
-            incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
+    LinearLayout inventoryLinearLayout, fieldsLinearLayout, machinesLinearLayout, cropsLinearLayout,
+            incomeExpenseLinearLayout, tasksLinearLayout, userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
+    TextView textViewUserEmail, textViewUserName, unreadNotificationsTextView, textViewVersion;
 
 
     private TabLayout notificationsTabLayout;
@@ -111,60 +119,76 @@ public class DashboardActivity extends AppCompatActivity  {
     FrameLayout notificationsFrameLayout;
     MyFarmDbHandlerSingleton dbHandler;
 
-    public static final String PREFERENCES_FILE_NAME ="pref";
+    public static final String PREFERENCES_FILE_NAME = "pref";
 
-    public static final String FARM_NAME_PREFERENCES_ID ="farmname";
-    public static final String STREET_PREFERENCES_ID ="addressStreet";
-    public static final String CITY_PREFERENCES_ID ="addressCityOrTown";
-    public static final String COUNTRY_PREFERENCES_ID ="addressCountry";
-    public static final String PREFERENCES_FIRST_NAME ="firstname";
-    public static final String PREFERENCES_LAST_NAME ="lastname";
-    public static final String PREFERENCES_USER_ID ="userId";
-    public static final String PREFERENCES_USER_EMAIL ="email";
+    public static final String FARM_NAME_PREFERENCES_ID = "farmname";
+    public static final String STREET_PREFERENCES_ID = "addressStreet";
+    public static final String CITY_PREFERENCES_ID = "addressCityOrTown";
+    public static final String COUNTRY_PREFERENCES_ID = "addressCountry";
+    public static final String PREFERENCES_FIRST_NAME = "firstname";
+    public static final String PREFERENCES_LAST_NAME = "lastname";
+    public static final String PREFERENCES_USER_ID = "userId";
+    public static final String PREFERENCES_USER_EMAIL = "email";
     public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
 
-    public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED ="tokenSubmitted";
-    public static final String PREFERENCES_USER_BACKED_UP ="userBackedUp";
-    public static final String PREFERENCES_USER_PASSWORD ="password";
+    public static final String PREFERENCES_FIREBASE_TOKEN_SUBMITTED = "tokenSubmitted";
+    public static final String PREFERENCES_USER_BACKED_UP = "userBackedUp";
+    public static final String PREFERENCES_USER_PASSWORD = "password";
 
-    public static final String TASK_BACKUP_DATA_TAG ="SYNC_SERVICE";
-    public static final String TASK_SEND_NOTIFICATIONS_TAG ="SEND_NOTIFICATIONS";
-
-
-
+    public static final String TASK_BACKUP_DATA_TAG = "SYNC_SERVICE";
+    public static final String TASK_SEND_NOTIFICATIONS_TAG = "SEND_NOTIFICATIONS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
-        toolbar=  findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId", this));
         initializeDashboard();
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
-        if(!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,DashboardActivity.this).equals("yes")){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        if (!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, DashboardActivity.this).equals("yes")) {
             getAppToken();
         }
 
         startService(new Intent(this, CropSyncService.class));
         scheduleBackgroundWork();
-
-
-
-
-
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
+        Fragment selectedFragment = null;
+
+        switch (item.getItemId()) {
+            case R.id.page_1:
+                selectedFragment = new HomeFragment();
+                break;
+            case R.id.page_2:
+                selectedFragment = new OffersFragment();
+                break;
+            case R.id.page_3:
+                selectedFragment = new AccountFragment();
+                break;
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+        return true;
+    };
 
     /**
      * Schedules the background tasks such as synchronisation and notification
      * It uses the WorkerManager library
      */
-    public static void scheduleBackgroundWork(){
+    public static void scheduleBackgroundWork() {
         Constraints backupConstraints = new Constraints.Builder()
                 .setRequiresCharging(false)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -198,60 +222,59 @@ public class DashboardActivity extends AppCompatActivity  {
         WorkManager.getInstance().enqueueUniquePeriodicWork(TASK_SEND_NOTIFICATIONS_TAG, ExistingPeriodicWorkPolicy.KEEP, sendNotifications);
 
 
-
     }
-    public static boolean isGooglePlayServicesAvailable(Context context){
+
+    public static boolean isGooglePlayServicesAvailable(Context context) {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
         return resultCode == ConnectionResult.SUCCESS;
     }
 
-    public void initializeDashboard(){
+    public void initializeDashboard() {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         //expandableListView = findViewById(R.id.drawer_menu_list);
         mainlayout = findViewById(R.id.mainlayout);
-        inventoryLinearLayout =findViewById(R.id.layout_crop_dashboard_inventory);
-        fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
-        machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
-        incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
-        cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
-        tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
-        weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
-        contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
-        notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
-        noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
-        unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
+        inventoryLinearLayout = findViewById(R.id.layout_crop_dashboard_inventory);
+        fieldsLinearLayout = findViewById(R.id.layout_crop_dashboard_fields);
+        machinesLinearLayout = findViewById(R.id.layout_crop_dashboard_machines);
+        incomeExpenseLinearLayout = findViewById(R.id.layout_crop_dashboard_income_expense);
+        cropsLinearLayout = findViewById(R.id.layout_crop_dashboard_crops);
+        tasksLinearLayout = findViewById(R.id.layout_crop_dashboard_tasks);
+        weatherForecastLinearLayout = findViewById(R.id.layout_crop_dashboard_weather_forecast);
+        contactsLinearLayout = findViewById(R.id.layout_crop_dashboard_contacts);
+        notificationsFrameLayout = findViewById(R.id.frame_layout_notifications);
+        noticationsImageBtn = findViewById(R.id.img_crop_dashboard_notifications);
+        unreadNotificationsTextView = findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
         notificationsViewPager = findViewById(R.id.viewPager);
         notificationsTabLayout = findViewById(R.id.tabLayout);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
 
-        userProfileLayout =findViewById(R.id.layout_user_profile);
-        textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
-        textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
+        userProfileLayout = findViewById(R.id.layout_user_profile);
+        textViewUserName = findViewById(R.id.text_view_crop_dashboard_name);
+        textViewUserEmail = findViewById(R.id.text_view_crop_dashboard_email);
 
 
         notificationTabsLayoutAdapter = new NotificationTabsLayoutAdapter(getSupportFragmentManager());
-        notificationTabsLayoutAdapter.addFragment(new NotificationsTodayFragment(),"Today");
-        notificationTabsLayoutAdapter.addFragment(new NotificationsUpcomingFragment(),"Upcoming");
-        notificationTabsLayoutAdapter.addFragment(new NotificationsOverDueFragment(),"Over Due");
+        notificationTabsLayoutAdapter.addFragment(new NotificationsTodayFragment(), "Today");
+        notificationTabsLayoutAdapter.addFragment(new NotificationsUpcomingFragment(), "Upcoming");
+        notificationTabsLayoutAdapter.addFragment(new NotificationsOverDueFragment(), "Over Due");
         notificationsViewPager.setAdapter(notificationTabsLayoutAdapter);
         notificationsTabLayout.setupWithViewPager(notificationsViewPager);
         notificationsTabLayout.setSelectedTabIndicatorColor(Color.GREEN);
 
-        unreadNotificationsTextView.setText(""+dbHandler.getCropNotifications(DashboardActivity.getPreferences("userId",this), CropNotification.QUERY_KEY_TODAY).size());
+        unreadNotificationsTextView.setText("" + dbHandler.getCropNotifications(DashboardActivity.getPreferences("userId", this), CropNotification.QUERY_KEY_TODAY).size());
 
 
-        textViewVersion =  findViewById(R.id.text_view_crop_dashboard_android_version);
+        textViewVersion = findViewById(R.id.text_view_crop_dashboard_android_version);
         textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
 
         noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(notificationsFrameLayout.getVisibility()==View.GONE){
+                if (notificationsFrameLayout.getVisibility() == View.GONE) {
                     notificationsFrameLayout.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     notificationsFrameLayout.setVisibility(View.GONE);
                 }
             }
@@ -267,7 +290,6 @@ public class DashboardActivity extends AppCompatActivity  {
 
 
         digitalWalletLayout = findViewById(R.id.layout_crop_dashboard_digital_wallet);
-
 
 
         mDrawerToggle = new ActionBarDrawerToggle(DashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
@@ -313,7 +335,7 @@ public class DashboardActivity extends AppCompatActivity  {
         machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent openMachines = new Intent(DashboardActivity.this, CropMachinesListActivity.class);
+                // Intent openMachines = new Intent(DashboardActivity.this, CropMachinesListActivity.class);
                 //startActivity(openMachines);
             }
         });
@@ -346,23 +368,24 @@ public class DashboardActivity extends AppCompatActivity  {
             }
         });
 
-        textViewUserName.setText(getPreferences("firstname",this)+" "+getPreferences("lastname",this));
-        textViewUserEmail.setText(getPreferences("email",this));
+        textViewUserName.setText(getPreferences("firstname", this) + " " + getPreferences("lastname", this));
+        textViewUserEmail.setText(getPreferences("email", this));
 
         userProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editUser = new Intent(DashboardActivity.this, CropRegisterActivity.class);
-                editUser.putExtra("editUser","yes");
+                editUser.putExtra("editUser", "yes");
                 startActivity(editUser);
             }
         });
-        if (getPreferences(COUNTRY_PREFERENCES_ID,this).toLowerCase().equals("uganda")) {
+        if (getPreferences(COUNTRY_PREFERENCES_ID, this).toLowerCase().equals("uganda")) {
             //digitalWalletLayout.setVisibility(View.VISIBLE);
         }
 
     }
-    public static  void addDatePicker(final EditText ed_, final Context context){
+
+    public static void addDatePicker(final EditText ed_, final Context context) {
         ed_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -375,7 +398,7 @@ public class DashboardActivity extends AppCompatActivity  {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         int month = selectedmonth + 1;
                         NumberFormat formatter = new DecimalFormat("00");
-                        ed_.setText( selectedyear+ "-" + formatter.format(month) + "-" +formatter.format(selectedday) );
+                        ed_.setText(selectedyear + "-" + formatter.format(month) + "-" + formatter.format(selectedday));
                     }
                 }, mYear, mMonth, mDay);
                 mDatePicker.show();
@@ -385,7 +408,7 @@ public class DashboardActivity extends AppCompatActivity  {
         ed_.setInputType(InputType.TYPE_NULL);
     }
 
-    public static  void addTimePicker(final EditText ed_, final Context context){
+    public static void addTimePicker(final EditText ed_, final Context context) {
         ed_.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -399,7 +422,7 @@ public class DashboardActivity extends AppCompatActivity  {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         NumberFormat formatter = new DecimalFormat("00");
-                        ed_.setText( formatter.format(selectedHour) + ":" + formatter.format(selectedMinute));
+                        ed_.setText(formatter.format(selectedHour) + ":" + formatter.format(selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -410,32 +433,31 @@ public class DashboardActivity extends AppCompatActivity  {
         ed_.setInputType(InputType.TYPE_NULL);
     }
 
-
-    public void getAppToken(){
+    public void getAppToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                           // Log.w(TAG, "getInstanceId failed", task.getException());
+                            // Log.w(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
 
-                        sendFirebaseToken(token,DashboardActivity.this);
+                        sendFirebaseToken(token, DashboardActivity.this);
                     }
                 });
 
     }
 
-    public static void sendFirebaseToken(String token, final Context context){
+    public static void sendFirebaseToken(String token, final Context context) {
         final AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
-       // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context));
-        params.put("firebaseToken",token);
+        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
+        params.put("email", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, context));
+        params.put("firebaseToken", token);
 
         Handler mainHandler = new Handler(Looper.getMainLooper());
         Runnable myRunnable = new Runnable() {
@@ -450,7 +472,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED,"yes",context);
+                        savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, "yes", context);
                     }
 
                     @Override
@@ -463,14 +485,14 @@ public class DashboardActivity extends AppCompatActivity  {
                     }
 
 
-
                 });
             }
         };
         mainHandler.post(myRunnable);
 
     }
-    public void openDigitalWallet(View view){
+
+    public void openDigitalWallet(View view) {
 //        if(CropWalletAuthActivity.WALLET_ACCESS_TOKEN==null){
 //            Intent openDW = new Intent(this, CropWalletAuthActivity.class);
 //            startActivity(openDW);
@@ -481,164 +503,191 @@ public class DashboardActivity extends AppCompatActivity  {
 //        }
 
     }
-    public void openFarmReports(View view){
+
+    public void openFarmReports(View view) {
         Intent openReports = new Intent(this, CropFarmReportsActivity.class);
         startActivity(openReports);
     }
-    public void openSettings(View view){
+
+    public void openSettings(View view) {
         Intent openSettings = new Intent(this, CropSettingsActivity.class);
         startActivity(openSettings);
         finish();
     }
-    public void openEmployeeList(View view){
+
+    public void openEmployeeList(View view) {
         Intent openList = new Intent(this, CropEmployeesListActivity.class);
         startActivity(openList);
     }
-    public void openFieldList(View view){
+
+    public void openFieldList(View view) {
         Intent openList = new Intent(this, CropFieldsListActivity.class);
         startActivity(openList);
     }
 
-    public void openFieldManager(View view){
+    public void openFieldManager(View view) {
         Intent openList = new Intent(this, CropFieldManagerActivity.class);
         startActivity(openList);
     }
-    public void openCropList(View view){
+
+    public void openCropList(View view) {
         Intent openList = new Intent(this, CropsListActivity.class);
         startActivity(openList);
     }
-    public void openCropManager(View view){
+
+    public void openCropManager(View view) {
         Intent openList = new Intent(this, CropsManagerActivity.class);
         startActivity(openList);
     }
-    public void openInventoryList(View view){
+
+    public void openInventoryList(View view) {
         Intent openList = new Intent(this, CropInventoryListActivity.class);
         startActivity(openList);
     }
-    public void openInventoryManager(View view){
+
+    public void openInventoryManager(View view) {
         Intent openList = new Intent(this, CropInventoryListActivity.class);
         startActivity(openList);
     }
-    public void openContactList(View view){
+
+    public void openContactList(View view) {
         Intent openList = new Intent(this, CropContactsListActivity.class);
         startActivity(openList);
     }
-    public void openContactManager(View view){
+
+    public void openContactManager(View view) {
         Intent openList = new Intent(this, CropContactManagerActivity.class);
         startActivity(openList);
     }
 
-    public void openCustomerList(View view){
+    public void openCustomerList(View view) {
         Intent openList = new Intent(this, CropCustomersListActivity.class);
         startActivity(openList);
     }
-    public void openSupplierList(View view){
+
+    public void openSupplierList(View view) {
         Intent openList = new Intent(this, CropSuppliersListActivity.class);
         startActivity(openList);
     }
 
-    public void openFertilizerCalculator(View view){
+    public void openFertilizerCalculator(View view) {
         //CropFertilizerCalculatorEntryActivity
         Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
         startActivity(openList);
     }
-    public void openSalesOrderList(View view){
+
+    public void openSalesOrderList(View view) {
         Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
         startActivity(openList);
     }
-    public void openProductsList(View view){
+
+    public void openProductsList(View view) {
         Intent openList = new Intent(this, CropProductsListActivity.class);
         startActivity(openList);
     }
-    public void openEstimatesList(View view){
+
+    public void openEstimatesList(View view) {
         Intent openList = new Intent(this, CropEstimatesListActivity.class);
         startActivity(openList);
     }
-    public void openInvoicesList(View view){
+
+    public void openInvoicesList(View view) {
         Intent openList = new Intent(this, CropInvoicesListActivity.class);
         startActivity(openList);
     }
-    public void openPaymentsList(View view){
+
+    public void openPaymentsList(View view) {
         Intent openList = new Intent(this, CropPaymentsListActivity.class);
         startActivity(openList);
     }
-    public void openPurchaseOrdersList(View view){
+
+    public void openPurchaseOrdersList(View view) {
         Intent openList = new Intent(this, CropPurchaseOrdersListActivity.class);
         startActivity(openList);
     }
-    public void openBillsList(View view){
+
+    public void openBillsList(View view) {
         Intent openList = new Intent(this, CropBillsListActivity.class);
         startActivity(openList);
     }
-    public void openBillPaymentsList(View view){
+
+    public void openBillPaymentsList(View view) {
         Intent openList = new Intent(this, CropPaymentBillsListActivity.class);
         startActivity(openList);
     }
 
-    public void openCalculators(View view){
+    public void openCalculators(View view) {
         Intent openList = new Intent(this, CropCalculatorsActivity.class);
         startActivity(openList);
     }
 
-    public void openBestPractices(View view){
+    public void openBestPractices(View view) {
         Intent openBestPractices = new Intent(this, CropBestPracticesDashboardActivity.class);
         startActivity(openBestPractices);
 
     }
-    public void showHideFinancialManager(View view){
+
+    public void showHideFinancialManager(View view) {
 
 
         toggleVisibility(financialsSubMenu);
     }
-    public void showSalesManager(View view){
+
+    public void showSalesManager(View view) {
 
         toggleSubMenuVisibility(slesSubMenu);
     }
-    public void showPurchasesManager(View view){
+
+    public void showPurchasesManager(View view) {
 
         toggleSubMenuVisibility(purchasesSubMenu);
     }
-    public void showHelpOptions(View view){
+
+    public void showHelpOptions(View view) {
 
         toggleVisibility(helpSubMenu);
     }
-    public void showHideFieldManager(View view){
+
+    public void showHideFieldManager(View view) {
         LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);
 
         toggleVisibility(fieldsSubMenu);
     }
-    public void showHideCropManager(View view){
+
+    public void showHideCropManager(View view) {
 
 
         toggleVisibility(cropsSubMenu);
     }
-    public void showHideInventoryManager(View view){
+
+    public void showHideInventoryManager(View view) {
 
 
         toggleVisibility(inventorySubMenu);
     }
-    public void showHideContactsManager(View view){
+
+    public void showHideContactsManager(View view) {
 
 
         toggleVisibility(contactsSubMenu);
     }
 
-
-    public void helpSendEmail(View view){
+    public void helpSendEmail(View view) {
 
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto","cabraltechltd@gmail.com", null));
+                "mailto", "cabraltechltd@gmail.com", null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
         startActivity(Intent.createChooser(emailIntent, "Send email..."));
     }
 
-    public void helpMakeCall(View view){
+    public void helpMakeCall(View view) {
         Uri number = Uri.parse("tel:+256700353769");
         Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
         startActivity(callIntent);
     }
-    public void helpFacebook(View view){
+
+    public void helpFacebook(View view) {
         Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
         String facebookUrl = getFacebookPageURL(this);
         facebookIntent.setData(Uri.parse(facebookUrl));
@@ -653,7 +702,7 @@ public class DashboardActivity extends AppCompatActivity  {
             if (versionCode >= 3002850) { //newer versions of fb app
                 return "fb://facewebmodal/f?href=" + "https://www.facebook.com/cropmanager/";
             } else { //older versions of fb app
-               return "fb://page/" + "1552608241538614";//FACEBOOK_ID
+                return "fb://page/" + "1552608241538614";//FACEBOOK_ID
 
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -661,37 +710,36 @@ public class DashboardActivity extends AppCompatActivity  {
         }
     }
 
-
-
-    public void toggleVisibility(View view){
-        LinearLayout [] layouts = new LinearLayout[]{contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu};
-        if(view.getVisibility() == View.GONE){
-            for(LinearLayout layout: layouts){
-                if(layout!=view){
+    public void toggleVisibility(View view) {
+        LinearLayout[] layouts = new LinearLayout[]{contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu};
+        if (view.getVisibility() == View.GONE) {
+            for (LinearLayout layout : layouts) {
+                if (layout != view) {
                     layout.setVisibility(View.GONE);
                 }
             }
             view.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             view.setVisibility(View.GONE);
         }
     }
 
-    public void toggleSubMenuVisibility(View view){
-        LinearLayout [] layouts = new LinearLayout[]{slesSubMenu,purchasesSubMenu};
-        if(view.getVisibility() == View.GONE){
-            for(LinearLayout layout: layouts){
-                if(layout!=view){
+    public void toggleSubMenuVisibility(View view) {
+        LinearLayout[] layouts = new LinearLayout[]{slesSubMenu, purchasesSubMenu};
+        if (view.getVisibility() == View.GONE) {
+            for (LinearLayout layout : layouts) {
+                if (layout != view) {
                     layout.setVisibility(View.GONE);
                 }
             }
             view.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             view.setVisibility(View.GONE);
         }
     }
+
     private void SavePreferences(String key, String value) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
                 0);
@@ -700,45 +748,46 @@ public class DashboardActivity extends AppCompatActivity  {
         editor.commit();
     }
 
-
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
                 0);
         return sharedPreferences.getString(key, "");
 
     }
+
     public static void selectSpinnerItemByValue(Spinner spnr, String value) {
 
         ArrayAdapter<String> adapter = (ArrayAdapter) spnr.getAdapter();
         //((TextView) spnr.getChildAt(0)).setTextColor(Color.BLUE);
-        if(value==null){
+        if (value == null) {
             return;
         }
 
         for (int position = 0; position < adapter.getCount(); position++) {
 
             String item = adapter.getItem(position);
-            if(item.toLowerCase().equals(value.toLowerCase())){
+            if (item.toLowerCase().equals(value.toLowerCase())) {
                 spnr.setSelection(position);
                 return;
             }
 
         }
     }
+
     public static void selectSpinnerItemById(Spinner spnr, String id) {
 
         CropSpinnerAdapter adapter = (CropSpinnerAdapter) spnr.getAdapter();
-        if(id==null || adapter==null){
+        if (id == null || adapter == null) {
             return;
         }
 
         for (int position = 0; position < adapter.getCount(); position++) {
-            String item =adapter.getItem(position).getId();
-            if(item==null){
+            String item = adapter.getItem(position).getId();
+            if (item == null) {
                 continue;//this occurs for the first element
             }
 
-            if(item.toLowerCase().equals(id.toLowerCase())){
+            if (item.toLowerCase().equals(id.toLowerCase())) {
 
                 spnr.setSelection(position);
                 return;
@@ -746,15 +795,16 @@ public class DashboardActivity extends AppCompatActivity  {
 
         }
     }
-    public static void  savePreferences(String key, String value, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME ,
+
+    public static void savePreferences(String key, String value, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME,
                 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
     }
 
-    public static void saveUser(JSONObject user, Context context) throws JSONException{
+    public static void saveUser(JSONObject user, Context context) throws JSONException {
 
         DashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
         DashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
@@ -762,7 +812,7 @@ public class DashboardActivity extends AppCompatActivity  {
         DashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
         DashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
         DashboardActivity.savePreferences("country", user.getString("country"), context);
-        DashboardActivity.savePreferences("countryCode",  user.getString("countryCode"), context);
+        DashboardActivity.savePreferences("countryCode", user.getString("countryCode"), context);
         DashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
         DashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
         DashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
@@ -775,10 +825,7 @@ public class DashboardActivity extends AppCompatActivity  {
 
     }
 
-
-
-
-    public void logout(View view){
+    public void logout(View view) {
 
         startService(new Intent(this, CropSyncService.class));
         final ProgressDialog dialog = new ProgressDialog(this);
@@ -791,7 +838,7 @@ public class DashboardActivity extends AppCompatActivity  {
             public void run() {
                 dialog.dismiss();
                 //remove shared preferences
-                SharedPreferences sharedPreferences = DashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME , 0);
+                SharedPreferences sharedPreferences = DashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME, 0);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
@@ -808,31 +855,29 @@ public class DashboardActivity extends AppCompatActivity  {
         }, 10000);
 
 
-
-
-
     }
 
-    public void shareApp(View view){
+    public void shareApp(View view) {
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-        String shareMessage= "\nLet me recommend you this application\n\n";
+        String shareMessage = "\nLet me recommend you this application\n\n";
         shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager";
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
         startActivity(Intent.createChooser(shareIntent, "choose one"));
 
 
     }
+
     public void rateApp(View view) {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=com.myfarmnow.cropmanager" )));
+                    Uri.parse("market://details?id=com.myfarmnow.cropmanager")));
 
         } catch (android.content.ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager" )));
+                    Uri.parse("http://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager")));
         }
     }
 
