@@ -303,13 +303,13 @@ public class DashboardActivity extends AppCompatActivity  {
             }
         });
 
-        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openFields = new Intent(DashboardActivity.this, CropFieldsListActivity.class);
-                startActivity(openFields);
-            }
-        });
+//        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openFields = new Intent(DashboardActivity.this, CropFieldsListActivity.class);
+//                startActivity(openFields);
+//            }
+//        });
         machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

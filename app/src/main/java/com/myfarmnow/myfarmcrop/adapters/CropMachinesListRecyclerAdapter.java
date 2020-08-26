@@ -158,10 +158,10 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
                                         .setNegativeButton(android.R.string.no, null).show();
 
                             }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
-                                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                                Intent editMachine = new Intent(mContext, CropMachineManagerActivity.class);
-                                editMachine.putExtra("cropMachine",cropMachine);
-                                mContext.startActivity(editMachine);
+//                                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+//                                Intent editMachine = new Intent(mContext, CropMachineManagerActivity.class);
+//                                editMachine.putExtra("cropMachine",cropMachine);
+//                                mContext.startActivity(editMachine);
                             }
                             return true;
                         }

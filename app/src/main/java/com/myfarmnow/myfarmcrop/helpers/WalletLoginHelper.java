@@ -62,7 +62,7 @@ public class WalletLoginHelper {
                              WalletHomeActivity.saveUser(user,context);
                            ((AppCompatActivity)context).finish();
                         dialog.dismiss();
-                        WalletAuthActivity.getLoginToken( email, phoneNumber, context);
+                        WalletAuthActivity.getLoginToken( rawpassword,email, phoneNumber, context);
 
 
                     }
@@ -133,6 +133,8 @@ public class WalletLoginHelper {
         params.put("email", "" + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context));
         params.put("password", "" + rawPassword);
         params.put("phoneNumber", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,context));
+        String email =DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,context);
+
 
         client.post(ApiPaths.Wallet_CREATE_USER, params, new JsonHttpResponseHandler() {
 
@@ -154,7 +156,7 @@ public class WalletLoginHelper {
 
                     dialog.dismiss();
 
-                    WalletAuthActivity.getLoginToken(rawPassword,null,context);
+                    WalletAuthActivity.getLoginToken(rawPassword,email,null,context);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
