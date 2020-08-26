@@ -103,76 +103,64 @@ public class CropMachinesListRecyclerAdapter extends RecyclerView.Adapter<CropMa
             serviceBtn = itemView.findViewById(R.id.btn_machine_service);
             notesBtn = itemView.findViewById(R.id.btn_machine_notes);
 
-            serviceBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                    Intent editMachine = new Intent(mContext, CropMachineServicesListActivity.class);
-                    editMachine.putExtra("machineId",cropMachine.getId());
-                    mContext.startActivity(editMachine);
-                }
+            serviceBtn.setOnClickListener(v -> {
+                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                Intent editMachine = new Intent(mContext, CropMachineServicesListActivity.class);
+                editMachine.putExtra("machineId",cropMachine.getId());
+                mContext.startActivity(editMachine);
             });
-            tasksBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                    Intent editMachine = new Intent(mContext, CropMachineTasksListActivity.class);
-                    editMachine.putExtra("machineId",cropMachine.getId());
-                    mContext.startActivity(editMachine);
-                }
+            tasksBtn.setOnClickListener(v -> {
+                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                Intent editMachine = new Intent(mContext, CropMachineTasksListActivity.class);
+                editMachine.putExtra("machineId",cropMachine.getId());
+                mContext.startActivity(editMachine);
             });
-            notesBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                    Intent editMachine = new Intent(mContext, CropMachineNotesListActivity.class);
-                    editMachine.putExtra("machineId",cropMachine.getId());
-                    mContext.startActivity(editMachine);
-                }
+            notesBtn.setOnClickListener(v -> {
+                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                Intent editMachine = new Intent(mContext, CropMachineNotesListActivity.class);
+                editMachine.putExtra("machineId",cropMachine.getId());
+                mContext.startActivity(editMachine);
             });
 
-            moreButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            moreButton.setOnClickListener(v -> {
 
-                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
-                    PopupMenu popup = new PopupMenu(wrapper, v);
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
-                                final CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
-                                new AlertDialog.Builder(mContext)
-                                        .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete "+cropMachine.getName()+" machine?")
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                PopupMenu popup = new PopupMenu(wrapper, v);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getTitle().equals(mContext.getString(R.string.label_delete))){
+                            final CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle("Confirm")
+                                    .setMessage("Do you really want to delete "+cropMachine.getName()+" machine?")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
 
-                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropMachine(cropMachine.getId());
-                                                cropMachinesList.remove(getAdapterPosition());
-                                                notifyItemRemoved(getAdapterPosition());
+                                            MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropMachine(cropMachine.getId());
+                                            cropMachinesList.remove(getAdapterPosition());
+                                            notifyItemRemoved(getAdapterPosition());
 
-                                            }})
-                                        .setNegativeButton(android.R.string.no, null).show();
+                                        }})
+                                    .setNegativeButton(android.R.string.no, null).show();
 
-                            }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
+                        }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
 //                                CropMachine cropMachine = cropMachinesList.get(getAdapterPosition());
 //                                Intent editMachine = new Intent(mContext, CropMachineManagerActivity.class);
 //                                editMachine.putExtra("cropMachine",cropMachine);
 //                                mContext.startActivity(editMachine);
-                            }
-                            return true;
                         }
-                    });
+                        return true;
+                    }
+                });
 
-                    popup.getMenu().add(R.string.label_edit);
-                    popup.getMenu().add(R.string.label_delete);
-                    popup.show();
+                popup.getMenu().add(R.string.label_edit);
+                popup.getMenu().add(R.string.label_delete);
+                popup.show();
 
 
-                }
             });
 
 

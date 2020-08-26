@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class CropLoginActivity extends AppCompatActivity {
+    private static final String TAG = "CropLoginActivity";
 
     EditText edtusername, edtpwd;
     Button btnSignIn;
@@ -45,12 +48,10 @@ public class CropLoginActivity extends AppCompatActivity {
         edtusername = (EditText) findViewById(R.id.edtusername);
         edtpwd = (EditText) findViewById(R.id.edtpwd);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        errorTextView =  findViewById(R.id.text_view_crop_user_error);
+        errorTextView = findViewById(R.id.text_view_crop_user_error);
 
 
-
-
-        if (!DashboardActivity.getPreferences("userId",this).isEmpty() ) {
+        if (!DashboardActivity.getPreferences("userId", this).isEmpty()) {
             startActivity(new Intent(CropLoginActivity.this, DashboardActivity.class));
             finish();
         }
@@ -64,21 +65,20 @@ public class CropLoginActivity extends AppCompatActivity {
                 } else if (edtpwd.getText().toString().length() <= 0) {
                     Toast.makeText(CropLoginActivity.this, "Enter password..", Toast.LENGTH_SHORT).show();
                 } else {
-                    String loginEntry =edtusername.getText().toString();
+                    String loginEntry = edtusername.getText().toString();
                     String email = null;
-                    String phoneNumber =null;
+                    String phoneNumber = null;
 
-                    if(loginEntry.matches(".*[a-zA-Z@].*")){
+                    if (loginEntry.matches(".*[a-zA-Z@].*")) {
                         //maybe Email
                         email = loginEntry;
-                    }
-                    else if(loginEntry.matches(".*[0-9].*")){
+                    } else if (loginEntry.matches(".*[0-9].*")) {
                         //maybe phone Number
                         phoneNumber = loginEntry;
 
                     }
 
-                    checkLogin( email, phoneNumber, edtpwd.getText().toString(), CropLoginActivity.this,errorTextView);
+                    checkLogin(email, phoneNumber, edtpwd.getText().toString(), CropLoginActivity.this, errorTextView);
                 }
 
             }
@@ -113,17 +113,16 @@ public class CropLoginActivity extends AppCompatActivity {
      * @param password
      * @param context
      */
-    public static void checkLogin(String email, String phoneNumber, String password, final Context context, final TextView  errorTextView) {
+    public void checkLogin(String email, String phoneNumber, String password, final Context context, final TextView errorTextView) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
-      
-       // params.put("email", edtusername.getText().toString());
+
+        // params.put("email", edtusername.getText().toString());
         //params.put("password", edtpwd.getText().toString());
         params.put("email", email);
         params.put("password", password);
         params.put("phoneNumber", phoneNumber);
-        
 
 
         client.post(ApiPaths.CROP_LOGIN_GET_ALL, params, new JsonHttpResponseHandler() {
@@ -152,21 +151,22 @@ public class CropLoginActivity extends AppCompatActivity {
                     } else {
                         JSONObject user = response.getJSONObject("user");
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
-                       // Log.e("response", response.toString());
-                        DashboardActivity.saveUser(user,context);
-                        ((AppCompatActivity)context).finish();
+                        // Log.e("response", response.toString());
+                        DashboardActivity.saveUser(user, context);
+                        Log.d(TAG, "onSuccess: Before");
+                        ((AppCompatActivity) context).finish();
+                        Log.d(TAG, "onSuccess: After");
 
-                        context.startActivity(new Intent(context, CropLoadBackUpActivity.class));
-
+                        startActivity(new Intent(CropLoginActivity.this, CropLoadBackUpActivity.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
 
-                try{
+                try {
                     dialog.dismiss();
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -174,50 +174,49 @@ public class CropLoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try{
+                try {
                     if (errorResponse != null) {
                         Log.e("info", new String(String.valueOf(errorResponse)));
                     } else {
                         Log.e("info", "Something got very very wrong");
                     }
-                    if(statusCode==403){
+                    if (statusCode == 403) {
                         //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
 
                         errorTextView.setText(errorResponse.getString("message"));
                         errorTextView.setVisibility(View.VISIBLE);
                         errorTextView.requestFocus();
                         JSONObject data = errorResponse.getJSONObject("data");
-                        if( errorResponse.getString("message").replace(" ","").toLowerCase().contains("verificationrequired")){
+                        if (errorResponse.getString("message").replace(" ", "").toLowerCase().contains("verificationrequired")) {
                             Intent verifyPhoneNumber = new Intent(context, CropVerifyPhoneNumberActivity.class);
-                            verifyPhoneNumber.putExtra("userId",data.getString("id"));
-                            verifyPhoneNumber.putExtra("phoneNumber",data.getString("phoneNumber"));
-                            verifyPhoneNumber.putExtra("countryCode",data.getString("countryCode"));
-                            verifyPhoneNumber.putExtra("resendCode","yes");
+                            verifyPhoneNumber.putExtra("userId", data.getString("id"));
+                            verifyPhoneNumber.putExtra("phoneNumber", data.getString("phoneNumber"));
+                            verifyPhoneNumber.putExtra("countryCode", data.getString("countryCode"));
+                            verifyPhoneNumber.putExtra("resendCode", "yes");
                             context.startActivity(verifyPhoneNumber);
-                            }
+                        }
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                  }
+                }
 
-                try{
+                try {
                     dialog.dismiss();
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
+
             @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                 if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
                 } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
+                    Log.e("info : " + statusCode, "Something got very very wrong");
                 }
             }
         });
     }
-
-
 }
