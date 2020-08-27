@@ -63,6 +63,7 @@ import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
@@ -320,7 +321,7 @@ public class DashboardActivity extends AppCompatActivity  {
         cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openCrops = new Intent(DashboardActivity.this, CropsListActivity.class);
+                Intent openCrops = new Intent(DashboardActivity.this, FarmRecordsDashboardActivity.class);
                 startActivity(openCrops);
             }
         });
@@ -770,7 +771,7 @@ public class DashboardActivity extends AppCompatActivity  {
         DashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
         DashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         DashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
-        DashboardActivity.savePreferences(PREFERENCES_USER_PASSWORD, user.getString("password"), context);
+//        DashboardActivity.savePreferences(PREFERENCES_USER_PASSWORD, user.getString("password"), context);
         // DashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
 
     }

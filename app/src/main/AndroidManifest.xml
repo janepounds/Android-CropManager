@@ -170,6 +170,10 @@
             android:label="@string/title_activity_crop_fields_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
+            android:label="@string/title_farm_records"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.farmrecords.CropFieldManagerActivity"
             android:label="@string/activity_crop_field_manager_title"
             android:theme="@style/AppTheme.NoActionBar" />
