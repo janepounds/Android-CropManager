@@ -66,9 +66,12 @@ import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -107,8 +110,8 @@ public class DashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
-    LinearLayout inventoryLinearLayout, fieldsLinearLayout, machinesLinearLayout, cropsLinearLayout,
-            incomeExpenseLinearLayout, tasksLinearLayout, userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
+    LinearLayout walletLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
+            incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName, unreadNotificationsTextView, textViewVersion;
 
@@ -235,17 +238,17 @@ public class DashboardActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         //expandableListView = findViewById(R.id.drawer_menu_list);
         mainlayout = findViewById(R.id.mainlayout);
-        inventoryLinearLayout = findViewById(R.id.layout_crop_dashboard_inventory);
-        fieldsLinearLayout = findViewById(R.id.layout_crop_dashboard_fields);
-        machinesLinearLayout = findViewById(R.id.layout_crop_dashboard_machines);
-        incomeExpenseLinearLayout = findViewById(R.id.layout_crop_dashboard_income_expense);
-        cropsLinearLayout = findViewById(R.id.layout_crop_dashboard_crops);
-        tasksLinearLayout = findViewById(R.id.layout_crop_dashboard_tasks);
-        weatherForecastLinearLayout = findViewById(R.id.layout_crop_dashboard_weather_forecast);
-        contactsLinearLayout = findViewById(R.id.layout_crop_dashboard_contacts);
-        notificationsFrameLayout = findViewById(R.id.frame_layout_notifications);
-        noticationsImageBtn = findViewById(R.id.img_crop_dashboard_notifications);
-        unreadNotificationsTextView = findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
+        walletLinearLayout =findViewById(R.id.layout_dashboard_wallet);
+        fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
+        machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
+        incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
+        cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
+        tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
+        weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
+        contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
+        notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
+        noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
+        unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
         notificationsViewPager = findViewById(R.id.viewPager);
         notificationsTabLayout = findViewById(R.id.tabLayout);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
@@ -317,11 +320,20 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
+        walletLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openInventory = new Intent(DashboardActivity.this, CropInventoryListActivity.class);
-                startActivity(openInventory);
+                if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+                    startActivity(new Intent(DashboardActivity.this, WalletAuthActivity.class));
+                    //finish();
+                    overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                }
+                else {
+                    //WalletAuthActivity.startAuth(context, true);
+                    Intent authenticate = new Intent(DashboardActivity.this, WalletHomeActivity.class);
+                    startActivity(authenticate);
+                    finish();
+                }
             }
         });
 
@@ -342,7 +354,7 @@ public class DashboardActivity extends AppCompatActivity {
         cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openCrops = new Intent(DashboardActivity.this, CropsListActivity.class);
+                Intent openCrops = new Intent(DashboardActivity.this, FarmRecordsDashboardActivity.class);
                 startActivity(openCrops);
             }
         });
@@ -539,10 +551,19 @@ public class DashboardActivity extends AppCompatActivity {
         Intent openList = new Intent(this, CropsManagerActivity.class);
         startActivity(openList);
     }
+    public void openWallet(View view){
 
-    public void openInventoryList(View view) {
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
+        if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+            startActivity(new Intent(DashboardActivity.this, WalletAuthActivity.class));
+            //finish();
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+        }
+        else {
+            //WalletAuthActivity.startAuth(context, true);
+            Intent authenticate = new Intent(this, WalletHomeActivity.class);
+            startActivity(authenticate);
+            finish();
+        }
     }
 
     public void openInventoryManager(View view) {
@@ -820,7 +841,7 @@ public class DashboardActivity extends AppCompatActivity {
         DashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
         DashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
         DashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
-        DashboardActivity.savePreferences(PREFERENCES_USER_PASSWORD, user.getString("password"), context);
+//        DashboardActivity.savePreferences(PREFERENCES_USER_PASSWORD, user.getString("password"), context);
         // DashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
 
     }

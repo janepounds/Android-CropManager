@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.farmrecords.FarmRecordsDashboardActivity"
+    tools:showIn="@layout/activity_farm_records_dashboard">
+
+
+        <RelativeLayout
+            android:id="@+id/mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/mainView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#344834"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgback"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="15dp"
+                            android:padding="5dp"
+                            android:src="@drawable/arrow_back_icon" />
+
+                        <TextView
+                            android:id="@+id/tvtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/title_farm_records"
+                            android:textColor="#fff"
+                            android:textSize="18dp" />
+
+
+
+
+
+                    </RelativeLayout>
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/mainView"
+                android:background="@drawable/home_background">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="100dp"
+                    android:layout_marginTop="100dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/buttons"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/broke1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:id="@+id/layout_crop_dashboard_crops"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_weight="1"
+
+                                android:orientation="vertical"
+                                android:paddingBottom="5dp">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="90dp"
+                                    android:background="@drawable/background_round_white"
+                                    android:padding="20dp"
+                                    android:src="@drawable/crops" />
+
+                                <TextView
+                                    android:id="@+id/tv_matings"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_croprecords"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFF"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layout_crop_dashboard_inventory"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_weight="1"
+
+
+                                android:orientation="vertical"
+                                android:paddingBottom="5dp">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="90dp"
+                                    android:background="@drawable/background_round_white"
+                                    android:padding="20dp"
+                                    android:src="@drawable/inventory" />
+
+                                <TextView
+                                    android:id="@+id/tv_litar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+
+                                    android:text="@string/label_livestockrecords"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFF"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/layout_inventory_store"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:paddingBottom="5dp">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="90dp"
+                                    android:background="@drawable/background_round_white"
+                                    android:padding="20dp"
+                                    android:src="@drawable/inventory" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_store"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFF"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layout_dashboard_financial_records"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+
+
+                                android:orientation="vertical"
+                                android:paddingBottom="5dp">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="90dp"
+                                    android:background="@drawable/background_round_white"
+                                    android:padding="20dp"
+                                    android:src="@drawable/best_practices_second" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_financial_records"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFF"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+
+                </RelativeLayout>
+            </ScrollView>
+
+
+
+
+            <FrameLayout
+                android:id="@+id/frame_layout_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/black_border"
+                android:padding="1dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        app:tabBackground="@drawable/tab_color_selector"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/green_mh"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabSelectedTextColor="@color/black"
+                        app:tabTextColor="@color/black"
+
+                        ></com.google.android.material.tabs.TabLayout>
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.viewpager.widget.ViewPager>
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+
+
+        </RelativeLayout>
+
+</LinearLayout>

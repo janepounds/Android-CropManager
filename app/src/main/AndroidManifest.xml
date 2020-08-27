@@ -170,6 +170,10 @@
             android:label="@string/title_activity_crop_fields_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
+            android:label="@string/title_farm_records"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.farmrecords.CropFieldManagerActivity"
             android:label="@string/activity_crop_field_manager_title"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -371,6 +375,42 @@
             android:label="@string/title_activity_crop_settings"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <!-- Wallet plugin activities-->
+        <activity android:name=".activities.wallet.TransactionsList"
+            android:label="@string/title_activity_transactions"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+
+        <activity
+            android:name=".activities.wallet.LoanStatusPreviewActivity"
+            android:label="@string/title_activity_loan_status_preview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.wallet.WalletLoansListActivity"
+            android:label="@string/title_activity_wallet_loans_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.wallet.WalletLoanAppPhotos"
+            android:label="@string/title_activity_wallet_loan_app_photos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.wallet.WalletLoanPreviewRequest"
+            android:label="@string/title_activity_wallet_loan_preview_request"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.wallet.WalletLoanAppInitiateActivity"
+            android:label="@string/title_activity_wallet_loan_app_add_amount"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
+        <activity
+            android:name=".activities.wallet.WalletHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <activity
+            android:name=".activities.wallet.WalletAuthActivity"
+            android:label="Authentication" />
+        
         <service
             android:name=".services.CropNotificationsCreatorService"
             android:enabled="true"

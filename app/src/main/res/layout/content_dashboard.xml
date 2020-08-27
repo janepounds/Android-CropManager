@@ -162,7 +162,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_inventory"
+                                android:id="@+id/layout_dashboard_wallet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
@@ -188,8 +188,7 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-
-                                    android:text="@string/label_inventory"
+                                    android:text="@string/label_wallet"
                                     android:textAllCaps="true"
                                     android:textColor="#FFF"
                                     android:textStyle="bold" />
@@ -865,7 +864,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="0dp"
-                                    android:onClick="openInventoryList"
+                                    android:onClick="openWallet"
                                     android:orientation="horizontal"
                                     android:paddingTop="5dp"
                                     android:paddingBottom="5dp">
@@ -881,7 +880,7 @@
                                         android:paddingLeft="5dp"
                                         android:paddingTop="5dp"
                                         android:paddingBottom="5dp"
-                                        android:text="Inventory List"
+                                        android:text="Wallet"
                                         android:textColor="#ffffff"
                                         android:textSize="15dp" />
 

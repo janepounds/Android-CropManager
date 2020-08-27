@@ -1673,6 +1673,11 @@
     <string name="text_label_2">Offers</string>
     <string name="text_label_3">Account</string>
     <string name="label_farmrecords">Farm Records</string>
+    <string name="label_croprecords">Crop Records</string>
+    <string name="label_livestockrecords">Livestock Records</string>
+    <string name="label_store">Store</string>
+    <string name="label_financial_records">Financial Records</string>
+    <string name="title_farm_records">Farm Records</string>
 
 
     <string-array name="dateFormatsArray">
@@ -1736,5 +1741,6 @@
     <string name="sendemail">SEND EMAIL</string>
     <string name="forgot_title">Enter the email address you used to create your account and we will email you a link to reset your password</string>
     <string name="submit">Submit</string>
+    <string name="label_wallet">Wallet</string>
 
 </resources>
