@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:theme="@style/AppTheme"
-    tools:context=".wallet.activities.WalletHomeActivity" >
+    tools:context=".activities.wallet.WalletHomeActivity" >
 
     <LinearLayout
         android:id="@+id/layout_add_money"
@@ -23,255 +23,255 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/background_home"
+        android:paddingBottom="@dimen/dimen_20dp"
+        android:paddingRight="@dimen/dimen_20dp"
+        android:paddingLeft="@dimen/dimen_20dp"
+        >
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/background_home"
-            android:paddingBottom="@dimen/dimen_20dp"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingLeft="@dimen/dimen_20dp"
-            >
+            android:paddingStart="10dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp">
 
+            <LinearLayout
+                android:id="@+id/layout_withdraw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:src="@drawable/wallet_deposit" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="0.2"
+                    android:text="Withdraw Money"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_transfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:src="@drawable/moneytransfer" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="0.2"
+                    android:text="Transfer Money"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/text_view_error_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Insufficient Funds! "
+                android:textColor="@color/device_problem"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="10dp"
-                android:paddingTop="20dp"
-                android:paddingLeft="10dp">
-
-                <LinearLayout
-                    android:id="@+id/layout_withdraw"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:src="@drawable/wallet_deposit" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="0.2"
-                        android:text="Withdraw Money"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="5dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_transfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:src="@drawable/moneytransfer" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="0.2"
-                        android:text="Transfer Money"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="5dp" />
-
-                </LinearLayout>
-
-
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/text_view_error_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Insufficient Funds! "
-                    android:textColor="@color/device_problem"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:text="Holder Name"
+                    android:fontFamily="@font/josefin_sans" />
 
-
-                <LinearLayout
+                <EditText
+                    android:id="@+id/add_money_holder_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Holder Name"
-                        android:fontFamily="@font/montserrat" />
-
-                    <EditText
-                        android:id="@+id/add_money_holder_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:inputType="text"
-                        android:paddingLeft="2dp"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Card Number"
-                        android:fontFamily="@font/montserrat" />
-
-                    <EditText
-                        android:id="@+id/add_money_creditCardNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:inputType="number"
-                        android:paddingLeft="2dp"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_marginRight="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Card  Expiry"
-                            android:fontFamily="@font/montserrat" />
-
-                        <EditText
-                            android:id="@+id/add_money_card_expiry"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="MM/YY"
-                            android:inputType="date"
-                            android:maxLength="5"
-                            android:paddingLeft="2dp"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_marginLeft="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Card CVV"
-                            android:fontFamily="@font/montserrat" />
-
-                        <EditText
-                            android:id="@+id/add_money_card_cvv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Enter.."
-                            android:inputType="number"
-                            android:paddingLeft="2dp"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Amount"
-                        android:fontFamily="@font/montserrat" />
-
-                    <EditText
-                        android:id="@+id/wallet_add_money_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:inputType="number"
-                        android:paddingLeft="2dp"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/button_add_money"
-                    style="@style/Button_DW"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/solidbtn_shape"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:text="@string/deposit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/button_withdraw"
-                    style="@style/Button_DW"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/solidbtn_shape"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:text="@string/withdraw"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/button_transfer"
-                    style="@style/Button_DW"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:text="@string/transfer"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-
+                    android:hint="Enter.."
+                    android:inputType="text"
+                    android:paddingLeft="2dp"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Card Number"
+                    android:fontFamily="@font/josefin_sans" />
+
+                <EditText
+                    android:id="@+id/add_money_creditCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter.."
+                    android:inputType="number"
+                    android:paddingLeft="2dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Card  Expiry"
+                        android:fontFamily="@font/josefin_sans" />
+
+                    <EditText
+                        android:id="@+id/add_money_card_expiry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="MM/YY"
+                        android:inputType="date"
+                        android:maxLength="5"
+                        android:paddingLeft="2dp"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Card CVV"
+                        android:fontFamily="@font/josefin_sans" />
+
+                    <EditText
+                        android:id="@+id/add_money_card_cvv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter.."
+                        android:inputType="number"
+                        android:paddingLeft="2dp"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:fontFamily="@font/josefin_sans" />
+
+                <EditText
+                    android:id="@+id/wallet_add_money_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter.."
+                    android:inputType="number"
+                    android:paddingLeft="2dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_add_money"
+                style="@style/Button_DW"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:background="@drawable/solidbtn_shape"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/deposit"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/button_withdraw"
+                style="@style/Button_DW"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:background="@drawable/solidbtn_shape"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/withdraw"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_transfer"
+                style="@style/Button_DW"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/transfer"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+
         </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

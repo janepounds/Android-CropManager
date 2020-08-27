@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_home"
-    tools:context=".wallet.activities.WalletHomeActivity" >
-<include layout="@layout/wallet_add_money"/>
+    tools:context=".fragments.HomeFragment">
+
+
+    <include
+        layout="@layout/content_dashboard"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

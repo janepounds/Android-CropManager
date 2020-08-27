@@ -25,7 +25,7 @@
         android:layout_marginBottom="8dp"
         android:ellipsize="end"
         android:textColor="@color/colorPrimary"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/josefin_sans"
         android:gravity="center"
         android:maxLines="1"
         android:textAllCaps="true"
@@ -41,7 +41,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/josefin_sans"
         android:textSize="16sp"
         tools:text="Account activated!" />
 

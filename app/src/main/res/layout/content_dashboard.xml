@@ -408,10 +408,6 @@
                         </LinearLayout>
 
                     </LinearLayout>
-
-
-
-
                 </RelativeLayout>
             </ScrollView>
 
@@ -430,7 +426,6 @@
                     app:menu="@menu/bottom_navigation_menu" />
 
             </LinearLayout>
-
 
             <FrameLayout
                 android:id="@+id/frame_layout_notifications"
@@ -473,8 +468,6 @@
 
 
             </FrameLayout>
-
-
 
         </RelativeLayout>
 

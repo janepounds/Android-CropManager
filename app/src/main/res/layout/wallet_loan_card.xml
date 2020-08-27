@@ -52,7 +52,7 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="Loan Number"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="REF 001212"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"/>
 
 
@@ -85,7 +85,7 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="Amount"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="+ UGX 0"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"/>
 
 
@@ -110,7 +110,7 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="Due on"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"
                         />
 
@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="29/10/2019"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"
                         />
 
@@ -138,7 +138,7 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:text="Status"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textColor="@color/textColor"/>
 
                 <TextView
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Pending Correction"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textColor="@color/textColor"
                     />
 

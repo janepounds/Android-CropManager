@@ -225,7 +225,6 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
         }
     }
 
-
     public void fillViews(){
         if(cropPurchaseOrder != null){
             DashboardActivity.selectSpinnerItemById(suppliersSp,cropPurchaseOrder.getSupplierId());

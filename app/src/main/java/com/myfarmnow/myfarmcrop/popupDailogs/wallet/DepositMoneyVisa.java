@@ -101,7 +101,7 @@ public class DepositMoneyVisa extends DialogFragment implements
         cardexpiryTxt=view.findViewById(R.id.add_money_card_expiry);
         cardccvTxt=view.findViewById(R.id.add_money_card_cvv);
         errorMsgTxt = view.findViewById(R.id.text_view_error_message);
-        verificationUtils = new RaveVerificationUtils((Activity) activity, false, BuildConfig.PUBLIC_KEY);
+        verificationUtils = new RaveVerificationUtils( this, false, BuildConfig.PUBLIC_KEY);
 
 
         TextWatcher fieldValidatorTextWatcher = new TextWatcher() {

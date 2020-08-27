@@ -10,7 +10,7 @@
         android:id="@+id/layout_statement_card"
         android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dip"
         android:layout_margin="8dp"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
@@ -18,18 +18,40 @@
         android:background="@drawable/solidwhite_shape"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_view_date_transaction"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nov 20, 2020"
-            android:textSize="15sp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_view_date_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nov 20, 2020"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="00:36 AM"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+        </FrameLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dip"
+            android:background="@color/gray"
+            >
 
+        </View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
             android:orientation="horizontal">
 
 
@@ -51,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="7"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -60,7 +83,7 @@
                         android:gravity="start"
                         android:text="Debit"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/device_problem" />
 
                     <TextView
@@ -70,7 +93,7 @@
                         android:layout_weight="2.5"
                         android:text="- UGX 0"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/device_problem" />
 
 
@@ -79,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="7"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -89,7 +113,7 @@
                         android:gravity="start"
                         android:text="Paid To"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"
                         />
 
@@ -100,7 +124,7 @@
                         android:layout_weight="2.5"
                         android:text="Someone"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"
                         />
 
@@ -127,7 +151,7 @@
                         android:gravity="start"
                         android:text="Credit"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/colorPrimary" />
 
                     <TextView
@@ -137,7 +161,7 @@
                         android:layout_weight="2.5"
                         android:text="+ UGX 0"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/colorPrimary" />
 
 
@@ -155,7 +179,7 @@
                         android:gravity="start"
                         android:text="Received From"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/textColor"
 
                         />
@@ -166,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
                         android:textSize="12sp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:text="Someone"
                         android:textColor="@color/textColor"
                         />
@@ -187,7 +211,7 @@
                     android:gravity="start"
                     android:text="Reference Number"
                     android:textSize="12sp"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textColor="@color/textColor"/>
 
                 <TextView
@@ -197,7 +221,7 @@
                     android:layout_weight="2.5"
                     android:text="Someone"
                     android:textSize="12sp"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textColor="@color/textColor"
                     />
 
@@ -205,38 +229,39 @@
             </LinearLayout>
 
             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_30dp"
-            android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_30dp"
+                android:layout_marginTop="5dp"
                 android:weightSum="5"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/text_view_receipt"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="4dp"
-                android:paddingTop="2dp"
-                android:text="Receipt"
-                android:textAllCaps="false"
-                android:background="@drawable/rectangular_green_solid"
-                android:textColor="@color/white"
-                android:fontFamily="@font/montserrat"
-                android:textSize="12sp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/text_view_receipt"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dip"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="2dp"
+                    android:text="Receipt"
+                    android:textAllCaps="false"
+                    android:background="@drawable/rounded_corners_button4"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textSize="12sp"
 
-                />
+                    />
 
-            <TextView
-                android:layout_weight="4"
-                android:id="@+id/text_view_time_transaction"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="13:00 AM"
-                android:textSize="14sp"
-                android:gravity="right"
-                />
-        </LinearLayout>
+                <TextView
+                    android:layout_weight="4"
+                    android:id="@+id/text_view_time_transaction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="13:00 AM"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -6,141 +6,141 @@
     android:background="@drawable/solidwhite_shape"
     android:orientation="vertical"
     android:theme="@style/AppTheme"
-    tools:context=".wallet.activities.WalletHomeActivity">
+    tools:context=".activities.wallet.WalletHomeActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_add_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/addmoney"
+            android:theme="@style/HeaderTheme"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/background_home"
+        android:paddingRight="@dimen/dimen_20dp"
+        android:paddingLeft="@dimen/dimen_20dp"
+        >
 
         <LinearLayout
-            android:id="@+id/layout_add_money"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="@string/addmoney"
-                android:theme="@style/HeaderTheme"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="vertical"
-            android:background="@color/background_home"
-            android:paddingRight="@dimen/dimen_20dp"
-            android:paddingLeft="@dimen/dimen_20dp"
-            >
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp">
 
             <LinearLayout
+                android:id="@+id/layout_withdraw"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <LinearLayout
-                    android:id="@+id/layout_withdraw"
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:src="@drawable/wallet_deposit" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="0.2"
-                        android:text="Withdraw Money"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="5dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_transfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:src="@drawable/moneytransfer" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="0.2"
-                        android:text="Transfer Money"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="5dp" />
-
-                </LinearLayout>
-
+                    android:layout_weight="0.9"
+                    android:src="@drawable/wallet_deposit" />
 
                 <TextView
-                    android:id="@+id/text_view_error_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Wrong Code!"
-                    android:textColor="@color/device_problem"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="0.2"
+                    android:text="Withdraw Money"
                     android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:text="Voucher Code"
-                        android:fontFamily="@font/montserrat" />
-
-                    <EditText
-                        android:id="@+id/wallet_add_money_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:inputType="text"
-                        android:paddingLeft="2dp"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/button_add_money"
-                    style="@style/Button_DW"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/solidbtn_shape"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:text="Submit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
+                    android:layout_marginLeft="5dp" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/layout_transfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:src="@drawable/moneytransfer" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="0.2"
+                    android:text="Transfer Money"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/text_view_error_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Wrong Code!"
+                android:textColor="@color/device_problem"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:text="Voucher Code"
+                    android:fontFamily="@font/josefin_sans" />
+
+                <EditText
+                    android:id="@+id/wallet_add_money_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter.."
+                    android:inputType="text"
+                    android:paddingLeft="2dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_add_money"
+                style="@style/Button_DW"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:background="@drawable/solidbtn_shape"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+
         </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
