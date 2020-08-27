@@ -24,7 +24,7 @@
             android:textColor="@color/textColor"
             android:text="Enter Loan Details"
             android:textSize="20sp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/josefin_sans"
             android:paddingLeft="@dimen/dimen_20dp"
             android:textStyle="bold"
             android:gravity="left" />
@@ -166,7 +166,7 @@
             style="@style/Button_DW"
             android:textColor="@color/white"
             android:background="@drawable/rectangular_green_solid"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/josefin_sans"
             android:textSize="20sp"
             />
     </LinearLayout>

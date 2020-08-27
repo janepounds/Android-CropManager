@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccentLight"
-    tools:context=".wallet.activities.WalletPurchaseCardPreviewActivity" >
+    tools:context=".activities.wallet.WalletPurchaseCardPreviewActivity" >
 
         <LinearLayout
             android:id="@+id/layout_bill_summary"

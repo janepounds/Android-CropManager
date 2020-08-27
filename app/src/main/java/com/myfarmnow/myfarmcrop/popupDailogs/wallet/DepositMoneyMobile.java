@@ -102,7 +102,7 @@ public class DepositMoneyMobile extends DialogFragment {
             }
         });
 
-        verificationUtils = new RaveVerificationUtils((Activity) activity, false, BuildConfig.PUBLIC_KEY);
+        verificationUtils = new RaveVerificationUtils(this, false, BuildConfig.PUBLIC_KEY);
 
     }
 

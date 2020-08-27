@@ -50,7 +50,7 @@
                    android:gravity="center"
                    android:text="4560"
                    android:textColor="@color/white"
-                   android:fontFamily="@font/montserrat"
+                   android:fontFamily="@font/josefin_sans"
                    android:textSize="20sp"
                    android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
                    android:gravity="center"
                    android:text="0046"
                    android:textColor="@color/white"
-                   android:fontFamily="@font/montserrat"
+                   android:fontFamily="@font/josefin_sans"
                    android:textSize="20sp"
                    android:textStyle="bold" />
 
@@ -74,7 +74,7 @@
                    android:gravity="center"
                    android:text="0012"
                    android:textColor="@color/white"
-                   android:fontFamily="@font/montserrat"
+                   android:fontFamily="@font/josefin_sans"
                    android:textSize="20sp"
                    android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
                    android:gravity="center"
                    android:text="1203"
                    android:textColor="@color/white"
-                   android:fontFamily="@font/montserrat"
+                   android:fontFamily="@font/josefin_sans"
                    android:textSize="20sp"
                    android:textStyle="bold" />
 
@@ -105,7 +105,7 @@
                         android:layout_height="@dimen/dimen_20dp"
                         android:layout_weight="6"
                         android:paddingLeft="20dp"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/white"
                         android:text="Mutesasira Jovan"
                         android:textSize="11sp" />
@@ -117,7 +117,7 @@
                         android:layout_weight="6"
                         android:layout_marginLeft="@dimen/dimen_30dp"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/montserrat"
+                        android:fontFamily="@font/josefin_sans"
                         android:text="10/22"
                         android:textSize="11sp" />
                 </LinearLayout>
@@ -163,7 +163,7 @@
                            android:text="@string/current_balance_label"
                            android:textColor="@color/textColor"
                            android:textSize="@dimen/dimen_14sp"
-                           android:fontFamily="@font/montserrat"
+                           android:fontFamily="@font/josefin_sans"
                            android:textAllCaps="true"
                            android:textStyle="bold" />
 
@@ -174,7 +174,7 @@
                            android:layout_weight="1"
                            android:gravity="center"
                            android:text="UGX 0"
-                           android:fontFamily="@font/montserrat"
+                           android:fontFamily="@font/josefin_sans"
                            android:textColor="@color/textColor"
                            android:textSize="16sp" />
 
@@ -199,7 +199,7 @@
                            android:text="Card Balance"
                            android:textColor="@color/white"
                            android:textAllCaps="true"
-                           android:fontFamily="@font/montserrat"
+                           android:fontFamily="@font/josefin_sans"
                            android:textSize="14sp"
                            android:textStyle="bold" />
 
@@ -209,7 +209,7 @@
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
                            android:gravity="center"
-                           android:fontFamily="@font/montserrat"
+                           android:fontFamily="@font/josefin_sans"
                            android:text="UGX 0"
                            android:textColor="@color/white"
                            android:textSize="16sp" />
@@ -230,7 +230,7 @@
                        android:layout_gravity="center_vertical"
                        android:text="Quick Actions"
                        android:textColor="@color/textColor"
-                       android:fontFamily="@font/montserrat"
+                       android:fontFamily="@font/josefin_sans"
                        android:textStyle="bold"
                        android:textSize="16sp" />
                </LinearLayout>
@@ -281,7 +281,7 @@
                                android:text="Deposit"
                                android:layout_marginBottom="10dp"
                                android:textColor="@color/textColor"
-                               android:fontFamily="@font/montserrat"
+                               android:fontFamily="@font/josefin_sans"
                                android:textStyle="bold" />
                        </LinearLayout>
 
@@ -323,7 +323,7 @@
                                android:text="Transfer"
                                android:paddingBottom="10dp"
                                android:textColor="@color/textColor"
-                               android:fontFamily="@font/montserrat"
+                               android:fontFamily="@font/josefin_sans"
                                android:textStyle="bold" />
                        </LinearLayout>
 
@@ -375,7 +375,7 @@
                                android:onClick="openTransactions"
                                android:text="Transactions"
                                android:textColor="@color/textColor"
-                               android:fontFamily="@font/montserrat"
+                               android:fontFamily="@font/josefin_sans"
                                android:textStyle="bold" />
                        </LinearLayout>
                    </LinearLayout>
@@ -414,7 +414,7 @@
                                android:paddingBottom="10dp"
                                android:text="Loans"
                                android:textColor="@color/textColor"
-                               android:fontFamily="@font/montserrat"
+                               android:fontFamily="@font/josefin_sans"
                                android:textStyle="bold" />
 
                        </LinearLayout>
@@ -465,7 +465,7 @@
                                android:onClick="comingsoon"
                                android:text="Coupons"
                                android:textColor="@color/textColor"
-                               android:fontFamily="@font/montserrat"
+                               android:fontFamily="@font/josefin_sans"
                                android:textStyle="bold" />
 
                        </LinearLayout>
@@ -505,7 +505,7 @@
                                android:paddingBottom="10dp"
                                android:text="Buy"
                                android:textColor="@color/textColor"
-                               android:fontFamily="@font/montserrat"
+                               android:fontFamily="@font/josefin_sans"
                                android:textStyle="bold" />
                        </LinearLayout>
                    </LinearLayout>

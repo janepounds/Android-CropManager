@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_home"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".wallet.activities.LoanStatusPreviewActivity"
+    tools:context=".activities.wallet.LoanStatusPreviewActivity"
     tools:showIn="@layout/wallet_loan_status_preview">
 
     <ScrollView
