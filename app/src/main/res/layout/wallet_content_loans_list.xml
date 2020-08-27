@@ -18,7 +18,7 @@
         android:layout_marginTop="45dp">
 
         <Button
-            android:id="@+id/wallet_appyly_loan_btn"
+            android:id="@+id/wallet_apply_loan_btn"
             android:onClick="newLoanApplication"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -35,7 +35,7 @@
 
         <Button
             android:id="@+id/wallet_pay_loan_btn"
-            android:visibility="gone"
+            android:visibility="visible"
             android:onClick="payLoan"
             android:layout_width="wrap_content"
             android:layout_height="30dp"

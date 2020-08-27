@@ -96,7 +96,6 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
         initializeActivity();
     }
 
-
     public void initializeActivity(){
         dialog = new ProgressDialog(WalletLoanAppPhotos.this);
         dialog.setIndeterminate(true);
@@ -206,10 +205,8 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
                     })
                     .into(selfieImageView);
 
-
             nextStepBtn.setText("Update");
             titleTxt.setText("Update Photos");
-
         }
     }
 
@@ -318,8 +315,6 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     public void choosePhotoFromGallery(int typeRequested) {
@@ -333,6 +328,7 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, typeRequested);
     }
+
     private void showPictureDialog(final int imageTypeRequested){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select Action");
@@ -387,6 +383,7 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
                 });
         pictureDialog.show();
     }
+
     private File persistImage(Bitmap bitmap, String name, ImageView photoImageView) {
 
         File filesDir = getFilesDir();
@@ -414,8 +411,6 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
 
         return imageFile;
     }
-
-
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
