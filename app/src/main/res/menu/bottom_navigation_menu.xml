@@ -1,17 +1,21 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/page_1"
         android:enabled="true"
         android:icon="@drawable/home"
-        android:title="@string/text_label_1"/>
+        android:title="@string/text_label_1"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/home"
-        android:title="@string/text_label_2"/>
+        android:title="@string/text_label_2"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/page_3"
         android:enabled="true"
         android:icon="@drawable/setting"
-        android:title="@string/text_label_3"/>
+        android:title="@string/text_label_3"
+        app:showAsAction="ifRoom" />
 </menu>

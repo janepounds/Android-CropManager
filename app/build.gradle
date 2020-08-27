@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    def material_design_version = "1.2.0"
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     testImplementation 'junit:junit:4.13-beta-3'
@@ -127,4 +129,7 @@ dependencies {
     configurations {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
+
+    // Material Design
+    implementation "com.google.android.material:material:$material_design_version"
 }
