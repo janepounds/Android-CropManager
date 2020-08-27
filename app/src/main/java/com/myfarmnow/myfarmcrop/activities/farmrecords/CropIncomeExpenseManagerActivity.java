@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +46,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter;
     ArrayAdapter<String>  customerSupplierAdapter;
     MyFarmDbHandlerSingleton dbHandler;
+    Toolbar toolbar;
 
     ArrayList<CropSpinnerItem> incomeArrayList= new ArrayList<>();
     ArrayList<CropSpinnerItem> expensesArrayList= new ArrayList<>();
@@ -55,12 +58,21 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_income__expense_manager);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         if (getIntent().hasExtra("cropIncomeExpense")) {
             cropIncomeExpense = (CropIncomeExpense) getIntent().getSerializableExtra("cropIncomeExpense");
         }
         initializeForm();
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     public void initializeForm() {
 
         dateTxt = findViewById(R.id.txt_crop_income_expense_date);

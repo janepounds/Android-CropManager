@@ -3,6 +3,8 @@ package com.myfarmnow.myfarmcrop.activities.agronomy;
 import android.content.Intent;
 import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,17 +41,29 @@ public class CropsManagerActivity extends AppCompatActivity {
    AutoCompleteTextView cropSP;
    Crop crop;
    MyFarmDbHandlerSingleton dbHandler;
+   Toolbar toolbar;
    Button saveBtn;
    CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crops_manager);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if(getIntent().hasExtra("crop")){
             crop =(Crop) getIntent().getSerializableExtra("crop");
         }
         initializeForm();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public void initializeForm(){

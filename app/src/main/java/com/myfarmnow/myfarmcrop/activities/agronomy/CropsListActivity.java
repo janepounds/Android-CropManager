@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import  androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
 
@@ -24,18 +25,31 @@ public class CropsListActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     CropsListRecyclerAdapter cropListRecyclerAdapter;
     MyFarmDbHandlerSingleton dbHandler;
+    Toolbar toolbar;
     ArrayList<Crop> cropArrayList = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crops_list);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         cropInventoryListRecyclerView = findViewById(R.id.crops_recyc_view);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         cropInventoryListRecyclerView.setLayoutManager(linearLayoutManager);
         cropListRecyclerAdapter = new CropsListRecyclerAdapter(CropsListActivity.this.cropArrayList,CropsListActivity.this);
         cropInventoryListRecyclerView.setAdapter(cropListRecyclerAdapter);
+
         loadCropInventories();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
     private void loadCropInventories(){
 

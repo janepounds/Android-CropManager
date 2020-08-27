@@ -58,6 +58,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
@@ -102,7 +103,7 @@ public class DashboardActivity extends AppCompatActivity  {
     Toolbar toolbar;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
-    LinearLayout walletLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
+    LinearLayout walletLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,layoutAgronomy,
             incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
@@ -222,6 +223,7 @@ public class DashboardActivity extends AppCompatActivity  {
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
         weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
         contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
+        layoutAgronomy = findViewById(R.id.layout_agronomy);
         notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
         noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
         unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
@@ -334,6 +336,14 @@ public class DashboardActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 Intent openCrops = new Intent(DashboardActivity.this, FarmRecordsDashboardActivity.class);
                 startActivity(openCrops);
+            }
+        });
+
+        layoutAgronomy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openAgronomy = new Intent(DashboardActivity.this, AgronomyDashboardActivity.class);
+                startActivity(openAgronomy);
             }
         });
         incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
