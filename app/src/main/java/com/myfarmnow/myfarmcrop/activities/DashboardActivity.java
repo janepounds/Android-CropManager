@@ -99,29 +99,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
-    private BottomNavigationView bottomNavigationView;
 
-
-    public static DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    ImageView imgdrawer, noticationsImageBtn;
-    RelativeLayout mainlayout;
-    LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
-    Toolbar toolbar;
-    NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
-
-    LinearLayout walletLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
-            incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
-
-    TextView textViewUserEmail, textViewUserName, unreadNotificationsTextView, textViewVersion;
-
-
-    private TabLayout notificationsTabLayout;
-    private ViewPager notificationsViewPager;
-
-    FrameLayout notificationsFrameLayout;
     MyFarmDbHandlerSingleton dbHandler;
-
     public static final String PREFERENCES_FILE_NAME = "pref";
 
     public static final String FARM_NAME_PREFERENCES_ID = "farmname";
@@ -145,17 +124,13 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId", this));
-        initializeDashboard();
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) )).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -173,7 +148,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.page_1:
-                selectedFragment = new HomeFragment();
+                selectedFragment = new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this));
                 break;
             case R.id.page_2:
                 selectedFragment = new OffersFragment();
@@ -233,169 +208,6 @@ public class DashboardActivity extends AppCompatActivity {
         return resultCode == ConnectionResult.SUCCESS;
     }
 
-    public void initializeDashboard() {
-
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        //expandableListView = findViewById(R.id.drawer_menu_list);
-        mainlayout = findViewById(R.id.mainlayout);
-        walletLinearLayout =findViewById(R.id.layout_dashboard_wallet);
-        fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
-        machinesLinearLayout =findViewById(R.id.layout_crop_dashboard_machines);
-        incomeExpenseLinearLayout =findViewById(R.id.layout_crop_dashboard_income_expense);
-        cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
-        tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
-        weatherForecastLinearLayout =findViewById(R.id.layout_crop_dashboard_weather_forecast);
-        contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
-        notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
-        noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
-        unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
-        notificationsViewPager = findViewById(R.id.viewPager);
-        notificationsTabLayout = findViewById(R.id.tabLayout);
-        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(this);
-
-        userProfileLayout = findViewById(R.id.layout_user_profile);
-        textViewUserName = findViewById(R.id.text_view_crop_dashboard_name);
-        textViewUserEmail = findViewById(R.id.text_view_crop_dashboard_email);
-
-
-        notificationTabsLayoutAdapter = new NotificationTabsLayoutAdapter(getSupportFragmentManager());
-        notificationTabsLayoutAdapter.addFragment(new NotificationsTodayFragment(), "Today");
-        notificationTabsLayoutAdapter.addFragment(new NotificationsUpcomingFragment(), "Upcoming");
-        notificationTabsLayoutAdapter.addFragment(new NotificationsOverDueFragment(), "Over Due");
-        notificationsViewPager.setAdapter(notificationTabsLayoutAdapter);
-        notificationsTabLayout.setupWithViewPager(notificationsViewPager);
-        notificationsTabLayout.setSelectedTabIndicatorColor(Color.GREEN);
-
-        unreadNotificationsTextView.setText("" + dbHandler.getCropNotifications(DashboardActivity.getPreferences("userId", this), CropNotification.QUERY_KEY_TODAY).size());
-
-
-        textViewVersion = findViewById(R.id.text_view_crop_dashboard_android_version);
-        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
-
-        noticationsImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (notificationsFrameLayout.getVisibility() == View.GONE) {
-                    notificationsFrameLayout.setVisibility(View.VISIBLE);
-                } else {
-                    notificationsFrameLayout.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        contactsSubMenu = findViewById(R.id.layout_crop_dashboard_contact_submenus);
-        helpSubMenu = findViewById(R.id.layout_crop_dashboard_help_submenus);
-        inventorySubMenu = findViewById(R.id.layout_crop_dashboard_inventory_submenus);
-        cropsSubMenu = findViewById(R.id.layout_crop_dashboard_crops_submenus);
-        financialsSubMenu = findViewById(R.id.layout_crop_dashboard_financial_submenus);
-        slesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
-        purchasesSubMenu = findViewById(R.id.layout_crop_dashboard_financial_purchases_submenus);
-
-
-        digitalWalletLayout = findViewById(R.id.layout_crop_dashboard_digital_wallet);
-
-
-        mDrawerToggle = new ActionBarDrawerToggle(DashboardActivity.this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
-            public void onDrawerClosed(View view) {
-                supportInvalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                supportInvalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                mainlayout.setTranslationX(slideOffset * drawerView.getWidth());
-                mDrawerLayout.bringChildToFront(drawerView);
-                mDrawerLayout.requestLayout();
-            }
-        };
-        imgdrawer = findViewById(R.id.imgdrawer);
-        imgdrawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        walletLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
-                    startActivity(new Intent(DashboardActivity.this, WalletAuthActivity.class));
-                    //finish();
-                    overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-                }
-                else {
-                    //WalletAuthActivity.startAuth(context, true);
-                    Intent authenticate = new Intent(DashboardActivity.this, WalletHomeActivity.class);
-                    startActivity(authenticate);
-                    finish();
-                }
-            }
-        });
-
-//        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openFields = new Intent(DashboardActivity.this, CropFieldsListActivity.class);
-//                startActivity(openFields);
-//            }
-//        });
-        machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent openMachines = new Intent(DashboardActivity.this, CropMachinesListActivity.class);
-                //startActivity(openMachines);
-            }
-        });
-        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openCrops = new Intent(DashboardActivity.this, FarmRecordsDashboardActivity.class);
-                startActivity(openCrops);
-            }
-        });
-        incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(DashboardActivity.this, CropIncomeExpensesListActivity.class);
-                startActivity(openIncomeExpense);
-            }
-        });
-        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openTasks = new Intent(DashboardActivity.this, CropTasksListActivity.class);
-                startActivity(openTasks);
-            }
-        });
-        contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openContacts = new Intent(DashboardActivity.this, CropContactsListActivity.class);
-                startActivity(openContacts);
-            }
-        });
-
-        textViewUserName.setText(getPreferences("firstname", this) + " " + getPreferences("lastname", this));
-        textViewUserEmail.setText(getPreferences("email", this));
-
-        userProfileLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editUser = new Intent(DashboardActivity.this, CropRegisterActivity.class);
-                editUser.putExtra("editUser", "yes");
-                startActivity(editUser);
-            }
-        });
-        if (getPreferences(COUNTRY_PREFERENCES_ID, this).toLowerCase().equals("uganda")) {
-            //digitalWalletLayout.setVisibility(View.VISIBLE);
-        }
-
-    }
 
     public static void addDatePicker(final EditText ed_, final Context context) {
         ed_.setOnClickListener(new View.OnClickListener() {
@@ -444,7 +256,6 @@ public class DashboardActivity extends AppCompatActivity {
         });
         ed_.setInputType(InputType.TYPE_NULL);
     }
-
     public void getAppToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -648,50 +459,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public void showHideFinancialManager(View view) {
-
-
-        toggleVisibility(financialsSubMenu);
-    }
-
-    public void showSalesManager(View view) {
-
-        toggleSubMenuVisibility(slesSubMenu);
-    }
-
-    public void showPurchasesManager(View view) {
-
-        toggleSubMenuVisibility(purchasesSubMenu);
-    }
-
-    public void showHelpOptions(View view) {
-
-        toggleVisibility(helpSubMenu);
-    }
-
-    public void showHideFieldManager(View view) {
-        LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);
-
-        toggleVisibility(fieldsSubMenu);
-    }
-
-    public void showHideCropManager(View view) {
-
-
-        toggleVisibility(cropsSubMenu);
-    }
-
-    public void showHideInventoryManager(View view) {
-
-
-        toggleVisibility(inventorySubMenu);
-    }
-
-    public void showHideContactsManager(View view) {
-
-
-        toggleVisibility(contactsSubMenu);
-    }
 
     public void helpSendEmail(View view) {
 
@@ -731,35 +498,7 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
-    public void toggleVisibility(View view) {
-        LinearLayout[] layouts = new LinearLayout[]{contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu};
-        if (view.getVisibility() == View.GONE) {
-            for (LinearLayout layout : layouts) {
-                if (layout != view) {
-                    layout.setVisibility(View.GONE);
-                }
-            }
-            view.setVisibility(View.VISIBLE);
 
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
-
-    public void toggleSubMenuVisibility(View view) {
-        LinearLayout[] layouts = new LinearLayout[]{slesSubMenu, purchasesSubMenu};
-        if (view.getVisibility() == View.GONE) {
-            for (LinearLayout layout : layouts) {
-                if (layout != view) {
-                    layout.setVisibility(View.GONE);
-                }
-            }
-            view.setVisibility(View.VISIBLE);
-
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
 
     private void SavePreferences(String key, String value) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
