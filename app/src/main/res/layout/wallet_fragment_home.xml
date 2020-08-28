@@ -312,7 +312,7 @@
                                android:layout_marginTop="5dp"
                                android:backgroundTint="@color/white"
                                android:onClick="openTransfer"
-                               android:src="@drawable/moneytransfer" />
+                               android:src="@drawable/wallet_transfer" />
 
                            <TextView
                                android:id="@+id/crop_txt_transfer"
@@ -364,7 +364,7 @@
                                android:backgroundTint="@color/white"
                                android:gravity="center"
                                android:onClick="openTransactions"
-                               android:src="@drawable/transactions" />
+                               android:src="@drawable/wallet_transactions" />
 
                            <TextView
                                android:id="@+id/crop_txt_buy_inputs"
@@ -403,7 +403,7 @@
                                android:layout_weight="0.3"
                                android:backgroundTint="@color/white"
                                android:onClick="openLoans"
-                               android:src="@drawable/give_loan" />
+                               android:src="@drawable/wallet_loan" />
 
                            <TextView
 

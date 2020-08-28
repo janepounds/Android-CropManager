@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
-                    android:src="@drawable/moneytransfer" />
+                    android:src="@drawable/wallet_transfer" />
 
                 <TextView
                     android:layout_width="match_parent"
