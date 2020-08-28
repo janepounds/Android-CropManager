@@ -52,7 +52,7 @@ public class CropRecordsDashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
 
 
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,
+    LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,layoutFields,
             incomeExpenseLinearLayout, tasksLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
@@ -101,23 +101,17 @@ public class CropRecordsDashboardActivity extends AppCompatActivity {
         textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
         textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
+        layoutFields = findViewById(R.id.layout_field_dashboard_fields);
 
 
-//        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openInventory = new Intent(CropRecordsDashboardActivity.this, CropInventoryListActivity.class);
-//                startActivity(openInventory);
-//            }
-//        });
 //       to be called in "crop records"
-//        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openFields = new Intent(FarmRecordsDashboardActivity.this, CropFieldsListActivity.class);
-//                startActivity(openFields);
-//            }
-//        });
+        layoutFields.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openFields = new Intent(CropRecordsDashboardActivity.this, CropFieldsListActivity.class);
+                startActivity(openFields);
+            }
+        });
 
         cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

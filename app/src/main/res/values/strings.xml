@@ -126,7 +126,7 @@
         <item>Peat</item>
     </string-array>
     <string-array name="crop_field_type">
-        <item>Select Type</item>
+        <item>Field Type</item>
         <item>Soil Ground/Field</item>
         <item>Greenhouse</item>
         <item>Hydroponics</item>
@@ -138,7 +138,7 @@
         <item>Others</item>
     </string-array>
     <string-array name="crop_field_status">
-        <item>Select Status</item>
+        <item> Status</item>
         <item>Active</item>
         <item>Fallow</item>
         <item>Leased</item>
@@ -1686,6 +1686,7 @@
     <string name="label_add_crop">Add Crops</string>
     <string name="title_crop_records">Crop Records</string>
     <string name="label_production_reports">Production Reports</string>
+    <string name="title_add_fields">Add Fields</string>
 
 
     <string-array name="dateFormatsArray">

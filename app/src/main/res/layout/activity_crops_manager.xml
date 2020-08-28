@@ -49,12 +49,7 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/dimen_15sp"
-            android:text="@string/label_add_crop"
-            android:padding="@dimen/margin_10"/>
+
 
 
 
@@ -71,15 +66,7 @@
                 android:orientation="vertical"
                 android:layout_marginRight="12dp">
 
-            <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/crop"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                android:layout_marginBottom="4dp"
-               />
 
                 <AutoCompleteTextView
                     android:id="@+id/sp_crop_crop"
@@ -87,7 +74,8 @@
                     android:layout_height="match_parent"
                     android:entries="@array/crops_list"
                     android:background="@drawable/input_shapes"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:hint="Crop"/>
 
             </LinearLayout>
             <LinearLayout
@@ -97,25 +85,16 @@
                 android:layout_weight="1"
                 android:layout_marginStart="12dp">
 
-            <TextView
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/variety"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                android:layout_marginBottom="4dp"/>
 
             <EditText
                 android:id="@+id/txt_crops_variety"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter.."
+                android:hint="Variety"
                 android:background="@drawable/input_shapes"
                 android:textSize="14sp"
-
-
 
                 />
             </LinearLayout>
@@ -656,11 +635,9 @@
             android:drawableTint="#ffffff"
             android:text="Save "
             android:textAllCaps="false"
-            android:textColor="#ffffff" />
-
-
-
-
+            android:textColor="#ffffff"
+            android:background="@drawable/rounded_corners_button"
+            android:padding="@dimen/dimen_10dp"/>
 
 
 

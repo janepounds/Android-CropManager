@@ -30,6 +30,10 @@ public class CropFieldsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_fields_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         fieldListRecyclerView = findViewById(R.id.crop_field_recyc_view);
         cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",this)));
@@ -40,7 +44,11 @@ public class CropFieldsListActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
