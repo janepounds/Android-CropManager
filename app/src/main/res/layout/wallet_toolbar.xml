@@ -5,7 +5,7 @@
     android:layout_height="50dp"
     app:layout_collapseMode="pin"
     android:elevation="4dp"
-    android:fontFamily="@font/montserrat"
+    android:fontFamily="@font/josefin_sans"
     android:theme="@style/MyToolbarWallet"
     app:popupTheme="@style/MyToolbarPopUp"   >
 

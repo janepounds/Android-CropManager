@@ -55,6 +55,7 @@ import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropBestPracticesDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropContactsListActivity;
@@ -102,7 +103,7 @@ import cz.msebera.android.httpclient.Header;
 public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 
 
-    ImageView noticationsImageBtn;
+    ImageView noticationsImageBtn,imgBack;
     LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu;
     Toolbar toolbar;
 
@@ -120,13 +121,23 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farm_records_dashboard);
         toolbar=  findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
         initializeDashboard();
 
     }
 
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     public void initializeDashboard(){
 
@@ -138,7 +149,6 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
 
-        contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
         notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
         noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
         unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
@@ -164,13 +174,13 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 //            }
 //        });
 
-//        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openCrops = new Intent(FarmRecordsDashboardActivity.this, CropsListActivity.class);
-//                startActivity(openCrops);
-//            }
-//        });
+        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openCrops = new Intent(FarmRecordsDashboardActivity.this, CropRecordsDashboardActivity.class);
+                startActivity(openCrops);
+            }
+        });
         incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,6 +188,15 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
                 startActivity(openIncomeExpense);
             }
         });
+
+//        imgBack.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent imgback = new Intent(FarmRecordsDashboardActivity.this, DashboardActivity.class);
+//                startActivity(imgback);
+//            }
+//        });
 
 
     }
@@ -311,11 +330,7 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 
         toggleVisibility(helpSubMenu);
     }
-    public void showHideFieldManager(View view){
-        LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);
 
-        toggleVisibility(fieldsSubMenu);
-    }
     public void showHideCropManager(View view){
 
 

@@ -126,7 +126,7 @@
         <item>Peat</item>
     </string-array>
     <string-array name="crop_field_type">
-        <item>Select Type</item>
+        <item>Field Type</item>
         <item>Soil Ground/Field</item>
         <item>Greenhouse</item>
         <item>Hydroponics</item>
@@ -138,7 +138,7 @@
         <item>Others</item>
     </string-array>
     <string-array name="crop_field_status">
-        <item>Select Status</item>
+        <item> Status</item>
         <item>Active</item>
         <item>Fallow</item>
         <item>Leased</item>
@@ -953,7 +953,7 @@
     <string name="spray_name_not_entered">Spray Name has not been entered</string>
     <string name="title_activity_crop_spraying_list">Spraying </string>
     <string name="title_activity_crop_fertilizer_application_list">
-        Fertilizer Application 
+        Fertilizer Application
     </string>
     <string name="application_method_not_entered">Application Method not selected</string>
     <string name="fertilizer_form_not_selected">Fertilizer Form not selected</string>
@@ -1677,7 +1677,16 @@
     <string name="label_livestockrecords">Livestock Records</string>
     <string name="label_store">Store</string>
     <string name="label_financial_records">Financial Records</string>
+    <string name="label_add_financial_records">Add Financial Records</string>
+    <string name="label_livestock">Livestock</string>
+    <string name="label_ask_agronomist">Ask Agronomist</string>
     <string name="title_farm_records">Farm Records</string>
+    <string name="title_agronomy">Agronomy</string>
+    <string name="label_add_new">Add New</string>
+    <string name="label_add_crop">Add Crops</string>
+    <string name="title_crop_records">Crop Records</string>
+    <string name="label_production_reports">Production Reports</string>
+    <string name="title_add_fields">Add Fields</string>
 
 
     <string-array name="dateFormatsArray">
@@ -1742,5 +1751,20 @@
     <string name="label_wallet">Wallet</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_marketplace">Market Place</string>
+    <string name="label_services">Services</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="visibility">Visibility</string>
+    <string name="rain">Rain</string>
+    <string name="humidity_default">48% Max</string>
+    <string name="rain_default">No</string>
+    <string name="visibility_default">25Km</string>
+    <string name="wind_default">12m/h</string>
+    <string name="humidity_default2">30.9% Min</string>
+    <string name="day">Wednesday</string>
+    <string name="temp_max">32.6&#xb0;C Max</string>
+    <string name="temp_min">16.8&#xb0;C Min</string>
+    <string name="deg">&#xb0;</string>
 
 </resources>

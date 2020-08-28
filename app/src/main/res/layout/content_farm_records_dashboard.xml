@@ -20,7 +20,7 @@
                 android:id="@+id/mainView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#344834"
+                android:background="@color/colorPrimary"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
                 <androidx.appcompat.widget.Toolbar
@@ -33,15 +33,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/imgback"
-                            android:layout_width="30dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="15dp"
-                            android:padding="5dp"
-                            android:src="@drawable/arrow_back_icon" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgback"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentLeft="true"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:layout_marginEnd="15dp"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:src="@drawable/arrow_back_icon" />-->
 
                         <TextView
                             android:id="@+id/tvtitle"
@@ -71,8 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_marginBottom="100dp"
-                    android:layout_marginTop="100dp">
+                    android:padding="@dimen/dimen_30dp">
 
 
                     <LinearLayout
@@ -83,11 +82,15 @@
                         android:layout_marginTop="10dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:id="@+id/broke1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+
+                            
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clipToPadding="false"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:background="@drawable/background_round_white">
 
 
                             <LinearLayout
@@ -103,11 +106,11 @@
                                 android:paddingBottom="5dp">
 
                                 <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="90dp"
-                                    android:background="@drawable/background_round_white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:padding="20dp"
-                                    android:src="@drawable/crops" />
+                                    android:src="@drawable/crops"
+                                    android:layout_gravity="center"/>
 
                                 <TextView
                                     android:id="@+id/tv_matings"
@@ -118,11 +121,22 @@
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_croprecords"
                                     android:textAllCaps="true"
-                                    android:textColor="#FFF"
+                                    android:textColor="#000000"
                                     android:textStyle="bold" />
 
 
+
                             </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clipToPadding="false"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:background="@drawable/background_round_white">
 
                             <LinearLayout
                                 android:id="@+id/layout_crop_dashboard_inventory"
@@ -133,16 +147,15 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_weight="1"
 
-
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
                                 <ImageView
                                     android:layout_width="160dp"
                                     android:layout_height="90dp"
-                                    android:background="@drawable/background_round_white"
                                     android:padding="20dp"
-                                    android:src="@drawable/inventory" />
+                                    android:src="@drawable/inventory"
+                                    android:layout_gravity="center"/>
 
                                 <TextView
                                     android:id="@+id/tv_litar"
@@ -154,17 +167,22 @@
 
                                     android:text="@string/label_livestockrecords"
                                     android:textAllCaps="true"
-                                    android:textColor="#FFF"
+                                    android:textColor="#000"
                                     android:textStyle="bold" />
 
 
                             </LinearLayout>
-                        </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
-                        <LinearLayout
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:clipToPadding="false"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:background="@drawable/background_round_white">
 
                             <LinearLayout
                                 android:id="@+id/layout_inventory_store"
@@ -178,9 +196,9 @@
                                 <ImageView
                                     android:layout_width="160dp"
                                     android:layout_height="90dp"
-                                    android:background="@drawable/background_round_white"
                                     android:padding="20dp"
-                                    android:src="@drawable/inventory" />
+                                    android:src="@drawable/inventory"
+                                    android:layout_gravity="center"/>
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -190,11 +208,21 @@
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_store"
                                     android:textAllCaps="true"
-                                    android:textColor="#FFF"
+                                    android:textColor="#000"
                                     android:textStyle="bold" />
 
 
                             </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:background="@drawable/background_round_white">
 
                             <LinearLayout
                                 android:id="@+id/layout_dashboard_financial_records"
@@ -208,9 +236,8 @@
                                 android:paddingBottom="5dp">
 
                                 <ImageView
-                                    android:layout_width="160dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="90dp"
-                                    android:background="@drawable/background_round_white"
                                     android:padding="20dp"
                                     android:src="@drawable/best_practices_second" />
 
@@ -222,13 +249,14 @@
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_financial_records"
                                     android:textAllCaps="true"
-                                    android:textColor="#FFF"
+                                    android:textColor="#000"
                                     android:textStyle="bold" />
 
 
                             </LinearLayout>
+                        </androidx.cardview.widget.CardView>
 
-                        </LinearLayout>
+
 
 
                     </LinearLayout>

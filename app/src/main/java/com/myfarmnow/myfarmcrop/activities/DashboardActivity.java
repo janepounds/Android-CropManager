@@ -61,6 +61,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
@@ -133,6 +134,7 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) )).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
+        bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         if (!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, DashboardActivity.this).equals("yes")) {

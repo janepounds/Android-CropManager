@@ -4,9 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     android:orientation="vertical"
     tools:context=".activities.agronomy.CropsManagerActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#344834"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tvtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/label_crops"
+                    android:textColor="#fff"
+                    android:textSize="18dp" />
+
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,6 +48,8 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical">
+
+
 
 
 
@@ -33,15 +66,7 @@
                 android:orientation="vertical"
                 android:layout_marginRight="12dp">
 
-            <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/crop"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                android:layout_marginBottom="4dp"
-               />
 
                 <AutoCompleteTextView
                     android:id="@+id/sp_crop_crop"
@@ -49,7 +74,8 @@
                     android:layout_height="match_parent"
                     android:entries="@array/crops_list"
                     android:background="@drawable/input_shapes"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:hint="Crop"/>
 
             </LinearLayout>
             <LinearLayout
@@ -59,25 +85,16 @@
                 android:layout_weight="1"
                 android:layout_marginStart="12dp">
 
-            <TextView
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/variety"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                android:layout_marginBottom="4dp"/>
 
             <EditText
                 android:id="@+id/txt_crops_variety"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter.."
+                android:hint="Variety"
                 android:background="@drawable/input_shapes"
                 android:textSize="14sp"
-
-
 
                 />
             </LinearLayout>
@@ -343,8 +360,8 @@
                         android:padding="4dp"
                         android:text="@string/ugx"
                         android:textSize="14sp"
-                        android:textColor="@color/colorPrimary"
-                        android:background="@drawable/input_shapes_grey_units"
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
                         android:gravity="center_vertical"
 
                         />
@@ -570,8 +587,8 @@
                     android:padding="4dp"
                     android:text="@string/ugx"
                     android:textSize="14sp"
-                    android:background="@drawable/input_shapes_grey_units"
-                    android:textColor="@color/colorPrimary"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:layout_weight="0.1"
 
@@ -596,8 +613,8 @@
                     android:text="/Units"
                     android:gravity="center"
                     android:layout_weight="0.2"
-                    android:background="@drawable/input_shapes_grey_units_right"
-                    android:textColor="@color/colorPrimary"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
 
                     />
 
@@ -618,11 +635,9 @@
             android:drawableTint="#ffffff"
             android:text="Save "
             android:textAllCaps="false"
-            android:textColor="#ffffff" />
-
-
-
-
+            android:textColor="#ffffff"
+            android:background="@drawable/rounded_corners_button"
+            android:padding="@dimen/dimen_10dp"/>
 
 
 

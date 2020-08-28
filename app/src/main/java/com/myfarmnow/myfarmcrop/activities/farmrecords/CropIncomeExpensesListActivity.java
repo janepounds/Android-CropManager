@@ -3,6 +3,8 @@ package com.myfarmnow.myfarmcrop.activities.farmrecords;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
@@ -19,11 +21,18 @@ public class CropIncomeExpensesListActivity extends AppCompatActivity {
     CropIncomeExpensesListRecyclerAdapter cropIncomeExpensesListRecyclerAdapter;
     LinearLayoutManager linearLayoutManager;
     MyFarmDbHandlerSingleton dbHandler;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_income_expenses_list);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         incomeExpensesListRecyclerView = findViewById(R.id.crop_income_expense_recyc_view);
@@ -37,6 +46,13 @@ public class CropIncomeExpensesListActivity extends AppCompatActivity {
         inflater.inflate(R.menu.crop_list_activitys_menu, menu);
         return true;
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
 
     public boolean onOptionsItemSelected(MenuItem item) {

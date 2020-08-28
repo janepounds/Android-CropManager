@@ -30,17 +30,27 @@ public class CropFieldManagerActivity extends AppCompatActivity {
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_field_manager);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if(getIntent().hasExtra("cropField")){
             cropField = (CropField)getIntent().getSerializableExtra("cropField");
         }
         initializeForm();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public void initializeForm(){
@@ -58,11 +68,11 @@ public class CropFieldManagerActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
-        ((ArrayAdapter)soilCategorySpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)soilTypeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)watercourseSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)soilCategorySpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)soilTypeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)watercourseSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)unitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)layoutTypeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)layoutTypeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)statusSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
@@ -89,12 +99,12 @@ public class CropFieldManagerActivity extends AppCompatActivity {
 
             }
         };
-        soilCategorySpinner.setOnItemSelectedListener(onItemSelectedListener);
-        soilTypeSpinner.setOnItemSelectedListener(onItemSelectedListener);
-        watercourseSpinner.setOnItemSelectedListener(onItemSelectedListener);
+//        soilCategorySpinner.setOnItemSelectedListener(onItemSelectedListener);
+//        soilTypeSpinner.setOnItemSelectedListener(onItemSelectedListener);
+//        watercourseSpinner.setOnItemSelectedListener(onItemSelectedListener);
         unitsSpinner.setOnItemSelectedListener(onItemSelectedListener);
         statusSp.setOnItemSelectedListener(onItemSelectedListener);
-        layoutTypeSp.setOnItemSelectedListener(onItemSelectedListener);
+//        layoutTypeSp.setOnItemSelectedListener(onItemSelectedListener);
         typeSp.setOnItemSelectedListener(onItemSelectedListener);
 
         //DashboardActivity.selectSpinnerItemByValue(unitsSpinner,CropSettingsSingleton.getInstance().getAreaUnits());
@@ -126,10 +136,10 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         cropField = new CropField();
         cropField.setUserId(DashboardActivity.getPreferences("userId",this));
         cropField.setFieldName(fieldNameTxt.getText().toString());
-        cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
-        cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
-        cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
-        cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
+//        cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
+//        cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
+//        cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
+//        cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
         cropField.setFieldType( typeSp.getSelectedItem().toString());
         cropField.setStatus( statusSp.getSelectedItem().toString());
         cropField.setTotalArea(Float.parseFloat(totalAreaTxt.getText().toString()));

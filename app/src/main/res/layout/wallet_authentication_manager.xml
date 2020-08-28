@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".wallet.activities.WalletAuthActivity">
+    tools:context=".activities.wallet.WalletAuthActivity">
 
 
     <LinearLayout
@@ -30,7 +30,7 @@
                     android:visibility="gone"
                     android:gravity="center"
                     android:text="Please enter your PIN"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textColor="@color/textColor"
                     android:textStyle="bold"
                     android:textSize="20sp"
