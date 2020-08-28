@@ -149,7 +149,6 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
 
-        contactsLinearLayout =findViewById(R.id.layout_crop_dashboard_contacts);
         notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
         noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
         unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
@@ -331,11 +330,7 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 
         toggleVisibility(helpSubMenu);
     }
-    public void showHideFieldManager(View view){
-        LinearLayout fieldsSubMenu = findViewById(R.id.layout_crop_dashboard_field_submenus);
 
-        toggleVisibility(fieldsSubMenu);
-    }
     public void showHideCropManager(View view){
 
 

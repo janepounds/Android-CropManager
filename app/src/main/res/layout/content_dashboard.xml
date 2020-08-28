@@ -375,7 +375,7 @@
 
 
                             <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_crops"
+                                android:id="@+id/layout_dashboard_farmrecords"
                                 android:layout_width="match_parent"
                                 android:layout_height="108dp"
                                 android:layout_margin="10dp"
@@ -491,7 +491,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/layout_agronomy"
+                                android:id="@+id/layout_dashboard_agronomy"
                                 android:layout_width="match_parent"
                                 android:layout_height="108dp"
                                 android:layout_margin="10dp"

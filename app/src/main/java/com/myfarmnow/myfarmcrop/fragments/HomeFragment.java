@@ -37,6 +37,7 @@ import com.myfarmnow.myfarmcrop.activities.CropContactsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropRegisterActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTasksListActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
@@ -56,8 +57,8 @@ public class HomeFragment extends Fragment {
     LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
     Toolbar toolbar;
 
-    LinearLayout walletLinearLayout,fieldsLinearLayout, machinesLinearLayout,cropsLinearLayout,
-            incomeExpenseLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
+    LinearLayout walletLinearLayout,fieldsLinearLayout, farmrecordsLinearLayout,cropsLinearLayout,
+            agronomyLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName, textViewVersion;
 
@@ -106,13 +107,11 @@ public class HomeFragment extends Fragment {
         mainlayout = view.findViewById(R.id.mainlayout);
         walletLinearLayout =view.findViewById(R.id.layout_dashboard_wallet);
         fieldsLinearLayout =view.findViewById(R.id.layout_crop_dashboard_fields);
-        machinesLinearLayout =view.findViewById(R.id.layout_crop_dashboard_machines);
-        incomeExpenseLinearLayout =view.findViewById(R.id.layout_crop_dashboard_income_expense);
+        farmrecordsLinearLayout =view.findViewById(R.id.layout_dashboard_farmrecords);
+        agronomyLinearLayout =view.findViewById(R.id.layout_dashboard_agronomy);
         cropsLinearLayout =view.findViewById(R.id.layout_crop_dashboard_crops);
         tasksLinearLayout =view.findViewById(R.id.layout_crop_dashboard_tasks);
         weatherForecastLinearLayout =view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
-        contactsLinearLayout =view.findViewById(R.id.layout_crop_dashboard_contacts);
-       
 
         userProfileLayout = view.findViewById(R.id.layout_user_profile);
         textViewUserName = view.findViewById(R.id.text_view_crop_dashboard_name);
@@ -120,18 +119,6 @@ public class HomeFragment extends Fragment {
 //
 //        textViewVersion = view.findViewById(R.id.text_view_crop_dashboard_android_version);
 //        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
-
-        contactsSubMenu = view.findViewById(R.id.layout_crop_dashboard_contact_submenus);
-        helpSubMenu = view.findViewById(R.id.layout_crop_dashboard_help_submenus);
-        inventorySubMenu = view.findViewById(R.id.layout_crop_dashboard_inventory_submenus);
-        cropsSubMenu = view.findViewById(R.id.layout_crop_dashboard_crops_submenus);
-        financialsSubMenu = view.findViewById(R.id.layout_crop_dashboard_financial_submenus);
-        slesSubMenu = view.findViewById(R.id.layout_crop_dashboard_financial_sales_submenus);
-        purchasesSubMenu = view.findViewById(R.id.layout_crop_dashboard_financial_purchases_submenus);
-
-
-        digitalWalletLayout = view.findViewById(R.id.layout_crop_dashboard_digital_wallet);
-
 
 
         walletLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -151,13 +138,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openFields = new Intent(appContext, CropFieldsListActivity.class);
-//                startActivity(openFields);
-//            }
-//        });
+        farmrecordsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openFields = new Intent(appContext, FarmRecordsDashboardActivity.class);
+                startActivity(openFields);
+            }
+        });
+
+        agronomyLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openFields = new Intent(appContext, AgronomyDashboardActivity.class);
+                startActivity(openFields);
+            }
+        });
 
 
 
