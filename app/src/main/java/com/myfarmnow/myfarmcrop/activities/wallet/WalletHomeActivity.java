@@ -11,12 +11,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletTransactionsListFragment;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyMobile;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVisa;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVoucher;
 
 
 public class WalletHomeActivity extends AppCompatActivity {
+
+    public Fragment currentFragment;
+    public WalletHomeFragment homeFragment;
+    public WalletLoansListFragment loansListFragment;
+    public WalletTransactionsListFragment transactionsListFragment;
     public static FragmentManager fm;
 
     @Override
@@ -25,6 +32,10 @@ public class WalletHomeActivity extends AppCompatActivity {
         setContentView(R.layout.wallet_home);
 
         fm = getSupportFragmentManager();
+    }
+
+    public Fragment getCurrentFragment() {
+        return currentFragment;
     }
 
     public void openAddMobileMoney(View view) {
