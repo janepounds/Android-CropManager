@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallet_nav_graph"
+    app:startDestination="@id/walletHomeFragment">
+    <fragment
+        android:id="@+id/walletHomeFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment"
+        android:label="fragment_wallet_home"
+        tools:layout="@layout/fragment_wallet_home" >
+        <action
+            android:id="@+id/action_walletHomeFragment_to_walletTransactionsListFragment"
+            app:destination="@id/walletTransactionsListFragment" />
+        <action
+            android:id="@+id/action_walletHomeFragment_to_walletLoansListFragment"
+            app:destination="@id/walletLoansListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletTransactionsListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletTransactionsListFragment"
+        android:label="fragment_wallet_transactions_list"
+        tools:layout="@layout/fragment_wallet_transactions_list" />
+    <fragment
+        android:id="@+id/walletLoansListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment"
+        android:label="fragment_wallet_loans_list"
+        tools:layout="@layout/fragment_wallet_loans_list" />
+</navigation>

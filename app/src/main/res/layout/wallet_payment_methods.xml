@@ -18,7 +18,7 @@
             android:layout_height="50dp"
             android:text="Select"
             android:gravity="center"
-            android:theme="@style/HeaderTheme"></TextView>
+            android:theme="@style/HeaderTheme"/>
 
     </LinearLayout>
 

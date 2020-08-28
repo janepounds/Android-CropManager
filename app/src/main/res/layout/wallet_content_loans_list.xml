@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:id="@+id/parent_constraintLayout"
     android:layout_height="match_parent"
-    tools:context=".activities.wallet.WalletLoansListActivity"
-    tools:showIn="@layout/wallet_loans_list"
+    tools:context="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment"
+    tools:showIn="@layout/fragment_wallet_loans_list"
     android:background="@color/textColorPrimaryLight"
     android:padding="8dp" >
 

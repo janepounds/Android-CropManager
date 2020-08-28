@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 import com.loopj.android.http.AsyncHttpClient;
@@ -68,10 +69,11 @@ public class TransactionsList extends AppCompatActivity {
     private void actualStatementData() {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
+        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
 
         client.get(ApiPaths.WALLET_TRANSACTIONS_LIST, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
+
             @Override
             public void onStart() {
                 dialog = new ProgressDialog(TransactionsList.this);
@@ -85,31 +87,30 @@ public class TransactionsList extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
                 try {
-                    WalletTransaction data=null;
+                    WalletTransaction data = null;
                     JSONArray transactions = response.getJSONArray("transactions");
-                    for (int i=0; i<transactions.length();i++){
-                        JSONObject record =transactions.getJSONObject(i);
+                    for (int i = 0; i < transactions.length(); i++) {
+                        JSONObject record = transactions.getJSONObject(i);
                         //type
-                        if(record.getString("type").equals("Charge")){
-                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"),"debit",record.getDouble("amount"),record.getString("referenceNumber"));
-                        }else if(record.getString("type").equals("FoodPurchase")){
-                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"),"debit",record.getDouble("amount"),record.getString("referenceNumber"));
+                        if (record.getString("type").equals("Charge")) {
+                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
+                        } else if (record.getString("type").equals("FoodPurchase")) {
+                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
                             data.setIsPurchase(true);
-                        }else if(record.getString("type").equals("Deposit")){
-                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"),"credit",record.getDouble("amount"),record.getString("referenceNumber"));
-                        }else  if(record.getString("type").equals("Transfer")){
-                            String userName = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, TransactionsList.this)+" "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, TransactionsList.this);
+                        } else if (record.getString("type").equals("Deposit")) {
+                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
+                        } else if (record.getString("type").equals("Transfer")) {
+                            String userName = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, TransactionsList.this) + " " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, TransactionsList.this);
 
-                            if(userName.equals(record.getString("sender"))){
-                                data = new WalletTransaction(record.getString("date"), record.getString("receiver"),"debit",record.getDouble("amount"),record.getString("referenceNumber"));
-                            }else{
-                                data = new WalletTransaction(record.getString("date"), record.getString("sender"),"credit",record.getDouble("amount"),record.getString("referenceNumber"));
+                            if (userName.equals(record.getString("sender"))) {
+                                data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
+                            } else {
+                                data = new WalletTransaction(record.getString("date"), record.getString("sender"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
                             }
+                        } else if (record.getString("type").equals("Withdraw")) {
+                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
                         }
-                        else  if(record.getString("type").equals("Withdraw")){
-                            data = new WalletTransaction(record.getString("date"), record.getString("receiver"),"debit",record.getDouble("amount"),record.getString("referenceNumber"));
-                        }
-                        if(data != null){
+                        if (data != null) {
                             dataList.add(data);
                         }
                     }
@@ -124,7 +125,7 @@ public class TransactionsList extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if(statusCode==401){
+                if (statusCode == 401) {
                     WalletAuthActivity.startAuth(TransactionsList.this, true);
                 }
                 if (errorResponse != null) {
@@ -138,9 +139,9 @@ public class TransactionsList extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                 if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
                 } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
+                    Log.e("info : " + statusCode, "Something got very very wrong");
                 }
 
                 WalletAuthActivity.startAuth(TransactionsList.this, true);
