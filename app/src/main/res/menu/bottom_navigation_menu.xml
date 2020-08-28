@@ -9,13 +9,13 @@
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/home"
+        android:icon="@drawable/offers"
         android:title="@string/text_label_2"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/page_3"
         android:enabled="true"
-        android:icon="@drawable/setting"
+        android:icon="@drawable/account"
         android:title="@string/text_label_3"
         app:showAsAction="ifRoom" />
 </menu>

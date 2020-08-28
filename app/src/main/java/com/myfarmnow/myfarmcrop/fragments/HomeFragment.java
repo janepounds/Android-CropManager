@@ -61,12 +61,9 @@ public class HomeFragment extends Fragment {
 
     TextView textViewUserEmail, textViewUserName, textViewVersion;
 
-    private BottomNavigationView bottomNavigationView;
     TextView unreadNotificationsTextView;
 
-    public static DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    ImageView imgdrawer, noticationsImageBtn;
+    ImageView  noticationsImageBtn;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
     private TabLayout notificationsTabLayout;
@@ -120,9 +117,9 @@ public class HomeFragment extends Fragment {
         userProfileLayout = view.findViewById(R.id.layout_user_profile);
         textViewUserName = view.findViewById(R.id.text_view_crop_dashboard_name);
         textViewUserEmail = view.findViewById(R.id.text_view_crop_dashboard_email);
-
-        textViewVersion = view.findViewById(R.id.text_view_crop_dashboard_android_version);
-        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
+//
+//        textViewVersion = view.findViewById(R.id.text_view_crop_dashboard_android_version);
+//        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
 
         contactsSubMenu = view.findViewById(R.id.layout_crop_dashboard_contact_submenus);
         helpSubMenu = view.findViewById(R.id.layout_crop_dashboard_help_submenus);
@@ -161,61 +158,41 @@ public class HomeFragment extends Fragment {
 //                startActivity(openFields);
 //            }
 //        });
-        machinesLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent openMachines = new Intent(appContext, CropMachinesListActivity.class);
-                //startActivity(openMachines);
-            }
-        });
-        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openCrops = new Intent(appContext, FarmRecordsDashboardActivity.class);
-                startActivity(openCrops);
-            }
-        });
-        incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(appContext, CropIncomeExpensesListActivity.class);
-                startActivity(openIncomeExpense);
-            }
-        });
-        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openTasks = new Intent(appContext, CropTasksListActivity.class);
-                startActivity(openTasks);
-            }
-        });
-        contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openContacts = new Intent(appContext, CropContactsListActivity.class);
-                startActivity(openContacts);
-            }
-        });
 
-        textViewUserName.setText(DashboardActivity.getPreferences("firstname", appContext) + " " + DashboardActivity.getPreferences("lastname", appContext));
-        textViewUserEmail.setText(DashboardActivity.getPreferences("email", appContext));
 
-        userProfileLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editUser = new Intent(appContext, CropRegisterActivity.class);
-                editUser.putExtra("editUser", "yes");
-                startActivity(editUser);
-            }
-        });
+
+//        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openTasks = new Intent(appContext, CropTasksListActivity.class);
+//                startActivity(openTasks);
+//            }
+//        });
+//        contactsLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openContacts = new Intent(appContext, CropContactsListActivity.class);
+//                startActivity(openContacts);
+//            }
+//        });
+
+//        textViewUserName.setText(DashboardActivity.getPreferences("firstname", appContext) + " " + DashboardActivity.getPreferences("lastname", appContext));
+//        textViewUserEmail.setText(DashboardActivity.getPreferences("email", appContext));
+//
+//        userProfileLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent editUser = new Intent(appContext, CropRegisterActivity.class);
+//                editUser.putExtra("editUser", "yes");
+//                startActivity(editUser);
+//            }
+//        });
 
 //        //relavant for general version but this update is available for UG
 //        if (DashboardActivity.getPreferences(DashboardActivity.COUNTRY_PREFERENCES_ID, appContext).toLowerCase().equals("uganda")) {
 //            //digitalWalletLayout.setVisibility(View.VISIBLE);
 //        }
 
-        mDrawerLayout = view.findViewById(R.id.drawer_layout);
-        //expandableListView = findViewById(R.id.drawer_menu_list);
 
         notificationsFrameLayout =view.findViewById(R.id.frame_layout_notifications);
         noticationsImageBtn =view.findViewById(R.id.img_crop_dashboard_notifications);
@@ -244,30 +221,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        mDrawerToggle = new ActionBarDrawerToggle( (AppCompatActivity) appContext, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name) {
-            public void onDrawerClosed(View view) {
-                getActivity().supportInvalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getActivity().supportInvalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                mainlayout.setTranslationX(slideOffset * drawerView.getWidth());
-                mDrawerLayout.bringChildToFront(drawerView);
-                mDrawerLayout.requestLayout();
-            }
-        };
-        imgdrawer = view.findViewById(R.id.imgdrawer);
-        imgdrawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
 
 
 

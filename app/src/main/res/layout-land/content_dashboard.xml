@@ -1062,7 +1062,7 @@
                                     android:layout_height="30dp"
                                     android:gravity="center_vertical"
                                     android:padding="8dp"
-                                    android:src="@drawable/income_expense_dashboard"
+                                    android:src="@drawable/financial_record_dashboard"
                                     android:visibility="visible" />
 
                                 <TextView

@@ -1750,5 +1750,20 @@
     <string name="forgot_title">Enter the email address you used to create your account and we will email you a link to reset your password</string>
     <string name="submit">Submit</string>
     <string name="label_wallet">Wallet</string>
+    <string name="label_marketplace">Market Place</string>
+    <string name="label_services">Services</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="visibility">Visibility</string>
+    <string name="rain">Rain</string>
+    <string name="humidity_default">48% Max</string>
+    <string name="rain_default">No</string>
+    <string name="visibility_default">25Km</string>
+    <string name="wind_default">12m/h</string>
+    <string name="humidity_default2">30.9% Min</string>
+    <string name="day">Wednesday</string>
+    <string name="temp_max">32.6&#xb0;C Max</string>
+    <string name="temp_min">16.8&#xb0;C Min</string>
+    <string name="deg">&#xb0;</string>
 
 </resources>

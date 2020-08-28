@@ -21,6 +21,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/gray"
         app:labelVisibilityMode="auto"
+        app:itemIconTint="@color/transparent"
         app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>
