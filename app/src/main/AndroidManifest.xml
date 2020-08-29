@@ -185,6 +185,10 @@
             android:name=".activities.predictiontools.PredictionToolsDashboardActivity"
             android:label="@string/title_predictiontools"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.services.ServicesDashboardActivity"
+            android:label="@string/title_service"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activities.farmrecords.CropFieldManagerActivity"

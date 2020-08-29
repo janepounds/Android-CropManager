@@ -1771,5 +1771,8 @@
     <string name="label_yeild_estimation">Yeild Estimation</string>
     <string name="label_nutrient_loss">Nutrient Loss</string>
     <string name="label_fertilizer_composition">Fertilizer Composition</string>
+    <string name="title_service">Agriculture Service</string>
+    <string name="label_soll_testing">Soil Testing</string>
+    <string name="label_eqipment">Equipment</string>
 
 </resources>

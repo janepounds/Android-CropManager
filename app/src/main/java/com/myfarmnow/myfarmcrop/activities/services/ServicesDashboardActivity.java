@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities.agronomy;
+package com.myfarmnow.myfarmcrop.activities.services;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -20,22 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInventoryListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropProductsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -44,7 +29,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 
-public class AgronomyDashboardActivity extends AppCompatActivity {
+public class ServicesDashboardActivity extends AppCompatActivity {
 
 
     ImageView noticationsImageBtn;
@@ -62,7 +47,7 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agronomy_dashboard);
+        setContentView(R.layout.activity_service_dashboard);
         toolbar=  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -98,14 +83,6 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
         textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
 
-
-        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openInventory = new Intent(AgronomyDashboardActivity.this, CropInventoryListActivity.class);
-                startActivity(openInventory);
-            }
-        });
 //       to be called in "crop records"
 //        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override

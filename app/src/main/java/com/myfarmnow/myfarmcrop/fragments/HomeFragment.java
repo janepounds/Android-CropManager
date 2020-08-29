@@ -41,6 +41,7 @@ import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.PredictionToolsDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.services.ServicesDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
     Toolbar toolbar;
 
     LinearLayout walletLinearLayout,fieldsLinearLayout, farmrecordsLinearLayout,predictiontoolsLinearLayout,
-            agronomyLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
+            agronomyLinearLayout, servicesLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName, textViewVersion;
 
@@ -112,6 +113,8 @@ public class HomeFragment extends Fragment {
         agronomyLinearLayout =view.findViewById(R.id.layout_dashboard_agronomy);
         predictiontoolsLinearLayout =view.findViewById(R.id.layout_predictiontools_dashboard);
         tasksLinearLayout =view.findViewById(R.id.layout_crop_dashboard_tasks);
+        servicesLinearLayout =view.findViewById(R.id.layout_dashboard_service);
+
         weatherForecastLinearLayout =view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
 
         userProfileLayout = view.findViewById(R.id.layout_user_profile);
@@ -159,6 +162,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent openFields = new Intent(appContext, PredictionToolsDashboardActivity.class);
+                startActivity(openFields);
+            }
+        });
+        servicesLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openFields = new Intent(appContext, ServicesDashboardActivity.class);
                 startActivity(openFields);
             }
         });
