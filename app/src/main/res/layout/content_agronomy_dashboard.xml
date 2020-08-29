@@ -20,7 +20,7 @@
             android:id="@+id/mainView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#344834"
+            android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
@@ -109,7 +109,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="20dp"
-                                android:src="@drawable/crops"
+                                android:src="@drawable/ic_crop_records"
                                 android:layout_gravity="center"/>
 
                             <TextView
@@ -154,7 +154,7 @@
                                 android:layout_width="160dp"
                                 android:layout_height="90dp"
                                 android:padding="20dp"
-                                android:src="@drawable/inventory"
+                                android:src="@drawable/ic_livestock"
                                 android:layout_gravity="center"/>
 
                             <TextView
@@ -197,7 +197,7 @@
                                 android:layout_width="160dp"
                                 android:layout_height="90dp"
                                 android:padding="20dp"
-                                android:src="@drawable/inventory"
+                                android:src="@drawable/ic_baseline_call_24"
                                 android:layout_gravity="center"/>
 
                             <TextView
