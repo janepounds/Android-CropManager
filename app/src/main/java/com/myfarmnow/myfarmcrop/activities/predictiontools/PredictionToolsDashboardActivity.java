@@ -57,7 +57,7 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farm_records_dashboard);
+        setContentView(R.layout.activity_predictiontools_dashboard);
         toolbar=  findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
