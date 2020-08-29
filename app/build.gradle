@@ -19,6 +19,11 @@ android {
         buildConfigField("String", "PUBLIC_KEY", apikeyProperties['PUBLIC_KEY'])
         buildConfigField("String", "ENCRYPTION_KEY", apikeyProperties['ENCRYPTION_KEY'])
     }
+
+    buildFeatures {
+        dataBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -34,11 +39,11 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-
 }
 
 dependencies {

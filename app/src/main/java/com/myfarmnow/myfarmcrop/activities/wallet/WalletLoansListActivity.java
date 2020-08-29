@@ -62,7 +62,7 @@ public class WalletLoansListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         statementRecyclerView = findViewById(R.id.loans_list_recycler_view);
-        applyloanBtn= findViewById(R.id.wallet_appyly_loan_btn);
+        applyloanBtn= findViewById(R.id.wallet_apply_loan_btn);
         payloanBtn= findViewById(R.id.wallet_pay_loan_btn);
         payloanBtn.setVisibility(View.GONE);
         layoutManager = new LinearLayoutManager(this);

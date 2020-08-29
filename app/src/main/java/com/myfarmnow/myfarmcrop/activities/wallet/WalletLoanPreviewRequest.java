@@ -55,8 +55,6 @@ public class WalletLoanPreviewRequest extends AppCompatActivity {
 
     }
 
-
-
     public void initializeActivity(){
         dialog = new ProgressDialog(this);
         dialog.setIndeterminate(true);
@@ -166,5 +164,4 @@ public class WalletLoanPreviewRequest extends AppCompatActivity {
 
         });
     }
-
 }
