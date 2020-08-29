@@ -67,13 +67,13 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         }
         holder.cropNameTxtView.setText(curCrop.getName());
         holder.cropFieldTextView.setText(curCrop.getFieldName());
-        holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
-        holder.cropAge.setText("(" + curCrop.computeAge() + ")");
+//        holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
+//        holder.cropAge.setText("(" + curCrop.computeAge() + ")");
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
-        holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
-        holder.rateTextView.setText(curCrop.computeRateR() + " "+ seedUnits+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
-        holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
+//        holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
+//        holder.rateTextView.setText(curCrop.computeRateR() + " "+ seedUnits+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
+//        holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
 
     }
