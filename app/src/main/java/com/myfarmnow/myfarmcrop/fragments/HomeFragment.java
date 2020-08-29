@@ -40,6 +40,7 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.PredictionToolsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
     LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
     Toolbar toolbar;
 
-    LinearLayout walletLinearLayout,fieldsLinearLayout, farmrecordsLinearLayout,cropsLinearLayout,
+    LinearLayout walletLinearLayout,fieldsLinearLayout, farmrecordsLinearLayout,predictiontoolsLinearLayout,
             agronomyLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName, textViewVersion;
@@ -109,7 +110,7 @@ public class HomeFragment extends Fragment {
         fieldsLinearLayout =view.findViewById(R.id.layout_crop_dashboard_fields);
         farmrecordsLinearLayout =view.findViewById(R.id.layout_dashboard_farmrecords);
         agronomyLinearLayout =view.findViewById(R.id.layout_dashboard_agronomy);
-        cropsLinearLayout =view.findViewById(R.id.layout_crop_dashboard_crops);
+        predictiontoolsLinearLayout =view.findViewById(R.id.layout_predictiontools_dashboard);
         tasksLinearLayout =view.findViewById(R.id.layout_crop_dashboard_tasks);
         weatherForecastLinearLayout =view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
 
@@ -150,6 +151,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent openFields = new Intent(appContext, AgronomyDashboardActivity.class);
+                startActivity(openFields);
+            }
+        });
+
+        predictiontoolsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openFields = new Intent(appContext, PredictionToolsDashboardActivity.class);
                 startActivity(openFields);
             }
         });

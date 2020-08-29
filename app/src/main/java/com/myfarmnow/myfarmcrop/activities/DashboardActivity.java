@@ -258,6 +258,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
         ed_.setInputType(InputType.TYPE_NULL);
     }
+
     public void getAppToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {

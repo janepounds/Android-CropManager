@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.agronomy.AgronomyDashboardActivity"
-    tools:showIn="@layout/activity_predictiontools_dashboard">
+    tools:context=".activities.farmrecords.FarmRecordsDashboardActivity"
+    tools:showIn="@layout/activity_farm_records_dashboard">
 
 
     <RelativeLayout
@@ -33,26 +33,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imgback"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_alignParentLeft="true"-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:layout_marginEnd="15dp"-->
-<!--                        android:padding="5dp"-->
-<!--                        android:src="@drawable/arrow_back_icon" />-->
 
                     <TextView
                         android:id="@+id/tvtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/title_agronomy"
+                        android:text="@string/title_predictiontools"
                         android:textColor="#fff"
                         android:textSize="18dp" />
-
-
 
 
 
@@ -79,18 +68,16 @@
                     android:layout_alignParentTop="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_15"
                     android:orientation="vertical">
-
-
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/background_round_white"
                         android:clipToPadding="false"
                         android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:background="@drawable/background_round_white">
+                        android:paddingBottom="10dp">
 
 
                         <LinearLayout
@@ -108,9 +95,9 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:padding="20dp"
-                                android:src="@drawable/ic_crop_records"
-                                android:layout_gravity="center"/>
+                                android:src="@drawable/ic_revenue" />
 
                             <TextView
                                 android:id="@+id/tv_matings"
@@ -119,11 +106,10 @@
                                 android:layout_gravity="top"
                                 android:gravity="center"
                                 android:paddingBottom="5dp"
-                                android:text="@string/label_crops"
+                                android:text="@string/label_revenueestimation"
                                 android:textAllCaps="true"
                                 android:textColor="#000000"
                                 android:textStyle="bold" />
-
 
 
                         </LinearLayout>
@@ -135,7 +121,7 @@
                         android:clipToPadding="false"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_15"
                         android:background="@drawable/background_round_white">
 
                         <LinearLayout
@@ -146,7 +132,6 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-
                             android:orientation="vertical"
                             android:paddingBottom="5dp">
 
@@ -154,7 +139,7 @@
                                 android:layout_width="160dp"
                                 android:layout_height="90dp"
                                 android:padding="20dp"
-                                android:src="@drawable/ic_livestock"
+                                android:src="@drawable/ic_yield"
                                 android:layout_gravity="center"/>
 
                             <TextView
@@ -164,8 +149,7 @@
                                 android:layout_gravity="top"
                                 android:gravity="center"
                                 android:paddingBottom="5dp"
-
-                                android:text="@string/label_livestock"
+                                android:text="@string/label_yeild_estimation"
                                 android:textAllCaps="true"
                                 android:textColor="#000"
                                 android:textStyle="bold" />
@@ -181,7 +165,7 @@
                         android:clipToPadding="false"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_15"
                         android:background="@drawable/background_round_white">
 
                         <LinearLayout
@@ -197,7 +181,7 @@
                                 android:layout_width="160dp"
                                 android:layout_height="90dp"
                                 android:padding="20dp"
-                                android:src="@drawable/ic_baseline_call_24"
+                                android:src="@drawable/ic_nutrients"
                                 android:layout_gravity="center"/>
 
                             <TextView
@@ -206,7 +190,7 @@
                                 android:layout_gravity="top"
                                 android:gravity="center"
                                 android:paddingBottom="5dp"
-                                android:text="@string/label_ask_agronomist"
+                                android:text="@string/label_nutrient_loss"
                                 android:textAllCaps="true"
                                 android:textColor="#000"
                                 android:textStyle="bold" />
@@ -215,8 +199,46 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:background="@drawable/background_round_white">
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_financial_records"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
 
 
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="90dp"
+                                android:padding="20dp"
+                                android:src="@drawable/ic_fertilizer" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="@string/label_fertilizer_composition"
+                                android:textAllCaps="true"
+                                android:textColor="#000"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
 
                 </LinearLayout>

@@ -35,8 +35,6 @@ import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
@@ -65,7 +63,7 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agronomy_dashboard);
+        setContentView(R.layout.activity_predictiontools_dashboard);
         toolbar=  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
