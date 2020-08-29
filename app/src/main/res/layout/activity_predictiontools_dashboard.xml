@@ -7,6 +7,6 @@
     tools:context=".activities.farmrecords.FarmRecordsDashboardActivity">
 
 
-    <include layout="@layout/content_farm_records_dashboard" />
+    <include layout="@layout/content_predictiontools_dashboard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

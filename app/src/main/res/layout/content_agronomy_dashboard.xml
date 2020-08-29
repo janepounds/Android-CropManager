@@ -7,7 +7,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.agronomy.AgronomyDashboardActivity"
-    tools:showIn="@layout/activity_agronomy_dashboard">
+    tools:showIn="@layout/activity_predictiontools_dashboard">
 
 
     <RelativeLayout
