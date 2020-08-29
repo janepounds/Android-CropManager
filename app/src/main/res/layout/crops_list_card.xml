@@ -55,10 +55,12 @@
                                     android:layout_height="wrap_content"
                                     style="@style/CropButton"
                                     android:text="Activities"
-                                    android:textAllCaps="false"
+                                    android:textAllCaps="true"
                                     android:layout_weight="1"
                                     android:layout_marginStart="15dp"
-                                    android:layout_marginEnd="10dp"/>
+                                    android:layout_marginEnd="10dp"
+                                    android:textColor="@color/white"
+                                    android:background="@color/colorPrimary"/>
                                 <Button
                                     android:id="@+id/btn_crop_notes"
                                     android:layout_width="wrap_content"
@@ -67,37 +69,33 @@
                                     style="@style/CropButton"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginEnd="10dp"
-                                    android:textAllCaps="false"
-                                    android:layout_weight="1"/>
+                                    android:textAllCaps="true"
+                                    android:layout_weight="1"
+                                    android:background="@color/black"
+                                    android:textColor="@color/white"/>
                                 <Button
                                     android:id="@+id/btn_crop_gallery"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Gallery"
-                                    android:textAllCaps="false"
+                                    android:textAllCaps="true"
                                     android:layout_marginStart="10dp"
                                     style="@style/CropButton"
-                                    android:layout_weight="1"/>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="3dp"
-                                    android:layout_marginRight="2dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/white"
+                                    android:background="@color/colorPrimary"/>
 
-                                    android:gravity="end"
-                                    android:layout_weight="0.9"
-                                    >
                                     <ImageView
                                         android:id="@+id/img_crop_card_more"
-                                        android:layout_width="25dp"
-                                        android:layout_height="25dp"
-                                        android:textColor="@color/darker_gray"
-                                        app:srcCompat="@drawable/more_options_icon" />
-
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="#000"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1"
+                                        android:src="@drawable/ic_baseline_more_vert" />
 
                                 </LinearLayout>
+
                             </LinearLayout>
 
 
@@ -136,7 +134,7 @@
                                     <TextView
                                         android:id="@+id/txt_crop_card_name"
                                         android:textSize="15dp"
-                                        android:textColor="#000000"
+                                        android:textColor="@color/colorPrimary"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textStyle="bold"
@@ -150,7 +148,7 @@
                                         android:layout_weight="1"
                                         android:textStyle="bold"
                                         android:text="(Asla Fg)"
-                                        android:textColor="#000"
+                                        android:textColor="@color/colorPrimary"
                                         android:textSize="15dp" />
 
 
@@ -168,7 +166,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Field "
                                         android:layout_weight="1"
-                                        android:textColor="#000"
+                                        android:textColor="@color/colorPrimary"
                                         android:textSize="15sp" />
 
                                     <TextView
@@ -177,7 +175,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:text="Field 1"
-                                        android:textColor="#899889"
+                                        android:textColor="#000"
                                         android:textSize="15sp" />
 
 
@@ -200,8 +198,8 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Date Sown "
-                                            android:textColor="#000"
+                                            android:text="Planting Date "
+                                            android:textColor="@color/colorPrimary"
 
                                             android:textSize="15sp" />
                                         <LinearLayout
@@ -216,13 +214,13 @@
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:text="25/12/2020"
-                                            android:textColor="#899889"
+                                            android:textColor="#000"
                                             android:textSize="15sp" />
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_age"
                                             android:textSize="15sp"
-                                            android:textColor="#899889"
+                                            android:textColor="#000"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="4m 20d"
@@ -248,10 +246,10 @@
 
                                         <TextView
                                             android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="Cropping Year "
-                                            android:textColor="#000"
+                                            android:layout_height="match_parent"
                                             android:layout_weight="1"
+                                            android:text="Harvest Date "
+                                            android:textColor="@color/colorPrimary"
 
                                             android:textSize="15sp" />
 
@@ -269,14 +267,14 @@
 
                                                 android:layout_weight="0.7"
                                                 android:text="2019"
-                                                android:textColor="#899889"
+                                                android:textColor="#000"
                                                 android:textSize="15sp" />
 
                                         <TextView
                                             android:id="@+id/txt_crop_card_season"
                                             android:textSize="15sp"
 
-                                            android:textColor="#899889"
+                                            android:textColor="#000"
                                             android:layout_weight="0.2"
 
                                             android:layout_width="match_parent"
@@ -289,69 +287,6 @@
 
                                 </LinearLayout>
 
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="6dp"
-                                        android:layout_marginBottom="2dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="Rate "
-                                            android:textColor="#000"
-                                            android:layout_weight="1"
-                                            android:textSize="15sp" />
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:layout_weight="1"
-                                            >
-                                        <TextView
-                                            android:id="@+id/txt_crop_card_rate"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="2.5"
-                                            android:textColor="#899889"
-                                            android:textSize="15sp" />
-
-                                        </LinearLayout>
-
-                                    </LinearLayout>
-
-
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="2dp"
-                                        android:layout_marginStart="6dp"
-
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="Planting Method "
-                                            android:layout_weight="1"
-                                            android:textColor="#000"
-                                            android:textSize="15sp" />
-
-                                        <TextView
-                                            android:id="@+id/txt_crop_card_planting_method"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="Drill Sow"
-                                            android:textColor="#899889"
-                                             android:textSize="15sp"
-                                            />
-
-
-                                    </LinearLayout>
 
 
                                 <LinearLayout
@@ -367,7 +302,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:text="Estimated Revenue "
-                                        android:textColor="#000"
+                                        android:textColor="@color/colorPrimary"
                                         android:textSize="15sp" />
 
                                     <TextView
@@ -376,7 +311,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:text="UGX 50,000 /Box"
-                                        android:textColor="#899889"
+                                        android:textColor="#000"
                                          android:textSize="15sp"
                                         />
 
