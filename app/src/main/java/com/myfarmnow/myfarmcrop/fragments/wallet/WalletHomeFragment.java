@@ -50,7 +50,7 @@ import java.text.NumberFormat;
 
 import cz.msebera.android.httpclient.Header;
 
-public class WalletHomeFragment extends Fragment implements View.OnClickListener {
+public class WalletHomeFragment extends Fragment  {
     private static final String TAG = "WalletHomeFragment";
     private Context context;
 
@@ -98,19 +98,6 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        walletTransactions = view.findViewById(R.id.wallet_transactions);
-        walletLoans = view.findViewById(R.id.wallet_loans);
-        walletDeposit = view.findViewById(R.id.wallet_deposit);
-        walletTransfer = view.findViewById(R.id.wallet_transfer);
-        walletCoupons = view.findViewById(R.id.wallet_coupons);
-        walletBuy = view.findViewById(R.id.wallet_buy);
-
-        btnWalletTransactions = view.findViewById(R.id.btn_wallet_transactions);
-        btnWalletLoans = view.findViewById(R.id.btn_wallet_loans);
-        btnWalletDeposit = view.findViewById(R.id.btn_wallet_deposit);
-        btnWalletTransfer = view.findViewById(R.id.btn_wallet_transfer);
-        btnWalletCoupons = view.findViewById(R.id.btn_wallet_coupons);
-        btnWalletBuy = view.findViewById(R.id.btn_wallet_buy);
 
         fm = getActivity().getSupportFragmentManager();
         balanceTextView = view.findViewById(R.id.crop_digital_wallet_amount);
@@ -134,19 +121,7 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        walletTransactions.setOnClickListener(this);
-        walletLoans.setOnClickListener(this);
-        walletDeposit.setOnClickListener(this);
-        walletTransfer.setOnClickListener(this);
-        walletCoupons.setOnClickListener(this);
-        walletBuy.setOnClickListener(this);
 
-        btnWalletTransactions.setOnClickListener(this);
-        btnWalletLoans.setOnClickListener(this);
-        btnWalletDeposit.setOnClickListener(this);
-        btnWalletTransfer.setOnClickListener(this);
-        btnWalletCoupons.setOnClickListener(this);
-        btnWalletBuy.setOnClickListener(this);
     }
 
     @Override
@@ -155,38 +130,7 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
         this.context = context;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.wallet_transactions:
-            case R.id.btn_wallet_transactions:
-                navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment);
-                break;
-            case R.id.wallet_loans:
-            case R.id.btn_wallet_loans:
-                navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment);
-                break;
-            case R.id.wallet_deposit:
-            case R.id.btn_wallet_deposit:
-                openAddMoney();
-                break;
-            case R.id.wallet_transfer:
-            case R.id.btn_wallet_transfer:
-                openTransfer();
-                break;
-            case R.id.wallet_coupons:
-            case R.id.btn_wallet_coupons:
-                comingSoon();
-                break;
-            case R.id.wallet_buy:
-            case R.id.btn_wallet_buy:
-                openBuy();
-                break;
-            default:
-                Toast.makeText(context, "Default", Toast.LENGTH_SHORT).show();
-        }
 
-    }
 
     private String ucf(String str) {
         if(str==null || str.length()<2 )

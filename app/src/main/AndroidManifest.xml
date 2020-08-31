@@ -277,11 +277,11 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
@@ -393,46 +393,20 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Wallet plugin activities-->
-        <activity
-            android:name=".activities.wallet.TransactionsList"
-            android:label="@string/title_activity_transactions"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".activities.wallet.LoanStatusPreviewActivity"
-            android:label="@string/title_activity_loan_status_preview"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.wallet.WalletLoansListActivity"
-            android:label="@string/title_activity_wallet_loans_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.wallet.WalletLoanAppPhotos"
-            android:label="@string/title_activity_wallet_loan_app_photos"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.wallet.WalletLoanPreviewRequest"
-            android:label="@string/title_activity_wallet_loan_preview_request"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.wallet.WalletLoanAppInitiateActivity"
-            android:label="@string/title_activity_wallet_loan_app_add_amount"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
         <activity
             android:name=".activities.wallet.WalletHomeActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />
+        <activity
+            android:name=".activities.wallet.LoanStatusPreviewActivity"
+            android:label="@string/title_activity_loan_status_preview" />
 
         <service
             android:name=".services.CropNotificationsCreatorService"

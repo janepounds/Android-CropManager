@@ -2,7 +2,6 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -28,8 +27,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanAppInitiateActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoansListActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
@@ -74,7 +71,6 @@ public class WalletLoansListFragment extends Fragment {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         statementRecyclerView = view.findViewById(R.id.loans_list_recycler_view);
-        applyLoanBtn = view.findViewById(R.id.wallet_appyly_loan_btn);
         payLoanBtn = view.findViewById(R.id.wallet_pay_loan_btn);
         payLoanBtn.setVisibility(View.GONE);
         layoutManager = new LinearLayoutManager(context);
@@ -169,10 +165,10 @@ public class WalletLoansListFragment extends Fragment {
     }
 
     public void newLoanApplication(View v) {
-        Intent openW = new Intent(context, WalletLoanAppInitiateActivity.class);
-        openW.putExtra("interest", interest);
-        //interest
-        startActivity(openW);
+//        Intent openW = new Intent(context, WalletLoanAppInitiateActivity.class);
+//        openW.putExtra("interest", interest);
+////        //interest
+//        startActivity(openW);
     }
 
     public void payLoan(View v) {

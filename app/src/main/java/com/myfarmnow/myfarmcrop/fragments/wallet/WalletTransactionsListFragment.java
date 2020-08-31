@@ -21,7 +21,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.wallet.TransactionsList;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;

@@ -99,25 +99,24 @@
 
                     <TextView
                         android:id="@+id/wallet_username"
-                        android:layout_width="0dp"
                         android:layout_height="@dimen/dimen_20dp"
                         android:layout_weight="6"
                         android:paddingLeft="20dp"
                         android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/white"
                         android:text="Mutesasira Jovan"
-                        android:textColor="@color/white"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"
+                        android:layout_width="0dp" />
 
                     <TextView
                         android:id="@+id/expiry_date"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dimen_20dp"
+                        android:layout_weight="6"
                         android:layout_marginLeft="@dimen/dimen_30dp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/josefin_sans"
                         android:text="10/22"
-                        android:textColor="@color/white"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -518,8 +517,5 @@
        </LinearLayout>
 
    </ScrollView>
-
-    </ScrollView>
-
 
 </RelativeLayout>

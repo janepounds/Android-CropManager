@@ -145,14 +145,6 @@ public class LoanStatusPreviewActivity extends AppCompatActivity {
             }
         });
 
-//        if(!loanApplication.isApproved()){
-//            loanApplication.setInterestRate(8);
-//            interestRateTxt.setText(loanApplication.getInterestRate()+"%");
-//            dueAmountTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.computeDueAmount()));
-//            for(View view:getViewsByTag((ViewGroup) findViewById(R.id.text_view_loan_status_layout),"approved")){
-//                view.setVisibility(View.GONE);
-//            }
-//        }
 
             interestRateTxt.setText(loanApplication.getInterestRate()+"%");
             interestRateTxt.setText(loanApplication.getInterestRate()+"%");

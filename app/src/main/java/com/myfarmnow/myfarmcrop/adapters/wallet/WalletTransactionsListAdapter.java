@@ -25,7 +25,7 @@ import java.util.TimeZone;
 
 public class WalletTransactionsListAdapter  extends RecyclerView.Adapter<WalletTransactionsListAdapter.MyViewHolder> {
      private List<WalletTransaction> dataList;
-    LayoutInflater layoutInflater;
+
     private FragmentManager fm;
 
     public  class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
