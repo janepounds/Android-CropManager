@@ -5,10 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropInventorySeedsManagerActivity"
-    tools:showIn="@layout/activity_crop_inventory_seeds_manager">
+    android:padding="4dp">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -378,9 +376,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableTint="#ffffff"
-                android:text="Save "
-                android:textAllCaps="false"
-                android:textColor="#ffffff" />
+                android:text="Submit "
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:background="@drawable/rounded_corners_button"/>
 
         </LinearLayout>
 

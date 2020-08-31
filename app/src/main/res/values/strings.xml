@@ -56,7 +56,7 @@
         <item>m3</item>
     </string-array>
     <string-array name="crop_spray_usage_units">
-        <item>Select unit</item>
+        <item>Units</item>
         <item>ml</item>
         <item>cwt</item>
         <item>flo3</item>
@@ -192,7 +192,7 @@
         <item>Other</item>
     </string-array>
     <string-array name="crop_spray_type">
-        <item>Select Type</item>
+        <item>Spray Type</item>
         <item>Pesticide</item>
         <item>Herbicide</item>
         <item>Insecticide</item>

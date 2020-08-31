@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropInventoryFertilizerManagerActivity"
-    tools:showIn="@layout/activity_crop_inventory_fertilizer_manager">
+    android:padding="8dp">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -603,8 +601,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableTint="#ffffff"
-                android:text="Save"
-                android:textColor="#ffffff" />
+                android:text="Submit"
+                android:textColor="#ffffff"
+                android:textAllCaps="true"
+                android:background="@drawable/rounded_corners_button"/>
         </LinearLayout>
     </ScrollView>
 
