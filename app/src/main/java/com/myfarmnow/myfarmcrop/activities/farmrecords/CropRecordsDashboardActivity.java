@@ -20,21 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropProductsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
-import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
-import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -47,15 +32,12 @@ public class CropRecordsDashboardActivity extends AppCompatActivity {
 
 
     ImageView noticationsImageBtn;
-    LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu;
     Toolbar toolbar;
-
 
     LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,layoutFields,
             incomeExpenseLinearLayout, tasksLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
-
+    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView;
 
     FrameLayout notificationsFrameLayout;
 
@@ -161,151 +143,11 @@ public class CropRecordsDashboardActivity extends AppCompatActivity {
     }
 
 
-    public void openSettings(View view){
-        Intent openSettings = new Intent(this, CropSettingsActivity.class);
-        startActivity(openSettings);
-        finish();
-    }
-    public void openEmployeeList(View view){
-        Intent openList = new Intent(this, CropEmployeesListActivity.class);
-        startActivity(openList);
-    }
-    public void openFieldList(View view){
-        Intent openList = new Intent(this, CropFieldsListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openFieldManager(View view){
-        Intent openList = new Intent(this, CropFieldManagerActivity.class);
-        startActivity(openList);
-    }
-    public void openCropList(View view){
-        Intent openList = new Intent(this, CropsListActivity.class);
-        startActivity(openList);
-    }
-    public void openCropManager(View view){
-        Intent openList = new Intent(this, CropsManagerActivity.class);
-        startActivity(openList);
-    }
-    public void openInventoryList(View view){
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
-    }
-    public void openInventoryManager(View view){
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openContactManager(View view){
-        Intent openList = new Intent(this, CropContactManagerActivity.class);
-        startActivity(openList);
-    }
-
-    public void openCustomerList(View view){
-        Intent openList = new Intent(this, CropCustomersListActivity.class);
-        startActivity(openList);
-    }
-    public void openSupplierList(View view){
-        Intent openList = new Intent(this, CropSuppliersListActivity.class);
-        startActivity(openList);
-    }
-
     public void openFertilizerCalculator(View view){
         //CropFertilizerCalculatorEntryActivity
         Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
         startActivity(openList);
     }
-    public void openSalesOrderList(View view){
-        Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
-        startActivity(openList);
-    }
-    public void openProductsList(View view){
-        Intent openList = new Intent(this, CropProductsListActivity.class);
-        startActivity(openList);
-    }
-    public void openEstimatesList(View view){
-        Intent openList = new Intent(this, CropEstimatesListActivity.class);
-        startActivity(openList);
-    }
-    public void openInvoicesList(View view){
-        Intent openList = new Intent(this, CropInvoicesListActivity.class);
-        startActivity(openList);
-    }
-    public void openPaymentsList(View view){
-        Intent openList = new Intent(this, CropPaymentsListActivity.class);
-        startActivity(openList);
-    }
-    public void openPurchaseOrdersList(View view){
-        Intent openList = new Intent(this, CropPurchaseOrdersListActivity.class);
-        startActivity(openList);
-    }
-    public void openBillsList(View view){
-        Intent openList = new Intent(this, CropBillsListActivity.class);
-        startActivity(openList);
-    }
-    public void openBillPaymentsList(View view){
-        Intent openList = new Intent(this, CropPaymentBillsListActivity.class);
-        startActivity(openList);
-    }
-
-
-
-    public void showHideFinancialManager(View view){
-
-
-        toggleVisibility(financialsSubMenu);
-    }
-    public void showSalesManager(View view){
-
-        toggleSubMenuVisibility(slesSubMenu);
-    }
-    public void showPurchasesManager(View view){
-
-        toggleSubMenuVisibility(purchasesSubMenu);
-    }
-    public void showHelpOptions(View view){
-
-        toggleVisibility(helpSubMenu);
-    }
-
-    public void showHideCropManager(View view){
-
-
-        toggleVisibility(cropsSubMenu);
-    }
-
-
-    public void toggleVisibility(View view){
-        LinearLayout [] layouts = new LinearLayout[]{contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu};
-        if(view.getVisibility() == View.GONE){
-            for(LinearLayout layout: layouts){
-                if(layout!=view){
-                    layout.setVisibility(View.GONE);
-                }
-            }
-            view.setVisibility(View.VISIBLE);
-
-        }else{
-            view.setVisibility(View.GONE);
-        }
-    }
-
-    public void toggleSubMenuVisibility(View view){
-        LinearLayout [] layouts = new LinearLayout[]{slesSubMenu,purchasesSubMenu};
-        if(view.getVisibility() == View.GONE){
-            for(LinearLayout layout: layouts){
-                if(layout!=view){
-                    layout.setVisibility(View.GONE);
-                }
-            }
-            view.setVisibility(View.VISIBLE);
-
-        }else{
-            view.setVisibility(View.GONE);
-        }
-    }
-
-
 
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",

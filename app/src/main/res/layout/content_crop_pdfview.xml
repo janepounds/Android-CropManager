@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropPDFViewActivity"
+    tools:context=".activities.agronomy.CropPDFViewActivity"
     tools:showIn="@layout/activity_crop_pdfview">
 
     <TextView

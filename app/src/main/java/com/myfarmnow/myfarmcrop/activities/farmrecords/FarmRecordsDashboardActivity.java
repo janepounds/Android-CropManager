@@ -24,7 +24,6 @@ import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
@@ -34,8 +33,6 @@ import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
-import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
-import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
@@ -46,15 +43,15 @@ import java.util.Calendar;
 public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 
 
-    ImageView noticationsImageBtn,imgBack;
+    ImageView noticationsImageBtn;
     LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu;
     Toolbar toolbar;
 
 
     LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,
-            incomeExpenseLinearLayout, tasksLinearLayout, contactsLinearLayout;
+            incomeExpenseLinearLayout, tasksLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
+    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView;
 
 
     FrameLayout notificationsFrameLayout;

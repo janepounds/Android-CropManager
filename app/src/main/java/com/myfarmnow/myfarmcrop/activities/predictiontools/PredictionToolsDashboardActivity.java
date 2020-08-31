@@ -121,11 +121,6 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
         ed_.setInputType(InputType.TYPE_NULL);
     }
 
-    public void openFertilizerCalculator(View view){
-        //CropFertilizerCalculatorEntryActivity
-        Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
-        startActivity(openList);
-    }
 
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",

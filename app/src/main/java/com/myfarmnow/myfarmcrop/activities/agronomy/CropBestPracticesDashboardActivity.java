@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.activities;
+package com.myfarmnow.myfarmcrop.activities.agronomy;
 
 import android.content.Intent;
 import android.os.Bundle;

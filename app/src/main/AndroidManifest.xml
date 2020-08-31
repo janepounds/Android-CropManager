@@ -145,7 +145,7 @@
             android:name=".activities.CropEmployeeManagerActivity"
             android:label="Employee Manager" />
         <activity
-            android:name=".activities.agronomy.CropsListActivity"
+            android:name=".activities.farmrecords.CropsListActivity"
             android:label="@string/activity_crops_list" />
         <activity
             android:name=".activities.CropSoilAnalysisListActivity"
@@ -163,7 +163,7 @@
             android:name=".activities.CropCultivationManagerActivity"
             android:label="@string/activity_cultivate_manage" />
         <activity
-            android:name=".activities.agronomy.CropsManagerActivity"
+            android:name=".activities.farmrecords.CropsManagerActivity"
             android:label="@string/activity_crop_manager" />
         <activity
             android:name=".activities.farmrecords.CropFieldsListActivity"
@@ -215,7 +215,7 @@
             android:label="@string/title_activity_crop_inventory_spray_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.predictiontools.CropEstimateManagerActivity"
+            android:name=".activities.farmrecords.CropEstimateManagerActivity"
             android:label="@string/title_activity_crop_estimate_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -235,7 +235,7 @@
             android:name=".activities.CropSupplierManagerActivity"
             android:label="@string/title_activity_crop_supplier_manager" />
         <activity
-            android:name=".activities.predictiontools.CropEstimatesListActivity"
+            android:name=".activities.farmrecords.CropEstimatesListActivity"
             android:label="@string/title_activity_crop_estimates_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -343,11 +343,11 @@
             android:label="@string/title_activity_crop_nutrients_calculator_results"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropPDFViewActivity"
+            android:name=".activities.agronomy.CropPDFViewActivity"
             android:label="@string/title_activity_crop_pdfview"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropBestPracticesDashboardActivity"
+            android:name=".activities.agronomy.CropBestPracticesDashboardActivity"
             android:label="@string/title_activity_crop_best_practices_dashboard"
             android:theme="@style/AppTheme.NoActionBar" >
                 <intent-filter>
