@@ -10,35 +10,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInventoryListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropProductsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
-import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
-import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
@@ -51,8 +29,8 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
     Toolbar toolbar;
 
 
-    LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,
-            incomeExpenseLinearLayout, tasksLinearLayout;
+    LinearLayout nutrientslossLinearLayout,fertilizercompositionLinearLayout,revenue_estimation_linearestimate,
+             yieldestimationLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +47,6 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
 
     }
 
-
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -79,47 +55,46 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
 
     public void initializeDashboard(){
 
-        inventoryLinearLayout =findViewById(R.id.layout_inventory_store);
+        revenue_estimation_linearestimate =findViewById(R.id.layout_dashboard_revenue_estimation);
+        yieldestimationLinearLayout =findViewById(R.id.layout_dashboard_yieldestimation);
+        nutrientslossLinearLayout =findViewById(R.id.layout_dashboard_nutrientsloss);
 
-        fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
-
-        incomeExpenseLinearLayout =findViewById(R.id.layout_dashboard_financial_records);
-        cropsLinearLayout =findViewById(R.id.layout_crop_dashboard_crops);
-        tasksLinearLayout =findViewById(R.id.layout_crop_dashboard_tasks);
+        fertilizercompositionLinearLayout =findViewById(R.id.layout_dashboard_fertilizercomposition);
 
 
-        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
+        revenue_estimation_linearestimate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropInventoryListActivity.class);
+                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropROIStep1Activity.class);
                 startActivity(openInventory);
             }
         });
 
-
-        cropsLinearLayout.setOnClickListener(new View.OnClickListener() {
+        nutrientslossLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openCrops = new Intent(PredictionToolsDashboardActivity.this, CropRecordsDashboardActivity.class);
-                startActivity(openCrops);
+                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropNutrientsCalculatorEntryActivity.class);
+                startActivity(openInventory);
             }
         });
-        incomeExpenseLinearLayout.setOnClickListener(new View.OnClickListener() {
+
+        yieldestimationLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(PredictionToolsDashboardActivity.this, CropIncomeExpensesListActivity.class);
+                Intent openIncomeExpense = new Intent(PredictionToolsDashboardActivity.this, CropYieldPerformanceActivity.class);
                 startActivity(openIncomeExpense);
             }
         });
 
-//        imgBack.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent imgback = new Intent(FarmRecordsDashboardActivity.this, DashboardActivity.class);
-//                startActivity(imgback);
-//            }
-//        });
+        fertilizercompositionLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openIncomeExpense = new Intent(PredictionToolsDashboardActivity.this, CropFertilizerApplicationManagerActivity.class);
+                startActivity(openIncomeExpense);
+            }
+        });
+
+
 
 
     }
@@ -177,6 +152,7 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
 
         }
     }
+
     public static void selectSpinnerItemById(Spinner spnr, String id) {
 
         CropSpinnerAdapter adapter = (CropSpinnerAdapter) spnr.getAdapter();

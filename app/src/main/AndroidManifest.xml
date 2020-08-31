@@ -199,19 +199,19 @@
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropInventorySeedsManagerActivity"
+            android:name=".activities.farmrecords.CropInventorySeedsManagerActivity"
             android:label="@string/title_activity_crop_inventory_seeds_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropInventoryListActivity"
+            android:name=".activities.farmrecords.CropInventoryListActivity"
             android:label="@string/label_inventory_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropInventoryFertilizerManagerActivity"
+            android:name=".activities.farmrecords.CropInventoryFertilizerManagerActivity"
             android:label="@string/title_activity_crop_inventory_fertilizer_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropInventorySprayManagerActivity"
+            android:name=".activities.farmrecords.CropInventorySprayManagerActivity"
             android:label="@string/title_activity_crop_inventory_spray_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -380,7 +380,7 @@
             android:label="@string/title_activity_crop_farm_reports"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropYieldPerformanceActivity"
+            android:name=".activities.predictiontools.CropYieldPerformanceActivity"
             android:label="@string/title_activity_crop_yield_performance"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

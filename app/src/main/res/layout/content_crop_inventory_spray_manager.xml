@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="2dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.CropInventorySprayManagerActivity"
+    tools:context=".activities.farmrecords.CropInventorySprayManagerActivity"
     tools:showIn="@layout/activity_crop_inventory_spray_manager">
     <ScrollView
         android:layout_width="match_parent"

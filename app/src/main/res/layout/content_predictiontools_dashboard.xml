@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.farmrecords.FarmRecordsDashboardActivity"
-    tools:showIn="@layout/activity_farm_records_dashboard">
+    tools:context=".activities.predictiontools.PredictionToolsDashboardActivity"
+    tools:showIn="@layout/activity_predictiontools_dashboard">
 
 
     <RelativeLayout
@@ -19,7 +19,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/mainView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -42,7 +42,6 @@
                         android:text="@string/title_predictiontools"
                         android:textColor="#fff"
                         android:textSize="18dp" />
-
 
 
                 </RelativeLayout>
@@ -81,14 +80,13 @@
 
 
                         <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_crops"
+                            android:id="@+id/layout_dashboard_revenue_estimation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-
                             android:orientation="vertical"
                             android:paddingBottom="5dp">
 
@@ -100,7 +98,7 @@
                                 android:src="@drawable/ic_revenue" />
 
                             <TextView
-                                android:id="@+id/tv_matings"
+                                android:id="@+id/tv_revenue_estimate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="top"
@@ -125,7 +123,7 @@
                         android:background="@drawable/background_round_white">
 
                         <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_inventory"
+                            android:id="@+id/layout_dashboard_yieldestimation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -169,7 +167,7 @@
                         android:background="@drawable/background_round_white">
 
                         <LinearLayout
-                            android:id="@+id/layout_inventory_store"
+                            android:id="@+id/layout_dashboard_nutrientsloss"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -209,7 +207,7 @@
                         android:background="@drawable/background_round_white">
 
                         <LinearLayout
-                            android:id="@+id/layout_dashboard_financial_records"
+                            android:id="@+id/layout_dashboard_fertilizercomposition"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -248,9 +246,6 @@
 
             </RelativeLayout>
         </ScrollView>
-
-
-
 
         <FrameLayout
             android:id="@+id/frame_layout_notifications"
@@ -293,7 +288,6 @@
 
 
         </FrameLayout>
-
 
 
     </RelativeLayout>

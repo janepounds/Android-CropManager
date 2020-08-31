@@ -24,7 +24,6 @@ import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInventoryListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
@@ -47,7 +46,7 @@ import java.util.Calendar;
 public class CropRecordsDashboardActivity extends AppCompatActivity {
 
 
-    ImageView noticationsImageBtn,imgBack;
+    ImageView noticationsImageBtn;
     LinearLayout contactsSubMenu,helpSubMenu,inventorySubMenu,cropsSubMenu,financialsSubMenu,slesSubMenu,purchasesSubMenu;
     Toolbar toolbar;
 

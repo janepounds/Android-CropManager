@@ -1,19 +1,11 @@
 package com.myfarmnow.myfarmcrop.activities.farmrecords;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -21,84 +13,35 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropBestPracticesDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropContactsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropFarmReportsActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInventoryListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropLoginActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropProductsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropRegisterActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropTasksListActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.CropsListActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.fragments.NotificationsOverDueFragment;
-import com.myfarmnow.myfarmcrop.fragments.NotificationsTodayFragment;
-import com.myfarmnow.myfarmcrop.fragments.NotificationsUpcomingFragment;
-import com.myfarmnow.myfarmcrop.models.ApiPaths;
-import com.myfarmnow.myfarmcrop.models.CropNotification;
-import com.myfarmnow.myfarmcrop.services.BackupWorker;
-import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
-import com.myfarmnow.myfarmcrop.services.CropSyncService;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
-
-import cz.msebera.android.httpclient.Header;
 
 public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 

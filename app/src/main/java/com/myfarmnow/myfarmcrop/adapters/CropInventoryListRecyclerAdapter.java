@@ -22,9 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.myfarmnow.myfarmcrop.activities.CropInventoryFertilizerManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInventorySeedsManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInventorySprayManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventoryFertilizerManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventorySeedsManagerActivity;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventorySprayManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
