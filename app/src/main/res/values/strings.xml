@@ -145,7 +145,7 @@
         <item>Other</item>
     </string-array>
     <string-array name="seed_inventory_seed_type">
-        <item>Select Seed Type</item>
+        <item>Seed Type</item>
         <item>Conventional</item>
         <item>GMO</item>
         <item>Heirloom</item>
