@@ -36,5 +36,24 @@
         android:id="@+id/walletLoanAppInitiateFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppInitiateFragment"
         android:label="Apply for Loan"
-        tools:layout="@layout/fragment_wallet_loan_app_initiate" />
+        tools:layout="@layout/fragment_wallet_loan_app_initiate" >
+        <action
+            android:id="@+id/action_walletLoanAppInitiateFragment_to_walletLoanPreviewRequestFragment"
+            app:destination="@id/walletLoanPreviewRequestFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/walletLoanPreviewRequestFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanPreviewRequestFragment"
+        android:label="Loan Preview"
+        tools:layout="@layout/fragment_wallet_loan_preview_request" >
+        <action
+            android:id="@+id/action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment"
+            app:destination="@id/walletLoanAppPhotosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletLoanAppPhotosFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppPhotosFragment"
+        android:label="fragment_wallet_loan_app_photos"
+        tools:layout="@layout/fragment_wallet_loan_app_photos" />
 </navigation>

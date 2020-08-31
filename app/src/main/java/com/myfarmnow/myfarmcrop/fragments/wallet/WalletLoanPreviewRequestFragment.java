@@ -46,12 +46,12 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
 
     private Context context;
 
-    String[] descriptionData = {"Amount", "Confirm","Photo", "Referees"};
+    String[] descriptionData = {"Amount", "Confirm", "Photo", "Referees"};
     LoanApplication loanApplication;
     ProgressDialog dialog;
 
     private FragmentWalletLoanPreviewRequestBinding binding;
-    AppBarConfiguration appBarConfiguration;
+    private NavController navController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,14 +61,13 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
 
         binding.loanProgressBarId.setStateDescriptionData(descriptionData);
 
-        if(getActivity().getIntent().hasExtra("loanApplication") ){
-            loanApplication = (LoanApplication)getActivity().getIntent().getSerializableExtra("loanApplication");
-            loanApplication.setInterestRate( (float) getActivity().getIntent().getFloatExtra("interest", 0) );
+        assert getArguments() != null;
+        loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
+
+        if (loanApplication != null) {
+            loanApplication.setInterestRate((float) getArguments().getFloat("interest"));
+            initializeActivity();
         }
-        else{
-            getActivity().finish();
-        }
-        initializeActivity();
 
         return binding.getRoot();
     }
@@ -76,8 +75,8 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        navController = Navigation.findNavController(view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
 
@@ -87,29 +86,29 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         this.context = context;
     }
 
-    public void initializeActivity(){
+    public void initializeActivity() {
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
         dialog.setMessage("Please Wait..");
         dialog.setCancelable(false);
 
-        binding.textViewLoanPreviewDuration.setText(loanApplication.getDuration()+" "+loanApplication.getDurationLabel());
+        binding.textViewLoanPreviewAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmount()));
+        binding.textViewLoanPreviewInterestRate.setText(NumberFormat.getInstance().format(loanApplication.getInterestRate()) + "%");
+        binding.textViewLoanPreviewDuration.setText(loanApplication.getDuration() + " " + loanApplication.getDurationLabel());
         binding.textViewLoanPreviewDueDate.setText(loanApplication.computeDueDate());
-        binding.textViewLoanPreviewAmount.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getAmount()));
-        binding.textViewLoanPreviewInterestRate.setText( NumberFormat.getInstance().format(loanApplication.getInterestRate())+"%");
-        binding.textViewLoanPreviewDueDate.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.computeDueAmount()) );
+        binding.textViewLoanPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.computeDueAmount()));
         binding.btnLoanNextStep.setOnClickListener(view -> initiateApplication());
     }
 
-    public void initiateApplication(){
+    public void initiateApplication() {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID,context));
-        params.put("amount",loanApplication.getAmount());
-        params.put("duration",loanApplication.getDuration());
-        params.put("loanType",loanApplication.getLoanType());
-        params.put("interest",loanApplication.getInterestRate());
+        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
+        params.put("userId", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, context));
+        params.put("amount", loanApplication.getAmount());
+        params.put("duration", loanApplication.getDuration());
+        params.put("loanType", loanApplication.getLoanType());
+        params.put("interest", loanApplication.getInterestRate());
         client.setTimeout(20000);
         client.post(ApiPaths.WALLET_LOAN_APPLICATION_INITIATE, params, new JsonHttpResponseHandler() {
             @Override
@@ -120,61 +119,56 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
-
-                Intent startNext = new Intent(context, WalletLoanAppPhotos.class);
-
                 try {
-                    startNext.putExtra("loanApplicationId",response.getString("loanApplicationId"));
-                    startActivity(startNext);
+                    Bundle bundle = new Bundle();
+                    assert getArguments() != null;
+                    bundle.putString("loanApplicationId", response.getString("loanApplicationId"));
+
+                    navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment, bundle);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if(statusCode==401){
+                if (statusCode == 401) {
                     WalletAuthActivity.startAuth(context, true);
-                }else if(statusCode == 500){
+                } else if (statusCode == 500) {
                     binding.textViewErrorMessage.setText("Error Occurred Try again later");
-                    Log.e("info 500", new String(String.valueOf(errorResponse))+", code: "+statusCode);
-                }
-                else if(statusCode == 400){
+                    Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
+                } else if (statusCode == 400) {
                     try {
-                        binding.textViewErrorMessage.setText(errorResponse.getString("message"));
+                        binding.textViewErrorMessage.setText(errorResponse.getString("errors"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.e("info 500", new String(String.valueOf(errorResponse))+", code: "+statusCode);
-                }
-                else if(statusCode == 406){
+                    Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
+                } else if (statusCode == 406) {
                     try {
-                        binding.textViewErrorMessage.setText(errorResponse.getString("message"));
+                        binding.textViewErrorMessage.setText(errorResponse.getString("errors"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.e("info 406", new String(String.valueOf(errorResponse))+", code: "+statusCode);
-                }
-                else {
+                    Log.e("info 406", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
+                } else {
                     binding.textViewErrorMessage.setText("Error Occurred Try again later");
                     if (errorResponse != null) {
-                        Log.e("info", new String(String.valueOf(errorResponse))+", code: "+statusCode);
+                        Log.e("info", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
                     } else {
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: " + statusCode);
                     }
                 }
                 binding.textViewErrorMessage.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                 if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
                 } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
+                    Log.e("info : " + statusCode, "Something got very very wrong");
                 }
                 binding.textViewErrorMessage.setText("Error Occurred Try again later");
                 binding.textViewErrorMessage.setVisibility(View.VISIBLE);

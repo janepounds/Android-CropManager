@@ -71,8 +71,6 @@ public class WalletLoansListFragment extends Fragment {
         statementAdapter = new LoansListAdapter(dataList);
         binding.loansListRecyclerView.setAdapter(statementAdapter);
 
-        binding.walletPayLoanBtn.setOnClickListener(view -> payLoan());
-
         actualStatementData();
 
         return binding.getRoot();
@@ -85,7 +83,10 @@ public class WalletLoansListFragment extends Fragment {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-        binding.walletApplyLoanBtn.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanAppInitiateFragment));
+        Bundle bundle = new Bundle();
+        bundle.putFloat("interest", interest);
+        binding.walletApplyLoanBtn.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanAppInitiateFragment, bundle));
+        binding.walletPayLoanBtn.setOnClickListener(view2 -> payLoan());
     }
 
     @Override
@@ -165,13 +166,6 @@ public class WalletLoansListFragment extends Fragment {
                 WalletAuthActivity.startAuth(context, true);
             }
         });
-    }
-
-    public void newLoanApplication() {
-        Intent openW = new Intent(context, WalletLoanAppInitiateActivity.class);
-        openW.putExtra("interest", interest);
-        //interest
-        startActivity(openW);
     }
 
     public void payLoan() {

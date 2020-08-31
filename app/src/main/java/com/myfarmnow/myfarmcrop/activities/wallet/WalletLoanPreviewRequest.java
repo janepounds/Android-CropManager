@@ -73,6 +73,7 @@ public class WalletLoanPreviewRequest extends AppCompatActivity {
         amountTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getAmount()));
         interestRateTxt.setText( NumberFormat.getInstance().format(loanApplication.getInterestRate())+"%");
         dueAmountTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.computeDueAmount()) );
+
         nextStepBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

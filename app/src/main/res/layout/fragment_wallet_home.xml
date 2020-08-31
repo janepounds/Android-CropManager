@@ -108,7 +108,7 @@
                         android:weightSum="12">
 
                         <TextView
-                            android:id="@+id/wallet_username"
+                            android:id="@+id/username_wallet_home"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/dimen_20dp"
                             android:layout_weight="6"

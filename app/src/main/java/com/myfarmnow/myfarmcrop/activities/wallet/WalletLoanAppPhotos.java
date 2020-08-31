@@ -83,6 +83,7 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
         setContentView(R.layout.wallet_loan_app_photos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         if(getIntent().hasExtra("loanApplicationId")){
             loanApplicationId = getIntent().getStringExtra("loanApplicationId");
         }
@@ -470,5 +471,4 @@ public class WalletLoanAppPhotos extends AppCompatActivity {
            return;
        }
     }
-
 }

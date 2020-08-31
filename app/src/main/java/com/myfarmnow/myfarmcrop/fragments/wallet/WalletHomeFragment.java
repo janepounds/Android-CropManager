@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -68,8 +70,11 @@ public class WalletHomeFragment extends Fragment {
     public static final String PREFERENCES_USER_EMAIL = "email";
     public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
 
+    private TextView balanceTextView;
     static TabLayout tabs;
+    private Toolbar toolbar;
     public static double balance = 0;
+    ActionBar actionBar;
     public static FragmentManager fm;
 
     private DisplayImageOptions options;
@@ -92,7 +97,9 @@ public class WalletHomeFragment extends Fragment {
         updateBalance();
 
         //TextView walletUsername = view.findViewById(R.id.wallet_username);
-        binding.walletUsername.setText(ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
+        binding.usernameWalletHome.setText(ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
+
+        Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
 
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
@@ -148,7 +155,7 @@ public class WalletHomeFragment extends Fragment {
                 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
-        editor.apply();
+        editor.commit();
     }
 
     public static void saveUser(JSONObject user, Context context) throws JSONException {
@@ -160,9 +167,9 @@ public class WalletHomeFragment extends Fragment {
         WalletHomeFragment.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
         WalletHomeFragment.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
         WalletHomeFragment.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
-        // WalletHomeFragment.savePreferences("latitude", user.getString("latitude"), context);
-        //WalletHomeFragment.savePreferences("longitude", user.getString("longitude"), context);
-        // WalletHomeFragment.savePreferences("userimage", user.getString("userimage"), this);
+//        WalletHomeFragment.savePreferences("latitude", user.getString("latitude"), context);
+//        WalletHomeFragment.savePreferences("longitude", user.getString("longitude"), context);
+//        WalletHomeFragment.savePreferences("userimage", user.getString("userimage"), context);
     }
 
     public void openAddMoney() {
@@ -243,17 +250,19 @@ public class WalletHomeFragment extends Fragment {
 
             @Override
             public void onStart() {
-//                dialog = new ProgressDialog(WalletHomeActivity.this);
-//                dialog.setIndeterminate(true);
-//                dialog.setMessage("Please Wait..");
-//                dialog.setCancelable(false);
-//                dialog.show();
+                dialog = new ProgressDialog(context);
+                dialog.setIndeterminate(true);
+                dialog.setMessage("Please Wait..");
+                dialog.setCancelable(true);
+                dialog.show();
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     balance = response.getDouble("balance");
+
+                    Log.d(TAG, "onSuccess: Balance = " + balance);
 
                     binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
@@ -287,7 +296,7 @@ public class WalletHomeFragment extends Fragment {
                     Log.e("info : " + statusCode, "Something got very very wrong");
                 }
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
-                //WalletAuthActivity.startAuth(context, false);
+                WalletAuthActivity.startAuth(context, false);
             }
         });
     }

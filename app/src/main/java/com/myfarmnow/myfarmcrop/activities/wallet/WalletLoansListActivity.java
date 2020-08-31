@@ -151,8 +151,8 @@ public class WalletLoansListActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent whatEverIntentName = new Intent(this, WalletHomeActivity.class);
         startActivity( whatEverIntentName );
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

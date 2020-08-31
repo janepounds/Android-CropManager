@@ -216,8 +216,6 @@
         <item>Select Form</item>
         <item>Solid</item>
         <item>Liquid</item>
-
-
     </string-array>
     <string-array name="crop_spraying_weather_condition">
         <item>Select</item>
@@ -1718,7 +1716,6 @@
     <string name="title_activity_wallet_loan_app_referees_manager" translatable="false">Apply for Loan</string>
     <string name="title_activity_wallet_loans_list" translatable="false">Loans</string>
     <string name="title_activity_loan_status_preview" translatable="false">My Loan</string>
-
 
     <string-array name="loan_durations">
         <item>Months</item>

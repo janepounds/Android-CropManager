@@ -46,7 +46,6 @@ public class WalletLoanAppInitiateFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_loan_app_initiate, container, false);
 
         binding.loanProgressBarId.setStateDescriptionData(descriptionData);
-        initialize();
 
         return binding.getRoot();
     }
@@ -57,29 +56,26 @@ public class WalletLoanAppInitiateFragment extends Fragment {
         NavController navController = Navigation.findNavController(view);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-    }
 
-    public void initialize() {
-        //errorMsgTxt = findViewById(R.id.text_view_error_message);
-        binding.btnLoanNextStep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (binding.txtLoanApplicationAmount.getText().toString().trim() == null || binding.txtLoanApplicationAmount.getText().toString().trim().isEmpty()) {
-                    binding.txtLoanApplicationAmount.setError("Amount Required");
-                } else {
-                    LoanApplication loanApplication = new LoanApplication();
-                    loanApplication.setAmount(Float.valueOf(binding.txtLoanApplicationAmount.getText().toString()));
-//                    loanApplication.setDuration(Integer.parseInt(binding.txtLoanApplicationDuration.getText().toString()));
-//                    loanApplication.setLoanType(binding.spLoanApplicationType.getSelectedItem().toString().equals("Months") ? "Monthly" : "Weekly");
+        binding.btnLoanNextStep.setOnClickListener(v -> {
+            if (binding.txtLoanApplicationAmount.getText().toString().trim() == null || binding.txtLoanApplicationAmount.getText().toString().trim().isEmpty()) {
+                binding.txtLoanApplicationAmount.setError("Amount Required");
+            } else if (binding.txtLoanApplicationDuration.getText().toString().trim() == null || binding.txtLoanApplicationDuration.getText().toString().trim().isEmpty()) {
+                binding.txtLoanApplicationDuration.setError("Required");
+            } else {
+                LoanApplication loanApplication = new LoanApplication();
+                loanApplication.setAmount(Float.valueOf(binding.txtLoanApplicationAmount.getText().toString()));
+                loanApplication.setDuration(Integer.parseInt(binding.txtLoanApplicationDuration.getText().toString()));
+                loanApplication.setLoanType(binding.spLoanApplicationType.getSelectedItem().toString().equals("Months") ? "Monthly" : "Weekly");
 
-                    Intent startNext = new Intent(context, WalletLoanPreviewRequest.class);
-//                    startNext.putExtra("loanApplication", loanApplication);
-//                    startNext.putExtra("interest", (float) getActivity().getIntent().getFloatExtra("interest", 0));
-                    startActivity(startNext);
-                }
+                Bundle bundle = new Bundle();
+                assert getArguments() != null;
+                bundle.putFloat("interest", getArguments().getFloat("interest"));
+                bundle.putSerializable("loanApplication", loanApplication);
+
+                binding.btnLoanNextStep.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoanAppInitiateFragment_to_walletLoanPreviewRequestFragment, bundle));
             }
         });
-
     }
 
     @Override
