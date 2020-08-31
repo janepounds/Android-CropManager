@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -28,6 +31,9 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
+import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddFertilizer;
+import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSeed;
+import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSpray;
 
 public class CropInventoryListActivity extends AppCompatActivity {
 
@@ -44,6 +50,10 @@ public class CropInventoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crop_inventory_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         cropInventoryListRecyclerView = findViewById(R.id.inventory_recyc_view);
         selectInventorySpinner = findViewById(R.id.select_inventory_spinner);
@@ -101,6 +111,12 @@ public class CropInventoryListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     private void loadCropInventories(){
         AsyncHttpClient client = new AsyncHttpClient();
         for(CropInventorySeeds seedsInventory:dbHandler.getCropSeeds(DashboardActivity.getPreferences("userId",this))){
@@ -125,18 +141,31 @@ public class CropInventoryListActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
 
+
             case R.id.action_add_fertilizer:
-                Intent openFertilizerForm = new Intent(this, CropInventoryFertilizerManagerActivity.class);
-                startActivity(openFertilizerForm);
+                FragmentManager fm = getSupportFragmentManager();
+                AddFertilizer fertilizerFragment =  AddFertilizer.newInstance("FERTILIZER");
+
+               fertilizerFragment.show(fm, "Add Fertilizer");
                 return true;
 
             case R.id.action_add_seed:
-                Intent openSeedForm = new Intent(this, CropInventorySeedsManagerActivity.class);
-                startActivity(openSeedForm);
+                FragmentManager manager = getSupportFragmentManager();
+
+                AddSeed dialogFragment =  AddSeed.newInstance("SEED");
+
+                dialogFragment.show(manager, "Add Spray");
+
                 return true;
             case R.id.action_add_spray:
-                Intent openSprayForm = new Intent(this, CropInventorySprayManagerActivity.class);
-                startActivity(openSprayForm);
+
+
+
+                FragmentManager fmm = getSupportFragmentManager();
+
+                AddSpray sprayFragment =  AddSpray.newInstance("ADD SPRAY");
+
+                sprayFragment.show(fmm, "Add Spray");
                 return true;
 
             default:

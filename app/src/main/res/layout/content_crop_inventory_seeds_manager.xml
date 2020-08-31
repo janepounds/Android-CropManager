@@ -378,9 +378,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableTint="#ffffff"
-                android:text="Save "
-                android:textAllCaps="false"
-                android:textColor="#ffffff" />
+                android:text="Submit "
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:background="@drawable/rounded_corners_button"/>
 
         </LinearLayout>
 

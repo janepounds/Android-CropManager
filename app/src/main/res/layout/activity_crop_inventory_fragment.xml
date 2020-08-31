@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="2dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.farmrecords.CropInventorySprayManagerActivity"
-    tools:showIn="@layout/activity_crop_inventory_spray_manager">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,16 +18,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-			<LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                   android:layout_marginRight="8dp">
+                    android:layout_marginRight="8dp">
 
 
 
-                     <EditText
+                    <EditText
                         android:id="@+id/txt_crop_spray_date_of_purchase"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -52,20 +47,20 @@
                     android:orientation="vertical"
                     >
 
-			<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="@drawable/input_shapes_grey_spinner"
-					android:padding="3.4dp">
-                    <Spinner
-                        android:id="@+id/sp_crop_spray_type"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:entries="@array/crop_spray_type"
-                        android:hint="Enter.."
-                        />
-			</LinearLayout>
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:padding="3.4dp">
+                        <Spinner
+                            android:id="@+id/sp_crop_spray_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:entries="@array/crop_spray_type"
+                            android:hint="Enter.."
+                            />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -81,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                   android:layout_marginRight="8dp">
+                    android:layout_marginRight="8dp">
 
 
 
@@ -105,19 +100,19 @@
 
 
 
-                <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_shapes_grey_spinner"
-                android:padding="3.4dp">
-                    <Spinner
-                        android:id="@+id/spinner_crop_spray_unit"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/crop_spray_usage_units"
-                        android:hint="Units"
-                        />
-                        </LinearLayout>
+                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:padding="3.4dp">
+                        <Spinner
+                            android:id="@+id/spinner_crop_spray_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/crop_spray_usage_units"
+                            android:hint="Units"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -127,26 +122,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/txt_crop_spray_qty"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Quantity"
-                        android:layout_weight="0.7"
-                        android:inputType="number|numberDecimal"
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp"
-                        android:visibility="visible" />
+                <EditText
+                    android:id="@+id/txt_crop_spray_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Quantity"
+                    android:layout_weight="0.7"
+                    android:inputType="number|numberDecimal"
+                    android:background="@drawable/input_shapes"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
 
                 <TextView
+                    android:id="@+id/quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="ML"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:layout_weight="0.3"
+                    android:padding="4dp"
+                    android:text=" ML "
                     android:textSize="14sp"
-                    android:background="@color/colorPrimary" />
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center_vertical"
+
+                    />
 
 
 
@@ -159,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
-               android:padding="3.4dp">
+                android:padding="3.4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -186,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                   >
+                    >
 
 
 
@@ -202,14 +200,17 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/crops_currency_a"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="UGX"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:layout_weight="0.3"
+                        android:padding="4dp"
+                        android:text="@string/ugx"
                         android:textSize="14sp"
-                        android:background="@color/colorPrimary" />
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center_vertical"
+
+                        />
 
                 </LinearLayout>
 
@@ -221,31 +222,31 @@
 
 
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3.4dp"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/txt_crop_spray_supplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3.4dp"
-                    android:orientation="horizontal">
+                    android:inputType="text"
+                    android:background="@drawable/input_shapes"
+                    android:hint="Supplier.."
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="days"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_weight="0.1"
+                    android:background="@drawable/input_shapes_grey_units_right" />
 
-
-                    <EditText
-                        android:id="@+id/txt_crop_spray_supplier"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:background="@drawable/input_shapes"
-                        android:hint="Supplier.."
-                        android:textSize="14sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="days"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_weight="0.1"
-                        android:background="@drawable/input_shapes_grey_units_right" />
-
-                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -293,4 +294,5 @@
                 android:textColor="#ffffff" />
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+
+</LinearLayout>

@@ -50,8 +50,8 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         purchaseDatTxt = findViewById(R.id.txt_crop_spray_date_of_purchase);
         seedNameTxt = findViewById(R.id.txt_crop_spray_spray_name);
         typeSp = findViewById(R.id.sp_crop_spray_type);
-        harvestIntervalTxt = findViewById(R.id.txt_crop_spray_harvest_interval);
-        activeIngredientsTxt = findViewById(R.id.txt_crop_spray_active_ingreds);
+//        harvestIntervalTxt = findViewById(R.id.txt_crop_spray_harvest_interval);
+//        activeIngredientsTxt = findViewById(R.id.txt_crop_spray_active_ingreds);
         expiryDateTxt = findViewById(R.id.txt_crop_pray_exp_date);
         usageUnitSpinner = findViewById(R.id.spinner_crop_spray_unit);
         quantityTxt = findViewById(R.id.txt_crop_spray_qty);
@@ -95,7 +95,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
 
 
 
-        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+//        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
 
         fillViews();
