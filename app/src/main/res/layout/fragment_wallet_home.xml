@@ -1,0 +1,12 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment">
+
+    <include
+        android:id="@+id/wallet_fragment_home"
+        layout="@layout/wallet_fragment_home"
+        android:visibility="visible" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

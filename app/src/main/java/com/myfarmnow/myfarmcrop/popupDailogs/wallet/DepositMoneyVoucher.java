@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -102,8 +103,8 @@ public class DepositMoneyVoucher extends DialogFragment {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity));
-        params.put("phoneNumber", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_PHONE_NUMBER,this.activity));
+        params.put("email", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL,this.activity));
+        params.put("phoneNumber", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_PHONE_NUMBER,this.activity));
         params.put("codeEntered",codeEntered);
 
         client.setTimeout(30000);

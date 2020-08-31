@@ -1711,15 +1711,13 @@
     </string-array>
 
 
-
     <!-- Wallet plugin strings -->
     <string name="title_activity_wallet_loan_app_add_amount" translatable="false">Apply for Loan</string>
     <string name="title_activity_wallet_loan_preview_request" translatable="false">Apply for Loan</string>
-    <string name="title_activity_wallet_loan_app_photos" translatable="false" >Apply Loan</string>
-    <string name="title_activity_wallet_loan_app_referees_manager" translatable="false" >Apply for Loan</string>
-    <string name="title_activity_wallet_loans_list" translatable="false" >Loans</string>
-    <string name="title_activity_loan_status_preview" translatable="false" >My Loan</string>
-
+    <string name="title_activity_wallet_loan_app_photos" translatable="false">Apply Loan</string>
+    <string name="title_activity_wallet_loan_app_referees_manager" translatable="false">Apply for Loan</string>
+    <string name="title_activity_wallet_loans_list" translatable="false">Loans</string>
+    <string name="title_activity_loan_status_preview" translatable="false">My Loan</string>
 
 
     <string-array name="loan_durations">
@@ -1727,20 +1725,20 @@
         <item>Weeks</item>
     </string-array>
 
-    <string name="my_wallet"  translatable="false"  >eMaisha Wallet</string>
+    <string name="my_wallet" translatable="false">eMaisha Wallet</string>
     <string name="btn_continue" translatable="false">CONTINUE</string>
     <string name="checkout" translatable="false">Checkout</string>
     <string name="deposit" translatable="false">Deposit</string>
     <string name="addmoney" translatable="false">ADD MONEY</string>
     <string name="current_balance_label" translatable="false">Current Balance</string>
-    <string name="title_activity_transactions" translatable="false"  >Transactions</string>
-    <string name="comfirm_purchase" translatable="false" >Confirm Payment</string>
-    <string name="sponsors" translatable="false" >Cabral Tech Ltd</string>
-    <string name="powered__by" translatable="false" >Powered By</string>
+    <string name="title_activity_transactions" translatable="false">Transactions</string>
+    <string name="comfirm_purchase" translatable="false">Confirm Payment</string>
+    <string name="sponsors" translatable="false">Cabral Tech Ltd</string>
+    <string name="powered__by" translatable="false">Powered By</string>
     <string name="pin" translatable="false">PIN</string>
 
     <string name="searchShippingAddress" translatable="false">Search Delivery Address</string>
-    <string name="QNShippingAddress" translatable="false" >Where would do you like your goods be delivered?</string>
+    <string name="QNShippingAddress" translatable="false">Where would do you like your goods be delivered?</string>
     <string name="nearby_merchants" translatable="false">Select Merchant</string>
     <string name="Receivername" translatable="false">Receiver Name</string>
     <string name="Receivercontact_no" translatable="false">Receiver Phone Number</string>
@@ -1751,6 +1749,8 @@
     <string name="forgot_title">Enter the email address you used to create your account and we will email you a link to reset your password</string>
     <string name="submit">Submit</string>
     <string name="label_wallet">Wallet</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_marketplace">Market Place</string>
     <string name="label_services">Services</string>
     <string name="humidity">Humidity</string>

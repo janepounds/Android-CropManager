@@ -15,10 +15,10 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <service
             android:name=".services.CropNotificationsFireService"
             android:enabled="false"
@@ -277,11 +277,11 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
@@ -349,10 +349,10 @@
         <activity
             android:name=".activities.agronomy.CropBestPracticesDashboardActivity"
             android:label="@string/title_activity_crop_best_practices_dashboard"
-            android:theme="@style/AppTheme.NoActionBar" >
-                <intent-filter>
-                    <action android:name="android.intent.action.VIEW" />
-                </intent-filter>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.CropMachineTaskManagerActivity"
@@ -393,10 +393,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Wallet plugin activities-->
-        <activity android:name=".activities.wallet.TransactionsList"
+        <activity
+            android:name=".activities.wallet.TransactionsList"
             android:label="@string/title_activity_transactions"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activities.wallet.LoanStatusPreviewActivity"
@@ -422,12 +422,18 @@
         <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
         <activity
             android:name=".activities.wallet.WalletHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:parentActivityName=".activities.DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />
-        
+
         <service
             android:name=".services.CropNotificationsCreatorService"
             android:enabled="true"

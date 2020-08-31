@@ -27,6 +27,7 @@ import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.flutterwave.raveandroid.rave_presentation.RaveNonUIManager;
 import com.flutterwave.raveandroid.rave_presentation.ugmobilemoney.UgandaMobileMoneyPaymentCallback;
@@ -48,16 +49,18 @@ import cz.msebera.android.httpclient.Header;
 public class DepositMoneyMobile extends DialogFragment {
     LinearLayout layoutAddMoney;
     Button addMoneyImg;
-    TextView addMoneyTxt,phoneNumberTxt,errorMsgTxt;
+    TextView addMoneyTxt, phoneNumberTxt, errorMsgTxt;
     static String PENDING_DEPOSIT_REFERENCE_NUMBER;
     TextView balanceTextView;
-   double balance;
+    double balance;
     private String txRef;
     ProgressDialog dialog;
     Context activity;
     private RaveVerificationUtils verificationUtils;
-    public DepositMoneyMobile(Context context, double balance){
-        this.activity=context;   this.balance=balance;
+
+    public DepositMoneyMobile(Context context, double balance) {
+        this.activity = context;
+        this.balance = balance;
 
     }
 
@@ -76,11 +79,11 @@ public class DepositMoneyMobile extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View view =inflater.inflate(R.layout.wallet_add_money, null);
+        View view = inflater.inflate(R.layout.wallet_add_money, null);
 
         builder.setView(view);
 
-        initializeForm( view);
+        initializeForm(view);
         return builder.create();
 
     }
@@ -94,7 +97,7 @@ public class DepositMoneyMobile extends DialogFragment {
         errorMsgTxt = view.findViewById(R.id.text_view_error_message);
 
         balanceTextView.setText(NumberFormat.getInstance().format(balance));
-        this.txRef=WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
+        this.txRef = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
         addMoneyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,8 +110,7 @@ public class DepositMoneyMobile extends DialogFragment {
     }
 
 
-
-    public void initiateDeposit(){
+    public void initiateDeposit() {
 
         dialog = new ProgressDialog(this.activity);
         dialog.setIndeterminate(true);
@@ -119,14 +121,14 @@ public class DepositMoneyMobile extends DialogFragment {
         String amountEntered = addMoneyTxt.getText().toString();
 
         double amount = Float.parseFloat(amountEntered);
-        txRef=WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
+        txRef = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
-                .setEmail( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity) )
-                .setfName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME,this.activity) )
-                .setlName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME,this.activity) )
-                .setPhoneNumber("0"+phoneNumber)
+                .setEmail(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, this.activity))
+                .setfName(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, this.activity))
+                .setlName(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, this.activity))
+                .setPhoneNumber("0" + phoneNumber)
                 .setNarration("Cabral Tech Ltd")
                 .setPublicKey(BuildConfig.PUBLIC_KEY)
                 .setEncryptionKey(BuildConfig.ENCRYPTION_KEY)
@@ -136,7 +138,7 @@ public class DepositMoneyMobile extends DialogFragment {
                 .initialize();
 
         //cardPayManager = new CardPaymentManager(( raveManager), this, this);
-        UgandaMobileMoneyPaymentCallback mobileMoneyPaymentCallback= new UgandaMobileMoneyPaymentCallback() {
+        UgandaMobileMoneyPaymentCallback mobileMoneyPaymentCallback = new UgandaMobileMoneyPaymentCallback() {
             @Override
             public void showProgressIndicator(boolean active) {
                 try {
@@ -160,24 +162,24 @@ public class DepositMoneyMobile extends DialogFragment {
             @Override
             public void onError(String errorMessage, @Nullable String flwRef) {
                 dialog.dismiss();
-                Log.e("MobileMoneypaymentError",errorMessage);
+                Log.e("MobileMoneypaymentError", errorMessage);
             }
 
             @Override
             public void onSuccessful(String flwRef) {
                 dialog.dismiss();
-                Log.e("Success code :",flwRef);
+                Log.e("Success code :", flwRef);
                 Toast.makeText(activity, "Transaction Successful", Toast.LENGTH_LONG).show();
                 creditAfterDeposit(flwRef);
             }
 
             @Override
             public void showAuthenticationWebPage(String authenticationUrl) {
-                Log.e("Loading auth web page: ",authenticationUrl);
+                Log.e("Loading auth web page: ", authenticationUrl);
                 verificationUtils.showWebpageVerificationScreen(authenticationUrl);
             }
         };
-        UgandaMobileMoneyPaymentManager mobilePayManager = new UgandaMobileMoneyPaymentManager( raveNonUIManager, (UgandaMobileMoneyPaymentCallback) mobileMoneyPaymentCallback);
+        UgandaMobileMoneyPaymentManager mobilePayManager = new UgandaMobileMoneyPaymentManager(raveNonUIManager, (UgandaMobileMoneyPaymentCallback) mobileMoneyPaymentCallback);
 
         mobilePayManager.charge();
         //mobilePayManager.fetchTransactionFee();
@@ -186,11 +188,10 @@ public class DepositMoneyMobile extends DialogFragment {
     }
 
 
-    public void creditAfterDeposit(String txRef){
+    public void creditAfterDeposit(String txRef) {
         dialog = new ProgressDialog(this.activity);
         dialog.setIndeterminate(true);
         dialog.setMessage("Crediting Account..");
-
 
 
         String amountEntered = addMoneyTxt.getText().toString();
@@ -198,9 +199,9 @@ public class DepositMoneyMobile extends DialogFragment {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
+        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
 
-        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity));
+        params.put("email", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, this.activity));
         params.put("referenceNumber", txRef);
         params.put("amount", amount);
 
@@ -228,9 +229,9 @@ public class DepositMoneyMobile extends DialogFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if(statusCode==401){
+                if (statusCode == 401) {
                     WalletAuthActivity.startAuth(activity, true);
-                }else if(statusCode == 500){
+                } else if (statusCode == 500) {
                     if (errorResponse != null) {
                         try {
                             Toast.makeText(activity, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
@@ -240,11 +241,10 @@ public class DepositMoneyMobile extends DialogFragment {
                         }
                     } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: " + statusCode);
                     }
-                    Log.e("info 500", String.valueOf(errorResponse) +", code: "+statusCode);
-                }
-                else if(statusCode == 400){
+                    Log.e("info 500", String.valueOf(errorResponse) + ", code: " + statusCode);
+                } else if (statusCode == 400) {
                     if (errorResponse != null) {
                         try {
                             Toast.makeText(activity, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
@@ -253,11 +253,10 @@ public class DepositMoneyMobile extends DialogFragment {
                         }
                     } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: " + statusCode);
                     }
-                    Log.e("info 500", String.valueOf(errorResponse) +", code: "+statusCode);
-                }
-                else if(statusCode == 406){
+                    Log.e("info 500", String.valueOf(errorResponse) + ", code: " + statusCode);
+                } else if (statusCode == 406) {
                     if (errorResponse != null) {
                         try {
 
@@ -266,13 +265,12 @@ public class DepositMoneyMobile extends DialogFragment {
                             e.printStackTrace();
                             Log.e("info", e.getMessage());
                         }
-                    }else {
+                    } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: " + statusCode);
                     }
-                    Log.e("info 406", String.valueOf(errorResponse) +", code: "+statusCode);
-                }
-                else {
+                    Log.e("info 406", String.valueOf(errorResponse) + ", code: " + statusCode);
+                } else {
 
                     if (errorResponse != null) {
                         try {
@@ -281,25 +279,26 @@ public class DepositMoneyMobile extends DialogFragment {
                         } catch (JSONException e) {
                             Log.e("info", e.getMessage());
                         }
-                        Log.e("info", String.valueOf(errorResponse) +", code: "+statusCode);
+                        Log.e("info", String.valueOf(errorResponse) + ", code: " + statusCode);
                     } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: " + statusCode);
                     }
                 }
                 dialog.dismiss();
 
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                 if (errorResponse != null) {
 
                     Toast.makeText(activity, errorResponse, Toast.LENGTH_LONG).show();
 
-                    Log.e("info : "+statusCode,errorResponse );
+                    Log.e("info : " + statusCode, errorResponse);
                 } else {
 
-                    Log.e("info : "+statusCode, "Something got very wrong");
+                    Log.e("info : " + statusCode, "Something got very wrong");
                 }
                 dialog.dismiss();
             }
@@ -309,8 +308,7 @@ public class DepositMoneyMobile extends DialogFragment {
     }
 
 
-
-    public void refreshActivity(){
+    public void refreshActivity() {
         Intent goToWallet = new Intent(activity, WalletHomeActivity.class);
         startActivity(goToWallet);
     }

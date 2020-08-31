@@ -104,8 +104,5 @@ public class Buy extends DialogFragment {
             Log.d("ITEMS ", "NO ITEMS");
         }
     }
-
-
-
 }
 

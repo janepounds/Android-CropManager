@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pullToRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:background="@color/colorAccentLight"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/myToolbar"
@@ -96,11 +94,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:weightSum="12"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="12">
 
                     <TextView
-                        android:id="@+id/username_wallet_home"
+                        android:id="@+id/wallet_username"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dimen_20dp"
                         android:layout_weight="6"
@@ -108,17 +106,18 @@
                         android:fontFamily="@font/josefin_sans"
                         android:textColor="@color/white"
                         android:text="Mutesasira Jovan"
+                        android:textColor="@color/white"
                         android:textSize="11sp" />
 
                     <TextView
                         android:id="@+id/expiry_date"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dimen_20dp"
-                        android:layout_weight="6"
                         android:layout_marginLeft="@dimen/dimen_30dp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/josefin_sans"
                         android:text="10/22"
+                        android:textColor="@color/white"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -520,6 +519,7 @@
 
    </ScrollView>
 
+    </ScrollView>
 
 
 </RelativeLayout>

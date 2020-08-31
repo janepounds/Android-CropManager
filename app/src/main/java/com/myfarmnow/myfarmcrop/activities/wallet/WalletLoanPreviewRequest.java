@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.kofigyan.stateprogressbar.StateProgressBar;
@@ -86,7 +87,7 @@ public class WalletLoanPreviewRequest extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID,this));
+        params.put("userId", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID,this));
         params.put("amount",loanApplication.getAmount());
         params.put("duration",loanApplication.getDuration());
         params.put("loanType",loanApplication.getLoanType());

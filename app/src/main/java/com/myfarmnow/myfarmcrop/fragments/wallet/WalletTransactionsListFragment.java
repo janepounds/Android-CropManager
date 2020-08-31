@@ -1,27 +1,31 @@
-package com.myfarmnow.myfarmcrop.activities.wallet;
-
+package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
-import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
-import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
-import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.wallet.TransactionsList;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,10 +33,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
-public class TransactionsList extends AppCompatActivity {
+public class WalletTransactionsListFragment extends Fragment {
+    private static final String TAG = "WalletTransactionsList";
+    private Context context;
+
     RecyclerView statementRecyclerView;
     RecyclerView.Adapter statementAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -43,28 +51,36 @@ public class TransactionsList extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.wallet_fragment_statement);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setTitle(getString(R.string.title_activity_transactions));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_wallet_transactions_list, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setTitle(getString(R.string.title_activity_transactions));
 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        statementRecyclerView = findViewById(R.id.statement_recycler_view);
-        layoutManager = new LinearLayoutManager(this);
+        statementRecyclerView = view.findViewById(R.id.statement_recycler_view);
+        layoutManager = new LinearLayoutManager(context);
         statementRecyclerView.setLayoutManager(layoutManager);
 
-        statementAdapter = new WalletTransactionsListAdapter(dataList, getSupportFragmentManager());
+        statementAdapter = new WalletTransactionsListAdapter(dataList, requireActivity().getSupportFragmentManager());
         statementRecyclerView.setAdapter(statementAdapter);
 
         actualStatementData();
 
+        return view;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     private void actualStatementData() {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -76,7 +92,7 @@ public class TransactionsList extends AppCompatActivity {
 
             @Override
             public void onStart() {
-                dialog = new ProgressDialog(TransactionsList.this);
+                dialog = new ProgressDialog(context);
                 dialog.setIndeterminate(true);
                 dialog.setMessage("Please Wait..");
                 dialog.setCancelable(false);
@@ -100,7 +116,7 @@ public class TransactionsList extends AppCompatActivity {
                         } else if (record.getString("type").equals("Deposit")) {
                             data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
                         } else if (record.getString("type").equals("Transfer")) {
-                            String userName = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, TransactionsList.this) + " " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, TransactionsList.this);
+                            String userName = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context) + " " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context);
 
                             if (userName.equals(record.getString("sender"))) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
@@ -126,7 +142,7 @@ public class TransactionsList extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 if (statusCode == 401) {
-                    WalletAuthActivity.startAuth(TransactionsList.this, true);
+                    WalletAuthActivity.startAuth(context, true);
                 }
                 if (errorResponse != null) {
                     Log.e("info", new String(String.valueOf(errorResponse)));
@@ -144,30 +160,9 @@ public class TransactionsList extends AppCompatActivity {
                     Log.e("info : " + statusCode, "Something got very very wrong");
                 }
 
-                WalletAuthActivity.startAuth(TransactionsList.this, true);
+                WalletAuthActivity.startAuth(context, true);
             }
         });
 
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // todo: goto back activity from here
-                sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-                // Set UserLoggedIn in MyAppPrefsManager
-
-
-                startActivity(new Intent(TransactionsList.this, WalletHomeActivity.class));
-                finish();
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
-
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 }
