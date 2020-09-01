@@ -32,7 +32,7 @@
         <item>Kg</item>
     </string-array>
     <string-array name="crop_seeds_usage_units">
-        <item>Select unit</item>
+        <item>Unit</item>
         <item>g</item>
         <item>Kg</item>
         <item>cwt</item>
@@ -64,7 +64,7 @@
         <item>m3</item>
     </string-array>
     <string-array name="crop_fertilizers_types">
-        <item>Select Type</item>
+        <item>Fertilizer Type</item>
         <item>Solid Manufactured</item>
         <item>Liquid Manufactured</item>
         <item>Solid Manure</item>
