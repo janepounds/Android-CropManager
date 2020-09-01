@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +27,8 @@ import org.json.JSONObject;
 
 
 public class WalletHomeActivity extends AppCompatActivity {
-
-    public Fragment currentFragment;
+    private static final String TAG = "WalletHomeActivity";
+    private Context context;
     public WalletHomeFragment homeFragment;
     public WalletLoansListFragment loansListFragment;
     public WalletTransactionsListFragment transactionsListFragment;
@@ -49,13 +50,9 @@ public class WalletHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet_home);
 
+        context = getApplicationContext();
         fm = getSupportFragmentManager();
     }
-
-    public Fragment getCurrentFragment() {
-        return currentFragment;
-    }
-
 
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
@@ -71,7 +68,6 @@ public class WalletHomeActivity extends AppCompatActivity {
         editor.commit();
     }
 
-
     public static void saveUser(JSONObject user, Context context) throws JSONException {
         WalletHomeActivity.savePreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
         WalletHomeActivity.savePreferences("email", user.getString("email"), context);
@@ -85,7 +81,6 @@ public class WalletHomeActivity extends AppCompatActivity {
 //        WalletHomeActivity.savePreferences("longitude", user.getString("longitude"), context);
 //        WalletHomeActivity.savePreferences("userimage", user.getString("userimage"), context);
     }
-
 
     public static void startHome(Context context) {
         try {
