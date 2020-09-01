@@ -28,6 +28,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletTransactionsListBinding;
@@ -122,7 +123,7 @@ public class WalletTransactionsListFragment extends Fragment {
                         } else if (record.getString("type").equals("Deposit")) {
                             data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
                         } else if (record.getString("type").equals("Transfer")) {
-                            String userName = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context) + " " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context);
+                            String userName = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context) + " " + WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context);
 
                             if (userName.equals(record.getString("sender"))) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));

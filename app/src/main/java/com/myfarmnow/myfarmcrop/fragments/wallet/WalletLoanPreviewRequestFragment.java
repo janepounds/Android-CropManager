@@ -27,6 +27,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppInitiateBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanPreviewRequestBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
@@ -102,7 +103,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, context));
+        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context));
         params.put("amount", loanApplication.getAmount());
         params.put("duration", loanApplication.getDuration());
         params.put("loanType", loanApplication.getLoanType());

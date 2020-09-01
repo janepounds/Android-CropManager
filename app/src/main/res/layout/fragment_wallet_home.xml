@@ -161,7 +161,6 @@
 
 
                             <TextView
-                                android:id="@+id/wallet_balance"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -174,7 +173,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/crop_digital_wallet_amount"
+                                android:id="@+id/wallet_balance"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"

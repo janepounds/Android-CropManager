@@ -298,38 +298,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public void openDigitalWallet(View view) {
-//        if(CropWalletAuthActivity.WALLET_ACCESS_TOKEN==null){
-//            Intent openDW = new Intent(this, CropWalletAuthActivity.class);
-//            startActivity(openDW);
-//        }
-//        else{
-//            Intent openDW = new Intent(this, CropWalletActivity.class);
-//            startActivity(openDW);
-//        }
 
-    }
-
-    public void openFarmReports(View view) {
-        Intent openReports = new Intent(this, CropFarmReportsActivity.class);
-        startActivity(openReports);
-    }
-
-    public void openSettings(View view) {
-        Intent openSettings = new Intent(this, CropSettingsActivity.class);
-        startActivity(openSettings);
-        finish();
-    }
-
-    public void openEmployeeList(View view) {
-        Intent openList = new Intent(this, CropEmployeesListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openFieldList(View view) {
-        Intent openList = new Intent(this, CropFieldsListActivity.class);
-        startActivity(openList);
-    }
 
     public void openFieldManager(View view) {
         Intent openList = new Intent(this, CropFieldManagerActivity.class);

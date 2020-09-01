@@ -1,7 +1,5 @@
 package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
 
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -97,7 +95,7 @@ public class DepositMoneyMobile extends DialogFragment {
         errorMsgTxt = view.findViewById(R.id.text_view_error_message);
 
         balanceTextView.setText(NumberFormat.getInstance().format(balance));
-        this.txRef = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
+        this.txRef = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
         addMoneyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,13 +119,13 @@ public class DepositMoneyMobile extends DialogFragment {
         String amountEntered = addMoneyTxt.getText().toString();
 
         double amount = Float.parseFloat(amountEntered);
-        txRef = WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
+        txRef = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
-                .setEmail(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, this.activity))
-                .setfName(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, this.activity))
-                .setlName(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, this.activity))
+                .setEmail(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, this.activity))
+                .setfName(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, this.activity))
+                .setlName(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, this.activity))
                 .setPhoneNumber("0" + phoneNumber)
                 .setNarration("Cabral Tech Ltd")
                 .setPublicKey(BuildConfig.PUBLIC_KEY)
@@ -201,7 +199,7 @@ public class DepositMoneyMobile extends DialogFragment {
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
 
-        params.put("email", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, this.activity));
+        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, this.activity));
         params.put("referenceNumber", txRef);
         params.put("amount", amount);
 

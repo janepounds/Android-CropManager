@@ -60,7 +60,7 @@ public class WalletLoginHelper {
                         JSONObject user = response.getJSONObject("user");
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                         Log.e("response", response.toString());
-                        WalletHomeFragment.saveUser(user, context);
+                        WalletHomeActivity.saveUser(user, context);
                         ((AppCompatActivity) context).finish();
                         dialog.dismiss();
                         WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
@@ -153,7 +153,7 @@ public class WalletLoginHelper {
                     JSONObject user = response.getJSONObject("user");
                     Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                     Log.e("response", response.toString());
-                    WalletHomeFragment.saveUser(user, context);
+                    WalletHomeActivity.saveUser(user, context);
 
                     dialog.dismiss();
 

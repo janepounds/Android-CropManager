@@ -103,8 +103,8 @@ public class DepositMoneyVoucher extends DialogFragment {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL,this.activity));
-        params.put("phoneNumber", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_PHONE_NUMBER,this.activity));
+        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity));
+        params.put("phoneNumber", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_PHONE_NUMBER,this.activity));
         params.put("codeEntered",codeEntered);
 
         client.setTimeout(30000);
