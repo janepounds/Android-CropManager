@@ -45,8 +45,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanAppPhotos;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoansListActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppPhotosBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanPreviewRequestBinding;
 import com.myfarmnow.myfarmcrop.helpers.ImageUtils;
@@ -74,6 +72,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
     private Context context;
 
     private FragmentWalletLoanAppPhotosBinding binding;
+    NavController navController;
     AppBarConfiguration appBarConfiguration;
 
     Bitmap bitmap;
@@ -119,7 +118,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
+         navController = Navigation.findNavController(view);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
@@ -264,12 +263,13 @@ public class WalletLoanAppPhotosFragment extends Fragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Intent startNext = new Intent(context, WalletLoansListActivity.class);
-                        startNext.putExtra("loanApplicationId", loanApplicationId);
-                        startNext.putExtra("refereeNumber", 1);
-                        startActivity(startNext);
-                        dialog.dismiss();
-                        getActivity().finish();
+
+                        Bundle bundle = new Bundle();
+                        assert getArguments() != null;
+                        bundle.putString("loanApplicationId", loanApplicationId);
+                        bundle.putInt("refereeNumber", 1);
+
+                        navController.navigate(R.id.action_walletLoanAppPhotosFragment_to_walletLoansListFragment, bundle);
                     }
 
                     @Override

@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanAppInitiateActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanPreviewRequest;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppInitiateBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;

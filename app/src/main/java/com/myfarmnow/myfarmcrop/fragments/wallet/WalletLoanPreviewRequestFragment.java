@@ -27,8 +27,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanAppPhotos;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanPreviewRequest;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppInitiateBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanPreviewRequestBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;

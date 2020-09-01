@@ -1,16 +1,23 @@
-package com.myfarmnow.myfarmcrop.activities.wallet;
+package com.myfarmnow.myfarmcrop.fragments.wallet;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -20,53 +27,45 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.myfarmnow.myfarmcrop.databinding.WalletLoanstatusPreviewBinding;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
-public class LoanStatusPreviewActivity extends AppCompatActivity {
 
-    TextView amountTxt, dueAmountTxt, dueDateTxt, interestRateTxt,durationTxt, dateTxt, statusTxt, paymentsTxt,finesTxt, editTxt;
+public class WalletLoanStatusPreviw extends Fragment {
+
+
+    private View mContentView;
+    private View mControlsView;
     LoanApplication loanApplication;
-    ImageView nidBackImageView, nidFrontImageView, userPhotoImageView;
+    private WalletLoanstatusPreviewBinding binding;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.wallet_loan_status_preview);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getIntent().hasExtra("loanApplication")){
-            loanApplication = (LoanApplication)getIntent().getSerializableExtra("loanApplication");
-        }
-        else{
-            finish();
-        }
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.wallet_loanstatus_preview, container, false);
+
+        assert getArguments() != null;
+        loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
+
         initializeActivity();
 
+
+        return binding.getRoot();
     }
 
     public void initializeActivity(){
-        amountTxt = findViewById(R.id.text_view_loan_status_preview_amount);
-        dueAmountTxt = findViewById(R.id.text_view_loan_status_preview_due_amount);
-        dueDateTxt = findViewById(R.id.text_view_loan_status_preview_due_date);
-        interestRateTxt = findViewById(R.id.text_view_loan_status_preview_interest_rate);
-        durationTxt = findViewById(R.id.text_view_loan_status_preview_duration);
-        dateTxt = findViewById(R.id.text_view_loan_status_preview_date);
-        statusTxt = findViewById(R.id.text_view_loan_status_preview_status);
-        nidFrontImageView = findViewById(R.id.image_view_loan_status_preview_nid_front);
-        nidBackImageView = findViewById(R.id.image_view_loan_status_preview_nid_back);
-        userPhotoImageView = findViewById(R.id.image_view_loan_status_preview_user_photo);
-        editTxt = findViewById(R.id.text_view_loan_status_edit_photos);
-        paymentsTxt= findViewById(R.id.text_view_loan_status_preview_payments);
-        finesTxt= findViewById(R.id.text_view_loan_status_preview_fines);
 
-        durationTxt.setText(loanApplication.getDuration()+" "+loanApplication.getDurationLabel());
+
+        binding.textViewLoanStatusPreviewDuration.setText(loanApplication.getDuration()+" "+loanApplication.getDurationLabel());
         //referee1ImageView, referee2ImageView
-        dueDateTxt.setText(loanApplication.getDueDate());
-        statusTxt.setText(loanApplication.getStatus());
-        amountTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getAmount()));
+        binding.textViewLoanStatusPreviewDueDate.setText(loanApplication.getDueDate());
+        binding.textViewLoanStatusPreviewStatus.setText(loanApplication.getStatus());
+        binding.textViewLoanStatusPreviewAmount.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getAmount()));
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -93,7 +92,7 @@ public class LoanStatusPreviewActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .into(nidBackImageView);
+                .into(binding.imageViewLoanStatusPreviewNidBack);
 
         Glide.with(this)
                 .setDefaultRequestOptions(options)
@@ -113,7 +112,7 @@ public class LoanStatusPreviewActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .into(nidFrontImageView);
+                .into(binding.imageViewLoanStatusPreviewNidFront);
 
         Glide.with(this)
                 .setDefaultRequestOptions(options)
@@ -133,9 +132,9 @@ public class LoanStatusPreviewActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .into(userPhotoImageView);
+                .into(binding.imageViewLoanStatusPreviewUserPhoto);
 
-        editTxt.setOnClickListener(new View.OnClickListener() {
+        binding.textViewLoanStatusEditPhotos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent startNext = new Intent(LoanStatusPreviewActivity.this,WalletLoanAppPhotos.class);
@@ -146,33 +145,60 @@ public class LoanStatusPreviewActivity extends AppCompatActivity {
         });
 
 
-            interestRateTxt.setText(loanApplication.getInterestRate()+"%");
-            interestRateTxt.setText(loanApplication.getInterestRate()+"%");
-            dueAmountTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getDueAmount()));
-            paymentsTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getAmountPaid()));
-            finesTxt.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getTotalFines()));
+        binding.textViewLoanStatusPreviewInterestRate.setText(loanApplication.getInterestRate()+"%");
+        binding.textViewLoanStatusPreviewDueAmount.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getDueAmount()));
+        binding.textViewLoanStatusPreviewPayments.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getAmountPaid()));
+        binding.textViewLoanStatusPreviewFines.setText("UGX "+ NumberFormat.getInstance().format(loanApplication.getTotalFines()));
 
         if(!loanApplication.isEditable()){
-            editTxt.setVisibility(View.GONE);
+            binding.textViewLoanStatusEditPhotos.setVisibility(View.GONE);
         }
     }
 
-    private static ArrayList<View> getViewsByTag(ViewGroup root, String tag){
-        ArrayList<View> views = new ArrayList<View>();
-        final int childCount = root.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            final View child = root.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                views.addAll(getViewsByTag((ViewGroup) child, tag));
-            }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-            final Object tagObj = child.getTag();
-            if (tagObj != null && tagObj.equals(tag)) {
-                views.add(child);
-            }
+        // Set up the user interaction to manually show or hide the system UI.
+        mContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        }
-        return views;
+            }
+        });
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null && getActivity().getWindow() != null) {
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
+        // Trigger the initial hide() shortly after the activity has been
+        // created, to briefly hint to the user that UI controls
+        // are available.
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() != null && getActivity().getWindow() != null) {
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+            // Clear the systemUiVisibility flag
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(0);
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mContentView = null;
+        mControlsView = null;
+    }
+
 
 }
