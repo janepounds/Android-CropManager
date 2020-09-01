@@ -2,46 +2,45 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoanAppInitiateActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoansListActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
+import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.PayLoan;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -49,44 +48,43 @@ public class WalletLoansListFragment extends Fragment {
     private static final String TAG = "WalletLoansListFragment";
     private Context context;
 
-    RecyclerView statementRecyclerView;
+    private FragmentWalletLoansListBinding binding;
+    AppBarConfiguration appBarConfiguration;
+
     LoansListAdapter statementAdapter;
-    RecyclerView.LayoutManager layoutManager;
-    ActionBar actionBar;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     private List<LoanApplication> dataList = new ArrayList<>();
-    private Button payLoanBtn, applyLoanBtn;
     private float interest;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_wallet_loans_list, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_loans_list, container, false);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        Objects.requireNonNull(actionBar).setTitle(getString(R.string.title_activity_wallet_loans_list));
-
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        statementRecyclerView = view.findViewById(R.id.loans_list_recycler_view);
-        applyLoanBtn = view.findViewById(R.id.wallet_appyly_loan_btn);
-        payLoanBtn = view.findViewById(R.id.wallet_pay_loan_btn);
-        payLoanBtn.setVisibility(View.GONE);
-        layoutManager = new LinearLayoutManager(context);
-        statementRecyclerView.setLayoutManager(layoutManager);
-
+        // binding.walletPayLoanBtn.setVisibility(View.GONE);
+        binding.loansListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         statementAdapter = new LoansListAdapter(dataList);
-        statementRecyclerView.setAdapter(statementAdapter);
+        binding.loansListRecyclerView.setAdapter(statementAdapter);
 
         actualStatementData();
 
-        return view;
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        NavController navController = Navigation.findNavController(view);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+
+        Bundle bundle = new Bundle();
+        bundle.putFloat("interest", interest);
+        binding.walletApplyLoanBtn.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanAppInitiateFragment, bundle));
+        binding.walletPayLoanBtn.setOnClickListener(view2 -> payLoan());
     }
 
     @Override
@@ -127,8 +125,8 @@ public class WalletLoansListFragment extends Fragment {
                         data = new LoanApplication(record);
                         dataList.add(data);
                         if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
-                            applyLoanBtn.setVisibility(View.GONE);
-                            payLoanBtn.setVisibility(View.VISIBLE);
+                            binding.walletApplyLoanBtn.setVisibility(View.GONE);
+                            binding.walletPayLoanBtn.setVisibility(View.VISIBLE);
                         }
 
                     }
@@ -168,14 +166,7 @@ public class WalletLoansListFragment extends Fragment {
         });
     }
 
-    public void newLoanApplication(View v) {
-        Intent openW = new Intent(context, WalletLoanAppInitiateActivity.class);
-        openW.putExtra("interest", interest);
-        //interest
-        startActivity(openW);
-    }
-
-    public void payLoan(View v) {
+    public void payLoan() {
         FragmentManager fm = requireActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment prev = fm.findFragmentByTag("dialog");

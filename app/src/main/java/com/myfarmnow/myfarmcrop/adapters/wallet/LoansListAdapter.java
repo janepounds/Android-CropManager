@@ -121,7 +121,7 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
             Intent startNext = new Intent(v.getContext(), LoanStatusPreviewActivity.class);
             startNext.putExtra("loanApplication",transaction);
             v.getContext().startActivity(startNext);
-            //
+
         }
     }
 

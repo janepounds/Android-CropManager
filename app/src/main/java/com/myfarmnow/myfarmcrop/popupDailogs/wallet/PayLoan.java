@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,13 +18,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletLoansListActivity;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -136,8 +136,17 @@ public class PayLoan extends DialogFragment {
                     //logic to save the updated fields
                     dialog.dismiss();
 
-                    Intent openW = new Intent(activity, WalletLoansListActivity.class);
-                    startActivity(openW);
+//                    Intent openW = new Intent(activity, WalletLoansListActivity.class);
+//                    startActivity(openW);
+
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    Fragment fragment = new WalletLoansListFragment();
+
+                        fragmentManager.beginTransaction()
+                                .add(R.id.mainView, fragment)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .commit();
+
 
                 }
 

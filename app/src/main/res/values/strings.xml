@@ -216,8 +216,6 @@
         <item>Select Form</item>
         <item>Solid</item>
         <item>Liquid</item>
-
-
     </string-array>
     <string-array name="crop_spraying_weather_condition">
         <item>Select</item>
@@ -1719,7 +1717,6 @@
     <string name="title_activity_wallet_loans_list" translatable="false">Loans</string>
     <string name="title_activity_loan_status_preview" translatable="false">My Loan</string>
 
-
     <string-array name="loan_durations">
         <item>Months</item>
         <item>Weeks</item>
@@ -1774,5 +1771,7 @@
     <string name="title_service">Agriculture Service</string>
     <string name="label_soll_testing">Soil Testing</string>
     <string name="label_eqipment">Equipment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

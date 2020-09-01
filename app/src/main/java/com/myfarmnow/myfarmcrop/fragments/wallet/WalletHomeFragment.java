@@ -11,19 +11,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.databinding.FragmentWalletHomeBinding;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.Buy;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyMobile;
@@ -50,13 +53,12 @@ import java.text.NumberFormat;
 
 import cz.msebera.android.httpclient.Header;
 
-public class WalletHomeFragment extends Fragment implements View.OnClickListener {
+public class WalletHomeFragment extends Fragment {
     private static final String TAG = "WalletHomeFragment";
     private Context context;
-
+    private FragmentWalletHomeBinding binding;
     private NavController navController = null;
-    private LinearLayout walletTransactions, walletLoans, walletDeposit, walletTransfer, walletCoupons, walletBuy;
-    private ImageButton btnWalletTransactions, btnWalletLoans, btnWalletDeposit, btnWalletTransfer, btnWalletCoupons, btnWalletBuy;
+    AppBarConfiguration appBarConfiguration;
 
     public static final String PREFERENCES_FILE_NAME = "pref";
     public static final String STREET_PREFERENCES_ID = "addressStreet";
@@ -68,7 +70,7 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
     public static final String PREFERENCES_USER_EMAIL = "email";
     public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
 
-    public TextView balanceTextView;
+    private TextView balanceTextView;
     static TabLayout tabs;
     private Toolbar toolbar;
     public static double balance = 0;
@@ -86,67 +88,47 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_wallet_home, container, false);
-
-        // Set the toolbar as Actionbar
-        toolbar = view.findViewById(R.id.myToolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle(getString(R.string.my_wallet));
-
-        // Enable home button on the toolbar
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        walletTransactions = view.findViewById(R.id.wallet_transactions);
-        walletLoans = view.findViewById(R.id.wallet_loans);
-        walletDeposit = view.findViewById(R.id.wallet_deposit);
-        walletTransfer = view.findViewById(R.id.wallet_transfer);
-        walletCoupons = view.findViewById(R.id.wallet_coupons);
-        walletBuy = view.findViewById(R.id.wallet_buy);
-
-        btnWalletTransactions = view.findViewById(R.id.btn_wallet_transactions);
-        btnWalletLoans = view.findViewById(R.id.btn_wallet_loans);
-        btnWalletDeposit = view.findViewById(R.id.btn_wallet_deposit);
-        btnWalletTransfer = view.findViewById(R.id.btn_wallet_transfer);
-        btnWalletCoupons = view.findViewById(R.id.btn_wallet_coupons);
-        btnWalletBuy = view.findViewById(R.id.btn_wallet_buy);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_home, container, false);
 
         fm = getActivity().getSupportFragmentManager();
-        balanceTextView = view.findViewById(R.id.crop_digital_wallet_amount);
 
-        balanceTextView.setText("UGX " + NumberFormat.getInstance().format(balance));
+        binding.cropDigitalWalletAmount.setText("UGX " + NumberFormat.getInstance().format(balance));
 
         updateBalance();
 
-        TextView walletUsername = view.findViewById(R.id.wallet_username);
-        walletUsername.setText(ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
+        //TextView walletUsername = view.findViewById(R.id.wallet_username);
+        binding.usernameWalletHome.setText(ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
+
+        Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
 
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
         dialog.setMessage("Please Wait..");
         dialog.setCancelable(false);
 
-        return view;
+        // return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        walletTransactions.setOnClickListener(this);
-        walletLoans.setOnClickListener(this);
-        walletDeposit.setOnClickListener(this);
-        walletTransfer.setOnClickListener(this);
-        walletCoupons.setOnClickListener(this);
-        walletBuy.setOnClickListener(this);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-        btnWalletTransactions.setOnClickListener(this);
-        btnWalletLoans.setOnClickListener(this);
-        btnWalletDeposit.setOnClickListener(this);
-        btnWalletTransfer.setOnClickListener(this);
-        btnWalletCoupons.setOnClickListener(this);
-        btnWalletBuy.setOnClickListener(this);
+        binding.btnWalletDeposit.setOnClickListener(view19 -> openAddMoney());
+        binding.layoutWalletTransfer.setOnClickListener(view110 -> openTransfer());
+        binding.layoutWalletTransactions.setOnClickListener(view111 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
+        binding.layoutWalletLoans.setOnClickListener(view112 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
+        binding.layoutWalletCoupons.setOnClickListener(view18 -> comingSoon());
+        binding.layoutWalletBuy.setOnClickListener(view17 -> openBuy());
+        binding.btnWalletDeposit.setOnClickListener(view16 -> openAddMoney());
+        binding.btnWalletTransfer.setOnClickListener(view15 -> openTransfer());
+        binding.btnWalletTransactions.setOnClickListener(view14 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
+        binding.btnWalletLoans.setOnClickListener(view13 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
+        binding.btnWalletCoupons.setOnClickListener(view12 -> comingSoon());
+        binding.btnWalletBuy.setOnClickListener(view1 -> openBuy());
     }
 
     @Override
@@ -155,41 +137,8 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
         this.context = context;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.wallet_transactions:
-            case R.id.btn_wallet_transactions:
-                navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment);
-                break;
-            case R.id.wallet_loans:
-            case R.id.btn_wallet_loans:
-                navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment);
-                break;
-            case R.id.wallet_deposit:
-            case R.id.btn_wallet_deposit:
-                openAddMoney();
-                break;
-            case R.id.wallet_transfer:
-            case R.id.btn_wallet_transfer:
-                openTransfer();
-                break;
-            case R.id.wallet_coupons:
-            case R.id.btn_wallet_coupons:
-                comingSoon();
-                break;
-            case R.id.wallet_buy:
-            case R.id.btn_wallet_buy:
-                openBuy();
-                break;
-            default:
-                Toast.makeText(context, "Default", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
     private String ucf(String str) {
-        if(str==null || str.length()<2 )
+        if (str == null || str.length() < 2)
             return str;
 
         return str.substring(0, 1).toUpperCase() + str.substring(1);
@@ -206,7 +155,7 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
                 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
-        editor.apply();
+        editor.commit();
     }
 
     public static void saveUser(JSONObject user, Context context) throws JSONException {
@@ -218,9 +167,9 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
         WalletHomeFragment.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
         WalletHomeFragment.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
         WalletHomeFragment.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
-        // WalletHomeFragment.savePreferences("latitude", user.getString("latitude"), context);
-        //WalletHomeFragment.savePreferences("longitude", user.getString("longitude"), context);
-        // WalletHomeFragment.savePreferences("userimage", user.getString("userimage"), this);
+//        WalletHomeFragment.savePreferences("latitude", user.getString("latitude"), context);
+//        WalletHomeFragment.savePreferences("longitude", user.getString("longitude"), context);
+//        WalletHomeFragment.savePreferences("userimage", user.getString("userimage"), context);
     }
 
     public void openAddMoney() {
@@ -301,11 +250,11 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onStart() {
-//                dialog = new ProgressDialog(WalletHomeActivity.this);
-//                dialog.setIndeterminate(true);
-//                dialog.setMessage("Please Wait..");
-//                dialog.setCancelable(false);
-//                dialog.show();
+                dialog = new ProgressDialog(context);
+                dialog.setIndeterminate(true);
+                dialog.setMessage("Please Wait..");
+                dialog.setCancelable(true);
+                dialog.show();
             }
 
             @Override
@@ -313,7 +262,9 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
                 try {
                     balance = response.getDouble("balance");
 
-                    balanceTextView.setText("UGX " + NumberFormat.getInstance().format(balance));
+                    Log.d(TAG, "onSuccess: Balance = " + balance);
+
+                    binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -345,7 +296,7 @@ public class WalletHomeFragment extends Fragment implements View.OnClickListener
                     Log.e("info : " + statusCode, "Something got very very wrong");
                 }
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
-                //WalletAuthActivity.startAuth(context, false);
+                WalletAuthActivity.startAuth(context, false);
             }
         });
     }

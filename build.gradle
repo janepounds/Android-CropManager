@@ -1,17 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         maven {
-
             name 'Google'
             url 'https://maven.fabric.io/public'
             mavenCentral()
-
-
-
-
         }
         google()
         jcenter()
@@ -19,13 +14,12 @@ buildscript {
         //maven {'https://maven.fabric.io/public'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         /*classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-pluin:0.5'
         classpath 'coom.google.gms:google-services:3.1.2'
         classpath 'io.fabric.tools:gradle:1.25.1'*/
 
         classpath 'com.google.gms:google-services:4.3.0'
-
 
         // Add dependency
         classpath 'io.fabric.tools:gradle:1.31.0'  // Crashlytics plugin
@@ -39,9 +33,7 @@ buildscript {
 
 allprojects {
 
-
     repositories {
-
         maven {
             url 'https://maven.google.com/'
             name 'Google'
@@ -52,8 +44,6 @@ allprojects {
         maven {
             url "https://highsoft.bintray.com/Highcharts"
         }
-
-
     }
 }
 
