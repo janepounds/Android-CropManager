@@ -51,27 +51,14 @@ public class CropInventoryFertilizerManagerActivity extends AppCompatActivity {
         nameTxt = findViewById(R.id.txt_crop_fertilizer_fertilizer_name);
         typeSp = findViewById(R.id.spinner_crop_fertilizer_fertilizer_type);
         batchNumberTxt = findViewById(R.id.txt_crop_fertilizer_batch_number);
-        serialNumberTxt = findViewById(R.id.txt_crop_fertilizer_serial_number);
         usageUnitSp = findViewById(R.id.spinner_crop_fertilizer_usage_unit);
         supplierTxt = findViewById(R.id.txt_crop_fertilizer_supplier);
         costTxt = findViewById(R.id.txt_crop_fertilizer_unit_cost);
         qtyTxt = findViewById(R.id.txt_crop_fertilizer_qty);
-        currencyTxt = findViewById(R.id.txt_crop_fertilizer_currency);
 
         npkNTxt = findViewById(R.id.txt_crop_fertilizer_npk_n);
         npkKTxt = findViewById(R.id.txt_crop_fertilizer_npk_k);
         npkPTxt = findViewById(R.id.txt_crop_fertilizer_npk_p);
-        macrosCa = findViewById(R.id.txt_crop_fertilizer_macros_ca);
-        macrosMg = findViewById(R.id.txt_crop_fertilizer_macros_mg);
-        macrosS = findViewById(R.id.txt_crop_fertilizer_macros_s);
-        microsB= findViewById(R.id.txt_crop_fertilizer_micros_b);
-        microsMn= findViewById(R.id.txt_crop_fertilizer_micros_mn);
-        microsCl= findViewById(R.id.txt_crop_fertilizer_micros_cl);
-        microsMo= findViewById(R.id.txt_crop_fertilizer_micros_mo);
-        microsCu= findViewById(R.id.txt_crop_fertilizer_micros_cu);
-        microsZn= findViewById(R.id.txt_crop_fertilizer_micros_zn);
-        microsFe= findViewById(R.id.txt_crop_fertilizer_micros_fe);
-        microsNa= findViewById(R.id.txt_crop_fertilizer_micros_na);
         saveBtn = findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         DashboardActivity.addDatePicker(dateTxt,this);

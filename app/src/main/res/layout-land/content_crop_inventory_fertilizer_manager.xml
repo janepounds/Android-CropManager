@@ -4,619 +4,393 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:theme="@style/AppTheme"
+    android:background="@color/white"
     tools:context=".activities.farmrecords.CropInventoryFertilizerManagerActivity"
     tools:showIn="@layout/activity_crop_inventory_fertilizer_manager">
-    <ScrollView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_add_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="@string/fertilizer_title"
+                android:theme="@style/HeaderThemeWhite"/>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="12dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Purchase Date"
-                        android:layout_weight="0.7"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_date_of_purchase"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:layout_weight="1"
                         android:hint="Select"
-                        android:background="@drawable/input_shapes_grey_spinner"
+                        android:background="@drawable/edittext_corner"
                         android:inputType="none"
                         android:focusable="false"
+                        android:layout_marginRight="@dimen/dimen_10dp"
                         android:textSize="14sp" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-
-                    >
-
-                    <TextView
-                        android:layout_width="match_parent"
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Fertilizer Type"
-                        android:layout_weight="0.7"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="3.4dp"
-                    android:background="@drawable/input_shapes_grey_spinner">
-                    <Spinner
-                        android:id="@+id/spinner_crop_fertilizer_fertilizer_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:entries="@array/crop_fertilizers_types"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginStart="10dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinner_crop_fertilizer_fertilizer_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:entries="@array/crop_fertilizers_types"
+                            android:hint="Seed Type"
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                    </RelativeLayout>
+
+
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="12dp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fertilizer Name"
-                        android:layout_weight="0.7"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_fertilizer_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:layout_weight="0.3"
-                        android:hint="Enter..."
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp" />
+                        android:hint="Fertilizer Name"
+                        android:background="@drawable/edittext_corner"
+                        android:textSize="14sp"
+                        android:layout_marginRight="@dimen/dimen_10dp"/>
 
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Quantity"
-
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
+                    android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/txt_crop_fertilizer_qty"
+                        android:id="@+id/txt_crop_fertilizer_supplier"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-
-                        android:inputType="number|numberDecimal"
-                        android:textSize="14sp" />
-
+                        android:layout_height="50dp"
+                        android:hint="Supplier"
+                        android:background="@drawable/edittext_corner"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/dimen_10dp"/>
                 </LinearLayout>
-            </LinearLayout>
-            
 
-            
+            </LinearLayout>
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="N-P-K"
-                        android:layout_weight="0.9"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="N-P-K"
+                    android:layout_weight="1"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp" />
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="0.1">
-                
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_npk_n"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:hint="Enter.."
                         android:text="@string/default_numeric_value"
                         android:inputType="number|numberDecimal"
-
                         android:layout_weight="1"
-                        android:background="@drawable/input_shapes"
-                        android:layout_marginRight="10dp"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginRight="5dp"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_npk_p"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:hint="Enter.."
                         android:text="@string/default_numeric_value"
                         android:inputType="number|numberDecimal"
-
                         android:layout_weight="1"
-                        android:layout_marginRight="10dp"
-
-                        android:background="@drawable/input_shapes"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/edittext_corner"
                         android:textSize="14sp" />
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_npk_k"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:hint="Enter.."
                         android:text="@string/default_numeric_value"
                         android:inputType="number|numberDecimal"
-
                         android:layout_weight="1"
-                        android:background="@drawable/input_shapes"
+                        android:background="@drawable/edittext_corner"
                         android:textSize="14sp" />
+
+
                 </LinearLayout>
-
             </LinearLayout>
-
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginEnd="12dp">
+                    android:orientation="vertical">
 
 
-                    <TextView
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Batch #"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
+                        android:gravity="center"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinner_crop_fertilizer_usage_unit"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:entries="@array/crop_fertilizers_usage_units"
+                            android:hint="Seed Type"
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginStart="12dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txt_crop_fertilizer_qty"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:background="@android:color/transparent"
+                        android:inputType="number"
+                        android:textSize="14sp"
+                        android:hint="Quantity" />
+
+                    <TextView
+                        android:id="@+id/txt_crop_fertilizer_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_oneside_corner_green"
+                        android:textColor="@color/white"
+                        android:text="Kg"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="0.2" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+
 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_batch_number"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:hint="Batch #"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginRight="10dp"
                         android:textSize="14sp" />
 
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Serial #"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/txt_crop_fertilizer_serial_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginEnd="12dp">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Supplier"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/txt_crop_fertilizer_supplier"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
-                        android:background="@drawable/input_shapes"
-                        android:textSize="14sp" />
-
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Usage Unit"
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/input_shapes_grey_spinner"
-                        android:padding="3.4dp">
-                    <Spinner
-                        android:id="@+id/spinner_crop_fertilizer_usage_unit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/crop_fertilizers_usage_units"
-                       />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cost"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-
-                   >
-
-                    <TextView
-                        android:id="@+id/txt_crop_fertilizer_currency"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/ugx"
-                        android:layout_weight="0.1"
-                        android:textSize="14sp"
-                        android:textAlignment="center"
-                       android:background="@drawable/input_shapes_grey_units"
-                        android:gravity="center"
-
-                        />
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginStart="12dp"
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/txt_crop_fertilizer_unit_cost"
-                        android:text="@string/default_numeric_value"
-
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:ems="10"
-                        android:hint="Enter.."
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:background="@android:color/transparent"
                         android:inputType="number"
                         android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
+                        android:hint="Cost" />
 
-                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_oneside_corner_green"
+                        android:textColor="@color/white"
+                        android:text="UGX"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="0.2" />
+
                 </LinearLayout>
-            </LinearLayout>
-
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Macronutrients"
-                android:layout_weight="1"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"  />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ca :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_macros_ca"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/input_shapes"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mg :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_macros_mg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="S :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_macros_s"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/input_shapes"
-
-                    android:layout_weight="1"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Micronutrients"
-                android:layout_weight="1"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"  />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="B :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:layout_weight="1"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mn :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_mn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cl :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_cl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mo :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_mo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_shapes"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cu :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_cu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Zn :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_zn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fe :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_fe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_shapes"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Na :"
-                    android:layout_weight="1"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp"  />
-                <EditText
-                    android:id="@+id/txt_crop_fertilizer_micros_na"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                  android:hint="%"  android:text="@string/default_numeric_value"
-                    android:background="@drawable/input_shapes"
-                    android:inputType="numberDecimal"
-                    android:layout_weight="1"
-                    android:textSize="14sp" />
 
 
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/btn_save"
-                style="@style/Button"
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:drawableTint="#ffffff"
-                android:text="Save"
-                android:textColor="#ffffff"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"/>
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:layout_marginRight="@dimen/dimen_20dp"
+                android:background="@drawable/rounded_corners_button">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:text="Submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/ic_right_arrow">
+                </ImageView>
+            </FrameLayout>
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,12 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
-import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
 import com.myfarmnow.myfarmcrop.helpers.WalletLoginHelper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,13 +29,11 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class WalletAuthActivity extends AppCompatActivity implements  PinFragment.Listener{
-    TextView tvForgetpass;
     static TextView errorTextView;
     Context context;
     public static String WALLET_ACCESS_TOKEN=null;
     SharedPreferences sharedPreferences;
     PinFragmentConfiguration pinConfig;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +197,6 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
     }
 
-
     @Override
     public void onValidated() {
         Log.w("PIN", "Pin validated");
@@ -210,7 +204,6 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
     @Override
     public void onPinCreated() {
-
         Log.w("PIN", "Pin created");
     }
 }
