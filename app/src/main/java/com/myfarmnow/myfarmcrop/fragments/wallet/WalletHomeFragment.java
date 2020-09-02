@@ -2,14 +2,11 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
@@ -18,7 +15,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -72,9 +68,6 @@ public class WalletHomeFragment extends Fragment {
     private DisplayImageOptions options;
     //Imageucf
     private ProgressDialog dialog;
-
-    SharedPreferences.Editor editor;
-    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -135,8 +128,6 @@ public class WalletHomeFragment extends Fragment {
 
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
-
-
 
 
     public void openAddMoney() {

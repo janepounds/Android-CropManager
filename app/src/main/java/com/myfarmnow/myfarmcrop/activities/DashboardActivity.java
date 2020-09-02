@@ -51,7 +51,6 @@ import com.myfarmnow.myfarmcrop.activities.agronomy.CropBestPracticesDashboardAc
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventoryListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropEstimatesListActivity;
@@ -81,7 +80,6 @@ import cz.msebera.android.httpclient.Header;
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
 
-    MyFarmDbHandlerSingleton dbHandler;
     public static final String PREFERENCES_FILE_NAME = "pref";
 
     public static final String FARM_NAME_PREFERENCES_ID = "farmname";
@@ -298,140 +296,17 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-
-
-    public void openFieldManager(View view) {
-        Intent openList = new Intent(this, CropFieldManagerActivity.class);
-        startActivity(openList);
-    }
-
-    public void openCropList(View view) {
-        Intent openList = new Intent(this, CropsListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openCropManager(View view) {
-        Intent openList = new Intent(this, CropsManagerActivity.class);
-        startActivity(openList);
-    }
-    public void openWallet(View view){
-
-        if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
-            startActivity(new Intent(DashboardActivity.this, WalletAuthActivity.class));
-            //finish();
-            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-        }
-        else {
-            //WalletAuthActivity.startAuth(context, true);
-            Intent authenticate = new Intent(this, WalletHomeActivity.class);
-            startActivity(authenticate);
-            finish();
-        }
-    }
-
-    public void openInventoryManager(View view) {
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openContactList(View view) {
-        Intent openList = new Intent(this, CropContactsListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openContactManager(View view) {
-        Intent openList = new Intent(this, CropContactManagerActivity.class);
-        startActivity(openList);
-    }
-
-    public void openCustomerList(View view) {
-        Intent openList = new Intent(this, CropCustomersListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openSupplierList(View view) {
-        Intent openList = new Intent(this, CropSuppliersListActivity.class);
-        startActivity(openList);
-    }
-
     public void openFertilizerCalculator(View view) {
         //CropFertilizerCalculatorEntryActivity
         Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
         startActivity(openList);
     }
 
-    public void openSalesOrderList(View view) {
-        Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
-        startActivity(openList);
-    }
 
-    public void openProductsList(View view) {
-        Intent openList = new Intent(this, CropProductsListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openEstimatesList(View view) {
-        Intent openList = new Intent(this, CropEstimatesListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openInvoicesList(View view) {
-        Intent openList = new Intent(this, CropInvoicesListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openPaymentsList(View view) {
-        Intent openList = new Intent(this, CropPaymentsListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openPurchaseOrdersList(View view) {
-        Intent openList = new Intent(this, CropPurchaseOrdersListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openBillsList(View view) {
-        Intent openList = new Intent(this, CropBillsListActivity.class);
-        startActivity(openList);
-    }
-
-    public void openBillPaymentsList(View view) {
-        Intent openList = new Intent(this, CropPaymentBillsListActivity.class);
-        startActivity(openList);
-    }
 
     public void openCalculators(View view) {
         Intent openList = new Intent(this, CropCalculatorsActivity.class);
         startActivity(openList);
-    }
-
-    public void openBestPractices(View view) {
-        Intent openBestPractices = new Intent(this, CropBestPracticesDashboardActivity.class);
-        startActivity(openBestPractices);
-
-    }
-
-
-    public void helpSendEmail(View view) {
-
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", "cabraltechltd@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
-        startActivity(Intent.createChooser(emailIntent, "Send email..."));
-    }
-
-    public void helpMakeCall(View view) {
-        Uri number = Uri.parse("tel:+256700353769");
-        Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-        startActivity(callIntent);
-    }
-
-    public void helpFacebook(View view) {
-        Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
-        String facebookUrl = getFacebookPageURL(this);
-        facebookIntent.setData(Uri.parse(facebookUrl));
-        startActivity(facebookIntent);
     }
 
     //method to get the right URL to use in the intent
@@ -448,16 +323,6 @@ public class DashboardActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             return "https://www.facebook.com/cropmanager/"; //normal web url
         }
-    }
-
-
-
-    private void SavePreferences(String key, String value) {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
-                0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.commit();
     }
 
     public static String getPreferences(String key, Context context) {
