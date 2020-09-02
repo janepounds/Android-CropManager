@@ -1773,5 +1773,7 @@
     <string name="label_eqipment">Equipment</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="addspray">Add Spray</string>
+    <string name="seeds">Seeds</string>
 
 </resources>
