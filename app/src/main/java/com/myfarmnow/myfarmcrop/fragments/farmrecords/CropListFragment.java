@@ -17,15 +17,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.databinding.FragmentFinancialRecordsBinding;
+import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
 
 
-public class FinancialRecordsFragment extends Fragment {
-    private FragmentFinancialRecordsBinding binding;
+public class CropListFragment extends Fragment {
+    private FragmentCropRecordsBinding binding;
     private Context context;
 
 
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crop_list,container,false);
+
+
+        return binding.getRoot();
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -41,13 +51,7 @@ public class FinancialRecordsFragment extends Fragment {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_financial_records, container, false);
 
-        return binding.getRoot();
+
     }
 }

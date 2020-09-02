@@ -147,14 +147,14 @@ public class CropInventoryListActivity extends AppCompatActivity {
         switch (id) {
 
 
-            case R.id.action_add_fertilizer:
+            case R.id.addFertilizer:
                 FragmentManager fm = getSupportFragmentManager();
                 AddFertilizer fertilizerFragment =  AddFertilizer.newInstance("FERTILIZER");
 
                fertilizerFragment.show(fm, "Add Fertilizer");
                 return true;
 
-            case R.id.action_add_seed:
+            case R.id.addSeed:
                 FragmentManager manager = getSupportFragmentManager();
 
                 AddSeed dialogFragment =  AddSeed.newInstance("SEED");
@@ -162,15 +162,8 @@ public class CropInventoryListActivity extends AppCompatActivity {
                 dialogFragment.show(manager, "Add Spray");
 
                 return true;
-            case R.id.action_add_spray:
-                AddSpray sprayfragment= new AddSpray(this,getSupportFragmentManager());
-                FragmentTransaction   ft = getSupportFragmentManager().beginTransaction();
-                Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-                sprayfragment.show(ft,"dialog");
+            case R.id.addSpray:
+
 
             default:
                 return super.onOptionsItemSelected(item);

@@ -41,11 +41,7 @@ public class AddSpray extends DialogFragment {
     Context activity;
     FragmentManager fm;
 
-    public AddSpray(Context context, FragmentManager supportFragmentManager){
-        this.activity=context;
-        this.fm=supportFragmentManager;
 
-    }
 
 
 

@@ -51,6 +51,10 @@ private Context context;
         NavController navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+        binding.layoutFieldDashboardFields.setOnClickListener(view1 -> navController.navigate(R.id.action_cropRecordsFragment_to_fieldsListFragment));
+        binding.layoutCropDashboardCrops.setOnClickListener(view1 -> navController.navigate(R.id.action_cropRecordsFragment_to_cropListFragment));
+
+
 
     }
 }

@@ -8,13 +8,13 @@
         app:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/action_add_spray"
+                android:id="@+id/addSpray"
                 android:title="Spray" />
             <item
-                android:id="@+id/action_add_seed"
+                android:id="@+id/addSeed"
                 android:title="Seed" />
             <item
-                android:id="@+id/action_add_fertilizer"
+                android:id="@+id/addFertilizer"
                 android:title="Fertilizer" />
         </menu>
 

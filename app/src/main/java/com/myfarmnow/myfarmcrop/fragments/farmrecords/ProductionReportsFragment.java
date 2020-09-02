@@ -19,8 +19,7 @@ import android.view.ViewGroup;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.databinding.FragmentFinancialRecordsBinding;
 
-
-public class FinancialRecordsFragment extends Fragment {
+public class ProductionReportsFragment extends Fragment {
     private FragmentFinancialRecordsBinding binding;
     private Context context;
 
@@ -46,7 +45,7 @@ public class FinancialRecordsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_financial_records, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_production_reports, container, false);
 
         return binding.getRoot();
     }
