@@ -38,34 +38,6 @@
                     android:layout_height="?attr/actionBarSize"
                     app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <!--                        <ImageView-->
-                        <!--                            android:id="@+id/imgback"-->
-                        <!--                            android:layout_width="30dp"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:layout_alignParentLeft="true"-->
-                        <!--                            android:layout_centerVertical="true"-->
-                        <!--                            android:layout_marginEnd="15dp"-->
-                        <!--                            android:padding="5dp"-->
-                        <!--                            android:src="@drawable/arrow_back_icon" />-->
-
-                        <TextView
-                            android:id="@+id/tvtitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="@string/title_farm_records"
-                            android:textColor="#fff"
-                            android:textSize="18dp" />
-
-
-
-
-
-                    </RelativeLayout>
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.AppBarLayout>

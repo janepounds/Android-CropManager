@@ -51,7 +51,7 @@ public class FarmRecordsHomeFragment extends Fragment {
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
         binding.layoutCropDashboardCrops.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_cropRecordsFragment));
-        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
+//        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
         binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
         binding.layoutDashboardFinancialRecords.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
     }
