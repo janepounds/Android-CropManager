@@ -64,6 +64,7 @@ public class FieldsListFragment extends Fragment {
 
 
 
+
     }
 
     @Override

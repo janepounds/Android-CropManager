@@ -65,11 +65,7 @@ private FragmentStoreBinding binding;
         super.onAttach(context);
         this.context = context;
     }
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -81,12 +77,20 @@ private FragmentStoreBinding binding;
 
 
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_store, container, false);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.inventoryRecycView.setLayoutManager(linearLayoutManager);
@@ -157,10 +161,13 @@ private FragmentStoreBinding binding;
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.crop_menu_inventory, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.crop_menu_inventory, menu);
+
     }
 
 
