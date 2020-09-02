@@ -152,11 +152,14 @@
                     <EditText
                         android:id="@+id/txt_loan_bill_total"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter.."
+                        android:layout_height="50dp"
+                        android:hint="e.g 40,000"
+                        android:background="@drawable/edittext_corner"
+                        android:textSize="14dp"
+                        android:layout_marginTop="@dimen/margin_10"
                         android:inputType="number"
-                        android:paddingLeft="2dp"
-                        android:textSize="12sp" />
+                        android:paddingLeft="@dimen/dimen_15sp"
+                        />
                 </LinearLayout>
 
                 <TextView
