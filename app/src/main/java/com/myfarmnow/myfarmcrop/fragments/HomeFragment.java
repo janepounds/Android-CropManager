@@ -40,6 +40,7 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
+import com.myfarmnow.myfarmcrop.activities.marketplace.MarketPlaceActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.PredictionToolsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.services.ServicesDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
@@ -59,14 +60,14 @@ public class HomeFragment extends Fragment {
     LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
     Toolbar toolbar;
 
-    LinearLayout walletLinearLayout,fieldsLinearLayout, farmrecordsLinearLayout,predictiontoolsLinearLayout,
-            agronomyLinearLayout, servicesLinearLayout, tasksLinearLayout,userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
+    LinearLayout walletLinearLayout, fieldsLinearLayout, farmrecordsLinearLayout, predictiontoolsLinearLayout, marketplaceLinearLayout,
+            agronomyLinearLayout, servicesLinearLayout, tasksLinearLayout, userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName, textViewVersion;
 
     TextView unreadNotificationsTextView;
 
-    ImageView  noticationsImageBtn;
+    ImageView noticationsImageBtn;
     NotificationTabsLayoutAdapter notificationTabsLayoutAdapter;
 
     private TabLayout notificationsTabLayout;
@@ -75,10 +76,10 @@ public class HomeFragment extends Fragment {
     FragmentManager fm;
     MyFarmDbHandlerSingleton dbHandler;
 
-    public HomeFragment(Context context, FragmentManager supportFragmentManager, MyFarmDbHandlerSingleton handlerInstance){
+    public HomeFragment(Context context, FragmentManager supportFragmentManager, MyFarmDbHandlerSingleton handlerInstance) {
         this.appContext = context;
-        this.fm=supportFragmentManager;
-        this.dbHandler =handlerInstance;
+        this.fm = supportFragmentManager;
+        this.dbHandler = handlerInstance;
     }
 
 
@@ -91,7 +92,7 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        
+
         initializeDashboard(view);
         return view;
     }
@@ -107,15 +108,16 @@ public class HomeFragment extends Fragment {
 
         //expandableListView = view.findViewById(R.id.drawer_menu_list);
         mainlayout = view.findViewById(R.id.mainlayout);
-        walletLinearLayout =view.findViewById(R.id.layout_dashboard_wallet);
-        fieldsLinearLayout =view.findViewById(R.id.layout_crop_dashboard_fields);
-        farmrecordsLinearLayout =view.findViewById(R.id.layout_dashboard_farmrecords);
-        agronomyLinearLayout =view.findViewById(R.id.layout_dashboard_agronomy);
-        predictiontoolsLinearLayout =view.findViewById(R.id.layout_predictiontools_dashboard);
-        tasksLinearLayout =view.findViewById(R.id.layout_crop_dashboard_tasks);
-        servicesLinearLayout =view.findViewById(R.id.layout_dashboard_service);
+        walletLinearLayout = view.findViewById(R.id.layout_dashboard_wallet);
+        fieldsLinearLayout = view.findViewById(R.id.layout_crop_dashboard_fields);
+        farmrecordsLinearLayout = view.findViewById(R.id.layout_dashboard_farmrecords);
+        marketplaceLinearLayout = view.findViewById(R.id.layout_dashboard_marketplace);
+        agronomyLinearLayout = view.findViewById(R.id.layout_dashboard_agronomy);
+        predictiontoolsLinearLayout = view.findViewById(R.id.layout_predictiontools_dashboard);
+        tasksLinearLayout = view.findViewById(R.id.layout_crop_dashboard_tasks);
+        servicesLinearLayout = view.findViewById(R.id.layout_dashboard_service);
 
-        weatherForecastLinearLayout =view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
+        weatherForecastLinearLayout = view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
 
         userProfileLayout = view.findViewById(R.id.layout_user_profile);
         textViewUserName = view.findViewById(R.id.text_view_crop_dashboard_name);
@@ -125,54 +127,40 @@ public class HomeFragment extends Fragment {
 //        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
 
 
-        walletLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
-                    startActivity(new Intent(appContext, WalletAuthActivity.class));
-                    //finish();
-                    getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-                }
-                else {
-                    //WalletAuthActivity.startAuth(context, true);
-                    Intent authenticate = new Intent(appContext, WalletHomeActivity.class);
-                    startActivity(authenticate);
-                    getActivity().finish();
-                }
+        walletLinearLayout.setOnClickListener(v -> {
+            if (WalletAuthActivity.WALLET_ACCESS_TOKEN == null) {
+                startActivity(new Intent(appContext, WalletAuthActivity.class));
+                //finish();
+                getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+            } else {
+                //WalletAuthActivity.startAuth(context, true);
+                Intent authenticate = new Intent(appContext, WalletHomeActivity.class);
+                startActivity(authenticate);
+                getActivity().finish();
             }
         });
 
-        farmrecordsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openFields = new Intent(appContext, FarmRecordsDashboardActivity.class);
-                startActivity(openFields);
-            }
+        farmrecordsLinearLayout.setOnClickListener(v -> {
+            Intent openFields = new Intent(appContext, FarmRecordsDashboardActivity.class);
+            startActivity(openFields);
         });
 
-        agronomyLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openFields = new Intent(appContext, AgronomyDashboardActivity.class);
-                startActivity(openFields);
-            }
+        marketplaceLinearLayout.setOnClickListener(view1 -> startActivity(new Intent(appContext, MarketPlaceActivity.class)));
+
+        agronomyLinearLayout.setOnClickListener(v -> {
+            Intent openFields = new Intent(appContext, AgronomyDashboardActivity.class);
+            startActivity(openFields);
         });
 
-        predictiontoolsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openFields = new Intent(appContext, PredictionToolsDashboardActivity.class);
-                startActivity(openFields);
-            }
-        });
-        servicesLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openFields = new Intent(appContext, ServicesDashboardActivity.class);
-                startActivity(openFields);
-            }
+        predictiontoolsLinearLayout.setOnClickListener(v -> {
+            Intent openFields = new Intent(appContext, PredictionToolsDashboardActivity.class);
+            startActivity(openFields);
         });
 
+        servicesLinearLayout.setOnClickListener(v -> {
+            Intent openFields = new Intent(appContext, ServicesDashboardActivity.class);
+            startActivity(openFields);
+        });
 
 
 //        tasksLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -208,9 +196,9 @@ public class HomeFragment extends Fragment {
 //        }
 
 
-        notificationsFrameLayout =view.findViewById(R.id.frame_layout_notifications);
-        noticationsImageBtn =view.findViewById(R.id.img_crop_dashboard_notifications);
-        unreadNotificationsTextView =view.findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
+        notificationsFrameLayout = view.findViewById(R.id.frame_layout_notifications);
+        noticationsImageBtn = view.findViewById(R.id.img_crop_dashboard_notifications);
+        unreadNotificationsTextView = view.findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
         notificationsViewPager = view.findViewById(R.id.viewPager);
         notificationsTabLayout = view.findViewById(R.id.tabLayout);
         notificationTabsLayoutAdapter = new NotificationTabsLayoutAdapter(fm);
@@ -234,8 +222,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
-
 
 
     }
