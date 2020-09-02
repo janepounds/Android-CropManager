@@ -56,14 +56,14 @@ public class CropFieldManagerActivity extends AppCompatActivity {
     public void initializeForm(){
 
         fieldNameTxt = findViewById(R.id.txt_crop_field_name);
-        soilCategorySpinner = findViewById(R.id.sp_crop_field_soil_category);
-        soilTypeSpinner = findViewById(R.id.sp_crop_field_soil_type);
-        watercourseSpinner = findViewById(R.id.sp_crop_field_watercourse);
+//        soilCategorySpinner = findViewById(R.id.sp_crop_field_soil_category);
+//        soilTypeSpinner = findViewById(R.id.sp_crop_field_soil_type);
+//        watercourseSpinner = findViewById(R.id.sp_crop_field_watercourse);
         totalAreaTxt = findViewById(R.id.txt_crop_field_total_area);
         croppableAreaTxt = findViewById(R.id.txt_crop_field_croppable_area);
         unitsSpinner = findViewById(R.id.sp_crop_field_units);
         typeSp = findViewById(R.id.sp_crop_field_type);
-        layoutTypeSp = findViewById(R.id.sp_crop_field_layout_type);
+//        layoutTypeSp = findViewById(R.id.sp_crop_field_layout_type);
         statusSp = findViewById(R.id.sp_crop_field_status);
 
         saveBtn = findViewById(R.id.btn_save);
@@ -147,8 +147,6 @@ public class CropFieldManagerActivity extends AppCompatActivity {
         cropField.setUnits(unitsSpinner.getSelectedItem().toString());
 
         dbHandler.insertCropField(cropField);
-
-
 
     }
     public void updateField(){

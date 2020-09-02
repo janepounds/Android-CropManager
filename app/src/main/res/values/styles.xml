@@ -134,6 +134,14 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <style name="HeaderThemeWhite" parent="AppTheme">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
     <!-- Custom Preference Theme inherits from the v14 support library Material Theme -->
     <style name="AppPreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
         <item name="preferenceStyle">@style/AppPreference</item>

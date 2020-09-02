@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#557f5f</color>
-    <color name="textColor">#031000</color>
+    <color name="textColor">#515C6F</color>
     <color name="buttonColor">#557f5f</color>
     <color name="colorPrimary_birds">#f4ad42</color>
     <color name="colorPrimaryDark">#161f2b</color>
