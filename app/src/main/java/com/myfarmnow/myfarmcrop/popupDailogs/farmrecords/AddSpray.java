@@ -2,12 +2,19 @@ package com.myfarmnow.myfarmcrop.popupDailogs.farmrecords;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -16,6 +23,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -25,27 +33,20 @@ public class AddSpray extends DialogFragment {
 
     public EditText purchaseDatTxt,seedNameTxt,costTxt,
             quantityTxt,batchTxt,supplierTxt,activeIngredientsTxt,harvestIntervalTxt,expiryDateTxt;
-    TextView currencyTxt;
+    TextView currencyTxt, cropsprayunitsTxt;
     Button saveBtn;
     Spinner usageUnitSpinner,typeSp;
     MyFarmDbHandlerSingleton dbHandler;
     CropInventorySpray sprayInventory;
+    Context activity;
+    FragmentManager fm;
 
-    public AddSpray(){
+    public AddSpray(Context context, FragmentManager supportFragmentManager){
+        this.activity=context;
+        this.fm=supportFragmentManager;
 
     }
-    public static AddSpray newInstance(String title) {
 
-        AddSpray frag = new AddSpray();
-
-        Bundle args = new Bundle();
-
-        args.putString("title", title);
-
-        frag.setArguments(args);
-
-        return frag;
-    }
 
 
 
@@ -54,10 +55,11 @@ public class AddSpray extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
         getDialog().requestWindowFeature(Window.FEATURE_RIGHT_ICON);
         getDialog().setFeatureDrawableResource(Window.FEATURE_RIGHT_ICON,R.drawable.ic_close);
-        return inflater.inflate(R.layout.activity_crop_inventory_fragment, container, false);
+        getDialog().setContentView(R.layout.activity_crop_inventory_fragment);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return super.onCreateView(inflater, container, savedInstanceState);
 
 
     }
@@ -77,8 +79,6 @@ public class AddSpray extends DialogFragment {
         builder.setView(view);
         builder.setCancelable(true);
 
-
-
         initializeView(view);
         return builder.create();
 
@@ -89,8 +89,10 @@ public class AddSpray extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         String title = getArguments().getString("title", "ADD SPRAY");
         getDialog().setCancelable(true);
-
         getDialog().setTitle(title);
+
+
+
 
     }
 
@@ -103,6 +105,7 @@ public class AddSpray extends DialogFragment {
 //        activeIngredientsTxt = findViewById(R.id.txt_crop_spray_active_ingreds);
         expiryDateTxt = view.findViewById(R.id.txt_crop_pray_exp_date);
         usageUnitSpinner = view.findViewById(R.id.spinner_crop_spray_unit);
+        cropsprayunitsTxt = view.findViewById(R.id.txt_crop_spray_units);
         quantityTxt = view.findViewById(R.id.txt_crop_spray_qty);
         costTxt = view.findViewById(R.id.txt_crop_spray_cost);
         currencyTxt = view.findViewById(R.id.txt_crop_spray_currency);
@@ -110,6 +113,66 @@ public class AddSpray extends DialogFragment {
         batchTxt = view.findViewById(R.id.txt_crop_spray_batch_no);
         supplierTxt = view.findViewById(R.id.txt_crop_spray_supplier);
         saveBtn = view.findViewById(R.id.btn_save);
+
+        usageUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("ml")){
+
+                    cropsprayunitsTxt.setText(" ML");
+
+                }
+                else if(selection.toLowerCase().equals("cwt")){
+
+                    cropsprayunitsTxt.setText("CWT");
+
+
+                }
+                else if(selection.toLowerCase().equals("flo3")){
+                    cropsprayunitsTxt.setText("FLO3");
+
+
+
+
+                }
+                else if(selection.toLowerCase().equals("lt")){
+
+                    cropsprayunitsTxt.setText("LT");
+
+
+                }
+                else if(selection.toLowerCase().equals("m3")){
+
+
+                    cropsprayunitsTxt.setText("M3");
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
     }
 

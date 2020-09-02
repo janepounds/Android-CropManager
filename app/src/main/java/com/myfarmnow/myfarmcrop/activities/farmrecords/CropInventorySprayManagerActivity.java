@@ -26,7 +26,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
 
     public EditText  purchaseDatTxt,seedNameTxt,costTxt,
             quantityTxt,batchTxt,supplierTxt,activeIngredientsTxt,harvestIntervalTxt,expiryDateTxt;
-    TextView currencyTxt;
+    TextView currencyTxt,cropsprayunitsTxt;
     Button saveBtn;
     Spinner usageUnitSpinner,typeSp;
     MyFarmDbHandlerSingleton dbHandler;
@@ -57,7 +57,7 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
         quantityTxt = findViewById(R.id.txt_crop_spray_qty);
         costTxt = findViewById(R.id.txt_crop_spray_cost);
         currencyTxt = findViewById(R.id.txt_crop_spray_currency);
-
+        cropsprayunitsTxt = findViewById(R.id.txt_crop_spray_units);
         batchTxt = findViewById(R.id.txt_crop_spray_batch_no);
         supplierTxt = findViewById(R.id.txt_crop_spray_supplier);
         saveBtn = findViewById(R.id.btn_save);
@@ -90,7 +90,63 @@ public class CropInventorySprayManagerActivity extends AppCompatActivity {
 
             }
         };
-        usageUnitSpinner.setOnItemSelectedListener(onItemSelectedListener);
+        usageUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("ml")){
+
+                    cropsprayunitsTxt.setText(" ML");
+
+                }
+                else if(selection.toLowerCase().equals("cwt")){
+
+                    cropsprayunitsTxt.setText("CWT");
+
+
+                }
+                else if(selection.toLowerCase().equals("flo3")){
+                    cropsprayunitsTxt.setText("FLO3");
+
+
+
+
+                }
+                else if(selection.toLowerCase().equals("lt")){
+
+                    cropsprayunitsTxt.setText("LT");
+
+
+                }
+                else if(selection.toLowerCase().equals("m3")){
+
+
+                    cropsprayunitsTxt.setText("M3");
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         typeSp.setOnItemSelectedListener(onItemSelectedListener);
 
 

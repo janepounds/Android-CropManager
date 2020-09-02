@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/farm_records_nav_graph"
+    app:startDestination="@id/farmRecordsHomeFragment">
+
+    <fragment
+        android:id="@+id/farmRecordsHomeFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.FarmRecordsHomeFragment"
+        android:label="fragment_farm_records_home"
+        tools:layout="@layout/fragment_farm_records_home" >
+        <action
+            android:id="@+id/action_farmRecordsHomeFragment_to_cropRecordsFragment"
+            app:destination="@id/cropRecordsFragment" />
+        <action
+            android:id="@+id/action_farmRecordsHomeFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
+        <action
+            android:id="@+id/action_farmRecordsHomeFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+        <action
+            android:id="@+id/action_farmRecordsHomeFragment_to_financialRecordsFragment"
+            app:destination="@id/financialRecordsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cropRecordsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropRecordsFragment"
+        android:label="@string/title_crop_records"
+        tools:layout="@layout/fragment_crop_records" />
+    <fragment
+        android:id="@+id/livestockRecordsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.LivestockRecordsFragment"
+        android:label="fragment_livestock_records"
+        tools:layout="@layout/fragment_livestock_records" />
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.StoreFragment"
+        android:label="fragment_store"
+        tools:layout="@layout/fragment_store" />
+    <fragment
+        android:id="@+id/financialRecordsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.FinancialRecordsFragment"
+        android:label="fragment_financial_records"
+        tools:layout="@layout/fragment_financial_records" />
+</navigation>
