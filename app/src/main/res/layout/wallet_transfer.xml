@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_home"
-    tools:context=".wallet.activities.WalletHomeActivity" >
+    tools:context=".activities.wallet.WalletHomeActivity" >
 <include layout="@layout/wallet_add_money"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

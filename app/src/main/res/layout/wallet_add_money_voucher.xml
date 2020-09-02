@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
-                    android:src="@drawable/wallet_transfer" />
+                    android:src="@drawable/transfer_money" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -117,7 +117,9 @@
                 <EditText
                     android:id="@+id/wallet_add_money_amount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    android:paddingStart="@dimen/dimen_10dp"
+                    android:background="@drawable/edittext_corner"
                     android:hint="Enter.."
                     android:inputType="text"
                     android:paddingLeft="2dp"

@@ -34,10 +34,11 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
+
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletHomeBinding;
-import com.myfarmnow.myfarmcrop.models.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.Buy;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyMobile;
 import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVisa;
@@ -60,15 +61,6 @@ public class WalletHomeFragment extends Fragment {
     private NavController navController = null;
     AppBarConfiguration appBarConfiguration;
 
-    public static final String PREFERENCES_FILE_NAME = "pref";
-    public static final String STREET_PREFERENCES_ID = "addressStreet";
-    public static final String CITY_PREFERENCES_ID = "addressCityOrTown";
-    public static final String COUNTRY_PREFERENCES_ID = "addressCountry";
-    public static final String PREFERENCES_FIRST_NAME = "firstname";
-    public static final String PREFERENCES_LAST_NAME = "lastname";
-    public static final String PREFERENCES_USER_ID = "userId";
-    public static final String PREFERENCES_USER_EMAIL = "email";
-    public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
 
     private TextView balanceTextView;
     static TabLayout tabs;
@@ -92,14 +84,14 @@ public class WalletHomeFragment extends Fragment {
 
         fm = getActivity().getSupportFragmentManager();
 
-        binding.cropDigitalWalletAmount.setText("UGX " + NumberFormat.getInstance().format(balance));
+        binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
         updateBalance();
 
         //TextView walletUsername = view.findViewById(R.id.wallet_username);
-        binding.usernameWalletHome.setText(ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
+        binding.usernameWalletHome.setText(ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
 
-        Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME, context)));
+        Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
 
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
@@ -144,33 +136,8 @@ public class WalletHomeFragment extends Fragment {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
-    public static String getPreferences(String key, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
-                0);
-        return sharedPreferences.getString(key, "");
-    }
 
-    public static void savePreferences(String key, String value, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME,
-                0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
 
-    public static void saveUser(JSONObject user, Context context) throws JSONException {
-        WalletHomeFragment.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
-        WalletHomeFragment.savePreferences("email", user.getString("email"), context);
-        WalletHomeFragment.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
-        WalletHomeFragment.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
-        WalletHomeFragment.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
-        WalletHomeFragment.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
-        WalletHomeFragment.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
-        WalletHomeFragment.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
-//        WalletHomeFragment.savePreferences("latitude", user.getString("latitude"), context);
-//        WalletHomeFragment.savePreferences("longitude", user.getString("longitude"), context);
-//        WalletHomeFragment.savePreferences("userimage", user.getString("userimage"), context);
-    }
 
     public void openAddMoney() {
         FragmentTransaction ft = fm.beginTransaction();
@@ -243,9 +210,10 @@ public class WalletHomeFragment extends Fragment {
     public void updateBalance() {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
+        Log.w("Token",WalletAuthActivity.WALLET_ACCESS_TOKEN);
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, this.context));
-        client.get(ApiPaths.CROP_WALLET_GET_BALANCE, params, new JsonHttpResponseHandler() {
+        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.context));
+        client.get(ApiPaths.WALLET_GET_BALANCE, params, new JsonHttpResponseHandler() {
             ProgressDialog dialog;
 
             @Override
@@ -269,6 +237,7 @@ public class WalletHomeFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                dialog.dismiss();
             }
 
             @Override
@@ -301,14 +270,6 @@ public class WalletHomeFragment extends Fragment {
         });
     }
 
-    public static void startHome(Context context) {
-        try {
-            Intent home = new Intent(context, WalletHomeActivity.class);
-            context.startActivity(home);
-        } catch (Exception e) {
-            Log.e("Intent start Error: ", e.getMessage());
-        }
-    }
 
     public void openBuy() {
         FragmentTransaction ft = this.fm.beginTransaction();

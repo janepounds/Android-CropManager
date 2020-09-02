@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.farmrecords.CropFieldManagerActivity">
+    tools:context=".activities.farmrecords.CropFieldManagerActivity" >
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
+        android:theme="@style/AppTheme.AppBarOverlay" >
 
 
         <androidx.appcompat.widget.Toolbar
@@ -31,9 +31,8 @@
                 android:layout_centerInParent="true"
                 android:text="@string/title_add_fields"
                 android:textColor="#fff"
-                android:textSize="18dp" />
-
-
+                android:textStyle="bold"
+                android:textSize="20sp" />
 
 
 
@@ -42,6 +41,7 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -86,25 +86,42 @@
             android:layout_marginBottom="10dp"
             android:padding="@dimen/dimen_10dp">
 
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/spinnerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_shapes_grey_spinner">
+                android:layout_marginRight="3dp"
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/edittext_corner"
+                android:orientation="horizontal">
 
+                <Spinner
+                    android:id="@+id/sp_crop_field_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:hint="Enter.."
+                    android:entries="@array/crop_field_type"
+                    android:spinnerMode="dropdown"/>
 
-            <Spinner
-                android:id="@+id/sp_crop_field_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Enter.."
-                android:entries="@array/crop_field_type"
-                android:textSize="14sp"
-                style="@style/spinnerStyle"
-                />
-            </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 
@@ -115,6 +132,7 @@
             android:orientation="horizontal"
             android:layout_marginBottom="5dp"
             android:padding="@dimen/dimen_10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,24 +141,42 @@
             android:layout_marginRight="12dp">
 
 
-
-            <LinearLayout
-                android:background="@drawable/input_shapes_grey_spinner"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3.4dp">
-              <Spinner
-                    android:id="@+id/sp_crop_field_status"
-                    android:layout_width="92dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:entries="@array/crop_field_status"
-                    android:hint="Enter.."
-                    android:textSize="14sp"
-                 />
+                android:padding="3.4dp"
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/edittext_corner"
+                android:orientation="horizontal">
 
-            </LinearLayout>
+                <Spinner
+                    android:id="@+id/sp_crop_field_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:hint="Enter.."
+                    android:entries="@array/crop_field_status"
+                    android:spinnerMode="dropdown"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+            </RelativeLayout>
+
+
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -150,96 +186,113 @@
                 android:layout_marginStart="12dp">
 
 
-
-                <LinearLayout
-                    android:background="@drawable/input_shapes_grey_spinner"
-                    android:padding="3.4dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <Spinner
-                    android:id="@+id/sp_crop_field_units"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/crop_field_units"
-                    android:inputType="numberDecimal"
-                    style="@style/MySpinnerLook"
+                    android:padding="3.4dp"
+                    android:gravity="center"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/edittext_corner"
+                    android:orientation="horizontal">
 
-                    />
-                </LinearLayout>
+                    <Spinner
+                        android:id="@+id/sp_crop_field_units"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:hint="Enter.."
+                        android:entries="@array/crop_field_units"
+                        android:spinnerMode="dropdown"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                </RelativeLayout>
+
+
             </LinearLayout>
         </LinearLayout>
 
 
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/dimen_10dp">
-
-
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/edittext_corner"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/txt_crop_field_total_area"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/input_shapes"
-                android:layout_margin="0dp"
-                android:ems="10"
-                android:hint="Field size"
+                android:layout_weight="0.7"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:background="@android:color/transparent"
                 android:inputType="number"
                 android:textSize="14sp"
-                android:layout_weight="0.7"
-               />
+                android:hint="Field size" />
 
-                <TextView
-                    android:id="@+id/txt_crops_estimated_revenue_units"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:text="Units"
-                    android:gravity="center"
-                    android:layout_weight="0.2"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/white"
+            <TextView
+                android:id="@+id/txt_crops_estimated_revenue_units"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_oneside_corner_green"
+                android:textColor="@color/white"
+                android:text="Units"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_weight="0.2" />
 
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/dimen_10dp">
+        </LinearLayout>
 
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/edittext_corner"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/txt_crop_field_croppable_area"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/input_shapes"
-                android:layout_margin="0dp"
-                android:ems="10"
-                android:hint="Croppable Area"
+                android:layout_weight="0.7"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:background="@android:color/transparent"
                 android:inputType="number"
                 android:textSize="14sp"
-                android:layout_weight="0.7"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:text="Units"
-                    android:gravity="center"
-                    android:layout_weight="0.2"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
+                android:hint="Croppable Area" />
 
+            <TextView
+                android:id="@+id/txt_crops_croppable_area_units"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_oneside_corner_green"
+                android:textColor="@color/white"
+                android:text="Units"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_weight="0.2" />
 
+        </LinearLayout>
 
 
 
@@ -253,18 +306,27 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_save"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:drawableTint="#ffffff"
-            android:text="Save "
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            style="@style/Button"
-            android:background="@drawable/rounded_corners_button"
-            />
+            android:layout_height="55dp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/rounded_corners_button">
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Save "
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                style="@style/Button"
+                android:background="@android:color/transparent"
+                />
+
+        </LinearLayout>
+
 
 
 
@@ -273,4 +335,5 @@
 
     </LinearLayout>
 </ScrollView>
+
 </LinearLayout>

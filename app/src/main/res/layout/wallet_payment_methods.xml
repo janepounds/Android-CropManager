@@ -21,7 +21,10 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dimen_20dp"
             android:gravity="center"
-            android:theme="@style/HeaderTheme"/>
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="Select"
+            />
 
     </LinearLayout>
     <LinearLayout

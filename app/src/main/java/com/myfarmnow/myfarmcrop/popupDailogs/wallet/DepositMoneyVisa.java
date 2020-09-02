@@ -152,16 +152,16 @@ public class DepositMoneyVisa extends DialogFragment implements
         String expiryDate=cardexpiryTxt.getText().toString();
         double amount = Double.parseDouble(amountEntered);
 
-        txRef= WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
+        txRef= WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
         Log.e("PUBK : ", BuildConfig.PUBLIC_KEY+" : "+expiryDate.substring(0,2)+" : "+expiryDate.substring(3,5));
 
 
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
-                .setEmail( WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL,this.activity) )
-                .setfName( WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_FIRST_NAME,this.activity) )
-                .setlName( WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_LAST_NAME,this.activity) )
+                .setEmail( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity) )
+                .setfName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME,this.activity) )
+                .setlName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME,this.activity) )
                 //.setPhoneNumber(userInfo.getPhone())
                 .setNarration("Cabral Tech Ltd")
                 .setPublicKey(BuildConfig.PUBLIC_KEY)
@@ -204,7 +204,7 @@ public class DepositMoneyVisa extends DialogFragment implements
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
 
-        params.put("email", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL,this.activity));
+        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity));
         params.put("referenceNumber", txRef);
         params.put("amount", amount);
 

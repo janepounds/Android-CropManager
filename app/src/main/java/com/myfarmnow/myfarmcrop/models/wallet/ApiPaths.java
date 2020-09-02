@@ -17,7 +17,7 @@ public class ApiPaths {
 
     //WALLET TRANSACTIONS
     public static final String WALLET_GET_TOKEN =  SERVER_URL + "/api/wallet/token/get";
-    public static final String CROP_WALLET_GET_BALANCE =  SERVER_URL + "/api/wallet/balance/request";
+    public static final String WALLET_GET_BALANCE =  SERVER_URL + "/api/wallet/balance/request";
     public static final String WALLET_INITIATE_MOMO_DEPOSIT =  SERVER_URL + "/api/wallet/momo/deposit/initiate";
     public static final String WALLET_INITIATE_MOMO_WITHDRAW =  SERVER_URL + "/api/wallet/momo/withdraw/initiate";
     public static final String WALLET_INITIATE_TRANSFER =  SERVER_URL + "/api/wallet/transfer/initiate";

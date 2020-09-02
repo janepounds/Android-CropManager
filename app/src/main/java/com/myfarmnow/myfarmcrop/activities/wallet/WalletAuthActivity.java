@@ -12,15 +12,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.myfarmnow.myfarmcrop.R;
-
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
 import com.myfarmnow.myfarmcrop.helpers.WalletLoginHelper;
-import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.venmo.android.pin.PinFragment;
 import com.venmo.android.pin.PinFragmentConfiguration;
 import com.venmo.android.pin.Validator;
@@ -31,11 +31,11 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 
-public class WalletAuthActivity extends AppCompatActivity implements PinFragment.Listener {
+public class WalletAuthActivity extends AppCompatActivity implements  PinFragment.Listener{
     TextView tvForgetpass;
     static TextView errorTextView;
     Context context;
-    public static String WALLET_ACCESS_TOKEN = null;
+    public static String WALLET_ACCESS_TOKEN=null;
     SharedPreferences sharedPreferences;
     PinFragmentConfiguration pinConfig;
 
@@ -46,42 +46,45 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
         setContentView(R.layout.wallet_authentication_manager);
 
 
-        errorTextView = findViewById(R.id.text_view_crop_user_error);
-        context = WalletAuthActivity.this;
+        sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
 
 
-        if (WalletAuthActivity.WALLET_ACCESS_TOKEN == null) {
-
-            pinConfig = new PinFragmentConfiguration(this)
-                    .validator(new Validator() {
-                        public boolean isValid(String submission) {
+        errorTextView =  findViewById(R.id.text_view_crop_user_error);
+        context=WalletAuthActivity.this;
 
 
-                            final ProgressDialog dialog = new ProgressDialog(context);
+        if (WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+
+            pinConfig =new PinFragmentConfiguration(this)
+                    .validator(new Validator(){
+                        public boolean isValid(String submission){
+
+
+                            final  ProgressDialog dialog = new ProgressDialog(context);
                             dialog.setIndeterminate(true);
                             dialog.setMessage("Please Wait..");
                             dialog.setCancelable(false);
 
                             if (submission.length() <= 0) {
                                 Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
-                            } else if (WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) == null && WALLET_ACCESS_TOKEN == null) {
-                                Log.w("Wallet:", "attempting user login " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, WalletAuthActivity.this));
+                            }else if( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this )==null && WALLET_ACCESS_TOKEN==null ) {
+                                Log.w("Wallet:","attempting user login "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
 
                                 if (sharedPreferences.getString("userEmail", null) != null) {
 
-                                    WalletLoginHelper.checkLogin(submission, WalletAuthActivity.this, null, dialog);
+                                    WalletLoginHelper.checkLogin( submission, WalletAuthActivity.this, null, dialog);
 
                                     overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                                 }
 
-                            } else if (!WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, WalletAuthActivity.this).isEmpty() && WALLET_ACCESS_TOKEN == null) {
+                            }else if( !WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ).isEmpty() &&  WALLET_ACCESS_TOKEN == null  ) {
 
-                                Log.w("Wallet:", "getting login token " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, WalletAuthActivity.this));
-                                WalletAuthActivity.getLoginToken(submission, WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, WalletAuthActivity.this), null, context);
-                            } else {
-                                Log.w("Wallet: ", "attempting user registration " + WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) + " : " + WalletHomeFragment.PREFERENCES_USER_EMAIL);
+                                Log.w("Wallet:","getting login token "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
+                                WalletAuthActivity.getLoginToken(  submission,WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ), null,context);
+                            }else {
+                                Log.w("Wallet: ","attempting user registration "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this )+" : "+WalletHomeActivity.PREFERENCES_USER_EMAIL);
 
-                                WalletLoginHelper.userRegister(dialog, context, submission);
+                                WalletLoginHelper.userRegister( dialog, context,submission);
                             }
 
                             return submission.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context)); // ...check against where you saved the pin
@@ -89,15 +92,17 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
                         }
                     });
 
-            PinFragment toShow = PinFragment.newInstanceForVerification(pinConfig);
+            PinFragment toShow =  PinFragment.newInstanceForVerification(pinConfig);
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, toShow)
+                    .replace( R.id.container, toShow)
                     .commit();
-        } else {
-            WalletHomeFragment.startHome(getApplicationContext());
+        }else{
+            WalletHomeActivity.startHome(getApplicationContext());
         }
-    }
 
+
+
+    }
     private String getpreferences(String key) {
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
                 0);
@@ -105,7 +110,7 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
 
     }
 
-    public static void getLoginToken(String password, String email, String phoneNumber, final Context context) {
+    public static void  getLoginToken( final String password, String email, String phoneNumber, final Context context) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
@@ -126,7 +131,6 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
             public void onStart() {
                 dialog.show();
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
@@ -134,37 +138,37 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
                 try {
 
                     String accessToken = response.getString("access_token");
-                    Log.w("Login Token: ", accessToken);
+                    Log.w("LoginToken: ",accessToken);
                     WALLET_ACCESS_TOKEN = accessToken;
 
-                    WalletHomeFragment.startHome(context);
+                    WalletHomeActivity.startHome(context);
                     //now you can go to next wallet page
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("Error: ", e.getMessage());
+                    Log.e("Error: ",e.getMessage());
                 }
 
-                if (dialog != null && dialog.isShowing())
+                if(dialog!=null && dialog.isShowing())
                     dialog.dismiss();
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    if (statusCode == 403) {
+                try{
+                    if(statusCode==403) {
                         //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
-                        if (errorTextView != null) {
+                        if (errorTextView != null){
                             errorTextView.setText(errorResponse.getString("message"));
                             errorTextView.setVisibility(View.VISIBLE);
                             errorTextView.requestFocus();
                         }
 
-                    } else if (statusCode == 404) {
-
-                        WalletLoginHelper.userRegister(dialog, context, password);
+                    }else if(statusCode==404){
+                        Log.e("info", new String(String.valueOf(errorResponse)));
+                        WalletLoginHelper.userRegister( dialog, context,password);
                     }
                     if (errorResponse != null) {
                         Log.e("info", new String(String.valueOf(errorResponse)));
@@ -174,27 +178,26 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if (dialog != null && dialog.isShowing())
+                if(dialog!=null && dialog.isShowing())
                     dialog.dismiss();
 
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
                 if (errorResponse != null) {
-                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
+                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
                 } else {
-                    Log.e("info : " + statusCode, "Something got very very wrong");
+                    Log.e("info : "+statusCode, "Something got very very wrong");
                 }
-                if (dialog != null && dialog.isShowing())
+                if(dialog!=null && dialog.isShowing())
                     dialog.dismiss();
             }
         });
     }
 
-    public static void startAuth(Context context, boolean sessionExpired) {
+    public static void startAuth(Context context, boolean sessionExpired){
         Intent authenticate = new Intent(context, WalletAuthActivity.class);
-        authenticate.putExtra("sessionExpired", sessionExpired);
+        authenticate.putExtra("sessionExpired",sessionExpired);
         context.startActivity(authenticate);
 
     }

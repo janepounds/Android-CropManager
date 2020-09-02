@@ -205,7 +205,7 @@ public class ConfirmTransfer extends DialogFragment {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeFragment.getPreferences(WalletHomeFragment.PREFERENCES_USER_ID, activity));
+        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, activity));
         params.put("countryCode", countryCode);
         params.put("receiverPhoneNumber", phoneNumber);
         params.put("amount", amount);

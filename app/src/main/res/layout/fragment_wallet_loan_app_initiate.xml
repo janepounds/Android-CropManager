@@ -218,9 +218,9 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
                     android:layout_marginTop="@dimen/dimen_30dp"
-                    android:layout_marginRight="@dimen/dimen_20dp"
+                    android:layout_marginRight="@dimen/dimen_10dp"
                     android:background="@drawable/rounded_corners_button">
 
                     <Button
