@@ -1775,5 +1775,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="addspray">Add Spray</string>
     <string name="seeds">Seeds</string>
+    <string name="fertilizer_title">FertiliZer</string>
 
 </resources>

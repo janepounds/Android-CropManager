@@ -45,10 +45,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
     public void initializeForm(){
         purchaseDatTxt = findViewById(R.id.txt_crop_purchase_date);
         seedNameTxt = findViewById(R.id.txt_crop_seed_name);
-        currencyTxt = findViewById(R.id.txt_crop_seeds_currency);
         varietyTxt = findViewById(R.id.txt_crop_variety);
-        dressingTxt = findViewById(R.id.txt_crop_dressing);
-        tgwTxt = findViewById(R.id.txt_crop_tgw);
         usageUnitSpinner = findViewById(R.id.txt_crop_usage_unit);
         quantityTxt = findViewById(R.id.txt_crop_quantity);
         costTxt = findViewById(R.id.txt_crop_cost);
@@ -130,7 +127,7 @@ public class CropInventorySeedsManagerActivity extends AppCompatActivity {
             costTxt.setText(seedsInventoryToEdit.getCost()+"");
             batchTxt.setText(seedsInventoryToEdit.getBatchNumber()+"");
             supplierTxt.setText(seedsInventoryToEdit.getSupplier()+"");
-            tgwTxt.setText(seedsInventoryToEdit.getTgw()+"");
+//            tgwTxt.setText(seedsInventoryToEdit.getTgw()+"");
 
 
         }
