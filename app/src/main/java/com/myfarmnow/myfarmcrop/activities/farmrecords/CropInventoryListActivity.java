@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,6 +25,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddFertilizer;
 import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSeed;
 import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSpray;
+import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVoucher;
 
 public class CropInventoryListActivity extends AppCompatActivity {
 
@@ -44,6 +47,8 @@ public class CropInventoryListActivity extends AppCompatActivity {
     ArrayList<CropInventory> cropInventoryList = new ArrayList();
     ArrayList<CropInventory> cropListBackUp = new ArrayList();
     MyFarmDbHandlerSingleton dbHandler;
+
+    public static FragmentManager fm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,15 +163,14 @@ public class CropInventoryListActivity extends AppCompatActivity {
 
                 return true;
             case R.id.action_add_spray:
-
-
-
-                FragmentManager fmm = getSupportFragmentManager();
-
-                AddSpray sprayFragment =  AddSpray.newInstance("ADD SPRAY");
-
-                sprayFragment.show(fmm, "Add Spray");
-                return true;
+                AddSpray sprayfragment= new AddSpray(this,getSupportFragmentManager());
+                FragmentTransaction   ft = getSupportFragmentManager().beginTransaction();
+                Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+                sprayfragment.show(ft,"dialog");
 
             default:
                 return super.onOptionsItemSelected(item);
