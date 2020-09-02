@@ -98,12 +98,6 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
 
     }
-    private String getpreferences(String key) {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",
-                0);
-        return sharedPreferences.getString(key, "0");
-
-    }
 
     public static void  getLoginToken( final String password, String email, String phoneNumber, final Context context) {
 
@@ -206,4 +200,5 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
     public void onPinCreated() {
         Log.w("PIN", "Pin created");
     }
+
 }
