@@ -71,6 +71,7 @@
         <action
             android:id="@+id/action_fieldsListFragment_to_addFieldFragment"
             app:destination="@id/addFieldFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/cropListFragment"
@@ -80,6 +81,7 @@
         <action
             android:id="@+id/action_cropListFragment_to_addCropFragment"
             app:destination="@id/addCropFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/productionReportsFragment"
@@ -89,23 +91,23 @@
     <fragment
         android:id="@+id/addFieldFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFieldFragment"
-        android:label="fragment_add_field"
+        android:label="@string/label_fields"
         tools:layout="@layout/fragment_add_field" />
     <fragment
         android:id="@+id/addCropFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddCropFragment"
-        android:label="fragment_add_crop"
+        android:label="@string/label_crops"
         tools:layout="@layout/fragment_add_crop" />
     <dialog
         android:id="@+id/addFertilizer"
         android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddFertilizer"
-        android:label="AddFertilizer" />
+        android:label="@string/fertilizer_form" />
     <dialog
         android:id="@+id/addSeed"
         android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSeed"
-        android:label="AddSeed" />
+        android:label="@string/seeds" />
     <dialog
         android:id="@+id/addSpray"
         android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSpray"
-        android:label="AddSpray" />
+        android:label="@string/addspray" />
 </navigation>

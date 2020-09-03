@@ -39,6 +39,7 @@ public class FieldsListFragment extends Fragment {
     private CropFieldsListRecyclerAdapter cropFieldsListRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
     private MyFarmDbHandlerSingleton dbHandler;
+    NavController navController;
 
 
 
@@ -71,7 +72,7 @@ public class FieldsListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
@@ -97,23 +98,15 @@ public class FieldsListFragment extends Fragment {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_add_new:
-                openCropFieldManagerActivity();
 
+            navController.navigate(R.id.action_fieldsListFragment_to_addFieldFragment);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void openCropFieldManagerActivity() {
-        FragmentTransaction t = this.getFragmentManager().beginTransaction();
-        Fragment mFrag = new AddFieldFragment();
-        t.replace(R.id.crop_field_layout, mFrag);
-        t.commit();
 
-
-
-    }
 
 
 

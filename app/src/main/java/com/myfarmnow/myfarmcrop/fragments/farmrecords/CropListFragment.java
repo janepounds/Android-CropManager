@@ -114,15 +114,12 @@ public class CropListFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.action_add_new:
-                openCropsManagerActivity();
+                navController.navigate(R.id.action_cropListFragment_to_addCropFragment);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void openCropsManagerActivity() {
-       //load crop form
 
-    }
 }
