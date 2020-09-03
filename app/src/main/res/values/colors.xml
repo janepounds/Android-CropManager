@@ -7,6 +7,7 @@
     <color name="colorPrimaryDark">#161f2b</color>
     <color name="colorAccent">#2b8c41</color>
     <color name="White">#ffffff</color>
+    <color name="opaqueWhite">#8CFFFFFF</color>
     <color name="Grey">#ecf0f5</color>
     <color name="blackText">#292929</color>
     <color name="transparent_blue">#322100c8</color>

@@ -18,7 +18,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.marketplace.MarketPlaceActivity"></activity>
+
+        <activity
+            android:name=".activities.marketplace.MarketPlaceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".services.CropNotificationsFireService"
