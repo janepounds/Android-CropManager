@@ -28,8 +28,6 @@ public class CropPDFViewActivity extends AppCompatActivity implements OnPageChan
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         pdfView= (PDFView)findViewById(R.id.pdfView);
 
 

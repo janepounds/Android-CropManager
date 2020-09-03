@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/agronomy_nav_graph"
+    app:startDestination="@id/agronomyHomeFragment">
+
+    <fragment
+        android:id="@+id/agronomyHomeFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.AgronomyHomeFragment"
+        android:label="fragment_agronomy_home"
+        tools:layout="@layout/fragment_agronomy_home" >
+        <action
+            android:id="@+id/action_agronomyHomeFragment_to_cropsFragment"
+            app:destination="@id/cropsFragment" />
+        <action
+            android:id="@+id/action_agronomyHomeFragment_to_askAgronomistFragment"
+            app:destination="@id/askAgronomistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/askAgronomistFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.AskAgronomistFragment"
+        android:label="fragment_ask_agronomist"
+        tools:layout="@layout/fragment_ask_agronomist" />
+    <fragment
+        android:id="@+id/cropsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.CropsFragment"
+        android:label="fragment_crops"
+        tools:layout="@layout/fragment_crops" />
+</navigation>

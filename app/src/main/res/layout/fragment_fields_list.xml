@@ -27,9 +27,6 @@
 
 
         </com.google.android.material.appbar.AppBarLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/crop_field_layout"
@@ -40,7 +37,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/crop_field_recyc_view"
+                android:id="@+id/crop_field_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -55,7 +52,7 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </RelativeLayout>
-        </ScrollView>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

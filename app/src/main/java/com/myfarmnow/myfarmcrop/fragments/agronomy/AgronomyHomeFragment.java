@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.fragments.farmrecords;
+package com.myfarmnow.myfarmcrop.fragments.agronomy;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,13 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
-import com.myfarmnow.myfarmcrop.databinding.FragmentFarmRecordsHomeBinding;
+import com.myfarmnow.myfarmcrop.databinding.FragmentAgronomyHomeBinding;
 
 
-public class CropRecordsFragment extends Fragment {
-private FragmentCropRecordsBinding binding;
-private Context context;
+public class AgronomyHomeFragment extends Fragment {
+    private FragmentAgronomyHomeBinding binding;
+    private Context context;
 
 
 
@@ -32,7 +31,7 @@ private Context context;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crop_records,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_agronomy_home,container,false);
 
 
         return binding.getRoot();
@@ -51,8 +50,9 @@ private Context context;
         NavController navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-        binding.layoutFieldDashboardFields.setOnClickListener(view1 -> navController.navigate(R.id.action_cropRecordsFragment_to_fieldsListFragment));
-        binding.layoutCropDashboardCrops.setOnClickListener(view2 -> navController.navigate(R.id.action_cropRecordsFragment_to_cropListFragment));
+
+        binding.layoutCropDashboardCrops.setOnClickListener(view1 -> navController.navigate(R.id.action_agronomyHomeFragment_to_cropsFragment));
+        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_agronomyHomeFragment_to_askAgronomistFragment));
 
 
 
