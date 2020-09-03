@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -42,6 +44,7 @@ public class CropListFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     MyFarmDbHandlerSingleton dbHandler;
     ArrayList<Crop> cropArrayList = new ArrayList();
+    NavController navController;
 
 
 
@@ -52,6 +55,12 @@ public class CropListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crop_list,container,false);
         setHasOptionsMenu(true);
+
+        Toolbar toolbar = binding.toolbar;
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         return binding.getRoot();
 
     }
@@ -66,9 +75,8 @@ public class CropListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+         navController = Navigation.findNavController(view);
+
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         cropListRecyclerAdapter = new CropsListRecyclerAdapter(cropArrayList,context);
