@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/walletLoanStatusPreviw"
-        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanStatusPreviw"
-        android:label="wallet_loanstatus_preview"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanStatusPreview"
+        android:label="Status Preview"
         tools:layout="@layout/wallet_loanstatus_preview" />
 </navigation>

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -47,6 +48,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
+import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -60,7 +62,6 @@ public class WalletHomeFragment extends Fragment {
 
     private TextView balanceTextView;
     static TabLayout tabs;
-    private Toolbar toolbar;
     public static double balance = 0;
     ActionBar actionBar;
     public static FragmentManager fm;
@@ -74,6 +75,11 @@ public class WalletHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_home, container, false);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(getResources().getString(R.string.my_wallet));
 
         fm = getActivity().getSupportFragmentManager();
 
@@ -99,8 +105,8 @@ public class WalletHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
         binding.btnWalletDeposit.setOnClickListener(view19 -> openAddMoney());
         binding.layoutWalletTransfer.setOnClickListener(view110 -> openTransfer());
@@ -128,7 +134,6 @@ public class WalletHomeFragment extends Fragment {
 
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
-
 
     public void openAddMoney() {
         FragmentTransaction ft = fm.beginTransaction();
@@ -201,7 +206,7 @@ public class WalletHomeFragment extends Fragment {
     public void updateBalance() {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
-        Log.w("Token",WalletAuthActivity.WALLET_ACCESS_TOKEN);
+        Log.w("Token", WalletAuthActivity.WALLET_ACCESS_TOKEN);
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
         params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.context));
         client.get(ApiPaths.WALLET_GET_BALANCE, params, new JsonHttpResponseHandler() {

@@ -179,8 +179,6 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
 
 
 
-
-
     public static String getPreferences(String key, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
                 0);

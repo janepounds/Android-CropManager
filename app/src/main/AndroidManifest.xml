@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.myfarmnow.myfarmcrop">
 
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,10 +18,12 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.marketplace.MarketPlaceActivity"></activity>
+
         <service
             android:name=".services.CropNotificationsFireService"
             android:enabled="false"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".activities.CropLoadBackUpActivity" />
 
@@ -189,7 +190,6 @@
             android:name=".activities.services.ServicesDashboardActivity"
             android:label="@string/title_service"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.farmrecords.CropFieldManagerActivity"
             android:label="@string/activity_crop_field_manager_title"
@@ -197,6 +197,8 @@
         <activity
             android:name=".activities.DashboardActivity"
             android:label="@string/title_activity_dashboard"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.farmrecords.CropInventorySeedsManagerActivity"
@@ -279,7 +281,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!---->
+                <!--  -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -390,20 +392,19 @@
         <activity
             android:name=".activities.CropSettingsActivity"
             android:label="@string/title_activity_crop_settings"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <!-- Wallet plugin activities-->
-
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Wallet plugin activities -->
         <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
         <activity
             android:name=".activities.wallet.WalletHomeActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!--                        <intent-filter>-->
-<!--                            <action android:name="android.intent.action.MAIN" />-->
 
-<!--                            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                        </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
@@ -416,7 +417,6 @@
             android:name=".services.CropNotificationsCreatorService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".services.MyFirebaseInstanceIdService"
             android:permission="false">

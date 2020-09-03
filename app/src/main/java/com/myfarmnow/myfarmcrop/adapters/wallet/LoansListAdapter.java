@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.adapters.wallet;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
@@ -24,7 +27,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyViewHolder> {
-     private List<LoanApplication> dataList;
+    private List<LoanApplication> dataList;
     LayoutInflater layoutInflater;
 
     public LoansListAdapter(List<LoanApplication> dataList) {
@@ -35,8 +38,8 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wallet_loan_card,parent,false);
-        MyViewHolder holder = new MyViewHolder( view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wallet_loan_card, parent, false);
+        MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
 
@@ -46,46 +49,43 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
 
         LoanApplication data = dataList.get(position);
 
-        holder.numberTxt.setText(  String.format("%04d" , Integer.parseInt(data.getId()) ) );
+        holder.numberTxt.setText(String.format("%04d", Integer.parseInt(data.getId())));
 
-        SimpleDateFormat localFormat = new SimpleDateFormat(WalletSettingsSingleton.getInstance().getDateFormat().replace("mm","MM"), Locale.ENGLISH);
+        SimpleDateFormat localFormat = new SimpleDateFormat(WalletSettingsSingleton.getInstance().getDateFormat().replace("mm", "MM"), Locale.ENGLISH);
         localFormat.setTimeZone(TimeZone.getDefault());
-        String currentDateandTime = null, prevDate=null;
+        String currentDateandTime = null, prevDate = null;
 
         try {
             SimpleDateFormat incomingFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             incomingFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             currentDateandTime = localFormat.format(incomingFormat.parse(data.getRequestDate()));
 
-            if( position>0 )
-            prevDate = localFormat.format(incomingFormat.parse(dataList.get(position-1).getRequestDate()));
+            if (position > 0)
+                prevDate = localFormat.format(incomingFormat.parse(dataList.get(position - 1).getRequestDate()));
 
 
             holder.dateTxt.setText(currentDateandTime);
-            if(currentDateandTime.equals(prevDate+""))
+            if (currentDateandTime.equals(prevDate + ""))
                 holder.dateTxt.setVisibility(View.GONE);
             else
                 holder.dateTxt.setVisibility(View.VISIBLE);
 
-            Log.d("DATE ",data.getRequestDate() +" => "+ WalletSettingsSingleton.getInstance().getDateFormat());
+            Log.d("DATE ", data.getRequestDate() + " => " + WalletSettingsSingleton.getInstance().getDateFormat());
 
-            holder.amountTxt.setText("UGX "+ NumberFormat.getInstance().format(data.getAmount()));
+            holder.amountTxt.setText("UGX " + NumberFormat.getInstance().format(data.getAmount()));
             holder.statusTxt.setText(data.generateStatus());
 
-            if(data.getDueDate() != null ){
+            if (data.getDueDate() != null) {
 
                 holder.dueDateTxt.setText(data.getDueDate());
-            }
-            else{
+            } else {
                 holder.dueDateTxt.setText("N/A");
             }
-
 
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -96,7 +96,7 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
         return dataList.size();
     }
 
-    public  class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView numberTxt, dateTxt, amountTxt, dueDateTxt, statusTxt;
 
@@ -118,10 +118,15 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
         public void onClick(View v) {
             LoanApplication transaction = dataList.get(getAdapterPosition());
 
-            Intent startNext = new Intent(v.getContext(), LoanStatusPreviewActivity.class);
-            startNext.putExtra("loanApplication",transaction);
-            v.getContext().startActivity(startNext);
+            NavController navController = Navigation.findNavController(v);
 
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("loanApplication", transaction);
+            navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanStatusPreviw);
+
+//            Intent startNext = new Intent(v.getContext(), LoanStatusPreviewActivity.class);
+//            startNext.putExtra("loanApplication", transaction);
+//            v.getContext().startActivity(startNext);
         }
     }
 
