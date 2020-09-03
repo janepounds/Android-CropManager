@@ -64,7 +64,7 @@ public class WalletLoansListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_loans_list, container, false);
 
-        // binding.walletPayLoanBtn.setVisibility(View.GONE);
+        binding.walletPayLoanBtn.setVisibility(View.GONE);
         binding.loansListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         statementAdapter = new LoansListAdapter(dataList);
@@ -179,5 +179,11 @@ public class WalletLoansListFragment extends Fragment {
         // Create and show the dialog.
         DialogFragment payLoandialog = new PayLoan(context, fm);
         payLoandialog.show(ft, "dialog");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dataList.clear();
     }
 }
