@@ -2,7 +2,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.myfarmnow.myfarmcrop.fragments.agronomy.AskAgronomistFragment">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+</FrameLayout>
 
 
 

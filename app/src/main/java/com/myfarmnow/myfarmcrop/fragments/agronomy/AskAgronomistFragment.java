@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.databinding.FragmentAskAgronomistBinding;
 
 
 public class AskAgronomistFragment extends Fragment {
+    private FragmentAskAgronomistBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

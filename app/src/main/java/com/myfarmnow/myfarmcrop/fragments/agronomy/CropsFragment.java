@@ -70,25 +70,177 @@ public class CropsFragment extends Fragment {
 
     });
 
-        binding.layoutCropDashboardFields.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                FragmentTransaction t = getFragmentManager().beginTransaction();
-                Fragment mFrag = new CropPDFViewFragment();
-                t.replace(R.id.relative_container, mFrag);
-                bundle.putString("fileName","maize.pdf");
-                bundle.putString("pageTitle","Maize Best Practices");
-                t.commit();
+        binding.layoutCropDashboardFields.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","maize.pdf");
+            bundle.putString("pageTitle","Maize Best Practices");
+            t.commit();
 
-            }
         });
 
-        binding.layoutCropDashboardCrops.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.layoutCropDashboardCrops.setOnClickListener(view12 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","beans.pdf");
+            bundle.putString("pageTitle","Beans Best Practices");
+            t.commit();
 
-            }
+
+        });
+        binding.layoutCropDashboardInventory.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","cabbage.pdf");
+            bundle.putString("pageTitle","Cabbage Best Practices");
+            t.commit();
+
+
+        });
+        binding.layoutCropDashboardMachines.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","carrot.pdf");
+            bundle.putString("pageTitle","Carrot Best Practices");
+            t.commit();
+        });
+        binding.layoutCropDashboardTasks.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","ground_nuts.pdf");
+            bundle.putString("pageTitle","Ground Nuts Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardOnions.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","onions.pdf");
+            bundle.putString("pageTitle","Onions Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardPassion.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","passion.pdf");
+            bundle.putString("pageTitle","Passion Fruit Best Practices");
+            t.commit();
+
+        });
+        binding.layutDashboardPineapple.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","pineapple.pdf");
+            bundle.putString("pageTitle","Pineapple Best Practices");
+            t.commit();
+
+        });
+        binding.layoutCropDashboardIncomeExpense.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","pumpkin.pdf");
+            bundle.putString("pageTitle","Pumpkin Best Practices");
+            t.commit();
+
+        });
+        binding.layoutCropDashboardWeatherForecast.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","soya_bean.pdf");
+            bundle.putString("pageTitle","Soya Beans Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashoardTomato.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","tomato.pdf");
+            bundle.putString("pageTitle","Tomato Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardWatermelon.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","water_melon.pdf");
+            bundle.putString("pageTitle","Water Melon Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardSorghum.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","sorghum.pdf");
+            bundle.putString("pageTitle","Sorghum Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardGarlic.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","garlic.pdf");
+            bundle.putString("pageTitle","Garlic Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardBanana.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","banana.pdf");
+            bundle.putString("pageTitle","Banana Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardCoffee.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","coffee.pdf");
+            bundle.putString("pageTitle","Coffee Best Practices");
+            t.commit();
+
+        });
+        binding.layoutDashboardRice.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            Fragment mFrag = new CropPDFViewFragment();
+            t.replace(R.id.relative_container, mFrag);
+            bundle.putString("fileName","rice.pdf");
+            bundle.putString("pageTitle","Rice Best Practices");
+            t.commit();
+
         });
 
 

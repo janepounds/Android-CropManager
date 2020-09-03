@@ -60,7 +60,6 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-                                android:onClick="openMaizeBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -104,7 +103,6 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-                                android:onClick="openBeansBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -149,8 +147,6 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-
-                                android:onClick="openCabbageBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -201,8 +197,6 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-
-                                android:onClick="openCarrotBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -246,8 +240,6 @@
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-
-                                android:onClick="openEggPlantBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -291,7 +283,6 @@
                                 android:layout_weight="1"
 
                                 android:background="@color/whiteColor"
-                                android:onClick="openGroundNutsBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -323,14 +314,13 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-
+                                android:id="@+id/layout_dashboard_onions"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
 
                                 android:background="@color/whiteColor"
-                                android:onClick="openOnionBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -355,15 +345,14 @@
                             </LinearLayout>
 
                             <LinearLayout
-
+                                android:id="@+id/layout_dashboard_passion"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:paddingBottom="5dp"
-                                android:onClick="openPassionFruitBestPractices"
-                                >
+                                android:paddingBottom="5dp">
+
 
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:layout_width="match_parent"
@@ -389,12 +378,11 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/layut_dashboard_pineapple"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openPineappleBestPractices"
-
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -431,7 +419,6 @@
                                 android:layout_weight="1"
 
                                 android:background="@color/whiteColor"
-                                android:onClick="openPumpkinBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -461,7 +448,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openSoyaBeansBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -489,12 +475,11 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/layout_dashoard_tomato"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openTomatoBestPractices"
-
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -524,12 +509,12 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/layout_dashboard_watermelon"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-                                android:onClick="openWaterMelonBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -554,12 +539,11 @@
                             </LinearLayout>
 
                             <LinearLayout
-
+                                android:id="@+id/layout_dashboard_garlic"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openGarlicBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -584,12 +568,11 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/layout_dashboard_sorghum"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openSorghumBestPractices"
-
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -619,12 +602,12 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
+                                android:id="@+id/layout_dashboard_coffee"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/whiteColor"
-                                android:onClick="openCoffeeBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -649,12 +632,11 @@
                             </LinearLayout>
 
                             <LinearLayout
-
+                                android:id="@+id/layout_dashboard_rice"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openRiceBestPractices"
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
 
@@ -679,11 +661,11 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/layout_dashboard_banana"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:onClick="openBananaBestPractices"
 
                                 android:orientation="vertical"
                                 android:paddingBottom="5dp">
