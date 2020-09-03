@@ -45,14 +45,12 @@ public class FarmRecordsHomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         NavController navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-
         binding.layoutCropDashboardCrops.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_cropRecordsFragment));
 //        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
-        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
-        binding.layoutDashboardFinancialRecords.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
+        binding.layoutInventoryStore.setOnClickListener(view2 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
+        binding.layoutDashboardFinancialRecords.setOnClickListener(view3 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
     }
 }

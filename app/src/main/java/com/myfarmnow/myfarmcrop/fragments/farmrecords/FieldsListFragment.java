@@ -28,10 +28,11 @@ import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
+import com.myfarmnow.myfarmcrop.databinding.FragmentFieldsListBinding;
 
 
 public class FieldsListFragment extends Fragment {
-    private FragmentCropRecordsBinding binding;
+    private FragmentFieldsListBinding binding;
     private Context context;
     private CropFieldsListRecyclerAdapter cropFieldsListRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -45,7 +46,7 @@ public class FieldsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_fields_list,container,false);
-
+        setHasOptionsMenu(true);
 
 
         return binding.getRoot();
@@ -57,15 +58,7 @@ public class FieldsListFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
-
-
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -77,10 +70,11 @@ public class FieldsListFragment extends Fragment {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
-//        binding..setAdapter(cropFieldsListRecyclerAdapter);
+
+        binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
 
-//        binding.recycler.setLayoutManager(linearLayoutManager);
+        binding.cropFieldRecyclerView.setLayoutManager(linearLayoutManager);
 
 
 
@@ -90,7 +84,7 @@ public class FieldsListFragment extends Fragment {
         inflater.inflate(R.menu.crop_list_activitys_menu, menu);
             super.onCreateOptionsMenu(menu, inflater);
     }
-
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
@@ -110,6 +104,9 @@ public class FieldsListFragment extends Fragment {
         t.commit();
 
 
+
     }
+
+
 
 }
