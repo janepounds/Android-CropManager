@@ -104,7 +104,6 @@ public class HomeFragment extends Fragment {
 
 
     public void initializeDashboard(View view) {
-
         //expandableListView = view.findViewById(R.id.drawer_menu_list);
         mainlayout = view.findViewById(R.id.mainlayout);
         walletLinearLayout =view.findViewById(R.id.layout_dashboard_wallet);
