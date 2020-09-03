@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.myfarmnow.myfarmcrop.fragments.agronomy.AskAgronomistFragment">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColor"></LinearLayout>
 
 
 </layout>
