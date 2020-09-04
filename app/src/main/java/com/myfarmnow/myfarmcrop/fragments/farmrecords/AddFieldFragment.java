@@ -151,16 +151,19 @@ public class AddFieldFragment extends Fragment {
                 if(selection.toLowerCase().equals("acres")){
 
                     binding.txtCropsEstimatedRevenueUnits.setText("Acres");
+                    binding.txtCropsCroppableAreaUnits.setText("Acres");
 
                 }
                 else if(selection.toLowerCase().equals("hectares")){
 
                     binding.txtCropsEstimatedRevenueUnits.setText("Hectares");
+                    binding.txtCropsCroppableAreaUnits.setText("Hectares");
 
 
                 }
                 else if(selection.toLowerCase().equals("square miles")){
                     binding.txtCropsEstimatedRevenueUnits.setText("Square Miles");
+                    binding.txtCropsCroppableAreaUnits.setText("Square Miles");
 
 
 

@@ -35,7 +35,7 @@ public class FarmRecordsHomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_farm_records_home,container,false);
         Toolbar toolbar = binding.toolbar;
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         return binding.getRoot();
