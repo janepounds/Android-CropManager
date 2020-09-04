@@ -80,7 +80,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
         holder.soilTypeTextView.setText(field.getSoilType());
         holder.soilCategoryTextView.setText(field.getSoilCategory());
         holder.fieldNameTextView.setText(field.getFieldName());
-        holder.fieldAreaTextView.setText("("+field.getTotalArea()+" "+field.getUnits().toLowerCase()+")");
+        holder.fieldAreaTextView.setText(+field.getTotalArea()+" "+field.getUnits().toLowerCase());
 
         ArrayList<Crop> crops = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropsInField(field.getId());
 
