@@ -17,12 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
 
 
 public class AddCropFragment extends Fragment {
 
-    private FragmentCropRecordsBinding binding;
+    private FragmentAddCropBinding binding;
     private Context context;
 
 
