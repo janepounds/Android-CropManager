@@ -106,7 +106,7 @@ public class AddFieldFragment extends Fragment {
 
                     }
                     else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.black)); //Change selected text color
                     }
                     ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
                 }catch (Exception e){
