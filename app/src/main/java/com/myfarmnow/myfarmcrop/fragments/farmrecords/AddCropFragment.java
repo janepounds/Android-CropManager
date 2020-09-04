@@ -34,8 +34,6 @@ public class AddCropFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_crop,container,false);
-
-
         return binding.getRoot();
     }
 

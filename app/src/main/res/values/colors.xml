@@ -8,7 +8,7 @@
     <color name="colorAccent">#2b8c41</color>
     <color name="White">#ffffff</color>
     <color name="Grey">#ecf0f5</color>
-    <color name="blackText">#292929</color>
+    <color name="blackText">#444444</color>
     <color name="transparent_blue">#322100c8</color>
     <color name="QRCodeWhiteColor">#ffffff</color>
     <color name="QRCodeBlackColor">#000000</color>

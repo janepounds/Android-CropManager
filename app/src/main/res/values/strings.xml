@@ -95,6 +95,16 @@
         <item>Bags</item>
         <item>Bunches</item>
     </string-array>
+    <string-array name="crop_havest_units">
+        <item>Harvest Units</item>
+        <item>Boxes</item>
+        <item>Kg</item>
+        <item>Tonnes</item>
+        <item>Bushels</item>
+        <item>Bags</item>
+        <item>Bunches</item>
+    </string-array>
+
     <string-array name="invoice_terms_list">
         <item>Select Unit</item>
         <item>Due on Receipt</item>
@@ -656,7 +666,7 @@
         <item>No</item>
     </string-array>
     <string-array name="sp_crops_season">
-        <item>Select</item>
+        <item >Season</item>
         <item>First Season</item>
         <item>Second Season</item>
     </string-array>
@@ -681,12 +691,19 @@
         <item>Rodent</item>
         <item>Weed</item>
     </string-array>
+
+    <string-array name="sp_crops_fields" >
+        <item>Field</item>
+
+    </string-array>
+
     <string-array name="sp_crop_scouting_infestation_level">
         <item>Select</item>
         <item>Low</item>
         <item>Medium</item>
         <item>High</item>
     </string-array>
+
     <string-array name="sp_crop_scouting_infestation_disease">
         <item>Acariasis</item>
         <item>Acariosis bronzed</item>
@@ -1776,5 +1793,6 @@
     <string name="addspray">Add Spray</string>
     <string name="seeds">Seeds</string>
     <string name="fertilizer_title">FertiliZer</string>
+    <string name="planting_date">Planting Date</string>
 
 </resources>
