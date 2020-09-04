@@ -342,9 +342,11 @@
                         <EditText
                             android:id="@+id/txt_crops_estimated_revenue"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="50dp"
                             android:layout_margin="0dp"
                             android:hint="Estimated Revenue"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
                             android:inputType="number"
                             android:textSize="14sp"
                             android:layout_weight="0.8"
