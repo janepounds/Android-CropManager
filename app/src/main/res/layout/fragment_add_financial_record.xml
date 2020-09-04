@@ -58,8 +58,8 @@
                     android:textSize="@dimen/dimen_20sp"
                     android:textColor="@color/blackText"
                     android:textStyle="bold"
-                    android:gravity="center"
-                    android:padding="@dimen/margin_10">
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/dimen_20dp" >
 
                 </TextView>
 
