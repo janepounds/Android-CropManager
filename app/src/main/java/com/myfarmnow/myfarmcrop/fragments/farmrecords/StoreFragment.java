@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,20 +29,13 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventoryListActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentLivestockRecordsBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentStoreBinding;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
-import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddFertilizer;
-import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSeed;
-import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSpray;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -88,7 +79,6 @@ public class StoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false);
-        setHasOptionsMenu(true);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = binding.toolbar;
@@ -179,17 +169,17 @@ public class StoreFragment extends Fragment {
             switch (id) {
 
 
-                case R.id.addFertilizer:
-                    navController.navigate(R.id.action_storeFragment_to_addFertilizer);
+                case R.id.storeAddFertilizerFragment:
+                   navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment);
 
                     return true;
 
-                case R.id.addSeed:
+                case R.id.storeAddSeedFragment:
 
-                    navController.navigate(R.id.action_storeFragment_to_addSeed);
+                    navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment);
                     return true;
-                case R.id.addSpray:
-                navController.navigate(R.id.action_storeFragment_to_addSpray);
+                case R.id.storeAddSprayFragment:
+                navController.navigate(R.id.action_storeFragment_to_storeAddSprayFragment);
 
                 default:
                     return super.onOptionsItemSelected(item);
