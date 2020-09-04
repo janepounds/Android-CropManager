@@ -49,20 +49,24 @@
         android:label="@string/label_store"
         tools:layout="@layout/fragment_store" >
         <action
-            android:id="@+id/action_storeFragment_to_addFertilizer"
-            app:destination="@id/addFertilizer" />
+            android:id="@+id/action_storeFragment_to_storeAddSprayFragment"
+            app:destination="@id/storeAddSprayFragment" />
         <action
-            android:id="@+id/action_storeFragment_to_addSeed"
-            app:destination="@id/addSeed" />
+            android:id="@+id/action_storeFragment_to_storeAddSeedFragment"
+            app:destination="@id/storeAddSeedFragment" />
         <action
-            android:id="@+id/action_storeFragment_to_addSpray"
-            app:destination="@id/addSpray" />
+            android:id="@+id/action_storeFragment_to_storeAddFertilizerFragment"
+            app:destination="@id/storeAddFertilizerFragment" />
     </fragment>
     <fragment
         android:id="@+id/financialRecordsFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.FinancialRecordsFragment"
         android:label="@string/label_financial_records"
-        tools:layout="@layout/fragment_financial_records" />
+        tools:layout="@layout/fragment_financial_records" >
+        <action
+            android:id="@+id/action_financialRecordsFragment_to_addFinancialRecordFragment"
+            app:destination="@id/addFinancialRecordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fieldsListFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.FieldsListFragment"
@@ -91,7 +95,7 @@
     <fragment
         android:id="@+id/addFieldFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFieldFragment"
-        android:label="@string/label_fields"
+        android:label="@string/title_add_fields"
         tools:layout="@layout/fragment_add_field" />
     <fragment
         android:id="@+id/addCropFragment"
@@ -99,15 +103,23 @@
         android:label="@string/label_crops"
         tools:layout="@layout/fragment_add_crop" />
     <dialog
-        android:id="@+id/addFertilizer"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddFertilizer"
-        android:label="@string/fertilizer_form" />
+        android:id="@+id/storeAddSprayFragment"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddSprayFragment"
+        android:label="fragment_store_add_spray"
+        tools:layout="@layout/fragment_store_add_spray" />
     <dialog
-        android:id="@+id/addSeed"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSeed"
-        android:label="@string/seeds" />
+        android:id="@+id/storeAddSeedFragment"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddSeedFragment"
+        android:label="fragment_store_add_seed"
+        tools:layout="@layout/fragment_store_add_seed" />
     <dialog
-        android:id="@+id/addSpray"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSpray"
-        android:label="@string/addspray" />
+        android:id="@+id/storeAddFertilizerFragment"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddFertilizerFragment"
+        android:label="fragment_store_add_fertilizer"
+        tools:layout="@layout/fragment_store_add_fertilizer" />
+    <fragment
+        android:id="@+id/addFinancialRecordFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFinancialRecordFragment"
+        android:label="@string/label_add_financial_records"
+        tools:layout="@layout/fragment_add_financial_record" />
 </navigation>

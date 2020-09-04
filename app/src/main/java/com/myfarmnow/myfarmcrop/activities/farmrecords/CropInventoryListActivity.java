@@ -1,13 +1,9 @@
 package com.myfarmnow.myfarmcrop.activities.farmrecords;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -25,7 +21,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
 import java.util.ArrayList;
@@ -33,10 +28,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
-import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddFertilizer;
-import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSeed;
-import com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.AddSpray;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVoucher;
 
 public class CropInventoryListActivity extends AppCompatActivity {
 
@@ -141,34 +132,7 @@ public class CropInventoryListActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-
-
-            case R.id.addFertilizer:
-                FragmentManager fm = getSupportFragmentManager();
-                AddFertilizer fertilizerFragment =  AddFertilizer.newInstance("FERTILIZER");
-
-               fertilizerFragment.show(fm, "Add Fertilizer");
-                return true;
-
-            case R.id.addSeed:
-                FragmentManager manager = getSupportFragmentManager();
-
-                AddSeed dialogFragment =  AddSeed.newInstance("SEED");
-
-                dialogFragment.show(manager, "Add Spray");
-
-                return true;
-            case R.id.addSpray:
-
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+    
 
 
 }

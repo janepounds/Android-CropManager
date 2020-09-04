@@ -1,0 +1,374 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddSprayFragment">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:theme="@style/AppTheme"
+        android:background="@color/white">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_add_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/addspray"
+                    android:theme="@style/HeaderThemeWhite"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginRight="8dp">
+
+
+
+                        <EditText
+                            android:id="@+id/txt_crop_spray_date_of_purchase"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/edittext_corner"
+                            android:hint="Purchase Date"
+                            android:inputType="none"
+                            android:focusable="false"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        >
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:layout_marginStart="12dp"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_crop_spray_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:entries="@array/crop_spray_type"
+                                android:hint="Enter.."
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginRight="8dp">
+
+
+
+                        <EditText
+                            android:id="@+id/txt_crop_spray_spray_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/edittext_corner"
+                            android:inputType="text"
+                            android:hint="Spray Name.."
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        >
+
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:layout_marginStart="12dp"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/spinner_crop_spray_unit"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:entries="@array/crop_spray_usage_units"
+                                android:hint="Units"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:background="@drawable/edittext_corner"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txt_crop_spray_qty"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:background="@android:color/transparent"
+                        android:inputType="number"
+                        android:textSize="14sp"
+                        android:hint="Quantity" />
+
+                    <TextView
+                        android:id="@+id/txt_crop_spray_units"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_oneside_corner_green"
+                        android:textColor="@color/white"
+                        android:text="ML"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="0.1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginRight="8dp">
+
+
+
+                        <EditText
+                            android:id="@+id/txt_crop_spray_batch_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:background="@drawable/edittext_corner"
+                            android:hint="Batch"
+                            android:inputType="text"
+                            android:textSize="14sp"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginStart="12dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txt_crop_spray_cost"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:textSize="14sp"
+                            android:hint="Cost" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_oneside_corner_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/txt_crop_spray_supplier"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:background="@drawable/edittext_corner"
+                        android:inputType="text"
+                        android:hint="Supplier.."
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="days"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_weight="0.1"
+                        android:background="@drawable/input_shapes_grey_units_right" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+
+                        <EditText
+                            android:id="@+id/txt_crop_pray_exp_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/edittext_corner"
+                            android:inputType="none"
+                            android:hint="Expiry Date"
+                            android:focusable="false"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btn_save"
+                    style="@style/Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableTint="#ffffff"
+                    android:text="submit"
+                    android:textAllCaps="true"
+                    android:background="@drawable/rounded_corners_button"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
