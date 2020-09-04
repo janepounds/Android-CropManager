@@ -265,7 +265,7 @@
                         android:id="@+id/txt_crop_fertilizer_unit"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/edittext_oneside_corner_green"
+                        android:background="@drawable/edittext_right_corners_green"
                         android:textColor="@color/white"
                         android:text="Kg"
                         android:textSize="14sp"
@@ -326,7 +326,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/edittext_oneside_corner_green"
+                        android:background="@drawable/edittext_right_corners_green"
                         android:textColor="@color/white"
                         android:text="UGX"
                         android:textSize="14sp"
