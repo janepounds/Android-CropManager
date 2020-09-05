@@ -34,9 +34,6 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/mainView">
 
-
-
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/crop_income_expense_recyc_view"
                 android:layout_width="match_parent"
