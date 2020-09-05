@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/josefin_sans"
+        android:text="Add Produce"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <com.myfarmnow.myfarmcrop.utils.layout.OtpEdittext
+        android:id="@+id/produce_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/edittext_corner"
+        android:fontFamily="@font/josefin_sans"
+        android:hint="Maize"
+        android:inputType="textPersonName"
+        android:paddingLeft="@dimen/dimen_15sp"
+        android:tag="Name : "
+        android:textAlignment="viewStart"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColorPrimaryDark" />
+
+    <com.myfarmnow.myfarmcrop.utils.layout.OtpEdittext
+        android:id="@+id/produce_variety"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/edittext_corner"
+        android:fontFamily="@font/josefin_sans"
+        android:hint="Asia F1"
+        android:inputType="textPersonName"
+        android:paddingStart="@dimen/dimen_15sp"
+        android:tag="Variety : "
+        android:textAlignment="viewStart"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColorPrimaryDark" />
+
+    <com.myfarmnow.myfarmcrop.utils.layout.OtpEdittext
+        android:id="@+id/produce_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/edittext_corner"
+        android:fontFamily="@font/josefin_sans"
+        android:hint="800 Kg"
+        android:inputType="textPersonName"
+        android:paddingStart="@dimen/dimen_15sp"
+        android:tag="Quantity : "
+        android:textAlignment="viewStart"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColorPrimaryDark" />
+
+    <com.myfarmnow.myfarmcrop.utils.layout.OtpEdittext
+        android:id="@+id/produce_price"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/edittext_corner"
+        android:fontFamily="@font/josefin_sans"
+        android:hint="500/Kg"
+        android:inputType="textPersonName"
+        android:paddingStart="@dimen/dimen_15sp"
+        android:tag="Price : UGX "
+        android:textAlignment="viewStart"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColorPrimaryDark" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="@dimen/dimen_5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/produce_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tomato_produce"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/produce_submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/josefin_sans"
+        android:maxLines="1"
+        android:text="@string/submit"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        app:cornerRadius="10dp"
+        app:rippleColor="@color/darker_gray" />
+
+</LinearLayout>

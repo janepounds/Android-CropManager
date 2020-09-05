@@ -21,7 +21,13 @@
 
         <activity
             android:name=".activities.marketplace.MarketPlaceActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".services.CropNotificationsFireService"
@@ -177,6 +183,7 @@
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.agronomy.AgronomyDashboardActivity"
             android:label="@string/title_agronomy"
@@ -280,11 +287,11 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!--  -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
@@ -398,15 +405,7 @@
         <activity
             android:name=".activities.wallet.WalletHomeActivity"
             android:parentActivityName=".activities.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />

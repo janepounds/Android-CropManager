@@ -50,6 +50,7 @@ android {
 dependencies {
     def material_design_version = "1.2.0"
     def nav_version = "2.3.0"
+    def room_version = "2.2.5"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -90,7 +91,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    implementation 'com.google.android.material:material:1.1.0-alpha06' //alpha07 alpha08 alpha09 have a bug
+    implementation 'com.google.android.material:material:1.1.0-alpha06'
+    //alpha07 alpha08 alpha09 have a bug
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
@@ -149,4 +151,15 @@ dependencies {
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
 }

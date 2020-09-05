@@ -3928,6 +3928,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return null;
 
     }
+
     public void  insertCropEmployee(CropEmployee spraying){
 
         openDB();
@@ -4567,7 +4568,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-
     public ArrayList<Crop> getCropsInField(String fieldId){
         openDB();
         ArrayList<Crop> array_list = new ArrayList();
@@ -4609,6 +4609,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
+
     public ArrayList<Crop> getCrops(String userId){
 
         openDB();
@@ -4705,7 +4706,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         return true;
     }
-
 
     public ArrayList<CropInventorySpray> getCropSpray(String userId) {
         openDB();
@@ -4846,6 +4846,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
+
     public CropInventorySeeds getCropInventorySeed(String seedId) {
         openDB();
 
@@ -4891,6 +4892,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return inventorySeeds;
 
     }
+
     public void insertCropField(CropField field) {
         openDB();
         ContentValues contentValues = new ContentValues();
@@ -4912,7 +4914,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("FIELDS LIST",contentValues.toString());
         closeDB();
     }
-
 
     public void insertCropFertilizerInventory(CropInventoryFertilizer fertilizer) {
         openDB();
@@ -4946,6 +4947,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.insert(CROP_INVENTORY_FERTILIZER_TABLE_NAME, null, contentValues);
         closeDB();
     }
+
     public void updateCropFertilizerInventory(CropInventoryFertilizer fertilizer) {
         openDB();
         ContentValues contentValues = new ContentValues();
@@ -4978,6 +4980,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.update(CROP_INVENTORY_FERTILIZER_TABLE_NAME, contentValues, CROP_INVENTORY_FERTILIZER_ID + " = ?", new String[]{fertilizer.getId()});
         closeDB();
     }
+
     public boolean deleteCropFertilizerInventory(String fertilizerId) {
         CropInventoryFertilizer fertilizer = getCropFertilizer(fertilizerId,false);
         openDB();
