@@ -1,6 +1,5 @@
-package com.myfarmnow.myfarmcrop.database;
+package com.myfarmnow.myfarmcrop.models.marketplace;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

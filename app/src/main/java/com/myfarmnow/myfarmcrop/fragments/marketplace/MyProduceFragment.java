@@ -18,7 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -32,17 +33,25 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.marketplace.MyProduceListAdapter;
+import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.database.MyProduceDatabase;
-import com.myfarmnow.myfarmcrop.database.MyProduce;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyProduceFragment extends Fragment {
     private static final String TAG = "MyProduceFragment";
     private FragmentMyProduceBinding binding;
     private Context context;
+
+    private ArrayList<MyProduce> produceList = new ArrayList<>();
+
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     // image picker code
     private static final int IMAGE_PICK_CODE = 0;
@@ -61,8 +70,17 @@ public class MyProduceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
-
         myProduceDatabase = MyProduceDatabase.getInstance(context);
+
+        new getAllProduceTask(MyProduceFragment.this).execute();
+        Log.d(TAG, "onCreateView: " + produceList);
+
+//        binding.recyclerView.setHasFixedSize(true);
+//        layoutManager = new LinearLayoutManager(context);
+//        adapter = new MyProduceListAdapter(context, produceList);
+//
+//        binding.recyclerView.setLayoutManager(layoutManager);
+//        binding.recyclerView.setAdapter(adapter);
 
         binding.addProduce.setOnClickListener(view -> addProduce());
 
@@ -177,6 +195,47 @@ public class MyProduceFragment extends Fragment {
 
     }
 
+    private static class getAllProduceTask extends AsyncTask<Void, Void, Boolean> {
+
+        private WeakReference<MyProduceFragment> fragmentReference;
+        private Context context;
+
+        // only retain a weak reference to the activity
+        getAllProduceTask(MyProduceFragment context) {
+            fragmentReference = new WeakReference<>(context);
+            this.context = context.context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d(TAG, "onPreExecute: " + "Getting produce.");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            ArrayList<MyProduce> produce = (ArrayList<MyProduce>) fragmentReference.get().myProduceDatabase.myProduceDao().getAll();
+            fragmentReference.get().produceList = produce;
+
+            Log.d(TAG, "doInBackground: " + produce);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                fragmentReference.get().requireActivity().runOnUiThread(() -> {
+                    fragmentReference.get().binding.recyclerView.setHasFixedSize(true);
+                    fragmentReference.get().layoutManager = new LinearLayoutManager(context);
+                    fragmentReference.get().adapter = new MyProduceListAdapter(context, fragmentReference.get().produceList);
+
+                    fragmentReference.get().binding.recyclerView.setLayoutManager(fragmentReference.get().layoutManager);
+                    fragmentReference.get().binding.recyclerView.setAdapter(fragmentReference.get().adapter);
+                });
+                Log.d(TAG, "onPostExecute: Complete");
+            }
+        }
+    }
+
     private static class InsertProduceTask extends AsyncTask<Void, Void, Boolean> {
 
         private WeakReference<MyProduceFragment> fragmentReference;
@@ -202,6 +261,9 @@ public class MyProduceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
+            List<MyProduce> produce = fragmentReference.get().myProduceDatabase.myProduceDao().getAll();
+
+            Log.d(TAG, "doInBackground: " + fragmentReference.get().myProduceDatabase.myProduceDao().getAll());
             fragmentReference.get().myProduceDatabase.myProduceDao().insert(myProduce);
             return true;
         }
