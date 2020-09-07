@@ -30,9 +30,9 @@
                         android:background="@drawable/input_shapes_crops_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="2dp"
+                        android:padding="2dp">
 
-                        >
+
 
 
                             <LinearLayout
@@ -40,9 +40,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:layout_marginStart="6dp"
+                                android:layout_marginStart="6dp">
 
-                               >
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -128,8 +128,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.1"
-                                    android:layout_marginLeft="6dp"
-                                    >
+                                    android:layout_marginLeft="6dp">
+
 
                                     <TextView
                                         android:id="@+id/txt_crop_card_name"

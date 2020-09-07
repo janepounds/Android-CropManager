@@ -85,8 +85,6 @@ public class CropListFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropsRecycView.setLayoutManager(linearLayoutManager);
         loadCropInventories();
-
-//        ropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
         binding.cropsRecycView.setAdapter(cropListRecyclerAdapter);
 
 

@@ -99,6 +99,8 @@ public class FieldsListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_add_new:
 
+
+
             navController.navigate(R.id.action_fieldsListFragment_to_addFieldFragment);
                 return true;
             default:
