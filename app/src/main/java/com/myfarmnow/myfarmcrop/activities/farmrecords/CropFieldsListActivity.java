@@ -36,7 +36,8 @@ public class CropFieldsListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         fieldListRecyclerView = findViewById(R.id.crop_field_recyc_view);
-        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",this)));
+//        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",this)));
+        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields("12"));
         fieldListRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         fieldListRecyclerView.setLayoutManager(linearLayoutManager);

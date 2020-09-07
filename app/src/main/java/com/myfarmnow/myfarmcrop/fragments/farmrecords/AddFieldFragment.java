@@ -212,7 +212,8 @@ public class AddFieldFragment extends Fragment {
 
     public void saveFields(){
         cropField = new CropField();
-        cropField.setUserId(DashboardActivity.getPreferences("userId",context));
+//        cropField.setUserId(DashboardActivity.getPreferences("userId",context));
+        cropField.setUserId("12");
         cropField.setFieldName(binding.txtCropFieldName.getText().toString());
 //        cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
 //        cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());

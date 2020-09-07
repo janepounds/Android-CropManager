@@ -118,7 +118,8 @@
             android:label="Task Manager" />
         <activity
             android:name=".activities.farmrecords.CropIncomeExpensesListActivity"
-            android:label="Income / Expenses " />
+            android:label="Income / Expenses "
+            />
         <activity
             android:name=".activities.farmrecords.CropIncomeExpenseManagerActivity"
             android:label="Income / Expenses Manager" />
@@ -173,7 +174,13 @@
         <activity
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <!--  -->
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".activities.agronomy.AgronomyDashboardActivity"
             android:label="@string/title_agronomy"
@@ -279,11 +286,11 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!--  -->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                &lt;!&ndash;  &ndash;&gt;-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"

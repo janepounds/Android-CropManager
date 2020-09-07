@@ -78,7 +78,8 @@ public class FieldsListFragment extends Fragment {
 
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
+//        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
+        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields("12"));
 
         binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
