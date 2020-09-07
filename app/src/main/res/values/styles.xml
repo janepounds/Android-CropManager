@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -159,7 +159,7 @@
         <item name="android:listSelector">@android:color/transparent</item>
     </style>
 
-    <style name="DialogFullscreen" parent="@android:style/Theme.Material.Light.DialogWhenLarge" >
+    <style name="DialogFullscreen" parent="@android:style/Theme.Material.Light.DialogWhenLarge" tools:targetApi="lollipop">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:fontFamily">@font/josefin_sans</item>
@@ -169,6 +169,11 @@
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slideup_dialog</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <style name="textAppearance_view_pager" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <style name="textAppearance_general">

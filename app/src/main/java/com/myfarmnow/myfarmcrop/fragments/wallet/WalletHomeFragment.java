@@ -78,11 +78,16 @@ public class WalletHomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_home, container, false);
 
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowTitleEnabled(true);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(getResources().getString(R.string.my_wallet));
+        setHasOptionsMenu(true);
 
-        fm = getActivity().getSupportFragmentManager();
+        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle(getResources().getString(R.string.my_wallet));
+
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        fm = requireActivity().getSupportFragmentManager();
 
         binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
@@ -106,8 +111,8 @@ public class WalletHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+
+        binding.toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         binding.btnWalletDeposit.setOnClickListener(view19 -> openAddMoney());
         binding.layoutWalletTransfer.setOnClickListener(view110 -> openTransfer());
