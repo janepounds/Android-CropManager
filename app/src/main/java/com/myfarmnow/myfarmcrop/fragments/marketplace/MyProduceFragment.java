@@ -18,7 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -32,7 +31,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.database.MyProduceDatabase;
+import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.database.MyProduce;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 
@@ -53,7 +52,7 @@ public class MyProduceFragment extends Fragment {
     private Bitmap produceImageBitmap = null;
     private ImageView produceImageView;
 
-    private MyProduceDatabase myProduceDatabase;
+    private MyFarmRoomDatabase myProduceDatabase;
     private MyProduce myProduce;
 
     @Override
@@ -62,7 +61,7 @@ public class MyProduceFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
 
-        myProduceDatabase = MyProduceDatabase.getInstance(context);
+        myProduceDatabase = MyFarmRoomDatabase.getInstance(context);
 
         binding.addProduce.setOnClickListener(view -> addProduce());
 

@@ -1,8 +1,10 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -30,10 +32,16 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
+import com.myfarmnow.myfarmcrop.database.FieldsTable;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
+import com.myfarmnow.myfarmcrop.database.MyProduce;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddFieldBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.MyProduceFragment;
 import com.myfarmnow.myfarmcrop.models.CropField;
+
+import java.lang.ref.WeakReference;
 
 
 public class AddFieldFragment extends Fragment {
@@ -41,7 +49,8 @@ public class AddFieldFragment extends Fragment {
     private Context context;
     CropField cropField =null;
     MyFarmDbHandlerSingleton dbHandler;
-
+    private MyFarmRoomDatabase myFarmRoomDatabase;
+    private FieldsTable fieldsTable;
 
 
 
@@ -50,7 +59,7 @@ public class AddFieldFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_field,container,false);
-
+        myFarmRoomDatabase = MyFarmRoomDatabase.getInstance(context);
 
         return binding.getRoot();
     }
@@ -211,21 +220,26 @@ public class AddFieldFragment extends Fragment {
     }
 
     public void saveFields(){
-        cropField = new CropField();
-//        cropField.setUserId(DashboardActivity.getPreferences("userId",context));
-        cropField.setUserId("12");
-        cropField.setFieldName(binding.txtCropFieldName.getText().toString());
-//        cropField.setSoilCategory( soilCategorySpinner.getSelectedItem().toString());
-//        cropField.setSoilType( soilTypeSpinner.getSelectedItem().toString());
-//        cropField.setWatercourse( watercourseSpinner.getSelectedItem().toString());
-//        cropField.setLayoutType( layoutTypeSp.getSelectedItem().toString());
-        cropField.setFieldType( binding.spCropFieldType.getSelectedItem().toString());
-        cropField.setStatus( binding.spCropFieldStatus.getSelectedItem().toString());
-        cropField.setTotalArea(Float.parseFloat(binding.txtCropFieldTotalArea.getText().toString()));
-        cropField.setCroppableArea(Float.parseFloat(binding.txtCropFieldCroppableArea.getText().toString()));
-        cropField.setUnits(binding.spCropFieldUnits.getSelectedItem().toString());
+//        cropField = new CropField();
+//        cropField.setUserId("12");
+//        cropField.setFieldName(binding.txtCropFieldName.getText().toString());
+//        cropField.setFieldType( binding.spCropFieldType.getSelectedItem().toString());
+//        cropField.setStatus( binding.spCropFieldStatus.getSelectedItem().toString());
+//        cropField.setTotalArea(Float.parseFloat(binding.txtCropFieldTotalArea.getText().toString()));
+//        cropField.setCroppableArea(Float.parseFloat(binding.txtCropFieldCroppableArea.getText().toString()));
+//        cropField.setUnits(binding.spCropFieldUnits.getSelectedItem().toString());
+//
+//        dbHandler.insertCropField(cropField);
 
-        dbHandler.insertCropField(cropField);
+
+            // fetch data and create produce object
+            fieldsTable = new FieldsTable(binding.txtCropFieldName.getText().toString(),binding.spCropFieldType.getSelectedItem().toString(),binding.spCropFieldStatus.getSelectedItem().toString(),
+                    binding.spCropFieldUnits.getSelectedItem().toString(), Integer.parseInt(binding.txtCropFieldTotalArea.getText().toString()),Integer.parseInt(binding.txtCropFieldCroppableArea.getText().toString()));
+
+
+            // create worker thread to insert data into database
+        new InsertProduceTask(AddFieldFragment.this, fieldsTable).execute();
+
 
     }
     public void updateField(){
@@ -287,5 +301,46 @@ public class AddFieldFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
+
+    //Room implementation
+    private static class InsertProduceTask extends AsyncTask<Void, Void, Boolean> {
+
+        private WeakReference<AddFieldFragment> fragmentReference;
+        private FieldsTable fieldsTable;
+       // private ProgressDialog dialog;
+        private Context context;
+
+        // only retain a weak reference to the activity
+        InsertProduceTask(AddFieldFragment context, FieldsTable fieldsTable) {
+            fragmentReference = new WeakReference<>(context);
+            this.fieldsTable =fieldsTable;
+            this.context = context.context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            fragmentReference.get().myFarmRoomDatabase.fieldsDao().insert(fieldsTable);
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                fragmentReference.get().requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(context, "Field Added", Toast.LENGTH_SHORT).show();
+
+                });
+
+
+            }
+        }
+    }
+
 
 }
