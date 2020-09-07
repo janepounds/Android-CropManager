@@ -1,10 +1,14 @@
 package com.myfarmnow.myfarmcrop.fragments.agronomy;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -32,6 +36,11 @@ public class AgronomyHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_agronomy_home,container,false);
+        Toolbar toolbar = binding.toolbar;
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         return binding.getRoot();
@@ -48,13 +57,23 @@ public class AgronomyHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+
 
         binding.layoutCropDashboardCrops.setOnClickListener(view1 -> navController.navigate(R.id.action_agronomyHomeFragment_to_cropsFragment));
-        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_agronomyHomeFragment_to_askAgronomistFragment));
+        binding.layoutInventoryStore.setOnClickListener(view12 -> {
+            showDialPad();
+
+        });
 
 
+
+    }
+
+    public void showDialPad(){
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        String tel = "0800399399";
+        callIntent.setData(Uri.parse("tel:"+tel.trim()));
+        startActivity(callIntent);
 
     }
 }

@@ -8,23 +8,15 @@
     <fragment
         android:id="@+id/agronomyHomeFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.AgronomyHomeFragment"
-        android:label="fragment_agronomy_home"
+        android:label="@string/label_agronomy"
         tools:layout="@layout/fragment_agronomy_home" >
         <action
             android:id="@+id/action_agronomyHomeFragment_to_cropsFragment"
             app:destination="@id/cropsFragment" />
-        <action
-            android:id="@+id/action_agronomyHomeFragment_to_askAgronomistFragment"
-            app:destination="@id/askAgronomistFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/askAgronomistFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.AskAgronomistFragment"
-        android:label="fragment_ask_agronomist"
-        tools:layout="@layout/fragment_ask_agronomist" />
     <fragment
         android:id="@+id/cropsFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.CropsFragment"
-        android:label="fragment_crops"
+        android:label="@string/label_crops"
         tools:layout="@layout/fragment_crops" />
 </navigation>

@@ -50,8 +50,6 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agronomy_dashboard);
         toolbar=  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
         initializeDashboard();
 
@@ -83,13 +81,13 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
 
 
 
-        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openInventory = new Intent(AgronomyDashboardActivity.this, CropInventoryListActivity.class);
-                startActivity(openInventory);
-            }
-        });
+//        inventoryLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openInventory = new Intent(AgronomyDashboardActivity.this, CropInventoryListActivity.class);
+//                startActivity(openInventory);
+//            }
+//        });
 //       to be called in "crop records"
 //        fieldsLinearLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
