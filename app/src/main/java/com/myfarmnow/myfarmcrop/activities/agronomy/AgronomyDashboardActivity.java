@@ -50,7 +50,8 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agronomy_dashboard);
         toolbar=  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
+        //MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings("12");
         initializeDashboard();
 
     }
