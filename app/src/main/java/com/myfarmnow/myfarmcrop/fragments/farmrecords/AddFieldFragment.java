@@ -85,14 +85,7 @@ public class AddFieldFragment extends Fragment {
     public void initializeForm(){
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-//        ((ArrayAdapter)soilCategorySpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ((ArrayAdapter)soilTypeSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ((ArrayAdapter)watercourseSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-
-
-
         ((ArrayAdapter)binding.spCropFieldUnits.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ((ArrayAdapter)layoutTypeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)binding.spCropFieldStatus.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)binding.spCropFieldType.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 

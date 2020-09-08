@@ -125,5 +125,9 @@
         android:id="@+id/addFinancialRecordFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFinancialRecordFragment"
         android:label="@string/label_add_financial_records"
-        tools:layout="@layout/fragment_add_financial_record" />
+        tools:layout="@layout/fragment_add_financial_record" >
+        <action
+            android:id="@+id/action_addFinancialRecordFragment_to_financialRecordsFragment"
+            app:destination="@id/financialRecordsFragment" />
+    </fragment>
 </navigation>

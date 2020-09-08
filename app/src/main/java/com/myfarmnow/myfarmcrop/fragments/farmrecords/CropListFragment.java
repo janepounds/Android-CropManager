@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -49,12 +51,18 @@ public class CropListFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crop_list,container,false);
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = binding.toolbar;
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Crops");
+        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Crops");
+
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.popBackStack();
+            }
+        });
         return binding.getRoot();
 
     }
@@ -69,8 +77,7 @@ public class CropListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         navController = Navigation.findNavController(view);
-
+        navController = Navigation.findNavController(view);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         cropListRecyclerAdapter = new CropsListRecyclerAdapter(cropArrayList,context);

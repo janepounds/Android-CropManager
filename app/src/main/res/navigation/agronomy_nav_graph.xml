@@ -18,5 +18,14 @@
         android:id="@+id/cropsFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.CropsFragment"
         android:label="@string/label_crops"
-        tools:layout="@layout/fragment_crops" />
+        tools:layout="@layout/fragment_crops" >
+        <action
+            android:id="@+id/action_cropsFragment_to_cropPDFViewFragment"
+            app:destination="@id/cropPDFViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cropPDFViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.agronomy.CropPDFViewFragment"
+        android:label="Crop Best Practices"
+        tools:layout="@layout/fragment_crop_p_d_f_view" />
 </navigation>

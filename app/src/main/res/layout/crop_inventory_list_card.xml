@@ -48,7 +48,8 @@
                             android:layout_weight="1"
                             android:text="Death"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="20dp" />
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
 
 
                         <ImageView
@@ -70,8 +71,8 @@
                         android:layout_marginRight="8dp"
                         android:max="40"
                         android:progress="20"
-                        android:progressTint="@color/progress_bar_green"
-                        android:progressBackgroundTint="@color/progress_bar_background_white"
+                        android:progressTint="@color/colorPrimary"
+                        android:progressBackgroundTint="@color/gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                     <!-- style="@android:style/Widget.ProgressBar.Horizontal" -->
@@ -81,14 +82,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
-                        android:layout_marginTop="3dp">
+                        android:layout_marginTop="3dp"
+                        android:paddingTop="@dimen/margin_10">
 
                         <TextView
                             android:textSize="14dp"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="#000"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Current Inventory : "/>
+                            android:text="Current Stock  :   "/>
 
                         <TextView
                             android:id="@+id/txt_view_current_inventory"
@@ -96,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0/0 Straws"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="#000"
                             android:textSize="14dp" />
 
                     </LinearLayout>
@@ -119,8 +121,8 @@
                                 android:id="@+id/txt_view_batch_lbl"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Batch# : "
-                                android:textColor="@color/colorPrimary"
+                                android:text="Batch #             :    "
+                                android:textColor="#000"
                                 android:textSize="14dp" />
 
                             <TextView
@@ -129,7 +131,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0/0 Straws"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="#000"
                                 android:textSize="14dp" />
 
                         </LinearLayout>

@@ -29,6 +29,7 @@ import java.util.List;
 
 
 public class CropPDFViewFragment extends Fragment implements OnPageChangeListener, OnLoadCompleteListener {
+    private static final String TAG = "CropPDFViewFragment";
     private FragmentCropPDFViewBinding binding;
     private Context context;
     private Integer pageNumber = 0;
@@ -67,12 +68,9 @@ public class CropPDFViewFragment extends Fragment implements OnPageChangeListene
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-
-
-
-        if (requireActivity().getIntent().hasExtra("fileName")) {
-            displayFromAsset(requireActivity().getIntent().getStringExtra("fileName"));
-            pageTitle = requireActivity().getIntent().getStringExtra("pageTitle");
+        if (!getArguments().getString("fileName").isEmpty()) {
+            displayFromAsset(getArguments().getString("fileName"));
+            pageTitle = getArguments().getString("pageTitle");
         } else {
             requireActivity().finish();
         }

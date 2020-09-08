@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class StoreFragment extends Fragment {
     private FragmentStoreBinding binding;
     private Context context;
-    ArrayList<CropInventory> cropInventoryList = new ArrayList();
+    public ArrayList<CropInventory> cropInventoryList = new ArrayList();
     ArrayList<CropInventory> cropListBackUp = new ArrayList();
     MyFarmDbHandlerSingleton dbHandler;
     CropInventoryListRecyclerAdapter cropListRecyclerAdapter;
@@ -136,12 +136,10 @@ public class StoreFragment extends Fragment {
             }
         });
 
-
         return binding.getRoot();
     }
 
-
-    private void loadCropInventories() {
+    public void loadCropInventories() {
         AsyncHttpClient client = new AsyncHttpClient();
         for (CropInventorySeeds seedsInventory : dbHandler.getCropSeeds(DashboardActivity.getPreferences("userId", context))) {
             cropListRecyclerAdapter.addInventory(seedsInventory);
@@ -185,7 +183,6 @@ public class StoreFragment extends Fragment {
                     return super.onOptionsItemSelected(item);
             }
     }
-
 }
 
 
