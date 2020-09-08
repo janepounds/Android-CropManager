@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +40,12 @@ import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.database.MyProduceDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MyProduceFragment extends Fragment {
@@ -58,8 +63,10 @@ public class MyProduceFragment extends Fragment {
     //permission code
     private static final int PERMISSION_CODE = 1;
 
+    Dialog dialog;
     private Uri produceImageUri = null;
     private Bitmap produceImageBitmap = null;
+    private String encodedImage;
     private ImageView produceImageView;
 
     private MyProduceDatabase myProduceDatabase;
@@ -72,19 +79,16 @@ public class MyProduceFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
         myProduceDatabase = MyProduceDatabase.getInstance(context);
 
-        new getAllProduceTask(MyProduceFragment.this).execute();
+        getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);
-
-//        binding.recyclerView.setHasFixedSize(true);
-//        layoutManager = new LinearLayoutManager(context);
-//        adapter = new MyProduceListAdapter(context, produceList);
-//
-//        binding.recyclerView.setLayoutManager(layoutManager);
-//        binding.recyclerView.setAdapter(adapter);
 
         binding.addProduce.setOnClickListener(view -> addProduce());
 
         return binding.getRoot();
+    }
+
+    private void getAllProduce() {
+        new getAllProduceTask(MyProduceFragment.this).execute();
     }
 
     @Override
@@ -137,9 +141,13 @@ public class MyProduceFragment extends Fragment {
                 Toast.makeText(context, "Image Required!!", Toast.LENGTH_SHORT).show();
             } else {
                 // fetch data and create produce object
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                String date = simpleDateFormat.format(new Date());
+                Log.d(TAG, "onCreateView: Date is " + date);
+
                 myProduce = new MyProduce(name.getText().toString(),
                         variety.getText().toString(), quantity.getText().toString(),
-                        price.getText().toString(), produceImageUri.toString()
+                        price.getText().toString(), encodedImage, date
                 );
 
                 // create worker thread to insert data into database
@@ -151,7 +159,7 @@ public class MyProduceFragment extends Fragment {
         builder.setView(addProduceDialog);
         builder.setCancelable(true);
 
-        Dialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
     }
 
@@ -185,6 +193,11 @@ public class MyProduceFragment extends Fragment {
 
                 try {
                     produceImageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), produceImageUri);
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    produceImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    byte[] b = byteArrayOutputStream.toByteArray();
+
+                    encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -261,8 +274,6 @@ public class MyProduceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            List<MyProduce> produce = fragmentReference.get().myProduceDatabase.myProduceDao().getAll();
-
             Log.d(TAG, "doInBackground: " + fragmentReference.get().myProduceDatabase.myProduceDao().getAll());
             fragmentReference.get().myProduceDatabase.myProduceDao().insert(myProduce);
             return true;
@@ -274,8 +285,9 @@ public class MyProduceFragment extends Fragment {
                 fragmentReference.get().requireActivity().runOnUiThread(() -> {
                     Toast.makeText(context, "Produce Added", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
+                    fragmentReference.get().dialog.dismiss();
+                    fragmentReference.get().getAllProduce();
                 });
-
                 Log.d(TAG, "onPostExecute: Complete");
             }
         }

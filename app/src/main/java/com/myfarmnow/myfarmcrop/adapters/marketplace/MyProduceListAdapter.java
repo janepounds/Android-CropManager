@@ -1,7 +1,10 @@
 package com.myfarmnow.myfarmcrop.adapters.marketplace;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyProduceListAdapter extends RecyclerView.Adapter<MyProduceListAdapter.MyProduceListViewHolder> {
@@ -57,8 +61,9 @@ public class MyProduceListAdapter extends RecyclerView.Adapter<MyProduceListAdap
         holder.variety.setText(myProduce.getVariety());
         holder.quantity.setText(myProduce.getQuantity());
         holder.price.setText(myProduce.getPrice());
+        holder.date.setText(myProduce.getDate());
 
-        Glide.with(context).load(Uri.parse(myProduce.getImage())).into(holder.image);
+        Glide.with(context).load(Base64.decode(myProduce.getImage(), Base64.DEFAULT)).into(holder.image);
     }
 
     @Override
