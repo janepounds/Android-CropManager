@@ -1,6 +1,5 @@
-package com.myfarmnow.myfarmcrop.database;
+package com.myfarmnow.myfarmcrop.models.marketplace;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -25,12 +24,16 @@ public class MyProduce {
     @ColumnInfo(name = "image")
     public String image;
 
-    public MyProduce(String name, String variety, String quantity, String price, String image) {
+    @ColumnInfo(name = "date")
+    public String date;
+
+    public MyProduce(String name, String variety, String quantity, String price, String image, String date) {
         this.name = name;
         this.variety = variety;
         this.quantity = quantity;
         this.price = price;
         this.image = image;
+        this.date = date;
     }
 
     public int getId() {
@@ -79,5 +82,13 @@ public class MyProduce {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -9,13 +9,16 @@
         android:id="@+id/walletHomeFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment"
         android:label="@string/my_wallet"
-        tools:layout="@layout/fragment_wallet_home" >
+        tools:layout="@layout/fragment_wallet_home">
         <action
             android:id="@+id/action_walletHomeFragment_to_walletTransactionsListFragment"
             app:destination="@id/walletTransactionsListFragment" />
         <action
             android:id="@+id/action_walletHomeFragment_to_walletLoansListFragment"
             app:destination="@id/walletLoansListFragment" />
+        <action
+            android:id="@+id/action_walletHomeFragment_to_depositPayments"
+            app:destination="@id/depositPayments" />
     </fragment>
     <fragment
         android:id="@+id/walletTransactionsListFragment"
@@ -26,20 +29,20 @@
         android:id="@+id/walletLoansListFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment"
         android:label="Loans"
-        tools:layout="@layout/fragment_wallet_loans_list" >
+        tools:layout="@layout/fragment_wallet_loans_list">
         <action
             android:id="@+id/action_walletLoansListFragment_to_walletLoanAppInitiateFragment"
             app:destination="@id/walletLoanAppInitiateFragment" />
         <action
-            android:id="@+id/action_walletLoansListFragment_to_walletLoanStatusPreviw"
-            app:destination="@id/walletLoanStatusPreviw" />
+            android:id="@+id/action_walletLoansListFragment_to_payLoan"
+            app:destination="@id/payLoan" />
     </fragment>
 
     <fragment
         android:id="@+id/walletLoanAppInitiateFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppInitiateFragment"
         android:label="Apply for Loan"
-        tools:layout="@layout/fragment_wallet_loan_app_initiate" >
+        tools:layout="@layout/fragment_wallet_loan_app_initiate">
         <action
             android:id="@+id/action_walletLoanAppInitiateFragment_to_walletLoanPreviewRequestFragment"
             app:destination="@id/walletLoanPreviewRequestFragment" />
@@ -49,7 +52,7 @@
         android:id="@+id/walletLoanPreviewRequestFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanPreviewRequestFragment"
         android:label="Loan Preview"
-        tools:layout="@layout/fragment_wallet_loan_preview_request" >
+        tools:layout="@layout/fragment_wallet_loan_preview_request">
         <action
             android:id="@+id/action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment"
             app:destination="@id/walletLoanAppPhotosFragment" />
@@ -57,15 +60,16 @@
     <fragment
         android:id="@+id/walletLoanAppPhotosFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppPhotosFragment"
-        android:label="fragment_wallet_loan_app_photos"
-        tools:layout="@layout/fragment_wallet_loan_app_photos" >
-        <action
-            android:id="@+id/action_walletLoanAppPhotosFragment_to_walletLoansListFragment"
-            app:destination="@id/walletLoansListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/walletLoanStatusPreviw"
-        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanStatusPreview"
-        android:label="Status Preview"
-        tools:layout="@layout/wallet_loanstatus_preview" />
+        android:label="Photos"
+        tools:layout="@layout/fragment_wallet_loan_app_photos" />
+
+    <dialog
+        android:id="@+id/payLoan"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.wallet.PayLoan"
+        tools:layout="@layout/wallet_pay_loan" />
+
+    <dialog
+        android:id="@+id/depositPayments"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositPayments"
+        tools:layout="@layout/wallet_payment_methods" />
 </navigation>

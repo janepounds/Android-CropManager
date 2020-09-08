@@ -16,45 +16,64 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.databinding.WalletPaymentMethodsBinding;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class DepositPayments extends DialogFragment {
+    private static final String TAG = "DepositPayments";
+    private Context context;
+    private double balance;
+
+    private WalletPaymentMethodsBinding binding;
+    private NavController navController = null;
+    AppBarConfiguration appBarConfiguration;
+
     LinearLayout layoutAddMoney;
     Button addMoneyImg;
-    TextView addMoneyTxt,phoneNumberTxt,errorMsgTxt;
+    TextView addMoneyTxt, phoneNumberTxt, errorMsgTxt;
     static String PENDING_DEPOSIT_REFERENCE_NUMBER;
     TextView balanceTextView, titleTextView;
-    double balance;
+
     ProgressDialog dialog;
-    Context activity;
-    public DepositPayments(Context context,double balance){
-        this.activity=context;   this.balance=balance;
 
+    public static DepositPayments newInstance(double balance) {
+        DepositPayments dialog = new DepositPayments();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("balance", balance);
+        dialog.setArguments(bundle);
+        return dialog;
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.wallet_payment_methods, null, false);
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        View view =inflater.inflate(R.layout.wallet_payment_methods, null);
+        assert getArguments() != null;
+        balance = getArguments().getFloat("interest");
 
-        builder.setView(view);
+        return new AlertDialog.Builder(context).setView(binding.getRoot()).create();
+    }
 
-        return builder.create();
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 }

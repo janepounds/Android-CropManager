@@ -8,7 +8,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
@@ -114,13 +113,17 @@ public class WalletHomeFragment extends Fragment {
 
         binding.toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
-        binding.btnWalletDeposit.setOnClickListener(view19 -> openAddMoney());
+        Bundle bundle = new Bundle();
+        assert getArguments() != null;
+        bundle.putDouble("balance", balance);
+
+        binding.btnWalletDeposit.setOnClickListener(view19 -> navController.navigate(R.id.action_walletHomeFragment_to_depositPayments, bundle));
         binding.layoutWalletTransfer.setOnClickListener(view110 -> openTransfer());
         binding.layoutWalletTransactions.setOnClickListener(view111 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
         binding.layoutWalletLoans.setOnClickListener(view112 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
         binding.layoutWalletCoupons.setOnClickListener(view18 -> comingSoon());
         binding.layoutWalletBuy.setOnClickListener(view17 -> openBuy());
-        binding.btnWalletDeposit.setOnClickListener(view16 -> openAddMoney());
+        binding.btnWalletDeposit.setOnClickListener(view16 -> navController.navigate(R.id.action_walletHomeFragment_to_depositPayments, bundle));
         binding.btnWalletTransfer.setOnClickListener(view15 -> openTransfer());
         binding.btnWalletTransactions.setOnClickListener(view14 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
         binding.btnWalletLoans.setOnClickListener(view13 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
@@ -150,8 +153,8 @@ public class WalletHomeFragment extends Fragment {
         ft.addToBackStack(null);
 
         // Create and show the dialog.
-        DialogFragment depositDialog = new DepositPayments(context, balance);
-        depositDialog.show(ft, "dialog");
+//        DialogFragment depositDialog = new DepositPayments(context, balance);
+//        depositDialog.show(ft, "dialog");
     }
 
     public void openAddMobileMoney(View view) {

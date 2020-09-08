@@ -133,7 +133,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
         dialog.setMessage("Please Wait..");
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
 
         binding.loanProgressBarId.setStateDescriptionData(descriptionData);
 
