@@ -14,8 +14,7 @@ import android.view.Menu;
 
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.CropFieldsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
 public class CropFieldsListActivity extends AppCompatActivity {

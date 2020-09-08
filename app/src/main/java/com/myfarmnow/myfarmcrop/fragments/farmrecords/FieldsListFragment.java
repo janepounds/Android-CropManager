@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,27 +11,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
-import com.myfarmnow.myfarmcrop.adapters.CropFieldsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
+import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentFieldsListBinding;
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 
 public class FieldsListFragment extends Fragment {
@@ -38,6 +43,7 @@ public class FieldsListFragment extends Fragment {
     private Context context;
     private CropFieldsListRecyclerAdapter cropFieldsListRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
+    private   MyFarmRoomDatabase myFarmRoomDatabase;
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
 
@@ -49,6 +55,8 @@ public class FieldsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_fields_list,container,false);
+
+        myFarmRoomDatabase= MyFarmRoomDatabase.getInstance(context);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = binding.toolbar;
@@ -79,28 +87,24 @@ public class FieldsListFragment extends Fragment {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 //        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
-        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields("12"));
+        //cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields("12"));
+        WeakReference<FieldsListFragment> fragmentReference=new WeakReference<>(this);
 
-        binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
-
-        binding.cropFieldRecyclerView.setLayoutManager(linearLayoutManager);
-
-
+        new retrieveAllFieldsTask(this).execute();
 
     }
-        @Override
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.crop_list_activitys_menu, menu);
             super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_add_new:
-
-
 
             navController.navigate(R.id.action_fieldsListFragment_to_addFieldFragment);
                 return true;
@@ -110,6 +114,47 @@ public class FieldsListFragment extends Fragment {
     }
 
 
+    //Room implementation
+    private class retrieveAllFieldsTask extends AsyncTask<Void, Void, Boolean> {
+
+        private WeakReference<FieldsListFragment> fragmentReference;
+        private List<CropField> fieldsList;
+        // private ProgressDialog dialog;
+        private Context context;
+
+        // only retain a weak reference to the activity
+        retrieveAllFieldsTask(FieldsListFragment context) {
+            fragmentReference = new WeakReference<>(context);
+            this.context = context.context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            this.fieldsList=fragmentReference.get().myFarmRoomDatabase.fieldsDao().getAll();
+            Log.w("FieldSize",fieldsList.size()+"");
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+
+                fragmentReference.get().requireActivity().runOnUiThread(() -> {
+
+                    cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context, this.fieldsList);
+                    binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
+                    linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+                    binding.cropFieldRecyclerView.setLayoutManager(linearLayoutManager);
+                });
+
+            }
+        }
+    }
 
 
 

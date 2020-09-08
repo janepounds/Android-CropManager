@@ -1,7 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,8 +11,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -25,13 +22,9 @@ import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsManagerActivity;
-import com.myfarmnow.myfarmcrop.adapters.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.CropsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropListBinding;
-import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
 import com.myfarmnow.myfarmcrop.models.Crop;
 
 import java.util.ArrayList;

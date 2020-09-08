@@ -6,29 +6,36 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {MyProduce.class,FieldsTable.class,CropsTable.class}, version = 1)
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
+
+@Database(entities = {MyProduce.class, CropField.class,CropsTable.class}, version = 3)
 public abstract class MyFarmRoomDatabase extends RoomDatabase {
 
     public abstract MyProduceDao myProduceDao();
     public abstract FieldsDao fieldsDao();
     public abstract CropsDao cropsDao();
 
-    private static MyFarmRoomDatabase produceDB;
+    private static MyFarmRoomDatabase myfarmDB;
 
     public static MyFarmRoomDatabase getInstance(Context context) {
-        if (null == produceDB) {
-            produceDB = buildDatabaseInstance(context);
+        if (null == myfarmDB) {
+            //myfarmDB = buildDatabaseInstance(context);
+            myfarmDB = Room.databaseBuilder(context.getApplicationContext(),
+                    MyFarmRoomDatabase.class, "myfarmDB.db")
+                    .fallbackToDestructiveMigration()
+                    .build();
+
         }
-        return produceDB;
+        return myfarmDB;
     }
 
     private static MyFarmRoomDatabase buildDatabaseInstance(Context context) {
-        return Room.databaseBuilder(context, MyFarmRoomDatabase.class, "produce.db")
+        return Room.databaseBuilder(context, MyFarmRoomDatabase.class, "myfarmDB.db")
                 .allowMainThreadQueries().build();
     }
 
     public void cleanUp() {
-        produceDB = null;
+        myfarmDB = null;
     }
 
 }

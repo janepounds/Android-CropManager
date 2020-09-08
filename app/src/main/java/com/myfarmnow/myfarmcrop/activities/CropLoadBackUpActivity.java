@@ -22,7 +22,7 @@ import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
-import com.myfarmnow.myfarmcrop.models.CropField;
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.CropHarvest;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
@@ -46,7 +46,6 @@ import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.CropTask;
 import com.myfarmnow.myfarmcrop.models.CropTransplanting;
-import com.myfarmnow.myfarmcrop.services.CropSyncService;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import org.json.JSONArray;

@@ -96,7 +96,11 @@
         android:id="@+id/addFieldFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFieldFragment"
         android:label="@string/title_add_fields"
-        tools:layout="@layout/fragment_add_field" />
+        tools:layout="@layout/fragment_add_field" >
+        <action
+            android:id="@+id/action_addFieldFragment_to_fieldsListFragment"
+            app:destination="@id/fieldsListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addCropFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddCropFragment"

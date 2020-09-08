@@ -302,7 +302,7 @@
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:ems="10"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:hint="Estimated Yield"
                             android:background="@drawable/edittext_corner"
                             android:textSize="14sp"

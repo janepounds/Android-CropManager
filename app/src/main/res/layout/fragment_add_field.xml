@@ -229,7 +229,7 @@
                         android:layout_weight="0.7"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:textSize="14sp"
                         android:hint="Field size" />
 
@@ -263,9 +263,8 @@
                         android:layout_weight="0.7"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:textSize="14sp"
-
                         android:hint="Croppable Area" />
 
                     <TextView

@@ -1,7 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,12 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -32,17 +26,13 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsListActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.database.CropsTable;
-import com.myfarmnow.myfarmcrop.database.FieldsTable;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropBinding;
-import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
 import com.myfarmnow.myfarmcrop.models.Crop;
-import com.myfarmnow.myfarmcrop.models.CropField;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -50,7 +40,6 @@ import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class AddCropFragment extends Fragment {
@@ -136,7 +125,7 @@ public class AddCropFragment extends Fragment {
 
 
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
-        for (CropField x : dbHandler.getCropFields(DashboardActivity.getPreferences("userId", context))) {
+        for (com.myfarmnow.myfarmcrop.models.farmrecords.CropField x : dbHandler.getCropFields(DashboardActivity.getPreferences("userId", context))) {
             fieldsItems.add(x);
         }
         fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems, "Field", context);
@@ -258,7 +247,7 @@ public class AddCropFragment extends Fragment {
         if (crop != null) {
             crop.setName(binding.spCropCrop.getText().toString());
             crop.setVariety(binding.txtCropsVariety.getText().toString());
-            crop.setFieldId(((CropField) binding.spCropsField.getSelectedItem()).getId());
+            crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
             crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
             crop.setDateSown(binding.txtCropsDateSown.getText().toString());
             crop.setArea(Float.parseFloat(binding.txtCropsArea.getText().toString()));
@@ -313,7 +302,6 @@ public class AddCropFragment extends Fragment {
             fragmentReference = new WeakReference<>(context);
             this.cropsTable = cropsTable;
             this.context = context.context;
-
             this.crop = crop;
             this.variety = variety;
             this.field = field;
@@ -333,10 +321,10 @@ public class AddCropFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... voids) {
             //pick field_id;
-            FieldsTable fieldsTable = fragmentReference.get().myFarmRoomDatabase.fieldsDao().getProduce(field);
+            CropField fieldsTable = fragmentReference.get().myFarmRoomDatabase.fieldsDao().getFields(field);
 
             // fetch data and create produce object
-            cropsTable = new CropsTable(crop,variety,field,fieldsTable.getId(),season,planting_date,field_size,units,estimated_yield,estimated_revenue);
+            cropsTable = new CropsTable(crop,variety,field,Integer.parseInt(fieldsTable.getId()),season,planting_date,field_size,units,estimated_yield,estimated_revenue);
             fragmentReference.get().myFarmRoomDatabase.cropsDao().insert(cropsTable);
             return true;
         }
@@ -383,4 +371,5 @@ public class AddCropFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
+
 }

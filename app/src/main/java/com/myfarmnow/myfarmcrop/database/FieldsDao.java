@@ -4,20 +4,27 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
 public interface FieldsDao {
     @Insert
-    void insert(FieldsTable fieldsTable);
+    void insert(CropField fieldsTable);
 
-    @Query("SELECT * FROM fieldstable WHERE field_name LIKE :name")
-    FieldsTable getProduce(String name);
+    @Query("SELECT * FROM CropField WHERE field_name LIKE :name")
+    CropField getFields(String name);
 
-    @Query("SELECT * FROM fieldstable")
-    List<FieldsTable> getAll();
+    @Update
+    void UpdateField(CropField fieldsTable);
+
+    @Query("SELECT * FROM CropField")
+    List<CropField> getAll();
 
     @Delete
-    void delete(FieldsTable fieldsTable);
+    void delete(CropField fieldsTable);
 }
