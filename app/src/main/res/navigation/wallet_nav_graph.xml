@@ -34,6 +34,9 @@
             android:id="@+id/action_walletLoansListFragment_to_walletLoanAppInitiateFragment"
             app:destination="@id/walletLoanAppInitiateFragment" />
         <action
+            android:id="@+id/action_walletLoansListFragment_to_walletLoanStatusPreview"
+            app:destination="@id/walletLoanStatusPreview" />
+        <action
             android:id="@+id/action_walletLoansListFragment_to_payLoan"
             app:destination="@id/payLoan" />
     </fragment>
@@ -61,7 +64,11 @@
         android:id="@+id/walletLoanAppPhotosFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppPhotosFragment"
         android:label="Photos"
-        tools:layout="@layout/fragment_wallet_loan_app_photos" />
+        tools:layout="@layout/fragment_wallet_loan_app_photos">
+        <action
+            android:id="@+id/action_walletLoanAppPhotosFragment_to_walletLoansListFragment"
+            app:destination="@id/walletLoansListFragment" />
+    </fragment>
 
     <dialog
         android:id="@+id/payLoan"
@@ -72,4 +79,9 @@
         android:id="@+id/depositPayments"
         android:name="com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositPayments"
         tools:layout="@layout/wallet_payment_methods" />
+    <fragment
+        android:id="@+id/walletLoanStatusPreview"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanStatusPreview"
+        android:label="wallet_loanstatus_preview"
+        tools:layout="@layout/wallet_loanstatus_preview" />
 </navigation>

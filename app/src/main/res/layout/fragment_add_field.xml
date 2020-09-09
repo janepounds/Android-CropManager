@@ -106,10 +106,7 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-
                     </RelativeLayout>
-
-
                 </LinearLayout>
 
 
@@ -212,8 +209,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -245,8 +240,6 @@
                         android:layout_weight="0.2" />
 
                 </LinearLayout>
-
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -280,16 +273,11 @@
 
                 </LinearLayout>
 
-
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/dimen_10dp">
-
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -312,7 +300,6 @@
                         />
 
                 </LinearLayout>
-                
 
             </LinearLayout>
         </ScrollView>

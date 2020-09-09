@@ -30,9 +30,6 @@ public class CropsFragment extends Fragment {
     private FragmentCropsBinding binding;
     private Context context;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -192,7 +189,6 @@ public class CropsFragment extends Fragment {
             bundle.putString("fileName","rice.pdf");
             bundle.putString("pageTitle","Rice Best Practices");
             navController.navigate(R.id.action_cropsFragment_to_cropPDFViewFragment,bundle);
-
         });
 
 

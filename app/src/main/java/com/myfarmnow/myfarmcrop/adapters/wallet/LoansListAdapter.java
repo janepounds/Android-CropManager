@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.adapters.wallet;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.wallet.LoanStatusPreviewActivity;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 
@@ -28,7 +26,6 @@ import java.util.TimeZone;
 
 public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyViewHolder> {
     private List<LoanApplication> dataList;
-    LayoutInflater layoutInflater;
 
     public LoansListAdapter(List<LoanApplication> dataList) {
         this.dataList = dataList;
@@ -81,13 +78,9 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
             } else {
                 holder.dueDateTxt.setText("N/A");
             }
-
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -122,13 +115,7 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("loanApplication", transaction);
-            navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanStatusPreviw);
-
-//            Intent startNext = new Intent(v.getContext(), LoanStatusPreviewActivity.class);
-//            startNext.putExtra("loanApplication", transaction);
-//            v.getContext().startActivity(startNext);
+            navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanStatusPreview);
         }
     }
-
-
 }

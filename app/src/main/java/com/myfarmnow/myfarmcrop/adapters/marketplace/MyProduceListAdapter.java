@@ -1,9 +1,6 @@
 package com.myfarmnow.myfarmcrop.adapters.marketplace;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyProduceListAdapter extends RecyclerView.Adapter<MyProduceListAdapter.MyProduceListViewHolder> {

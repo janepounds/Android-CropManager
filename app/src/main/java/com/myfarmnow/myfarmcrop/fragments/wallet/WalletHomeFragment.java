@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
@@ -57,16 +58,11 @@ public class WalletHomeFragment extends Fragment {
     private Context context;
     private FragmentWalletHomeBinding binding;
     private NavController navController = null;
-    AppBarConfiguration appBarConfiguration;
 
-
-    private TextView balanceTextView;
-    static TabLayout tabs;
     public static double balance = 0;
     ActionBar actionBar;
     public static FragmentManager fm;
 
-    private DisplayImageOptions options;
     //Imageucf
     private ProgressDialog dialog;
 

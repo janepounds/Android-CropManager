@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -19,11 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-<<<<<<< HEAD
-=======
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
->>>>>>> dev
 
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -34,18 +30,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
-<<<<<<< HEAD
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
-import com.myfarmnow.myfarmcrop.database.MyProduce;
-=======
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MyProduceListAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
-import com.myfarmnow.myfarmcrop.database.MyProduceDatabase;
->>>>>>> dev
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 
 import java.io.ByteArrayOutputStream;
@@ -54,7 +47,6 @@ import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class MyProduceFragment extends Fragment {
     private static final String TAG = "MyProduceFragment";
@@ -77,7 +69,7 @@ public class MyProduceFragment extends Fragment {
     private String encodedImage;
     private ImageView produceImageView;
 
-    private MyFarmRoomDatabase myProduceDatabase;
+    private MyFarmRoomDatabase database;
     private MyProduce myProduce;
 
     @Override
@@ -85,7 +77,7 @@ public class MyProduceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
-        myProduceDatabase = MyProduceDatabase.getInstance(context);
+        database = MyFarmRoomDatabase.getInstance(context);
 
         getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);
@@ -106,16 +98,23 @@ public class MyProduceFragment extends Fragment {
     }
 
     private void addProduce() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
 
         View addProduceDialog = getLayoutInflater().inflate(R.layout.add_produce_dialog, null);
 
-        EditText name = addProduceDialog.findViewById(R.id.produce_name);
+        ImageView close = addProduceDialog.findViewById(R.id.produce_close);
+        Spinner name = addProduceDialog.findViewById(R.id.produce_name);
         EditText variety = addProduceDialog.findViewById(R.id.produce_variety);
+        Spinner quantityUnit = addProduceDialog.findViewById(R.id.produce_quantity_unit);
         EditText quantity = addProduceDialog.findViewById(R.id.produce_quantity);
+        TextView quantityMeasure = addProduceDialog.findViewById(R.id.produce_quantity_measure);
         EditText price = addProduceDialog.findViewById(R.id.produce_price);
         ImageView image = addProduceDialog.findViewById(R.id.produce_image);
         Button submit = addProduceDialog.findViewById(R.id.produce_submit_button);
+
+        close.setOnClickListener(view -> dialog.dismiss());
+
+        quantity.setOnClickListener(view -> quantityMeasure.setText(quantityUnit.getSelectedItem().toString()));
 
         image.setOnClickListener(v -> {
             produceImageView = image;
@@ -137,8 +136,8 @@ public class MyProduceFragment extends Fragment {
         });
 
         submit.setOnClickListener(v -> {
-            if (name.getText().toString().trim().isEmpty()) {
-                name.setError("Name Required!!");
+            if (name.getSelectedItem().toString().trim().isEmpty() || name.getSelectedItem().toString().equals("Crop")) {
+                Toast.makeText(context, "Please choose crop name from the dropdown", Toast.LENGTH_SHORT).show();
             } else if (variety.getText().toString().trim().isEmpty()) {
                 variety.setError("Variety Required!!");
             } else if (quantity.getText().toString().trim().isEmpty()) {
@@ -153,7 +152,7 @@ public class MyProduceFragment extends Fragment {
                 String date = simpleDateFormat.format(new Date());
                 Log.d(TAG, "onCreateView: Date is " + date);
 
-                myProduce = new MyProduce(name.getText().toString(),
+                myProduce = new MyProduce(name.getSelectedItem().toString(),
                         variety.getText().toString(), quantity.getText().toString(),
                         price.getText().toString(), encodedImage, date
                 );
@@ -165,7 +164,7 @@ public class MyProduceFragment extends Fragment {
         });
 
         builder.setView(addProduceDialog);
-        builder.setCancelable(true);
+        builder.setCancelable(false);
 
         dialog = builder.create();
         dialog.show();
@@ -234,7 +233,7 @@ public class MyProduceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            ArrayList<MyProduce> produce = (ArrayList<MyProduce>) fragmentReference.get().myProduceDatabase.myProduceDao().getAll();
+            ArrayList<MyProduce> produce = (ArrayList<MyProduce>) fragmentReference.get().database.myProduceDao().getAll();
             fragmentReference.get().produceList = produce;
 
             Log.d(TAG, "doInBackground: " + produce);
@@ -282,8 +281,8 @@ public class MyProduceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            Log.d(TAG, "doInBackground: " + fragmentReference.get().myProduceDatabase.myProduceDao().getAll());
-            fragmentReference.get().myProduceDatabase.myProduceDao().insert(myProduce);
+            Log.d(TAG, "doInBackground: " + fragmentReference.get().database.myProduceDao().getAll());
+            fragmentReference.get().database.myProduceDao().insert(myProduce);
             return true;
         }
 
