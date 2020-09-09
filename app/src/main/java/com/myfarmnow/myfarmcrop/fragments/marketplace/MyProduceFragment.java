@@ -69,7 +69,7 @@ public class MyProduceFragment extends Fragment {
     private String encodedImage;
     private ImageView produceImageView;
 
-    private MyFarmRoomDatabase database;
+    private MyFarmRoomDatabase myProduceDatabase;
     private MyProduce myProduce;
 
     @Override
@@ -77,7 +77,7 @@ public class MyProduceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
-        database = MyFarmRoomDatabase.getInstance(context);
+        myProduceDatabase = MyFarmRoomDatabase.getInstance(context);
 
         getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);
@@ -233,7 +233,7 @@ public class MyProduceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            ArrayList<MyProduce> produce = (ArrayList<MyProduce>) fragmentReference.get().database.myProduceDao().getAll();
+            ArrayList<MyProduce> produce = (ArrayList<MyProduce>) fragmentReference.get().myProduceDatabase.myProduceDao().getAll();
             fragmentReference.get().produceList = produce;
 
             Log.d(TAG, "doInBackground: " + produce);
@@ -281,8 +281,8 @@ public class MyProduceFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            Log.d(TAG, "doInBackground: " + fragmentReference.get().database.myProduceDao().getAll());
-            fragmentReference.get().database.myProduceDao().insert(myProduce);
+            Log.d(TAG, "doInBackground: " + fragmentReference.get().myProduceDatabase.myProduceDao().getAll());
+            fragmentReference.get().myProduceDatabase.myProduceDao().insert(myProduce);
             return true;
         }
 

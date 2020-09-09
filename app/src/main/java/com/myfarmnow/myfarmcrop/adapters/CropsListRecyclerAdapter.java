@@ -29,7 +29,7 @@ import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -60,17 +60,17 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     @Override
     public void onBindViewHolder(@NonNull CropCardViewHolder holder, int position) {
         Crop curCrop = cropsList.get(position);
-        CropInventorySeeds seeds = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropInventorySeed(curCrop.getSeedId());
+        CropInventorySeeds seeds = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropInventorySeed(curCrop.getCrop());
         String seedUnits ="";
         if(seeds != null){
             seedUnits = seeds.getUsageUnits();
         }
-        holder.cropNameTxtView.setText(curCrop.getName());
-        holder.cropFieldTextView.setText(curCrop.getFieldName());
-//        holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
+        holder.cropNameTxtView.setText(curCrop.getCrop());
+        holder.cropFieldTextView.setText(curCrop.getField());
+        holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
 //        holder.cropAge.setText("(" + curCrop.computeAge() + ")");
-        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
-        holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
+        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getPlanting_date()));
+        //holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
 //        holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
 //        holder.rateTextView.setText(curCrop.computeRateR() + " "+ seedUnits+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
 //        holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
@@ -166,7 +166,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 final Crop crop = cropsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete " + crop.getName() + " crop?")
+                                        .setMessage("Do you really want to delete " + crop.getCrop() + " crop?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

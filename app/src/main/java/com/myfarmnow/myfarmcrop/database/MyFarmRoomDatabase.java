@@ -1,15 +1,14 @@
 package com.myfarmnow.myfarmcrop.database;
 
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
-@Database(entities = {MyProduce.class, CropField.class, CropsTable.class}, version = 1)
+@Database(entities = {MyProduce.class, CropField.class, Crop.class}, version = 1)
 public abstract class MyFarmRoomDatabase extends RoomDatabase {
 
     public abstract MyProduceDao myProduceDao();

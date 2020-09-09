@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -26,7 +24,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -91,8 +89,8 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
         for(Crop crop : crops){
             TextView cropNameAreaTextView = new TextView(mContext);
             TextView datePlantedTextView = new TextView(mContext);
-            cropNameAreaTextView.setText(crop.getName()+" ("+crop.getArea()+field.getUnit().toLowerCase()+")");
-            datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getDateSown())+" ("+crop.computeAge()+")");
+            cropNameAreaTextView.setText(crop.getCrop()+" ("+crop.getFiels_size()+field.getUnit().toLowerCase()+")");
+            datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getPlanting_date())+" ("+crop.computeAge()+")");
             View view = new View(mContext);
             view.setMinimumHeight(20);
             cropNameAreaTextView.setTypeface(cropNameAreaTextView.getTypeface(), Typeface.BOLD);

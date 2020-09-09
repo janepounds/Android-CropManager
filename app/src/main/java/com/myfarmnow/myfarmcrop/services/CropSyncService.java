@@ -21,7 +21,7 @@ import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
-import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropBill;
 import com.myfarmnow.myfarmcrop.models.CropContact;
 import com.myfarmnow.myfarmcrop.models.CropCultivation;
@@ -251,7 +251,7 @@ public class CropSyncService extends Service {
                 record.setGlobalId(generateUUID());
                 dbHandler.updateCrop(record);
             }
-            CropField field = dbHandler.getCropField(record.getFieldId(),false);
+            CropField field = dbHandler.getCropField(record.getField_id(),false);
 
             if(field ==null){
                 continue; //crop has no assigned field
@@ -260,16 +260,16 @@ public class CropSyncService extends Service {
             if(field.getSyncStatus().equals("no")){
                 continue; //do not back up this crop since its parent field is not backed up
             }
-            record.setFieldId(field.getGlobalId());
+            record.setField_id(field.getGlobalId());
 
-            CropInventorySeeds seed = dbHandler.getCropSeed(record.getSeedId(),false);
+            CropInventorySeeds seed = dbHandler.getCropSeed(record.getCrop(),false);
 
             if(seed != null){
 
                 if(seed.getSyncStatus().equals("no")){
                     continue; //do not back up this crop since its parent seed inventory is not backed up
                 }
-                record.setSeedId(seed.getGlobalId()); //change the seedId it to map the global Id
+                record.setCrop(seed.getGlobalId()); //change the seedId it to map the global Id
             }
             else{
 //                Log.d("CROPS SEED ",record.getSeedId());
@@ -1191,12 +1191,12 @@ public class CropSyncService extends Service {
                                 Crop crop = dbHandler.getCrop( crops.getJSONObject(i).getString("localId"),false);
                                 crop.setGlobalId(crops.getJSONObject(i).getString("globalId"));
                                 crop.setSyncStatus("yes");
-                                CropField field = dbHandler.getCropField(crop.getFieldId(),true);
+                                CropField field = dbHandler.getCropField(crop.getField_id(),true);
                                 if(field != null){
-                                    crop.setFieldId(field.getId());
-                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getSeedId(),false);
+                                    crop.setField_id(field.getId());
+                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getCrop(),false);
                                     if(inventorySeed != null){
-                                        crop.setSeedId(inventorySeed.getId());
+                                        crop.setCrop(inventorySeed.getId());
                                     }
                                     dbHandler.updateCrop(crop);
                                 }
