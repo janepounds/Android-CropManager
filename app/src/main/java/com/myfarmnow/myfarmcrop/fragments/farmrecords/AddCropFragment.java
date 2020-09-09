@@ -28,11 +28,10 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
-import com.myfarmnow.myfarmcrop.database.CropsTable;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropBinding;
-import com.myfarmnow.myfarmcrop.models.Crop;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
@@ -51,7 +50,7 @@ public class AddCropFragment extends Fragment {
     CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
     private NavController navController;
     private MyFarmRoomDatabase myFarmRoomDatabase;
-    CropsTable cropsTable;
+    Crop cropsTable;
 
 
     @Override
@@ -245,16 +244,16 @@ public class AddCropFragment extends Fragment {
 
     public void updateCrop() {
         if (crop != null) {
-            crop.setName(binding.spCropCrop.getText().toString());
+            crop.setCrop(binding.spCropCrop.getText().toString());
             crop.setVariety(binding.txtCropsVariety.getText().toString());
-            crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
+            crop.setField_id(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
             crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
-            crop.setDateSown(binding.txtCropsDateSown.getText().toString());
-            crop.setArea(Float.parseFloat(binding.txtCropsArea.getText().toString()));
-            crop.setEstimatedRevenue(Float.parseFloat(binding.txtCropsEstimatedRevenue.getText().toString()));
-            crop.setEstimatedYield(Float.parseFloat(binding.txtCropsEstimatedYield.getText().toString()));
+            crop.setPlanting_date(binding.txtCropsDateSown.getText().toString());
+            crop.setFiels_size( binding.txtCropsArea.getText().toString() );
+            crop.setEstimated_revenue( binding.txtCropsEstimatedRevenue.getText().toString() );
+            crop.setEstimated_yield( binding.txtCropsEstimatedYield.getText().toString() );
             if (binding.spCropsHarvestUnits.getSelectedItemPosition() != 0) {
-                crop.setHarvestUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
+                crop.setUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
             }
 
             dbHandler.updateCrop(crop);
@@ -266,14 +265,14 @@ public class AddCropFragment extends Fragment {
         if (crop != null) {
             // DashboardActivity.selectSpinnerItemByValue(cropSP,crop.getName());
             binding.txtCropsVariety.setText(crop.getVariety());
-            binding.spCropCrop.setText(crop.getName());
+            binding.spCropCrop.setText(crop.getCrop());
             DashboardActivity.selectSpinnerItemByValue(binding.spCropsSeason, crop.getSeason());
-            DashboardActivity.selectSpinnerItemByValue(binding.spCropsHarvestUnits, crop.getHarvestUnits());
-            binding.txtCropsDateSown.setText(crop.getDateSown());
-            binding.txtCropsArea.setText(crop.getArea() + "");
-            binding.txtCropsEstimatedYield.setText(crop.getEstimatedYield() + "");
-            binding.txtCropsEstimatedRevenue.setText(crop.getEstimatedRevenue() + "");
-            DashboardActivity.selectSpinnerItemById(binding.spCropsField, crop.getFieldId());
+            DashboardActivity.selectSpinnerItemByValue(binding.spCropsHarvestUnits, crop.getUnits());
+            binding.txtCropsDateSown.setText(crop.getPlanting_date());
+            binding.txtCropsArea.setText(crop.getFiels_size() + "");
+            binding.txtCropsEstimatedYield.setText(crop.getEstimated_yield() + "");
+            binding.txtCropsEstimatedRevenue.setText(crop.getEstimated_revenue() + "");
+            DashboardActivity.selectSpinnerItemById(binding.spCropsField, crop.getField_id());
         }
 
     }
@@ -282,7 +281,7 @@ public class AddCropFragment extends Fragment {
     private static class InsertProduceTask extends AsyncTask<Void, Void, Boolean> {
 
         private WeakReference<AddCropFragment> fragmentReference;
-        private CropsTable cropsTable;
+        private Crop cropsTable;
         // private ProgressDialog dialog;
         private Context context;
 
@@ -324,7 +323,7 @@ public class AddCropFragment extends Fragment {
             CropField fieldsTable = fragmentReference.get().myFarmRoomDatabase.fieldsDao().getFields(field);
 
             // fetch data and create produce object
-            cropsTable = new CropsTable(crop,variety,field,Integer.parseInt(fieldsTable.getId()),season,planting_date,field_size,units,estimated_yield,estimated_revenue);
+            cropsTable = new Crop(crop,variety,field,String.valueOf(fieldsTable.getId()),season,planting_date,String.valueOf(field_size),units,String.valueOf(estimated_yield), String.valueOf(estimated_revenue));
             fragmentReference.get().myFarmRoomDatabase.cropsDao().insert(cropsTable);
             return true;
         }

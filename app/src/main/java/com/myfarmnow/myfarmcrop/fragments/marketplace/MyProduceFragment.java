@@ -19,11 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-<<<<<<< HEAD
-=======
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
->>>>>>> dev
 
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -38,14 +35,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
-<<<<<<< HEAD
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
-import com.myfarmnow.myfarmcrop.database.MyProduce;
-=======
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MyProduceListAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.database.MyProduceDatabase;
->>>>>>> dev
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 
 import java.io.ByteArrayOutputStream;
@@ -85,7 +78,7 @@ public class MyProduceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
-        myProduceDatabase = MyProduceDatabase.getInstance(context);
+        myProduceDatabase = MyFarmRoomDatabase.getInstance(context);
 
         getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);

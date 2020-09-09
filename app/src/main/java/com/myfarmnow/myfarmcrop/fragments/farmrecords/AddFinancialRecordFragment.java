@@ -1,7 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,17 +31,14 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpenseManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddFinancialRecordBinding;
-import com.myfarmnow.myfarmcrop.models.Crop;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSupplier;
-import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
