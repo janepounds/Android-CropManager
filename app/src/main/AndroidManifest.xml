@@ -22,11 +22,11 @@
         <activity
             android:name=".activities.marketplace.MarketPlaceActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <service
@@ -156,9 +156,6 @@
             android:name=".activities.CropEmployeeManagerActivity"
             android:label="Employee Manager" />
         <activity
-            android:name=".activities.farmrecords.CropsListActivity"
-            android:label="@string/activity_crops_list" />
-        <activity
             android:name=".activities.CropSoilAnalysisListActivity"
             android:label="@string/activity_soil_analysis_list_label" />
         <activity
@@ -173,9 +170,6 @@
         <activity
             android:name=".activities.CropCultivationManagerActivity"
             android:label="@string/activity_cultivate_manage" />
-        <activity
-            android:name=".activities.farmrecords.CropsManagerActivity"
-            android:label="@string/activity_crop_manager" />
         <activity
             android:name=".activities.farmrecords.CropFieldsListActivity"
             android:label="@string/title_activity_crop_fields_list"
@@ -200,10 +194,6 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-        <activity
-            android:name=".activities.farmrecords.CropRecordsDashboardActivity"
-            android:label="@string/title_farm_records"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.PredictionToolsDashboardActivity"
             android:label="@string/title_predictiontools"
@@ -301,11 +291,13 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                &lt;!&ndash;  &ndash;&gt;-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+
+                        <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+
+
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"

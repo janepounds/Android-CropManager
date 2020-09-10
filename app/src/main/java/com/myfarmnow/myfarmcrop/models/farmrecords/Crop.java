@@ -19,18 +19,18 @@ import java.util.Date;
 @Entity
 public class Crop implements Serializable, CropSpinnerItem {
     @PrimaryKey(autoGenerate = true)
-    int id;
-    String crop;
-    String variety;
-    String field;
-    String field_id;
-    String season;
-    String planting_date;
-    String field_size;
-    String units;
-    String estimated_yield;
-    String estimated_revenue;
-    int userId;
+   public int id;
+   public String crop;
+   public String variety;
+   public String field;
+   public String field_id;
+   public  String season;
+   public  String planting_date;
+   public  String field_size;
+   public String units;
+   public String estimated_yield;
+   public String estimated_revenue;
+   public int userId;
 
 
     public Crop(JSONObject object) throws JSONException {

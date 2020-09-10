@@ -115,7 +115,11 @@ public class StoreAddSprayFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try{
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(position == 0){
+                        // Set the hint text color gray
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    }
+                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                     }

@@ -25,6 +25,8 @@ public interface FieldsDao {
     @Query("SELECT * FROM CropField")
     List<CropField> getAll();
 
+
+
     @Delete
     void delete(CropField fieldsTable);
 }

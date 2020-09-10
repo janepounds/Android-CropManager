@@ -121,12 +121,8 @@ public class AddFieldFragment extends Fragment {
         };
 
 
-//        soilCategorySpinner.setOnItemSelectedListener(onItemSelectedListener);
-//        soilTypeSpinner.setOnItemSelectedListener(onItemSelectedListener);
-//        watercourseSpinner.setOnItemSelectedListener(onItemSelectedListener);
         binding.spCropFieldUnits.setOnItemSelectedListener(onItemSelectedListener);
         binding.spCropFieldStatus.setOnItemSelectedListener(onItemSelectedListener);
-//        layoutTypeSp.setOnItemSelectedListener(onItemSelectedListener);
         binding.spCropFieldType.setOnItemSelectedListener(onItemSelectedListener);
         binding.spCropFieldUnits.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -195,7 +191,8 @@ public class AddFieldFragment extends Fragment {
                     else{
                         updateField();
                     }
-
+                    //navigate to field list
+                    navController.navigate(R.id.action_addFieldFragment_to_fieldsListFragment);
                 }else{
                     Log.d("ERROR","Testing");
                 }
@@ -204,20 +201,23 @@ public class AddFieldFragment extends Fragment {
     }
 
     public void saveFields(){
-            // fetch data and create produce object
-        cropField = new CropField(binding.txtCropFieldName.getText().toString(),binding.spCropFieldType.getSelectedItem().toString(),binding.spCropFieldStatus.getSelectedItem().toString(),
-                    binding.spCropFieldUnits.getSelectedItem().toString(), binding.txtCropFieldTotalArea.getText().toString(),binding.txtCropFieldCroppableArea.getText().toString(),12);
+        cropField = new CropField();
+        cropField.setUserId(Integer.parseInt(DashboardActivity.getPreferences("userId",context)));
+        cropField.setField_name(binding.txtCropFieldName.getText().toString());
+        cropField.setField_type( binding.spCropFieldType.getSelectedItem().toString());
+        cropField.setStatus(binding.spCropFieldStatus.getSelectedItem().toString());
+        cropField.setField_size(binding.txtCropFieldTotalArea.getText().toString());
+        cropField.setCroppable_area(binding.txtCropFieldCroppableArea.getText().toString());
+        cropField.setUnit(binding.spCropFieldUnits.getSelectedItem().toString());
 
+        dbHandler.insertCropField(cropField);
 
-            // create worker thread to insert data into database
-        new InsertFieldTask(AddFieldFragment.this, cropField).execute();
 
     }
     public void updateField(){
         if(cropField !=null){
 
             cropField.setField_name(binding.txtCropFieldName.getText().toString());
-
             cropField.setField_type( binding.spCropFieldType.getSelectedItem().toString());
             cropField.setStatus(binding.spCropFieldStatus.getSelectedItem().toString());
             cropField.setField_size(binding.txtCropFieldTotalArea.getText().toString());
@@ -225,7 +225,7 @@ public class AddFieldFragment extends Fragment {
             cropField.setUnit(binding.spCropFieldUnits.getSelectedItem().toString());
 
 
-            new UpdateFieldTask(AddFieldFragment.this, cropField).execute();
+            dbHandler.updateCropField(cropField);
 
         }
     }
@@ -274,84 +274,7 @@ public class AddFieldFragment extends Fragment {
         return true;
     }
 
-    //Room implementation
-    private class InsertFieldTask extends AsyncTask<Void, Void, Boolean> {
 
-        private WeakReference<AddFieldFragment> fragmentReference;
-        private CropField fieldsTable;
-       // private ProgressDialog dialog;
-        private Context context;
-
-        // only retain a weak reference to the activity
-        InsertFieldTask(AddFieldFragment context, CropField fieldsTable) {
-            fragmentReference = new WeakReference<>(context);
-            this.fieldsTable =fieldsTable;
-            this.context = context.context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            fragmentReference.get().myFarmRoomDatabase.fieldsDao().insert(fieldsTable);
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            if (aBoolean) {
-                fragmentReference.get().requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(context, "Field Added", Toast.LENGTH_SHORT).show();
-
-                });
-                navController.navigate(R.id.action_addFieldFragment_to_fieldsListFragment);
-
-            }
-        }
-    }
-    
-    private class UpdateFieldTask extends AsyncTask<Void, Void, Boolean> {
-
-        private WeakReference<AddFieldFragment> fragmentReference;
-        private CropField fieldsTable;
-        // private ProgressDialog dialog;
-        private Context context;
-
-        // only retain a weak reference to the activity
-        UpdateFieldTask(AddFieldFragment context, CropField fieldsTable) {
-            fragmentReference = new WeakReference<>(context);
-            this.fieldsTable =fieldsTable;
-            this.context = context.context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            fragmentReference.get().myFarmRoomDatabase.fieldsDao().UpdateField(fieldsTable);
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            if (aBoolean) {
-                fragmentReference.get().requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(context, "Field Added", Toast.LENGTH_SHORT).show();
-
-                });
-                navController.navigate(R.id.action_addFieldFragment_to_fieldsListFragment);
-
-            }
-        }
-    }
 
 
 }

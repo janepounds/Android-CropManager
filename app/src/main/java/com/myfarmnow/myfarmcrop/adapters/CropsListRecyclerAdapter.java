@@ -5,7 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -26,7 +29,6 @@ import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropsManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
@@ -41,11 +43,13 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     ArrayList<Crop> cropsList;
     LayoutInflater mInflater;
     Context mContext;
+    NavController navController;
 
-    public CropsListRecyclerAdapter(ArrayList<Crop> inventoryList, Context context) {
+    public CropsListRecyclerAdapter(ArrayList<Crop> inventoryList, Context context,NavController navController) {
         this.cropsList = inventoryList;
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
+        this.navController=navController;
 
     }
 
@@ -181,9 +185,11 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                         .setNegativeButton(android.R.string.no, null).show();
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent editCrop = new Intent(mContext, CropsManagerActivity.class);
-                                editCrop.putExtra("crop", crop);
-                                mContext.startActivity(editCrop);
+                                //editCrop.putExtra("crop", crop);
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("crop", crop);
+                                navController.navigate(R.id.action_cropListFragment_to_addCropFragment,bundle);
+
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_cultivate))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
                                 Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
@@ -191,14 +197,16 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 mContext.startActivity(intent);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_fertilizer))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showFertilize = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
-                                showFertilize.putExtra("cropId", crop.getId());
-                                mContext.startActivity(showFertilize);
+                                //navigate to fertilizer dialog fragment
+                                Bundle bundle = new Bundle();
+                                bundle.putString("cropId", crop.getId());
+                                navController.navigate(R.id.action_cropListFragment_to_fertilizerApplicationFragment,bundle);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showSpray = new Intent(mContext, CropSprayingManagerActivity.class);
-                                showSpray.putExtra("cropId", crop.getId());
-                                mContext.startActivity(showSpray);
+                                //navigate to spraying dialog fragment
+                                Bundle bundle = new Bundle();
+                                bundle.putString("cropId", crop.getId());
+                                navController.navigate(R.id.action_cropListFragment_to_cropSprayingFragment,bundle);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_irrigation))){
                                 Crop crop = cropsList.get(getAdapterPosition());
@@ -220,9 +228,10 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_harvest))){
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
-                                showHarvest.putExtra("cropId",crop.getId());
-                                mContext.startActivity(showHarvest);
+                                //navigate to harvest dialog fragment
+                                Bundle bundle = new Bundle();
+                                bundle.putString("cropId", crop.getId());
+                                navController.navigate(R.id.action_cropListFragment_to_cropHarvestFragment,bundle);
 
                             }
 

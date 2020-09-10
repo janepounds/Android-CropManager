@@ -14,6 +14,7 @@ import android.view.Menu;
 
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
@@ -35,8 +36,8 @@ public class CropFieldsListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         fieldListRecyclerView = findViewById(R.id.crop_field_recyc_view);
-//        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",this)));
-        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields("12"));
+        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",this)));
+//        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(this,dbHandler.getCropFields("12"));
         fieldListRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         fieldListRecyclerView.setLayoutManager(linearLayoutManager);

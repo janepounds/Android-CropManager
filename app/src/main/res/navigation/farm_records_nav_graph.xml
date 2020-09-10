@@ -85,6 +85,15 @@
         <action
             android:id="@+id/action_cropListFragment_to_addCropFragment"
             app:destination="@id/addCropFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_cropSprayingFragment"
+            app:destination="@id/cropSprayingFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_fertilizerApplicationFragment"
+            app:destination="@id/fertilizerApplicationFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_cropHarvestFragment"
+            app:destination="@id/cropHarvestFragment" />
 
     </fragment>
     <fragment
@@ -130,4 +139,36 @@
             android:id="@+id/action_addFinancialRecordFragment_to_financialRecordsFragment"
             app:destination="@id/financialRecordsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/cropSprayingFragment"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.CropSprayingFragment"
+        android:label="fragment_crop_spraying"
+        tools:layout="@layout/fragment_crop_spraying" >
+        <action
+            android:id="@+id/action_cropSprayingFragment_to_cropActivitiesListFragment"
+            app:destination="@id/cropActivitiesListFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/fertilizerApplicationFragment"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.FertilizerApplicationFragment"
+        android:label="fragment_fertilizer_application"
+        tools:layout="@layout/fragment_fertilizer_application" >
+        <action
+            android:id="@+id/action_fertilizerApplicationFragment_to_cropActivitiesListFragment"
+            app:destination="@id/cropActivitiesListFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/cropHarvestFragment"
+        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.CropHarvestFragment"
+        android:label="fragment_crop_harvest"
+        tools:layout="@layout/fragment_crop_harvest" >
+        <action
+            android:id="@+id/action_cropHarvestFragment_to_cropActivitiesListFragment"
+            app:destination="@id/cropActivitiesListFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/cropActivitiesListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropActivitiesListFragment"
+        android:label="fragment_crop_activities_list"
+        tools:layout="@layout/fragment_crop_activities_list" />
 </navigation>

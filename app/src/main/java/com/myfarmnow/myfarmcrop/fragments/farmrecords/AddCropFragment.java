@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -39,15 +41,18 @@ import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class AddCropFragment extends Fragment {
 
-    private FragmentAddCropBinding binding;
+    public FragmentAddCropBinding binding;
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private Crop crop;
-    CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
+    public  CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
     private NavController navController;
     private MyFarmRoomDatabase myFarmRoomDatabase;
     Crop cropsTable;
@@ -103,10 +108,6 @@ public class AddCropFragment extends Fragment {
                     } else {
                         updateCrop();
                     }
-//                    Intent toCropsList = new Intent(context, CropListFragment.class);
-//                    toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(toCropsList);
-//                    requireActivity().finish();
                     navController.popBackStack();
                 } else {
                     Log.d("ERROR", "Testing");
@@ -123,9 +124,14 @@ public class AddCropFragment extends Fragment {
                 android.R.layout.simple_spinner_item, cropsList));
 
 
+
+
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
         for (com.myfarmnow.myfarmcrop.models.farmrecords.CropField x : dbHandler.getCropFields(DashboardActivity.getPreferences("userId", context))) {
             fieldsItems.add(x);
+
+//
+
         }
         fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems, "Field", context);
         binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
@@ -135,11 +141,6 @@ public class AddCropFragment extends Fragment {
             seedItems.add(x);
         }
 
-
-//        seedsSpinnerAdapter = new CropSpinnerAdapter(seedItems,"Seed",context);
-//        binding.see.setAdapter(seedsSpinnerAdapter);
-
-        // ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ((ArrayAdapter) binding.spCropsSeason.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) binding.spCropsHarvestUnits.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -235,11 +236,21 @@ public class AddCropFragment extends Fragment {
     }
 
     public void saveCrop() {
+        crop = new Crop();
+        crop.setUserId(Integer.parseInt(DashboardActivity.getPreferences("userId",context)));
+        crop.setCrop(binding.spCropCrop.getText().toString());
+        crop.setVariety(binding.txtCropsVariety.getText().toString());
+        crop.setField_id(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
+        crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
+        crop.setPlanting_date(binding.txtCropsDateSown.getText().toString());
+        crop.setFiels_size( binding.txtCropsArea.getText().toString() );
+        crop.setEstimated_revenue( binding.txtCropsEstimatedRevenue.getText().toString() );
+        crop.setEstimated_yield( binding.txtCropsEstimatedYield.getText().toString() );
+        if (binding.spCropsHarvestUnits.getSelectedItemPosition() != 0) {
+            crop.setUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
+        }
+        dbHandler.insertCrop(crop);
 
-        // create worker thread to insert data into database
-        new AddCropFragment.InsertProduceTask(AddCropFragment.this, binding.spCropCrop.getText().toString(),binding.txtCropsVariety.getText().toString(),
-                binding.spCropsField.getSelectedItem().toString(),binding.spCropsSeason.getSelectedItem().toString(),binding.txtCropsDateSown.getText().toString(),Integer.parseInt(binding.txtCropsArea.getText().toString()),
-                binding.spCropsHarvestUnits.getSelectedItem().toString(),Integer.parseInt(binding.txtCropsEstimatedYield.getText().toString()),Integer.parseInt(binding.txtCropsEstimatedRevenue.getText().toString())).execute();
     }
 
     public void updateCrop() {
@@ -277,69 +288,6 @@ public class AddCropFragment extends Fragment {
 
     }
 
-    //Room implementation
-    private static class InsertProduceTask extends AsyncTask<Void, Void, Boolean> {
-
-        private WeakReference<AddCropFragment> fragmentReference;
-        private Crop cropsTable;
-        // private ProgressDialog dialog;
-        private Context context;
-
-        private String crop;
-        private String variety;
-        private String field;
-        private String season;
-        private String planting_date;
-        private int field_size;
-        private String units;
-        private int estimated_yield;
-        private int estimated_revenue;
-
-        // only retain a weak reference to the activity
-        InsertProduceTask(AddCropFragment context, String crop, String variety, String field, String season,  String planting_date, int field_size, String units, int estimated_yield,
-                          int estimated_revenue) {
-            fragmentReference = new WeakReference<>(context);
-            this.cropsTable = cropsTable;
-            this.context = context.context;
-            this.crop = crop;
-            this.variety = variety;
-            this.field = field;
-            this.season = season;
-            this.planting_date = planting_date;
-            this.field_size = field_size;
-            this.units = units;
-            this.estimated_yield = estimated_yield;
-            this.estimated_revenue = estimated_revenue;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            //pick field_id;
-            CropField fieldsTable = fragmentReference.get().myFarmRoomDatabase.fieldsDao().getFields(field);
-
-            // fetch data and create produce object
-            cropsTable = new Crop(crop,variety,field,String.valueOf(fieldsTable.getId()),season,planting_date,String.valueOf(field_size),units,String.valueOf(estimated_yield), String.valueOf(estimated_revenue));
-            fragmentReference.get().myFarmRoomDatabase.cropsDao().insert(cropsTable);
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            if (aBoolean) {
-                fragmentReference.get().requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(context, "Crop Added", Toast.LENGTH_SHORT).show();
-
-                });
-
-
-            }
-        }
-    }
 
 
     public boolean validateEntries() {
@@ -370,5 +318,14 @@ public class AddCropFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
+
+
+//    public void  showfieldlist(List<CropSpinnerItem> fieldlist) {
+//        ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
+//        for (CropSpinnerItem x : fieldlist) {
+//            fieldsItems.add(x);
+//        }
+//    }
+
 
 }

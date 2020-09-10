@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -40,10 +41,10 @@ import java.util.List;
 
 public class FieldsListFragment extends Fragment {
     private FragmentFieldsListBinding binding;
-    private Context context;
+    public Context context;
     private CropFieldsListRecyclerAdapter cropFieldsListRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
-    private   MyFarmRoomDatabase myFarmRoomDatabase;
+    public  MyFarmRoomDatabase myFarmRoomDatabase;
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
 
@@ -86,11 +87,10 @@ public class FieldsListFragment extends Fragment {
 
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-//        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
-        //cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields("12"));
-        WeakReference<FieldsListFragment> fragmentReference=new WeakReference<>(this);
-
-        new retrieveAllFieldsTask(this).execute();
+        cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context)));
+        binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        binding.cropFieldRecyclerView.setLayoutManager(linearLayoutManager);
 
     }
 
@@ -114,47 +114,7 @@ public class FieldsListFragment extends Fragment {
     }
 
 
-    //Room implementation
-    private class retrieveAllFieldsTask extends AsyncTask<Void, Void, Boolean> {
 
-        private WeakReference<FieldsListFragment> fragmentReference;
-        private List<CropField> fieldsList;
-        // private ProgressDialog dialog;
-        private Context context;
-
-        // only retain a weak reference to the activity
-        retrieveAllFieldsTask(FieldsListFragment context) {
-            fragmentReference = new WeakReference<>(context);
-            this.context = context.context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            this.fieldsList=fragmentReference.get().myFarmRoomDatabase.fieldsDao().getAll();
-            Log.w("FieldSize",fieldsList.size()+"");
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            if (aBoolean) {
-
-                fragmentReference.get().requireActivity().runOnUiThread(() -> {
-
-                    cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context, this.fieldsList);
-                    binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
-                    linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
-                    binding.cropFieldRecyclerView.setLayoutManager(linearLayoutManager);
-                });
-
-            }
-        }
-    }
 
 
 

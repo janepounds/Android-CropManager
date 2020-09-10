@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,11 +24,16 @@ import android.view.ViewGroup;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropListBinding;
+import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CropListFragment extends Fragment {
@@ -34,6 +41,7 @@ public class CropListFragment extends Fragment {
     private Context context;
     private CropsListRecyclerAdapter cropListRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
+    public  MyFarmRoomDatabase myFarmRoomDatabase;
     MyFarmDbHandlerSingleton dbHandler;
     ArrayList<Crop> cropArrayList = new ArrayList();
     NavController navController;
@@ -46,6 +54,7 @@ public class CropListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crop_list,container,false);
+        myFarmRoomDatabase= MyFarmRoomDatabase.getInstance(context);
         setHasOptionsMenu(true);
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
@@ -77,14 +86,14 @@ public class CropListFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        cropListRecyclerAdapter = new CropsListRecyclerAdapter(cropArrayList,context);
+        cropListRecyclerAdapter = new CropsListRecyclerAdapter(cropArrayList,context,navController);
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropsRecycView.setLayoutManager(linearLayoutManager);
-        loadCropInventories();
+
         binding.cropsRecycView.setAdapter(cropListRecyclerAdapter);
 
-
+        loadCropInventories();
 
 
 
@@ -96,6 +105,9 @@ public class CropListFragment extends Fragment {
         cropListRecyclerAdapter.addList(dbHandler.getCrops(DashboardActivity.getPreferences("userId",context)));
 
     }
+
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater){
 
@@ -116,6 +128,8 @@ public class CropListFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 
 }
