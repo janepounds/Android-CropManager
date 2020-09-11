@@ -8,14 +8,10 @@ import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
-@Database(entities = {MyProduce.class, CropField.class, Crop.class}, version = 1)
+@Database(entities = {MyProduce.class}, version = 1)
 public abstract class MyFarmRoomDatabase extends RoomDatabase {
 
     public abstract MyProduceDao myProduceDao();
-
-    public abstract FieldsDao fieldsDao();
-
-    public abstract CropsDao cropsDao();
 
     private static MyFarmRoomDatabase myFarmDB;
 

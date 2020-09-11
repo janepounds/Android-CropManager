@@ -731,9 +731,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CROP_TABLE_NAME+" ( "+CROP_CROP_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CROP_USER_ID+" TEXT,"+ CROP_CROP_VARIETY+" TEXT ,"+ CROP_CROP_YEAR +" INTEGER,"+ CROP_CROP_NAME +" TEXT NOT NULL,"+
                 CROP_CROP_FIELD_ID+" TEXT NOT NULL," +CROP_CROP_GROWING_CYCLE+" TEXT," +CROP_CROP_SEASON +" TEXT,"+CROP_CROP_DATE_SOWN+" TEXT NOT NULL,"+
-                CROP_CROP_AREA+" REAL,"+CROP_CROP_OPERATOR+" TEXT NOT NULL,"+
-                CROP_CROP_COST+" REAL NOT NULL,"+CROP_CROP_SEED_ID+" TEXT ,"+CROP_CROP_HARVEST_UNITS+" TEXT ,"+CROP_CROP_ESTIMATED_YIELD+" REAL DEFAULT 0,"+
-                CROP_CROP_ESTIMATED_REVENUE+" REAL DEFAULT 0,"+CROP_CROP_RATE+" REAL DEFAULT 0,"+CROP_CROP_PLANTING_METHOD+" TEXT NOT NULL, "+CROP_GLOBAL_ID +" TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" )";
+                CROP_CROP_AREA+" REAL,"+CROP_CROP_OPERATOR+" TEXT ,"+
+                CROP_CROP_COST+" REAL ,"+CROP_CROP_SEED_ID+" TEXT ,"+CROP_CROP_HARVEST_UNITS+" TEXT ,"+CROP_CROP_ESTIMATED_YIELD+" REAL DEFAULT 0,"+
+                CROP_CROP_ESTIMATED_REVENUE+" REAL DEFAULT 0,"+CROP_CROP_RATE+" REAL DEFAULT 0,"+CROP_CROP_PLANTING_METHOD+" TEXT  ,"+CROP_GLOBAL_ID +" TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" )";
 
         String crop_cultivate_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_CULTIVATION_TABLE_NAME+" ( "+CROP_CULTIVATION_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                 CROP_CULTIVATION_USER_ID+" TEXT,"+CROP_CULTIVATION_CROP_ID+" TEXT NOT NULL,"+ CROP_CULTIVATION_DATE+" TEXT NOT NULL,"+ CROP_CULTIVATION_OPERATION+" TEXT NOT NULL,"+CROP_CULTIVATION_OPERATOR+" TEXT NOT NULL,"+
@@ -4505,24 +4505,24 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertCrop(Crop crop) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_CROP_DATE_SOWN, crop.getPlanting_date());
+        contentValues.put(CROP_CROP_DATE_SOWN, crop.getDateSown());
         contentValues.put(CROP_CROP_USER_ID, crop.getUserId());
         contentValues.put(CROP_CROP_VARIETY, crop.getVariety());
-        contentValues.put(CROP_CROP_NAME, crop.getCrop());
-        contentValues.put(CROP_CROP_AREA, crop.getFiels_size());
-        contentValues.put(CROP_CROP_FIELD_ID, crop.getField_id());
+        contentValues.put(CROP_CROP_NAME, crop.getName());
+        contentValues.put(CROP_CROP_AREA, crop.getArea());
+        contentValues.put(CROP_CROP_FIELD_ID, crop.getFieldId());
 //        contentValues.put(CROP_CROP_COST, crop.getCost());
 //        contentValues.put(CROP_CROP_YEAR, crop.getCroppingYear());
 //        contentValues.put(CROP_CROP_OPERATOR, crop.getOperator());
 //        contentValues.put(CROP_CROP_GROWING_CYCLE, crop.getGrowingCycle());
-//        contentValues.put(CROP_CROP_SEASON, crop.getSeason());
+        contentValues.put(CROP_CROP_SEASON, crop.getSeason());
 //        contentValues.put(CROP_CROP_COST, crop.getCost());
 //        contentValues.put(CROP_CROP_SEED_ID, crop.getSeedId());
 //        contentValues.put(CROP_CROP_RATE, crop.getRate());
 //        contentValues.put(CROP_CROP_PLANTING_METHOD, crop.getPlantingMethod());
-        contentValues.put(CROP_CROP_HARVEST_UNITS, crop.getUnits());
-        contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimated_revenue());
-        contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimated_yield());
+        contentValues.put(CROP_CROP_HARVEST_UNITS, crop.getHarvestUnits());
+        contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimatedRevenue());
+        contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimatedYield());
         contentValues.put(CROP_SYNC_STATUS,crop.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,crop.getGlobalId());
         database.insert(CROP_CROP_TABLE_NAME, null, contentValues);
@@ -4532,24 +4532,24 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateCrop(Crop crop) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CROP_CROP_DATE_SOWN, crop.getPlanting_date());
+        contentValues.put(CROP_CROP_DATE_SOWN, crop.getDateSown());
         contentValues.put(CROP_CROP_USER_ID, crop.getUserId());
         contentValues.put(CROP_CROP_VARIETY, crop.getVariety());
-        contentValues.put(CROP_CROP_NAME, crop.getCrop());
-        contentValues.put(CROP_CROP_AREA, crop.getFiels_size());
-        contentValues.put(CROP_CROP_FIELD_ID, crop.getField_id());
+        contentValues.put(CROP_CROP_NAME, crop.getName());
+        contentValues.put(CROP_CROP_AREA, crop.getArea());
+        contentValues.put(CROP_CROP_FIELD_ID, crop.getFieldId());
 //        contentValues.put(CROP_CROP_COST, crop.getCost());
 //        contentValues.put(CROP_CROP_YEAR, crop.getCroppingYear());
 //        contentValues.put(CROP_CROP_OPERATOR, crop.getOperator());
 //        contentValues.put(CROP_CROP_GROWING_CYCLE, crop.getGrowingCycle());
-//        contentValues.put(CROP_CROP_SEASON, crop.getSeason());
+        contentValues.put(CROP_CROP_SEASON, crop.getSeason());
 //        contentValues.put(CROP_CROP_COST, crop.getCost());
 //        contentValues.put(CROP_CROP_SEED_ID, crop.getSeedId());
 //        contentValues.put(CROP_CROP_RATE, crop.getRate());
 //        contentValues.put(CROP_CROP_PLANTING_METHOD, crop.getPlantingMethod());
-        contentValues.put(CROP_CROP_HARVEST_UNITS, crop.getUnits());
-        contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimated_revenue());
-        contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimated_yield());
+        contentValues.put(CROP_CROP_HARVEST_UNITS, crop.getHarvestUnits());
+        contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimatedRevenue());
+        contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimatedYield());
         contentValues.put(CROP_SYNC_STATUS,crop.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,crop.getGlobalId());
         database.update(CROP_CROP_TABLE_NAME, contentValues, CROP_CROP_ID + " = ?", new String[]{crop.getId()});
@@ -4579,11 +4579,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while(!res.isAfterLast()){
             Crop crop = new Crop();
-            crop.setId(res.getInt(res.getColumnIndex(CROP_CROP_ID)));
-            crop.setUserId(res.getInt(res.getColumnIndex(CROP_CROP_USER_ID)));
-            crop.setPlanting_date(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
+            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
+            crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
-            crop.setFiels_size(res.getString(res.getColumnIndex(CROP_CROP_AREA)));
+            crop.setArea(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_AREA))));
 //            crop.setCost(res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
 //            crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
 //            crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
@@ -4591,13 +4591,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 //            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
 //            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
 //            crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
-            crop.setField_id(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
-            crop.setField(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
-            crop.setCrop(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
-            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
-            crop.setUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
-            crop.setEstimated_revenue(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE)));
-            crop.setEstimated_yield( res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) );
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
+            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+//            crop.setSeres.getString(res.getColumnIndex(CROP_CROP_SEASON)));
+            crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
+            crop.setEstimatedRevenue(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE))));
+            crop.setEstimatedYield( Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD))) );
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
@@ -4623,10 +4623,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         while (!res.isAfterLast()) {
             Crop crop = new Crop();
 //            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
-            crop.setUserId(res.getInt(res.getColumnIndex(CROP_CROP_USER_ID)));
-            crop.setPlanting_date(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
+            crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
-            crop.setFiels_size(res.getString(res.getColumnIndex(CROP_CROP_AREA)));
+            crop.setArea(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_AREA))));
 //            crop.setCost(res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
 //            crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
 //            crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
@@ -4634,13 +4634,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 //            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
 //            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
 //            crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
-            crop.setField_id(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
-            crop.setField(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
-            crop.setCrop(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
-            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
-            crop.setUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
-            crop.setEstimated_revenue(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE)));
-            crop.setEstimated_yield( res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) );
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
+            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+//            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
+            crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
+            crop.setEstimatedRevenue(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE))));
+            crop.setEstimatedYield(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) ) );
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
@@ -4897,15 +4897,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CROP_FIELD_USER_ID, field.getUserId());
-        contentValues.put(CROP_FIELD_NAME, field.getField_name());
-//        contentValues.put(CROP_FIELD_SOIL_CATEGORY, field.getSoilCategory());
-//        contentValues.put(CROP_FIELD_SOIL_TYPE, field.getSoilType());
-//        contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
-//        contentValues.put(CROP_FIELD_LAYOUT_TYPE,field.getLayoutType());
-        contentValues.put(CROP_FIELD_TOTAL_AREA, field.getField_size());
-        contentValues.put(CROP_FIELD_CROPPABLE_AREA, field.getCroppable_area());
-        contentValues.put(CROP_FIELD_UNITS, field.getUnit());
-        contentValues.put(CROP_FIELD_FIELD_TYPE,field.getField_type());
+        contentValues.put(CROP_FIELD_NAME, field.getFieldName());
+        contentValues.put(CROP_FIELD_TOTAL_AREA, field.getTotalArea());
+        contentValues.put(CROP_FIELD_CROPPABLE_AREA, field.getCroppableArea());
+        contentValues.put(CROP_FIELD_UNITS, field.getUnits());
+        contentValues.put(CROP_FIELD_FIELD_TYPE,field.getFieldType());
         contentValues.put(CROP_FIELD_STATUS,field.getStatus());
         contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
@@ -5097,17 +5093,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             CropField field = new CropField();
-            field.setId(Integer.parseInt(res.getString(res.getColumnIndex(CROP_FIELD_ID))));
-            field.setUserId(Integer.parseInt(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID))));
-            field.setField_name(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
-//            field.setSoilCategory(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_CATEGORY)));
-//            field.setSoilType(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_TYPE)));
-//            field.setWatercourse(res.getString(res.getColumnIndex(CROP_FIELD_WATERCOURSE)));
-//            field.setLayoutType(res.getString(res.getColumnIndex(CROP_FIELD_LAYOUT_TYPE)));
-            field.setField_size(res.getString(res.getColumnIndex(CROP_FIELD_TOTAL_AREA)));
-            field.setCroppable_area(res.getString(res.getColumnIndex(CROP_FIELD_CROPPABLE_AREA)));
-            field.setUnit(res.getString(res.getColumnIndex(CROP_FIELD_UNITS)));
-            field.setField_type(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
+            field.setId(res.getString(res.getColumnIndex(CROP_FIELD_ID)));
+            field.setUserId(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID)));
+            field.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            field.setTotalArea(res.getFloat(res.getColumnIndex(CROP_FIELD_TOTAL_AREA)));
+            field.setCroppableArea(res.getFloat(res.getColumnIndex(CROP_FIELD_CROPPABLE_AREA)));
+            field.setUnits(res.getString(res.getColumnIndex(CROP_FIELD_UNITS)));
+            field.setFieldType(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
             field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
             field.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(field);
@@ -6549,27 +6541,23 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from " + CROP_FIELDS_TABLE_NAME + " where " + CROP_FIELD_USER_ID + " = '" + userId+"' AND "+CROP_SYNC_STATUS+" = ?", new String[]{synced?"yes":"no"});
         res.moveToFirst();
 
-//        while (!res.isAfterLast()) {
-//            CropField field = new CropField();
-//            field.setId(res.getString(res.getColumnIndex(CROP_FIELD_ID)));
-//            field.setUserId(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID)));
-//            field.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
-//            field.setSoilCategory(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_CATEGORY)));
-//            field.setSoilType(res.getString(res.getColumnIndex(CROP_FIELD_SOIL_TYPE)));
-//            field.setWatercourse(res.getString(res.getColumnIndex(CROP_FIELD_WATERCOURSE)));
-//            field.setTotalArea(res.getFloat(res.getColumnIndex(CROP_FIELD_TOTAL_AREA)));
-//            field.setCroppableArea(res.getFloat(res.getColumnIndex(CROP_FIELD_CROPPABLE_AREA)));
-//            field.setUnits(res.getString(res.getColumnIndex(CROP_FIELD_UNITS)));
-//            field.setFieldType(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
-//            field.setLayoutType(res.getString(res.getColumnIndex(CROP_FIELD_LAYOUT_TYPE)));
-//            field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
-//            field.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
-//            field.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
-//
-//            array_list.add(field);
-//
-//            res.moveToNext();
-//        }
+        while (!res.isAfterLast()) {
+            CropField field = new CropField();
+            field.setId(res.getString(res.getColumnIndex(CROP_FIELD_ID)));
+            field.setUserId(res.getString(res.getColumnIndex(CROP_FIELD_USER_ID)));
+            field.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            field.setTotalArea(res.getFloat(res.getColumnIndex(CROP_FIELD_TOTAL_AREA)));
+            field.setCroppableArea(res.getFloat(res.getColumnIndex(CROP_FIELD_CROPPABLE_AREA)));
+            field.setUnits(res.getString(res.getColumnIndex(CROP_FIELD_UNITS)));
+            field.setFieldType(res.getString(res.getColumnIndex(CROP_FIELD_FIELD_TYPE)));
+            field.setStatus(res.getString(res.getColumnIndex(CROP_FIELD_STATUS)));
+            field.setSyncStatus(res.getString(res.getColumnIndex(CROP_SYNC_STATUS)));
+            field.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+
+            array_list.add(field);
+
+            res.moveToNext();
+        }
 
         res.close();
         closeDB();
@@ -7337,11 +7325,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             Crop crop = new Crop();
-            crop.setId(res.getInt(res.getColumnIndex(CROP_CROP_ID)));
-            crop.setUserId(res.getInt(res.getColumnIndex(CROP_CROP_USER_ID)));
-            crop.setPlanting_date(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
+            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
+            crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
-            crop.setFiels_size(res.getString(res.getColumnIndex(CROP_CROP_AREA)));
+            crop.setArea(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_AREA))));
 //            crop.setCost(res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
 //            crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
 //            crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
@@ -7349,13 +7337,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 //            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
 //            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
 //            crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
-            crop.setField_id(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
-            crop.setField(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
-            crop.setCrop(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
-            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
-            crop.setUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
-            crop.setEstimated_revenue(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE)));
-            crop.setEstimated_yield( res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) );
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
+            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+//            crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
+            crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
+            crop.setEstimatedRevenue(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE))));
+            crop.setEstimatedYield( Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) ));
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(crop);
             res.moveToNext();
@@ -7746,11 +7734,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Crop crop = null;
         if (!res.isAfterLast()) {
             crop = new Crop();
-            crop.setId(res.getInt(res.getColumnIndex(CROP_CROP_ID)));
-            crop.setUserId(res.getInt(res.getColumnIndex(CROP_CROP_USER_ID)));
-            crop.setPlanting_date(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
+            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
+            crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
-            crop.setFiels_size(res.getString(res.getColumnIndex(CROP_CROP_AREA)));
+            crop.setArea(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_AREA))));
 //            crop.setCost(res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
 //            crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
 //            crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
@@ -7758,13 +7746,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 //            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
 //            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
 //            crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
-            crop.setField_id(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
-            crop.setField(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
-            crop.setCrop(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
+            crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
+            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
+            crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
             crop.setSeason(res.getString(res.getColumnIndex(CROP_CROP_SEASON)));
-            crop.setUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
-            crop.setEstimated_revenue(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE)));
-            crop.setEstimated_yield( res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) );
+            crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
+            crop.setEstimatedRevenue(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE))));
+            crop.setEstimatedYield(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD)) ) );
             crop.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }

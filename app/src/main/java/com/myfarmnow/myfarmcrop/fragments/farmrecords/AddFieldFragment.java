@@ -197,13 +197,14 @@ public class AddFieldFragment extends Fragment {
 
     public void saveFields(){
         cropField = new CropField();
-        cropField.setUserId(Integer.parseInt(DashboardActivity.getPreferences("userId",context)));
-        cropField.setField_name(binding.txtCropFieldName.getText().toString());
-        cropField.setField_type( binding.spCropFieldType.getSelectedItem().toString());
+        cropField.setUserId(DashboardActivity.getPreferences("userId",context));
+        cropField.setFieldName(binding.txtCropFieldName.getText().toString());
+        cropField.setFieldType( binding.spCropFieldType.getSelectedItem().toString());
         cropField.setStatus(binding.spCropFieldStatus.getSelectedItem().toString());
-        cropField.setField_size(binding.txtCropFieldTotalArea.getText().toString());
-        cropField.setCroppable_area(binding.txtCropFieldCroppableArea.getText().toString());
-        cropField.setUnit(binding.spCropFieldUnits.getSelectedItem().toString());
+        cropField.setTotalArea(Float.parseFloat(binding.txtCropFieldTotalArea.getText().toString()) );
+        cropField.setCroppableArea(Float.parseFloat(binding.txtCropFieldCroppableArea.getText().toString()));
+        cropField.setUnits(binding.spCropFieldUnits.getSelectedItem().toString());
+
 
         dbHandler.insertCropField(cropField);
         Log.w("userId",DashboardActivity.getPreferences("userId",context));
@@ -212,12 +213,12 @@ public class AddFieldFragment extends Fragment {
     public void updateField(){
         if(cropField !=null){
 
-            cropField.setField_name(binding.txtCropFieldName.getText().toString());
-            cropField.setField_type( binding.spCropFieldType.getSelectedItem().toString());
+            cropField.setFieldName(binding.txtCropFieldName.getText().toString());
+            cropField.setFieldType( binding.spCropFieldType.getSelectedItem().toString());
             cropField.setStatus(binding.spCropFieldStatus.getSelectedItem().toString());
-            cropField.setField_size(binding.txtCropFieldTotalArea.getText().toString());
-            cropField.setCroppable_area(binding.txtCropFieldCroppableArea.getText().toString());
-            cropField.setUnit(binding.spCropFieldUnits.getSelectedItem().toString());
+            cropField.setTotalArea(Float.parseFloat(binding.txtCropFieldTotalArea.getText().toString()));
+            cropField.setCroppableArea(Float.parseFloat(binding.txtCropFieldCroppableArea.getText().toString()));
+            cropField.setUnits(binding.spCropFieldUnits.getSelectedItem().toString());
 
 
             dbHandler.updateCropField(cropField);
@@ -227,12 +228,12 @@ public class AddFieldFragment extends Fragment {
 
     public void fillViews(){
         if(cropField !=null){
-            binding.txtCropFieldName.setText(cropField.getField_name());
-            DashboardActivity.selectSpinnerItemByValue(binding.spCropFieldUnits,cropField.getUnit());
-            DashboardActivity.selectSpinnerItemByValue(binding.spCropFieldType,cropField.getField_type());
+            binding.txtCropFieldName.setText(cropField.getFieldName());
+            DashboardActivity.selectSpinnerItemByValue(binding.spCropFieldUnits,cropField.getUnits());
+            DashboardActivity.selectSpinnerItemByValue(binding.spCropFieldType,cropField.getFieldType());
             DashboardActivity.selectSpinnerItemByValue(binding.spCropFieldStatus,cropField.getStatus());
-            binding.txtCropFieldTotalArea.setText(cropField.getField_size()+"");
-            binding.txtCropFieldCroppableArea.setText(cropField.getCroppable_area()+"");
+            binding.txtCropFieldTotalArea.setText(cropField.getTotalArea()+"");
+            binding.txtCropFieldCroppableArea.setText(cropField.getCroppableArea()+"");
             binding.btnSave.setText(R.string.btn_update_label);
         }
     }

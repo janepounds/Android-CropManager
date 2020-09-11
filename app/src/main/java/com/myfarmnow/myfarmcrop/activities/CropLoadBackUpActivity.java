@@ -348,13 +348,13 @@ public class CropLoadBackUpActivity extends AppCompatActivity {
                                 Crop crop =  new Crop(crops.getJSONObject(i));
                                 crop.setGlobalId(crops.getJSONObject(i).getString("id"));
                                 crop.setSyncStatus("yes");
-                                CropField field = dbHandler.getCropField(crop.getField_id(),true);
+                                CropField field = dbHandler.getCropField(crop.getFieldId(),true);
                                 if(field != null){
                                     Log.d("FIELD FOR CROP",field.toJSON().toString());
-                                    crop.setField_id(field.getId());
-                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getCrop(),true);
+                                    crop.setFieldId(field.getId());
+                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getName(),true);
                                     if(inventorySeed != null){
-                                        crop.setCrop(inventorySeed.getId());
+                                        crop.setName(inventorySeed.getId());
                                     }
                                     Log.d("RETURNED CROP:",crop.toJSON().toString());
                                     Log.d("CORRESPONDING FIELD:",field.toJSON().toString());

@@ -61,15 +61,16 @@ public class CropSprayingFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(!getArguments().getString("cropSpraying").isEmpty()){
-            cropSpraying =(CropSpraying) requireActivity().getIntent().getSerializableExtra("cropSpraying");
-        }
-        if(!getArguments().getString("cropId").isEmpty()){
-            cropId =getArguments().getString("cropId");
-        }
-        else{
-            requireActivity().finish();
-        }
+//        if(!getArguments().getString("cropSpraying").isEmpty()){
+//            cropSpraying =(CropSpraying) requireActivity().getIntent().getSerializableExtra("cropSpraying");
+//        }
+//        if(!getArguments().getString("cropId").isEmpty()){
+//            cropId =getArguments().getString("cropId");
+//        }
+//        else{
+//            requireActivity().finish();
+//        }
+        cropId = getArguments().getString("cropId");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_crop_spraying, container, false);
     }
@@ -89,8 +90,6 @@ public class CropSprayingFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
@@ -274,6 +273,7 @@ public class CropSprayingFragment extends DialogFragment {
                     else{
                         updateSpraying();
                     }
+                    navController = Navigation.findNavController(v);
                     //navigate to crop list activities
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId",cropId);

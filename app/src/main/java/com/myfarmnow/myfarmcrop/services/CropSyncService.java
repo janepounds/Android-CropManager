@@ -251,7 +251,7 @@ public class CropSyncService extends Service {
                 record.setGlobalId(generateUUID());
                 dbHandler.updateCrop(record);
             }
-            CropField field = dbHandler.getCropField(record.getField_id(),false);
+            CropField field = dbHandler.getCropField(record.getFieldId(),false);
 
             if(field ==null){
                 continue; //crop has no assigned field
@@ -260,16 +260,16 @@ public class CropSyncService extends Service {
             if(field.getSyncStatus().equals("no")){
                 continue; //do not back up this crop since its parent field is not backed up
             }
-            record.setField_id(field.getGlobalId());
+            record.setFieldId(field.getGlobalId());
 
-            CropInventorySeeds seed = dbHandler.getCropSeed(record.getCrop(),false);
+            CropInventorySeeds seed = dbHandler.getCropSeed(record.getName(),false);
 
             if(seed != null){
 
                 if(seed.getSyncStatus().equals("no")){
                     continue; //do not back up this crop since its parent seed inventory is not backed up
                 }
-                record.setCrop(seed.getGlobalId()); //change the seedId it to map the global Id
+                record.setName(seed.getGlobalId()); //change the seedId it to map the global Id
             }
             else{
 //                Log.d("CROPS SEED ",record.getSeedId());
@@ -1191,12 +1191,12 @@ public class CropSyncService extends Service {
                                 Crop crop = dbHandler.getCrop( crops.getJSONObject(i).getString("localId"),false);
                                 crop.setGlobalId(crops.getJSONObject(i).getString("globalId"));
                                 crop.setSyncStatus("yes");
-                                CropField field = dbHandler.getCropField(crop.getField_id(),true);
+                                CropField field = dbHandler.getCropField(crop.getFieldId(),true);
                                 if(field != null){
-                                    crop.setField_id(field.getId());
-                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getCrop(),false);
+                                    crop.setFieldId(field.getId());
+                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getName(),false);
                                     if(inventorySeed != null){
-                                        crop.setCrop(inventorySeed.getId());
+                                        crop.setName(inventorySeed.getId());
                                     }
                                     dbHandler.updateCrop(crop);
                                 }

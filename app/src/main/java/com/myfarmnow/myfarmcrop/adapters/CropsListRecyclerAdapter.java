@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -45,12 +47,10 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     Context mContext;
     NavController navController;
 
-    public CropsListRecyclerAdapter(ArrayList<Crop> inventoryList, Context context,NavController navController) {
+    public CropsListRecyclerAdapter(ArrayList<Crop> inventoryList, Context context) {
         this.cropsList = inventoryList;
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
-        this.navController=navController;
-
     }
 
     @NonNull
@@ -64,20 +64,15 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     @Override
     public void onBindViewHolder(@NonNull CropCardViewHolder holder, int position) {
         Crop curCrop = cropsList.get(position);
-        CropInventorySeeds seeds = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropInventorySeed(curCrop.getCrop());
-        String seedUnits ="";
-        if(seeds != null){
-            seedUnits = seeds.getUsageUnits();
-        }
-        holder.cropNameTxtView.setText(curCrop.getCrop());
-        holder.cropFieldTextView.setText(curCrop.getField());
+//        CropInventorySeeds seeds = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropInventorySeed(curCrop.getName());
+//        String seedUnits ="";
+//        if(seeds != null){
+//            seedUnits = seeds.getUsageUnits();
+//        }
+        holder.cropNameTxtView.setText(curCrop.getName());
+        holder.cropFieldTextView.setText(curCrop.getFieldName());
         holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
-//        holder.cropAge.setText("(" + curCrop.computeAge() + ")");
-        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getPlanting_date()));
-        //holder.croppingYearTxt.setText(curCrop.getCroppingYear()+"");
-//        holder.seasonTxt.setText("(" + curCrop.getSeason() + ")");
-//        holder.rateTextView.setText(curCrop.computeRateR() + " "+ seedUnits+" / "+CropSettingsSingleton.getInstance().getAreaUnits());
-//        holder.plantingMethodTxt.setText(curCrop.getPlantingMethod());
+        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
 
     }
@@ -160,6 +155,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             moreButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -170,7 +166,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 final Crop crop = cropsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete " + crop.getCrop() + " crop?")
+                                        .setMessage("Do you really want to delete " + crop.getName() + " crop?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -200,6 +196,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 //navigate to fertilizer dialog fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("cropId", crop.getId());
+//                                bundle.putSerializable("fertilizerApplication", CropFertilizerApplication);
                                 navController.navigate(R.id.action_cropListFragment_to_fertilizerApplicationFragment,bundle);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {
                                 Crop crop = cropsList.get(getAdapterPosition());

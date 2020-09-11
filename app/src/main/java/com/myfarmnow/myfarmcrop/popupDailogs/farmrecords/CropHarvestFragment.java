@@ -45,7 +45,7 @@ import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 import java.util.ArrayList;
 
 
-class CropHarvestFragment extends DialogFragment {
+public class CropHarvestFragment extends DialogFragment {
     String cropId;
     CropHarvest cropHarvest=null;
     EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,
@@ -60,20 +60,23 @@ class CropHarvestFragment extends DialogFragment {
     private NavController navController;
     private Context context;
 
+    public CropHarvestFragment(){}
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(!getArguments().getString("cropHarvest").isEmpty()){
-            cropHarvest = (CropHarvest) requireActivity().getIntent().getSerializableExtra("cropHarvest");
-        }
-        if(requireActivity().getIntent().hasExtra("cropId")){
-            cropId =getArguments().getString("cropId");
-
-        }
-        else{
-            requireActivity().finish();
-        }
+//        if(!getArguments().getString("cropHarvest").isEmpty()){
+//            cropHarvest = (CropHarvest) requireActivity().getIntent().getSerializableExtra("cropHarvest");
+//        }
+//        if(requireActivity().getIntent().hasExtra("cropId")){
+//            cropId =getArguments().getString("cropId");
+//
+//        }
+//        else{
+//            requireActivity().finish();
+//        }
+        cropId = getArguments().getString("cropId");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_crop_harvest, container, false);
     }
@@ -95,8 +98,6 @@ class CropHarvestFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
@@ -322,7 +323,7 @@ class CropHarvestFragment extends DialogFragment {
 //                    cropHarvest.putExtra("cropId",cropId);
 //                    startActivity(cropHarvest);
 //                    requireActivity().finish();
-
+                    navController = Navigation.findNavController(v);
                     //open crop activities list
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId",cropId);

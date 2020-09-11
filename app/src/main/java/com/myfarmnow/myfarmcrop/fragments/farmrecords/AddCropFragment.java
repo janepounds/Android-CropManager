@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -52,7 +53,7 @@ public class AddCropFragment extends Fragment {
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private Crop crop;
-    public  CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
+    public CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
     private NavController navController;
     private MyFarmRoomDatabase myFarmRoomDatabase;
     Crop cropsTable;
@@ -87,41 +88,42 @@ public class AddCropFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        navController = Navigation.findNavController(view);
 
     }
 
-    public void initializeForm() {
 
+    public void initializeForm(){
 
-        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        DashboardActivity.addDatePicker(binding.txtCropsDateSown,context);
 
 
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateEntries()) {
-                    if (crop == null) {
+                if(validateEntries()){
+                    if(crop==null){
                         saveCrop();
-                    } else {
+                    }
+                    else{
                         updateCrop();
                     }
-                    navController.popBackStack();
-                } else {
-                    Log.d("ERROR", "Testing");
+                  //go back to list
+                navController.popBackStack();
+                }else{
+                    Log.d("ERROR","Testing");
                 }
             }
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
         cropsList.add("Select Crop");
-        for (CropItem cropItem : dbHandler.getCropItems()) {
+        for(CropItem cropItem: dbHandler.getCropItems()){
             cropsList.add(cropItem.getName());
         }
-        binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
+       binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, cropsList));
-
 
 
 
@@ -130,18 +132,11 @@ public class AddCropFragment extends Fragment {
             fieldsItems.add(x);
         }
         fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems,"Field",context);
-        binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
+       binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
 
-
-        ArrayList<CropSpinnerItem> seedItems = new ArrayList<>();
-        for (CropInventorySeeds x : dbHandler.getCropSeeds(DashboardActivity.getPreferences("userId", context))) {
-            seedItems.add(x);
-        }
-
-
+        // ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) binding.spCropsSeason.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) binding.spCropsHarvestUnits.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -178,7 +173,10 @@ public class AddCropFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(position ==0){
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    }
+                    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                     } else {
@@ -232,19 +230,20 @@ public class AddCropFragment extends Fragment {
         fillViews();
     }
 
+
     public void saveCrop() {
         crop = new Crop();
-        crop.setUserId(Integer.parseInt(DashboardActivity.getPreferences("userId",context)));
-        crop.setCrop(binding.spCropCrop.getText().toString());
+        crop.setUserId(DashboardActivity.getPreferences("userId", context));
+        crop.setName(binding.spCropCrop.getText().toString());
         crop.setVariety(binding.txtCropsVariety.getText().toString());
-        crop.setField_id(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
+        crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
         crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
-        crop.setPlanting_date(binding.txtCropsDateSown.getText().toString());
-        crop.setFiels_size( binding.txtCropsArea.getText().toString() );
-        crop.setEstimated_revenue( binding.txtCropsEstimatedRevenue.getText().toString() );
-        crop.setEstimated_yield( binding.txtCropsEstimatedYield.getText().toString() );
+        crop.setDateSown(binding.txtCropsDateSown.getText().toString());
+        crop.setArea(Float.parseFloat(binding.txtCropsArea.getText().toString()));
+        crop.setEstimatedRevenue(Float.parseFloat(binding.txtCropsEstimatedRevenue.getText().toString()));
+        crop.setEstimatedYield(Float.parseFloat(binding.txtCropsEstimatedYield.getText().toString()));
         if (binding.spCropsHarvestUnits.getSelectedItemPosition() != 0) {
-            crop.setUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
+            crop.setHarvestUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
         }
         dbHandler.insertCrop(crop);
 
@@ -252,16 +251,16 @@ public class AddCropFragment extends Fragment {
 
     public void updateCrop() {
         if (crop != null) {
-            crop.setCrop(binding.spCropCrop.getText().toString());
+            crop.setName(binding.spCropCrop.getText().toString());
             crop.setVariety(binding.txtCropsVariety.getText().toString());
-            crop.setField_id(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
+            crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
             crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
-            crop.setPlanting_date(binding.txtCropsDateSown.getText().toString());
-            crop.setFiels_size( binding.txtCropsArea.getText().toString() );
-            crop.setEstimated_revenue( binding.txtCropsEstimatedRevenue.getText().toString() );
-            crop.setEstimated_yield( binding.txtCropsEstimatedYield.getText().toString() );
+            crop.setDateSown(binding.txtCropsDateSown.getText().toString());
+            crop.setArea(Float.parseFloat(binding.txtCropsArea.getText().toString()));
+            crop.setEstimatedRevenue(Float.parseFloat(binding.txtCropsEstimatedRevenue.getText().toString()));
+            crop.setEstimatedYield(Float.parseFloat(binding.txtCropsEstimatedYield.getText().toString()));
             if (binding.spCropsHarvestUnits.getSelectedItemPosition() != 0) {
-                crop.setUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
+                crop.setHarvestUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
             }
 
             dbHandler.updateCrop(crop);
@@ -273,18 +272,17 @@ public class AddCropFragment extends Fragment {
         if (crop != null) {
             // DashboardActivity.selectSpinnerItemByValue(cropSP,crop.getName());
             binding.txtCropsVariety.setText(crop.getVariety());
-            binding.spCropCrop.setText(crop.getCrop());
+            binding.spCropCrop.setText(crop.getName());
             DashboardActivity.selectSpinnerItemByValue(binding.spCropsSeason, crop.getSeason());
-            DashboardActivity.selectSpinnerItemByValue(binding.spCropsHarvestUnits, crop.getUnits());
-            binding.txtCropsDateSown.setText(crop.getPlanting_date());
-            binding.txtCropsArea.setText(crop.getFiels_size() + "");
-            binding.txtCropsEstimatedYield.setText(crop.getEstimated_yield() + "");
-            binding.txtCropsEstimatedRevenue.setText(crop.getEstimated_revenue() + "");
-            DashboardActivity.selectSpinnerItemById(binding.spCropsField, crop.getField_id());
+            DashboardActivity.selectSpinnerItemByValue(binding.spCropsHarvestUnits, crop.getHarvestUnits());
+            binding.txtCropsDateSown.setText(crop.getDateSown());
+            binding.txtCropsArea.setText(crop.getArea() + "");
+            binding.txtCropsEstimatedYield.setText(crop.getEstimatedYield() + "");
+            binding.txtCropsEstimatedRevenue.setText(crop.getEstimatedRevenue() + "");
+            DashboardActivity.selectSpinnerItemById(binding.spCropsField, crop.getFieldId());
         }
 
     }
-
 
 
     public boolean validateEntries() {
@@ -317,12 +315,7 @@ public class AddCropFragment extends Fragment {
     }
 
 
-//    public void  showfieldlist(List<CropSpinnerItem> fieldlist) {
-//        ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
-//        for (CropSpinnerItem x : fieldlist) {
-//            fieldsItems.add(x);
-//        }
-//    }
+
 
 
 }

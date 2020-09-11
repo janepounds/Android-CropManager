@@ -21,7 +21,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
@@ -77,11 +76,11 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
     public void onBindViewHolder(@NonNull final FieldViewHolder holder, int position) {
 
         CropField field = cropFieldsList.get(position);
-        holder.croppableAreaTextView.setText(field.getCroppable_area()+" "+field.getUnit().toLowerCase());
-        holder.soilTypeTextView.setText(field.getField_type());
+        holder.croppableAreaTextView.setText(field.getCroppableArea()+" "+field.getUnits().toLowerCase());
+        holder.soilTypeTextView.setText(field.getFieldType());
         holder.soilCategoryTextView.setText(field.getStatus());
-        holder.fieldNameTextView.setText(field.getField_name());
-        holder.fieldAreaTextView.setText(field.getField_size()+" "+field.getUnit().toLowerCase());
+        holder.fieldNameTextView.setText(field.getFieldName());
+        holder.fieldAreaTextView.setText(field.getTotalArea()+" "+field.getUnits().toLowerCase());
 
         ArrayList<Crop> crops = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getCropsInField(String.valueOf(field.getId()) );
 
@@ -89,8 +88,8 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
         for(Crop crop : crops){
             TextView cropNameAreaTextView = new TextView(mContext);
             TextView datePlantedTextView = new TextView(mContext);
-            cropNameAreaTextView.setText(crop.getCrop()+" ("+crop.getFiels_size()+field.getUnit().toLowerCase()+")");
-            datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getPlanting_date())+" ("+crop.computeAge()+")");
+            cropNameAreaTextView.setText(crop.getName()+" ("+crop.getArea()+field.getUnits().toLowerCase()+")");
+            datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getDateSown())+" ("+crop.computeAge()+")");
             View view = new View(mContext);
             view.setMinimumHeight(20);
             cropNameAreaTextView.setTypeface(cropNameAreaTextView.getTypeface(), Typeface.BOLD);
@@ -137,7 +136,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
                                 final CropField cropField = cropFieldsList.get(getAdapterPosition());
                                 new AlertDialog.Builder(mContext)
                                         .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete "+cropField.getField_name()+" field?")
+                                        .setMessage("Do you really want to delete "+cropField.getFieldName()+" field?")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -150,10 +149,10 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-                                CropField cropField = cropFieldsList.get(getAdapterPosition());
-                                Intent editField = new Intent(mContext, CropFieldManagerActivity.class);
-                                editField.putExtra("cropField",  cropField);
-                                mContext.startActivity(editField);
+//                                CropField cropField = cropFieldsList.get(getAdapterPosition());
+//                                Intent editField = new Intent(mContext, CropFieldManagerActivity.class);
+//                                editField.putExtra("cropField",  cropField);
+//                                mContext.startActivity(editField);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_soil_analysis))){
                                 CropField cropField = cropFieldsList.get(getAdapterPosition());

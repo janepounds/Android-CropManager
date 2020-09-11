@@ -64,15 +64,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(!getArguments().getString("fertilizerApplication").isEmpty()){
-            fertilizerApplication =(CropFertilizerApplication) requireActivity().getIntent().getSerializableExtra("fertilizerApplication");
-        }
-        if(requireActivity().getIntent().hasExtra("cropId")){
-            cropId =requireActivity().getIntent().getStringExtra("cropId");
-        }
-        else{
-            requireActivity().finish();
-        }
+        assert getArguments() != null;
+        cropId = getArguments().getString("cropId");
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fertilizer_application, container, false);
@@ -94,11 +87,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-
-
     }
 
     @Override
@@ -295,6 +285,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
                     else{
                         updateFertilizerApplication();
                     }
+                    navController = Navigation.findNavController(v);
                     //navigate to crop activities
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId",cropId);

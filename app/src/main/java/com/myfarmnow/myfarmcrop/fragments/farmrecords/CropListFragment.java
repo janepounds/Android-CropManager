@@ -86,7 +86,7 @@ public class CropListFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        cropListRecyclerAdapter = new CropsListRecyclerAdapter(cropArrayList,context,navController);
+        cropListRecyclerAdapter = new CropsListRecyclerAdapter(cropArrayList,context);
 
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropsRecycView.setLayoutManager(linearLayoutManager);
