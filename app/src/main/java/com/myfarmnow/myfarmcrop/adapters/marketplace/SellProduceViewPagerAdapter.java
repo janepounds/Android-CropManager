@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsFragment;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.MarketPriceFragment;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.MyProduceFragment;
-import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 
 import java.util.Objects;
 

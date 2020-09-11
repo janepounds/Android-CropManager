@@ -73,16 +73,7 @@ public class SellProduceFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(requireActivity().getSupportFragmentManager());
-
-        binding.viewPager.setAdapter(sellProduceViewPagerAdapter);
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(requireActivity().getSupportFragmentManager());
+        sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(getChildFragmentManager());
 
         binding.viewPager.setAdapter(sellProduceViewPagerAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
