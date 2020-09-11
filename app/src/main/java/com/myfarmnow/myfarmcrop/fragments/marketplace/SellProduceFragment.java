@@ -45,15 +45,6 @@ public class SellProduceFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sell_produce, container, false);
 
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
-        setHasOptionsMenu(true);
-
-        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setTitle("Sell Produce");
-
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         return binding.getRoot();
     }
@@ -67,9 +58,11 @@ public class SellProduceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-        binding.toolbar.setNavigationOnClickListener(v -> navController.popBackStack());
+//        binding.toolbar.setNavigationOnClickListener(v -> navController.popBackStack());
 
         sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(requireActivity().getSupportFragmentManager());
 
@@ -78,21 +71,39 @@ public class SellProduceFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //TODO Add your menu entries here
-        inflater.inflate(R.menu.options_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onResume() {
+        super.onResume();
+        sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(requireActivity().getSupportFragmentManager());
+
+        binding.viewPager.setAdapter(sellProduceViewPagerAdapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sellProduceFragment:
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
-                return true;
+    public void onStart() {
+        super.onStart();
+        sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(requireActivity().getSupportFragmentManager());
 
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        binding.viewPager.setAdapter(sellProduceViewPagerAdapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
+
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        //TODO Add your menu entries here
+//        inflater.inflate(R.menu.options_menu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.sellProduceFragment:
+//                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }

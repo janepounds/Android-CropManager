@@ -25,7 +25,6 @@ public class BuyInputsFragment extends Fragment {
     private Context context;
 
     private NavController navController;
-    private AppBarConfiguration appBarConfiguration;
 
 
     @Override
@@ -46,8 +45,8 @@ public class BuyInputsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        navController = Navigation.findNavController(view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
 }

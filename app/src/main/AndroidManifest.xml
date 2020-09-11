@@ -22,11 +22,11 @@
         <activity
             android:name=".activities.marketplace.MarketPlaceActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service
@@ -291,13 +291,11 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-                <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-
-                        <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-
-
+<!--                <intent-filter>-->
+<!--                        <action android:name="android.intent.action.MAIN" />-->
+<!---->
+<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
