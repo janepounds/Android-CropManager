@@ -1831,10 +1831,10 @@
 
     <string-array name="crop_add_produce">
         <item> Crop</item>
-        <item>Active</item>
-        <item>Fallow</item>
-        <item>Leased</item>
-        <item>Other</item>
+        <item>Tomatoes</item>
+        <item>Maize</item>
+        <item>Cassava</item>
+        <item>Irish</item>
     </string-array>
 
     <string-array name="crop_quantity_unit">

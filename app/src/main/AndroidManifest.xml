@@ -22,11 +22,11 @@
         <activity
             android:name=".activities.marketplace.MarketPlaceActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
 
         <service
@@ -127,8 +127,7 @@
             android:label="Task Manager" />
         <activity
             android:name=".activities.farmrecords.CropIncomeExpensesListActivity"
-            android:label="Income / Expenses "
-            />
+            android:label="Income / Expenses " />
         <activity
             android:name=".activities.farmrecords.CropIncomeExpenseManagerActivity"
             android:label="Income / Expenses Manager" />
@@ -170,29 +169,29 @@
         <activity
             android:name=".activities.CropCultivationManagerActivity"
             android:label="@string/activity_cultivate_manage" />
-<!--        <activity-->
-<!--            android:name=".activities.farmrecords.CropFieldsListActivity"-->
-<!--            android:label="@string/title_activity_crop_fields_list"-->
-<!--            android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--        <activity-->
+        <!--            android:name=".activities.farmrecords.CropFieldsListActivity"-->
+        <!--            android:label="@string/title_activity_crop_fields_list"-->
+        <!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"
             android:theme="@style/AppTheme.NoActionBar">
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-<!--            &lt;!&ndash;  &ndash;&gt;-->
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+            <!--            &lt;!&ndash;  &ndash;&gt;-->
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.agronomy.AgronomyDashboardActivity"
             android:label="@string/title_agronomy"
-            android:theme="@style/AppTheme.NoActionBar" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!---->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!---->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.predictiontools.PredictionToolsDashboardActivity"
@@ -203,15 +202,11 @@
             android:label="@string/title_service"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.farmrecords.CropFieldManagerActivity"
-            android:label="@string/activity_crop_field_manager_title"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.DashboardActivity"
-            android:label="@string/title_activity_dashboard"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.farmrecords.CropInventorySeedsManagerActivity"
             android:label="@string/title_activity_crop_inventory_seeds_manager"
@@ -291,11 +286,13 @@
         <activity
             android:name=".activities.CropLoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<!--                <intent-filter>-->
-<!--                        <action android:name="android.intent.action.MAIN" />-->
-<!---->
-<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
         </activity>
         <activity
             android:name=".activities.CropRegisterActivity"
@@ -409,7 +406,7 @@
         <activity
             android:name=".activities.wallet.WalletHomeActivity"
             android:parentActivityName=".activities.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />
