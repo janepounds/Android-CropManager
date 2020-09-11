@@ -98,10 +98,7 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         Intent openList = new Intent(this, CropEmployeesListActivity.class);
         startActivity(openList);
     }
-    public void openFieldList(View view){
-        Intent openList = new Intent(this, CropFieldsListActivity.class);
-        startActivity(openList);
-    }
+
 
     public void openFieldManager(View view){
         Intent openList = new Intent(this, CropFieldManagerActivity.class);

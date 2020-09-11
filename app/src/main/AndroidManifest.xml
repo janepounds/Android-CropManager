@@ -170,10 +170,10 @@
         <activity
             android:name=".activities.CropCultivationManagerActivity"
             android:label="@string/activity_cultivate_manage" />
-        <activity
-            android:name=".activities.farmrecords.CropFieldsListActivity"
-            android:label="@string/title_activity_crop_fields_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".activities.farmrecords.CropFieldsListActivity"-->
+<!--            android:label="@string/title_activity_crop_fields_list"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"

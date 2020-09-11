@@ -63,7 +63,6 @@ public class AddCropFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_crop, container, false);
-        myFarmRoomDatabase = MyFarmRoomDatabase.getInstance(context);
         Toolbar toolbar = binding.toolbar;
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -127,14 +126,12 @@ public class AddCropFragment extends Fragment {
 
 
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
-        for (com.myfarmnow.myfarmcrop.models.farmrecords.CropField x : dbHandler.getCropFields(DashboardActivity.getPreferences("userId", context))) {
+        for(CropField x: dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context))){
             fieldsItems.add(x);
-
-//
-
         }
-        fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems, "Field", context);
+        fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems,"Field",context);
         binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
+
 
         ArrayList<CropSpinnerItem> seedItems = new ArrayList<>();
         for (CropInventorySeeds x : dbHandler.getCropSeeds(DashboardActivity.getPreferences("userId", context))) {

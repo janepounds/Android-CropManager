@@ -1,8 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,26 +15,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentFieldsListBinding;
-import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
-
-import java.lang.ref.WeakReference;
-import java.util.List;
 
 
 public class FieldsListFragment extends Fragment {

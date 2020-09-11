@@ -1,9 +1,7 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -29,13 +27,10 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropFieldsListActivity;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddFieldBinding;
-
-import java.lang.ref.WeakReference;
 
 
 public class AddFieldFragment extends Fragment {
@@ -211,7 +206,7 @@ public class AddFieldFragment extends Fragment {
         cropField.setUnit(binding.spCropFieldUnits.getSelectedItem().toString());
 
         dbHandler.insertCropField(cropField);
-
+        Log.w("userId",DashboardActivity.getPreferences("userId",context));
 
     }
     public void updateField(){

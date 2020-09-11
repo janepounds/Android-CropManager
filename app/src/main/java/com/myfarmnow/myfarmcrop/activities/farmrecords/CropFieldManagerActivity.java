@@ -122,10 +122,10 @@ public class CropFieldManagerActivity extends AppCompatActivity {
                         updateField();
                     }
 
-                    Intent toCropFieldsList = new Intent(CropFieldManagerActivity.this, CropFieldsListActivity.class);
-                    toCropFieldsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(toCropFieldsList);
-                    finish();
+//                    Intent toCropFieldsList = new Intent(CropFieldManagerActivity.this, CropFieldsListActivity.class);
+//                    toCropFieldsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(toCropFieldsList);
+//                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }
