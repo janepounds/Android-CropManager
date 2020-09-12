@@ -137,7 +137,10 @@ dependencies {
     configurations {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
-
+    //REFROFIT depenencies for http client
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     // Material Design
     implementation "com.google.android.material:material:$material_design_version"
 
