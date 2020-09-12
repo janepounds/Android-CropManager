@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.network;
 
 
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 
 import java.util.Map;
@@ -25,13 +26,25 @@ import retrofit2.http.Query;
  **/
 
 public interface APIRequests {
-
-    //******************** User Data ********************//
-
     //Update User
     @POST("update/{id}/{oldPassword}")
-    Call<UserData> update(@Path("id")String id, @Path("oldPassword") String oldPassword);
-//
+    Call<UserData> update(@Field("id")String id,
+                          @Field("firstname") String firstname,
+                          @Field("lastname") String lastname,
+                          @Field("country") String country,
+                          @Field("addressCountry") String addressCountry,
+                          @Field("addressStreet") String addressStreet,
+                          @Field("addressCityOrTown") String addressCityOrTown,
+                          @Field("email") String email,
+                          @Field("farmname") String farmname,
+                          @Field("countryCode") String countryCode,
+                          @Field("oldPassword") String oldPassword,
+                          @Field("latitude") String latitude,
+                          @Field("longitude") String longitude,
+                          @Field("password") String password
+
+    );
+
 //    @Multipart
 //    @POST("processregistration")
 //    Call<UserData> processRegistration(

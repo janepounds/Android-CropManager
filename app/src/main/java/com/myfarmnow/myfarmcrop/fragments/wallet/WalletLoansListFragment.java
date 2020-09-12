@@ -33,7 +33,7 @@ import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.PayLoan;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.PayLoan;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;

@@ -2,7 +2,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.myfarmnow.myfarmcrop.popupDailogs.wallet">
+    tools:context="com.myfarmnow.myfarmcrop.DailogFragments.wallet">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

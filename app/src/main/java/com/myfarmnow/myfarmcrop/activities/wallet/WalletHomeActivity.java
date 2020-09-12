@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +17,9 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletTransactionsListFragment;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyMobile;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVisa;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVoucher;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyMobile;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVisa;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVoucher;
 
 import org.json.JSONException;
 import org.json.JSONObject;

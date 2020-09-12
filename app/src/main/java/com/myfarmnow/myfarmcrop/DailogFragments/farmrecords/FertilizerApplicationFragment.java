@@ -1,9 +1,8 @@
-package com.myfarmnow.myfarmcrop.popupDailogs.farmrecords;
+package com.myfarmnow.myfarmcrop.DailogFragments.farmrecords;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -30,9 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerApplicationManagerActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;

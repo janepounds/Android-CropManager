@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs.farmrecords;
+package com.myfarmnow.myfarmcrop.DailogFragments.farmrecords;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,7 +31,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
-import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 
 public class StoreAddFertilizerFragment extends DialogFragment {

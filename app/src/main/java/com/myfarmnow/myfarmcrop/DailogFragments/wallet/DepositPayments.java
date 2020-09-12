@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.popupDailogs.wallet;
+package com.myfarmnow.myfarmcrop.DailogFragments.wallet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

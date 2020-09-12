@@ -1845,4 +1845,5 @@
         <item>Tones</item>
     </string-array>
 
+    <string name="unexpected_response"> Unexpected Server Response </string>
 </resources>

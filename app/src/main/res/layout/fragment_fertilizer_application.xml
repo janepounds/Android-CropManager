@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="2dp"
-    tools:context="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.FertilizerApplicationFragment">
+    tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.FertilizerApplicationFragment">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -117,17 +117,17 @@
         tools:layout="@layout/fragment_add_crop" />
     <dialog
         android:id="@+id/storeAddSprayFragment"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddSprayFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSprayFragment"
         android:label="fragment_store_add_spray"
         tools:layout="@layout/fragment_store_add_spray" />
     <dialog
         android:id="@+id/storeAddSeedFragment"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddSeedFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSeedFragment"
         android:label="fragment_store_add_seed"
         tools:layout="@layout/fragment_store_add_seed" />
     <dialog
         android:id="@+id/storeAddFertilizerFragment"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddFertilizerFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddFertilizerFragment"
         android:label="fragment_store_add_fertilizer"
         tools:layout="@layout/fragment_store_add_fertilizer" />
     <fragment
@@ -141,7 +141,7 @@
     </fragment>
     <dialog
         android:id="@+id/cropSprayingFragment"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.CropSprayingFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.CropSprayingFragment"
         android:label="fragment_crop_spraying"
         tools:layout="@layout/fragment_crop_spraying" >
         <action
@@ -150,7 +150,7 @@
     </dialog>
     <dialog
         android:id="@+id/fertilizerApplicationFragment"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.FertilizerApplicationFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.FertilizerApplicationFragment"
         android:label="fragment_fertilizer_application"
         tools:layout="@layout/fragment_fertilizer_application" >
         <action
@@ -159,7 +159,7 @@
     </dialog>
     <dialog
         android:id="@+id/cropHarvestFragment"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.CropHarvestFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.CropHarvestFragment"
         android:label="fragment_crop_harvest"
         tools:layout="@layout/fragment_crop_harvest" >
         <action

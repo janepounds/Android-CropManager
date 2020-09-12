@@ -1,9 +1,8 @@
-package com.myfarmnow.myfarmcrop.popupDailogs.farmrecords;
+package com.myfarmnow.myfarmcrop.DailogFragments.farmrecords;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,8 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropContact;
