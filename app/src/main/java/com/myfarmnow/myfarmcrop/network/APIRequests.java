@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.network;
 
 
+import com.myfarmnow.myfarmcrop.models.user_model.UserData;
+
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -14,6 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -24,6 +27,10 @@ import retrofit2.http.Query;
 public interface APIRequests {
 
     //******************** User Data ********************//
+
+    //Update User
+    @POST("update/{id}/{oldPassword}")
+    Call<UserData> update(@Path("id")String id, @Path("oldPassword") String oldPassword);
 //
 //    @Multipart
 //    @POST("processregistration")
