@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -58,5 +59,16 @@ public class FarmRecordsHomeFragment extends Fragment {
 //        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
         binding.layoutInventoryStore.setOnClickListener(view2 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
         binding.layoutDashboardFinancialRecords.setOnClickListener(view3 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
+
+        binding.layoutCropDashboardInventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setTitle("Livestock Records");
+                alertDialog.setMessage("Coming Soon...!!!!");
+                alertDialog.show();
+            }
+        });
     }
 }
