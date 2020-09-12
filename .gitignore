@@ -53,3 +53,4 @@ obj/
 
 .settings/org.eclipse.buildship.core.prefs
 app/.settings/org.eclipse.buildship.core.prefs
+.idea/codeStyles/Project.xml
