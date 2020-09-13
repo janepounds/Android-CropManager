@@ -37,7 +37,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 public class StoreAddSprayFragment extends DialogFragment {
     public EditText purchaseDatTxt,seedNameTxt,costTxt,
             quantityTxt,batchTxt,supplierTxt,activeIngredientsTxt,harvestIntervalTxt,expiryDateTxt;
-    TextView currencyTxt,cropsprayunitsTxt;
+    TextView cropsprayunitsTxt;
     Button saveBtn;
     Spinner usageUnitSpinner,typeSp;
     MyFarmDbHandlerSingleton dbHandler;
@@ -96,7 +96,6 @@ public class StoreAddSprayFragment extends DialogFragment {
         usageUnitSpinner = view.findViewById(R.id.spinner_crop_spray_unit);
         quantityTxt = view.findViewById(R.id.txt_crop_spray_qty);
         costTxt = view.findViewById(R.id.txt_crop_spray_cost);
-        currencyTxt = view.findViewById(R.id.txt_crop_spray_currency);
         cropsprayunitsTxt = view.findViewById(R.id.txt_crop_spray_units);
         batchTxt = view.findViewById(R.id.txt_crop_spray_batch_no);
         supplierTxt = view.findViewById(R.id.txt_crop_spray_supplier);

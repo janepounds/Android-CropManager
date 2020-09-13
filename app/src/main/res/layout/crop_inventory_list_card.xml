@@ -2,13 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:layout_height="wrap_content"
-    android:background="#F4F4F4"
+    android:background="@color/background_gray"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
     >
 
     <LinearLayout
@@ -56,7 +53,7 @@
                             android:id="@+id/img_crop_inventory_more"
                             android:layout_width="25dp"
                             android:layout_height="match_parent"
-                            android:src="@drawable/more_options_icon"
+                            android:src="@drawable/ic_baseline_more_vert"
                             android:textColor="@color/darker_gray"
                             android:textSize="22dp"
                             />
@@ -104,7 +101,6 @@
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="vertical"
-                        android:id="@+id/ln_batch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 

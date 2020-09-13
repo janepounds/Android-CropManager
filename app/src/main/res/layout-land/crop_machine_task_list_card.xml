@@ -27,7 +27,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/service_service"
+                android:src="@drawable/ic_service"
                 android:visibility="gone"/>
 
             <View
@@ -106,7 +106,7 @@
                             android:id="@+id/img_crop_machine_task_card_more"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/more_options_icon" />
+                            android:src="@drawable/ic_baseline_more_vert" />
                     </LinearLayout>
                 </LinearLayout>
                 <View

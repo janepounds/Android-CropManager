@@ -224,12 +224,12 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
                     else{
                         updateTransplanting();
                     }
-
-                    Intent cropTransplanting = new Intent(CropTransplantingManagerActivity.this, CropActivitiesListActivity.class);
-                    cropTransplanting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    cropTransplanting.putExtra("cropId",cropId);
-                    startActivity(cropTransplanting);
-                    finish();
+//
+//                    Intent cropTransplanting = new Intent(CropTransplantingManagerActivity.this, CropActivitiesListActivity.class);
+//                    cropTransplanting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    cropTransplanting.putExtra("cropId",cropId);
+//                    startActivity(cropTransplanting);
+//                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

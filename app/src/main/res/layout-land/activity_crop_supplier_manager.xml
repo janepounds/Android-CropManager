@@ -270,7 +270,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:orientation="vertical"
-                android:id="@+id/layout_supplier_invoice_add"
 
                 >
                 <LinearLayout

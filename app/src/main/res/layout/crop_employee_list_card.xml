@@ -23,7 +23,6 @@
                             android:gravity="center_vertical">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/img_crop_card"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
 
@@ -80,7 +79,7 @@
                                             android:layout_height="20dp"
                                             android:backgroundTint="@color/black"
                                             android:textColor="@color/darker_gray"
-                                            android:src="@drawable/more_options_icon" />
+                                            android:src="@drawable/ic_baseline_more_vert" />
 
 
                                     </LinearLayout>

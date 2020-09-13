@@ -24,7 +24,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/crop_digital_wallet_label"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:textStyle="bold"

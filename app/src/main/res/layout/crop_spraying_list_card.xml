@@ -93,7 +93,7 @@
                           android:id="@+id/img_crop_spraying_card_more"
                           android:layout_width="24dp"
                           android:layout_height="24dp"
-                          android:src="@drawable/more_options_icon" />
+                          android:src="@drawable/ic_baseline_more_vert" />
                   </LinearLayout>
               </LinearLayout>
                 <View

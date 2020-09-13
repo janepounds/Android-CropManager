@@ -20,14 +20,13 @@
             />
 
         <TextView
-            android:id="@+id/tvSignIn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Sign In"
             android:textColor="@color/whiteColor"
             android:textSize="30.0sp"
-            android:drawableTop="@drawable/logo_crop_manager"/>
+            android:drawableTop="@drawable/logo"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -102,7 +101,6 @@
                 android:textStyle="bold"
                 android:typeface="sans" />
             <Button
-                android:id="@+id/btnAuthenticate"
                 android:layout_width="fill_parent"
                 android:layout_height="45.0dip"
                 android:layout_margin="10.0dip"

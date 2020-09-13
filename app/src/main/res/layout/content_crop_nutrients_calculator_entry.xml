@@ -195,7 +195,6 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txt_crop_nutrients_calculator_nSource_compo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
@@ -291,7 +290,6 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txt_crop_nutrients_calculator_pSource_compo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
@@ -387,7 +385,6 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txt_crop_nutrients_calculator_kSource_compo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"

@@ -99,59 +99,15 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         startActivity(openList);
     }
 
- 
-    public void openInventoryList(View view){
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
-    }
-    public void openInventoryManager(View view){
-        Intent openList = new Intent(this, CropInventoryListActivity.class);
-        startActivity(openList);
-    }
 
-    public void openContactManager(View view){
-        Intent openList = new Intent(this, CropContactManagerActivity.class);
-        startActivity(openList);
-    }
-
-    public void openCustomerList(View view){
-        Intent openList = new Intent(this, CropCustomersListActivity.class);
-        startActivity(openList);
-    }
-    public void openSupplierList(View view){
-        Intent openList = new Intent(this, CropSuppliersListActivity.class);
-        startActivity(openList);
-    }
 
     public void openFertilizerCalculator(View view){
         //CropFertilizerCalculatorEntryActivity
         Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
         startActivity(openList);
     }
-    public void openSalesOrderList(View view){
-        Intent openList = new Intent(this, CropSalesOrdersListActivity.class);
-        startActivity(openList);
-    }
-    public void openProductsList(View view){
-        Intent openList = new Intent(this, CropProductsListActivity.class);
-        startActivity(openList);
-    }
-    public void openEstimatesList(View view){
-        Intent openList = new Intent(this, CropEstimatesListActivity.class);
-        startActivity(openList);
-    }
-    public void openInvoicesList(View view){
-        Intent openList = new Intent(this, CropInvoicesListActivity.class);
-        startActivity(openList);
-    }
-    public void openPaymentsList(View view){
-        Intent openList = new Intent(this, CropPaymentsListActivity.class);
-        startActivity(openList);
-    }
-    public void openPurchaseOrdersList(View view){
-        Intent openList = new Intent(this, CropPurchaseOrdersListActivity.class);
-        startActivity(openList);
-    }
+
+
     public void openBillsList(View view){
         Intent openList = new Intent(this, CropBillsListActivity.class);
         startActivity(openList);

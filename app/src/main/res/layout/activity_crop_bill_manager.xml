@@ -230,7 +230,6 @@
                             android:orientation="horizontal">
 
                             <TableRow
-                                android:id="@+id/tableRow"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/crop_invoice_table_border"
@@ -244,7 +243,6 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/txt_view_crop_invoice_date"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
@@ -262,7 +260,6 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/txt_view_crop_invoice_age"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
@@ -280,7 +277,6 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/txt_view_crop_invoice_weight"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
@@ -298,7 +294,6 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/txt_view_crop_invoice_height"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
@@ -316,7 +311,6 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/txt_view_crop_invoice_bcs"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/crop_invoice_table_border"
@@ -476,7 +470,6 @@
 
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
