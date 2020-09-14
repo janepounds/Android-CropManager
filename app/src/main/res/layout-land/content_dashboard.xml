@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.DashboardActivity"
-    tools:showIn="@layout/activity_main_dashboard">
+    tools:context=".activities.DashboardActivity" >
 
     <RelativeLayout
         android:id="@+id/mainlayout"
@@ -37,7 +36,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/title_activity_dashboard"
+                        android:text="@string/app_name"
                         android:textColor="@color/whiteColor"
                         android:textSize="18dp" />
 

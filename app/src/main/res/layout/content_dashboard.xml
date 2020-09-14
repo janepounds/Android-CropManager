@@ -7,7 +7,6 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.DashboardActivity"
-    tools:showIn="@layout/activity_main_dashboard"
     >
 
 
@@ -39,9 +38,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="@string/title_activity_dashboard"
+                            android:text="@string/app_name"
                             android:textColor="@color/whiteColor"
-                            android:textSize="18dp" />
+                            android:textStyle="bold"
+                            android:textSize="24sp" />
 
                         <ImageView
                             android:id="@+id/img_crop_dashboard_notifications"
@@ -64,7 +64,7 @@
                             android:gravity="center"
                             android:text="0"
                             android:textColor="#000"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
 
 
@@ -77,37 +77,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/mainView"
+                android:fillViewport="true"
                 android:background="@drawable/home_background">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
+                    android:paddingTop="@dimen/dimen_10dp"
                     android:paddingLeft="@dimen/dimen_20dp"
                     android:paddingRight="@dimen/dimen_20dp"
+                    android:paddingBottom="@dimen/dimen_30dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="40dp"
                         android:weightSum="42"
+                        android:paddingBottom="@dimen/dimen_20dp"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="17.5"
+                            android:layout_weight="16"
                             android:orientation="vertical"
                             android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:background="@color/colorPrimary"
+                            android:background="@drawable/weather_background"
                             >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_marginTop="@dimen/dimen_10dp"
+                                android:layout_marginTop="@dimen/dimen_20dp"
                                 android:layout_marginStart="@dimen/dimen_10dp"
                                 android:weightSum="12"
                                 >
@@ -142,7 +145,7 @@
                                     android:text="@string/temp_max"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
 
@@ -155,7 +158,7 @@
                                     android:text="@string/temp_min"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -176,7 +179,7 @@
                                     android:text="@string/humidity"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
 
@@ -188,7 +191,7 @@
                                     android:text="@string/rain"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
 
@@ -200,7 +203,7 @@
                                     android:text="@string/visibility"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
 
@@ -212,7 +215,7 @@
                                     android:text="@string/wind"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -274,7 +277,7 @@
                                     android:text="@string/humidity_default"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
 
@@ -286,7 +289,7 @@
                                     android:text="@string/rain_default"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
 
@@ -298,7 +301,7 @@
                                     android:text="@string/visibility_default"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
 
@@ -310,7 +313,7 @@
                                     android:text="@string/wind_default"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -331,7 +334,7 @@
                                     android:text="@string/humidity_default2"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefin_sans"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
 
@@ -394,14 +397,14 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="-17dp"
+                                    android:layout_marginTop="-5dp"
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_farmrecords"
                                     android:textAllCaps="true"
                                     android:textColor="#000"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:fontFamily="@font/josefin_sans"
                                     android:textStyle="bold" />
 
@@ -436,11 +439,11 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-                                    android:layout_marginTop="-17dp"
+                                    android:layout_marginTop="-5dp"
                                     android:text="@string/label_wallet"
                                     android:textAllCaps="true"
                                     android:textColor="#000"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/josefin_sans"/>
 
@@ -482,11 +485,11 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-                                    android:layout_marginTop="-17dp"
+                                    android:layout_marginTop="-5dp"
                                     android:text="@string/label_marketplace"
                                     android:textAllCaps="true"
                                     android:textColor="#000"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/josefin_sans" />
 
@@ -520,10 +523,10 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-                                    android:layout_marginTop="-17dp"
+                                    android:layout_marginTop="-5dp"
                                     android:text="@string/label_agronomy"
                                     android:textAllCaps="true"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textColor="#000"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/josefin_sans"/>
@@ -571,11 +574,11 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-                                    android:layout_marginTop="-17dp"
+                                    android:layout_marginTop="-5dp"
                                     android:text="Prediction Tools"
                                     android:textAllCaps="true"
                                     android:textColor="#000"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/josefin_sans" />
 
@@ -608,10 +611,10 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-                                    android:layout_marginTop="-17dp"
+                                    android:layout_marginTop="-5dp"
                                     android:text="@string/label_services"
                                     android:textAllCaps="true"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:textColor="#000"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/josefin_sans"/>
