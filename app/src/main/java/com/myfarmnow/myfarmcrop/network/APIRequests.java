@@ -83,7 +83,7 @@ public interface APIRequests {
 //                                      @Field("customers_firstname") String customers_firstname,
 //                                      @Field("customers_lastname") String customers_lastname,
 //                                      @Field("customers_gender") String customers_gender,
-//                                      @Field("customers_telephone") String customers_telephone,
+//                                      @Fieldtxt_crop_fertilizer_qty("customers_telephone") String customers_telephone,
 //                                      @Field("customers_dob") String customers_dob,
 //                                      @Field("image_id") String image_id);
 //

@@ -48,6 +48,7 @@ public class StoreFragment extends Fragment {
     MyFarmDbHandlerSingleton dbHandler;
     CropInventoryListRecyclerAdapter cropListRecyclerAdapter;
     NavController navController;
+    StoreFragment storeFragment = null;
 
 
     @Override
@@ -182,6 +183,20 @@ public class StoreFragment extends Fragment {
                 default:
                     return super.onOptionsItemSelected(item);
             }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+
+        super.onActivityCreated(savedInstanceState);
+        storeFragment = this;
     }
 }
 

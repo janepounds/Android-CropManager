@@ -119,7 +119,11 @@
         android:id="@+id/storeAddSprayFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSprayFragment"
         android:label="fragment_store_add_spray"
-        tools:layout="@layout/fragment_store_add_spray" />
+        tools:layout="@layout/fragment_store_add_spray" >
+        <action
+            android:id="@+id/action_storeAddSprayFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+    </dialog>
     <dialog
         android:id="@+id/storeAddSeedFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSeedFragment"

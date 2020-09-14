@@ -114,11 +114,11 @@ public class FertilizerApplicationFragment extends DialogFragment {
         remindersLayout = view.findViewById(R.id.layout_crop_fertilizer_application_reminders);
 
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Method",context);
-        methodSp.setAdapter(applicationMethodAdapter);
-        methodSp.setEnabled(false);
+//        methodSp.setAdapter(applicationMethodAdapter);
+//        methodSp.setEnabled(false);
         btn_save = view.findViewById(R.id.btn_save);
         DashboardActivity.addDatePicker(dateTxt,context);
-        DashboardActivity.addDatePicker(repeatUntilTxt,context);
+//        DashboardActivity.addDatePicker(repeatUntilTxt,context);
 
         String liquidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_liquid);
         String solidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_solid);
@@ -130,50 +130,50 @@ public class FertilizerApplicationFragment extends DialogFragment {
             solidMethodsArrayList.add(new FertilizerFormSpinnerItem(x));
         }
 
-        fertilizerFormSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                try{
-                    if(position==0){
-                        ((TextView) view).setTextColor(Color.GRAY);
-                    }
-                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
-
-                }
-                String selection = parent.getItemAtPosition(position).toString();
-                if(selection.toLowerCase().equals("solid")){
-                    methodSp.setEnabled(true);
-                    applicationMethodAdapter.changeItems(solidMethodsArrayList);
-                }
-                else if(selection.toLowerCase().equals("liquid")){
-                    methodSp.setEnabled(true);
-                    applicationMethodAdapter.changeItems(liquidMethodsArrayList);
-                }
-                else{
-                    methodSp.setEnabled(false);
-                }
-
-                if(!applicationMethodSet && fertilizerApplication != null){
-                    DashboardActivity.selectSpinnerItemById(methodSp, fertilizerApplication.getMethod());
-                    applicationMethodSet =true;
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        fertilizerFormSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                try{
+//                    if(position==0){
+//                        ((TextView) view).setTextColor(Color.GRAY);
+//                    }
+//                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+//
+//                    }
+//                    else {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+//                    }
+//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+//                }catch (Exception e){
+//
+//                }
+//                String selection = parent.getItemAtPosition(position).toString();
+//                if(selection.toLowerCase().equals("solid")){
+//                    methodSp.setEnabled(true);
+//                    applicationMethodAdapter.changeItems(solidMethodsArrayList);
+//                }
+//                else if(selection.toLowerCase().equals("liquid")){
+//                    methodSp.setEnabled(true);
+//                    applicationMethodAdapter.changeItems(liquidMethodsArrayList);
+//                }
+//                else{
+//                    methodSp.setEnabled(false);
+//                }
+//
+//                if(!applicationMethodSet && fertilizerApplication != null){
+//                    DashboardActivity.selectSpinnerItemById(methodSp, fertilizerApplication.getMethod());
+//                    applicationMethodSet =true;
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -232,44 +232,44 @@ public class FertilizerApplicationFragment extends DialogFragment {
             }
         });
 
-        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    if(position==0){
-                        ((TextView) view).setTextColor(Color.GRAY);
-                    }
-                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
-
-                }
-                String selection = parent.getItemAtPosition(position).toString();
-                if(selection.toLowerCase().equals("yes")){
-                    daysBeforeLayout.setVisibility(View.VISIBLE);
-                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
-                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-                    }
-
-                }
-                else{
-                    daysBeforeLayout.setVisibility(View.GONE);
-                    weeklyRecurrenceLayout.setVisibility(View.GONE);
-                }
-
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                try{
+//                    if(position==0){
+//                        ((TextView) view).setTextColor(Color.GRAY);
+//                    }
+//                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+//
+//                    }
+//                    else {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+//                    }
+//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+//                }catch (Exception e){
+//
+//                }
+//                String selection = parent.getItemAtPosition(position).toString();
+//                if(selection.toLowerCase().equals("yes")){
+//                    daysBeforeLayout.setVisibility(View.VISIBLE);
+//                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
+//                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+//                    }
+//
+//                }
+//                else{
+//                    daysBeforeLayout.setVisibility(View.GONE);
+//                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+//                }
+//
+//
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,9 +294,9 @@ public class FertilizerApplicationFragment extends DialogFragment {
 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)fertilizerFormSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)fertilizerFormSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
         for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(DashboardActivity.getPreferences("userId",context))){
@@ -305,7 +305,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",context);
         fertilizerId.setAdapter(fertilizerAdapter);
 
-        currency.setText(CropSettingsSingleton.getInstance().getCurrency());
+//        currency.setText(CropSettingsSingleton.getInstance().getCurrency());
 
 
         fillViews();

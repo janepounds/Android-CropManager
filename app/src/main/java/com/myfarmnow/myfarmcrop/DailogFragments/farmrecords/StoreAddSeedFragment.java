@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class StoreAddSeedFragment extends DialogFragment {
     private MyFarmDbHandlerSingleton dbHandler;
     private NavController navController;
     EditText purchaseDatTxt, seedNameTxt,varietyTxt,dressingTxt,tgwTxt,quantityTxt,costTxt, batchTxt,supplierTxt;
-    TextView currencyTxt;
+    ImageView close;
     Spinner usageUnitSpinner,typeSp;
     Button saveBtn;
 
@@ -48,9 +49,6 @@ public class StoreAddSeedFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        getDialog().requestWindowFeature(Window.FEATURE_RIGHT_ICON);
-        getDialog().setFeatureDrawableResource(Window.FEATURE_RIGHT_ICON,R.drawable.ic_close);
-
         if(requireActivity().getIntent().hasExtra("seedsInventory")){
             seedsInventoryToEdit =(CropInventorySeeds)requireActivity().getIntent().getSerializableExtra("seedsInventory");
         }
@@ -60,14 +58,11 @@ public class StoreAddSeedFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View view =inflater.inflate(R.layout.fragment_store_add_seed, null);
+        View view =getLayoutInflater().inflate(R.layout.fragment_store_add_seed, null);
         builder.setView(view);
-//        initializeForm( view);
         initializeForm(view);
         return builder.create();
     }
@@ -90,6 +85,7 @@ public class StoreAddSeedFragment extends DialogFragment {
 
 
     public void initializeForm(View view){
+        close = view.findViewById(R.id.seed_close);
         purchaseDatTxt = view.findViewById(R.id.txt_crop_purchase_date);
         seedNameTxt = view.findViewById(R.id.txt_crop_seed_name);
         varietyTxt = view.findViewById(R.id.txt_crop_variety);
@@ -103,6 +99,7 @@ public class StoreAddSeedFragment extends DialogFragment {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePicker(purchaseDatTxt,context);
+        close.setOnClickListener(view1 -> getDialog().dismiss());
 
         ((ArrayAdapter)usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

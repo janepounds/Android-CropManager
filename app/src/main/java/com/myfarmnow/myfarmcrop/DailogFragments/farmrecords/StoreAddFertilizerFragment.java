@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private NavController navController;
+    ImageView close;
     CropInventoryFertilizer fertilizerInventory =null;
     EditText dateTxt,nameTxt,batchNumberTxt,npkNTxt, npkPTxt, npkKTxt,qtyTxt,serialNumberTxt,supplierTxt,costTxt;
     EditText macrosCa,macrosMg,macrosS,microsB,microsMn,microsCl,microsMo,microsCu,microsZn,microsFe,microsNa;
@@ -60,12 +62,10 @@ public class StoreAddFertilizerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View view =inflater.inflate(R.layout.fragment_store_add_fertilizer, null);
+        View view =getLayoutInflater().inflate(R.layout.fragment_store_add_fertilizer, null);
         builder.setView(view);
         initializeForm( view);
 
@@ -90,6 +90,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
 
 
     public void initializeForm(View view){
+        close = view.findViewById(R.id.fertilizer_close);
         dateTxt = view.findViewById(R.id.txt_crop_fertilizer_date_of_purchase);
         nameTxt = view.findViewById(R.id.txt_crop_fertilizer_fertilizer_name);
         typeSp = view.findViewById(R.id.spinner_crop_fertilizer_fertilizer_type);
@@ -107,7 +108,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
         DashboardActivity.addDatePicker(dateTxt,context);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)usageUnitSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-
+        close.setOnClickListener(view1 -> getDialog().dismiss());
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

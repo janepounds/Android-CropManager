@@ -24,12 +24,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.fragments.farmrecords.StoreFragment;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 
@@ -39,6 +41,7 @@ public class StoreAddSprayFragment extends DialogFragment {
             quantityTxt,batchTxt,supplierTxt,activeIngredientsTxt,harvestIntervalTxt,expiryDateTxt;
     TextView currencyTxt,cropsprayunitsTxt;
     Button saveBtn;
+    ImageView close;
     Spinner usageUnitSpinner,typeSp;
     MyFarmDbHandlerSingleton dbHandler;
     CropInventorySpray sprayInventory;
@@ -48,27 +51,31 @@ public class StoreAddSprayFragment extends DialogFragment {
 
 
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        getDialog().requestWindowFeature(Window.FEATURE_RIGHT_ICON);
-        getDialog().setFeatureDrawableResource(Window.FEATURE_RIGHT_ICON,R.drawable.ic_close);
         if(requireActivity().getIntent().hasExtra("sprayInventory")){
             sprayInventory =(CropInventorySpray)requireActivity().getIntent().getSerializableExtra("sprayInventory");
         }
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context =context;
+    }
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View view =inflater.inflate(R.layout.fragment_store_add_spray, null);
-        builder.setView(view);
+        View view =getLayoutInflater().inflate(R.layout.fragment_store_add_spray, null);
         initializeForm(view);
+        builder.setView(view);
         return builder.create();
     }
 
@@ -76,19 +83,14 @@ public class StoreAddSprayFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context =context;
-    }
 
     public void initializeForm(View view){
+        close = view.findViewById(R.id.spray_close);
         purchaseDatTxt = view.findViewById(R.id.txt_crop_spray_date_of_purchase);
         typeSp = view.findViewById(R.id.sp_crop_spray_type);
         seedNameTxt = view.findViewById(R.id.txt_crop_spray_spray_name);
@@ -106,6 +108,7 @@ public class StoreAddSprayFragment extends DialogFragment {
         DashboardActivity.addDatePicker(expiryDateTxt,context);
         ((ArrayAdapter)usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        close.setOnClickListener(view1 -> getDialog().dismiss());
 
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
@@ -210,8 +213,8 @@ public class StoreAddSprayFragment extends DialogFragment {
                         updateSeeds();
                     }
                     //redirect to list fragment
-                    //navController.popBackStack();
                     getDialog().dismiss();
+
                 }else{
                     Log.d("ERROR","Testing");
                 }
@@ -307,6 +310,13 @@ public class StoreAddSprayFragment extends DialogFragment {
         // Log.d("ERROR",message);
         return true;
     }
+
+    //callback interface
+    public interface SprayAddedCallback{
+        void refreshJobsScreen(boolean succesful);
+    }
+
+
 
 
 }

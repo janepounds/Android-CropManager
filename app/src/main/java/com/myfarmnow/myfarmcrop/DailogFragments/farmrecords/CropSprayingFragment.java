@@ -112,7 +112,7 @@ public class CropSprayingFragment extends DialogFragment {
         sprayIdSp =view.findViewById(R.id.sp_crop_spraying_name);
         windDirectionSp =view.findViewById(R.id.sp_crop_spraying_wind_direction);
         waterConditionSp =view.findViewById(R.id.sp_crop_spraying_weather_condition);
-        remindersSp = view.findViewById(R.id.sp_crop_spraying_reminders);
+//        remindersSp = view.findViewById(R.id.sp_crop_spraying_reminders);
         recurrenceSp = view.findViewById(R.id.sp_crop_spraying_recurrence);
         weeksTxt = view.findViewById(R.id.txt_crop_spraying_weekly_weeks);
         repeatUntilTxt = view.findViewById(R.id.txt_crop_spraying_repeat_until);
@@ -121,7 +121,7 @@ public class CropSprayingFragment extends DialogFragment {
         daysBeforeLayout = view.findViewById(R.id.layout_crop_spraying_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
 
-        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+//        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -146,31 +146,31 @@ public class CropSprayingFragment extends DialogFragment {
                 if(selection.toLowerCase().equals("weekly")){
 
                     remindersLayout.setVisibility(View.VISIBLE);
-                    remindersSp.setSelection(0);
+//                    remindersSp.setSelection(0);
                 }
 
                 if(selection.toLowerCase().equals("daily")){
                     remindersLayout.setVisibility(View.GONE);
-                    remindersSp.setSelection(2);
+//                    remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
                 }
 
                 if(selection.toLowerCase().equals("once")){
                     remindersLayout.setVisibility(View.GONE);
-                    remindersSp.setSelection(2);
+//                    remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
                 }
 
 
                 if(selection.toLowerCase().equals("monthly")){
                     remindersLayout.setVisibility(View.VISIBLE);
-                    remindersSp.setSelection(0);
+//                    remindersSp.setSelection(0);
                 }
 
 
                 if(selection.toLowerCase().equals("annually")){
                     remindersLayout.setVisibility(View.VISIBLE);
-                    remindersSp.setSelection(0);
+//                    remindersSp.setSelection(0);
                 }
 
 
@@ -181,54 +181,54 @@ public class CropSprayingFragment extends DialogFragment {
             }
         });
 
-        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    if(position ==0){
-                        ((TextView) view).setTextColor(Color.GRAY);
-                    }
-                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
-
-                }
-                String selection = parent.getItemAtPosition(position).toString();
-                if(selection.toLowerCase().equals("yes")){
-                    daysBeforeLayout.setVisibility(View.VISIBLE);
-                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
-                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-                    }
-                }
-                else{
-                    daysBeforeLayout.setVisibility(View.GONE);
-                    weeklyRecurrenceLayout.setVisibility(View.GONE);
-                }
-
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                try{
+//                    if(position ==0){
+//                        ((TextView) view).setTextColor(Color.GRAY);
+//                    }
+//                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+//
+//                    }
+//                    else {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+//                    }
+//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+//                }catch (Exception e){
+//
+//                }
+//                String selection = parent.getItemAtPosition(position).toString();
+//                if(selection.toLowerCase().equals("yes")){
+//                    daysBeforeLayout.setVisibility(View.VISIBLE);
+//                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
+//                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//                else{
+//                    daysBeforeLayout.setVisibility(View.GONE);
+//                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+//                }
+//
+//
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
 
         btn_save = view.findViewById(R.id.btn_save);
-        DashboardActivity.addDatePicker(dateTxt,context);
-        DashboardActivity.addTimePicker(startTimeTxt,context);
-        DashboardActivity.addTimePicker(endTimeTxt,context);
-        DashboardActivity.addDatePicker(repeatUntilTxt,context);
-
-        ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        DashboardActivity.addDatePicker(dateTxt,context);
+//        DashboardActivity.addTimePicker(startTimeTxt,context);
+//        DashboardActivity.addTimePicker(endTimeTxt,context);
+//        DashboardActivity.addDatePicker(repeatUntilTxt,context);
+//
+//        ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
@@ -255,8 +255,8 @@ public class CropSprayingFragment extends DialogFragment {
 
             }
         };
-        windDirectionSp.setOnItemSelectedListener(onItemSelectedListener);
-        waterConditionSp.setOnItemSelectedListener(onItemSelectedListener);
+//        windDirectionSp.setOnItemSelectedListener(onItemSelectedListener);
+//        waterConditionSp.setOnItemSelectedListener(onItemSelectedListener);
 
 
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -281,33 +281,33 @@ public class CropSprayingFragment extends DialogFragment {
         });
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
         for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.getPreferences("userId",context))){
             spraysList.add(x);
         }
         CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",context);
-        sprayIdSp.setAdapter(fertilizerAdapter);
+//        sprayIdSp.setAdapter(fertilizerAdapter);
 
-        sprayIdSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0){
-                    return;
-                }
-                CropInventorySpray inventorySpray = (CropInventorySpray) ((CropSpinnerItem)sprayIdSp.getSelectedItem());
-                if(inventorySpray.getUsageUnits() != null){
-                    rateUnitsTextView.setText(inventorySpray.getUsageUnits()+"/ha");
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        sprayIdSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                if(position==0){
+//                    return;
+//                }
+//                CropInventorySpray inventorySpray = (CropInventorySpray) ((CropSpinnerItem)sprayIdSp.getSelectedItem());
+//                if(inventorySpray.getUsageUnits() != null){
+//                    rateUnitsTextView.setText(inventorySpray.getUsageUnits()+"/ha");
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
         fillViews();
     }
 
@@ -325,7 +325,7 @@ public class CropSprayingFragment extends DialogFragment {
         cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
         cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
         cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
-        cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
+//        cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
         cropSpraying.setRepeatUntil(repeatUntilTxt.getText().toString());
         cropSpraying.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
         cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
@@ -355,7 +355,7 @@ public class CropSprayingFragment extends DialogFragment {
             cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
             cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
             cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
-            cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
+//            cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
             cropSpraying.setRepeatUntil(repeatUntilTxt.getText().toString());
             cropSpraying.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
             cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
@@ -375,7 +375,7 @@ public class CropSprayingFragment extends DialogFragment {
             DashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
             DashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
             DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropSpraying.getRecurrence());
-            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
+//            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
 
             rateTxt.setText(cropSpraying.getRate()+"");
             waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
@@ -425,10 +425,10 @@ public class CropSprayingFragment extends DialogFragment {
             message = getString(R.string.recurrence_not_selected);
             recurrenceSp.requestFocus();
         }
-        else if(remindersSp.getSelectedItemPosition()==0){
-            message = getString(R.string.reminders_not_selected);
-            remindersSp.requestFocus();
-        }
+//        else if(remindersSp.getSelectedItemPosition()==0){
+//            message = getString(R.string.reminders_not_selected);
+//            remindersSp.requestFocus();
+//        }
         else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
             message = getString(R.string.repeat_until_not_selected);
             repeatUntilTxt.requestFocus();

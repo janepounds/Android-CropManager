@@ -1828,7 +1828,8 @@
     <string name="planting_date">Planting Date</string>
     <string name="label_customer_supplier">Customer/Supplier</string>
     <string name="department">Department</string>
-
+    <string name="fertilizer_application_title">Fertilizer Application</string>
+    <string name="spraying_title">Spraying</string>
     <string-array name="crop_add_produce">
         <item> Crop</item>
         <item>Tomatoes</item>
