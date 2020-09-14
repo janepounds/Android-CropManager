@@ -12,7 +12,6 @@
     android:paddingTop="@dimen/dimen_10dp">
 
     <ImageView
-        android:id="@+id/dlg_one_button_iv_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"

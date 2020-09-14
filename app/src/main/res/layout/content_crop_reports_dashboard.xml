@@ -23,7 +23,6 @@
         app:layout_constraintVertical_bias="0.084">
 
         <LinearLayout
-            android:id="@+id/layout_crop_calculators_revenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -55,7 +54,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_crop_calculators_fertilizer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

@@ -2,7 +2,6 @@ package com.myfarmnow.myfarmcrop.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -22,18 +21,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventoryFertilizerManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventorySeedsManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventorySprayManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 
 import java.util.ArrayList;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
-import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropInventoryListRecyclerAdapter.CropCardViewHolder>  {
     ArrayList<CropInventory> inventoryList;
@@ -165,18 +158,18 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
                                 CropInventory inventory = inventoryList.get(getAdapterPosition());
                                 //
                                 if(inventory.getInventoryType().equals(CropInventory.CONST_SEEDS_INVENTORY)){
-                                    Intent editInventory = new Intent(mContext, CropInventorySeedsManagerActivity.class);
-                                    editInventory.putExtra("seedsInventory", (CropInventorySeeds)inventory);
-                                    mContext.startActivity(editInventory);
+//                                    Intent editInventory = new Intent(mContext, CropInventorySeedsManagerActivity.class);
+//                                    editInventory.putExtra("seedsInventory", (CropInventorySeeds)inventory);
+//                                    mContext.startActivity(editInventory);
                                 }else  if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
-                                    Intent editInventory = new Intent(mContext, CropInventoryFertilizerManagerActivity.class);
-                                    editInventory.putExtra("fertilizerInventory", (CropInventoryFertilizer)inventory);
-                                    mContext.startActivity(editInventory);
+//                                    Intent editInventory = new Intent(mContext, CropInventoryFertilizerManagerActivity.class);
+//                                    editInventory.putExtra("fertilizerInventory", (CropInventoryFertilizer)inventory);
+//                                    mContext.startActivity(editInventory);
                                 }
                                 else  if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
-                                    Intent editInventory = new Intent(mContext, CropInventorySprayManagerActivity.class);
-                                    editInventory.putExtra("sprayInventory", (CropInventorySpray)inventory);
-                                    mContext.startActivity(editInventory);
+//                                    Intent editInventory = new Intent(mContext, CropInventorySprayManagerActivity.class);
+//                                    editInventory.putExtra("sprayInventory", (CropInventorySpray)inventory);
+//                                    mContext.startActivity(editInventory);
                                 }
                             }
                             return true;

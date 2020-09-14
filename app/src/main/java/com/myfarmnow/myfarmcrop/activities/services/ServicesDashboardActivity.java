@@ -38,7 +38,7 @@ public class ServicesDashboardActivity extends AppCompatActivity {
     LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
+    TextView unreadNotificationsTextView;
 
 
     FrameLayout notificationsFrameLayout;
@@ -77,9 +77,6 @@ public class ServicesDashboardActivity extends AppCompatActivity {
         notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
         noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
         unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
-
-        textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
-        textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
 
 //       to be called in "crop records"

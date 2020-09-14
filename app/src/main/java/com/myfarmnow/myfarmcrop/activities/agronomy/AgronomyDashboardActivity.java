@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropInventoryListActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -39,7 +38,7 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
     LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout;
 
-    TextView textViewUserEmail, textViewUserName,unreadNotificationsTextView,textViewVersion;
+    TextView unreadNotificationsTextView;
 
 
     FrameLayout notificationsFrameLayout;
@@ -76,9 +75,6 @@ public class AgronomyDashboardActivity extends AppCompatActivity {
         notificationsFrameLayout =findViewById(R.id.frame_layout_notifications);
         noticationsImageBtn =findViewById(R.id.img_crop_dashboard_notifications);
         unreadNotificationsTextView =findViewById(R.id.text_view_crop_dashboard_notification_unread_counter);
-
-        textViewUserName =findViewById(R.id.text_view_crop_dashboard_name);
-        textViewUserEmail =findViewById(R.id.text_view_crop_dashboard_email);
 
 
 

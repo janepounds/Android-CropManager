@@ -54,7 +54,7 @@
                         android:id="@+id/img_crop_payment_card_more"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        app:srcCompat="@drawable/more_options_icon" />
+                        app:srcCompat="@drawable/ic_baseline_more_vert" />
 
 
                 </LinearLayout>

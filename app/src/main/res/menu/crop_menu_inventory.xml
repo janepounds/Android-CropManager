@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_add_inventory"
         android:title="Add Item"
         app:showAsAction="always">
         <menu>

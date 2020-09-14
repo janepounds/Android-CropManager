@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -239,11 +238,11 @@ public class CropFertilizerApplicationManagerActivity extends AppCompatActivity 
                     else{
                         updateFertilizerApplication();
                     }
-                    Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropActivitiesListActivity.class);
-                    toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    toCropsList.putExtra("cropId",cropId);
-                    startActivity(toCropsList);
-                    finish();
+//                    Intent toCropsList = new Intent(CropFertilizerApplicationManagerActivity.this, CropActivitiesListActivity.class);
+//                    toCropsList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    toCropsList.putExtra("cropId",cropId);
+//                    startActivity(toCropsList);
+//                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

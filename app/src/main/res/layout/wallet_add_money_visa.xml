@@ -43,7 +43,6 @@
             android:paddingLeft="10dp">
 
             <LinearLayout
-                android:id="@+id/layout_withdraw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -68,7 +67,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -253,7 +251,6 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/button_withdraw"
                 style="@style/Button_DW"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -267,7 +264,6 @@
                 android:visibility="gone" />
 
             <Button
-                android:id="@+id/button_transfer"
                 style="@style/Button_DW"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"

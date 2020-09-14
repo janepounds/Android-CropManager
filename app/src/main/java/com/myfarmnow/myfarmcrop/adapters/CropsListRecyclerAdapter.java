@@ -22,19 +22,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropActivitiesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerApplicationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 
@@ -134,10 +128,10 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             activitiesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Crop crop = cropsList.get(getAdapterPosition());
-                    Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
-                    showSpray.putExtra("cropId", crop.getId());
-                    mContext.startActivity(showSpray);
+//                    Crop crop = cropsList.get(getAdapterPosition());
+//                    Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
+//                    showSpray.putExtra("cropId", crop.getId());
+//                    mContext.startActivity(showSpray);
                 }
             });
             notesBtn.setOnClickListener(new View.OnClickListener() {

@@ -1,20 +1,9 @@
 <resources>
-    <string name="app_name">Crop Manager</string>
+    <string name="app_name">eMaisha</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_dashboard">eMaisha</string>
     <string name="label_fields">Fields</string>
     <string name="label_crops">Crops</string>
-    <string name="label_inventory">Inventory</string>
-    <string name="label_machinery">Machinery</string>
-    <string name="label_contacts">Contacts</string>
-    <string name="label_tasks">Tasks</string>
-    <string name="label_income_expenses">Financial Records</string>
-    <string name="label_weather_forecast">Weather Forecast</string>
-    <string name="label_basic_practices">Best Practices</string>
-    <string name="label_financial_summary">Financial Summary</string>
-    <string name="title_activity_crop_inventory_seeds_manager">Seeds Manager</string>
     <string name="units">Units</string>
-    <string name="label_inventory_list">Inventory </string>
     <string name="date_not_entered_message">The date has not been entered</string>
     <string name="seed_name_not_entered_message">You must enter a seed Name</string>
     <string name="quantity_not_entered_message">You must enter a quantity</string>
@@ -25,11 +14,6 @@
         <item>Select Unit</item>
         <item>Acres</item>
         <item>Hectares</item>
-    </string-array>
-    <string-array name="crop_nutrient_calculator_units">
-        <item>Tonnes</item>
-        <item>Tonnes</item>
-        <item>Kg</item>
     </string-array>
     <string-array name="crop_seeds_usage_units">
         <item>Unit</item>
@@ -73,13 +57,9 @@
         <item>Pig Slurry</item>
         <item>Other Organic</item>
     </string-array>
-    <string name="title_activity_crop_inventory_fertilizer_manager">
-        Fertilizer Manager
-    </string>
     <string name="fertilizer_name_not_entered">Fertilizer name has not been entered</string>
     <string name="fertilizer_type_not_selected">Fertilizer type not selected</string>
     <string name="default_numeric_value">0</string>
-    <string name="title_activity_crop_inventory_spray_manager">Spray Manager</string>
     <string-array name="crop_field_units">
         <item>Select Unit</item>
         <item>Acres</item>
@@ -114,38 +94,11 @@
         <item>Net 60</item>
         <item>None</item>
     </string-array>
-    <string-array name="crop_field_soil_type">
-        <item>Select Type</item>
-        <item>Sand</item>
-        <item>Loamy Sand</item>
-        <item>Sand Loam</item>
-        <item>Loam</item>
-        <item>Silt Loam</item>
-        <item>Clay Loam</item>
-        <item>Sandy Clay Loam</item>
-        <item>Silty Clay Loam</item>
-    </string-array>
-    <string-array name="crop_field_soil_category">
-        <item>Select Category</item>
-        <item>Light Sand</item>
-        <item>Shallow</item>
-        <item>Medium</item>
-        <item>Deep Clayey</item>
-        <item>Deep Silty</item>
-        <item>Organic</item>
-        <item>Peat</item>
-    </string-array>
     <string-array name="crop_field_type">
         <item>Field Type</item>
         <item>Soil Ground/Field</item>
         <item>Greenhouse</item>
         <item>Hydroponics</item>
-    </string-array>
-    <string-array name="crop_field_layout_type">
-        <item>Select Layout Type</item>
-        <item>Cover Crop</item>
-        <item>Row Crops</item>
-        <item>Others</item>
     </string-array>
 
     <string-array name="crop_field_status">
@@ -163,33 +116,6 @@
         <item>Heirloom</item>
         <item>Hybrid</item>
         <item>Organic</item>
-    </string-array>
-
-    <string-array name="crop_field_watercourse">
-        <item>Select</item>
-        <item>None</item>
-        <item>Small (0-3m)</item>
-        <item>Medium (3-6m)</item>
-        <item>Large (6m)</item>
-        <item>Dry Ditch</item>
-    </string-array>
-
-    <string-array name="crops_growing_cycle">
-        <item>Select Cycle</item>
-        <item>Annual</item>
-        <item>Perennial</item>
-        <item>Biennial</item>
-    </string-array>
-
-    <string-array name="crops_planting_method">
-        <item>Select Method</item>
-        <item>Drill Sow</item>
-        <item>Broadcast Sow</item>
-        <item>Container</item>
-        <item>Root stock</item>
-        <item>Bulbs</item>
-        <item>Grafting</item>
-        <item>Others</item>
     </string-array>
 
     <string-array name="crop_cultivate_operation">
@@ -268,27 +194,6 @@
         <item>Cassava</item>
         <item>Irish Potatoes</item>
         <item>Sweet Potatoes</item>
-    </string-array>
-
-    <string-array name="crop_machine_category">
-        <item>Select</item>
-        <item>Plow</item>
-        <item>Cultivator</item>
-        <item>Roller</item>
-        <item>Tractor</item>
-        <item>Trowel</item>
-        <item>Seed Drill</item>
-        <item>Manure Spreader</item>
-        <item>Irrigation Pump</item>
-        <item>Sprinkler System</item>
-        <item>Grain dryer</item>
-        <item>Buckrake</item>
-        <item>Harvestor</item>
-        <item>Rake</item>
-        <item>Wagon</item>
-        <item>Baler</item>
-        <item>Engine</item>
-        <item>Others</item>
     </string-array>
 
     <string-array name="sp_crop_employee_gender">
@@ -920,37 +825,12 @@
         <item>Others</item>
     </string-array>
 
-    <string-array name="sp_crop_digital_wallet_country_code">
-        <item>+256</item>
-
-    </string-array>
-    <string name="title_activity_crop_fields_list">Fields </string>
-    <string name="field_name">Field Name</string>
-    <string name="soil_category">Soil Category</string>
-    <string name="soil_type">Soil Type</string>
-    <string name="watercourse">Watercourse</string>
-    <string name="total_area">Total Area</string>
-    <string name="croppable_area">Croppable Area</string>
-    <string name="machine_name">Machine Name</string>
-    <string name="brand">Brand</string>
     <string name="category">Category</string>
-    <string name="manufacturer">Manufacturer</string>
-    <string name="model">Model</string>
-    <string name="reg">Reg#</string>
     <string name="quantity">Quantity</string>
-    <string name="date_acquired">Date Acquired</string>
-    <string name="purchased_from">Purchased From</string>
-    <string name="storage_location">Storage Location</string>
     <string name="purchase_price">Purchase Price</string>
     <string name="crop">Crop</string>
     <string name="variety">Variety</string>
-    <string name="field">Field</string>
-    <string name="growing_cycle">Growing Cycle</string>
-    <string name="date_sown">Date Sown</string>
-    <string name="operator_cost">Operator Cost</string>
-    <string name="seed_name">Seed Name</string>
     <string name="rate">Rate</string>
-    <string name="planting_method">Planting Method</string>
     <string name="cultivation_date">Cultivation Date</string>
     <string name="operation">Operation</string>
     <string name="operator">Operator</string>
@@ -982,26 +862,13 @@
     <string name="operator_not_entered">Operator has not been entered</string>
     <string name="crop_not_selected">Crop has not been selected</string>
     <string name="field_not_selected">Field has not been Selected</string>
-    <string name="activity_crops_list">Crops </string>
-    <string name="activity_crop_manager">Crop Manager</string>
-    <string name="usage_unit">Usage Unit</string>
-    <string name="tgw">TGW</string>
     <string name="batch">Batch #</string>
     <string name="btn_update_label">Update</string>
-    <string name="activity_crop_field_manager_title">Field Manager</string>
-    <string name="machine_name_not_entered_message">You must enter the Machine Name</string>
-    <string name="purchaed_from_not_entered_message">You Must Enter where you Purchased From</string>
-    <string name="purchase_price_not_entered_message">You Must Enter the Purchase Price</string>
     <string name="category_not_selected">You must select Category</string>
     <string name="crop_not_entered">The cost has not been entered</string>
     <string name="agronomist_not_entered">The Agronomist has not been entered</string>
-    <string name="title_activity_crop_cultivate_list">Cultivate </string>
     <string name="equipment_not_entered">Equipment used not entered</string>
     <string name="spray_name_not_entered">Spray Name has not been entered</string>
-    <string name="title_activity_crop_spraying_list">Spraying </string>
-    <string name="title_activity_crop_fertilizer_application_list">
-        Fertilizer Application
-    </string>
     <string name="application_method_not_entered">Application Method not selected</string>
     <string name="fertilizer_form_not_selected">Fertilizer Form not selected</string>
     <string name="operation_not_selected">Operation has not been selected</string>
@@ -1010,11 +877,8 @@
     <string name="field_name_not_entered_message">You must enter a field name</string>
     <string name="total_area_not_entered_message">You must enter the total area</string>
     <string name="units_not_selected">You must select units</string>
-    <string name="machines_list">Machines </string>
-    <string name="activity_crop_machine_manager">Machine Manager</string>
     <string name="activity_spraying_manager_label">Spraying Manager</string>
     <string name="activity_fertilizer_application_manager_label">Fertilizer Application Manager</string>
-    <string name="weight_label">Weight</string>
     <string name="label_tax">Tax (%)</string>
     <string name="amount_label">Amount</string>
     <string name="item_details_label">Item Details</string>
@@ -1042,7 +906,6 @@
     <string name="company">Company</string>
     <string name="tax_reg_no">Tax Reg No.</string>
     <string name="opening_balance">Opening Balance</string>
-    <string name="usd">USD</string>
     <string name="street">Street</string>
     <string name="city_town">City / Town</string>
     <string name="shipping_address">Shipping Address :</string>
@@ -1052,8 +915,6 @@
     <string name="type">Type</string>
     <string name="code">Code</string>
     <string name="linked_account">Linked Account</string>
-    <string name="opening_cost">Opening Cost</string>
-    <string name="opening_quantity">Opening Quantity</string>
     <string name="selling_price">Selling Price</string>
     <string name="tax_rate">Tax Rate</string>
     <string name="description">Description</string>
@@ -1081,13 +942,11 @@
     <string name="title_activity_crop_supplies_list">Suppliers </string>
     <string name="title_activity_crop_supplier_manager">Supplier Manager</string>
     <string name="title_activity_crop_estimates_list">Estimates </string>
-    <string name="select_invoice">Select Invoice</string>
     <string name="payment_date">Payment Date</string>
     <string name="payment_number">Payment #</string>
     <string name="amount">Amount</string>
     <string name="payment_mode">Payment Mode</string>
     <string name="reference_number">Reference Number</string>
-    <string name="amount_received">Amount Received</string>
     <string name="save_send"><![CDATA[Save & Send]]></string>
     <string name="title_not_entered_message">You must enter the Title</string>
     <string name="last_name_not_entered_message">You must enter your Last Name</string>
@@ -1101,7 +960,6 @@
     <string name="invoice_order_number">Order Number</string>
     <string name="title_activity_crop_invoices_list">Invoices</string>
     <string name="title_activity_crop_invoice_manager">Invoice Manager</string>
-    <string name="title_product_manager_activity">Product Manager</string>
     <string name="estimate_no_items_added">You must add Items to the estimate</string>
     <string name="date">Date</string>
     <string name="transaction">Transaction</string>
@@ -1117,7 +975,6 @@
     <string name="item_not_entered_message">You must enter Item</string>
     <string name="gross_amount_not_entered_message">You must enter Gross Amount</string>
     <string name="unit_price_not_entered_message">You must enter the Unit Price</string>
-    <string name="customer_supplier_not_entered_message">You must enter the Customer / Supplier</string>
     <string name="personnel">Personnel</string>
     <string name="syncStatus">Status</string>
     <string name="recurrence">Recurrence</string>
@@ -1131,14 +988,11 @@
     <string name="customer_not_selected">Customer not selected</string>
     <string name="title_activity_crop_payment_manager">Payment Manager</string>
     <string name="title_activity_crop_payments_list">Payments </string>
-    <string name="financial_manager_menu_item">Financial Manager</string>
-    <string name="products_label">Products</string>
     <string name="payment_mode_not_entered">Mode not entered</string>
     <string name="label_delete">Delete</string>
     <string name="label_dowloand_pdf">Download PDF</string>
     <string name="label_preview_receipt">Preview Receipt</string>
     <string name="label_email">Email</string>
-    <string name="label_share_link">Share Link</string>
     <string name="label_edit">Edit</string>
     <string name="label_confirm">Confirm</string>
     <string name="delete_prompt_message">Do you really want to delete</string>
@@ -1156,7 +1010,6 @@
     <string name="title_activity_crop_estimate_preview">Estimate Preview</string>
     <string name="payment_made_label">Payment Made</string>
     <string name="invoice_due_date">Due Date :</string>
-    <string name="looking_forward_for_your_business">Looking forward for your business.</string>
     <string name="thank_you_for_your_business">Thank you for your business</string>
     <string name="sales_order_date">Sales Order Date</string>
     <string name="shipping_date_label">Shipping Date</string>
@@ -1175,16 +1028,11 @@
     <string name="label_fertilizer">Fertilizer</string>
     <string name="label_spray">Spray</string>
     <string name="label_harvest">Harvest</string>
-    <string name="season">Season</string>
     <string name="estimate_status_invoiced">INVOICED</string>
     <string name="label_convert_to_invoice">Convert to Invoice</string>
     <string name="label_preview_estimate">Preview Estimate</string>
     <string name="estimate_expiry_date">Expiry Date</string>
     <string name="product_manager">Product Manager</string>
-    <string name="field_manager_menu_item">Fields</string>
-    <string name="crop_manager_menu_item">Crops</string>
-    <string name="inventory_manager_menu_item">Inventory</string>
-    <string name="contact_manager_menu_item">Contacts</string>
     <string name="title_activity_crop_verify_phone_number">Verify Account</string>
     <string name="didn_t_receive_code_resend">Didn\'t Receive Code? <u>Resend.</u></string>
     <string name="supplier">Supplier</string>
@@ -1197,12 +1045,10 @@
     <string name="order_number">Order Number</string>
     <string name="bill_date">Bill Date</string>
     <string name="terms">Terms</string>
-    <string name="paid_through">Paid Through</string>
     <string name="label_convert_to_bill">Convert to Bill</string>
     <string name="supplier_not_selected">You must select Supplier Name</string>
     <string name="preview_bill">Preview Bill</string>
     <string name="payment_made_not_entered_message">You must enter Payment Made</string>
-    <string name="select_bill">Select Bill</string>
 
     <string name="title_activity_crop_roistep1">Revenue Calculator- Step 1</string>
     <string name="title_activity_crop_roistep2">Revenue Calculator- Step 2</string>
@@ -1219,7 +1065,6 @@
     <string name="machinery_depreciation">Machinery Depreciation</string>
     <string name="business_overhead">Business Overhead</string>
     <string name="property_taxes">Property Taxes</string>
-    <string name="crop_insuration_premium">Crop Insuration Premium</string>
     <string name="building_depreciation">Building Depreciation</string>
     <string name="title_activity_crop_roistep4">Revenue Calculator- Step 4</string>
     <string name="owner_allowance">Owner Allowance</string>
@@ -1231,7 +1076,6 @@
     <string name="building_repair">Building Repair</string>
     <string name="total_capital_investment">Total Capital Investment</string>
     <string name="title_activity_crop_roiresults">Revenue Calculator- Report</string>
-    <string name="estimated_revenue">Estimated Revenue</string>
     <string name="total_expenses">Total Expenses</string>
     <string name="machinery_investment">Machinery Investment</string>
     <string name="land_investment">Land Investment</string>
@@ -1254,7 +1098,6 @@
     <string name="seed_type_not_selected">The Seed Type has not been selected</string>
     <string name="title_activity_crop_pdfview">CropPDFViewActivity</string>
     <string name="title_activity_crop_best_practices_dashboard">Best Practices</string>
-    <string name="fr">fr</string>
     <string name="title_activity_crop_machine_task_manager">Task Manager</string>
     <string name="title_activity_crop_notes_manager">Notes Manager</string>
     <string name="title_activity_crop_machine_service_manager">Machine Service Manager</string>
@@ -1291,12 +1134,9 @@
     </string-array>
     <string name="title_activity_crop_machine_notes_list">Notes</string>
     <string name="title_activity_crop_machine_tasks_list">Tasks</string>
-    <string name="title_activity_crop_activities_list">Crop Activities</string>
-    <string name="label_activities">Activities</string>
     <string name="operation_date">Operation Date</string>
     <string name="irrigation_system_rate">Irrigation System Rate</string>
     <string name="total_water_quantity">Total Water Quantity</string>
-    <string name="quantity_per_acre">Quantity Per Acre</string>
     <string name="total_cost">Total Cost</string>
     <string name="total_seedling">Total Seedling</string>
     <string name="seedling_per_ha">Seedling / ha</string>
@@ -1322,7 +1162,6 @@
     <string name="remarks">Remarks</string>
     <string name="scounting_date_not_selected_message">You must select the Scouting Date</string>
     <string name="cost_not_entered">You must enter Cost</string>
-    <string name="infestation_type_not_selected">You must select Infestation Type</string>
     <string name="label_scouting">Scouting</string>
     <string name="infested_not_selected">You must select Infested field</string>
     <string name="harvest_date">Harvest Date</string>
@@ -1330,7 +1169,6 @@
     <string name="harvest_units">Harvest Units</string>
     <string name="date_sold">Date Sold</string>
     <string name="customer">Customer</string>
-    <string name="price">Price</string>
     <string name="per_unit">/ unit</string>
     <string name="quantity_sold">Quantity Sold</string>
     <string name="storage_date">Storage Date</string>
@@ -1688,17 +1526,13 @@
     <string name="notification_type_soil_analysis">Soil Analysis</string>
     <string name="notification_status_pending">Pending</string>
     <string name="notification_status_done">Done</string>
-    <string name="default_notification_channel_id">MY_FARM_6738</string>
-    <string name="default_notification_channel_title">CROP MANAGER</string>
 
     <string name="label_preview_invoice">Preview Invoice</string>
-    <string name="infested_card">Infested </string>
     <string name="no">No</string>
 
     <string name="purchase_order_status_billed">BILLED</string>
 
     <string name="service_date">Service Date</string>
-    <string name="total_seeds">Total Seeds</string>
     <string name="amount_used">Amount Used</string>
     <string name="graph_category_machine_service">Machine Service</string>
     <string name="graph_category_machine_task">Machine task</string>
@@ -1709,12 +1543,9 @@
     <string name="transfer">Transfer</string>
     <string name="withdraw">Withdraw</string>
     <string name="add_money">Add Money</string>
-    <string name="add_funds">Add Funds</string>
     <string name="authenticate">Authenticate</string>
     <string name="taxes_not_entered_message">You must enter Taxes</string>
     <string name="selling_price_not_entered_message">You must enter Selling Price</string>
-    <string name="cropping_year_not_entered">Cropping Year has not been entered</string>
-    <string name="dialog_message">Please re-enter your phone number</string>
     <string name="label_agronomy">Agronomy</string>
     <string name="text_label_1">Home</string>
     <string name="text_label_2">Offers</string>
@@ -1729,7 +1560,6 @@
     <string name="label_ask_agronomist">Ask Agronomist</string>
     <string name="title_farm_records">Farm Records</string>
     <string name="title_agronomy">Agronomy</string>
-    <string name="label_add_new">Add New</string>
     <string name="label_add_crop">Add Crops</string>
     <string name="title_crop_records">Crop Records</string>
     <string name="label_production_reports">Production Reports</string>
@@ -1751,19 +1581,8 @@
         <item>Oz</item>
     </string-array>
 
-    <string-array name="notificationTabs">
-        <item>Today</item>
-        <item>Upcoming</item>
-        <item>Over Due</item>
-    </string-array>
-
 
     <!-- Wallet plugin strings -->
-    <string name="title_activity_wallet_loan_app_add_amount" translatable="false">Apply for Loan</string>
-    <string name="title_activity_wallet_loan_preview_request" translatable="false">Apply for Loan</string>
-    <string name="title_activity_wallet_loan_app_photos" translatable="false">Apply Loan</string>
-    <string name="title_activity_wallet_loan_app_referees_manager" translatable="false">Apply for Loan</string>
-    <string name="title_activity_wallet_loans_list" translatable="false">Loans</string>
     <string name="title_activity_loan_status_preview" translatable="false">My Loan</string>
 
     <string-array name="loan_durations">
@@ -1772,27 +1591,12 @@
     </string-array>
 
     <string name="my_wallet" translatable="false">eMaisha Wallet</string>
-    <string name="btn_continue" translatable="false">CONTINUE</string>
-    <string name="checkout" translatable="false">Checkout</string>
     <string name="deposit" translatable="false">Deposit</string>
     <string name="addmoney" translatable="false">ADD MONEY</string>
     <string name="current_balance_label" translatable="false">Current Balance</string>
-    <string name="title_activity_transactions" translatable="false">Transactions</string>
     <string name="comfirm_purchase" translatable="false">Confirm Payment</string>
-    <string name="sponsors" translatable="false">Cabral Tech Ltd</string>
-    <string name="powered__by" translatable="false">Powered By</string>
     <string name="pin" translatable="false">PIN</string>
 
-    <string name="searchShippingAddress" translatable="false">Search Delivery Address</string>
-    <string name="QNShippingAddress" translatable="false">Where would do you like your goods be delivered?</string>
-    <string name="nearby_merchants" translatable="false">Select Merchant</string>
-    <string name="Receivername" translatable="false">Receiver Name</string>
-    <string name="Receivercontact_no" translatable="false">Receiver Phone Number</string>
-    <string name="pair" translatable="false">Pair Shop</string>
-    <string name="found_merchant" translatable="false">Found Merchant</string>
-    <string name="select_merchants_fragment" translatable="false">select_merchants_fragment</string>
-    <string name="sendemail">SEND EMAIL</string>
-    <string name="forgot_title">Enter the email address you used to create your account and we will email you a link to reset your password</string>
     <string name="submit">Submit</string>
     <string name="label_wallet">Wallet</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -1811,7 +1615,6 @@
     <string name="day">Wednesday</string>
     <string name="temp_max">32.6&#xb0;C Max</string>
     <string name="temp_min">16.8&#xb0;C Min</string>
-    <string name="deg">&#xb0;</string>
     <string name="title_predictiontools">Prediction Tools</string>
     <string name="label_revenueestimation">Revenue Estimation</string>
     <string name="label_yeild_estimation">Yeild Estimation</string>
@@ -1820,8 +1623,6 @@
     <string name="title_service">Agriculture Service</string>
     <string name="label_soll_testing">Soil Testing</string>
     <string name="label_eqipment">Equipment</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="addspray">Add Spray</string>
     <string name="seeds">Seeds</string>
     <string name="fertilizer_title">FertiliZer</string>
@@ -1847,4 +1648,5 @@
     </string-array>
 
     <string name="unexpected_response"> Unexpected Server Response </string>
+    <string name="select">Select</string>
 </resources>

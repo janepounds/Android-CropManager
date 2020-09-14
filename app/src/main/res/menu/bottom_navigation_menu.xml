@@ -3,19 +3,19 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
-        android:icon="@drawable/home"
+        android:icon="@drawable/ic_home"
         android:title="@string/text_label_1"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@drawable/offers"
+        android:icon="@drawable/ic_offers"
         android:title="@string/text_label_2"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/page_3"
         android:enabled="true"
-        android:icon="@drawable/account"
+        android:icon="@drawable/ic_account"
         android:title="@string/text_label_3"
         app:showAsAction="ifRoom" />
 </menu>

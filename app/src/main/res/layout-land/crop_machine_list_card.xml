@@ -73,7 +73,7 @@
                         android:layout_gravity="end"
                         android:backgroundTint="@color/black"
                         android:textColor="@color/darker_gray"
-                        app:srcCompat="@drawable/more_options_icon" />
+                        app:srcCompat="@drawable/ic_baseline_more_vert" />
                 </LinearLayout>
                 <View
                     android:layout_width="590dp"
