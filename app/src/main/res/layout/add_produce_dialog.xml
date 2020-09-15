@@ -232,22 +232,25 @@
             </LinearLayout>
 
             <Button
-                android:background="@drawable/rounded_corners_button"
+                android:id="@+id/add_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:textColor="@android:color/white"
                 android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_corners_button"
                 android:fontFamily="@font/josefin_sans"
-                android:text="Add Photo" />
+                android:text="Add Photo"
+                android:textColor="@android:color/white" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/image_view_holder"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
+                android:visibility="visible"
                 app:cardCornerRadius="@dimen/dimen_5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

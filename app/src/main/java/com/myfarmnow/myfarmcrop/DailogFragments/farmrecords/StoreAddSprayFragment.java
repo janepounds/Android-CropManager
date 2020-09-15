@@ -211,8 +211,11 @@ public class StoreAddSprayFragment extends DialogFragment {
                     else{
                         updateSeeds();
                     }
-                    //redirect to list fragment
+                    //dismiss dialog and refresh fragment
                     getDialog().dismiss();
+
+
+
 
                 }else{
                     Log.d("ERROR","Testing");

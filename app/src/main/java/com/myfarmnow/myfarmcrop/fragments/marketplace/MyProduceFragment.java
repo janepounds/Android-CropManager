@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,8 @@ public class MyProduceFragment extends Fragment {
     private static final String TAG = "MyProduceFragment";
     private FragmentMyProduceBinding binding;
     private Context context;
+
+    private Boolean showImageView = false;
 
     private ArrayList<MyProduce> produceList = new ArrayList<>();
 
@@ -109,8 +112,17 @@ public class MyProduceFragment extends Fragment {
         EditText quantity = addProduceDialog.findViewById(R.id.produce_quantity);
         TextView quantityMeasure = addProduceDialog.findViewById(R.id.produce_quantity_measure);
         EditText price = addProduceDialog.findViewById(R.id.produce_price);
+        Button addPhoto = addProduceDialog.findViewById(R.id.add_photo);
+        CardView cardView = addProduceDialog.findViewById(R.id.image_view_holder);
         ImageView image = addProduceDialog.findViewById(R.id.produce_image);
         Button submit = addProduceDialog.findViewById(R.id.produce_submit_button);
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardView.setVisibility(View.GONE);
+            }
+        });
 
         close.setOnClickListener(view -> dialog.dismiss());
 

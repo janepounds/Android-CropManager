@@ -93,9 +93,9 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             View view = new View(mContext);
             view.setMinimumHeight(20);
             cropNameAreaTextView.setTypeface(cropNameAreaTextView.getTypeface(), Typeface.BOLD);
-            holder.expandContentLayout.addView(cropNameAreaTextView);
-            holder.expandContentLayout.addView(datePlantedTextView);
-            holder.expandContentLayout.addView(view);
+//            holder.expandContentLayout.addView(cropNameAreaTextView);
+//            holder.expandContentLayout.addView(datePlantedTextView);
+//            holder.expandContentLayout.addView(view);
         }
 
     }
