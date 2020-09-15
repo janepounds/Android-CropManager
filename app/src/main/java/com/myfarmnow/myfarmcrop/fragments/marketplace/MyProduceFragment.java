@@ -84,7 +84,7 @@ public class MyProduceFragment extends Fragment {
         myProduceDatabase = MyFarmRoomDatabase.getInstance(context);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
-        getAllProduce();
+        // getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);
 
         binding.addProduce.setOnClickListener(view -> addProduce());
