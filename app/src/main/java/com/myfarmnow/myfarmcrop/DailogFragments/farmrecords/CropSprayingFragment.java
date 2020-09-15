@@ -99,27 +99,27 @@ public class CropSprayingFragment extends DialogFragment {
 
     public void initializeForm(View view){
         dateTxt =view.findViewById(R.id.txt_crop_spraying_treatment_date);
-        startTimeTxt =view.findViewById(R.id.txt_crop_spraying_start_time);
-        endTimeTxt =view.findViewById(R.id.txt_crop_spraying_end_time);
-        operatorTxt =view.findViewById(R.id.txt_crop_spraying_performed_by);
-        waterVolumeTxt =view.findViewById(R.id.txt_crop_spraying_water_volume);
-        costTxt =view.findViewById(R.id.txt_crop_spraying_labour_cost);
+//        startTimeTxt =view.findViewById(R.id.txt_crop_spraying_start_time);
+//        endTimeTxt =view.findViewById(R.id.txt_crop_spraying_end_time);
+//        operatorTxt =view.findViewById(R.id.txt_crop_spraying_performed_by);
+//        waterVolumeTxt =view.findViewById(R.id.txt_crop_spraying_water_volume);
+//        costTxt =view.findViewById(R.id.txt_crop_spraying_labour_cost);
         rateTxt =view.findViewById(R.id.txt_crop_spraying_rate);
         reasonTxt =view.findViewById(R.id.txt_crop_spraying_treatment_reason);
-        equipmentUsedTxt =view.findViewById(R.id.txt_crop_spraying_equipment_used);
-        rateUnitsTextView =view.findViewById(R.id.txt_crop_spraying_rate_units);
-        currencyTxt =view.findViewById(R.id.txt_crop_spraying_currency);
-        sprayIdSp =view.findViewById(R.id.sp_crop_spraying_name);
-        windDirectionSp =view.findViewById(R.id.sp_crop_spraying_wind_direction);
-        waterConditionSp =view.findViewById(R.id.sp_crop_spraying_weather_condition);
+//        equipmentUsedTxt =view.findViewById(R.id.txt_crop_spraying_equipment_used);
+//        rateUnitsTextView =view.findViewById(R.id.txt_crop_spraying_rate_units);
+//        currencyTxt =view.findViewById(R.id.txt_crop_spraying_currency);
+//        sprayIdSp =view.findViewById(R.id.sp_crop_spraying_name);
+//        windDirectionSp =view.findViewById(R.id.sp_crop_spraying_wind_direction);
+//        waterConditionSp =view.findViewById(R.id.sp_crop_spraying_weather_condition);
 //        remindersSp = view.findViewById(R.id.sp_crop_spraying_reminders);
         recurrenceSp = view.findViewById(R.id.sp_crop_spraying_recurrence);
-        weeksTxt = view.findViewById(R.id.txt_crop_spraying_weekly_weeks);
-        repeatUntilTxt = view.findViewById(R.id.txt_crop_spraying_repeat_until);
-        daysBeforeTxt = view.findViewById(R.id.txt_crop_spraying_days_before);
-        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_spraying_weekly_reminder);
-        daysBeforeLayout = view.findViewById(R.id.layout_crop_spraying_days_before);
-        remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
+//        weeksTxt = view.findViewById(R.id.txt_crop_spraying_weekly_weeks);
+//        repeatUntilTxt = view.findViewById(R.id.txt_crop_spraying_repeat_until);
+//        daysBeforeTxt = view.findViewById(R.id.txt_crop_spraying_days_before);
+//        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_spraying_weekly_reminder);
+//        daysBeforeLayout = view.findViewById(R.id.layout_crop_spraying_days_before);
+//        remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
 
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
