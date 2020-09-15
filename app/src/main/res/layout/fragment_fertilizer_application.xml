@@ -271,26 +271,39 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/edittext_corner"
                     android:layout_marginStart="12dp"
-                    android:orientation="horizontal">
+                    android:id="@+id/layout_crop_fertilizer_application_reminders"
+                    android:orientation="horizontal"
+                   android:visibility="gone">
 
-                    <EditText
-                        android:id="@+id/txt_crop_fertilizer_reminder"
+
+                    <Spinner
+                        android:id="@+id/sp_crop_fertilizer_application_reminders"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:hint="Reminders"
-                        android:paddingStart="@dimen/dimen_10dp"
-                        android:inputType="none"
-                        android:textSize="14sp"
-                        android:layout_marginRight="10dp"/>
+                        android:entries="@array/sp_crop_task_reminders"
+                        android:spinnerMode="dropdown"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
                 </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_crop_fertilizer_application_days_before"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -298,7 +311,8 @@
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/dimen_20dp">
+                android:layout_marginBottom="@dimen/dimen_20dp"
+                android:visibility="gone">
 
 
                 <EditText
