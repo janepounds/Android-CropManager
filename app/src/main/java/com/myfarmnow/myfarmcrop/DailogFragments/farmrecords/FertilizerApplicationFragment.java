@@ -62,6 +62,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         assert getArguments() != null;
         cropId = getArguments().getString("cropId");
+//        Log.w("CropId",cropId);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fertilizer_application, container, false);
@@ -315,19 +316,15 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication = new CropFertilizerApplication();
         fertilizerApplication.setUserId(DashboardActivity.getPreferences("userId",context));
         fertilizerApplication.setDate(dateTxt.getText().toString());
-        fertilizerApplication.setRate(Float.parseFloat(rateTxt.getText().toString()));
         fertilizerApplication.setCropId(cropId);
-        fertilizerApplication.setCost(Float.parseFloat(costTxt.getText().toString()));
-        fertilizerApplication.setOperator(operatorTxt.getText().toString());
-        fertilizerApplication.setReason(reasonTxt.getText().toString());
-        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
-        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
+//        fertilizerApplication.setReason(reasonTxt.getText().toString());
+//        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
+//        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
-        fertilizerApplication.setRepeatUntil(repeatUntilTxt.getText().toString());
-        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
-        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+//        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+//        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
 
 
@@ -383,26 +380,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
             message = getString(R.string.date_not_entered_message);
             dateTxt.requestFocus();
         }
-        else if(operatorTxt.getText().toString().isEmpty()){
-            message = getString(R.string.operator_not_entered);
-            operatorTxt.requestFocus();
-        }
-        else if(costTxt.getText().toString().isEmpty()){
-            message = getString(R.string.crop_not_entered);
-            costTxt.requestFocus();
-        }else if(rateTxt.getText().toString().isEmpty()){
-            message = getString(R.string.rate_not_entered);
-            rateTxt.requestFocus();
-        }
 
-        else if(fertilizerFormSp.getSelectedItemPosition()==0){
-            message = getString(R.string.fertilizer_form_not_selected);
-            fertilizerId.requestFocus();
-        }
-        else if(methodSp.getSelectedItemPosition()==0){
-            message =  getString(R.string.application_method_not_entered);
-            methodSp.requestFocus();
-        }
+
         else if(fertilizerId.getSelectedItemPosition()==0){
             message = getString(R.string.fertilizer_name_not_entered);
             fertilizerId.requestFocus();
@@ -415,10 +394,10 @@ public class FertilizerApplicationFragment extends DialogFragment {
             message = getString(R.string.reminders_not_selected);
             remindersSp.requestFocus();
         }
-        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
-            message = getString(R.string.repeat_until_not_selected);
-            repeatUntilTxt.requestFocus();
-        }
+//        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
+//            message = getString(R.string.repeat_until_not_selected);
+//            repeatUntilTxt.requestFocus();
+//        }
         if(message != null){
             Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
             return false;

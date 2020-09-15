@@ -36,6 +36,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecyclerAdapter.CropCardViewHolder> {
+    private static final String TAG = "RecyclerAdapter";
     ArrayList<Crop> cropsList;
     LayoutInflater mInflater;
     Context mContext;
@@ -69,6 +70,12 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
 
+        Log.d(TAG, "onBindViewHolder: "+curCrop.getId());
+
+    }
+
+    public void clearCropList(){
+        cropsList.clear();
     }
 
     @Override
@@ -190,6 +197,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 //navigate to fertilizer dialog fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("cropId", crop.getId());
+                                Log.w("field id",crop.getFieldId());
 //                                bundle.putSerializable("fertilizerApplication", CropFertilizerApplication);
                                 navController.navigate(R.id.action_cropListFragment_to_fertilizerApplicationFragment,bundle);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {

@@ -69,11 +69,7 @@ public class StoreFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +87,7 @@ public class StoreFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         binding.inventoryRecycView.setLayoutManager(linearLayoutManager);
         cropListRecyclerAdapter = new CropInventoryListRecyclerAdapter(cropInventoryList, context);
+
         binding.inventoryRecycView.setAdapter(cropListRecyclerAdapter);
         loadCropInventories();
         binding.selectInventorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -174,7 +171,6 @@ public class StoreFragment extends Fragment {
                     return true;
 
                 case R.id.storeAddSeedFragment:
-
                     navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment);
                     return true;
                 case R.id.storeAddSprayFragment:

@@ -79,13 +79,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dimen_30dp"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/buttons"
                     android:layout_alignParentTop="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/dimen_30dp"
                     android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
@@ -362,7 +363,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_crops"
+                            android:id="@+id/layout_dashboard_farmrecords"
                             android:layout_width="match_parent"
                             android:layout_height="108dp"
                             android:layout_margin="10dp"
@@ -477,6 +478,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/layout_dashboard_agronomy"
                             android:layout_width="match_parent"
                             android:layout_height="108dp"
                             android:layout_margin="10dp"
@@ -519,7 +521,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_weather_forecast"
+                            android:id="@+id/layout_predictiontools_dashboard"
                             android:layout_width="match_parent"
                             android:layout_height="108dp"
                             android:layout_margin="10dp"
@@ -555,7 +557,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_income_expense"
+                            android:id="@+id/layout_dashboard_service"
                             android:layout_width="match_parent"
                             android:layout_height="108dp"
                             android:layout_marginStart="10dp"

@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment {
     MyFarmDbHandlerSingleton dbHandler;
 
     public HomeFragment(Context context, FragmentManager supportFragmentManager, MyFarmDbHandlerSingleton handlerInstance) {
+        super();
         this.appContext = context;
         this.fm = supportFragmentManager;
         this.dbHandler = handlerInstance;
