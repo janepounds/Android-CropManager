@@ -53,10 +53,8 @@ public class AddCropFragment extends Fragment {
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private Crop crop;
-    public CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
+    public CropSpinnerAdapter fieldsSpinnerAdapter;
     private NavController navController;
-    private MyFarmRoomDatabase myFarmRoomDatabase;
-    Crop cropsTable;
 
 
     @Override
@@ -84,7 +82,6 @@ public class AddCropFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
         this.context = context;
     }
@@ -93,50 +90,47 @@ public class AddCropFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-
     }
 
+    public void initializeForm() {
 
-    public void initializeForm(){
-
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePicker(binding.txtCropsDateSown,context);
-
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
 
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries()){
-                    if(crop==null){
+                if (validateEntries()) {
+                    if (crop == null) {
                         saveCrop();
-                    }
-                    else{
+                    } else {
                         updateCrop();
                     }
-                  //go back to list
-                navController.popBackStack();
-                }else{
-                    Log.d("ERROR","Testing");
+                    //go back to list
+                    navController.popBackStack();
+                } else {
+                    Log.d("ERROR", "Testing");
                 }
             }
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
         cropsList.add("Select Crop");
-        for(CropItem cropItem: dbHandler.getCropItems()){
+        for (CropItem cropItem : dbHandler.getCropItems()) {
             cropsList.add(cropItem.getName());
         }
-       binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
+
+        binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, cropsList));
 
-
-
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
-        for(CropField x: dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context))){
+        for (CropField x : dbHandler.getCropFields(DashboardActivity.getPreferences("userId", context))) {
             fieldsItems.add(x);
         }
-        fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems,"Field",context);
-       binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
+
+        fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems, "Field", context);
+
+        binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
 
         // ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) binding.spCropsSeason.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -177,10 +171,9 @@ public class AddCropFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
-                    if(position ==0){
+                    if (position == 0) {
                         ((TextView) view).setTextColor(Color.GRAY);
-                    }
-                    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                     } else {
@@ -317,9 +310,6 @@ public class AddCropFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
-
-
-
 
 
 }

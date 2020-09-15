@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MyProduceListAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
@@ -53,8 +54,6 @@ public class MyProduceFragment extends Fragment {
     private static final String TAG = "MyProduceFragment";
     private FragmentMyProduceBinding binding;
     private Context context;
-
-    private Boolean showImageView = false;
 
     private ArrayList<MyProduce> produceList = new ArrayList<>();
 
@@ -75,12 +74,15 @@ public class MyProduceFragment extends Fragment {
     private MyFarmRoomDatabase myProduceDatabase;
     private MyProduce myProduce;
 
+    private MyFarmDbHandlerSingleton dbHandler;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
         myProduceDatabase = MyFarmRoomDatabase.getInstance(context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
         getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);
@@ -112,17 +114,11 @@ public class MyProduceFragment extends Fragment {
         EditText quantity = addProduceDialog.findViewById(R.id.produce_quantity);
         TextView quantityMeasure = addProduceDialog.findViewById(R.id.produce_quantity_measure);
         EditText price = addProduceDialog.findViewById(R.id.produce_price);
-        Button addPhoto = addProduceDialog.findViewById(R.id.add_photo);
         CardView cardView = addProduceDialog.findViewById(R.id.image_view_holder);
         ImageView image = addProduceDialog.findViewById(R.id.produce_image);
         Button submit = addProduceDialog.findViewById(R.id.produce_submit_button);
 
-        addPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cardView.setVisibility(View.GONE);
-            }
-        });
+        // addPhoto.setOnClickListener(view -> cardView.setVisibility(View.GONE));
 
         close.setOnClickListener(view -> dialog.dismiss());
 
@@ -171,6 +167,9 @@ public class MyProduceFragment extends Fragment {
 
                 // create worker thread to insert data into database
                 new InsertProduceTask(MyProduceFragment.this, myProduce).execute();
+
+                dbHandler.insertProduce(name.getSelectedItem().toString(), variety.getText().toString(), quantity.getText().toString(),
+                        price.getText().toString(), encodedImage, date);
             }
 
         });
