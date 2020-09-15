@@ -33,7 +33,7 @@ import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.PayLoan;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.PayLoan;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -64,7 +64,7 @@ public class WalletLoansListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_loans_list, container, false);
 
-        binding.walletPayLoanBtn.setVisibility(View.GONE);
+        binding.walletPayLoanLayout.setVisibility(View.GONE);
         binding.loansListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         statementAdapter = new LoansListAdapter(dataList);
@@ -126,8 +126,8 @@ public class WalletLoansListFragment extends Fragment {
                         data = new LoanApplication(record);
                         dataList.add(data);
                         if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
-                            binding.walletApplyLoanBtn.setVisibility(View.GONE);
-                            binding.walletPayLoanBtn.setVisibility(View.VISIBLE);
+                            binding.walletApplyLoanLayout.setVisibility(View.GONE);
+                            binding.walletPayLoanLayout.setVisibility(View.VISIBLE);
                         }
 
                     }

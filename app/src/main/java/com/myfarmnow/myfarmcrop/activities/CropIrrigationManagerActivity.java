@@ -184,11 +184,11 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
                         updateIrrigation();
                     }
 
-                    Intent cropIrrigation = new Intent(CropIrrigationManagerActivity.this, CropActivitiesListActivity.class);
-                    cropIrrigation.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    cropIrrigation.putExtra("cropId",cropId);
-                    startActivity(cropIrrigation);
-                    finish();
+//                    Intent cropIrrigation = new Intent(CropIrrigationManagerActivity.this, CropActivitiesListActivity.class);
+//                    cropIrrigation.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    cropIrrigation.putExtra("cropId",cropId);
+//                    startActivity(cropIrrigation);
+//                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

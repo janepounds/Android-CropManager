@@ -3,7 +3,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/wallet_nav_graph"
     app:startDestination="@id/walletHomeFragment">
     <fragment
         android:id="@+id/walletHomeFragment"
@@ -72,12 +71,12 @@
 
     <dialog
         android:id="@+id/payLoan"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.wallet.PayLoan"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.wallet.PayLoan"
         tools:layout="@layout/wallet_pay_loan" />
 
     <dialog
         android:id="@+id/depositPayments"
-        android:name="com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositPayments"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositPayments"
         tools:layout="@layout/wallet_payment_methods" />
     <fragment
         android:id="@+id/walletLoanStatusPreview"

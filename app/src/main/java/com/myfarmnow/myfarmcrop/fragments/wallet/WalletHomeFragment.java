@@ -4,12 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -17,17 +15,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.tabs.TabLayout;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -37,19 +31,16 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletHomeBinding;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.Buy;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyMobile;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVisa;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositMoneyVoucher;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.DepositPayments;
-import com.myfarmnow.myfarmcrop.popupDailogs.wallet.TransferMoney;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.Buy;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyMobile;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVisa;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVoucher;
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.TransferMoney;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
-import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
 

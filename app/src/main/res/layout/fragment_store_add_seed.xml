@@ -3,14 +3,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.myfarmnow.myfarmcrop.popupDailogs.farmrecords.StoreAddSeedFragment"
+        tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSeedFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:theme="@style/AppTheme"
-        android:background="@color/white">
+        android:background="@drawable/background_custom_dialog">
 
 
 
@@ -19,6 +18,15 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/seed_close"
+                android:layout_width="@dimen/dimen_30dp"
+                android:layout_height="@dimen/dimen_30dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/dimen_10dp"
+                android:src="@drawable/close" />
 
             <LinearLayout
                 android:id="@+id/layout_add_money"
@@ -31,7 +39,8 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:text="@string/seeds"
-                    android:theme="@style/HeaderThemeWhite"/>
+                    android:theme="@style/HeaderThemeWhite"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -324,7 +333,6 @@
 
 
                         <EditText
-                            android:id="@+id/txt_crop_manufacturer"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"

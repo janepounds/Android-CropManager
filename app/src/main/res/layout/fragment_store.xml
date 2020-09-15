@@ -4,10 +4,8 @@
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.StoreFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -45,31 +43,50 @@
                 android:orientation="vertical">
 
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_shapes_grey_spinner"
-                    android:layout_margin="10dp">
+                    android:gravity="center"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_margin="@dimen/dimen_20dp"
+                    android:orientation="horizontal">
+
                     <Spinner
                         android:id="@+id/select_inventory_spinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/margin_10"
                         android:entries="@array/cropInventories"
-                        android:spinnerMode="dialog"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="Seed Type"
+                        android:spinnerMode="dropdown"/>
 
-                    </Spinner>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
                 </LinearLayout>
+
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/inventory_recyc_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginRight="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"

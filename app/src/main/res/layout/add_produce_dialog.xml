@@ -219,7 +219,6 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/produce_price_currency"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"

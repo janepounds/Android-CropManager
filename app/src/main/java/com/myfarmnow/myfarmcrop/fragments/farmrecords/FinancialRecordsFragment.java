@@ -70,13 +70,17 @@ public class FinancialRecordsFragment extends Fragment {
         binding.cropIncomeExpenseRecycView.setLayoutManager(linearLayoutManager);
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = binding.toolbar;
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Financial Records");
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.popBackStack();
+            }
+        });
 
         return binding.getRoot();
     }

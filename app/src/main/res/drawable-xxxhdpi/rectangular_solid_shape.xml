@@ -1,9 +1,0 @@
-
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-android:shape="rectangle">
-
-<stroke
-    android:width="0.5dp"
-    android:color="#b9b9b9"
-    android:dashGap="@dimen/activity_horizontal_margin"/>
-</shape>

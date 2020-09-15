@@ -50,7 +50,7 @@
                             android:layout_height="25dp"
                             android:backgroundTint="@color/black"
                             android:textColor="@color/darker_gray"
-                            app:srcCompat="@drawable/more_options_icon" />
+                            app:srcCompat="@drawable/ic_baseline_more_vert" />
 
 
                     </LinearLayout>

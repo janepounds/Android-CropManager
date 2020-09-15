@@ -79,7 +79,6 @@
                         android:textColor="@color/blackText"
                        android:textSize="18sp" />
                     <TextView
-                        android:id="@+id/txt_crop_transplanting_card_transplanted_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""/>
@@ -96,7 +95,7 @@
                             android:id="@+id/img_crop_irrigation_card_more"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/more_options_icon" />
+                            android:src="@drawable/ic_baseline_more_vert" />
                     </LinearLayout>
                 </LinearLayout>
                 <View
@@ -232,7 +231,6 @@
                         android:text="15"
                         android:textColor="#899889" />
                     <TextView
-                        android:id="@+id/txt_view_crop_transplanting_card_units"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 

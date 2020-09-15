@@ -12,7 +12,6 @@
 
         <TextView
             android:id="@+id/text_view_crop_register_title"
-            android:drawableTop="@drawable/logo_crop_manager"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50.0dip"
@@ -195,7 +194,7 @@
                     android:layout_height="45.0dip"
                     android:layout_marginTop="15.0dip"
                     android:background="@drawable/rectangle_border"
-                    android:drawableLeft="@drawable/email"
+                    android:drawableLeft="@drawable/ic_baseline_email_24"
                     android:drawablePadding="20.0dip"
                     android:hint="Confirm Email"
                     android:inputType="textEmailAddress"

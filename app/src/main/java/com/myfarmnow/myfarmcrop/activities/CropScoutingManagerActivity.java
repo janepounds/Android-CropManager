@@ -333,11 +333,11 @@ public class CropScoutingManagerActivity extends AppCompatActivity {
                         updateScouting();
                     }
 
-                    Intent cropScouting = new Intent(CropScoutingManagerActivity.this, CropActivitiesListActivity.class);
-                    cropScouting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    cropScouting.putExtra("cropId",cropId);
-                    startActivity(cropScouting);
-                    finish();
+//                    Intent cropScouting = new Intent(CropScoutingManagerActivity.this, CropActivitiesListActivity.class);
+//                    cropScouting.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    cropScouting.putExtra("cropId",cropId);
+//                    startActivity(cropScouting);
+//                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

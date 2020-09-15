@@ -8,8 +8,6 @@
 
 
     <include
-        layout="@layout/content_dashboard"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-114dp" />
+        layout="@layout/content_dashboard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

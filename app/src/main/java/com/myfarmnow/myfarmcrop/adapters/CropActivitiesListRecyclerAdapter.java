@@ -28,7 +28,6 @@ import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
 
-import com.myfarmnow.myfarmcrop.activities.CropSprayingManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
 
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -688,11 +687,11 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
 
-                                CropSpraying cropSpraying =(CropSpraying) cropsList.get(getAdapterPosition());
-                                Intent editSpraying = new Intent(mContext, CropSprayingManagerActivity.class);
-                                editSpraying.putExtra("cropSpraying",cropSpraying);
-                                editSpraying.putExtra("cropId",cropSpraying.getCropId());
-                                mContext.startActivity(editSpraying);
+//                                CropSpraying cropSpraying =(CropSpraying) cropsList.get(getAdapterPosition());
+//                                Intent editSpraying = new Intent(mContext, CropSprayingManagerActivity.class);
+//                                editSpraying.putExtra("cropSpraying",cropSpraying);
+//                                editSpraying.putExtra("cropId",cropSpraying.getCropId());
+//                                mContext.startActivity(editSpraying);
                             }
                             return true;
                         }

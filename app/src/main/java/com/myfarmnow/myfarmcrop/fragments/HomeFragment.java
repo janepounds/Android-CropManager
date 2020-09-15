@@ -118,9 +118,6 @@ public class HomeFragment extends Fragment {
 
         weatherForecastLinearLayout = view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
 
-        userProfileLayout = view.findViewById(R.id.layout_user_profile);
-        textViewUserName = view.findViewById(R.id.text_view_crop_dashboard_name);
-        textViewUserEmail = view.findViewById(R.id.text_view_crop_dashboard_email);
 //
 //        textViewVersion = view.findViewById(R.id.text_view_crop_dashboard_android_version);
 //        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);

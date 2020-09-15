@@ -261,11 +261,11 @@ public class CropHarvestManagerActivity extends AppCompatActivity {
                         updateHarvest();
                     }
 
-                    Intent cropHarvest = new Intent(CropHarvestManagerActivity.this, CropActivitiesListActivity.class);
-                    cropHarvest.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    cropHarvest.putExtra("cropId",cropId);
-                    startActivity(cropHarvest);
-                    finish();
+//                    Intent cropHarvest = new Intent(CropHarvestManagerActivity.this, CropActivitiesListActivity.class);
+//                    cropHarvest.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    cropHarvest.putExtra("cropId",cropId);
+//                    startActivity(cropHarvest);
+//                    finish();
                 }else{
                     Log.d("ERROR","Testing");
                 }

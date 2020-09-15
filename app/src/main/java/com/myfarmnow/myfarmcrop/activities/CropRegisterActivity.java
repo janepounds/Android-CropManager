@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myfarmnow.myfarmcrop.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -36,6 +37,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.user_model.UserData;
+import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.utils.DialogLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +51,9 @@ import java.util.Date;
 import java.util.Iterator;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+
 
 public class CropRegisterActivity extends PermisoActivity implements
         LocationListener,
@@ -58,10 +66,10 @@ public class CropRegisterActivity extends PermisoActivity implements
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     public static Location mCurrentLocation;
-    Integer random;
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
     TextView tvlogin, titleTextView, errorTextView;
+    DialogLoader dialogLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +96,9 @@ public class CropRegisterActivity extends PermisoActivity implements
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         tvlogin = (TextView) findViewById(R.id.tvlogin);
 
+
+
+        dialogLoader = new DialogLoader( CropRegisterActivity.this );
 
         tvlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +160,7 @@ public class CropRegisterActivity extends PermisoActivity implements
 
 
                 if(getIntent().hasExtra("editUser")){
-                    updateUser();
+                    updateUser(v);
                 }
                 else {
                     if (edtfirstname.getText().toString().length() <= 0) {
@@ -225,7 +236,7 @@ public class CropRegisterActivity extends PermisoActivity implements
 
 
 
-    public void updateUser(){
+    public void updateUser(final View rootView){
 
         if (currentPasswordTxt.getText().toString().length() <= 0) {
             Toast.makeText(CropRegisterActivity.this, "You must enter the password", Toast.LENGTH_SHORT).show();
@@ -275,110 +286,175 @@ public class CropRegisterActivity extends PermisoActivity implements
                 return;
             }
         }
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
+
 
         //   String tokens = SharedPreferences.(this).gettoken();
         String countryCode = edtCountryCode.getText().toString().replace("+","");
-        params.put("id", DashboardActivity.getPreferences("userId",this));
-        params.put("firstname", "" + edtfirstname.getText().toString());
-        params.put("lastname", "" + edtlastname.getText().toString());
-        params.put("country", "" + spinnercountry.getSelectedItem().toString());
-        params.put("addressCountry", "" + addressCountrySp.getSelectedItem().toString());
-        params.put("addressStreet", "" + edtAddress.getText().toString());
-        params.put("addressCityOrTown", "" + edtAdressTownorCity.getText().toString());
-        params.put("email", "" + edtemail.getText().toString());
-        params.put("farmname", "" + edtfarmname.getText().toString());
-        params.put("phoneNumber", "+" +countryCode+edtContact.getText().toString());
-        params.put("countryCode", countryCode);
-        params.put("oldPassword", currentPasswordTxt.getText().toString());
-        params.put("latitude", "" + lat);
-        params.put("longitude", "" + lng);
+        String newPassword=null;
         if(!edtpassword.getText().toString().isEmpty()){
-            params.put("password", edtpassword.getText().toString());
+             newPassword=edtpassword.getText().toString();
         }
 
-        client.post(ApiPaths.CROP_USER_UPDATE, params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
 
+        Call<UserData> call = APIClient.getInstance()
+                .update(  DashboardActivity.getPreferences("userId",this), "" + edtfirstname.getText().toString(),
+                        "" + edtlastname.getText().toString(),
+                        "" + spinnercountry.getSelectedItem().toString(),
+                        "" + addressCountrySp.getSelectedItem().toString(),
+                        "" + edtAddress.getText().toString(),
+                         "" + edtAdressTownorCity.getText().toString(),
+                         "" + edtemail.getText().toString(),
+                                        ""+edtfarmname.getText().toString(),
+                        "+" +countryCode+edtContact.getText().toString(),
+                         ""+currentPasswordTxt.getText().toString(),
+                        "" + lat,
+                        "" + lng,
+                        ""+newPassword);
+
+
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        final RequestParams params = new RequestParams();
+//        client.post(ApiPaths.CROP_USER_UPDATE, params, new JsonHttpResponseHandler() {
+//            ProgressDialog dialog;
+//
+//            @Override
+//            public void onStart() {
+//
+//                dialog = new ProgressDialog(CropRegisterActivity.this);
+//                dialog.setIndeterminate(true);
+//                dialog.setMessage("Please Wait..");
+//                dialog.setCancelable(false);
+//                dialog.show();
+//            }
+//
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                // If the response is JSONObject instead of expected JSONArray
+//                try {
+//                    JSONObject user = response.getJSONObject("user");
+//                    Toast.makeText(CropRegisterActivity.this, "Successfully Loged in..", Toast.LENGTH_SHORT).show();
+//                    Log.e("response", response.toString());
+//                    DashboardActivity.saveUser(user,CropRegisterActivity.this);
+//
+//                    if(response.getString("message").equals("Verification required")){
+//                        Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
+//                        verifyPhoneNumber.putExtra("userId",user.getString("id"));
+//                        verifyPhoneNumber.putExtra("phoneNumber",user.getString("phoneNumber"));
+//                        verifyPhoneNumber.putExtra("countryCode",user.getString("countryCode"));
+//                        verifyPhoneNumber.putExtra("resendCode","yes");
+//                        startActivity(verifyPhoneNumber);
+//                    }
+//
+//                    finish();
+//                    dialog.dismiss();
+//
+//
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                if (errorResponse != null) {
+//                    try {
+//                        String errorTxt ="";
+//                        JSONObject errors = errorResponse.getJSONObject("errors");
+//                        Iterator<String> errorKeys = errors.keys();
+//                        while (errorKeys.hasNext()){
+//                            JSONArray errorMessages = errors.getJSONArray(errorKeys.next());
+//                            for(int i=0; i<errorMessages.length(); i++){
+//                                errorTxt+=errorMessages.get(i)+",";
+//                            }
+//
+//                        }
+//                        errorTextView.setText(errorTxt);
+//                        errorTextView.setVisibility(View.VISIBLE);
+//                        errorTextView.requestFocus();
+//                        Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Log.e("info", new String(String.valueOf(errorResponse)));
+//                } else {
+//                    Log.e("info", "Something got very very wrong");
+//                }
+//                dialog.dismiss();
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                if (errorResponse != null) {
+//                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+//                } else {
+//                    Log.e("info : "+statusCode, "Something got very very wrong");
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+
+        call.enqueue(new Callback<UserData>() {
             @Override
-            public void onStart() {
+            public void onResponse(Call<UserData> call, retrofit2.Response<UserData> response) {
 
-                dialog = new ProgressDialog(CropRegisterActivity.this);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(false);
-                dialog.show();
-            }
+                dialogLoader.hideProgressDialog();
 
+                if (response.isSuccessful()) {
+                    if (response.body().getSuccess().equalsIgnoreCase("1") && response.body().getData() != null) {
+                        // User's Info has been Updated.
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                try {
-                    JSONObject user = response.getJSONObject("user");
-                    Toast.makeText(CropRegisterActivity.this, "Successfully Loged in..", Toast.LENGTH_SHORT).show();
-                    Log.e("response", response.toString());
-                    DashboardActivity.saveUser(user,CropRegisterActivity.this);
+                        UserDetails userDetails = response.body().getData().get(0);
 
-                    if(response.getString("message").equals("Verification required")){
-                        Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
-                        verifyPhoneNumber.putExtra("userId",user.getString("id"));
-                        verifyPhoneNumber.putExtra("phoneNumber",user.getString("phoneNumber"));
-                        verifyPhoneNumber.putExtra("countryCode",user.getString("countryCode"));
-                        verifyPhoneNumber.putExtra("resendCode","yes");
-                        startActivity(verifyPhoneNumber);
+//                        try {
+//                            JSONObject user = response.body().getJSONObject("user");
+//                            Toast.makeText(CropRegisterActivity.this, "Successfully Loged in..", Toast.LENGTH_SHORT).show();
+//                            Log.e("response", response.toString());
+//                            DashboardActivity.saveUser(user,CropRegisterActivity.this);
+//
+//                            if(response.getString("message").equals("Verification required")){
+//                                Intent verifyPhoneNumber = new Intent(CropRegisterActivity.this, CropVerifyPhoneNumberActivity.class);
+//                                verifyPhoneNumber.putExtra("userId",user.getString("id"));
+//                                verifyPhoneNumber.putExtra("phoneNumber",user.getString("phoneNumber"));
+//                                verifyPhoneNumber.putExtra("countryCode",user.getString("countryCode"));
+//                                verifyPhoneNumber.putExtra("resendCode","yes");
+//                                startActivity(verifyPhoneNumber);
+//                            }
+//
+//                            finish();
+//                            dialog.dismiss();
+//
+//
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+
+                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                        // Unable to Update User's Info.
+                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                    } else if (response.body().getSuccess().equalsIgnoreCase("2")) {
+                        // Unable to Update User's Info.
+                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        // Unable to get Success status
+                        Toast.makeText(CropRegisterActivity.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
                     }
 
-                    finish();
-                    dialog.dismiss();
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } else {
+                    Toast.makeText( CropRegisterActivity.this, "" + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (errorResponse != null) {
-                    try {
-                        String errorTxt ="";
-                        JSONObject errors = errorResponse.getJSONObject("errors");
-                        Iterator<String> errorKeys = errors.keys();
-                        while (errorKeys.hasNext()){
-                            JSONArray errorMessages = errors.getJSONArray(errorKeys.next());
-                            for(int i=0; i<errorMessages.length(); i++){
-                                errorTxt+=errorMessages.get(i)+",";
-                            }
-
-                        }
-                        errorTextView.setText(errorTxt);
-                        errorTextView.setVisibility(View.VISIBLE);
-                        errorTextView.requestFocus();
-                        Toast.makeText(CropRegisterActivity.this, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Log.e("info", new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info", "Something got very very wrong");
-                }
-                dialog.dismiss();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-                dialog.dismiss();
+            public void onFailure(Call<UserData> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
+                Toast.makeText( CropRegisterActivity.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
-
-
 
     }
 

@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.DashboardActivity"
-    tools:showIn="@layout/activity_main_dashboard">
+    tools:context=".activities.DashboardActivity" >
 
     <RelativeLayout
         android:id="@+id/mainlayout"
@@ -34,11 +33,10 @@
 
 
                     <TextView
-                        android:id="@+id/tvtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/title_activity_dashboard"
+                        android:text="@string/app_name"
                         android:textColor="@color/whiteColor"
                         android:textSize="18dp" />
 
@@ -79,7 +77,6 @@
             android:background="@drawable/home_background">
 
             <RelativeLayout
-                android:id="@+id/relativeperant"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -97,7 +94,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="12"
                         android:orientation="vertical"
-                        android:background="@color/colorPrimary"
+                        android:background="@drawable/weather_background"
                         >
 
                         <LinearLayout
@@ -110,16 +107,14 @@
                             >
 
                             <ImageView
-                                android:id="@+id/img_precipitation"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3.5"
                                 android:gravity="center"
-                                android:src="@drawable/service"/>
+                                android:src="@drawable/ic_rain"/>
 
 
                             <TextView
-                                android:id="@+id/today_day"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2.5"
@@ -133,7 +128,6 @@
 
 
                             <TextView
-                                android:id="@+id/temp_max"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -147,7 +141,6 @@
 
 
                             <TextView
-                                android:id="@+id/temp_min"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -255,7 +248,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="center"
-                                android:src="@drawable/wind"/>
+                                android:src="@drawable/ic_wind"/>
 
                         </LinearLayout>
 
@@ -268,7 +261,6 @@
                             android:weightSum="12"
                             >
                             <TextView
-                                android:id="@+id/txt_humidity_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -281,7 +273,6 @@
 
 
                             <TextView
-                                android:id="@+id/txt_rain_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -294,7 +285,6 @@
 
 
                             <TextView
-                                android:id="@+id/txt_visibility_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -307,7 +297,6 @@
 
 
                             <TextView
-                                android:id="@+id/txt_wind_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -330,7 +319,6 @@
                             android:weightSum="12"
                             >
                             <TextView
-                                android:id="@+id/txt_humidity_value2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
@@ -390,10 +378,9 @@
                                 android:layout_height="90dp"
                                 android:padding="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/farm_records_icon" />
+                                android:src="@drawable/ic_result" />
 
                             <TextView
-                                android:id="@+id/tv_farmrecords"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-10dp"
@@ -428,7 +415,7 @@
                                 android:layout_height="90dp"
                                 android:padding="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/wallet" />
+                                android:src="@drawable/ic_wallet" />
 
                             <TextView
                                 android:id="@+id/tv_litar"
@@ -490,7 +477,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/layout_agronomy"
                             android:layout_width="match_parent"
                             android:layout_height="108dp"
                             android:layout_margin="10dp"
@@ -585,7 +571,7 @@
                                 android:layout_height="90dp"
                                 android:padding="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/service" />
+                                android:src="@drawable/ic_service" />
 
                             <TextView
                                 android:layout_width="match_parent"
