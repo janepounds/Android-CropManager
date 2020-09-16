@@ -2,19 +2,16 @@ package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -29,22 +26,15 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropBinding;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class AddCropFragment extends Fragment {

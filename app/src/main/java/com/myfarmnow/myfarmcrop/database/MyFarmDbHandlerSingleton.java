@@ -51,6 +51,7 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 import com.myfarmnow.myfarmcrop.models.CropYieldRecord;
 import com.myfarmnow.myfarmcrop.models.DeletedRecord;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
+import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
@@ -62,6 +63,7 @@ import java.util.Date;
 
 
 public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
+    private static final String TAG = "MyFarmDbHandler";
 
     public static final String DATABASE_NAME = "myFarm.db";
     private static int database_version = 1;
@@ -673,7 +675,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_CONTACT_USER_ID + " TEXT, " + CROP_CONTACT_TYPE + " TEXT NOT NULL, " + CROP_CONTACT_NAME + " TEXT NOT NULL, " + CROP_CONTACT_BUSINESS_NAME + " TEXT, " +
                 CROP_CONTACT_ADDRESS + " TEXT NOT NULL, " + CROP_CONTACT_PHONE_NUMBER + " TEXT NOT NULL, " + CROP_CONTACT_EMAIL + " TEXT, " + CROP_CONTACT_WEBSITE + " TEXT , " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
-
         String crop_harvest_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_HARVEST_TABLE_NAME + " ( " + CROP_HARVEST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 CROP_HARVEST_USER_ID + " TEXT, " + CROP_HARVEST_CROP_ID + " TEXT, " + CROP_HARVEST_EMPLOYEE_ID + " TEXT, " + CROP_HARVEST_DATE + " TEXT NOT NULL, " + CROP_HARVEST_METHOD + " TEXT, " +
                 CROP_HARVEST_UNITS + " TEXT NOT NULL, " + CROP_HARVEST_QUANTITY + " REAL NOT NULL, " + CROP_HARVEST_OPERATOR + " TEXT, " + CROP_HARVEST_STATUS + " TEXT NOT NULL, " +
@@ -687,14 +688,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SCOUTING_COST + " REAL NOT NULL DEFAULT 0, " + CROP_SCOUTING_REMARKS + " TEXT, " + CROP_SCOUTING_REPEAT_UNTIL + " TEXT, " + CROP_SCOUTING_DAYS_BEFORE + " REAL DEFAULT 0, " +
                 CROP_SCOUTING_RECURRENCE + " TEXT NOT NULL, " + CROP_SCOUTING_FREQUENCY + " REAL DEFAULT 1, " + CROP_SCOUTING_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
-
         String crop_transplanting_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_TRANSPLANTING_TABLE_NAME + " ( " + CROP_TRANSPLANTING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_TRANSPLANTING_USER_ID + " TEXT, " + CROP_TRANSPLANTING_CROP_ID + " TEXT, " + CROP_TRANSPLANTING_DATE + " TEXT NOT NULL, " + CROP_TRANSPLANTING_TOTAL_SEEDLING + " REAL, " +
                 CROP_TRANSPLANTING_SEEDLINGS_PER_HA + " REAL, " + CROP_TRANSPLANTING_VARIETY_EARLINESS + " TEXT NOT NULL, " + CROP_TRANSPLANTING_CYCLE_LENGTH + " REAL NOT NULL, " +
                 CROP_TRANSPLANTING_UNITS + " TEXT, " + CROP_TRANSPLANTING_EXPECTED_YIELD + " REAL DEFAULT 0, " + CROP_TRANSPLANTING_EXPECTED_YIELD_PER_HA + " REAL DEFAULT 0, " +
                 CROP_TRANSPLANTING_OPERATOR + " TEXT NOT NULL, " + CROP_TRANSPLANTING_COST + " REAL NOT NULL, " + CROP_TRANSPLANTING_REPEAT_UNTIL + " TEXT, " + CROP_TRANSPLANTING_DAYS_BEFORE + " REAL DEFAULT 0, " +
                 CROP_TRANSPLANTING_RECURRENCE + " TEXT NOT NULL, " + CROP_TRANSPLANTING_FREQUENCY + " REAL DEFAULT 1, " + CROP_TRANSPLANTING_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
-
 
         String crop_inventory_fertilizer_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ( " + CROP_INVENTORY_FERTILIZER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_INVENTORY_FERTILIZER_USER_ID + " TEXT," + CROP_INVENTORY_FERTILIZER_DATE + " TEXT NOT NULL," + CROP_INVENTORY_FERTILIZER_TYPE + " TEXT NOT NULL," + CROP_INVENTORY_FERTILIZER_NAME + " TEXT NOT NULL," + CROP_INVENTORY_FERTILIZER_N_PERCENTAGE + " REAL," +
@@ -709,7 +708,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 + " TEXT NOT NULL," + CROP_INVENTORY_SEEDS_VARIETY + " TEXT," +
                 CROP_INVENTORY_SEEDS_DRESSING + " TEXT," + CROP_INVENTORY_FERTILIZER_QUANTITY + " REAL NOT NULL," + CROP_INVENTORY_SEEDS_BATCH_NUMBER + " TEXT NOT NULL," + CROP_INVENTORY_SEEDS_TYPE + " TEXT NOT NULL," +
                 CROP_INVENTORY_SEEDS_COST + " REAL ," + CROP_INVENTORY_SEEDS_SUPPLIER + " TEXT ," + CROP_INVENTORY_SEEDS_TGW + " TEXT ," + CROP_INVENTORY_FERTILIZER_USAGE_UNIT + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
-
 
         String crop_inventory_spray_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVENTORY_SPRAY_TABLE_NAME + " ( " + CROP_INVENTORY_SPRAY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_INVENTORY_SPRAY_USER_ID + " TEXT," + CROP_INVENTORY_SPRAY_DATE + " TEXT NOT NULL," + CROP_INVENTORY_SPRAY_TYPE + " TEXT NOT NULL," + CROP_INVENTORY_SPRAY_NAME
@@ -734,7 +732,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_FERTILIZER_APPLICATION_METHOD + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_REASON + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_ID + " TEXT NOT NULL," +
                 CROP_FERTILIZER_APPLICATION_RATE + " REAL NOT NULL ," + CROP_FERTILIZER_APPLICATION_COST + " REAL, " + CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " + CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
                 CROP_FERTILIZER_APPLICATION_RECURRENCE + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FREQUENCY + " REAL DEFAULT 1, " + CROP_FERTILIZER_APPLICATION_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
-
 
         String crop_spraying_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_SPRAYING_TABLE_NAME + " ( " + CROP_SPRAYING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_SPRAYING_USER_ID + " TEXT," + CROP_SPRAYING_CROP_ID + " TEXT NOT NULL," + CROP_SPRAYING_DATE + " TEXT NOT NULL," + CROP_SPRAYING_START_TIME + " TEXT," +
@@ -771,10 +768,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_CUSTOMER_OPENING_BALANCE + " REAL NOT NULL," + CROP_CUSTOMER_BILL_ADDRESS_STREET + " TEXT NOT NULL ," + CROP_CUSTOMER_BILL_ADDRESS_CITY + " TEXT NOT NULL ," +
                 CROP_CUSTOMER_BILL_ADDRESS_COUNTRY + " TEXT NOT NULL," + CROP_CUSTOMER_SHIP_ADDRESS_STREET + " TEXT NOT NULL," + CROP_CUSTOMER_SHIP_ADDRESS_CITY + " TEXT NOT NULL," +
                 CROP_CUSTOMER_SHIP_ADDRESS_COUNTRY + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+
         String crop_supplier_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_SUPPLIER_TABLE_NAME + " ( " + CROP_SUPPLIER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_SUPPLIER_USER_ID + " TEXT," + CROP_SUPPLIER_NAME + " TEXT NOT NULL," + CROP_SUPPLIER_COMPANY + " TEXT NOT NULL," + CROP_SUPPLIER_TAX_REG_NO + " TEXT ," +
                 CROP_SUPPLIER_PHONE + " TEXT NOT NULL," + CROP_SUPPLIER_MOBILE + " TEXT ," + CROP_SUPPLIER_EMAIL + " TEXT ," + CROP_SUPPLIER_OPENING_BALANCE + " REAL ," + CROP_SUPPLIER_INVOICE_ADDRESS_STREET + " TEXT NOT NULL," + CROP_SUPPLIER_INVOICE_ADDRESS_CITY + " TEXT NOT NULL," +
                 CROP_SUPPLIER_INVOICE_ADDRESS_COUNTRY + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+
         String crop_product_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_PRODUCT_TABLE_NAME + " ( " + CROP_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_PRODUCT_USER_ID + " TEXT NOT NULL," + CROP_PRODUCT_NAME + " TEXT NOT NULL," + CROP_PRODUCT_TYPE + " TEXT NOT NULL," + CROP_PRODUCT_CODE + " TEXT ," +
                 CROP_PRODUCT_UNITS + " TEXT," + CROP_PRODUCT_LINKED_ACCOUNT + " TEXT ," + CROP_PRODUCT_OPENING_COST + " REAL  ," + CROP_PRODUCT_OPENING_QUANTITY + " REAL ," +
@@ -786,19 +785,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_ESTIMATE_REFERENCE_NO + " TEXT NOT NULL," + CROP_ESTIMATE_EXP_DATE + " TEXT," + CROP_ESTIMATE_DISCOUNT + " REAL DEFAULT 0," + CROP_ESTIMATE_SHIPPING_CHARGES + " REAL DEFAULT 0  ," +
                 CROP_ESTIMATE_CUSTOMER_NOTES + " TEXT ," + CROP_ESTIMATE_STATUS + " TEXT DEFAULT 'DRAFT' ," + CROP_ESTIMATE_TERMS_AND_CONDITIONS + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
 
-
         String crop_estimate_item_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_PRODUCT_ITEM_TABLE_NAME + " ( " + CROP_PRODUCT_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_PRODUCT_ITEM_PRODUCT_ID + " TEXT NOT NULL," + CROP_PRODUCT_ITEM_PARENT_OBJECT_ID + " TEXT NOT NULL," + CROP_PRODUCT_ITEM_QUANTITY + " REAL NOT NULL, " + CROP_PRODUCT_ITEM_TAX + " REAL NOT NULL, " +
                 CROP_PRODUCT_ITEM_RATE + " REAL NOT NULL, " + CROP_PRODUCT_ITEM_TYPE + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no', " +
                 "FOREIGN KEY( " + CROP_PRODUCT_ITEM_PRODUCT_ID + ") REFERENCES  " + CROP_PRODUCT_TABLE_NAME + " ( " + CROP_PRODUCT_ID + " ) )";
-
 
         String crop_invoices_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_INVOICE_TABLE_NAME + " ( " + CROP_INVOICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_INVOICE_USER_ID + " TEXT NOT NULL," + CROP_INVOICE_CUSTOMER_ID + " TEXT NOT NULL," + CROP_INVOICE_NO + " TEXT NOT NULL," + CROP_INVOICE_TERMS + " TEXT NOT NULL," +
                 CROP_INVOICE_ORDER_NUMBER + " TEXT NOT NULL," + CROP_INVOICE_DATE + " TEXT NOT NULL," +
                 CROP_INVOICE_DUE_DATE + " TEXT," + CROP_INVOICE_DISCOUNT + " REAL DEFAULT 0," + CROP_INVOICE_SHIPPING_CHARGES + " REAL DEFAULT 0  ," +
                 CROP_INVOICE_CUSTOMER_NOTES + " TEXT ," + CROP_INVOICE_TERMS_AND_CONDITIONS + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
-
 
         String crop_payment_item_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_PAYMENT_TABLE_NAME + " ( " + CROP_PAYMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_PAYMENT_USER_ID + " TEXT NOT NULL," + CROP_PAYMENT_CUSTOMER_ID + " TEXT NOT NULL," + CROP_PAYMENT_DATE + " TEXT NOT NULL," + CROP_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_PAYMENT_AMOUNT + " REAL NOT NULL, " +
@@ -825,17 +821,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String crop_bill_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_BILL_TABLE_NAME + " ( " + CROP_BILL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_BILL_USER_ID + " TEXT NOT NULL, " + CROP_BILL_SUPPLIER_ID + " TEXT NOT NULL, " +
                 CROP_BILL_ORDER_NUMBER + " TEXT NOT NULL, " + CROP_BILL_NUMBER + " TEXT NOT NULL, " + CROP_BILL_DATE + " TEXT NOT NULL, " + CROP_BILL_DUE_DATE + " TEXT, " + CROP_BILL_TERMS + " TEXT NOT NULL, " + CROP_BILL_DISCOUNT + " REAL DEFAULT 0, " + CROP_BILL_NOTES + " TEXT, " + CROP_BILL_STATUS + " TEXT DEFAULT 'DRAFT', " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
-
         String crop_payment_bill_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_PAYMENT_BILL_TABLE_NAME + " ( " + CROP_PAYMENT_BILL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + CROP_PAYMENT_BILL_USER_ID + " TEXT NOT NULL," + CROP_PAYMENT_BILL_DATE + " TEXT NOT NULL," +
                 CROP_PAYMENT_BILL_PAYMENT_MADE + " " +
                 "REAL NOT NULL," + CROP_PAYMENT_BILL_PAYMENT_MODE + " TEXT NOT NULL," + CROP_PAYMENT_BILL_PAID_THROUGH + " TEXT," + CROP_PAYMENT_BILL_REFERENCE_NUMBER + " TEXT," + CROP_PAYMENT_BILL_NOTES + " TEXT, " + CROP_PAYMENT_BILL_SUPPLIER_ID + " TEXT NOT NULL, " + CROP_PAYMENT_BILL_BILL_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
-
 
         String crop_item_table_query = " CREATE TABLE IF NOT EXISTS " + CROP_ITEM_TABLE_NAME + " ( " + CROP_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_ITEM_N_COMPOSITION + " REAL DEFAULT 0, " +
                 CROP_ITEM_K_COMPOSITION + " REAL DEFAULT 0, " + CROP_ITEM_NAME + " TEXT NOT NULL , " + CROP_ITEM_IMAGE_RESOURCE_ID + " TEXT  , " + CROP_ITEM_P_COMPOSITION + " REAL DEFAULT 0 , " +
                 CROP_ITEM_P_REMOVED + " REAL DEFAULT 0 , " + CROP_ITEM_N_REMOVED + " REAL DEFAULT 0 , " + CROP_ITEM_K_REMOVED + " REAL DEFAULT 0 , " +
                 CROP_ITEM_IS_FOR + " TEXT DEFAULT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
-
 
         String crop_fertilizer_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_FERTILIZER_TABLE_NAME + " ( " + CROP_FERTILIZER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_FERTILIZER_TYPE + " TEXT NOT NULL," + CROP_FERTILIZER_NAME + " TEXT NOT NULL," + CROP_FERTILIZER_N_PERCENTAGE + " REAL," +
@@ -846,9 +839,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 + CROP_MACHINE_TASK_STATUS + " TEXT NOT NULL, " + CROP_MACHINE_TASK_DESCRIPTION + " TEXT , " + CROP_MACHINE_TASK_REPEAT_UNTIL + " TEXT, " + CROP_MACHINE_TASK_DAYS_BEFORE + " REAL DEFAULT 0, " + CROP_MACHINE_TASK_COST + " REAL DEFAULT 0, " +
                 CROP_MACHINE_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_MACHINE_TASK_FREQUENCY + " REAL DEFAULT 1, " + CROP_MACHINE_TASK_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
-
         String crop_note_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_NOTE_TABLE_NAME + " ( " + CROP_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_NOTE_PARENT_ID + " TEXT NOT NULL, " + CROP_NOTE_DATE + " TEXT NOT NULL, " + CROP_NOTE_CATEGORY + " TEXT, " + CROP_NOTE_NOTES + " TEXT NOT NULL, " + CROP_NOTE_IS_FOR + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
-
 
         String crop_machine_service_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_MACHINE_SERVICE_TABLE_NAME + " ( " + CROP_MACHINE_SERVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_MACHINE_SERVICE_MACHINE_ID + " TEXT NOT NULL, " + CROP_MACHINE_SERVICE_DATE + " TEXT NOT NULL, " +
                 CROP_MACHINE_SERVICE_CURRENT_HOURS + " REAL DEFAULT 0, " + CROP_MACHINE_SERVICE_PERSONNEL + " TEXT NOT NULL, " + CROP_MACHINE_SERVICE_TYPE + " TEXT NOT NULL, "
@@ -865,12 +856,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_NOTIFICATION_REPORT_FROM + " INTEGER NOT NULL DEFAULT 0, " + CROP_NOTIFICATION_SOURCE_ID + " INTEGER NOT NULL, " +
                 CROP_NOTIFICATION_TYPE + " TEXT NOT NULL DEFAULT 'Cultivate', " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
-
         String crop_settings_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_SETTINGS_TABLE_NAME + " ( " + CROP_SETTINGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_SETTINGS_USER_ID + " TEXT NOT NULL, " + CROP_SETTINGS_AREA_UNITS + " TEXT NOT NULL DEFAULT 'Acres', " + CROP_SETTINGS_DATE_FORMAT + " TEXT NOT NULL DEFAULT 'dd-mm-yyyy', " +
                 CROP_SETTINGS_CURRENCY + " TEXT NOT NULL DEFAULT 'UGX', " + CROP_SETTINGS_WEIGHT_UNITS + " TEXT NOT NULL DEFAULT 'Kg', " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
         String crop_deleted_records_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_DELETED_RECORDS_TABLE_NAME + " ( " + CROP_DELETED_ID + " TEXT PRIMARY KEY , " + CROP_DELETED_TYPE + " TEXT NOT NULL, " + CROP_DELETED_DATE + " TEXT NOT NULL, " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
-
 
         String add_produce_insert_query = " CREATE TABLE IF NOT EXISTS " + ADD_PRODUCE_TABLE_NAME + " ( " + ADD_PRODUCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 ADD_PRODUCE_NAME + " TEXT, " + ADD_PRODUCE_VARIETY + " TEXT NOT NULL, " + ADD_PRODUCE_QUANTITY + " TEXT NOT NULL, " + ADD_PRODUCE_PRICE + " TEXT, " +
@@ -2923,14 +2912,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         openDB();
         ArrayList<CropInvoicePayment> array_list = new ArrayList();
 
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor res = db.rawQuery("select " + CROP_PAYMENT_TABLE_NAME + ".*," + CROP_CUSTOMER_TABLE_NAME + "." + CROP_CUSTOMER_NAME + ", " + CROP_INVOICE_TABLE_NAME + "." + CROP_INVOICE_NO + " from " + CROP_PAYMENT_TABLE_NAME + " LEFT JOIN " + CROP_CUSTOMER_TABLE_NAME + " ON " + CROP_PAYMENT_TABLE_NAME + "." + CROP_PAYMENT_CUSTOMER_ID + " = " + CROP_CUSTOMER_TABLE_NAME + "." + CROP_CUSTOMER_ID +
                 " LEFT JOIN " + CROP_INVOICE_TABLE_NAME + " ON " + CROP_PAYMENT_TABLE_NAME + "." + CROP_PAYMENT_INVOICE_ID + " = " + CROP_INVOICE_TABLE_NAME + "." + CROP_INVOICE_ID +
                 " where " + CROP_PAYMENT_TABLE_NAME + "." + CROP_PAYMENT_USER_ID + " = " + fieldId, null);
-        res.moveToFirst();
 
+        res.moveToFirst();
 
         while (!res.isAfterLast()) {
             CropInvoicePayment cropInvoicePayment = new CropInvoicePayment();
@@ -2955,7 +2943,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         Log.d("Crop Payment", array_list.toString());
         return array_list;
-
     }
 
     public String getNextPaymentNumber() {
@@ -8746,16 +8733,46 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
     }
 
-    public void insertProduce(String name, String variety, String quantity, String price, String date, String image) {
+    public void insertProduce(MyProduce produce) {
         openDB();
+
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ADD_PRODUCE_NAME, name);
-        contentValues.put(ADD_PRODUCE_VARIETY, variety);
-        contentValues.put(ADD_PRODUCE_PRICE, price);
-        contentValues.put(ADD_PRODUCE_DATE, date);
-        contentValues.put(ADD_PRODUCE_IMAGE, image);
+        contentValues.put(ADD_PRODUCE_NAME, produce.getName());
+        contentValues.put(ADD_PRODUCE_VARIETY, produce.getVariety());
+        contentValues.put(ADD_PRODUCE_QUANTITY, produce.getQuantity());
+        contentValues.put(ADD_PRODUCE_PRICE, produce.getPrice());
+        contentValues.put(ADD_PRODUCE_DATE, produce.getDate());
+        contentValues.put(ADD_PRODUCE_IMAGE, produce.getImage());
         database.insert(ADD_PRODUCE_TABLE_NAME, null, contentValues);
+
         closeDB();
+    }
+
+    public ArrayList<MyProduce> getAllProduce() {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + ADD_PRODUCE_TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<MyProduce> produceArrayList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                MyProduce model = new MyProduce();
+
+                model.setName(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_NAME)));
+                model.setVariety(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_VARIETY)));
+                model.setQuantity(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_QUANTITY)));
+                model.setPrice(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_PRICE)));
+                model.setDate(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_DATE)));
+                model.setImage(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_IMAGE)));
+
+                produceArrayList.add(model);
+
+            } while (cursor.moveToNext());
+        }
+
+        return produceArrayList;
     }
 
     public CropProductItem getCropProductItem(String itemId, boolean isGlobal) {

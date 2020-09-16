@@ -26,7 +26,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentFieldsListBinding;
 
 
@@ -35,7 +34,6 @@ public class FieldsListFragment extends Fragment {
     public Context context;
     private CropFieldsListRecyclerAdapter cropFieldsListRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
-    public  MyFarmRoomDatabase myFarmRoomDatabase;
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
 
@@ -48,7 +46,6 @@ public class FieldsListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_fields_list,container,false);
 
-        myFarmRoomDatabase= MyFarmRoomDatabase.getInstance(context);
         setHasOptionsMenu(true);
 
         Toolbar toolbar = binding.toolbar;
