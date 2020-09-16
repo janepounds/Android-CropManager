@@ -163,7 +163,7 @@
                     android:hint="Quantity" />
 
                 <TextView
-                    android:id="@+id/txt_crop_fertilizer_unit"
+                    android:id="@+id/txt_crop_harvest_unit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_right_corners_green"
@@ -207,6 +207,262 @@
                     android:gravity="center"
                     android:layout_weight="0.2"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_crop_harvest_sold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+
+                    <EditText
+                        android:id="@+id/txt_crop_harvest_date_sold"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:layout_marginLeft="@dimen/dimen_20dp"
+                        android:hint="Date Sold"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:inputType="none"
+                        android:layout_weight="0.7"
+                        android:textSize="14sp"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:layout_marginRight="10dp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.2"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_calendar" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+                    <EditText
+                        android:id="@+id/txt_crop_harvest_customer"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:textSize="14sp"
+                        android:background="@drawable/input_shapes"
+                        android:hint="Customer"
+                        />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_weight="1">
+
+
+                        <TextView
+                            android:id="@+id/txt_crop_harvest_currency_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="4dp"
+                            android:text="@string/ugx"
+                            android:textSize="14sp"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:layout_weight="0.1"
+
+                            />
+                        <EditText
+                            android:id="@+id/txt_crops_estimated_revenue"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="0dp"
+                            android:hint="Unit Price"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:textSize="14sp"
+                            android:layout_weight="0.8"
+                            />
+                        <TextView
+                            android:id="@+id/txt_crop_harvest_price_per_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textSize="14sp"
+                            android:text="/Units"
+                            android:gravity="center"
+                            android:layout_weight="0.1"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+
+                    <EditText
+                        android:id="@+id/txt_crop_harvest_quantity_sold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:background="@android:color/transparent"
+                        android:inputType="number"
+                        android:textSize="14sp"
+                        android:hint="Quantity Sold" />
+
+                    <TextView
+                        android:id="@+id/txt_crop_harvest_sold_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_right_corners_green"
+                        android:textColor="@color/white"
+                        android:text="Units"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="0.2" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_crop_harvest_stored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+
+                    <EditText
+                        android:id="@+id/txt_crop_harvest_storage_date"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:layout_marginLeft="@dimen/dimen_20dp"
+                        android:hint="Storage Date"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:inputType="none"
+                        android:layout_weight="0.7"
+                        android:textSize="14sp"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:layout_marginRight="10dp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.2"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_calendar" />
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_corner"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+
+                    <EditText
+                        android:id="@+id/txt_crop_harvest_quantity_stored"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:background="@android:color/transparent"
+                        android:inputType="number"
+                        android:textSize="14sp"
+                        android:hint="Quantity Stored" />
+
+                    <TextView
+                        android:id="@+id/txt_crop_harvest_stored_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_right_corners_green"
+                        android:textColor="@color/white"
+                        android:text="Kg"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="0.2" />
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
             <LinearLayout
@@ -297,7 +553,7 @@
                 </LinearLayout>
 
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -306,30 +562,29 @@
                     android:layout_marginStart="12dp"
                     android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/sp_crop_harvest_days_before"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
+                    <EditText
+                        android:id="@+id/txt_harvest_days_before"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
+                        android:inputType="number"
+                        android:textSize="14sp"
+                        android:hint="Days Before" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_right_corners_green"
+                        android:textColor="@color/white"
+                        android:text="Days"
+                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:entries="@array/crop_roi_yield_units"
-                        android:spinnerMode="dropdown"/>
+                        android:layout_weight="0.2" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                </LinearLayout>
 
-                </RelativeLayout>
 
             </LinearLayout>
 
