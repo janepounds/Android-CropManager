@@ -21,8 +21,7 @@ import java.text.NumberFormat;
 public class CropROIStep2Activity extends AppCompatActivity {
 
     Button btnNext,btnPrevious;
-    EditText seedAndTreatmentTxt, fertilizerTxt, herbicideTxt, insecticideTxt, fuelTxt, machineryOperatingTxt, machineryLeaseTxt,
-    landRentalTxt, insurancePremiumTxt,dryingCostsTxt,otherCostsTxt;
+    EditText yeildperareaTxt, fertilizerTxt, pesticides,  otherCostsTxt;
 
     TextView totalVariableCostTxt;
     EditText [] numericFields ;
@@ -40,21 +39,13 @@ public class CropROIStep2Activity extends AppCompatActivity {
     public void initializeViews(){
         btnNext = findViewById(R.id.txt_crop_roi_step_2_crop_btn_next);
         btnPrevious = findViewById(R.id.txt_crop_roi_step_2_crop_btn_previous);
-        seedAndTreatmentTxt = findViewById(R.id.txt_crop_roi_step_2_seed_and_treatment);
         fertilizerTxt = findViewById(R.id.txt_crop_roi_step_2_fertilizer);
-        herbicideTxt = findViewById(R.id.txt_crop_roi_step_2_herbicide);
-        insecticideTxt = findViewById(R.id.txt_crop_roi_step_2_insecticide);
-        fuelTxt = findViewById(R.id.txt_crop_roi_step_2_fuel);
-        machineryOperatingTxt = findViewById(R.id.txt_crop_roi_step_2_machinery_operating);
-        machineryLeaseTxt = findViewById(R.id.txt_crop_roi_step_2_machinery_lease);
-        landRentalTxt = findViewById(R.id.txt_crop_roi_step_2_land_rental);
-        insurancePremiumTxt = findViewById(R.id.txt_crop_roi_step_2_crop_insurance_premium);
-        dryingCostsTxt = findViewById(R.id.txt_crop_roi_step_2_crop_drying_costs);
-        otherCostsTxt = findViewById(R.id.txt_crop_roi_step_2_crop_other_costs);
+        pesticides = findViewById(R.id.txt_crop_roi_step_2_pesticides);
+        yeildperareaTxt = findViewById(R.id.txt_crop_roi_step_2_yeildperarea);
+        otherCostsTxt = findViewById(R.id.txt_crop_roi_step_2_othercosts);
         totalVariableCostTxt = findViewById(R.id.txt_crop_roi_step_2_crop_total_variable_cost);
 
-        numericFields =new EditText[]{seedAndTreatmentTxt, fertilizerTxt, herbicideTxt, insecticideTxt, fuelTxt, machineryOperatingTxt, machineryLeaseTxt,
-                landRentalTxt, insurancePremiumTxt,dryingCostsTxt,otherCostsTxt};
+        numericFields =new EditText[]{yeildperareaTxt, fertilizerTxt, pesticides, otherCostsTxt};
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +92,7 @@ public class CropROIStep2Activity extends AppCompatActivity {
 
     public void updateCalculations(){
         try{
-            CropROICalculatorSingleton.getInstance().setStep2SeedAndTreatment( Float.parseFloat(seedAndTreatmentTxt.getText().toString()));
+            CropROICalculatorSingleton.getInstance().setStep2SeedAndTreatment( Float.parseFloat(yeildperareaTxt.getText().toString()));
         }catch (Exception e){
 
         }
@@ -111,45 +102,11 @@ public class CropROIStep2Activity extends AppCompatActivity {
 
         }
         try{
-            CropROICalculatorSingleton.getInstance().setStep2Herbicide(Float.parseFloat(herbicideTxt.getText().toString()));
+            CropROICalculatorSingleton.getInstance().setStep2Herbicide(Float.parseFloat(pesticides.getText().toString()));
         }catch (Exception e){
 
         }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2Insecticide(Float.parseFloat(insecticideTxt.getText().toString()));
-        }catch (Exception e){
 
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2Fuel(Float.parseFloat(fuelTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2MachineryOperating(Float.parseFloat(machineryOperatingTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2MachineryLease(Float.parseFloat(machineryLeaseTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2LandRental(Float.parseFloat(landRentalTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2CropInsurancePremium(Float.parseFloat(insurancePremiumTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep2DryingCosts(Float.parseFloat(dryingCostsTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
         try{
             CropROICalculatorSingleton.getInstance().setStep2OtherCosts(Float.parseFloat(otherCostsTxt.getText().toString()));
         }catch (Exception e){
@@ -170,16 +127,9 @@ public class CropROIStep2Activity extends AppCompatActivity {
 
     public void fillViews(){
 
-        seedAndTreatmentTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2SeedAndTreatment());
+        yeildperareaTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2SeedAndTreatment());
         fertilizerTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2Fertilizer());
-        herbicideTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2Herbicide());
-        insecticideTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2Insecticide());
-        fuelTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2Fuel());
-        machineryOperatingTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2MachineryOperating());
-        machineryLeaseTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2MachineryLease());
-        insurancePremiumTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2CropInsurancePremium());
-        landRentalTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2LandRental());
-        dryingCostsTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2DryingCosts());
+        pesticides.setText(""+CropROICalculatorSingleton.getInstance().getStep2Herbicide());
         otherCostsTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep2OtherCosts());
         updateCalculations();
     }

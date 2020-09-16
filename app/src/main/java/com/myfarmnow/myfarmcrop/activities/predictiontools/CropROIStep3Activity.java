@@ -21,8 +21,7 @@ import java.text.NumberFormat;
 public class CropROIStep3Activity extends AppCompatActivity {
 
     Button btnNext,btnPrevious;
-    EditText buildingRepairTxt, machineryDepreciationTxt,propertyTaxesTxt,businessOverheadTxt,buildingDepreciationTxt,
-    otherCostsTxt;
+    EditText buildingRepairTxt, powerTxt,propertyTaxesTxt,otherCostsTxt;
     TextView totalOverheadCostsTxt;
     EditText [] numericFields ;
     String currency="UGX ";
@@ -41,17 +40,14 @@ public class CropROIStep3Activity extends AppCompatActivity {
     public void initializeViews(){
         btnNext = findViewById(R.id.txt_crop_roi_step_3_crop_btn_next);
         btnPrevious = findViewById(R.id.txt_crop_roi_step_3_crop_btn_previous);
+        powerTxt = findViewById(R.id.txt_crop_roi_step_3_power);
         buildingRepairTxt = findViewById(R.id.txt_crop_roi_step_3_building_repair);
-        machineryDepreciationTxt = findViewById(R.id.txt_crop_roi_step_3_machinery_depreciation);
         propertyTaxesTxt = findViewById(R.id.txt_crop_roi_step_3_property_taxes);
-        businessOverheadTxt = findViewById(R.id.txt_crop_roi_step_3_business_overhead);
-        buildingDepreciationTxt = findViewById(R.id.txt_crop_roi_step_3_building_depreciation);
         otherCostsTxt = findViewById(R.id.txt_crop_roi_step_3_total_other_costs);
         totalOverheadCostsTxt = findViewById(R.id.txt_crop_ro1_step_3_total_overhead_costs);
 
         numericFields = new EditText[]{
-                buildingRepairTxt, machineryDepreciationTxt,propertyTaxesTxt,businessOverheadTxt,buildingDepreciationTxt,
-                otherCostsTxt
+                buildingRepairTxt, powerTxt,propertyTaxesTxt,otherCostsTxt
         };
 
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +102,7 @@ public class CropROIStep3Activity extends AppCompatActivity {
 
         }
         try{
-            CropROICalculatorSingleton.getInstance().setStep3machineDepreciation(Float.parseFloat(machineryDepreciationTxt.getText().toString()));
+            CropROICalculatorSingleton.getInstance().setStep3machineDepreciation(Float.parseFloat(powerTxt.getText().toString()));
         }catch (Exception e){
 
         }
@@ -115,16 +111,7 @@ public class CropROIStep3Activity extends AppCompatActivity {
         }catch (Exception e){
 
         }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep3BusinessOverhead(Float.parseFloat(businessOverheadTxt.getText().toString()));
-        }catch (Exception e){
 
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep3BuildingDepreciation(Float.parseFloat(buildingDepreciationTxt.getText().toString()));
-        }catch (Exception e){
-
-        }
         try{
             CropROICalculatorSingleton.getInstance().setStep3TotalOtherExpenses(Float.parseFloat(otherCostsTxt.getText().toString()));
         }catch (Exception e){
@@ -133,16 +120,10 @@ public class CropROIStep3Activity extends AppCompatActivity {
         totalOverheadCostsTxt.setText(currency+NumberFormat.getInstance().format(CropROICalculatorSingleton.getInstance().computeStep3TotalOverheadCosts()));
     }
     public void fillViews(){
-
-        /*
-         buildingRepairTxt, machineryDepreciationTxt,propertyTaxesTxt,businessOverheadTxt,buildingDepreciationTxt,
-                otherCostsTxt
-         */
+        powerTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3BuildingDepreciation());
         buildingRepairTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3BuildingRepair());
-        machineryDepreciationTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3machineDepreciation());
+        powerTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3machineDepreciation());
         propertyTaxesTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3PropertyTaxes());
-        businessOverheadTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3BusinessOverhead());
-        buildingDepreciationTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3BuildingDepreciation());
         otherCostsTxt.setText(""+CropROICalculatorSingleton.getInstance().getStep3TotalOtherExpenses());
         updateCalculations();
     }
