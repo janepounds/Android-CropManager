@@ -292,23 +292,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropROIStep1Activity"
-            android:label="@string/title_activity_crop_roistep1"
+            android:label="@string/title_activity_crop_roi"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropROIStep2Activity"
-            android:label="@string/title_activity_crop_roistep2"
+            android:label="@string/title_activity_crop_roi"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropROIStep3Activity"
-            android:label="@string/title_activity_crop_roistep3"
+            android:label="@string/title_activity_crop_roi"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropROIStep4Activity"
-            android:label="@string/title_activity_crop_roistep4"
+            android:label="@string/title_activity_crop_roi"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropROIStep5Activity"
-            android:label="@string/title_activity_crop_roistep5"
+            android:label="@string/title_activity_crop_roi"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropROIResultsActivity"
