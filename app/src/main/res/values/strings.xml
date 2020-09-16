@@ -67,7 +67,7 @@
         <item>Square Miles</item>
     </string-array>
     <string-array name="crop_roi_yield_units">
-        <item>Select</item>
+        <item>Units</item>
         <item>Boxes</item>
         <item>Kg</item>
         <item>Tonnes</item>
@@ -586,7 +586,7 @@
     </string-array>
 
     <string-array name="sp_crop_task_recurrence">
-        <item>Select</item>
+        <item>Recurrence</item>
         <item>Once</item>
         <item>Daily</item>
         <item>Weekly</item>
@@ -595,7 +595,7 @@
     </string-array>
 
     <string-array name="sp_crop_task_reminders">
-        <item>Select</item>
+        <item>Reminders</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
@@ -808,7 +808,7 @@
 
     </string-array>
     <string-array name="sp_crop_harvest_status">
-        <item>Select</item>
+        <item>Status</item>
         <item>Sold</item>
         <item>Stored</item>
     </string-array>
