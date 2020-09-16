@@ -6,26 +6,23 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class MyProduce {
-    @PrimaryKey(autoGenerate = true)
+
     public int id;
 
-    @ColumnInfo(name = "name")
     public String name;
 
-    @ColumnInfo(name = "variety")
     public String variety;
 
-    @ColumnInfo(name = "quantity")
     public String quantity;
 
-    @ColumnInfo(name = "price")
     public String price;
 
-    @ColumnInfo(name = "image")
     public String image;
 
-    @ColumnInfo(name = "date")
     public String date;
+
+    public MyProduce() {
+    }
 
     public MyProduce(String name, String variety, String quantity, String price, String image, String date) {
         this.name = name;

@@ -2,19 +2,16 @@ package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -29,22 +26,15 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropBinding;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class AddCropFragment extends Fragment {
@@ -53,10 +43,8 @@ public class AddCropFragment extends Fragment {
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private Crop crop;
-    public CropSpinnerAdapter fieldsSpinnerAdapter, seedsSpinnerAdapter;
+    public CropSpinnerAdapter fieldsSpinnerAdapter;
     private NavController navController;
-    private MyFarmRoomDatabase myFarmRoomDatabase;
-    Crop cropsTable;
 
 
     @Override
@@ -84,7 +72,6 @@ public class AddCropFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
         this.context = context;
     }
@@ -93,50 +80,47 @@ public class AddCropFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-
     }
 
+    public void initializeForm() {
 
-    public void initializeForm(){
-
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePicker(binding.txtCropsDateSown,context);
-
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
 
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries()){
-                    if(crop==null){
+                if (validateEntries()) {
+                    if (crop == null) {
                         saveCrop();
-                    }
-                    else{
+                    } else {
                         updateCrop();
                     }
-                  //go back to list
-                navController.popBackStack();
-                }else{
-                    Log.d("ERROR","Testing");
+                    //go back to list
+                    navController.popBackStack();
+                } else {
+                    Log.d("ERROR", "Testing");
                 }
             }
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
         cropsList.add("Select Crop");
-        for(CropItem cropItem: dbHandler.getCropItems()){
+        for (CropItem cropItem : dbHandler.getCropItems()) {
             cropsList.add(cropItem.getName());
         }
-       binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
+
+        binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, cropsList));
 
-
-
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
-        for(CropField x: dbHandler.getCropFields(DashboardActivity.getPreferences("userId",context))){
+        for (CropField x : dbHandler.getCropFields(DashboardActivity.getPreferences("userId", context))) {
             fieldsItems.add(x);
         }
-        fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems,"Field",context);
-       binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
+
+        fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems, "Field", context);
+
+        binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
 
         // ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) binding.spCropsSeason.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -177,10 +161,9 @@ public class AddCropFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
-                    if(position ==0){
+                    if (position == 0) {
                         ((TextView) view).setTextColor(Color.GRAY);
-                    }
-                    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                     } else {
@@ -317,9 +300,6 @@ public class AddCropFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
-
-
-
 
 
 }

@@ -29,7 +29,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddFieldBinding;
 
 
@@ -38,7 +37,6 @@ public class AddFieldFragment extends Fragment {
     private Context context;
     com.myfarmnow.myfarmcrop.models.farmrecords.CropField cropField =null;
     MyFarmDbHandlerSingleton dbHandler;
-    private MyFarmRoomDatabase myFarmRoomDatabase;
     NavController navController;
     private CropField fieldsTable;
 
@@ -49,7 +47,6 @@ public class AddFieldFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_field,container,false);
-        myFarmRoomDatabase = MyFarmRoomDatabase.getInstance(context);
 
         return binding.getRoot();
     }
