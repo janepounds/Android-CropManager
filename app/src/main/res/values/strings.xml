@@ -67,7 +67,7 @@
         <item>Square Miles</item>
     </string-array>
     <string-array name="crop_roi_yield_units">
-        <item>Select</item>
+        <item>Units</item>
         <item>Boxes</item>
         <item>Kg</item>
         <item>Tonnes</item>
@@ -586,7 +586,7 @@
     </string-array>
 
     <string-array name="sp_crop_task_recurrence">
-        <item>Select</item>
+        <item>Recurrence</item>
         <item>Once</item>
         <item>Daily</item>
         <item>Weekly</item>
@@ -595,7 +595,7 @@
     </string-array>
 
     <string-array name="sp_crop_task_reminders">
-        <item>Select</item>
+        <item>Reminders</item>
         <item>Yes</item>
         <item>No</item>
     </string-array>
@@ -808,7 +808,7 @@
 
     </string-array>
     <string-array name="sp_crop_harvest_status">
-        <item>Select</item>
+        <item>Status</item>
         <item>Sold</item>
         <item>Stored</item>
     </string-array>
@@ -1050,8 +1050,7 @@
     <string name="preview_bill">Preview Bill</string>
     <string name="payment_made_not_entered_message">You must enter Payment Made</string>
 
-    <string name="title_activity_crop_roistep1">Revenue Calculator- Step 1</string>
-    <string name="title_activity_crop_roistep2">Revenue Calculator- Step 2</string>
+    <string name="title_activity_crop_roi">Revenue Estimation</string>
     <string name="herbicide">Herbicide</string>
     <string name="insecticide">Insecticide</string>
     <string name="seed_and_treatment"><![CDATA[Seed &Treatment]]></string>
@@ -1061,28 +1060,24 @@
     <string name="land_rental">Land Rental</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
-    <string name="title_activity_crop_roistep3">Revenue Calculator- Step 3</string>
     <string name="machinery_depreciation">Machinery Depreciation</string>
     <string name="business_overhead">Business Overhead</string>
     <string name="property_taxes">Property Taxes</string>
     <string name="building_depreciation">Building Depreciation</string>
-    <string name="title_activity_crop_roistep4">Revenue Calculator- Step 4</string>
     <string name="owner_allowance">Owner Allowance</string>
     <string name="multiplication_sign">X</string>
     <string name="salaried_employee">Salaried Employee</string>
     <string name="per_hour">/Hour</string>
     <string name="total_labour_costs">Total Labour costs</string>
-    <string name="title_activity_crop_roistep5">Revenue Calculator- Step 5</string>
-    <string name="building_repair">Building Repair</string>
+    <string name="building_repair">Repair</string>
     <string name="total_capital_investment">Total Capital Investment</string>
     <string name="title_activity_crop_roiresults">Revenue Calculator- Report</string>
     <string name="total_expenses">Total Expenses</string>
-    <string name="machinery_investment">Machinery Investment</string>
-    <string name="land_investment">Land Investment</string>
+    <string name="machinery_investment">Machinery</string>
+    <string name="land_investment">Land</string>
     <string name="return_over_variable_costs">Return Over Variable Costs</string>
     <string name="to_cover_expenses">To Cover Variable Expenses </string>
-    <string name="yield_units">Yield Units</string>
-    <string name="labour_and_management"><![CDATA[Labour & Management]]></string>
+    <string name="labour_and_management"><![CDATA[Labour]]></string>
     <string name="title_activity_crop_fertilizer_calculator_entry">Fertilizer Calculator</string>
     <string name="missing_unit_price">Missing price</string>
     <string name="no_nitrgen_selected">The fertilizers selected have no Nitrogen</string>
@@ -1649,4 +1644,20 @@
 
     <string name="unexpected_response"> Unexpected Server Response </string>
     <string name="select">Select</string>
+    <string name="estimated_revenue">Estimated Revenue</string>
+    <string name="pesticides">Pesticides</string>
+    <string name="yeildperarea">Yeild Per Area</string>
+    <string name="variableexpenses">Variable Expenses</string>
+    <string name="other_income">Other Income</string>
+    <string name="label_capital_investment">Capital Investiment</string>
+    <string name="fixed_expenses">Fixed Expenses</string>
+    <string name="power">Power</string>
+    <string name="salary">Salary</string>
+    <string name="number">Number</string>
+    <string name="employee">employees</string>
+    <string name="currency">UGX</string>
+    <string name="per_day">per day</string>
+    <string name="per_week">per week</string>
+    <string name="per_year">per year</string>
+    <string name="label_building_investiment">Buildings</string>
 </resources>

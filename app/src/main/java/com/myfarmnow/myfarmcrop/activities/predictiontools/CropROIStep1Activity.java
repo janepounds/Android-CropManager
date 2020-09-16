@@ -25,9 +25,8 @@ public class CropROIStep1Activity extends AppCompatActivity {
     Button btnNext;
     Spinner yieldUnitsSp;
     EditText avgPriceTxt, yieldTxt, otherIncomeTxt;
-    TextView estGrossRevenueTxt;
     EditText [] numericFields;
-    TextView yieldsUnitsTextView;
+    TextView yieldsUnitsTextView,peryieldsUnitsTextView,estGrossRevenueTxt;
     String currency="UGX ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,7 @@ public class CropROIStep1Activity extends AppCompatActivity {
         otherIncomeTxt = findViewById(R.id.txt_crop_ro1_step_other_income);
         estGrossRevenueTxt = findViewById(R.id.txt_crop_ro1_step_1_est_gross_revenue);
         yieldsUnitsTextView = findViewById(R.id.txt_crop_ro1_step_label_yield_units);
+        peryieldsUnitsTextView = findViewById(R.id.txt_crop_ro1_step_label_yield_units2);
 
         yieldUnitsSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -54,12 +54,14 @@ public class CropROIStep1Activity extends AppCompatActivity {
                 if(position==0){
                     selection ="Units";
                     yieldsUnitsTextView.setText(selection);
+                    peryieldsUnitsTextView.setText("/"+selection);
                     return;
                 }
                 else {
                     selection=yieldUnitsSp.getSelectedItem().toString();
                 }
                 yieldsUnitsTextView.setText(selection);
+                peryieldsUnitsTextView.setText("/"+selection);
                 CropROICalculatorSingleton.getInstance().setStep1YieldUnits(selection);
             }
 
@@ -98,8 +100,8 @@ public class CropROIStep1Activity extends AppCompatActivity {
         for(EditText x : numericFields){
             x.addTextChangedListener(watcher);
         }
-
-        fillViews();
+//
+//        fillViews();
     }
 
 

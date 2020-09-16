@@ -18,6 +18,7 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
     String variety;
     String dressing;
     String tgw;
+    String manufacturer;
     private String userId;
     private float cost;
     private String supplier;
@@ -63,6 +64,9 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
     public void setTgw(String tgw) {
         this.tgw = tgw;
     }
+
+    public String getManufacturer(){return manufacturer;}
+    public void setManufacturer(String manufacturer){this.manufacturer = manufacturer;}
 
 
 
@@ -210,6 +214,7 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
             object.put("tgw",tgw);
             object.put("userId",userId);
             object.put("cost",cost);
+            object.put("manufacturer",manufacturer);
             object.put("supplier",supplier);
 
 
@@ -236,6 +241,7 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         setTgw(object.getString("tgw"));
         setCost(Float.parseFloat(object.getString("cost")));
         setSupplier(object.getString("supplier"));
+        setManufacturer(object.getString("manufacturer"));
         setSyncStatus("yes");
     }
 

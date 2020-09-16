@@ -47,7 +47,7 @@ public class CropHarvestFragment extends DialogFragment {
     CropHarvest cropHarvest=null;
     EditText harvestDateTxt,harvestMethodTxt,quantityTxt,dateSoldTxt,customerTxt,priceTxt,
             quantitySoldTxt,storageDateTxt,quantityStoredTxt,costTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
-    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currencyTxt,currency2Txt;
+    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currencyTxt,currency2Txt,harvestunitTxt;
     Spinner harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
     AutoCompleteTextView operatorSpinner;
     LinearLayout harvestSoldLayout,harvestStoredLayout,weeklyRecurrenceLayout,daysBeforeLayout,remindersLayout;
@@ -136,6 +136,7 @@ public class CropHarvestFragment extends DialogFragment {
         weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_harvest_weekly_reminder);
         daysBeforeLayout = view.findViewById(R.id.layout_crop_harvest_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
+        harvestunitTxt = view.findViewById(R.id.txt_crop_harvest_unit);
 
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 //        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
@@ -144,6 +145,9 @@ public class CropHarvestFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try{
+                    if(position == 0){
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
@@ -199,46 +203,53 @@ public class CropHarvestFragment extends DialogFragment {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("boxes")){
-                    quantityStoredUnitsTxt.setText("Boxes");
-                    quantitySoldUnitsTxt.setText("Boxes");
-                    pricePerUnitTxt.setText("/ Box");
+//                    quantityStoredUnitsTxt.setText("Boxes");
+//                    quantitySoldUnitsTxt.setText("Boxes");
+//                    pricePerUnitTxt.setText("/ Box");
+                    harvestunitTxt.setText("boxes");
+
 
                 }
                 else if(selection.toLowerCase().equals("kg")){
 
-                    quantityStoredUnitsTxt.setText("Kg");
-                    quantitySoldUnitsTxt.setText("Kg");
-                    pricePerUnitTxt.setText("/ Kg");
+//                    quantityStoredUnitsTxt.setText("Kg");
+//                    quantitySoldUnitsTxt.setText("Kg");
+//                    pricePerUnitTxt.setText("/ Kg");
+                    harvestunitTxt.setText("kg");
 
                 }
                 else if(selection.toLowerCase().equals("tonnes")){
-                    quantityStoredUnitsTxt.setText("Tonnes");
-                    quantitySoldUnitsTxt.setText("Tonnes");
-                    pricePerUnitTxt.setText("/ Tonne");
+//                    quantityStoredUnitsTxt.setText("Tonnes");
+//                    quantitySoldUnitsTxt.setText("Tonnes");
+//                    pricePerUnitTxt.setText("/ Tonne");
+                    harvestunitTxt.setText("tonnes");
 
 
 
                 }
                 else if(selection.toLowerCase().equals("bushels")){
 
-                    quantityStoredUnitsTxt.setText("Bushels");
-                    quantitySoldUnitsTxt.setText("Bushels");
-                    pricePerUnitTxt.setText("/ Bushel");
+//                    quantityStoredUnitsTxt.setText("Bushels");
+//                    quantitySoldUnitsTxt.setText("Bushels");
+//                    pricePerUnitTxt.setText("/ Bushel");
+                    harvestunitTxt.setText("bushels");
 
 
                 }
                 else if(selection.toLowerCase().equals("bags")){
 
-                    quantityStoredUnitsTxt.setText("Bags");
-                    quantitySoldUnitsTxt.setText("Bags");
-                    pricePerUnitTxt.setText("/ Bag");
+//                    quantityStoredUnitsTxt.setText("Bags");
+//                    quantitySoldUnitsTxt.setText("Bags");
+//                    pricePerUnitTxt.setText("/ Bag");
+                    harvestunitTxt.setText("bags");
 
 
                 }
                 else if(selection.toLowerCase().equals("bunches")){
-                    quantityStoredUnitsTxt.setText("Bunches");
-                    quantitySoldUnitsTxt.setText("Bunches");
-                    pricePerUnitTxt.setText("/ Bunch");
+//                    quantityStoredUnitsTxt.setText("Bunches");
+//                    quantitySoldUnitsTxt.setText("Bunches");
+//                    pricePerUnitTxt.setText("/ Bunch");
+                    harvestunitTxt.setText("bunch");
 
 
                 }
