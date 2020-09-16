@@ -62,6 +62,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         assert getArguments() != null;
         cropId = getArguments().getString("cropId");
+//        Log.w("CropId",cropId);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fertilizer_application, container, false);
@@ -316,14 +317,14 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setUserId(DashboardActivity.getPreferences("userId",context));
         fertilizerApplication.setDate(dateTxt.getText().toString());
         fertilizerApplication.setCropId(cropId);
-        fertilizerApplication.setReason(reasonTxt.getText().toString());
-        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
-        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
+//        fertilizerApplication.setReason(reasonTxt.getText().toString());
+//        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
+//        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
-        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
-        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+//        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+//        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
 
 

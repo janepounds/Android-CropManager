@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_fieldsListFragment_to_addFieldFragment"
             app:destination="@id/addFieldFragment" />
+        <action
+            android:id="@+id/action_fieldsListFragment_to_cropRecordsFragment"
+            app:destination="@id/cropRecordsFragment" />
 
     </fragment>
     <fragment
@@ -127,12 +130,20 @@
         android:id="@+id/storeAddSeedFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSeedFragment"
         android:label="fragment_store_add_seed"
-        tools:layout="@layout/fragment_store_add_seed" />
+        tools:layout="@layout/fragment_store_add_seed" >
+        <action
+            android:id="@+id/action_storeAddSeedFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+    </dialog>
     <dialog
         android:id="@+id/storeAddFertilizerFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddFertilizerFragment"
         android:label="fragment_store_add_fertilizer"
-        tools:layout="@layout/fragment_store_add_fertilizer" />
+        tools:layout="@layout/fragment_store_add_fertilizer" >
+        <action
+            android:id="@+id/action_storeAddFertilizerFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+    </dialog>
     <fragment
         android:id="@+id/addFinancialRecordFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFinancialRecordFragment"

@@ -36,6 +36,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecyclerAdapter.CropCardViewHolder> {
+    private static final String TAG = "RecyclerAdapter";
     ArrayList<Crop> cropsList;
     LayoutInflater mInflater;
     Context mContext;
@@ -69,6 +70,12 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
 
+        Log.d(TAG, "onBindViewHolder: "+curCrop.getId());
+
+    }
+
+    public void clearCropList(){
+        cropsList.clear();
     }
 
     @Override
@@ -185,11 +192,13 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
                                 intent.putExtra("cropId", crop.getId());
                                 mContext.startActivity(intent);
+
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_fertilizer))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
                                 //navigate to fertilizer dialog fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("cropId", crop.getId());
+                                Log.w("field id",crop.getFieldId());
 //                                bundle.putSerializable("fertilizerApplication", CropFertilizerApplication);
                                 navController.navigate(R.id.action_cropListFragment_to_fertilizerApplicationFragment,bundle);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {
@@ -231,13 +240,13 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     });
 
                     //
-                    popup.getMenu().add(R.string.label_cultivate);
+                    popup.getMenu().add(R.string.label_cultivate).setVisible(false);
                     popup.getMenu().add(R.string.label_fertilizer);
                     popup.getMenu().add(R.string.label_spray);
                     popup.getMenu().add(R.string.label_harvest);
-                    popup.getMenu().add(R.string.label_irrigation);
-                    popup.getMenu().add(R.string.label_transplanting);
-                    popup.getMenu().add(R.string.label_scouting);
+                    popup.getMenu().add(R.string.label_irrigation).setVisible(false);
+                    popup.getMenu().add(R.string.label_transplanting).setVisible(false);
+                    popup.getMenu().add(R.string.label_scouting).setVisible(false);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

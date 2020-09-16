@@ -32,6 +32,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.farmrecords.StoreFragment;
+import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 
@@ -55,9 +56,7 @@ public class StoreAddSprayFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        if(requireActivity().getIntent().hasExtra("sprayInventory")){
-            sprayInventory =(CropInventorySpray)requireActivity().getIntent().getSerializableExtra("sprayInventory");
-        }
+
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -71,8 +70,11 @@ public class StoreAddSprayFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+
+        //get arguments for edit
+        if(getArguments()!=null){
+            sprayInventory = (CropInventorySpray)getArguments().getSerializable("sprayInventory");
+        }
         View view =getLayoutInflater().inflate(R.layout.fragment_store_add_spray, null);
         initializeForm(view);
         builder.setView(view);
@@ -82,7 +84,7 @@ public class StoreAddSprayFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
+//        navController = Navigation.findNavController(view);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
@@ -212,7 +214,9 @@ public class StoreAddSprayFragment extends DialogFragment {
                         updateSeeds();
                     }
                     //dismiss dialog and refresh fragment
-                    getDialog().dismiss();
+                    navController = Navigation.findNavController(getParentFragment().getView());
+                    navController.navigate(R.id.action_storeAddSprayFragment_to_storeFragment);
+//                    getDialog().dismiss();
 
 
 

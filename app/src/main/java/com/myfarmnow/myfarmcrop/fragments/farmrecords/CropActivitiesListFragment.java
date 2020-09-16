@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.database.MyFarmRoomDatabase;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropActivitiesListBinding;
 
 
@@ -19,7 +18,6 @@ public class CropActivitiesListFragment extends Fragment {
    private FragmentCropActivitiesListBinding binding;
    private Context context;
    private MyFarmDbHandlerSingleton dbHandler;
-   private MyFarmRoomDatabase myFarmRoomDatabase;
 
 
     @Override
@@ -27,7 +25,6 @@ public class CropActivitiesListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crop_activities_list,container,false);
-        myFarmRoomDatabase= MyFarmRoomDatabase.getInstance(context);
         return binding.getRoot();
     }
 
