@@ -192,6 +192,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
                                 intent.putExtra("cropId", crop.getId());
                                 mContext.startActivity(intent);
+
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_fertilizer))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
                                 //navigate to fertilizer dialog fragment
@@ -239,13 +240,13 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     });
 
                     //
-                    popup.getMenu().add(R.string.label_cultivate);
+                    popup.getMenu().add(R.string.label_cultivate).setVisible(false);
                     popup.getMenu().add(R.string.label_fertilizer);
                     popup.getMenu().add(R.string.label_spray);
                     popup.getMenu().add(R.string.label_harvest);
-                    popup.getMenu().add(R.string.label_irrigation);
-                    popup.getMenu().add(R.string.label_transplanting);
-                    popup.getMenu().add(R.string.label_scouting);
+                    popup.getMenu().add(R.string.label_irrigation).setVisible(false);
+                    popup.getMenu().add(R.string.label_transplanting).setVisible(false);
+                    popup.getMenu().add(R.string.label_scouting).setVisible(false);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();

@@ -75,8 +75,8 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-
+//        navController = Navigation.findNavController(view);
+//
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
@@ -226,7 +226,8 @@ public class StoreAddFertilizerFragment extends DialogFragment {
                         updateSeeds();
                     }
                    //redirect to list
-                    getDialog().dismiss();
+                    navController = Navigation.findNavController(getParentFragment().getView());
+                    navController.navigate(R.id.action_storeAddFertilizerFragment_to_storeFragment);
                 }else{
                     Log.d("ERROR","Testing");
                 }

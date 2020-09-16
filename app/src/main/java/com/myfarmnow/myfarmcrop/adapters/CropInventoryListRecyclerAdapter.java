@@ -7,7 +7,11 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -27,11 +31,15 @@ import com.myfarmnow.myfarmcrop.models.CropInventory;
 import java.util.ArrayList;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
+import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
+import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropInventoryListRecyclerAdapter.CropCardViewHolder>  {
     ArrayList<CropInventory> inventoryList;
     LayoutInflater mInflater;
     Context mContext;
+    private NavController navController;
 
     public CropInventoryListRecyclerAdapter(ArrayList<CropInventory> inventoryList, Context context){
         this.inventoryList = inventoryList;
@@ -119,7 +127,7 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -158,15 +166,27 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
                                 CropInventory inventory = inventoryList.get(getAdapterPosition());
                                 //
                                 if(inventory.getInventoryType().equals(CropInventory.CONST_SEEDS_INVENTORY)){
+                                    //open seed dialog
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("seedsInventory",(CropInventorySeeds)inventory);
+                                    navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment,bundle);
 //                                    Intent editInventory = new Intent(mContext, CropInventorySeedsManagerActivity.class);
 //                                    editInventory.putExtra("seedsInventory", (CropInventorySeeds)inventory);
 //                                    mContext.startActivity(editInventory);
                                 }else  if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
+                                    //open fertilizer dialog
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("fertilizerInventory", (CropInventoryFertilizer)inventory);
+                                    navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment,bundle);
 //                                    Intent editInventory = new Intent(mContext, CropInventoryFertilizerManagerActivity.class);
 //                                    editInventory.putExtra("fertilizerInventory", (CropInventoryFertilizer)inventory);
 //                                    mContext.startActivity(editInventory);
                                 }
                                 else  if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
+                                    //open spray dialog
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("sprayInventory", (CropInventorySpray)inventory);
+                                    navController.navigate(R.id.action_storeFragment_to_storeAddSprayFragment,bundle);
 //                                    Intent editInventory = new Intent(mContext, CropInventorySprayManagerActivity.class);
 //                                    editInventory.putExtra("sprayInventory", (CropInventorySpray)inventory);
 //                                    mContext.startActivity(editInventory);

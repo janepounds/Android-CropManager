@@ -145,6 +145,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_INVENTORY_SEEDS_TGW ="tgw";
     public static final String CROP_INVENTORY_SEEDS_USAGE_UNIT ="usageUnit";
     public static final String CROP_INVENTORY_SEEDS_TYPE ="seedType";
+    public static final String CROP_INVENTORY_SEEDS_MANUFACTURER = "manufacturer";
 
     public static final String CROP_INVENTORY_SPRAY_ID ="id";
     public static final String CROP_INVENTORY_SPRAY_USER_ID ="userId";
@@ -719,7 +720,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_INVENTORY_SEEDS_USER_ID+" TEXT,"+CROP_INVENTORY_SEEDS_DATE+" TEXT NOT NULL,"+  CROP_INVENTORY_SEEDS_NAME
                 +" TEXT NOT NULL,"+ CROP_INVENTORY_SEEDS_VARIETY+" TEXT,"+
                 CROP_INVENTORY_SEEDS_DRESSING+" TEXT,"+CROP_INVENTORY_FERTILIZER_QUANTITY+" REAL NOT NULL,"+CROP_INVENTORY_SEEDS_BATCH_NUMBER+" TEXT NOT NULL,"+ CROP_INVENTORY_SEEDS_TYPE +" TEXT NOT NULL,"+
-               CROP_INVENTORY_SEEDS_COST+" REAL ,"+CROP_INVENTORY_SEEDS_SUPPLIER+" TEXT ,"+CROP_INVENTORY_SEEDS_TGW+" TEXT ,"+CROP_INVENTORY_FERTILIZER_USAGE_UNIT+" TEXT, "+CROP_GLOBAL_ID +" TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" )";
+                 CROP_INVENTORY_SEEDS_COST+" REAL ,"+CROP_INVENTORY_SEEDS_SUPPLIER+" TEXT ,"+CROP_INVENTORY_SEEDS_TGW+" TEXT ,"+CROP_INVENTORY_FERTILIZER_USAGE_UNIT+" TEXT, " +CROP_INVENTORY_SEEDS_MANUFACTURER + "TEXT DEFAULT NULL,"+CROP_GLOBAL_ID +" TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS+" TEXT DEFAULT 'no' "+" )";
 
 
         String crop_inventory_spray_insert_query ="CREATE TABLE IF NOT EXISTS "+CROP_INVENTORY_SPRAY_TABLE_NAME+" ( "+CROP_INVENTORY_SPRAY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+
@@ -969,6 +970,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_SEEDS_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID +" TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_SEEDS_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
+        db.execSQL("ALTER TABLE " + CROP_INVENTORY_SEEDS_TABLE_NAME + " ADD COLUMN " + CROP_INVENTORY_SEEDS_MANUFACTURER + " TEXT DEFAULT NULL");
 
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_SPRAY_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID +" TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_SPRAY_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
@@ -4766,6 +4768,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_SEEDS_TGW, inventorySeeds.getTgw());
         contentValues.put(CROP_INVENTORY_SEEDS_USAGE_UNIT, inventorySeeds.getUsageUnits());
         contentValues.put(CROP_INVENTORY_SEEDS_TYPE, inventorySeeds.getType());
+        contentValues.put(CROP_INVENTORY_SEEDS_MANUFACTURER,inventorySeeds.getManufacturer());
         contentValues.put(CROP_SYNC_STATUS,inventorySeeds.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,inventorySeeds.getGlobalId());
         database.insert(CROP_INVENTORY_SEEDS_TABLE_NAME, null, contentValues);
@@ -4787,6 +4790,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INVENTORY_SEEDS_TGW, inventorySeeds.getTgw());
         contentValues.put(CROP_INVENTORY_SEEDS_USAGE_UNIT, inventorySeeds.getUsageUnits());
         contentValues.put(CROP_INVENTORY_SEEDS_TYPE, inventorySeeds.getType());
+        contentValues.put(CROP_INVENTORY_SEEDS_MANUFACTURER,inventorySeeds.getManufacturer());
         contentValues.put(CROP_SYNC_STATUS,inventorySeeds.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID,inventorySeeds.getGlobalId());
         database.update(CROP_INVENTORY_SEEDS_TABLE_NAME, contentValues, CROP_INVENTORY_SEEDS_ID + " = ?", new String[]{inventorySeeds.getId()});
@@ -4827,6 +4831,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
             inventorySeeds.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USAGE_UNIT)));
             inventorySeeds.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TYPE)));
+            inventorySeeds.setManufacturer(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_MANUFACTURER)));
             inventorySeeds.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(inventorySeeds);
             res.moveToNext();
@@ -4870,6 +4875,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             inventorySeeds.setTgw(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TGW)));
             inventorySeeds.setUsageUnits(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_USAGE_UNIT)));
             inventorySeeds.setType(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_TYPE)));
+            inventorySeeds.setManufacturer(res.getString(res.getColumnIndex(CROP_INVENTORY_SEEDS_MANUFACTURER)));
             inventorySeeds.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             res.moveToNext();
         }
