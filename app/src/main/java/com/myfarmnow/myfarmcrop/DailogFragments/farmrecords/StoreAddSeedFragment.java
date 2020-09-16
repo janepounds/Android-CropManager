@@ -108,6 +108,7 @@ public class StoreAddSeedFragment extends DialogFragment {
         supplierTxt = view.findViewById(R.id.txt_crop_supplier);
         saveBtn = view.findViewById(R.id.btn_save);
         typeSp = view.findViewById(R.id.sp_crop_seed_type);
+        manufacturerTxt = view.findViewById(R.id.txt_crop_manufacturer);
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePicker(purchaseDatTxt, context);
@@ -199,7 +200,7 @@ public class StoreAddSeedFragment extends DialogFragment {
         seedsInventoryToEdit.setBatchNumber(batchTxt.getText().toString());
         seedsInventoryToEdit.setSupplier(supplierTxt.getText().toString());
         seedsInventoryToEdit.setType(typeSp.getSelectedItem().toString());
-
+        seedsInventoryToEdit.setManufacturer(manufacturerTxt.getText().toString());
         dbHandler.insertCropSeeds(seedsInventoryToEdit);
 
 

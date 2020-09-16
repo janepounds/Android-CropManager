@@ -58,14 +58,6 @@ public class StoreAddSprayFragment extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        if(requireActivity().getIntent().hasExtra("sprayInventory")){
-//            sprayInventory =(CropInventorySpray)requireActivity().getIntent().getSerializableExtra("sprayInventory");
-
-            Bundle bundle = new Bundle();
-            sprayInventory = (CropInventorySpray)bundle.getSerializable("sprayInventory");
-
-        }
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -78,9 +70,11 @@ public class StoreAddSprayFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
 
+        //get arguments for edit
+        if(getArguments()!=null){
+            sprayInventory = (CropInventorySpray)getArguments().getSerializable("sprayInventory");
+        }
         View view =getLayoutInflater().inflate(R.layout.fragment_store_add_spray, null);
         initializeForm(view);
         builder.setView(view);

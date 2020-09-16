@@ -52,8 +52,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        getDialog().requestWindowFeature(Window.FEATURE_RIGHT_ICON);
-        getDialog().setFeatureDrawableResource(Window.FEATURE_RIGHT_ICON,R.drawable.ic_close);
+
         if(requireActivity().getIntent().hasExtra("fertilizerInventory")){
             fertilizerInventory =(CropInventoryFertilizer)requireActivity().getIntent().getSerializableExtra("fertilizerInventory");
         }
@@ -63,8 +62,12 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+
+        //get arguments for edit
+        if(getArguments()!=null){
+            fertilizerInventory = (CropInventoryFertilizer)getArguments().getSerializable("fertilizerInventory");
+
+        }
         View view =getLayoutInflater().inflate(R.layout.fragment_store_add_fertilizer, null);
         builder.setView(view);
         initializeForm( view);
@@ -248,7 +251,6 @@ public class StoreAddFertilizerFragment extends DialogFragment {
             npkPTxt.setText(fertilizerInventory.getpPercentage()+"");
             qtyTxt.setText(fertilizerInventory.getQuantity()+"");
             costTxt.setText(fertilizerInventory.getCost()+"");
-            serialNumberTxt.setText(fertilizerInventory.getSerialNumber());
             batchNumberTxt.setText(fertilizerInventory.getBatchNumber());
             supplierTxt.setText(fertilizerInventory.getSupplier());
 
@@ -293,7 +295,6 @@ public class StoreAddFertilizerFragment extends DialogFragment {
             fertilizerInventory.setkPercentage(Float.parseFloat(npkKTxt.getText().toString()));
             fertilizerInventory.setQuantity(Float.parseFloat(qtyTxt.getText().toString()));
             fertilizerInventory.setBatchNumber(batchNumberTxt.getText().toString());
-            fertilizerInventory.setSerialNumber(serialNumberTxt.getText().toString());
             fertilizerInventory.setSupplier(supplierTxt.getText().toString());
             fertilizerInventory.setUsageUnits(usageUnitSp.getSelectedItem().toString());
             fertilizerInventory.setCost(Float.parseFloat(costTxt.getText().toString()));

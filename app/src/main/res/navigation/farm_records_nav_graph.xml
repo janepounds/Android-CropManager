@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_fieldsListFragment_to_addFieldFragment"
             app:destination="@id/addFieldFragment" />
+        <action
+            android:id="@+id/action_fieldsListFragment_to_cropRecordsFragment"
+            app:destination="@id/cropRecordsFragment" />
 
     </fragment>
     <fragment

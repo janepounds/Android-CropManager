@@ -48,12 +48,11 @@ public class FieldsListFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = binding.toolbar;
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        binding.toolbar.setNavigationOnClickListener(view -> navController.navigate(R.id.action_fieldsListFragment_to_cropRecordsFragment));
         return binding.getRoot();
     }
 
