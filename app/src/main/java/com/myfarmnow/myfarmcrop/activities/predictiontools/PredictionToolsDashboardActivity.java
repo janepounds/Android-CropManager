@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -89,8 +90,8 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
         fertilizercompositionLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(PredictionToolsDashboardActivity.this, CropFertilizerApplicationManagerActivity.class);
-                startActivity(openIncomeExpense);
+                Intent openfertilizercalculator = new Intent(PredictionToolsDashboardActivity.this, CropFertilizerCalculatorEntryActivity.class);
+                startActivity(openfertilizercalculator);
             }
         });
 
@@ -98,6 +99,7 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
 
 
     }
+
     public static  void addDatePicker(final EditText ed_, final Context context){
         ed_.setOnClickListener(new View.OnClickListener() {
             @Override

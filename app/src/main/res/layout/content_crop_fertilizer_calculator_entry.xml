@@ -20,147 +20,82 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_margin="@dimen/dimen_20dp"
                >
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:padding="4dp"
-                    >
-                    <LinearLayout
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="10dp">
+                        android:gravity="center"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
 
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="Crop"
-                            
-                            android:textSize="14sp"
-                            android:textColor="@color/textColor"
-                            />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/input_shapes_grey_spinner"
-                            android:orientation="vertical"
-                            android:padding="2.4dp">
-                            <Spinner
-                                android:id="@+id/sp_crop_fertililizer_calculator_crop"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="Enter.."
-                                android:textSize="14sp"
-                                android:spinnerMode="dialog"
-                                />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:padding="4dp"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-
-                        >
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Units"
-                            android:textColor="@color/textColor"
-                            
-                            android:layout_weight="0.5"
-                            android:textSize="14sp" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/input_shapes_grey_spinner"
-                            android:orientation="vertical"
-                            android:padding="2.4dp">
                         <Spinner
-                            android:id="@+id/sp_crop_fertililizer_calculator_units"
+                            android:id="@+id/sp_crop_fertililizer_calculator_crop"
                             android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:entries="@array/crop_list"
+                            android:hint="Enter.."
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
-                            android:entries="@array/crop_fertilizer_calculator_units"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-                        </LinearLayout>
+                    </RelativeLayout>
 
-
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical">
+
+
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="Area"
-                            
-                            android:textSize="14sp"
-                            android:textColor="@color/textColor"
-                            />
-
-
-
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/edittext_corner"
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/txt_crop_fertililizer_calculator_area"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_weight="0.5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:background="@android:color/transparent"
                         android:inputType="number"
-                        android:background="@drawable/input_shapes"
+                        android:textSize="14sp"
+                        android:hint="@string/area"/>
 
-                        />
-
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_right_corners_green"
+                        android:textColor="@color/white"
+                        android:text="@string/acres"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_weight="0.2" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -168,24 +103,29 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
                 android:text="Nutrients"
                 android:textAlignment="textStart"
                 android:textColor="@color/textColor"
-
-                android:textSize="16sp"
+                android:fontFamily="@font/josefin_sans"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
                     >
 
                     <TextView
@@ -202,33 +142,37 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1.4">
 
                     <EditText
                         android:id="@+id/txt_crop_fertililizer_calculator_nitrogen"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:textSize="14sp"
+                        android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="0.5"
-                        android:inputType="number"
-                        android:background="@drawable/input_shapes"
+                        android:inputType="numberDecimal"
+                        android:background="@drawable/edittext_corner"
 
                         />
 
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
                     >
 
                     <TextView
@@ -246,34 +190,37 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1.4">
 
                     <EditText
                         android:id="@+id/txt_crop_fertililizer_calculator_phosphate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                      
+                        android:layout_height="50dp"
                         android:textSize="14sp"
                         android:layout_weight="0.5"
-                        android:inputType="number"
-                        android:background="@drawable/input_shapes"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:inputType="numberDecimal"
+                        android:background="@drawable/edittext_corner"
 
                         />
 
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="4dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
                     >
 
                     <TextView
@@ -282,7 +229,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="Potassium (K)"
-                        
                         android:textSize="14sp"
                         android:textColor="@color/textColor"
                         />
@@ -292,16 +238,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1.4">
 
                     <EditText
                         android:id="@+id/txt_crop_fertililizer_calculator_potassium"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:textSize="14sp"
                         android:layout_weight="0.5"
-                        android:inputType="number"
-                        android:background="@drawable/input_shapes"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:inputType="numberDecimal"
+                        android:background="@drawable/edittext_corner"
 
                         />
 
@@ -312,12 +259,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
                 android:text="Select Fertilizers"
                 android:textAlignment="textStart"
                 android:textColor="@color/textColor"
-
-                android:textSize="16sp"
+                android:fontFamily="@font/josefin_sans"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -338,33 +287,40 @@
                         android:orientation="vertical"
                         android:layout_marginBottom="10dp">
 
-                        <TextView
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="NPK Fertilizer"
-                            android:textSize="14sp"
-                            android:textColor="@color/textColor"
-                            />
-
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/input_shapes_grey_spinner"
-                            android:orientation="vertical"
-                            android:padding="2.4dp">
-                        <Spinner
-                            android:id="@+id/sp_crop_fertililizer_calculator_npk_fert"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:hint="Enter.."
-                            android:textSize="14sp"
-                            android:spinnerMode="dialog"
-                            />
-                        </LinearLayout>
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:layout_marginStart="12dp"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_crop_fertililizer_calculator_npk_fert"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:entries="@array/crop_npk_fertilizer"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
 
                         <TextView
                             android:id="@+id/txt_crop_fertililizer_calculator_npk_compo"
@@ -386,35 +342,40 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     >
+
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Unit Price"
-                            android:textColor="@color/textColor"
-
-                            android:layout_weight="0.5"
-                            android:textSize="14sp" />
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginStart="12dp"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txt_crop_fertililizer_calculator_npk_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_weight="0.5"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
                             android:inputType="number"
-                            android:background="@drawable/input_shapes"
+                            android:textSize="14sp"
+                            android:hint="@string/unit_price" />
 
-                            />
-
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
 
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -436,33 +397,39 @@
                         android:orientation="vertical"
                        >
 
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="Nitrogenous Fertilizer"
-                            android:textSize="14sp"
-                            android:textColor="@color/textColor"
-                            />
-
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/input_shapes_grey_spinner"
-                            android:orientation="vertical"
-                            android:padding="2.4dp">
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:layout_marginStart="12dp"
+                            android:orientation="horizontal">
+
                             <Spinner
                                 android:id="@+id/sp_crop_fertililizer_calculator_nitrogenous_fert"
                                 android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:entries="@array/crop_nitrogen_fertilizer"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="Enter.."
-                                android:textSize="14sp"
-                                android:spinnerMode="dialog"
-                                />
-                        </LinearLayout>
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
 
                         <TextView
                             android:id="@+id/txt_crop_fertililizer_calculator_nitrogenous_compo"
@@ -484,33 +451,36 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     >
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Unit Price"
-                            android:textColor="@color/textColor"
-
-                            android:layout_weight="0.5"
-                            android:textSize="14sp" />
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:layout_marginStart="12dp"
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txt_crop_fertililizer_calculator_nitrogenous_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_weight="0.5"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
                             android:inputType="number"
-                            android:background="@drawable/input_shapes"
+                            android:textSize="14sp"
+                            android:hint="@string/unit_price" />
 
-                            />
-
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -534,33 +504,39 @@
                         android:orientation="vertical"
                         >
 
-                        <TextView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="Potassic Fertilizer"
-                            android:textSize="14sp"
-                            android:textColor="@color/textColor"
-                            />
-
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/input_shapes_grey_spinner"
-                            android:orientation="vertical"
-                            android:padding="2.4dp">
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:layout_marginStart="12dp"
+                            android:orientation="horizontal">
+
                             <Spinner
                                 android:id="@+id/sp_crop_fertililizer_calculator_potassic_fert"
                                 android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:entries="@array/crop_potassium_fertilizer"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="Enter.."
-                                android:textSize="14sp"
-                                android:spinnerMode="dialog"
-                                />
-                        </LinearLayout>
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
 
                         <TextView
                             android:id="@+id/txt_crop_fertililizer_calculator_potassic_compo"
@@ -582,49 +558,75 @@
                     android:layout_weight="1"
                     android:padding="4dp"
                     >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
 
-                        <TextView
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/edittext_corner"
+                            android:layout_marginStart="12dp"
+                            android:orientation="horizontal">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Unit Price"
-                            android:textColor="@color/textColor"
+                            <EditText
+                                android:id="@+id/txt_crop_fertililizer_calculator_potassic_price"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:paddingLeft="@dimen/dimen_10dp"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:textSize="14sp"
+                                android:hint="@string/unit_price" />
 
-                            android:layout_weight="0.5"
-                            android:textSize="14sp" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_right_corners_green"
+                                android:textColor="@color/white"
+                                android:text="UGX"
+                                android:textSize="14sp"
+                                android:gravity="center"
+                                android:layout_weight="0.2" />
 
-                        <EditText
-                            android:id="@+id/txt_crop_fertililizer_calculator_potassic_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_weight="0.5"
-                            android:inputType="number"
-                            android:background="@drawable/input_shapes"
+                        </LinearLayout>
 
-                            />
-
-
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <Button
-                android:id="@+id/btn_crop_fertililizer_calculator_calculate"
+
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Calculate"
-                android:textAllCaps="false"
-                android:layout_gravity="center_horizontal"
-                style="@style/Button"
-                android:textColor="@color/whiteColor"
-                android:drawableRight="@drawable/arrow_right_white_24dp"
-                android:textSize="14sp"
-                />
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginRight="@dimen/dimen_20dp"
+                android:background="@drawable/rounded_corners_button">
+
+
+
+                <Button
+                    android:id="@+id/btn_crop_fertililizer_calculator_calculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:text="@string/calculate"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/ic_right_arrow">
+                </ImageView>
+            </FrameLayout>
 
 
         </LinearLayout>

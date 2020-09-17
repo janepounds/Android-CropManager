@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
 
-    Spinner cropSp, npkSp,potassicSp, nitrogenousSp,unitsSp;
+    Spinner cropSp, npkSp,potassicSp, nitrogenousSp;
     EditText nitrogenTxt, phosphateTxt, potassiumTxt,npkPriceTxt, potassicPriceTxt, nitrogenousPriceTxt,areaTxt;
     TextView npkCompoTxt, potassicCompoTxt, nitrogenousCompoTxt;
     CropSpinnerAdapter cropsSpinnerAdapter,npkSpinnerAdapter,potassicSpinnerAdapter,nitrogenousSpinnerAdapter;
@@ -45,7 +45,6 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
 
     public void initializeViews(){
         cropSp = findViewById(R.id.sp_crop_fertililizer_calculator_crop);
-        unitsSp = findViewById(R.id.sp_crop_fertililizer_calculator_units);
         nitrogenTxt = findViewById(R.id.txt_crop_fertililizer_calculator_nitrogen);
         phosphateTxt = findViewById(R.id.txt_crop_fertililizer_calculator_phosphate);
         potassiumTxt = findViewById(R.id.txt_crop_fertililizer_calculator_potassium);
@@ -176,7 +175,7 @@ public class CropFertilizerCalculatorEntryActivity extends AppCompatActivity {
                         CropFertilizerCalculator.getInstance().setNitrogenousPrice(Float.parseFloat(nitrogenousPriceTxt.getText().toString()));
                         CropFertilizerCalculator.getInstance().setNpkPrice(Float.parseFloat(npkPriceTxt.getText().toString()));
                         CropFertilizerCalculator.getInstance().setArea(Float.parseFloat(areaTxt.getText().toString()));
-                        CropFertilizerCalculator.getInstance().setUnits(unitsSp.getSelectedItem().toString());
+                        CropFertilizerCalculator.getInstance().setUnits(getString(R.string.acres));
 
                         if(CropFertilizerCalculator.getInstance().isCalculationPossible()){
                             startActivity(new Intent(CropFertilizerCalculatorEntryActivity.this,CropFertilizerCalculatorResults.class));
