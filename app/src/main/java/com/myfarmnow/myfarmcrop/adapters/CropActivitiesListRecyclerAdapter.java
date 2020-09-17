@@ -24,7 +24,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropCultivationManagerActivity;
 
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerApplicationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropHarvestManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
 
@@ -973,11 +972,11 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-                                CropHarvest cropHarvest = (CropHarvest)cropsList.get(getAdapterPosition());
-                                Intent editHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
-                                editHarvest.putExtra("cropHarvest",cropHarvest);
-                                editHarvest.putExtra("cropId",cropHarvest.getCropId());
-                                mContext.startActivity(editHarvest);
+//                                CropHarvest cropHarvest = (CropHarvest)cropsList.get(getAdapterPosition());
+//                                Intent editHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
+//                                editHarvest.putExtra("cropHarvest",cropHarvest);
+//                                editHarvest.putExtra("cropId",cropHarvest.getCropId());
+//                                mContext.startActivity(editHarvest);
                             }
 
 
