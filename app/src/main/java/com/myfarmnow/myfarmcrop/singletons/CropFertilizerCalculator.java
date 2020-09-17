@@ -257,11 +257,11 @@ public class CropFertilizerCalculator {
     }
     public double computePotassicQuantity() throws FertilizerCalculationException{
         if (solution == null){
-            solution = calculateQuantities();
-            if (solution == null){
-                throw new FertilizerCalculationException("Error in Calculations");
-            }
+        }
 
+        solution = calculateQuantities();
+        if (solution == null){
+            throw new FertilizerCalculationException("Error in Calculations");
         }
 
         return Math.round(solution.get("z")*area*100)/100;

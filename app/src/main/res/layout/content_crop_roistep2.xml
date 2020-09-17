@@ -15,22 +15,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/josefin_sans"
                     android:text="@string/variableexpenses"
+                    android:textAlignment="center"
                     android:textColor="@color/textColor"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/josefin_sans"
-                    android:textAlignment="center"
-                    />
+                    android:textStyle="bold" />
 
                 <com.kofigyan.stateprogressbar.StateProgressBar
                     android:id="@+id/revenue_calculator_progress_bar_id"
@@ -55,51 +55,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
-                android:weightSum="2"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_weight="0.6"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/yeildperarea"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
+                        android:textSize="14sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1.4"
                     android:layout_alignParentTop="true"
+                    android:layout_weight="1.4"
                     android:background="@drawable/edittext_corner"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.2"
                         android:background="@drawable/edittext_left_corners_green"
-                        android:textColor="@color/white"
-                        android:text="UGX"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:text="UGX"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
                     <EditText
                         android:id="@+id/txt_crop_roi_step_2_yeildperarea"
                         android:layout_width="0dp"
-                        android:layout_weight="0.7"
                         android:layout_height="match_parent"
+                        android:paddingRight="@dimen/dimen_10dp"
+                        android:layout_weight="0.7"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
                         android:inputType="number"
+                        android:textAlignment="textEnd"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -151,6 +154,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
                         android:inputType="number"
                         android:textAlignment="textEnd"
@@ -162,54 +166,56 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_weight="0.6"
+                    android:orientation="horizontal"
 
                     >
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/pesticides"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1.4"
                     android:layout_alignParentTop="true"
+                    android:layout_weight="1.4"
                     android:background="@drawable/edittext_corner"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.2"
                         android:background="@drawable/edittext_left_corners_green"
-                        android:textColor="@color/white"
-                        android:text="UGX"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:text="UGX"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
                     <EditText
                         android:id="@+id/txt_crop_roi_step_2_pesticides"
                         android:layout_width="0dp"
-                        android:layout_weight="0.7"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
                         android:inputType="number"
+                        android:textAlignment="textEnd"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -217,53 +223,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_weight="0.6"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Other Costs"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                         />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1.4"
                     android:layout_alignParentTop="true"
+                    android:layout_weight="1.4"
                     android:background="@drawable/edittext_corner"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.2"
                         android:background="@drawable/edittext_left_corners_green"
-                        android:textColor="@color/white"
-                        android:text="UGX"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:text="UGX"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
                     <EditText
                         android:id="@+id/txt_crop_roi_step_2_othercosts"
                         android:layout_width="0dp"
-                        android:layout_weight="0.7"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
                         android:inputType="number"
+                        android:textAlignment="textEnd"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -271,19 +278,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_30dp"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_weight="0.6"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -291,34 +298,36 @@
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
 
-                         />
+                        />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1.4"
                     android:layout_alignParentTop="true"
+                    android:layout_weight="1.4"
                     android:background="@drawable/edittext_corner"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.2"
                         android:background="@drawable/edittext_left_corners_green"
-                        android:textColor="@color/white"
-                        android:text="UGX"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:text="UGX"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/txt_crop_roi_step_2_crop_total_variable_cost"
                         android:layout_width="0dp"
-                        android:layout_weight="0.7"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
                         android:inputType="number"
+                        android:textAlignment="textEnd"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -327,20 +336,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
 
                 <FrameLayout
                     android:layout_width="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_corners_button_darkgray">
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_corners_button_darkgray"
+                    android:orientation="horizontal">
 
 
                     <Button
@@ -359,12 +367,11 @@
 
                 <FrameLayout
                     android:layout_width="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_corners_button">
-
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corners_button"
+                    android:orientation="horizontal">
 
 
                     <Button
@@ -386,9 +393,8 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="right|center_vertical"
                         android:layout_margin="10dip"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_right_arrow">
-                    </ImageView>
+                        android:src="@drawable/ic_right_arrow"
+                        android:visibility="gone"></ImageView>
                 </FrameLayout>
 
             </LinearLayout>

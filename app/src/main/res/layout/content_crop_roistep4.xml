@@ -146,6 +146,7 @@
                                 android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
                                 android:textAlignment="textEnd"
+                                android:paddingRight="@dimen/dimen_10dp"
                                 android:inputType="number"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -281,7 +282,7 @@
                             android:layout_weight="0.7"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
+                            android:paddingLeft="@dimen/dimen_10dp"
                             android:inputType="number"
                             android:textSize="14sp" />
 
@@ -343,7 +344,7 @@
                                 android:layout_weight="0.5"
                                 android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
-                                android:textAlignment="textEnd"
+                                android:paddingLeft="@dimen/dimen_10dp"
                                 android:inputType="number"
                                 android:textSize="14sp" />
 
@@ -395,7 +396,7 @@
                                 android:layout_weight="0.7"
                                 android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
-                                android:textAlignment="textEnd"
+                                android:paddingLeft="@dimen/dimen_10dp"
                                 android:inputType="number"
                                 android:textSize="14sp" />
 
@@ -447,7 +448,7 @@
                         android:layout_weight="0.7"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
+                        android:paddingLeft="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
 
@@ -510,7 +511,7 @@
                             android:layout_weight="0.7"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
+                            android:paddingLeft="@dimen/dimen_10dp"
                             android:inputType="number"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -567,7 +568,7 @@
                         android:layout_weight="0.7"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
+                        android:paddingLeft="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -622,7 +623,7 @@
                         android:layout_weight="0.7"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
-                        android:textAlignment="textEnd"
+                        android:paddingLeft="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
                 </LinearLayout>

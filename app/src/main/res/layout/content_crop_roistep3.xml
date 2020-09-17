@@ -106,6 +106,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:textAlignment="textEnd"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -163,6 +164,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:textAlignment="textEnd"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -218,6 +220,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:textAlignment="textEnd"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -273,6 +276,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:textAlignment="textEnd"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:inputType="number"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -325,6 +329,7 @@
                         android:id="@+id/txt_crop_ro1_step_3_total_overhead_costs"
                         android:layout_width="0dp"
                         android:layout_weight="0.7"
+                        android:paddingRight="@dimen/dimen_10dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:textAlignment="textEnd"
