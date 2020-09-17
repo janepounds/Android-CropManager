@@ -52,7 +52,7 @@ public class FieldsListFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        binding.toolbar.setNavigationOnClickListener(view -> navController.navigate(R.id.action_fieldsListFragment_to_cropRecordsFragment));
+        binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
         return binding.getRoot();
     }
 
