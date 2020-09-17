@@ -57,17 +57,11 @@
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginStart="@dimen/dimen_20dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/edittext_corner"
                         android:layout_marginRight="10dp"
@@ -80,12 +74,10 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:layout_marginLeft="5dp"
                             android:hint="Date"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:inputType="none"
-                            android:textSize="14sp"
-                            android:layout_marginRight="10dp"/>
+                            android:textSize="14sp"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -100,16 +92,14 @@
 
                     </RelativeLayout>
 
-                </LinearLayout>
 
-
-                <RelativeLayout
+                    <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/edittext_corner"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -120,7 +110,6 @@
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"
                         android:entries="@array/crop_roi_yield_units"
                         android:spinnerMode="dropdown"/>
 
@@ -558,8 +547,8 @@
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
                     android:background="@drawable/edittext_corner"
-                    android:layout_marginStart="12dp"
                     android:orientation="horizontal">
 
                     <EditText

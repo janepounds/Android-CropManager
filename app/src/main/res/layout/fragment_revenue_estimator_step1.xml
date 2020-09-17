@@ -1,0 +1,343 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep1Fragment">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/estimated_revenue"
+                    android:textColor="@color/textColor"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/josefin_sans"
+                    android:textAlignment="center"
+
+                    />
+
+                <com.kofigyan.stateprogressbar.StateProgressBar
+                    android:id="@+id/revenue_calculator_progress_bar_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spb_stateTextSize="@dimen/dimen_16sp"
+                    app:spb_animateToCurrentProgressState="true"
+                    app:spb_checkStateCompleted="true"
+                    app:spb_currentStateDescriptionColor="@color/colorPrimary"
+                    android:contentDescription="@string/estimated_revenue"
+                    app:spb_currentStateNumber="one"
+                    app:spb_maxStateNumber="five"
+                    app:spb_stateBackgroundColor="#BDBDBD"
+                    app:spb_stateDescriptionColor="#808080"
+                    app:spb_stateForegroundColor="@color/colorPrimary"
+                    app:spb_stateNumberBackgroundColor="#808080"
+                    app:spb_stateNumberForegroundColor="#eeeeee" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/dimen_20dp"
+                    android:gravity="center_vertical">
+
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinner_crop_roi_step_1_yield_units"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:entries="@array/crop_roi_yield_units"
+                            android:hint="Seed Type"
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txt_crop_ro1_step_yield"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.65"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:textSize="16sp"
+                            android:hint="Yield Per Acre"  />
+
+                        <TextView
+                            android:id="@+id/txt_crop_ro1_step_label_yield_units"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+                            android:text="@string/units"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:layout_weight="0.15" />
+
+                        <EditText
+                            android:id="@+id/txt_crop_ro1_step_1_avg_price"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:textSize="16sp"
+                            android:hint="Average Market Price" />
+
+
+                        <TextView
+                            android:id="@+id/txt_crop_ro1_step_label_yield_units2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+                            android:text="@string/per_unit"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:layout_weight="0.15" />
+
+                        <EditText
+                            android:id="@+id/txt_crop_ro1_step_other_income"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:textSize="16sp"
+                            android:hint="@string/other_income" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:layout_weight="0.15" />
+
+                        <TextView
+                            android:id="@+id/txt_crop_ro1_step_1_est_gross_revenue"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:padding="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:textSize="16sp"
+                            android:hint="Est Gross Revenue" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:layout_marginRight="@dimen/dimen_20dp"
+                    android:background="@drawable/rounded_corners_button">
+
+
+
+                    <Button
+                        android:id="@+id/txt_crop_roi_step_1_crop_btn_next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:text="@string/next"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/button_text_size" />
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dip"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_right_arrow">
+                    </ImageView>
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

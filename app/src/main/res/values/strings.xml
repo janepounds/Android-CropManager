@@ -143,6 +143,20 @@
         <item>Nematocide</item>
     </string-array>
 
+
+    <string-array name="crop_potassium_fertilizer">
+        <item>Potassic Fertilizer</item>
+    </string-array>
+
+    <string-array name="crop_nitrogen_fertilizer">
+        <item>Nitrogen Fertilizer</item>
+    </string-array>
+
+    <string-array name="crop_npk_fertilizer">
+        <item>NPK Fertilizer</item>
+    </string-array>
+
+
     <string-array name="crop_fertilizer_application_method_solid">
         <item>Broadcasting</item>
         <item>Placement</item>
@@ -162,6 +176,10 @@
         <item>Select Form</item>
         <item>Solid</item>
         <item>Liquid</item>
+    </string-array>
+
+    <string-array name="crop_list">
+        <item>Crop</item>
     </string-array>
 
     <string-array name="crop_spraying_weather_condition">
@@ -1614,7 +1632,7 @@
     <string name="label_revenueestimation">Revenue Estimation</string>
     <string name="label_yeild_estimation">Yeild Estimation</string>
     <string name="label_nutrient_loss">Nutrient Loss</string>
-    <string name="label_fertilizer_composition">Fertilizer Composition</string>
+    <string name="label_fertilizer_composition">Fertilizer Consumption</string>
     <string name="title_service">Agriculture Service</string>
     <string name="label_soll_testing">Soil Testing</string>
     <string name="label_eqipment">Equipment</string>
@@ -1661,4 +1679,7 @@
     <string name="per_year">per year</string>
     <string name="label_building_investiment">Buildings</string>
     <string name="label_report_results">Report Results</string>
+    <string name="calculate">calculate</string>
+    <string name="area">Area</string>
+    <string name="acres">Acres</string>
 </resources>

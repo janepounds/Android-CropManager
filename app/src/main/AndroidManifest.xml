@@ -76,9 +76,7 @@
         <activity
             android:name=".activities.CropsNotesManagerActivity"
             android:label="Crop Notes Manager" />
-        <activity
-            android:name=".activities.CropHarvestManagerActivity"
-            android:label="Harvest Manager" />
+
         <activity
             android:name=".activities.CropContactsListActivity"
             android:label="Contacts" />

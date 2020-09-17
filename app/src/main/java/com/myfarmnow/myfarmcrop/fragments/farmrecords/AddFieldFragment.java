@@ -184,7 +184,7 @@ public class AddFieldFragment extends Fragment {
                         updateField();
                     }
                     //navigate to field list
-                    navController.navigate(R.id.action_addFieldFragment_to_fieldsListFragment);
+                    navController.popBackStack();
                 }else{
                     Log.d("ERROR","Testing");
                 }

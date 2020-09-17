@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/predictiontools_nav_graph"
+    app:startDestination="@id/predictionToolsHomeFragment">
+
+    <fragment
+        android:id="@+id/predictionToolsHomeFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.PredictionToolsHomeFragment"
+        android:label="fragment_prediction_tools_home"
+        tools:layout="@layout/fragment_prediction_tools_home" >
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_revenueEstimatorStep1Fragment"
+            app:destination="@id/revenueEstimatorStep1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueEstimatorStep1Fragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep1Fragment"
+        android:label="fragment_revenue_estimator_step1"
+        tools:layout="@layout/fragment_revenue_estimator_step1" >
+        <action
+            android:id="@+id/action_revenueEstimatorStep1Fragment_to_revenueEstimatorStep2Fragment"
+            app:destination="@id/revenueEstimatorStep2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueEstimatorStep2Fragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep2Fragment"
+        android:label="fragment_revenue_estimator_step2"
+        tools:layout="@layout/fragment_revenue_estimator_step2" />
+</navigation>

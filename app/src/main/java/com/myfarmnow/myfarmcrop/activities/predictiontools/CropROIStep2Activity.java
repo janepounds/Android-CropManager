@@ -113,7 +113,7 @@ public class CropROIStep2Activity extends AppCompatActivity {
 
         }
 
-        totalVariableCostTxt.setText(currency+NumberFormat.getInstance().format(CropROICalculatorSingleton.getInstance().computeStep2TotalVariableCosts()));
+        totalVariableCostTxt.setText(NumberFormat.getInstance().format(CropROICalculatorSingleton.getInstance().computeStep2TotalVariableCosts()));
     }
 
     //
