@@ -12,7 +12,7 @@ import com.myfarmnow.myfarmcrop.R;
 
 
 public class RevenueEstimatorStep1Fragment extends Fragment {
-private
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
