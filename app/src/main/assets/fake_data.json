@@ -1,0 +1,20 @@
+{
+  "ginger": {
+    "tororo":{
+      "retail":1000,
+      "wholesale": 600
+    },
+    "mbarara":{
+      "retail":1800,
+      "wholesale": 1500
+    },
+    "gulu":{
+      "retail":1000,
+      "wholesale": 800
+    },
+    "kampala":{
+      "retail":2000,
+      "wholesale": 100
+    }
+  }
+}
