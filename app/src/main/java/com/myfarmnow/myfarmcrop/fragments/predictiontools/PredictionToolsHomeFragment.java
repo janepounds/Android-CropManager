@@ -64,7 +64,8 @@ public class PredictionToolsHomeFragment extends Fragment {
         binding.layoutDashboardNutrientsloss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //navigate to nutient
+              //navigate to nutrient
+                navController.navigate(R.id.action_predictionToolsHomeFragment_to_nutrientCalculatorEntryFragment);
             }
         });
 
@@ -72,6 +73,7 @@ public class PredictionToolsHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //navigate to yield performance
+                navController.navigate(R.id.action_predictionToolsHomeFragment_to_cropYieldPerformanceFragment);
 
             }
         });
@@ -80,6 +82,7 @@ public class PredictionToolsHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //nagivate to fertilizer calculator
+                navController.navigate(R.id.action_predictionToolsHomeFragment_to_cropFertilizerCalculatorEntryFragment);
             }
         });
 

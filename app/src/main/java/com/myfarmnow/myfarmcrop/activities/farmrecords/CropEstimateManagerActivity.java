@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatePreviewActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropItemListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -195,11 +194,11 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
                     }
 
                     if(estimate !=null){
-                        Intent toCropEmployeesList = new Intent(CropEstimateManagerActivity.this, CropEstimatePreviewActivity.class);
-                        toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        toCropEmployeesList.putExtra("cropEstimate",estimate);
-                        toCropEmployeesList.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_EMAIL);
-                        startActivity(toCropEmployeesList);
+//                        Intent toCropEmployeesList = new Intent(CropEstimateManagerActivity.this, CropEstimatePreviewActivity.class);
+//                        toCropEmployeesList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        toCropEmployeesList.putExtra("cropEstimate",estimate);
+//                        toCropEmployeesList.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_EMAIL);
+//                        startActivity(toCropEmployeesList);
                     }
                     else{
                         Toast.makeText(CropEstimateManagerActivity.this,"Estimate cant be Saved",Toast.LENGTH_LONG).show();
