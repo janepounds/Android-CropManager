@@ -51,9 +51,10 @@ private  String currency="UGX ";
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_revenue_estimator_step1,container,false);
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Revenue Estimator");
         binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
         return  binding.getRoot();
     }
@@ -99,7 +100,6 @@ private  String currency="UGX ";
             @Override
             public void onClick(View v) {
                 validateEntries();
-                requireActivity().finish();
                 //navigation to step 2
                 navController.navigate(R.id.action_revenueEstimatorStep1Fragment_to_revenueEstimatorStep2Fragment);
 

@@ -1,15 +1,431 @@
-
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep3Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:layout_margin="4dp"
+                        android:textStyle="bold"
+                        android:text="@string/fixed_expenses"
+                        android:fontFamily="@font/josefin_sans"
+                        android:textColor="@color/textColor"
+                        android:textSize="18sp" />
+
+                    <com.kofigyan.stateprogressbar.StateProgressBar
+                        android:id="@+id/revenue_calculator_progress_bar_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
+                        android:contentDescription="@string/label_capital_investment"
+                        app:spb_animateToCurrentProgressState="true"
+                        app:spb_checkStateCompleted="true"
+                        app:spb_currentStateDescriptionColor="@color/colorPrimary"
+                        app:spb_currentStateNumber="three"
+                        app:spb_maxStateNumber="five"
+                        app:spb_stateBackgroundColor="#BDBDBD"
+                        app:spb_stateDescriptionColor="#808080"
+                        app:spb_stateForegroundColor="@color/colorPrimary"
+                        app:spb_stateNumberBackgroundColor="#808080"
+                        app:spb_stateNumberForegroundColor="#eeeeee"
+                        app:spb_stateTextSize="@dimen/dimen_16sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.6"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/power"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1.4"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_3_power"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.7"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="textEnd"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.6"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/building_repair"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1.4"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_3_building_repair"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.7"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="textEnd"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.6"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/property_taxes"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1.4"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_3_property_taxes"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.7"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="textEnd"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.6"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total Other Costs"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1.4"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_3_total_other_costs"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.7"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="textEnd"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="0.6"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total Fixed Costs"
+                            android:textColor="@color/textColor"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1.4"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:textColor="@color/white"
+                            android:text="UGX"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+                        <TextView
+                            android:id="@+id/txt_crop_ro1_step_3_total_overhead_costs"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.7"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="textEnd"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/dimen_20dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_corners_button_darkgray">
+
+
+                        <Button
+                            android:id="@+id/txt_crop_roi_step_3_crop_btn_previous"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="@string/previous"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_corners_button">
+
+
+
+                        <Button
+                            android:id="@+id/txt_crop_roi_step_3_crop_btn_next"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="@string/next"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_margin="10dip"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_right_arrow">
+                        </ImageView>
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -16,17 +16,19 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.databinding.ActivityPredictiontoolsDashboardBinding;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 
 public class PredictionToolsDashboardActivity extends AppCompatActivity  {
-
+    private ActivityPredictiontoolsDashboardBinding binding;
     Toolbar toolbar;
 
 
@@ -36,15 +38,10 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_predictiontools_dashboard);
-        toolbar=  findViewById(R.id.toolbar);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_predictiontools_dashboard);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
-        initializeDashboard();
+//        initializeDashboard();
 
     }
 
@@ -54,51 +51,52 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
         return true;
     }
 
-    public void initializeDashboard(){
 
-        revenue_estimation_linearestimate =findViewById(R.id.layout_dashboard_revenue_estimation);
-        yieldestimationLinearLayout =findViewById(R.id.layout_dashboard_yieldestimation);
-        nutrientslossLinearLayout =findViewById(R.id.layout_dashboard_nutrientsloss);
-
-        fertilizercompositionLinearLayout =findViewById(R.id.layout_dashboard_fertilizercomposition);
-
-
-        revenue_estimation_linearestimate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropROIStep1Activity.class);
-                startActivity(openInventory);
-            }
-        });
-
-        nutrientslossLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropNutrientsCalculatorEntryActivity.class);
-                startActivity(openInventory);
-            }
-        });
-
-        yieldestimationLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openIncomeExpense = new Intent(PredictionToolsDashboardActivity.this, CropYieldPerformanceActivity.class);
-                startActivity(openIncomeExpense);
-            }
-        });
-
-        fertilizercompositionLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openfertilizercalculator = new Intent(PredictionToolsDashboardActivity.this, CropFertilizerCalculatorEntryActivity.class);
-                startActivity(openfertilizercalculator);
-            }
-        });
-
-
-
-
-    }
+//    public void initializeDashboard(){
+//
+//        revenue_estimation_linearestimate =findViewById(R.id.layout_dashboard_revenue_estimation);
+//        yieldestimationLinearLayout =findViewById(R.id.layout_dashboard_yieldestimation);
+//        nutrientslossLinearLayout =findViewById(R.id.layout_dashboard_nutrientsloss);
+//
+//        fertilizercompositionLinearLayout =findViewById(R.id.layout_dashboard_fertilizercomposition);
+//
+//
+//        revenue_estimation_linearestimate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropROIStep1Activity.class);
+//                startActivity(openInventory);
+//            }
+//        });
+//
+//        nutrientslossLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openInventory = new Intent(PredictionToolsDashboardActivity.this, CropNutrientsCalculatorEntryActivity.class);
+//                startActivity(openInventory);
+//            }
+//        });
+//
+//        yieldestimationLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openIncomeExpense = new Intent(PredictionToolsDashboardActivity.this, CropYieldPerformanceActivity.class);
+//                startActivity(openIncomeExpense);
+//            }
+//        });
+//
+//        fertilizercompositionLinearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openfertilizercalculator = new Intent(PredictionToolsDashboardActivity.this, CropFertilizerCalculatorEntryActivity.class);
+//                startActivity(openfertilizercalculator);
+//            }
+//        });
+//
+//
+//
+//
+//    }
 
     public static  void addDatePicker(final EditText ed_, final Context context){
         ed_.setOnClickListener(new View.OnClickListener() {
