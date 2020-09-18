@@ -1,10 +1,5 @@
 package com.myfarmnow.myfarmcrop.models.marketplace;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-@Entity
 public class MyProduce {
 
     public int id;

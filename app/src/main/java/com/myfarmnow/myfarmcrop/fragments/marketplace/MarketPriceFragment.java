@@ -19,6 +19,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MarketPriceItemAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMarketPriceBinding;
+import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceItem;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceSubItem;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
@@ -31,9 +32,9 @@ public class MarketPriceFragment extends Fragment {
     private FragmentMarketPriceBinding binding;
     private Context context;
 
+    ArrayList<MarketPrice> marketPriceArrayList = new ArrayList<>();
     private ArrayList<MarketPriceItem> marketPriceItemArrayList = new ArrayList<>();
     private ArrayList<MarketPriceSubItem> marketPriceSubItemArrayList = new ArrayList<>();
-    private ArrayList<MarketPriceSubItem> marketPriceSubItemArrayList1 = new ArrayList<>();
 
     private MyFarmDbHandlerSingleton dbHandler;
 
@@ -43,27 +44,33 @@ public class MarketPriceFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_market_price, container, false);
 
-        marketPriceItemArrayList.clear();
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
-        MarketPriceSubItem subItem = new MarketPriceSubItem("Tororo", "1,000", "600");
-        MarketPriceSubItem subItem1 = new MarketPriceSubItem("Mbarara", "1,800", "1,500");
-        MarketPriceSubItem subItem2 = new MarketPriceSubItem("Gulu", "1,000", "800");
-        MarketPriceSubItem subItem3 = new MarketPriceSubItem("Kampala", "2,000", "100");
-        marketPriceSubItemArrayList.add(subItem);
-        marketPriceSubItemArrayList.add(subItem1);
-        marketPriceSubItemArrayList.add(subItem2);
-        marketPriceSubItemArrayList.add(subItem3);
-        MarketPriceItem marketPriceItem = new MarketPriceItem("Ginger (Kg)", marketPriceSubItemArrayList);
-        marketPriceItemArrayList.add(marketPriceItem);
+        dbHandler.insertMarketPrice(new MarketPrice("Ginger (Kg)", "Tororo", "1,000", "600"));
+        dbHandler.insertMarketPrice(new MarketPrice("Millet (Kg)", "Mbarara", "1,800", "1,500"));
+        dbHandler.insertMarketPrice(new MarketPrice("Milk (Lts)", "Gulu", "1,000", "800"));
+        dbHandler.insertMarketPrice(new MarketPrice("Ginger (Kg)", "Kampala", "2,000", "100"));
 
-        MarketPriceSubItem subItem4 = new MarketPriceSubItem("Gulu", "2,000", "1,750");
-        MarketPriceSubItem subItem6 = new MarketPriceSubItem("Mbarara", "2,500", "2,200");
-        MarketPriceSubItem subItem5 = new MarketPriceSubItem("Kampala", "2,700", "2,400");
-        marketPriceSubItemArrayList1.add(subItem4);
-        marketPriceSubItemArrayList1.add(subItem5);
-        marketPriceSubItemArrayList1.add(subItem6);
-        MarketPriceItem marketPriceItem1 = new MarketPriceItem("Millet (Kg)", marketPriceSubItemArrayList1);
-        marketPriceItemArrayList.add(marketPriceItem1);
+        marketPriceArrayList.clear();
+        marketPriceArrayList = dbHandler.getAllMarketPrices();
+
+        for (int k = 0; k < marketPriceArrayList.size(); k++) {
+            MarketPrice marketPrice = marketPriceArrayList.get(k);
+            MarketPriceSubItem subItem = new MarketPriceSubItem(marketPrice.getMarket(), marketPrice.getRetail(), marketPrice.getWholesale());
+            marketPriceSubItemArrayList.add(subItem);
+            MarketPriceItem marketPriceItem = new MarketPriceItem(marketPrice.getCrop(), marketPriceSubItemArrayList);
+            marketPriceItemArrayList.add(marketPriceItem);
+            Log.d(TAG, "onCreateView: List = " + marketPrice.getCrop());
+        }
+
+//        MarketPriceSubItem subItem4 = new MarketPriceSubItem("Gulu", "2,000", "1,750");
+//        MarketPriceSubItem subItem6 = new MarketPriceSubItem("Mbarara", "2,500", "2,200");
+//        MarketPriceSubItem subItem5 = new MarketPriceSubItem("Kampala", "2,700", "2,400");
+//        marketPriceSubItemArrayList1.add(subItem4);
+//        marketPriceSubItemArrayList1.add(subItem5);
+//        marketPriceSubItemArrayList1.add(subItem6);
+//        MarketPriceItem marketPriceItem1 = new MarketPriceItem("Millet (Kg)", marketPriceSubItemArrayList1);
+//        marketPriceItemArrayList.add(marketPriceItem1);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         MarketPriceItemAdapter adapter = new MarketPriceItemAdapter(context, marketPriceItemArrayList);
