@@ -13,6 +13,15 @@
         <action
             android:id="@+id/action_predictionToolsHomeFragment_to_revenueEstimatorStep1Fragment"
             app:destination="@id/revenueEstimatorStep1Fragment" />
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_cropYieldPerformanceFragment"
+            app:destination="@id/cropYieldPerformanceFragment" />
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_nutrientCalculatorEntryFragment"
+            app:destination="@id/nutrientCalculatorEntryFragment" />
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_cropFertilizerCalculatorEntryFragment"
+            app:destination="@id/cropFertilizerCalculatorEntryFragment" />
     </fragment>
     <fragment
         android:id="@+id/revenueEstimatorStep1Fragment"
@@ -64,4 +73,37 @@
         android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorResultsFragment"
         android:label="fragment_revenue_estimator_results"
         tools:layout="@layout/fragment_revenue_estimator_results" />
+    <fragment
+        android:id="@+id/cropYieldPerformanceFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropYieldPerformanceFragment"
+        android:label="fragment_crop_yield_performance"
+        tools:layout="@layout/fragment_crop_yield_performance" />
+    <fragment
+        android:id="@+id/nutrientCalculatorEntryFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.NutrientCalculatorEntryFragment"
+        android:label="fragment_nutrient_calculator_entry"
+        tools:layout="@layout/fragment_nutrient_calculator_entry" >
+        <action
+            android:id="@+id/action_nutrientCalculatorEntryFragment_to_nutrientCalculatorResultsFragment"
+            app:destination="@id/nutrientCalculatorResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nutrientCalculatorResultsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.NutrientCalculatorResultsFragment"
+        android:label="fragment_nutrient_calculator_results"
+        tools:layout="@layout/fragment_nutrient_calculator_results" />
+    <fragment
+        android:id="@+id/cropFertilizerCalculatorEntryFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropFertilizerCalculatorEntryFragment"
+        android:label="fragment_crop_fertilizer_calculator_entry"
+        tools:layout="@layout/fragment_crop_fertilizer_calculator_entry" >
+        <action
+            android:id="@+id/action_cropFertilizerCalculatorEntryFragment_to_cropFertilizerCalculatorResultsFragment"
+            app:destination="@id/cropFertilizerCalculatorResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cropFertilizerCalculatorResultsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropFertilizerCalculatorResultsFragment"
+        android:label="fragment_crop_fertilizer_calculator_results"
+        tools:layout="@layout/fragment_crop_fertilizer_calculator_results" />
 </navigation>

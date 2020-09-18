@@ -247,10 +247,6 @@
             android:label="@string/title_activity_crop_invoice_preview"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.predictiontools.CropEstimatePreviewActivity"
-            android:label="@string/title_activity_crop_estimate_preview"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.CropSalesOrdersListActivity"
             android:label="@string/title_activity_crop_sales_order_list"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -319,10 +315,6 @@
         <activity
             android:name=".activities.predictiontools.CropFertilizerCalculatorResults"
             android:label="@string/title_activity_crop_fertilizer_calculator_results"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropCalculatorsActivity"
-            android:label="@string/title_activity_crop_calculators"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.predictiontools.CropNutrientsCalculatorEntryActivity"
