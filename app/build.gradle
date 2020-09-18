@@ -59,7 +59,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation "android.arch.work:work-runtime:1.0.1"
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     //implementation 'com.github.gcacace:signature-pad:1.2.1'
