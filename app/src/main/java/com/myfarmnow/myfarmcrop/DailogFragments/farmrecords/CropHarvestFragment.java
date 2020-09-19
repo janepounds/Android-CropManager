@@ -57,23 +57,13 @@ public class CropHarvestFragment extends DialogFragment {
     private NavController navController;
     private Context context;
 
+
     public CropHarvestFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        if(!getArguments().getString("cropHarvest").isEmpty()){
-//            cropHarvest = (CropHarvest) requireActivity().getIntent().getSerializableExtra("cropHarvest");
-//        }
-//        if(requireActivity().getIntent().hasExtra("cropId")){
-//            cropId =getArguments().getString("cropId");
-//
-//        }
-//        else{
-//            requireActivity().finish();
-//        }
-        cropId = getArguments().getString("cropId");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_crop_harvest, container, false);
     }
@@ -88,6 +78,10 @@ public class CropHarvestFragment extends DialogFragment {
         // Pass null as the parent view because its going in the dialog layout
         View view =inflater.inflate(R.layout.fragment_crop_harvest, null);
         builder.setView(view);
+        if(getArguments()!=null){
+            cropHarvest = (CropHarvest)getArguments().getSerializable("cropHarvest");
+            cropId = getArguments().getString("cropId");
+        }
         initializeForm(view);
         return builder.create();
     }
@@ -139,6 +133,8 @@ public class CropHarvestFragment extends DialogFragment {
 //        remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 //        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
+
+
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -202,25 +198,25 @@ public class CropHarvestFragment extends DialogFragment {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("boxes")){
-//                    quantityStoredUnitsTxt.setText("Boxes");
-//                    quantitySoldUnitsTxt.setText("Boxes");
-//                    pricePerUnitTxt.setText("/ Box");
+                    quantityStoredUnitsTxt.setText("Boxes");
+                    quantitySoldUnitsTxt.setText("Boxes");
+                    pricePerUnitTxt.setText("/ Box");
                     harvestunitTxt.setText("boxes");
 
 
                 }
                 else if(selection.toLowerCase().equals("kg")){
 
-//                    quantityStoredUnitsTxt.setText("Kg");
-//                    quantitySoldUnitsTxt.setText("Kg");
-//                    pricePerUnitTxt.setText("/ Kg");
+                    quantityStoredUnitsTxt.setText("Kg");
+                    quantitySoldUnitsTxt.setText("Kg");
+                    pricePerUnitTxt.setText("/ Kg");
                     harvestunitTxt.setText("kg");
 
                 }
                 else if(selection.toLowerCase().equals("tonnes")){
-//                    quantityStoredUnitsTxt.setText("Tonnes");
-//                    quantitySoldUnitsTxt.setText("Tonnes");
-//                    pricePerUnitTxt.setText("/ Tonne");
+                    quantityStoredUnitsTxt.setText("Tonnes");
+                    quantitySoldUnitsTxt.setText("Tonnes");
+                    pricePerUnitTxt.setText("/ Tonne");
                     harvestunitTxt.setText("tonnes");
 
 
@@ -228,26 +224,26 @@ public class CropHarvestFragment extends DialogFragment {
                 }
                 else if(selection.toLowerCase().equals("bushels")){
 
-//                    quantityStoredUnitsTxt.setText("Bushels");
-//                    quantitySoldUnitsTxt.setText("Bushels");
-//                    pricePerUnitTxt.setText("/ Bushel");
+                    quantityStoredUnitsTxt.setText("Bushels");
+                    quantitySoldUnitsTxt.setText("Bushels");
+                    pricePerUnitTxt.setText("/ Bushel");
                     harvestunitTxt.setText("bushels");
 
 
                 }
                 else if(selection.toLowerCase().equals("bags")){
 
-//                    quantityStoredUnitsTxt.setText("Bags");
-//                    quantitySoldUnitsTxt.setText("Bags");
-//                    pricePerUnitTxt.setText("/ Bag");
+                    quantityStoredUnitsTxt.setText("Bags");
+                    quantitySoldUnitsTxt.setText("Bags");
+                    pricePerUnitTxt.setText("/ Bag");
                     harvestunitTxt.setText("bags");
 
 
                 }
                 else if(selection.toLowerCase().equals("bunches")){
-//                    quantityStoredUnitsTxt.setText("Bunches");
-//                    quantitySoldUnitsTxt.setText("Bunches");
-//                    pricePerUnitTxt.setText("/ Bunch");
+                    quantityStoredUnitsTxt.setText("Bunches");
+                    quantitySoldUnitsTxt.setText("Bunches");
+                    pricePerUnitTxt.setText("/ Bunch");
                     harvestunitTxt.setText("bunch");
 
 
@@ -292,8 +288,8 @@ public class CropHarvestFragment extends DialogFragment {
         saveBtn = view.findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePicker(harvestDateTxt,context);
-//        DashboardActivity.addDatePicker(dateSoldTxt,context);
-//        DashboardActivity.addDatePicker(storageDateTxt,context);
+        DashboardActivity.addDatePicker(dateSoldTxt,context);
+        DashboardActivity.addDatePicker(storageDateTxt,context);
 //        DashboardActivity.addDatePicker(repeatUntilTxt,context);
 
 
@@ -319,6 +315,7 @@ public class CropHarvestFragment extends DialogFragment {
             public void onClick(View v) {
                 if(validateEntries()){
                     if(cropHarvest==null){
+                        Log.w("quantity sold",quantitySoldTxt.getText().toString());
                         saveHarvest();
                     }
                     else{
@@ -359,7 +356,7 @@ public class CropHarvestFragment extends DialogFragment {
 
 
 //        priceTxt.addTextChangedListener(watcher);
-//        quantitySoldTxt.addTextChangedListener(watcher);
+        quantitySoldTxt.addTextChangedListener(watcher);
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -426,6 +423,7 @@ public class CropHarvestFragment extends DialogFragment {
         fillViews();
     }
     public void saveHarvest() {
+
         cropHarvest = new CropHarvest();
         cropHarvest.setUserId(DashboardActivity.getPreferences("userId", context));
         cropHarvest.setCropId(cropId);
@@ -436,9 +434,7 @@ public class CropHarvestFragment extends DialogFragment {
         cropHarvest.setStatus(statusSpinner.getSelectedItem().toString());
         cropHarvest.setDateSold(dateSoldTxt.getText().toString());
         cropHarvest.setCustomer(customerTxt.getText().toString());
-        cropHarvest.setQuantitySold(Float.parseFloat(quantitySoldTxt.getText().toString()));
         cropHarvest.setStorageDate(storageDateTxt.getText().toString());
-        cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
         cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
         cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
         cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
@@ -450,6 +446,20 @@ public class CropHarvestFragment extends DialogFragment {
 //        cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
 //        cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
 //        cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+        //check if quantity sold and stored is empty
+        if(quantitySoldTxt.getText().toString()==" "){
+            cropHarvest.setQuantitySold(0);
+        }
+        else{
+            cropHarvest.setQuantitySold(Float.parseFloat(quantitySoldTxt.getText().toString()));
+        }
+        if(quantityStoredTxt.getText().toString()==" "){
+            cropHarvest.setQuantityStored(0);
+        }
+        else{
+
+            cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
+        }
 
         dbHandler.insertCropHarvest(cropHarvest);
     }
