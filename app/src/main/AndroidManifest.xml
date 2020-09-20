@@ -3,30 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.myfarmnow.myfarmcrop">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".CropManagerApp"
+        android:name=".app.CropManagerApp"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup,android:usesCleartextTraffic,android:theme"
+        tools:targetApi="m">
 
         <activity
             android:name=".activities.marketplace.MarketPlaceActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
         </activity>
 
         <service
@@ -34,7 +34,7 @@
             android:enabled="false"
             android:exported="false" />
 
-        <activity android:name=".activities.CropLoadBackUpActivity" />
+        <activity android:name=".activities.BackUpActivity" />
 
         <service
             android:name=".services.CropSyncService"
@@ -200,7 +200,13 @@
             android:name=".activities.DashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activities.farmrecords.CropEstimateManagerActivity"
@@ -263,26 +269,11 @@
             android:label="@string/title_activity_crop_sales_order_preview"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropLoginActivity"
+            android:name=".activities.Login"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-
         </activity>
         <activity
-            android:name=".activities.CropRegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropForgotPasswordRequestCode"
-            android:label="Forgot Password"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropForgotPasswordChange"
-            android:label="Forgot Password"
+            android:name=".activities.SignUp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CropVerifyPhoneNumberActivity"
@@ -376,11 +367,8 @@
             android:label="@string/title_activity_crop_settings"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Wallet plugin activities -->
         <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
-        <activity
-            android:name=".activities.wallet.WalletHomeActivity"
-            android:parentActivityName=".activities.DashboardActivity"
-            android:configChanges="orientation"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />

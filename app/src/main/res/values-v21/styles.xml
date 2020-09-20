@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="DialogFullscreen" parent="@style/Preference.Material">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
+    </style>
 
 </resources>

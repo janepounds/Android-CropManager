@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_margin="3dp"
+    card_view:cardElevation="0dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="false"
+    android:id="@+id/cardView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_5dp"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:layout_marginStart="@dimen/dimen_5dp" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/dimen_5dp" >
+
+                <com.myfarmnow.myfarmcrop.customs.CircularImageView
+                    android:id="@+id/shop_icon_image"
+                    android:layout_width="@dimen/dimen_30dp"
+                    android:layout_height="@dimen/dimen_30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/shop"
+                    app:border_width="0dp" />
+
+                <TextView
+                    android:id="@+id/text_businessName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Bukooola Inputs shop"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="40dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textStyle="bold"
+                    android:layout_alignLeft="@+id/shop_icon_image"
+                    android:textColor="@color/textColorSecondary" />
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:layout_marginBottom="@dimen/dimen_5dp">
+
+                <com.myfarmnow.myfarmcrop.customs.CircularImageView
+                    android:id="@+id/location_icon_image"
+                    android:layout_width="@dimen/dimen_30dp"
+                    android:layout_height="@dimen/dimen_30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/location_green"
+                    app:border_width="0dp" />
+
+                <TextView
+                    android:id="@+id/text_location_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Nansana, Kampala"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="40dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textStyle="bold"
+                    android:layout_alignLeft="@+id/location_icon_image"
+                    android:textColor="@color/textColorSecondary" />
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_order_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_20dp"
+                android:layout_marginTop="5dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="2dp" >
+
+                <TextView
+                    android:id="@+id/abc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/total"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColorSecondary" />
+
+                <TextView
+                    android:id="@+id/order_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="UGX 52,0000"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColorSecondary"
+                    android:textAlignment="textEnd"
+                    android:gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:padding="4dp"
+
+            >
+
+            <Button
+                android:id="@+id/select_btn"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.5"
+                android:text="Select"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_corners2_button_green"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:fontFamily="@font/montserrat"/>
+
+            <Button
+                android:id="@+id/ignore_btn"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/dimen_10dp"
+                android:text="Ignore"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_corners_green_borded_button_white"
+                android:fontFamily="@font/montserrat"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
