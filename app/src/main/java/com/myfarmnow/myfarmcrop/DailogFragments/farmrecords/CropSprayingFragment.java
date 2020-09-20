@@ -57,16 +57,6 @@ public class CropSprayingFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        if(!getArguments().getString("cropSpraying").isEmpty()){
-//            cropSpraying =(CropSpraying) requireActivity().getIntent().getSerializableExtra("cropSpraying");
-//        }
-//        if(!getArguments().getString("cropId").isEmpty()){
-//            cropId =getArguments().getString("cropId");
-//        }
-//        else{
-//            requireActivity().finish();
-//        }
-        cropId = getArguments().getString("cropId");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_crop_spraying, container, false);
     }
@@ -79,6 +69,9 @@ public class CropSprayingFragment extends DialogFragment {
         // Pass null as the parent view because its going in the dialog layout
         View view =inflater.inflate(R.layout.fragment_crop_spraying, null);
         builder.setView(view);
+        if(getArguments()!=null){
+            cropId = getArguments().getString("cropId");
+        }
         initializeForm(view);
         return builder.create();
     }

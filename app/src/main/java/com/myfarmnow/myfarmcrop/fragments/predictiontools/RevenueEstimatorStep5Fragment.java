@@ -20,18 +20,24 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.databinding.FragmentRevenueEstimatorStep3Binding;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropROIResultsActivity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropROIStep4Activity;
+import com.myfarmnow.myfarmcrop.activities.predictiontools.CropROIStep5Activity;
+import com.myfarmnow.myfarmcrop.databinding.FragmentRevenueEstimatorStep5Binding;
 import com.myfarmnow.myfarmcrop.singletons.CropROICalculatorSingleton;
+import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.text.NumberFormat;
 
 
-public class RevenueEstimatorStep3Fragment extends Fragment {
-    private FragmentRevenueEstimatorStep3Binding binding;
+public class RevenueEstimatorStep5Fragment extends Fragment {
     private Context context;
     private NavController navController;
-    private   EditText[] numericFields ;
+    private FragmentRevenueEstimatorStep5Binding binding;
+//    private String currency= CropSettingsSingleton.getInstance().getCurrency()+" ";
+    private  EditText [] numericFields ;
     private String currency="UGX ";
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -43,15 +49,16 @@ public class RevenueEstimatorStep3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_revenue_estimator_step3,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_revenue_estimator_step5, container, false);
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Revenue Estimator");
         binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
-        return  binding.getRoot();
+        return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -63,26 +70,21 @@ public class RevenueEstimatorStep3Fragment extends Fragment {
 
     public void initializeViews(){
 
-        numericFields = new EditText[]{
-                binding.txtCropRoiStep3BuildingRepair, binding.txtCropRoiStep3Power,binding.txtCropRoiStep3PropertyTaxes,binding.txtCropRoiStep3TotalOtherCosts
-        };
-
-        binding.txtCropRoiStep3CropBtnNext.setOnClickListener(new View.OnClickListener() {
+        numericFields =new EditText[]{binding.txtCropRoiStep5LandInvestment, binding.txtCropRoiStep5MachineryInvestment,binding.txtCropRoiStep5BuildingInvestment};
+        binding.txtCropRoiStep5CropBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateEntries();
-
-
-                //navigate to step 4
-                navController.navigate(R.id.action_revenueEstimatorStep3Fragment_to_revenueEstimatorStep4Fragment);
+                //navigate to results fragment
+                navController.navigate(R.id.action_revenueEstimatorStep5Fragment_to_revenueEstimatorResultsFragment);
             }
         });
-
-        binding.txtCropRoiStep3CropBtnPrevious.setOnClickListener(new View.OnClickListener() {
+        binding.txtCropRoiStep5CropBtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateEntries();
-                //pop back
+
+                //go back
                 navController.popBackStack();
             }
         });
@@ -103,48 +105,36 @@ public class RevenueEstimatorStep3Fragment extends Fragment {
                 updateCalculations();
             }
         };
-
         for(EditText x : numericFields){
             x.addTextChangedListener(watcher);
         }
 
-        fillViews();
-    }
-    public void updateCalculations(){
-        /*
-         , ,propertyTaxesTxt,businessOverheadTxt,buildingDepreciationTxt,
-                otherCostsTxt
-         */
-        try{
-            CropROICalculatorSingleton.getInstance().setStep3BuildingRepair( Float.parseFloat(binding.txtCropRoiStep3BuildingRepair.getText().toString()));
-        }catch (Exception e){
 
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep3machineDepreciation(Float.parseFloat(binding.txtCropRoiStep3Power.getText().toString()));
-        }catch (Exception e){
-
-        }
-        try{
-            CropROICalculatorSingleton.getInstance().setStep3PropertyTaxes(Float.parseFloat(binding.txtCropRoiStep3PropertyTaxes.getText().toString()));
-        }catch (Exception e){
-
-        }
-
-        try{
-            CropROICalculatorSingleton.getInstance().setStep3TotalOtherExpenses(Float.parseFloat(binding.txtCropRoiStep3TotalOtherCosts.getText().toString()));
-        }catch (Exception e){
-
-        }
-        binding.txtCropRo1Step3TotalOverheadCosts.setText(currency+ NumberFormat.getInstance().format(CropROICalculatorSingleton.getInstance().computeStep3TotalOverheadCosts()));
     }
     public void fillViews(){
-        binding.txtCropRoiStep3Power.setText(""+CropROICalculatorSingleton.getInstance().getStep3BuildingDepreciation());
-        binding.txtCropRoiStep3BuildingRepair.setText(""+CropROICalculatorSingleton.getInstance().getStep3BuildingRepair());
-        binding.txtCropRoiStep3Power.setText(""+CropROICalculatorSingleton.getInstance().getStep3machineDepreciation());
-        binding.txtCropRoiStep3PropertyTaxes.setText(""+CropROICalculatorSingleton.getInstance().getStep3PropertyTaxes());
-        binding.txtCropRoiStep3TotalOtherCosts.setText(""+CropROICalculatorSingleton.getInstance().getStep3TotalOtherExpenses());
+        binding.txtCropRoiStep5LandInvestment.setText(""+ CropROICalculatorSingleton.getInstance().getStep5LandInvestment());
+        binding.txtCropRoiStep5MachineryInvestment.setText(""+CropROICalculatorSingleton.getInstance().getStep5MachineryInvestment());
+        binding.txtCropRoiStep5BuildingInvestment.setText(""+CropROICalculatorSingleton.getInstance().getStep5BuildingInvestment());
         updateCalculations();
+    }
+    public void updateCalculations(){
+        try{
+            CropROICalculatorSingleton.getInstance().setStep5BuildingInvestment( Float.parseFloat(binding.txtCropRoiStep5BuildingInvestment.getText().toString()));
+        }catch (Exception e){
+
+        }
+        try{
+            CropROICalculatorSingleton.getInstance().setStep5LandInvestment(Float.parseFloat(binding.txtCropRoiStep5LandInvestment.getText().toString()));
+        }catch (Exception e){
+
+        }
+        try{
+            CropROICalculatorSingleton.getInstance().setStep5MachineryInvestment(Float.parseFloat(binding.txtCropRoiStep5MachineryInvestment.getText().toString()));
+        }catch (Exception e){
+
+        }
+
+        binding.txtCropRoiStep4CropTotalCapitalInvestment.setText(currency+ NumberFormat.getInstance().format(CropROICalculatorSingleton.getInstance().computeStep5TotalCapitalInvestment()));
     }
     public void validateEntries(){
         for(EditText x : numericFields){

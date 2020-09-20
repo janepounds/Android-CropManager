@@ -60,9 +60,6 @@ public class FertilizerApplicationFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        assert getArguments() != null;
-        cropId = getArguments().getString("cropId");
-//        Log.w("CropId",cropId);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fertilizer_application, container, false);
@@ -77,6 +74,9 @@ public class FertilizerApplicationFragment extends DialogFragment {
         // Pass null as the parent view because its going in the dialog layout
         View view =inflater.inflate(R.layout.fragment_fertilizer_application, null);
         builder.setView(view);
+        if(getArguments()!=null){
+            cropId = getArguments().getString("cropId");
+        }
         initializeForm(view);
         return builder.create();
     }

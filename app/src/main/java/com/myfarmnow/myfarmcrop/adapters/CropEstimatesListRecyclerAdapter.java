@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropEstimateManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropEstimatePreviewActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
@@ -147,28 +146,28 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
                                 recordPayment.putExtra("cropEstimate",cropEstimate);
                                 mContext.startActivity(recordPayment);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_estimate))){
-                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
-                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
-                                editEstimate.putExtra("cropEstimate",cropEstimate);
-                                editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_PREVIEW);
-                                mContext.startActivity(editEstimate);
+//                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
+//                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
+//                                editEstimate.putExtra("cropEstimate",cropEstimate);
+//                                editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_PREVIEW);
+//                                mContext.startActivity(editEstimate);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_dowloand_pdf))){
-                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
-                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
-                                editEstimate.putExtra("cropEstimate",cropEstimate);
-                                editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_DOWNLOAD);
-                                mContext.startActivity(editEstimate);
+//                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
+//                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
+//                                editEstimate.putExtra("cropEstimate",cropEstimate);
+//                                editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_DOWNLOAD);
+//                                mContext.startActivity(editEstimate);
                             }
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_email))){
-                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
-                                cropEstimate.setStatus("SENT");
-                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).updateCropEstimate(cropEstimate);
-                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
-                                editEstimate.putExtra("cropEstimate",cropEstimate);
-                                editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_EMAIL);
-                                mContext.startActivity(editEstimate);
-                                cropEstimate.setStatus("SENT");
-                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).updateCropEstimate(cropEstimate);
+//                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
+//                                cropEstimate.setStatus("SENT");
+//                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).updateCropEstimate(cropEstimate);
+//                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
+//                                editEstimate.putExtra("cropEstimate",cropEstimate);
+//                                editEstimate.putExtra("action",CropEstimatePreviewActivity.INVOICE_ACTION_EMAIL);
+//                                mContext.startActivity(editEstimate);
+//                                cropEstimate.setStatus("SENT");
+//                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).updateCropEstimate(cropEstimate);
 
                             }
                             return true;

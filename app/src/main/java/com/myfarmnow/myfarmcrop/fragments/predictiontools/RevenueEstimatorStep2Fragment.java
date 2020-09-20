@@ -48,9 +48,10 @@ public class RevenueEstimatorStep2Fragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_revenue_estimator_step2,container,false);
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Revenue Estimator");
         binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
         return  binding.getRoot();
     }
@@ -72,17 +73,16 @@ public class RevenueEstimatorStep2Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 validateEntries();
-                requireActivity().finish();
+
                 Log.d("Calculator 1", CropROICalculatorSingleton.getInstance()+"");
                 //navigate to step 3
-//                startActivity(new Intent(CropROIStep2Activity.this, CropROIStep3Activity.class));
+                navController.navigate(R.id.action_revenueEstimatorStep2Fragment_to_revenueEstimatorStep3Fragment);
             }
         });
         binding.txtCropRoiStep2CropBtnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateEntries();
-                requireActivity().finish();
                 Log.d("Calculator 2",CropROICalculatorSingleton.getInstance()+"");
 
                //popback stack to step 1

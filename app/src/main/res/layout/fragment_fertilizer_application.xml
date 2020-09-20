@@ -120,7 +120,7 @@
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
                             android:gravity="center"
-                            android:entries="@array/crop_fertilizers_usage_units"
+                            android:entries="@array/crop_fertilizers_types"
                             android:hint="Fertilizer Type"
                             android:spinnerMode="dropdown"/>
 
@@ -272,8 +272,8 @@
                     android:background="@drawable/edittext_corner"
                     android:layout_marginStart="12dp"
                     android:id="@+id/layout_crop_fertilizer_application_reminders"
-                    android:orientation="horizontal"
-                   android:visibility="gone">
+                    android:orientation="horizontal">
+
 
 
                     <Spinner
@@ -311,8 +311,8 @@
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/dimen_20dp"
-                android:visibility="gone">
+                android:layout_marginBottom="@dimen/dimen_20dp">
+
 
 
                 <EditText

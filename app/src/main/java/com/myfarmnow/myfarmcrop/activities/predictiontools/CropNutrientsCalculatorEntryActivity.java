@@ -38,7 +38,7 @@ public class CropNutrientsCalculatorEntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crop_nutrients_calculator_entry);
+//        setContentView(R.layout.activity_crop_nutrients_calculator_entry);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initializeViews();

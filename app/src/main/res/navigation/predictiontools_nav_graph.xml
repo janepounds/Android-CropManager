@@ -8,16 +8,25 @@
     <fragment
         android:id="@+id/predictionToolsHomeFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.PredictionToolsHomeFragment"
-        android:label="fragment_prediction_tools_home"
+        android:label="@string/title_predictiontools"
         tools:layout="@layout/fragment_prediction_tools_home" >
         <action
             android:id="@+id/action_predictionToolsHomeFragment_to_revenueEstimatorStep1Fragment"
             app:destination="@id/revenueEstimatorStep1Fragment" />
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_cropYieldPerformanceFragment"
+            app:destination="@id/cropYieldPerformanceFragment" />
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_nutrientCalculatorEntryFragment"
+            app:destination="@id/nutrientCalculatorEntryFragment" />
+        <action
+            android:id="@+id/action_predictionToolsHomeFragment_to_cropFertilizerCalculatorEntryFragment"
+            app:destination="@id/cropFertilizerCalculatorEntryFragment" />
     </fragment>
     <fragment
         android:id="@+id/revenueEstimatorStep1Fragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep1Fragment"
-        android:label="fragment_revenue_estimator_step1"
+        android:label="Revenue Estimator"
         tools:layout="@layout/fragment_revenue_estimator_step1" >
         <action
             android:id="@+id/action_revenueEstimatorStep1Fragment_to_revenueEstimatorStep2Fragment"
@@ -26,6 +35,75 @@
     <fragment
         android:id="@+id/revenueEstimatorStep2Fragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep2Fragment"
-        android:label="fragment_revenue_estimator_step2"
-        tools:layout="@layout/fragment_revenue_estimator_step2" />
+        android:label="Revenue Estimator"
+        tools:layout="@layout/fragment_revenue_estimator_step2" >
+        <action
+            android:id="@+id/action_revenueEstimatorStep2Fragment_to_revenueEstimatorStep3Fragment"
+            app:destination="@id/revenueEstimatorStep3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueEstimatorStep3Fragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep3Fragment"
+        android:label="Revenue Estimator"
+        tools:layout="@layout/fragment_revenue_estimator_step3" >
+        <action
+            android:id="@+id/action_revenueEstimatorStep3Fragment_to_revenueEstimatorStep4Fragment"
+            app:destination="@id/revenueEstimatorStep4Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueEstimatorStep4Fragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep4Fragment"
+        android:label="Revenue Estimator"
+        tools:layout="@layout/fragment_revenue_estimator_step4" >
+        <action
+            android:id="@+id/action_revenueEstimatorStep4Fragment_to_revenueEstimatorStep5Fragment"
+            app:destination="@id/revenueEstimatorStep5Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueEstimatorStep5Fragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep5Fragment"
+        android:label="Revenue Estimator"
+        tools:layout="@layout/fragment_revenue_estimator_step5" >
+        <action
+            android:id="@+id/action_revenueEstimatorStep5Fragment_to_revenueEstimatorResultsFragment"
+            app:destination="@id/revenueEstimatorResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueEstimatorResultsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorResultsFragment"
+        android:label="fragment_revenue_estimator_results"
+        tools:layout="@layout/fragment_revenue_estimator_results" />
+    <fragment
+        android:id="@+id/cropYieldPerformanceFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropYieldPerformanceFragment"
+        android:label="fragment_crop_yield_performance"
+        tools:layout="@layout/fragment_crop_yield_performance" />
+    <fragment
+        android:id="@+id/nutrientCalculatorEntryFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.NutrientCalculatorEntryFragment"
+        android:label="fragment_nutrient_calculator_entry"
+        tools:layout="@layout/fragment_nutrient_calculator_entry" >
+        <action
+            android:id="@+id/action_nutrientCalculatorEntryFragment_to_nutrientCalculatorResultsFragment"
+            app:destination="@id/nutrientCalculatorResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nutrientCalculatorResultsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.NutrientCalculatorResultsFragment"
+        android:label="fragment_nutrient_calculator_results"
+        tools:layout="@layout/fragment_nutrient_calculator_results" />
+    <fragment
+        android:id="@+id/cropFertilizerCalculatorEntryFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropFertilizerCalculatorEntryFragment"
+        android:label="fragment_crop_fertilizer_calculator_entry"
+        tools:layout="@layout/fragment_crop_fertilizer_calculator_entry" >
+        <action
+            android:id="@+id/action_cropFertilizerCalculatorEntryFragment_to_cropFertilizerCalculatorResultsFragment"
+            app:destination="@id/cropFertilizerCalculatorResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cropFertilizerCalculatorResultsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropFertilizerCalculatorResultsFragment"
+        android:label="fragment_crop_fertilizer_calculator_results"
+        tools:layout="@layout/fragment_crop_fertilizer_calculator_results" />
 </navigation>

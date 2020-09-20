@@ -241,11 +241,11 @@ public class MyProduceFragment extends Fragment {
             ArrayList<MyProduce> produce = fragmentReference.get().dbHandler.getAllProduce();
             fragmentReference.get().produceList = produce;
 
-            MyProduce myProduce = produce.get(0);
+//            MyProduce myProduce = produce.get(0);
 
-            Log.d(TAG, "doInBackground: " + produce);
-            Log.d(TAG, "doInBackground: Name = " + myProduce.getName());
-            Log.d(TAG, "doInBackground: Variety = " + myProduce.getVariety());
+//            Log.d(TAG, "doInBackground: " + produce);
+//            Log.d(TAG, "doInBackground: Name = " + myProduce.getName());
+//            Log.d(TAG, "doInBackground: Variety = " + myProduce.getVariety());
             return true;
         }
 

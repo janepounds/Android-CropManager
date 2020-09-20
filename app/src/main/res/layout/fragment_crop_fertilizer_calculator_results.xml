@@ -1,0 +1,466 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropFertilizerCalculatorResultsFragment">
+
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.AppBarOverlay">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+</com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:gravity="center_vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="4dp"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:text="Crop "
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
+                            />
+
+                        <TextView
+                            android:id="@+id/txt_crop_fertililizer_calculator_crop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:textColor="#899889"
+                            android:text="Tomatoes"
+                            android:textSize="14sp"
+
+                            />
+
+
+
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="4dp"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:text="Area "
+                            android:textSize="14sp"
+                            android:textColor="@color/textColor"
+                            />
+
+                        <TextView
+
+                            android:id="@+id/txt_crop_fertililizer_calculator_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_weight="0.3"
+                            android:text="54 Acres"
+                            android:textColor="#899889"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TableRow
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:background="@drawable/crop_invoice_table_border"
+
+                        >
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/crop_invoice_table_border"
+                                android:gravity="center"
+                                android:text="Fertilizer"
+                                android:textColor="@color/textColor"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:orientation="horizontal"
+                            android:paddingStart="15sp">
+                            <TextView
+                                android:id="@+id/txt_crop_fertilizer_calculator_quantity"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/crop_invoice_table_border"
+                                android:gravity="center"
+                                android:text="Quantity  (Kg)"
+                                android:textColor="@color/textColor"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txt_crop_fertilizer_calculator_unit_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/crop_invoice_table_border"
+                                android:gravity="center"
+                                android:text="Unit Price (UGX)"
+                                android:textColor="@color/textColor"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txt_crop_fertilizer_calculator_total_cost"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+
+                                android:gravity="center"
+                                android:text="Total Cost (UGX)"
+                                android:textColor="@color/textColor"
+                                android:textSize="13sp"
+                                />
+                        </LinearLayout>
+
+
+
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/table_row_crop_fertilizer_npk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:paddingTop="8dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="horizontal"
+                            android:paddingLeft="1dp">
+
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_npk_fertilizer"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="start"
+                                android:text="Diamonium Phosphate - DAP"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_npk_qty"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="center"
+                                android:text="12.567"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_npk_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="center"
+                                android:text="2,000"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_npk_cost"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="center_vertical"
+                                android:text="3,789,789"
+                                android:textSize="13sp"
+                                />
+                        </LinearLayout>
+
+
+
+
+                    </TableRow>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D2D3D2" />
+                    <TableRow
+                        android:id="@+id/table_row_crop_fertilizer_nitrogenous"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        >
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="horizontal"
+                            android:paddingLeft="1dp">
+
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_nitogenous_fertilizer"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="start"
+                                android:text="Diamonium Phosphate - DAP"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_nitrogenous_qty"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="center"
+                                android:text="12.567"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_nitrogenous_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="center"
+                                android:text="2,000"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_nitrogenous_cost"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/textColor"
+                                android:gravity="center_vertical"
+                                android:text="3,789,789"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+
+
+
+                    </TableRow>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D2D3D2" />
+                    <TableRow
+                        android:id="@+id/table_row_crop_fertilizer_potassic"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        >
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="horizontal"
+                            android:paddingLeft="1dp">
+
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_potassic_fertilizer"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="start"
+                                android:text="Diamonium Phosphate - DAP"
+                                android:textSize="13sp"
+                                android:textColor="@color/textColor"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_potassic_qty"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="12.567"
+                                android:textSize="13sp"
+                                android:textColor="@color/textColor"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_potassic_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="2,000"
+                                android:textSize="13sp"
+                                android:textColor="@color/textColor"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_view_crop_fert_calc_potassic_cost"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+
+                                android:gravity="center_vertical"
+                                android:text="3,789,789"
+                                android:textSize="13sp"
+                                android:textColor="@color/textColor"
+                                />
+                        </LinearLayout>
+
+
+
+
+                    </TableRow>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D2D3D2" />
+                </LinearLayout>
+            </HorizontalScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:paddingEnd="8dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Total Amount     "
+                    android:textSize="13sp"
+                    android:textColor="@color/textColor"
+                    />
+                <TextView
+                    android:id="@+id/txt_crop_fertililizer_calculator_total"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"
+                    android:text="UGX 2,672,836"
+
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

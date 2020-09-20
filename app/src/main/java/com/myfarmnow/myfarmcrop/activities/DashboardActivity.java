@@ -47,7 +47,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropCalculatorsActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -297,8 +296,8 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     public void openCalculators(View view) {
-        Intent openList = new Intent(this, CropCalculatorsActivity.class);
-        startActivity(openList);
+//        Intent openList = new Intent(this, CropCalculatorsActivity.class);
+//        startActivity(openList);
     }
 
     //method to get the right URL to use in the intent
