@@ -96,6 +96,12 @@
         <action
             android:id="@+id/action_cropListFragment_to_cropHarvestFragment"
             app:destination="@id/cropHarvestFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_cropActivitiesListFragment"
+            app:destination="@id/cropActivitiesListFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_cropsNotesListFragment"
+            app:destination="@id/cropsNotesListFragment" />
 
     </fragment>
     <fragment
@@ -185,4 +191,22 @@
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropActivitiesListFragment"
         android:label="fragment_crop_activities_list"
         tools:layout="@layout/fragment_crop_activities_list" />
+    <fragment
+        android:id="@+id/cropsNotesListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropsNotesListFragment"
+        android:label="fragment_crops_notes_list"
+        tools:layout="@layout/fragment_crops_notes_list" >
+        <action
+            android:id="@+id/action_cropsNotesListFragment_to_addCropNotesFragment"
+            app:destination="@id/addCropNotesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCropNotesFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddCropNotesFragment"
+        android:label="fragment_add_crop_notes"
+        tools:layout="@layout/fragment_add_crop_notes" >
+        <action
+            android:id="@+id/action_addCropNotesFragment_to_cropsNotesListFragment"
+            app:destination="@id/cropsNotesListFragment" />
+    </fragment>
 </navigation>
