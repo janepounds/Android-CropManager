@@ -8908,6 +8908,31 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         return marketPriceArrayList;
     }
+
+    public ArrayList<MarketPrice> filterMarketPrices(String crop) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + MARKET_PRICE_TABLE_NAME + " WHERE " + MARKET_PRICE_CROP + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{crop});
+
+        ArrayList<MarketPrice> marketPriceArrayList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                MarketPrice model = new MarketPrice();
+
+                model.setCrop(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_CROP)));
+                model.setMarket(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_TABLE_MARKET)));
+                model.setRetail(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_RETAIL)));
+                model.setWholesale(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_WHOLESALE)));
+
+                marketPriceArrayList.add(model);
+
+            } while (cursor.moveToNext());
+        }
+
+        return marketPriceArrayList;
+    }
 }
 
 
