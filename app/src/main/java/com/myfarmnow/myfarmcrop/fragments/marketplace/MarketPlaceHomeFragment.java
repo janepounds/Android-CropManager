@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.marketplace.MarketPlaceActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMarketplaceHomeBinding;
 
 import java.util.Objects;
@@ -50,13 +51,7 @@ public class MarketPlaceHomeFragment extends Fragment {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        binding.buyInputs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent buyinputs = new Intent(getActivity(), BuyInputsActivity.class);
-                startActivity(buyinputs);
-            }
-        });
+
 
         return binding.getRoot();
     }
@@ -75,5 +70,14 @@ public class MarketPlaceHomeFragment extends Fragment {
         binding.toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         binding.sellProduce.setOnClickListener(v -> navController.navigate(R.id.action_marketPlaceHomeFragment_to_sellProduceFragment));
+
+
+        binding.buyInputs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent buyinputs = new Intent(getActivity(), BuyInputsActivity.class);
+                getActivity().startActivity(buyinputs);
+            }
+        });
     }
 }

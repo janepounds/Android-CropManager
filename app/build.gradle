@@ -116,7 +116,8 @@ dependencies {
     implementation 'gun0912.ted:tedpermission:2.2.0'
 
     implementation 'com.github.pwittchen:infinitescroll:0.0.2'
-    // implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.android.volley:volley:1.1.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
         transitive = true;

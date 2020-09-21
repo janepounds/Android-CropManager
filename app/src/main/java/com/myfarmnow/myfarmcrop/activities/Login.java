@@ -834,7 +834,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     public void onBackPressed() {
 
         // Navigate back to MainActivity
-        startActivity(new Intent(Login.this, DashboardActivity.class));
+        //startActivity(new Intent(Login.this, DashboardActivity.class));
         finish();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
@@ -845,7 +845,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         switch (item.getItemId()){
             case android.R.id.home:
-                startActivity(new Intent(Login.this, DashboardActivity.class));
+                //startActivity(new Intent(Login.this, DashboardActivity.class));
                 finish();
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
                 break;

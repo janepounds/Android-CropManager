@@ -80,7 +80,6 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
     Toolbar toolbar;
     ActionBar actionBar;
 
-    ImageView drawer_header;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton floatingActionButton;
 
@@ -120,37 +119,7 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
 
     //*********** Called when the Activity is becoming Visible to the User ********//
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        if (myAppPrefsManager.isFirstTimeLaunch()) {
-            NotificationScheduler.setReminder(BuyInputsActivity.this, AlarmReceiver.class);
-
-            if (ConstantValues.DEFAULT_NOTIFICATION.equalsIgnoreCase("fcm")) {
-                StartAppRequests.RegisterDeviceForFCM(BuyInputsActivity.this);
-            }
-
-        }
-        /*//Check if we should open a fragment based on the arguments we have
-        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(FRAGMENT_CLASS)) {
-            try {
-                Class<? extends Fragment> fragmentClass = (Class<? extends Fragment>) getIntent().getExtras().getSerializable(FRAGMENT_CLASS);
-                if (fragmentClass != null) {
-                    String[] extra = getIntent().getExtras().getStringArray(FRAGMENT_DATA);
-
-                    HolderActivity.startActivity(this, fragmentClass, extra);
-                    finish();
-                    //Optionally, we can also point intents to holderactivity directly instead of MainAc.
-                }
-            } catch (Exception e) {
-                //If we come across any errors, just continue and open the default fragment
-                e.getStackTrace();
-            }
-        }
-*/
-        myAppPrefsManager.setFirstTimeLaunch(false);
-    }
 
     //*********** Called when the Activity is first Created ********//
 
