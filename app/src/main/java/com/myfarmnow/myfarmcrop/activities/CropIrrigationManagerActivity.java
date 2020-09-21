@@ -242,7 +242,7 @@ public class CropIrrigationManagerActivity extends AppCompatActivity {
 
     public void updateIrrigation(){
         if(cropIrrigation != null){
-            cropIrrigation.setUserId(DashboardActivity.getPreferences("userId",this));
+            cropIrrigation.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             cropIrrigation.setOperationDate(operationDateTxt.getText().toString());
             cropIrrigation.setSystemRate(Float.parseFloat(systemRateTxt.getText().toString()));
             cropIrrigation.setStartTime(startTimeTxt.getText().toString());

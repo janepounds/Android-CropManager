@@ -25,6 +25,7 @@ import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
 import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
@@ -50,8 +51,8 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_farm_records_dashboard);
 
-//        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings("12");
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.PREFERENCES_USER_ID);
+
 
     }
 

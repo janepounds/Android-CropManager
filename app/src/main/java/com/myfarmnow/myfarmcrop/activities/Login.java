@@ -548,11 +548,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         // Save necessary details in SharedPrefs
         editor = sharedPreferences.edit();
-        editor.putString("userID", userDetails.getId());
-        editor.putString("userEmail", userDetails.getEmail());
-        editor.putString("userName", userDetails.getFirstName()+" "+userDetails.getLastName());
-        editor.putString("userTelephone", user_current_phone_number);
-        editor.putString("userDefaultAddressID", userDetails.getDefaultAddressId());
+        editor.putString(DashboardActivity.PREFERENCES_USER_ID, userDetails.getId());
+        editor.putString(DashboardActivity.PREFERENCES_USER_EMAIL, userDetails.getEmail());
+        editor.putString(DashboardActivity.PREFERENCES_FIRST_NAME, userDetails.getFirstName());
+        editor.putString(DashboardActivity.PREFERENCES_LAST_NAME, userDetails.getLastName());
+        editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, user_current_phone_number);
+        editor.putString(DashboardActivity.USER_DEFAULT_ADDRESS_PREFERENCES_ID, userDetails.getDefaultAddressId());
+
         editor.putBoolean("isLogged_in", true);
         editor.commit();
 
