@@ -7,26 +7,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.databinding.FragmentAccountBinding;
 
 public class AccountFragment extends Fragment {
     private static final String TAG = "AccountFragment";
-    private Context appContext;
+    private FragmentAccountBinding binding;
+    private Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false);
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        appContext = context;
+        this.context = context;
     }
 }
