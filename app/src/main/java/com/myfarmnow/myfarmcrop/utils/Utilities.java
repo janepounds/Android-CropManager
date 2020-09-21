@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Criteria;
@@ -17,43 +19,30 @@ import android.provider.Settings;
 import androidx.annotation.ColorRes;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.app.CropManagerApp;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.models.device_model.DeviceInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -75,6 +64,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import static android.content.Context.LOCATION_SERVICE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -170,7 +160,181 @@ public class Utilities {
             return currencyCode;
         }
     }
-    
+    //*********** Returns information of the Device ********//
+
+    public static DeviceInfo getDeviceInfo(Context context) {
+
+        double lat = 0;
+        double lng = 0;
+        String IMEI = "";
+        String NETWORK = "";
+        String PROCESSORS = "";
+
+
+        String UNIQUE_ID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        PROCESSORS = String.valueOf(Runtime.getRuntime().availableProcessors());
+
+        ActivityManager actManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+        actManager.getMemoryInfo(memInfo);
+        double totalRAM = Math.round( ((memInfo.totalMem /1024.0) /1024.0)  /1024.0 );
+
+
+        if (CheckPermissions.is_PHONE_STATE_PermissionGranted()) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            try {
+                IMEI = telephonyManager.getDeviceId();
+                NETWORK = telephonyManager.getNetworkOperatorName();
+
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        if (CheckPermissions.is_LOCATION_PermissionGranted()) {
+            LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+            try {
+                boolean gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                boolean network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                Location location = null;
+                String provider = locationManager.getBestProvider(new Criteria(), true);
+                final LocationListener locationListener = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location loc) {}
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {}
+                    @Override
+                    public void onProviderEnabled(String provider) {}
+                    @Override
+                    public void onProviderDisabled(String provider) {}
+                };
+//                locationManager.requestLocationUpdates(provider, 1000, 0, locationListener);
+
+                if (gps_enabled) {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                } else if (network_enabled) {
+                    location = locationManager.getLastKnownLocation(provider);
+                }
+
+                if (location != null) {
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+                }
+                locationManager.removeUpdates(locationListener);
+
+            } catch (SecurityException se) {
+                se.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+        DeviceInfo device = new DeviceInfo();
+
+        device.setDeviceID(UNIQUE_ID);
+        device.setDeviceType("Android");
+        device.setDeviceUser(Build.USER);
+        device.setDeviceModel(Build.BRAND +" "+Build.MODEL);
+        device.setDeviceBrand(Build.BRAND);
+        device.setDeviceSerial(Build.SERIAL);
+        device.setDeviceSystemOS(System.getProperty("os.name"));
+        device.setDeviceAndroidOS("Android "+ Build.VERSION.RELEASE);
+        device.setDeviceManufacturer(Build.MANUFACTURER);
+        device.setDeviceIMEI(IMEI);
+        device.setDeviceRAM(totalRAM +"GB");
+        device.setDeviceCPU(Build.UNKNOWN);
+        device.setDeviceStorage(Build.UNKNOWN);
+        device.setDeviceProcessors(PROCESSORS);
+        device.setDeviceIP(Build.UNKNOWN);
+        device.setDeviceMAC(Build.UNKNOWN);
+        device.setDeviceNetwork(NETWORK);
+        device.setDeviceLocation(lat +", "+ lng);
+        device.setDeviceBatteryLevel(Build.UNKNOWN);
+        device.setDeviceBatteryStatus(Build.UNKNOWN);
+
+        return device;
+    }
+
+
+    //*********** Checks if the Product is newly added ********//
+
+    public static boolean checkNewProduct(String productDate) {
+
+        boolean isNew = false;
+
+        long diff;
+        long days;
+        Date dateProduct, dateSystem;
+
+        Calendar calender = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDate = dateFormat.format(calender.getTime());
+
+        try {
+            dateSystem = dateFormat.parse(currentDate);
+            dateProduct = dateFormat.parse(productDate);
+
+            diff = dateSystem.getTime() - dateProduct.getTime();
+            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+            isNew = (days <= ConstantValues.NEW_PRODUCT_DURATION);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return isNew;
+    }
+
+
+
+    //*********** Used to Animate the MenuIcons ********//
+
+    public static void animateCartMenuIcon(Context context, Activity activity) {
+
+        Toolbar toolbar = activity.findViewById(R.id.myToolbar);
+
+        MenuItem cartItem = toolbar.getMenu().findItem(R.id.toolbar_ic_cart);
+        if (cartItem == null)
+            return;
+
+
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake_icon);
+        animation.setRepeatMode(Animation.ZORDER_TOP);
+        animation.setRepeatCount(2);
+
+
+        Animation anim = cartItem.getActionView().getAnimation();
+
+        cartItem.getActionView().startAnimation(animation);
+
+    }
+
+
+    //*********** Used to Calculate the Discount Percentage between New and Old Prices ********//
+
+    public static String checkDiscount(String actualPrice, String discountedPrice) {
+
+        if (discountedPrice == null) {
+            discountedPrice = actualPrice;
+        }
+
+        Double oldPrice = Double.parseDouble(actualPrice.replace(",",""));
+        Double newPrice = Double.parseDouble(discountedPrice.replace(",",""));
+
+        double discount = (oldPrice - newPrice)/oldPrice * 100;
+
+        return (discount > 0) ? Math.round(discount) +"% " + CropManagerApp.getContext().getString(R.string.OFF) : null;
+    }
+
+
+
     //*********** Convert given String to Md5Hash ********//
     
     public static String getMd5Hash(String input) {

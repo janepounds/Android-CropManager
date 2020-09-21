@@ -1,0 +1,223 @@
+package com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.app.CropManagerApp;
+import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CheckoutFinal;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
+import com.myfarmnow.myfarmcrop.models.address_model.AddressDetails;
+import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
+import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantDetails;
+import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
+import com.myfarmnow.myfarmcrop.models.shipping_model.ShippingService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * merchantsListAdapter is the adapter class of RecyclerView holding List of Orders in My_Orders
+ **/
+
+public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdapter.MyViewHolder> {
+
+    Context context;
+    List<MerchantDetails> merchantsList;
+    My_Cart my_cart;
+    FragmentManager fragmentManager;
+
+    //declare interface
+    private OnItemClicked onClick;
+
+    //make interface like this
+    public interface OnItemClicked {
+        void onItemClick(int position);
+    }
+
+
+
+    public MerchantsListAdapter(Context context, List<MerchantDetails> merchantsList,  My_Cart my_cart, FragmentManager fragmentManager) {
+        this.context = context;
+        this.merchantsList = merchantsList;
+        this.my_cart = my_cart;
+        this.fragmentManager=fragmentManager;
+    }
+
+
+
+    //********** Called to Inflate a Layout from XML and then return the Holder *********//
+
+    @Override
+    public MyViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        // Inflate the custom layout
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.buy_inputs_card_merchants, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+
+
+    //********** Called by RecyclerView to display the Data at the specified Position *********//
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+
+        // Get the data model based on Position
+        final MerchantDetails merchantsDetails = merchantsList.get(position);
+
+        holder.merchants_businessName.setText(merchantsDetails.getBusinessName());
+        holder.merchant_location.setText(merchantsDetails.getAddress());
+        int order_price=merchantsDetails.getTotalOrderPrice();
+        holder.order_price.setText( order_price>0? context.getString(R.string.defaultcurrency)+" "+order_price : "N/A");
+
+        //MerchantProductListAdapter
+        // Initialize the merchantsListAdapter for RecyclerView
+        RecyclerView productsts_recycler=holder.order_products_list;
+        final Map<String, String> producttList = merchantsDetails.getProductPrices();
+        ArrayList<String> productNameList=new  ArrayList<String>();
+
+        for (Map.Entry<String,String> entry : producttList.entrySet())  {
+            productNameList.add(entry.getKey());
+        }
+
+        MerchantProductListAdapter producttsListAdapter = new MerchantProductListAdapter(this.context, productNameList,producttList);
+        // Set the Adapter and LayoutManager to the RecyclerView
+        productsts_recycler.setAdapter(producttsListAdapter);
+
+        productsts_recycler.setHasFixedSize(true);
+
+        productsts_recycler.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.VERTICAL, false));
+        if(productNameList.size()>7)
+            productsts_recycler.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150));
+
+        producttsListAdapter.notifyDataSetChanged();
+
+
+        final AddressDetails shippingAddress = ((CropManagerApp) context.getApplicationContext()).getShippingAddress();
+
+        holder.select_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( !holder.order_price.getText().toString().equalsIgnoreCase("N/A")) {
+
+                    User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
+                    List<CartProduct> checkoutItemsList =  user_cart_BuyInputs_db.getCartItems();//get checkout items
+
+                    for (int i = 0; i < checkoutItemsList.size(); i++) {//update Cart product Prices
+
+                        ProductDetails product_details=checkoutItemsList.get(i).getCustomersBasketProduct();
+                        CartProduct cart_product=checkoutItemsList.get(i);
+
+                        //NB:CONVENTION product price in the producttList is also null if product is out of stoke
+                        if( producttList.get( product_details.getProductsName())!=null ){//Merchant sells the product
+                            product_details.setProductsPrice( producttList.get( product_details.getProductsName()) );
+                            product_details.setTotalPrice( (product_details.getCustomersBasketQuantity() * Integer.parseInt(producttList.get( product_details.getProductsName())) )+"" );
+                            product_details.setProductsFinalPrice(product_details.getTotalPrice());
+                            Log.w("PdtCost",producttList.get( product_details.getProductsName())+" "+product_details.getCustomersBasketQuantity()+" "+product_details.getTotalPrice());
+
+                            checkoutItemsList.get(i).setCustomersBasketProduct(product_details);
+                            user_cart_BuyInputs_db.updateCart( cart_product);
+                        }else {
+
+                            user_cart_BuyInputs_db.deleteCartItem(cart_product.getCustomersBasketId());
+                        }
+
+
+                    }//end Cart product update
+
+                    final String tax = "0";
+                    final ShippingService shippingService = new ShippingService();
+                    shippingService.setName(shippingAddress.getFirstname() + shippingAddress.getLastname() != null ? " " + shippingAddress.getLastname() : "");
+                    shippingService.setCurrencyCode(context.getString(R.string.defaultcurrency));
+                    if(merchantsDetails.getDistance()==null)
+                        shippingService.setRate("0");
+                    else
+                        shippingService.setRate("" + 2000*(Math.round(Float.parseFloat(merchantsDetails.getDistance())*10)/10) );
+
+                    // Save the AddressDetails
+                    ((CropManagerApp) context.getApplicationContext()).setTax(tax);
+                    ((CropManagerApp) context.getApplicationContext()).setShippingService(shippingService);
+
+                    // Navigate to CheckoutFinal Fragment
+                    Fragment fragment = new CheckoutFinal(my_cart, user_cart_BuyInputs_db,merchantsDetails.getMerchantId()+"");
+                    fragmentManager.beginTransaction().add(R.id.main_fragment, fragment, context.getString(R.string.checkout))
+                            .addToBackStack(null).commit();
+                }
+
+            }
+        });
+
+        holder.ignore_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeItem(position);
+
+            }
+        });
+
+    }
+
+
+    //********** Returns the total number of items in the data set *********//
+
+    @Override
+    public int getItemCount() {
+        return merchantsList.size();
+    }
+
+    public void removeItem(int position)
+    {
+        // Remove specified position
+        merchantsList.remove(position);
+        // Notify adapter to remove the position
+        notifyItemRemoved(position);
+        // Notify adapter about data changed
+        notifyItemChanged(position);
+        // Notify adapter about item range changed
+        notifyItemRangeChanged(position, merchantsList.size());
+    }
+
+    /********** Custom ViewHolder provides a direct reference to each of the Views within a Data_Item *********/
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView merchants_businessName, merchant_location,order_price;
+        private RecyclerView order_products_list;
+        private Button select_btn, ignore_btn;
+
+
+        public MyViewHolder(final View itemView) {
+            super(itemView);
+            merchants_businessName = itemView.findViewById(R.id.text_businessName);
+            merchant_location = itemView.findViewById(R.id.text_location_address);
+            order_price = itemView.findViewById(R.id.order_price);
+            order_products_list = itemView.findViewById(R.id.product_order_list);
+            select_btn = itemView.findViewById(R.id.select_btn);
+            ignore_btn = itemView.findViewById(R.id.ignore_btn);
+
+        }
+    }
+
+
+    public void setOnClick(OnItemClicked onClick)
+    {
+        this.onClick=onClick;
+    }
+
+
+}
+

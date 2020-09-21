@@ -27,7 +27,7 @@ public class CropYieldPerformanceActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         yieldListRecyclerView = findViewById(R.id.crop_yield_recyc_view);
-        cropYieldsListRecyclerAdapter = new CropYieldsListRecyclerAdapter(this,dbHandler.getCropsYield(DashboardActivity.getPreferences("userId",this)));
+        cropYieldsListRecyclerAdapter = new CropYieldsListRecyclerAdapter(this,dbHandler.getCropsYield(DashboardActivity.PREFERENCES_USER_ID));
         yieldListRecyclerView.setAdapter(cropYieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         yieldListRecyclerView.setLayoutManager(linearLayoutManager);

@@ -37,13 +37,13 @@
                     android:padding="3.4dp">
 
                     <Spinner
-                        android:id="@+id/produce_quantity_unit"
+                        android:id="@+id/spinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:entries="@array/crops_list"
+                        android:entries="@array/market_price_crops_list"
                         android:gravity="center"
                         android:spinnerMode="dropdown" />
 

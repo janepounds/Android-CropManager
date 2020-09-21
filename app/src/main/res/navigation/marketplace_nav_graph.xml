@@ -9,18 +9,12 @@
         android:name="com.myfarmnow.myfarmcrop.fragments.marketplace.MarketPlaceHomeFragment"
         android:label="Marketplace"
         tools:layout="@layout/fragment_marketplace_home" >
-        <action
-            android:id="@+id/action_marketPlaceHomeFragment_to_buyInputsFragment"
-            app:destination="@id/buyInputsFragment" />
+
         <action
             android:id="@+id/action_marketPlaceHomeFragment_to_sellProduceFragment"
             app:destination="@id/sellProduceFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/buyInputsFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsFragment"
-        android:label="Buy Inputs"
-        tools:layout="@layout/fragment_buy_inputs" />
+
     <fragment
         android:id="@+id/sellProduceFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.marketplace.SellProduceFragment"

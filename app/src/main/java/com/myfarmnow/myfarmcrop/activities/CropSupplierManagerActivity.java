@@ -113,7 +113,7 @@ public class CropSupplierManagerActivity extends AppCompatActivity {
     }
     public void saveFields(){
         cropSupplier = new CropSupplier();
-        cropSupplier.setUserId(DashboardActivity.getPreferences("userId",this));
+        cropSupplier.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropSupplier.setName(nameTxt.getText().toString());
         cropSupplier.setPhone( phoneTxt.getText().toString());
         cropSupplier.setMobile( mobileTxt.getText().toString());

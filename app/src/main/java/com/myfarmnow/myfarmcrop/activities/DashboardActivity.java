@@ -47,16 +47,22 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
+import com.myfarmnow.myfarmcrop.network.StartAppRequests;
+import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
 import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
 import com.myfarmnow.myfarmcrop.services.CropSyncService;
+import com.myfarmnow.myfarmcrop.utils.NotificationScheduler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,10 +82,11 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String FARM_NAME_PREFERENCES_ID = "farmname";
     public static final String STREET_PREFERENCES_ID = "addressStreet";
     public static final String CITY_PREFERENCES_ID = "addressCityOrTown";
+    public static final String USER_DEFAULT_ADDRESS_PREFERENCES_ID = "userDefaultAddressID";
     public static final String COUNTRY_PREFERENCES_ID = "addressCountry";
     public static final String PREFERENCES_FIRST_NAME = "firstname";
     public static final String PREFERENCES_LAST_NAME = "lastname";
-    public static final String PREFERENCES_USER_ID = "userId";
+    public static String PREFERENCES_USER_ID = "userId";
     public static final String PREFERENCES_USER_EMAIL = "email";
     public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
 
@@ -90,11 +97,39 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String TASK_BACKUP_DATA_TAG = "SYNC_SERVICE";
     public static final String TASK_SEND_NOTIFICATIONS_TAG = "SEND_NOTIFICATIONS";
 
+
+    SharedPreferences sharedPreferences;
+    MyAppPrefsManager myAppPrefsManager;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (myAppPrefsManager.isFirstTimeLaunch()) {
+            NotificationScheduler.setReminder(DashboardActivity.this, AlarmReceiver.class);
+
+            if (ConstantValues.DEFAULT_NOTIFICATION.equalsIgnoreCase("fcm")) {
+                StartAppRequests.RegisterDeviceForFCM(DashboardActivity.this);
+            }
+
+        }
+
+        myAppPrefsManager.setFirstTimeLaunch(false);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId", this));
+
+        // Get MyAppPrefsManager
+        myAppPrefsManager = new MyAppPrefsManager(DashboardActivity.this);
+        sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+
+        PREFERENCES_USER_ID = DashboardActivity.this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.PREFERENCES_USER_ID);
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -240,52 +275,52 @@ public class DashboardActivity extends AppCompatActivity {
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-
-                        sendFirebaseToken(token, DashboardActivity.this);
+                        StartAppRequests.RegisterDeviceForFCM(getApplicationContext());
+//                        sendFirebaseToken(token, DashboardActivity.this);
                     }
                 });
 
     }
 
-    public static void sendFirebaseToken(String token, final Context context) {
-        final AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, context));
-        params.put("firebaseToken", token);
-
-        Handler mainHandler = new Handler(Looper.getMainLooper());
-        Runnable myRunnable = new Runnable() {
-            @Override
-            public void run() {
-                client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new AsyncHttpResponseHandler() {
-
-                    @Override
-                    public void onStart() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, "yes", context);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        if (responseBody != null) {
-                            Log.e("info", new String(String.valueOf(responseBody)));
-                        } else {
-                            Log.e("info", "Something got very very wrong");
-                        }
-                    }
-
-
-                });
-            }
-        };
-        mainHandler.post(myRunnable);
-
-    }
+//    public static void sendFirebaseToken(String token, final Context context) {
+//        final AsyncHttpClient client = new AsyncHttpClient();
+//        final RequestParams params = new RequestParams();
+//        // client.addHeader("Authorization","Bearer "+CropWalletAuthActivity.WALLET_ACCESS_TOKEN);
+//        params.put("email", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, context));
+//        params.put("firebaseToken", token);
+//
+//        Handler mainHandler = new Handler(Looper.getMainLooper());
+//        Runnable myRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                client.post(ApiPaths.CROP_SEND_FIREBASE_TOKEN, params, new AsyncHttpResponseHandler() {
+//
+//                    @Override
+//                    public void onStart() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                        savePreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, "yes", context);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                        if (responseBody != null) {
+//                            Log.e("info", new String(String.valueOf(responseBody)));
+//                        } else {
+//                            Log.e("info", "Something got very very wrong");
+//                        }
+//                    }
+//
+//
+//                });
+//            }
+//        };
+//        mainHandler.post(myRunnable);
+//
+//    }
 
     public void openFertilizerCalculator(View view) {
         //CropFertilizerCalculatorEntryActivity
@@ -417,7 +452,7 @@ public class DashboardActivity extends AppCompatActivity {
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
                 finish();
-                Intent openList = new Intent(DashboardActivity.this, CropLoginActivity.class);
+                Intent openList = new Intent(DashboardActivity.this, Login.class);
                 startActivity(openList);
             }
         }, 10000);

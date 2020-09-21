@@ -220,17 +220,17 @@ public class CropTaskManagerActivity extends AppCompatActivity {
         });
 
         ArrayList<CropSpinnerItem> cropsItems = new ArrayList<>();
-        for(Crop x: dbHandler.getCrops(DashboardActivity.getPreferences("userId",this))){
+        for(Crop x: dbHandler.getCrops(DashboardActivity.PREFERENCES_USER_ID)){
             cropsItems.add(x);
         }
         cropsSpinnerAdapter = new CropSpinnerAdapter(cropsItems,"Crops",this);
         cropSp.setAdapter(cropsSpinnerAdapter);
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.getPreferences("userId",this))){
+        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.PREFERENCES_USER_ID)){
             employeesItems.add(x.getFullName());
         }
-        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.getPreferences("userId",this))){
+        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.PREFERENCES_USER_ID)){
             employeesItems.add(x.getName());
         }
         employeesSpinnerAdapter  = new ArrayAdapter<String>(this,
@@ -245,7 +245,7 @@ public class CropTaskManagerActivity extends AppCompatActivity {
 
     public void saveFields(){
         cropTask = new CropTask();
-        cropTask.setUserId(DashboardActivity.getPreferences("userId",this));
+        cropTask.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropTask.setCropId(((CropSpinnerItem)cropSp.getSelectedItem()).getId());
         cropTask.setTitle(titleTxt.getText().toString());
         cropTask.setDate(dateTxt.getText().toString());
@@ -267,7 +267,7 @@ public class CropTaskManagerActivity extends AppCompatActivity {
 
     public void updateField(){
         if(cropTask != null){
-            cropTask.setUserId(DashboardActivity.getPreferences("userId",this));
+            cropTask.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             cropTask.setCropId(((CropSpinnerItem)cropSp.getSelectedItem()).getId());
             cropTask.setTitle(titleTxt.getText().toString());
             cropTask.setDate(dateTxt.getText().toString());
