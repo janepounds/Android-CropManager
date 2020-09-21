@@ -18,8 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropsNotesManagerActivity;
+
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropNotesBinding;
