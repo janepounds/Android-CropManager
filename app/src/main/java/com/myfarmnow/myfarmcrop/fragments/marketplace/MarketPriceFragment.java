@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.R;
@@ -32,7 +34,7 @@ public class MarketPriceFragment extends Fragment {
     private FragmentMarketPriceBinding binding;
     private Context context;
 
-    ArrayList<MarketPrice> marketPriceArrayList = new ArrayList<>();
+    private ArrayList<MarketPrice> marketPriceArrayList = new ArrayList<>();
     private ArrayList<MarketPriceItem> marketPriceItemArrayList = new ArrayList<>();
     private ArrayList<MarketPriceSubItem> marketPriceSubItemArrayList = new ArrayList<>();
 
@@ -46,13 +48,33 @@ public class MarketPriceFragment extends Fragment {
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
-        dbHandler.insertMarketPrice(new MarketPrice("Ginger (Kg)", "Tororo", "1,000", "600"));
-        dbHandler.insertMarketPrice(new MarketPrice("Millet (Kg)", "Mbarara", "1,800", "1,500"));
-        dbHandler.insertMarketPrice(new MarketPrice("Milk (Lts)", "Gulu", "1,000", "800"));
-        dbHandler.insertMarketPrice(new MarketPrice("Ginger (Kg)", "Kampala", "2,000", "100"));
+        dbHandler.insertMarketPrice(new MarketPrice("Ginger", "Tororo", "1,000", "600"));
+        dbHandler.insertMarketPrice(new MarketPrice("Millet", "Mbarara", "1,800", "1,500"));
+        dbHandler.insertMarketPrice(new MarketPrice("Milk", "Gulu", "1,000", "800"));
+        dbHandler.insertMarketPrice(new MarketPrice("Ginger", "Kampala", "2,000", "100"));
 
         marketPriceArrayList.clear();
         marketPriceArrayList = dbHandler.getAllMarketPrices();
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (!adapterView.getSelectedItem().toString().equals("Select Crop")) {
+//                    Toast.makeText(context, "Item = " + adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Item = " + adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+//                    Log.d(TAG, "onCreateView: Filter = " + dbHandler.filterMarketPrices(adapterView.getSelectedItem().toString()));
+                    Log.d(TAG, "onCreateView: Filter = " + dbHandler.filterMarketPrices(adapterView.getSelectedItem().toString()).toString());
+                    marketPriceArrayList.clear();
+                    marketPriceArrayList = dbHandler.filterMarketPrices(adapterView.getSelectedItem().toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         for (int k = 0; k < marketPriceArrayList.size(); k++) {
             MarketPrice marketPrice = marketPriceArrayList.get(k);
@@ -76,6 +98,7 @@ public class MarketPriceFragment extends Fragment {
         MarketPriceItemAdapter adapter = new MarketPriceItemAdapter(context, marketPriceItemArrayList);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
+        adapter.notifyDataSetChanged();
 
         return binding.getRoot();
     }
