@@ -1,21 +1,17 @@
 package com.myfarmnow.myfarmcrop.adapters.marketplace;
 
 import android.content.Context;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceItem;
-import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
 import java.util.ArrayList;
 

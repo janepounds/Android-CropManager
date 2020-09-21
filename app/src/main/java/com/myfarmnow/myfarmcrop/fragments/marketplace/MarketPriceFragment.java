@@ -48,26 +48,77 @@ public class MarketPriceFragment extends Fragment {
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
-        dbHandler.insertMarketPrice(new MarketPrice("Ginger", "Tororo", "1,000", "600"));
-        dbHandler.insertMarketPrice(new MarketPrice("Millet", "Mbarara", "1,800", "1,500"));
-        dbHandler.insertMarketPrice(new MarketPrice("Milk", "Gulu", "1,000", "800"));
-        dbHandler.insertMarketPrice(new MarketPrice("Ginger", "Kampala", "2,000", "100"));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        MarketPriceItemAdapter adapter = new MarketPriceItemAdapter(context, marketPriceItemArrayList);
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
 
-        marketPriceArrayList.clear();
-        marketPriceArrayList = dbHandler.getAllMarketPrices();
+//        dbHandler.insertMarketPrice(new MarketPrice("Ginger", "Tororo", "1,000", "600"));
+//        dbHandler.insertMarketPrice(new MarketPrice("Millet", "Mbarara", "1,800", "1,500"));
+//        dbHandler.insertMarketPrice(new MarketPrice("Milk", "Gulu", "1,000", "800"));
+
+//        marketPriceArrayList.clear();
+//        marketPriceArrayList = dbHandler.getAllMarketPrices();
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                marketPriceArrayList.clear();
+                marketPriceItemArrayList.clear();
+                marketPriceSubItemArrayList.clear();
 
-                if (!adapterView.getSelectedItem().toString().equals("Select Crop")) {
-//                    Toast.makeText(context, "Item = " + adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(context, "Item = " + adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-//                    Log.d(TAG, "onCreateView: Filter = " + dbHandler.filterMarketPrices(adapterView.getSelectedItem().toString()));
-                    Log.d(TAG, "onCreateView: Filter = " + dbHandler.filterMarketPrices(adapterView.getSelectedItem().toString()).toString());
-                    marketPriceArrayList.clear();
-                    marketPriceArrayList = dbHandler.filterMarketPrices(adapterView.getSelectedItem().toString());
+                if (adapterView.getSelectedItem().toString().equals("Select Crop")) {
+                    Toast.makeText(context, "Select Crop", Toast.LENGTH_SHORT).show();
+                } else if (adapterView.getSelectedItem().toString().equals("Ginger")) {
+                    Toast.makeText(context, "Ginger", Toast.LENGTH_SHORT).show();
+                    marketPriceArrayList = dbHandler.filterMarketPrices("Ginger");
+
+                    for (int k = 0; k < marketPriceArrayList.size(); k++) {
+                        Log.d(TAG, "onItemSelected: Array = " + marketPriceArrayList.get(k));
+                        MarketPrice marketPrice = marketPriceArrayList.get(k);
+                        Log.d(TAG, "onItemSelected: Name = " + marketPrice.getCrop());
+
+                        MarketPriceSubItem subItem = new MarketPriceSubItem(marketPrice.getMarket(), marketPrice.getRetail(), marketPrice.getWholesale());
+                        marketPriceSubItemArrayList.add(subItem);
+                    }
+
+                    MarketPriceItem marketPriceItem = new MarketPriceItem("Ginger", marketPriceSubItemArrayList);
+                    marketPriceItemArrayList.add(marketPriceItem);
+
+                } else if (adapterView.getSelectedItem().toString().equals("Millet")) {
+                    Toast.makeText(context, "Millet", Toast.LENGTH_SHORT).show();
+                    marketPriceArrayList = dbHandler.filterMarketPrices("Millet");
+
+                    for (int k = 0; k < marketPriceArrayList.size(); k++) {
+                        Log.d(TAG, "onItemSelected: Array = " + marketPriceArrayList.get(k));
+                        MarketPrice marketPrice = marketPriceArrayList.get(k);
+                        Log.d(TAG, "onItemSelected: Name = " + marketPrice.getCrop());
+
+                        MarketPriceSubItem subItem = new MarketPriceSubItem(marketPrice.getMarket(), marketPrice.getRetail(), marketPrice.getWholesale());
+                        marketPriceSubItemArrayList.add(subItem);
+                    }
+
+                    MarketPriceItem marketPriceItem = new MarketPriceItem("Millet", marketPriceSubItemArrayList);
+                    marketPriceItemArrayList.add(marketPriceItem);
+
+                } else if (adapterView.getSelectedItem().toString().equals("Milk")) {
+                    Toast.makeText(context, "Milk", Toast.LENGTH_SHORT).show();
+                    marketPriceArrayList = dbHandler.filterMarketPrices("Milk");
+
+                    for (int k = 0; k < marketPriceArrayList.size(); k++) {
+                        Log.d(TAG, "onItemSelected: Array = " + marketPriceArrayList.get(k));
+                        MarketPrice marketPrice = marketPriceArrayList.get(k);
+                        Log.d(TAG, "onItemSelected: Name = " + marketPrice.getCrop());
+
+                        MarketPriceSubItem subItem = new MarketPriceSubItem(marketPrice.getMarket(), marketPrice.getRetail(), marketPrice.getWholesale());
+                        marketPriceSubItemArrayList.add(subItem);
+                    }
+
+                    MarketPriceItem marketPriceItem = new MarketPriceItem("Milk", marketPriceSubItemArrayList);
+                    marketPriceItemArrayList.add(marketPriceItem);
                 }
+
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -76,14 +127,14 @@ public class MarketPriceFragment extends Fragment {
             }
         });
 
-        for (int k = 0; k < marketPriceArrayList.size(); k++) {
-            MarketPrice marketPrice = marketPriceArrayList.get(k);
-            MarketPriceSubItem subItem = new MarketPriceSubItem(marketPrice.getMarket(), marketPrice.getRetail(), marketPrice.getWholesale());
-            marketPriceSubItemArrayList.add(subItem);
-            MarketPriceItem marketPriceItem = new MarketPriceItem(marketPrice.getCrop(), marketPriceSubItemArrayList);
-            marketPriceItemArrayList.add(marketPriceItem);
-            Log.d(TAG, "onCreateView: List = " + marketPrice.getCrop());
-        }
+//        for (int k = 0; k < marketPriceArrayList.size(); k++) {
+//            MarketPrice marketPrice = marketPriceArrayList.get(k);
+//            MarketPriceSubItem subItem = new MarketPriceSubItem(marketPrice.getMarket(), marketPrice.getRetail(), marketPrice.getWholesale());
+//            marketPriceSubItemArrayList.add(subItem);
+//            MarketPriceItem marketPriceItem = new MarketPriceItem(marketPrice.getCrop(), marketPriceSubItemArrayList);
+//            marketPriceItemArrayList.add(marketPriceItem);
+//            Log.d(TAG, "onCreateView: List = " + marketPrice.getCrop());
+//        }
 
 //        MarketPriceSubItem subItem4 = new MarketPriceSubItem("Gulu", "2,000", "1,750");
 //        MarketPriceSubItem subItem6 = new MarketPriceSubItem("Mbarara", "2,500", "2,200");
@@ -94,11 +145,11 @@ public class MarketPriceFragment extends Fragment {
 //        MarketPriceItem marketPriceItem1 = new MarketPriceItem("Millet (Kg)", marketPriceSubItemArrayList1);
 //        marketPriceItemArrayList.add(marketPriceItem1);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        MarketPriceItemAdapter adapter = new MarketPriceItemAdapter(context, marketPriceItemArrayList);
-        binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(linearLayoutManager);
-        adapter.notifyDataSetChanged();
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+//        MarketPriceItemAdapter adapter = new MarketPriceItemAdapter(context, marketPriceItemArrayList);
+//        binding.recyclerView.setAdapter(adapter);
+//        binding.recyclerView.setLayoutManager(linearLayoutManager);
+//        adapter.notifyDataSetChanged();
 
         return binding.getRoot();
     }
