@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.marketplace.SellProduceViewPagerAdapter;
-import com.myfarmnow.myfarmcrop.databinding.FragmentBuyInputsBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentSellProduceBinding;
 
 import java.util.Objects;

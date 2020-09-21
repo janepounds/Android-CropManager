@@ -1769,7 +1769,7 @@ public class CropSyncService extends Service {
 
     /**
      * COVERS FINANCIAL MANAGER
-     * 1. send customers, suppliers, products as block 2a
+     * 1. send customers, suppliers, buy_inputs_products as block 2a
      * 2. after 2a send Estimates, Invoice, Sales Order as block 2b
      * 3. after 2b send Purchase Order, Bills as block 2c
      * 4. after 2c send Invoice Payments and Bill payments as 2d
@@ -1784,7 +1784,7 @@ public class CropSyncService extends Service {
 
         try {
             requestObject.put("customers",prepareCustomers());
-            requestObject.put("products",prepareProducts());
+            requestObject.put("buy_inputs_products",prepareProducts());
             requestObject.put("suppliers",prepareSuppliers());
             requestObject.put("userId",userId);
             StringEntity params = null;
@@ -1848,7 +1848,7 @@ public class CropSyncService extends Service {
                     }
 
                     try {
-                        JSONArray fields = response.getJSONArray("products");
+                        JSONArray fields = response.getJSONArray("buy_inputs_products");
                         for(int i=0; i<fields.length(); i++){
 
 

@@ -417,7 +417,7 @@ public class DashboardActivity extends AppCompatActivity {
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
                 WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
                 finish();
-                Intent openList = new Intent(DashboardActivity.this, CropLoginActivity.class);
+                Intent openList = new Intent(DashboardActivity.this, Login.class);
                 startActivity(openList);
             }
         }, 10000);

@@ -20,25 +20,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropContactsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropRegisterActivity;
-import com.myfarmnow.myfarmcrop.activities.CropTasksListActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpensesListActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.marketplace.MarketPlaceActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.PredictionToolsDashboardActivity;

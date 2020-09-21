@@ -1,17 +1,12 @@
 package com.myfarmnow.myfarmcrop.services;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.IBinder;
-import android.os.SystemClock;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -20,11 +15,10 @@ import androidx.work.WorkerParameters;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.CropLoginActivity;
+import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CropNotificationsSendWorker extends Worker {
@@ -90,7 +84,7 @@ public class CropNotificationsSendWorker extends Worker {
                 notifManager.createNotificationChannel(mChannel);
             }
             builder = new NotificationCompat.Builder(context, id);
-            intent = new Intent(context, CropLoginActivity.class);
+            intent = new Intent(context, Login.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder
@@ -106,7 +100,7 @@ public class CropNotificationsSendWorker extends Worker {
         }
         else {
             builder = new NotificationCompat.Builder(context, id);
-            intent = new Intent(context, CropLoginActivity.class);
+            intent = new Intent(context, Login.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder

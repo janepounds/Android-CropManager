@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +95,7 @@ public class CropVerifyPhoneNumberActivity extends AppCompatActivity {
                             Toast.makeText(CropVerifyPhoneNumberActivity.this, "Phone Number Verified", Toast.LENGTH_SHORT).show();
                             Log.e("response", response.toString());
                             DashboardActivity.saveUser(user,CropVerifyPhoneNumberActivity.this);
-                            Intent verifyPhoneNumber = new Intent(CropVerifyPhoneNumberActivity.this,  CropLoadBackUpActivity.class);
+                            Intent verifyPhoneNumber = new Intent(CropVerifyPhoneNumberActivity.this,  BackUpActivity.class);
                             startActivity(verifyPhoneNumber);
                             finish();
 

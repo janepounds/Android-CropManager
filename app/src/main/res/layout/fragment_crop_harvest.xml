@@ -586,8 +586,8 @@
                 android:layout_marginTop="5dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableTint="#ffffff"
-                android:text="Save "
-                android:textAllCaps="false"
+                android:text="Submit "
+                android:textAllCaps="true"
                 android:textColor="#ffffff"
                 android:background="@drawable/rounded_corners_button"
                 android:layout_marginBottom="@dimen/dimen_20dp"/>
