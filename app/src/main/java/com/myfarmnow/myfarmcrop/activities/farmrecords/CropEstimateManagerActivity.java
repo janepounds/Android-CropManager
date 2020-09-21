@@ -82,7 +82,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
-        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(DashboardActivity.getPreferences("userId",this)),subTotalTextView);
+        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(DashboardActivity.PREFERENCES_USER_ID),subTotalTextView);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
@@ -91,7 +91,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.txt_view_crop_estimate_total_label)).setText("Total ("+ CropSettingsSingleton.getInstance().getCurrency()+")");
 
         ArrayList<CropSpinnerItem> customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.getPreferences("userId",this))){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.PREFERENCES_USER_ID)){
             customersList.add(x);
         }
         customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
@@ -216,7 +216,7 @@ public class CropEstimateManagerActivity extends AppCompatActivity {
 
     public CropEstimate saveEstimate(){
         cropEstimate = new CropEstimate();
-        cropEstimate.setUserId(DashboardActivity.getPreferences("userId",this));
+        cropEstimate.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropEstimate.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropEstimate.setCustomerNotes(notesTxt.getText().toString());
         cropEstimate.setExpiryDate(expiryDateTxt.getText().toString());

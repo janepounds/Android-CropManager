@@ -175,7 +175,7 @@ public class CropPurchaseOrderManagerActivity extends AppCompatActivity {
     }
     public CropPurchaseOrder savePurchaseOrder(){
         cropPurchaseOrder = new CropPurchaseOrder();
-        cropPurchaseOrder.setUserId(DashboardActivity.getPreferences("userId",this));
+        cropPurchaseOrder.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropPurchaseOrder.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropPurchaseOrder.setNotes(notesTxt.getText().toString());
         cropPurchaseOrder.setMethod(methodTxt.getText().toString());

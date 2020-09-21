@@ -248,7 +248,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
 
     public CropBill saveBill(){
         cropBill = new CropBill();
-        cropBill.setUserId(DashboardActivity.getPreferences("userId",this));
+        cropBill.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropBill.setTerms(termsSp.getSelectedItem().toString());
         cropBill.setNotes(notesTxt.getText().toString());
         cropBill.setDueDate(dueDateTxt.getText().toString());
@@ -271,7 +271,7 @@ public class CropBillManagerActivity extends AppCompatActivity {
 
     public CropBill updateBill(){
         if(cropBill != null){
-            cropBill.setUserId(DashboardActivity.getPreferences("userId",this));
+            cropBill.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             cropBill.setTerms(termsSp.getSelectedItem().toString());
             cropBill.setNotes(notesTxt.getText().toString());
             cropBill.setDueDate(dueDateTxt.getText().toString());

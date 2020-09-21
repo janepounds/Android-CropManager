@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.ActivityPredictiontoolsDashboardBinding;
@@ -40,7 +41,7 @@ public class PredictionToolsDashboardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_predictiontools_dashboard);
 
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(getPreferences("userId",this));
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.PREFERENCES_USER_ID);
 //        initializeDashboard();
 
     }

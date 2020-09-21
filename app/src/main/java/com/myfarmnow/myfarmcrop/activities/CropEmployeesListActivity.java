@@ -28,7 +28,7 @@ public class CropEmployeesListActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
 
         employeesListRecyclerView = findViewById(R.id.crop_employee_recyc_view);
-        cropEmployeesListRecyclerAdapter = new CropEmployeesListRecyclerAdapter(this,dbHandler.getCropEmployees(DashboardActivity.getPreferences("userId",this)));
+        cropEmployeesListRecyclerAdapter = new CropEmployeesListRecyclerAdapter(this,dbHandler.getCropEmployees(DashboardActivity.PREFERENCES_USER_ID));
         employeesListRecyclerView.setAdapter(cropEmployeesListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         employeesListRecyclerView.setLayoutManager(linearLayoutManager);

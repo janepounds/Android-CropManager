@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,8 +48,9 @@ public class CropHarvestFragment extends DialogFragment {
     CropHarvest cropHarvest=null;
     EditText harvestDateTxt,quantityTxt,dateSoldTxt,customerTxt,
             quantitySoldTxt,storageDateTxt,quantityStoredTxt;
-    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currency2Txt,harvestunitTxt;
+    TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currency2Txt,harvestunitTxt,daysBeforeTxt;
     Spinner harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
+    ImageView harvestClose;
 //    AutoCompleteTextView operatorSpinner;
     LinearLayout harvestSoldLayout,harvestStoredLayout;
     Button saveBtn;
@@ -101,7 +103,6 @@ public class CropHarvestFragment extends DialogFragment {
     }
 
     public void initializeForm(View view){
-
         harvestDateTxt = view.findViewById(R.id.txt_crop_harvest_date);
         harvestUnitsSpinner = view.findViewById(R.id.sp_crop_harvest_units);
         quantityTxt = view.findViewById(R.id.txt_crop_harvest_quantity);
@@ -120,6 +121,7 @@ public class CropHarvestFragment extends DialogFragment {
         recurrenceSp = view.findViewById(R.id.sp_crop_harvest_recurrence);
         remindersSp = view.findViewById(R.id.sp_crop_harvest_reminders);
         harvestunitTxt = view.findViewById(R.id.txt_crop_harvest_unit);
+        harvestClose = view.findViewById(R.id.harvest_close);
 //        operatorSpinner = view.findViewById(R.id.sp_crop_harvest_operator);
 //        priceTxt = view.findViewById(R.id.txt_crop_harvest_price);
 //        costTxt = view.findViewById(R.id.txt_crop_harvest_cost);
@@ -127,14 +129,13 @@ public class CropHarvestFragment extends DialogFragment {
 //        harvestMethodTxt = view.findViewById(R.id.txt_crop_harvest_method);
 //        weeksTxt = view.findViewById(R.id.txt_crop_harvest_weekly_weeks);
 //        repeatUntilTxt = view.findViewById(R.id.txt_crop_harvest_repeat_until);
-//        daysBeforeTxt = view.findViewById(R.id.txt_crop_harvest_days_before);
+        daysBeforeTxt = view.findViewById(R.id.txt_harvest_days_before);
 //        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_harvest_weekly_reminder);
 //        daysBeforeLayout = view.findViewById(R.id.layout_crop_harvest_days_before);
 //        remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 //        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
-
-
+        harvestClose.setOnClickListener(view1 -> dismiss());
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -444,16 +445,16 @@ public class CropHarvestFragment extends DialogFragment {
 //        cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
 //        cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
 //        cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
-//        cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
 //        cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
         //check if quantity sold and stored is empty
-        if(quantitySoldTxt.getText().toString()==" "){
+        if(quantitySoldTxt.getText().toString().isEmpty()){
             cropHarvest.setQuantitySold(0);
         }
         else{
             cropHarvest.setQuantitySold(Float.parseFloat(quantitySoldTxt.getText().toString()));
         }
-        if(quantityStoredTxt.getText().toString()==" "){
+        if(quantityStoredTxt.getText().toString().isEmpty()){
             cropHarvest.setQuantityStored(0);
         }
         else{

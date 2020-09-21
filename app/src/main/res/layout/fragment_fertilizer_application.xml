@@ -324,7 +324,7 @@
                     android:background="@android:color/transparent"
                     android:inputType="number"
                     android:textSize="14sp"
-                    android:hint="Amount Used" />
+                    android:hint="Days Before" />
 
                 <TextView
                     android:id="@+id/txt_crop_fertilizer_application_days_beforee"
@@ -332,7 +332,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_right_corners_green"
                     android:textColor="@color/white"
-                    android:text="Days Before"
+                    android:text="Days "
                     android:textSize="14sp"
                     android:gravity="center"
                     android:layout_weight="0.2" />

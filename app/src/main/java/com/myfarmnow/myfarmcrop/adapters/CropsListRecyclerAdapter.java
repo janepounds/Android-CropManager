@@ -135,19 +135,30 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             activitiesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //start crop activities
+                    NavController navController = Navigation.findNavController(v);
+
+                        Crop crop = cropsList.get(getAdapterPosition());
+                        Bundle bundle = new Bundle();
+                        String cropId = crop.getId();
+                        bundle.putString("cropId", cropId);
+                        navController.navigate(R.id.action_cropListFragment_to_cropActivitiesListFragment, bundle);
 //                    Crop crop = cropsList.get(getAdapterPosition());
 //                    Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
 //                    showSpray.putExtra("cropId", crop.getId());
 //                    mContext.startActivity(showSpray);
+
                 }
             });
             notesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //navigate to notes fragment.
+                    NavController navController = Navigation.findNavController(v);
                     Crop crop = cropsList.get(getAdapterPosition());
-                    Intent showSpray = new Intent(mContext, CropsNotesListActivity.class);
-                    showSpray.putExtra("cropId", crop.getId());
-                    mContext.startActivity(showSpray);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("cropId", crop.getId());
+                    navController.navigate(R.id.action_cropListFragment_to_cropsNotesListFragment);
                 }
             });
 
@@ -198,7 +209,6 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 //navigate to fertilizer dialog fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("cropId", crop.getId());
-                                Log.w("field id",crop.getFieldId());
 //                                bundle.putSerializable("fertilizerApplication", CropFertilizerApplication);
                                 navController.navigate(R.id.action_cropListFragment_to_fertilizerApplicationFragment,bundle);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {

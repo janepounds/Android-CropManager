@@ -231,12 +231,12 @@ public class SplashScreen extends AppCompatActivity {
                 if (myAppPrefsManager.isFirstTimeLaunch()) {
                     // Navigate to IntroScreen
 //                    startActivity(new Intent(getBaseContext(), IntroScreen.class));
-                    startActivity(new Intent(getBaseContext(), BuyInputsActivity.class));
+                    startActivity(new Intent(getBaseContext(), Login.class));
                     finish();
                 }
                 else {
                     // Navigate to MainActivity
-                    startActivity(new Intent(getBaseContext(), BuyInputsActivity.class));
+                    startActivity(new Intent(getBaseContext(), DashboardActivity.class));
                     finish();
                 }
             }

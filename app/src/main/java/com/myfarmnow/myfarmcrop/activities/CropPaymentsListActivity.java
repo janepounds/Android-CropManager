@@ -30,7 +30,7 @@ public class CropPaymentsListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         paymentListRecyclerView = findViewById(R.id.crop_payment_recyc_view);
-        cropPaymentsListRecyclerAdapter = new CropPaymentsListRecyclerAdapter(this,dbHandler.getCropPayments(DashboardActivity.getPreferences("userId",this)));
+        cropPaymentsListRecyclerAdapter = new CropPaymentsListRecyclerAdapter(this,dbHandler.getCropPayments(DashboardActivity.PREFERENCES_USER_ID));
         paymentListRecyclerView.setAdapter(cropPaymentsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         paymentListRecyclerView.setLayoutManager(linearLayoutManager);

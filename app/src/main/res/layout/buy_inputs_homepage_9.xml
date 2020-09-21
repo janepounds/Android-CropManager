@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/windowBackground"
         app:elevation="0dp"
-        app:layout_behavior=".customs.AppBarFlingScrollBehavior">
+        app:layout_behavior="com.myfarmnow.myfarmcrop.customs.AppBarFlingScrollBehavior">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     app:tabSelectedTextColor="@color/textColorSecondaryDark"
                     app:tabTextColor="@color/textColorSecondaryLight" />
 
-                <com.cabral.emaisha.customs.CustomViewPager
+                <com.myfarmnow.myfarmcrop.customs.CustomViewPager
                     android:id="@+id/myViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

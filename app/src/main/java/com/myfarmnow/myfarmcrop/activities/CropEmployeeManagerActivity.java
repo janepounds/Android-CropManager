@@ -120,7 +120,7 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
     }
     public void saveEmployee(){
         cropEmployee = new CropEmployee();
-        cropEmployee.setUserId(DashboardActivity.getPreferences("userId",this));
+        cropEmployee.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropEmployee.setTitle(titleTxt.getText().toString());
         cropEmployee.setPhone( phoneTxt.getText().toString());
         cropEmployee.setMobile( mobileTxt.getText().toString());
@@ -150,7 +150,7 @@ public class CropEmployeeManagerActivity extends AppCompatActivity {
     public void updateEmployee(){
         if(cropEmployee !=null){
 
-            cropEmployee.setUserId(DashboardActivity.getPreferences("userId",this));
+            cropEmployee.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             cropEmployee.setTitle(titleTxt.getText().toString());
             cropEmployee.setPhone( phoneTxt.getText().toString());
             cropEmployee.setMobile( mobileTxt.getText().toString());
