@@ -199,6 +199,9 @@
         <action
             android:id="@+id/action_cropsNotesListFragment_to_addCropNotesFragment"
             app:destination="@id/addCropNotesFragment" />
+        <action
+            android:id="@+id/action_cropsNotesListFragment_to_cropListFragment"
+            app:destination="@id/cropListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCropNotesFragment"

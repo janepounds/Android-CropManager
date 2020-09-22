@@ -50,7 +50,7 @@ public class CropHarvestFragment extends DialogFragment {
             quantitySoldTxt,storageDateTxt,quantityStoredTxt;
     TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currency2Txt,harvestunitTxt,daysBeforeTxt;
     Spinner harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
-    ImageView harvestClose;
+    ImageView harvestClose,datePicker;
 //    AutoCompleteTextView operatorSpinner;
     LinearLayout harvestSoldLayout,harvestStoredLayout;
     Button saveBtn;
@@ -122,6 +122,7 @@ public class CropHarvestFragment extends DialogFragment {
         remindersSp = view.findViewById(R.id.sp_crop_harvest_reminders);
         harvestunitTxt = view.findViewById(R.id.txt_crop_harvest_unit);
         harvestClose = view.findViewById(R.id.harvest_close);
+        datePicker = view.findViewById(R.id.image_date_picker);
 //        operatorSpinner = view.findViewById(R.id.sp_crop_harvest_operator);
 //        priceTxt = view.findViewById(R.id.txt_crop_harvest_price);
 //        costTxt = view.findViewById(R.id.txt_crop_harvest_cost);
@@ -136,6 +137,8 @@ public class CropHarvestFragment extends DialogFragment {
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 //        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
         harvestClose.setOnClickListener(view1 -> dismiss());
+        DashboardActivity.addDatePicker(harvestDateTxt,context);
+        datePicker.setOnClickListener(v ->   DashboardActivity.addDatePicker(harvestDateTxt,context));
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class CropSprayingFragment extends DialogFragment {
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner windDirectionSp,waterConditionSp,sprayIdSp,recurrenceSp,remindersSp;
+    ImageView datePicker;
 
     TextView rateUnitsTextView,currencyTxt;
     private Context context;
@@ -92,6 +94,7 @@ public class CropSprayingFragment extends DialogFragment {
 
     public void initializeForm(View view){
         dateTxt =view.findViewById(R.id.txt_crop_spraying_treatment_date);
+        datePicker = view.findViewById(R.id.image_date_picker);
 //        startTimeTxt =view.findViewById(R.id.txt_crop_spraying_start_time);
 //        endTimeTxt =view.findViewById(R.id.txt_crop_spraying_end_time);
 //        operatorTxt =view.findViewById(R.id.txt_crop_spraying_performed_by);
@@ -116,7 +119,8 @@ public class CropSprayingFragment extends DialogFragment {
 
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 
-
+        DashboardActivity.addDatePicker(dateTxt,context);
+        datePicker.setOnClickListener(v ->DashboardActivity.addDatePicker(dateTxt,context));
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

@@ -4,6 +4,8 @@ package com.myfarmnow.myfarmcrop.network;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 
+import org.checkerframework.checker.nullness.compatqual.PolyNullDecl;
+
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -45,6 +47,41 @@ public interface APIRequests {
 
     );
 
+
+    /*   WALLET REQUESTS    */
+
+    //wallet authentication
+    @POST("emaishawallet/user/authenticate")
+    Call<UserData> authenticate (@Field("email") String email,
+                                 @Field("password") String password
+    );
+
+
+    //wallet registration
+    @POST("emaishawallet/user/create")
+    Call<UserData> create (@Field("firstname") String firstname,
+                           @Field("lastname")  String lastname,
+                           @Field("email") String email,
+                           @Field("password") String password,
+                           @Field("phoneNumber") String phoneNumber,
+                           @Field("addressStreet") String addressStreet,
+                           @Field("addressCityOrTown") String addressCityOrTown
+
+    );
+    //refresh token
+    @POST("api/wallet/token/get")
+    Call<UserData> getToken(@Field("firstname") String firstname,
+                            @Field("lastname") String lastname,
+                            @Field("email") String email,
+                            @Field("password") String password,
+                            @Field("phoneNumber") String phoneNumber,
+                            @Field("addressStreet") String addressStreet,
+                            @Field("addressCityOrTown") String addressCityOrTown
+
+
+    );
+
+    //
 //    @Multipart
 //    @POST("processregistration")
 //    Call<UserData> processRegistration(

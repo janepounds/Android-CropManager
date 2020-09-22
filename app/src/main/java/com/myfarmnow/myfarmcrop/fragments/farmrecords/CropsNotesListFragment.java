@@ -52,7 +52,7 @@ public class CropsNotesListFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Notes");
-        binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
+        binding.toolbar.setNavigationOnClickListener(view -> navController.navigate(R.id.action_cropsNotesListFragment_to_cropListFragment));
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
