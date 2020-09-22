@@ -116,7 +116,7 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
         dialog.setMessage("Please Wait..");
         dialog.setCancelable(false);
         /****RETROFIT IMPLEMENTATION*******/
-        APIRequests apiRequests = APIClient.getInstance();
+        APIRequests apiRequests = APIClient.getWalletInstance();
         Call<TokenResponse> call = apiRequests.getToken(email,password);
         call.enqueue(new Callback<TokenResponse>() {
             @Override

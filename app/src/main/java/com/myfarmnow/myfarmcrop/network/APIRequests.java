@@ -76,7 +76,7 @@ public interface APIRequests {
     );
     //refresh token
     @FormUrlEncoded
-    @POST("/api/wallet/token/get")
+    @POST("wallet/token/get")
     Call<TokenResponse> getToken(
                             @Field("email") String email,
                             @Field("password") String password
