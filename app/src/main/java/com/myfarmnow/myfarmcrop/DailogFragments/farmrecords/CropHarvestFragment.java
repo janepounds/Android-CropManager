@@ -295,10 +295,10 @@ public class CropHarvestFragment extends DialogFragment {
 
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.getPreferences("userId",context))){
+        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.PREFERENCES_USER_ID)){
             employeesItems.add(x.getFullName());
         }
-        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.getPreferences("userId",context))){
+        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.PREFERENCES_USER_ID)){
             employeesItems.add(x.getName());
         }
         employeesSpinnerAdapter = new ArrayAdapter<String>(context,
@@ -426,7 +426,7 @@ public class CropHarvestFragment extends DialogFragment {
     public void saveHarvest() {
 
         cropHarvest = new CropHarvest();
-        cropHarvest.setUserId(DashboardActivity.getPreferences("userId", context));
+        cropHarvest.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropHarvest.setCropId(cropId);
         cropHarvest.setDate(harvestDateTxt.getText().toString());
         cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
@@ -467,7 +467,7 @@ public class CropHarvestFragment extends DialogFragment {
 
     public void updateHarvest(){
         if(cropHarvest != null){
-            cropHarvest.setUserId(DashboardActivity.getPreferences("userId", context));
+            cropHarvest.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             cropHarvest.setCropId(cropId);
             cropHarvest.setDate(harvestDateTxt.getText().toString());
             cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
