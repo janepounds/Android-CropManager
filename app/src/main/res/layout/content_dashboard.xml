@@ -93,16 +93,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:weightSum="42"
-                        android:paddingBottom="@dimen/dimen_20dp"
+                        android:paddingBottom="@dimen/dimen_30dp"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="16"
+                            android:layout_height="200dp"
                             android:orientation="vertical"
-                            android:layout_marginBottom="@dimen/dimen_10dp"
                             android:background="@drawable/weather_background"
                             >
 
@@ -362,267 +359,274 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/broke2"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="8"
-                            android:layout_gravity="center"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
+                            android:weightSum="24"
+                            android:orientation="vertical" >
 
                             <LinearLayout
-                                android:id="@+id/layout_dashboard_farmrecords"
+                                android:id="@+id/broke2"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dimen_10dp"
-                                android:layout_marginRight="@dimen/dimen_10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
+                                android:layout_height="0dp"
+                                android:layout_weight="8"
                                 android:layout_gravity="center"
-                                android:background="@drawable/background_round_white"
-                                >
+                                android:layout_marginTop="@dimen/dimen_10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="80dp"
-                                    android:paddingTop="@dimen/dimen_10dp"
-                                    android:paddingLeft="@dimen/dimen_20dp"
-                                    android:paddingRight="@dimen/dimen_20dp"
-                                    android:paddingBottom="@dimen/dimen_20dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_result" />
 
-                                <TextView
+                                <LinearLayout
+                                    android:id="@+id/layout_dashboard_farmrecords"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="-5dp"
-                                    android:layout_gravity="top"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="@string/label_farmrecords"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textSize="14sp"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textStyle="bold" />
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dimen_10dp"
+                                    android:layout_marginRight="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/background_round_white"
+                                    >
 
+                                    <ImageView
+                                        android:layout_width="160dp"
+                                        android:layout_height="80dp"
+                                        android:paddingTop="@dimen/dimen_10dp"
+                                        android:paddingLeft="@dimen/dimen_20dp"
+                                        android:paddingRight="@dimen/dimen_20dp"
+                                        android:paddingBottom="@dimen/dimen_20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_result" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="-5dp"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:paddingBottom="5dp"
+                                        android:text="@string/label_farmrecords"
+                                        android:textAllCaps="true"
+                                        android:textColor="#000"
+                                        android:textSize="14sp"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:textStyle="bold" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/layout_dashboard_wallet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dimen_10dp"
+                                    android:layout_marginRight="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/background_round_white">
+
+                                    <ImageView
+                                        android:layout_width="160dp"
+                                        android:layout_height="80dp"
+                                        android:paddingTop="@dimen/dimen_10dp"
+                                        android:paddingLeft="@dimen/dimen_20dp"
+                                        android:paddingRight="@dimen/dimen_20dp"
+                                        android:paddingBottom="@dimen/dimen_20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_wallet" />
+
+                                    <TextView
+                                        android:id="@+id/tv_litar"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:paddingBottom="5dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:text="@string/label_wallet"
+                                        android:textAllCaps="true"
+                                        android:textColor="#000"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/josefin_sans"/>
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="8"
+                                android:layout_marginTop="@dimen/dimen_10dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/layout_dashboard_marketplace"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dimen_10dp"
+                                    android:layout_marginRight="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/background_round_white">
+
+                                    <ImageView
+                                        android:layout_width="160dp"
+                                        android:layout_height="80dp"
+                                        android:paddingTop="@dimen/dimen_10dp"
+                                        android:paddingLeft="@dimen/dimen_20dp"
+                                        android:paddingRight="@dimen/dimen_20dp"
+                                        android:paddingBottom="@dimen/dimen_20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/marketplace" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:paddingBottom="5dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:text="@string/label_marketplace"
+                                        android:textAllCaps="true"
+                                        android:textColor="#000"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/josefin_sans" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/layout_dashboard_agronomy"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dimen_10dp"
+                                    android:layout_marginRight="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/background_round_white">
+
+                                    <ImageView
+                                        android:layout_width="160dp"
+                                        android:layout_height="80dp"
+                                        android:paddingTop="@dimen/dimen_10dp"
+                                        android:paddingLeft="@dimen/dimen_20dp"
+                                        android:paddingRight="@dimen/dimen_20dp"
+                                        android:paddingBottom="@dimen/dimen_20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/agronomy" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:paddingBottom="5dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:text="@string/label_agronomy"
+                                        android:textAllCaps="true"
+                                        android:textSize="14sp"
+                                        android:textColor="#000"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/josefin_sans"/>
+
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/layout_dashboard_wallet"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dimen_10dp"
-                                android:layout_marginRight="@dimen/dimen_10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_gravity="center"
-                                android:background="@drawable/background_round_white">
+                                android:layout_height="0dp"
+                                android:layout_weight="8"
+                                android:layout_marginTop="@dimen/dimen_10dp"
+                                android:orientation="horizontal">
 
-                                <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="80dp"
-                                    android:paddingTop="@dimen/dimen_10dp"
-                                    android:paddingLeft="@dimen/dimen_20dp"
-                                    android:paddingRight="@dimen/dimen_20dp"
-                                    android:paddingBottom="@dimen/dimen_20dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_wallet" />
 
-                                <TextView
-                                    android:id="@+id/tv_litar"
+
+                                <LinearLayout
+                                    android:id="@+id/layout_predictiontools_dashboard"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:layout_marginTop="-5dp"
-                                    android:text="@string/label_wallet"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/josefin_sans"/>
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginRight="@dimen/dimen_10dp"
+                                    android:onClick="openCalculators"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/background_round_white">
 
+                                    <ImageView
+                                        android:layout_width="160dp"
+                                        android:layout_height="80dp"
+                                        android:paddingTop="@dimen/dimen_10dp"
+                                        android:paddingLeft="@dimen/dimen_20dp"
+                                        android:paddingRight="@dimen/dimen_20dp"
+                                        android:paddingBottom="@dimen/dimen_20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/prediction_tools" />
+
+                                    <TextView
+                                        android:id="@+id/meat_Produced_txt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:paddingBottom="5dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:text="Prediction Tools"
+                                        android:textAllCaps="true"
+                                        android:textColor="#000"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/josefin_sans" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/layout_dashboard_service"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dimen_10dp"
+                                    android:layout_marginRight="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:background="@drawable/background_round_white"
+                                    android:layout_gravity="center" >
+
+                                    <ImageView
+                                        android:layout_width="160dp"
+                                        android:layout_height="80dp"
+                                        android:paddingTop="@dimen/dimen_10dp"
+                                        android:paddingLeft="@dimen/dimen_20dp"
+                                        android:paddingRight="@dimen/dimen_20dp"
+                                        android:paddingBottom="@dimen/dimen_20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_service" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top"
+                                        android:gravity="center"
+                                        android:paddingBottom="5dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:text="@string/label_services"
+                                        android:textAllCaps="true"
+                                        android:textSize="14sp"
+                                        android:textColor="#000"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/josefin_sans"/>
+
+                                </LinearLayout>
 
                             </LinearLayout>
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="8"
-                            android:layout_marginTop="@dimen/dimen_10dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_marketplace"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dimen_10dp"
-                                android:layout_marginRight="@dimen/dimen_10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_gravity="center"
-                                android:background="@drawable/background_round_white">
-
-                                <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="80dp"
-                                    android:paddingTop="@dimen/dimen_10dp"
-                                    android:paddingLeft="@dimen/dimen_20dp"
-                                    android:paddingRight="@dimen/dimen_20dp"
-                                    android:paddingBottom="@dimen/dimen_20dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/marketplace" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:layout_marginTop="-5dp"
-                                    android:text="@string/label_marketplace"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/josefin_sans" />
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_agronomy"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dimen_10dp"
-                                android:layout_marginRight="@dimen/dimen_10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_gravity="center"
-                                android:background="@drawable/background_round_white">
-
-                                <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="80dp"
-                                    android:paddingTop="@dimen/dimen_10dp"
-                                    android:paddingLeft="@dimen/dimen_20dp"
-                                    android:paddingRight="@dimen/dimen_20dp"
-                                    android:paddingBottom="@dimen/dimen_20dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/agronomy" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:layout_marginTop="-5dp"
-                                    android:text="@string/label_agronomy"
-                                    android:textAllCaps="true"
-                                    android:textSize="14sp"
-                                    android:textColor="#000"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/josefin_sans"/>
-
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="8"
-                            android:layout_marginTop="@dimen/dimen_10dp"
-                            android:orientation="horizontal">
-
-
-
-                            <LinearLayout
-                                android:id="@+id/layout_predictiontools_dashboard"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dimen_10dp"
-                                android:layout_weight="1"
-                                android:layout_marginRight="@dimen/dimen_10dp"
-                                android:onClick="openCalculators"
-                                android:orientation="vertical"
-                                android:layout_gravity="center"
-                                android:background="@drawable/background_round_white">
-
-                                <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="80dp"
-                                    android:paddingTop="@dimen/dimen_10dp"
-                                    android:paddingLeft="@dimen/dimen_20dp"
-                                    android:paddingRight="@dimen/dimen_20dp"
-                                    android:paddingBottom="@dimen/dimen_20dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/prediction_tools" />
-
-                                <TextView
-                                    android:id="@+id/meat_Produced_txt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:layout_marginTop="-5dp"
-                                    android:text="Prediction Tools"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/josefin_sans" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_service"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/dimen_10dp"
-                                android:layout_marginRight="@dimen/dimen_10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:background="@drawable/background_round_white"
-                                android:layout_gravity="center" >
-
-                                <ImageView
-                                    android:layout_width="160dp"
-                                    android:layout_height="80dp"
-                                    android:paddingTop="@dimen/dimen_10dp"
-                                    android:paddingLeft="@dimen/dimen_20dp"
-                                    android:paddingRight="@dimen/dimen_20dp"
-                                    android:paddingBottom="@dimen/dimen_20dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_service" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:layout_marginTop="-5dp"
-                                    android:text="@string/label_services"
-                                    android:textAllCaps="true"
-                                    android:textSize="14sp"
-                                    android:textColor="#000"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/josefin_sans"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
 
 
                     </LinearLayout>

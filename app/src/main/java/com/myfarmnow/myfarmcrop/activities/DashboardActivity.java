@@ -25,9 +25,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import android.os.Handler;
-import android.os.Looper;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -43,12 +41,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -56,7 +49,6 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
-import com.myfarmnow.myfarmcrop.models.ApiPaths;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
@@ -71,8 +63,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-
-import cz.msebera.android.httpclient.Header;
 
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
@@ -323,18 +313,7 @@ public class DashboardActivity extends AppCompatActivity {
 //
 //    }
 
-    public void openFertilizerCalculator(View view) {
-        //CropFertilizerCalculatorEntryActivity
-        Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
-        startActivity(openList);
-    }
 
-
-
-    public void openCalculators(View view) {
-//        Intent openList = new Intent(this, CropCalculatorsActivity.class);
-//        startActivity(openList);
-    }
 
     //method to get the right URL to use in the intent
     public String getFacebookPageURL(Context context) {

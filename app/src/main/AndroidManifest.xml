@@ -192,12 +192,8 @@
             android:name=".activities.agronomy.AgronomyDashboardActivity"
             android:label="@string/title_agronomy"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!---->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
         </activity>
+
         <activity
             android:name=".activities.predictiontools.PredictionToolsDashboardActivity"
             android:label="@string/title_predictiontools"
@@ -310,62 +306,8 @@
         <activity
             android:name=".activities.SignUp"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropVerifyPhoneNumberActivity"
-            android:label="@string/title_activity_crop_verify_phone_number"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropROIStep1Activity"
-            android:label="@string/title_activity_crop_roi"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropROIStep2Activity"
-            android:label="@string/title_activity_crop_roi"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropROIStep3Activity"
-            android:label="@string/title_activity_crop_roi"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropROIStep4Activity"
-            android:label="@string/title_activity_crop_roi"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropROIStep5Activity"
-            android:label="@string/title_activity_crop_roi"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropROIResultsActivity"
-            android:label="@string/title_activity_crop_roiresults"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropFertilizerCalculatorEntryActivity"
-            android:label="@string/title_activity_crop_fertilizer_calculator_entry"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropFertilizerCalculatorResults"
-            android:label="@string/title_activity_crop_fertilizer_calculator_results"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropNutrientsCalculatorEntryActivity"
-            android:label="@string/title_activity_crop_nutrients_calculator_entry"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropNutrientsCalculatorResults"
-            android:label="@string/title_activity_crop_nutrients_calculator_results"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.agronomy.CropPDFViewActivity"
-            android:label="@string/title_activity_crop_pdfview"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.agronomy.CropBestPracticesDashboardActivity"
-            android:label="@string/title_activity_crop_best_practices_dashboard"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
+
+
         <activity
             android:name=".activities.CropMachineTaskManagerActivity"
             android:label="@string/title_activity_crop_machine_task_manager" />

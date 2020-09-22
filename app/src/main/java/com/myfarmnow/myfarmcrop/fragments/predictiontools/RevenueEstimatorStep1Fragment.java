@@ -1,7 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.predictiontools;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +10,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,8 +21,6 @@ import android.widget.EditText;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropROIStep1Activity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropROIStep2Activity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentRevenueEstimatorStep1Binding;
 import com.myfarmnow.myfarmcrop.singletons.CropROICalculatorSingleton;
 
