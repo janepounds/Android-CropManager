@@ -1247,7 +1247,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 notification.setType(type);
                 notification.setStatus(context.getString(R.string.notification_status_pending));
                 ;
-                notification.setUserId(DashboardActivity.getPreferences("userId", context));
+                notification.setUserId(DashboardActivity.PREFERENCES_USER_ID);
 
                 notificationsList.add(notification);
                 varyingCalendar.add(calendarIdentifier, repeatFrequency);//increase the varying calendar

@@ -277,7 +277,7 @@ public class CropSprayingFragment extends DialogFragment {
 //        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
-        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.getPreferences("userId",context))){
+        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.PREFERENCES_USER_ID)){
             spraysList.add(x);
         }
         CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",context);
@@ -306,7 +306,7 @@ public class CropSprayingFragment extends DialogFragment {
 
     public void saveSpraying(){
         cropSpraying = new CropSpraying();
-        cropSpraying.setUserId(DashboardActivity.getPreferences("userId",context));
+        cropSpraying.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
         cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
         cropSpraying.setCropId(cropId);

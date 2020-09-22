@@ -57,7 +57,7 @@ public class CropYieldPerformanceFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         navController = Navigation.findNavController(view);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        cropYieldsListRecyclerAdapter = new CropYieldsListRecyclerAdapter(context,dbHandler.getCropsYield(DashboardActivity.getPreferences("userId",context)));
+        cropYieldsListRecyclerAdapter = new CropYieldsListRecyclerAdapter(context,dbHandler.getCropsYield(DashboardActivity.PREFERENCES_USER_ID));
         binding.cropYieldRecycView.setAdapter(cropYieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropYieldRecycView.setLayoutManager(linearLayoutManager);
