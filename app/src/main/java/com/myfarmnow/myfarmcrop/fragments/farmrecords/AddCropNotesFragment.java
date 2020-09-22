@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,9 @@ public class AddCropNotesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         if(getArguments()!=null){
-            cropNote = (CropNote)getArguments().getSerializable("cropNote");
             cropId = getArguments().getString("cropId");
+            Log.e("CropID",cropId );
+            cropNote = (CropNote)getArguments().getSerializable("cropNote");
 
         }
 

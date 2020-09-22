@@ -4631,7 +4631,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             Crop crop = new Crop();
-//            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
             crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
             crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
