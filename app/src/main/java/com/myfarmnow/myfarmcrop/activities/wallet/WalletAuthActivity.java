@@ -17,15 +17,25 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.TokenResponse;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.venmo.android.pin.PinFragment;
 import com.venmo.android.pin.PinFragmentConfiguration;
 import com.venmo.android.pin.Validator;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class WalletAuthActivity extends AppCompatActivity implements  PinFragment.Listener{
@@ -101,87 +111,71 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
     public static void  getLoginToken( final String password, String email, String phoneNumber, final Context context) {
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-
-        params.put("email", email);
-        params.put("password", password);
-        params.put("phoneNumber", phoneNumber);
-
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
         dialog.setMessage("Please Wait..");
         dialog.setCancelable(false);
-
-
-        client.post(ApiPaths.WALLET_GET_TOKEN, params, new JsonHttpResponseHandler() {
-
+        /****RETROFIT IMPLEMENTATION*******/
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<TokenResponse> call = apiRequests.getToken(email,password);
+        call.enqueue(new Callback<TokenResponse>() {
             @Override
-            public void onStart() {
-                dialog.show();
-            }
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                Log.w("Get Token: ", "OnSuccess running");
-                try {
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if (response.isSuccessful()) {
 
-                    String accessToken = response.getString("access_token");
-                    Log.w("LoginToken: ",accessToken);
-                    WALLET_ACCESS_TOKEN = accessToken;
+                    Log.w("Get Token: ", "OnSuccess running");
+                    TokenResponse tokenResponse = response.body();
 
-                    WalletHomeActivity.startHome(context);
+                    JSONArray accessToken = tokenResponse.getData().getOriginal();
+                    Log.w("LoginToken: ",accessToken.toString());
+//                        WALLET_ACCESS_TOKEN = accessToken;
+//
+//                        WalletHomeActivity.startHome(context);
                     //now you can go to next wallet page
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("Error: ",e.getMessage());
-                }
+                    if(dialog!=null && dialog.isShowing())
+                        dialog.dismiss();
+                }else {
 
-                if(dialog!=null && dialog.isShowing())
-                    dialog.dismiss();
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try{
-                    if(statusCode==403) {
+                    if(response.body().getStatusCode()==403) {
                         //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
                         if (errorTextView != null){
-                            errorTextView.setText(errorResponse.getString("message"));
+                            errorTextView.setText(response.body().getMessage());
                             errorTextView.setVisibility(View.VISIBLE);
                             errorTextView.requestFocus();
                         }
 
-                    }else if(statusCode==404){
-                        Log.e("info", new String(String.valueOf(errorResponse)));
+                    }else if(response.body().getStatusCode()==404){
+                        Log.e("info", new String(response.body().getMessage()));
                         WalletLoginHelper.userRegister( dialog, context,password);
                     }
-                    if (errorResponse != null) {
-                        Log.e("info", new String(String.valueOf(errorResponse)));
+                    if (response.body().getMessage() != null) {
+                        Log.e("info", new String(response.message()));
                     } else {
                         Log.e("info", "Something got very very wrong");
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    if(dialog!=null && dialog.isShowing())
+                        dialog.dismiss();
                 }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+
+                    Log.e("info : ", new String(String.valueOf(t.getMessage())));
+                    Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+
                 if(dialog!=null && dialog.isShowing())
                     dialog.dismiss();
 
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-                if(dialog!=null && dialog.isShowing())
-                    dialog.dismiss();
+
             }
         });
+
+
     }
 
     public static void startAuth(Context context, boolean sessionExpired){
