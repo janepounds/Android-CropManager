@@ -2,7 +2,11 @@ package com.myfarmnow.myfarmcrop.network;
 
 
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
+import com.myfarmnow.myfarmcrop.models.wallet.TokenResponse;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 
 import org.checkerframework.checker.nullness.compatqual.PolyNullDecl;
 
@@ -48,9 +52,10 @@ public interface APIRequests {
     );
 
 
-    /*   WALLET REQUESTS    */
+    /**************  WALLET REQUESTS *******************************/
 
     //wallet authentication
+    @FormUrlEncoded
     @POST("emaishawallet/user/authenticate")
     Call<UserData> authenticate (@Field("email") String email,
                                  @Field("password") String password
@@ -58,6 +63,7 @@ public interface APIRequests {
 
 
     //wallet registration
+    @FormUrlEncoded
     @POST("emaishawallet/user/create")
     Call<UserData> create (@Field("firstname") String firstname,
                            @Field("lastname")  String lastname,
@@ -69,19 +75,96 @@ public interface APIRequests {
 
     );
     //refresh token
-    @POST("api/wallet/token/get")
-    Call<UserData> getToken(@Field("firstname") String firstname,
-                            @Field("lastname") String lastname,
+    @FormUrlEncoded
+    @POST("/api/wallet/token/get")
+    Call<TokenResponse> getToken(
                             @Field("email") String email,
-                            @Field("password") String password,
-                            @Field("phoneNumber") String phoneNumber,
-                            @Field("addressStreet") String addressStreet,
-                            @Field("addressCityOrTown") String addressCityOrTown
+                            @Field("password") String password
+
 
 
     );
 
-    //
+    //request balance
+    @GET("wallet/balance/request")
+    Call<UserData> requestBalance(@Field("AuthToken") String token
+
+    );
+
+    //initiate transfer
+    @POST("wallet/transfer/initiate")
+    Call<UserData> initiateTransfer(@Field("AuthToken") String token,
+                                    @Field("amount") Double amount,
+                                    @Field("receiverPhoneNumber") String receiverPhoneNumber
+
+
+    );
+
+    //make transaction
+    @POST("wallet/payments/merchant")
+    Call<WalletPurchase> makeTransaction(@Field("merchantId") int merchantId,
+                                         @Field("amount") Double amount,
+                                         @Field("coupon") String coupon
+
+    );
+    //confirm payment
+    @Multipart
+    @POST("")
+    Call<MerchantData> confirmPayment(
+            @Part("merchantId") RequestBody merchantId,
+            @Part("amount") RequestBody amount,
+            @Part("coupon") RequestBody coupon
+
+
+    );
+    //get merchant information
+    @GET("wallet/merchant/{merchantId}")
+    Call<MerchantData> getMerchant(@Path("merchantId") int merchantId
+
+    );
+
+    //get merchant receipt
+    @GET("/wallet/payments/receipt/{merchantId}")
+    Call<MerchantData> getReceipt(@Path("merchantId") int merchantId
+
+    );
+    //get user loans
+    @GET("wallet/loan/user/loans")
+    Call<UserData> getUserLoans(@Field("userId") int userId
+
+    );
+    //request loans
+    @POST("wallet/loan/user/request")
+    Call<UserData>requestLoans(@Field("userId") int userId,
+                               @Field("amount") Double amount,
+                               @Field("duration") int duration,
+                               @Field("loanType") String loanType
+
+    );
+   //add loan photos
+    @POST("wallet/loan/user/photos/add")
+    Call<UserData> addLoanPhotos(@Field("loanApplicationId") int loanApplicationId
+
+    );
+
+    //get wallet user by phone
+    @GET("wallet/user/get/receiver_by_phone/{phoneNumber}")
+    Call<UserData> getWalletUser(@Path("phoneNumber") String phoneNumber
+
+    );
+    //create user credit
+    @GET("wallet/flutter/payment/credituser")
+    Call<WalletTransaction> createUserCredit(@Field("email") String email,
+                                             @Field("amount") Double amount,
+                                             @Field("referenceNumber") int referenceNumber
+
+    );
+
+    //voucher deposit
+    @POST("wallet/payment/voucherdeposit")
+    Call<UserData> voucherDeposit(
+
+    );
 //    @Multipart
 //    @POST("processregistration")
 //    Call<UserData> processRegistration(
