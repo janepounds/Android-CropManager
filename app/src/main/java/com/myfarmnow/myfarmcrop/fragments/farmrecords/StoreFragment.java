@@ -139,13 +139,13 @@ public class StoreFragment extends Fragment {
 
     public void loadCropInventories() {
         AsyncHttpClient client = new AsyncHttpClient();
-        for (CropInventorySeeds seedsInventory : dbHandler.getCropSeeds(DashboardActivity.PREFERENCES_USER_ID)) {
+        for (CropInventorySeeds seedsInventory : dbHandler.getCropSeeds(DashboardActivity.RETRIEVED_USER_ID)) {
             cropListRecyclerAdapter.addInventory(seedsInventory);
         }
-        for (CropInventoryFertilizer fertilizerInventory : dbHandler.getCropFertilizerInventorys(DashboardActivity.PREFERENCES_USER_ID)) {
+        for (CropInventoryFertilizer fertilizerInventory : dbHandler.getCropFertilizerInventorys(DashboardActivity.RETRIEVED_USER_ID)) {
             cropListRecyclerAdapter.addInventory(fertilizerInventory);
         }
-        for (CropInventorySpray spraysInventory : dbHandler.getCropSpray(DashboardActivity.PREFERENCES_USER_ID)) {
+        for (CropInventorySpray spraysInventory : dbHandler.getCropSpray(DashboardActivity.RETRIEVED_USER_ID)) {
             cropListRecyclerAdapter.addInventory(spraysInventory);
         }
     }

@@ -22,7 +22,7 @@
 
 
             <ImageView
-                android:id="@+id/fertilizer_close"
+                android:id="@+id/crop_spraying_close"
                 android:layout_width="@dimen/dimen_30dp"
                 android:layout_height="@dimen/dimen_30dp"
                 android:layout_gravity="end"

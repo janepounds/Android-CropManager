@@ -545,7 +545,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             // Insert Details of New User
             userInfoDB.insertUserData(userDetails);
         }
-
+        Log.e("USERID",userDetails.getId());
         // Save necessary details in SharedPrefs
         editor = sharedPreferences.edit();
         editor.putString(DashboardActivity.PREFERENCES_USER_ID, userDetails.getId());

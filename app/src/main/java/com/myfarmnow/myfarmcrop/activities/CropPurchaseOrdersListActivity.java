@@ -29,7 +29,7 @@ public class CropPurchaseOrdersListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         purchaseOrderListRecyclerView = findViewById(R.id.crop_purchase_order_recyc_view);
-        cropPurchaseOrdersListRecyclerAdapter = new CropPurchaseOrdersListRecyclerAdapter(this,dbHandler.getCropPurchaseOrders(DashboardActivity.PREFERENCES_USER_ID));
+        cropPurchaseOrdersListRecyclerAdapter = new CropPurchaseOrdersListRecyclerAdapter(this,dbHandler.getCropPurchaseOrders(DashboardActivity.RETRIEVED_USER_ID));
         purchaseOrderListRecyclerView.setAdapter(cropPurchaseOrdersListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         purchaseOrderListRecyclerView.setLayoutManager(linearLayoutManager);

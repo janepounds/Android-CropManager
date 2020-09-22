@@ -25,7 +25,7 @@ public class CropTasksListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         tasksListRecyclerView = findViewById(R.id.crop_task_recyc_view);
-        cropTasksListRecyclerAdapter = new CropTasksListRecyclerAdapter(this,dbHandler.getCropTasks(DashboardActivity.PREFERENCES_USER_ID));
+        cropTasksListRecyclerAdapter = new CropTasksListRecyclerAdapter(this,dbHandler.getCropTasks(DashboardActivity.RETRIEVED_USER_ID));
         tasksListRecyclerView.setAdapter(cropTasksListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         tasksListRecyclerView.setLayoutManager(linearLayoutManager);

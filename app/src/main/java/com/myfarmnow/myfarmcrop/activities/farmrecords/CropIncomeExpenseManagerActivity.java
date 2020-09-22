@@ -227,7 +227,7 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
         });
 
         ArrayList<CropSpinnerItem> cropsItems = new ArrayList<>();
-        for(Crop x: dbHandler.getCrops(DashboardActivity.PREFERENCES_USER_ID)){
+        for(Crop x: dbHandler.getCrops(DashboardActivity.RETRIEVED_USER_ID)){
             cropsItems.add(x);
         }
         cropsSpinnerAdapter = new CropSpinnerAdapter(cropsItems,"Crops",this);
@@ -265,11 +265,11 @@ public class CropIncomeExpenseManagerActivity extends AppCompatActivity {
 
 
         customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.RETRIEVED_USER_ID)){
             customersList.add(x.getName());
         }
         suppliersList = new ArrayList<>();
-        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.RETRIEVED_USER_ID)){
             suppliersList.add(x.getName());
         }
         customerSupplierAdapter = new ArrayAdapter<String>(this,

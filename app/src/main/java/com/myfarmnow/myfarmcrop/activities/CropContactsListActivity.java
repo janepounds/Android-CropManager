@@ -26,7 +26,7 @@ public class CropContactsListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         contactsListRecyclerView = findViewById(R.id.crop_contact_recyc_view);
-        cropContactsListRecyclerAdapter = new CropContactsListRecyclerAdapter(this,dbHandler.getCropContacts(DashboardActivity.PREFERENCES_USER_ID));
+        cropContactsListRecyclerAdapter = new CropContactsListRecyclerAdapter(this,dbHandler.getCropContacts(DashboardActivity.RETRIEVED_USER_ID));
         contactsListRecyclerView.setAdapter(cropContactsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         contactsListRecyclerView.setLayoutManager(linearLayoutManager);

@@ -86,6 +86,7 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String COUNTRY_PREFERENCES_ID = "addressCountry";
     public static final String PREFERENCES_FIRST_NAME = "firstname";
     public static final String PREFERENCES_LAST_NAME = "lastname";
+    public static String RETRIEVED_USER_ID = "";
     public static String PREFERENCES_USER_ID = "userId";
     public static final String PREFERENCES_USER_EMAIL = "email";
     public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
@@ -128,8 +129,8 @@ public class DashboardActivity extends AppCompatActivity {
         myAppPrefsManager = new MyAppPrefsManager(DashboardActivity.this);
         sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
 
-        PREFERENCES_USER_ID = DashboardActivity.this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.PREFERENCES_USER_ID);
+        DashboardActivity.RETRIEVED_USER_ID = sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_ID, "");
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.RETRIEVED_USER_ID);
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

@@ -114,7 +114,7 @@ public class AddCropFragment extends Fragment {
                 android.R.layout.simple_spinner_item, cropsList));
 
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
-        for (CropField x : dbHandler.getCropFields(DashboardActivity.PREFERENCES_USER_ID)) {
+        for (CropField x : dbHandler.getCropFields(DashboardActivity.RETRIEVED_USER_ID)) {
             fieldsItems.add(x);
         }
 
@@ -220,7 +220,7 @@ public class AddCropFragment extends Fragment {
 
     public void saveCrop() {
         crop = new Crop();
-        crop.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        crop.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         crop.setName(binding.spCropCrop.getText().toString());
         crop.setVariety(binding.txtCropsVariety.getText().toString());
         crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());

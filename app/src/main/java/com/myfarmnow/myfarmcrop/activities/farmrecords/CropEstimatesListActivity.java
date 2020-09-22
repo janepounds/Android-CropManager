@@ -32,7 +32,7 @@ public class CropEstimatesListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         estimateListRecyclerView = findViewById(R.id.crop_estimate_recyc_view);
-        cropEstimatesListRecyclerAdapter = new CropEstimatesListRecyclerAdapter(this,dbHandler.getCropEstimates(DashboardActivity.PREFERENCES_USER_ID));
+        cropEstimatesListRecyclerAdapter = new CropEstimatesListRecyclerAdapter(this,dbHandler.getCropEstimates(DashboardActivity.RETRIEVED_USER_ID));
         estimateListRecyclerView.setAdapter(cropEstimatesListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         estimateListRecyclerView.setLayoutManager(linearLayoutManager);

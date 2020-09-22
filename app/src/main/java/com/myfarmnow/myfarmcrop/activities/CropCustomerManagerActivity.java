@@ -149,7 +149,7 @@ public class CropCustomerManagerActivity extends AppCompatActivity {
     }
     public void saveFields(){
         cropCustomer = new CropCustomer();
-        cropCustomer.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropCustomer.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropCustomer.setName(nameTxt.getText().toString());
         cropCustomer.setPhone( phoneTxt.getText().toString());
         cropCustomer.setMobile( mobileTxt.getText().toString());

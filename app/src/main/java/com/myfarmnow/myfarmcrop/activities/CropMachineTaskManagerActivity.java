@@ -233,10 +233,10 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
 
 
         ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.RETRIEVED_USER_ID)){
             employeesItems.add(x.getFullName());
         }
-        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.RETRIEVED_USER_ID)){
             employeesItems.add(x.getName());
         }
         employeesSpinnerAdapter  = new ArrayAdapter<String>(this,
@@ -251,7 +251,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
 
     public void saveFields(){
         cropMachineTask = new CropMachineTask();
-        cropMachineTask.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropMachineTask.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropMachineTask.setTitle(titleTxt.getText().toString());
         cropMachineTask.setMachineId(machineId);
         cropMachineTask.setStartDate(startDateTxt.getText().toString());
@@ -275,7 +275,7 @@ public class CropMachineTaskManagerActivity extends AppCompatActivity {
 
     public void updateField(){
         if(cropMachineTask != null){
-            cropMachineTask.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            cropMachineTask.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropMachineTask.setTitle(titleTxt.getText().toString());
             cropMachineTask.setMachineId(machineId);
             cropMachineTask.setStartDate(startDateTxt.getText().toString());

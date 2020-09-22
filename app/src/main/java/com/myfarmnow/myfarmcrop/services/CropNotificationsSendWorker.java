@@ -41,8 +41,8 @@ public class CropNotificationsSendWorker extends Worker {
             return Result.failure();
         }
         try{
-            ArrayList<CropNotification> todayNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(DashboardActivity.PREFERENCES_USER_ID, CropNotification.QUERY_KEY_TODAY);
-            ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(DashboardActivity.PREFERENCES_USER_ID, CropNotification.QUERY_KEY_REPORT_FROM_TODAY);
+            ArrayList<CropNotification> todayNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(DashboardActivity.RETRIEVED_USER_ID, CropNotification.QUERY_KEY_TODAY);
+            ArrayList<CropNotification> upcomingNotifications = MyFarmDbHandlerSingleton.getHandlerInstance(context).getCropNotifications(DashboardActivity.RETRIEVED_USER_ID, CropNotification.QUERY_KEY_REPORT_FROM_TODAY);
 
             showNotifications(todayNotifications, "Tasks due Today","TODAY",1);
             showNotifications(upcomingNotifications, "Upcoming Tasks","UPCOMING",2);

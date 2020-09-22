@@ -66,7 +66,7 @@ public class BackUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_load_back_up);
-        userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this);
+        userId = DashboardActivity.getPreferences(DashboardActivity.RETRIEVED_USER_ID, this);
         dialog = new ProgressDialog(BackUpActivity.this);
         dialog.setIndeterminate(true);
         dialog.setMessage("Synchronizing! Please wait..");

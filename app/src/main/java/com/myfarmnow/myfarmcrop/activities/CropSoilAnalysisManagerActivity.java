@@ -194,7 +194,7 @@ public class CropSoilAnalysisManagerActivity extends AppCompatActivity {
 
     public void saveSoilAnalysis(){
         soilAnalysis = new CropSoilAnalysis();
-        soilAnalysis.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        soilAnalysis.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         soilAnalysis.setDate(dateTxt.getText().toString());
         soilAnalysis.setResult(resultsTxt.getText().toString());
         soilAnalysis.setAgronomist(agronomistTxt.getText().toString());

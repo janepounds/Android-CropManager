@@ -36,7 +36,7 @@ public class CropIncomeExpensesListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         incomeExpensesListRecyclerView = findViewById(R.id.crop_income_expense_recyc_view);
-        cropIncomeExpensesListRecyclerAdapter = new CropIncomeExpensesListRecyclerAdapter(this,dbHandler.getCropIncomeExpenses(DashboardActivity.PREFERENCES_USER_ID));
+        cropIncomeExpensesListRecyclerAdapter = new CropIncomeExpensesListRecyclerAdapter(this,dbHandler.getCropIncomeExpenses(DashboardActivity.RETRIEVED_USER_ID));
         incomeExpensesListRecyclerView.setAdapter(cropIncomeExpensesListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         incomeExpensesListRecyclerView.setLayoutManager(linearLayoutManager);

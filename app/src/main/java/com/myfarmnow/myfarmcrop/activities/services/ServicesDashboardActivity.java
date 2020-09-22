@@ -53,7 +53,7 @@ public class ServicesDashboardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.PREFERENCES_USER_ID);
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.RETRIEVED_USER_ID);
         initializeDashboard();
 
     }

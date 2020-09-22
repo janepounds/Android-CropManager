@@ -357,7 +357,7 @@ public class CropTransplantingManagerActivity extends AppCompatActivity {
     }*/
     public void updateTransplanting(){
         if(cropTransplanting != null){
-            cropTransplanting.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            cropTransplanting.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropTransplanting.setCropId(cropId);
             cropTransplanting.setOperationDate(operationDateTxt.getText().toString());
             cropTransplanting.setTotalSeedling(Float.parseFloat(totalSeedlingTxt.getText().toString()));

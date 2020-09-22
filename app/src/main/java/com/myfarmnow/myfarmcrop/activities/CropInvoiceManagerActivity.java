@@ -115,7 +115,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         itemListRecyclerView = findViewById(R.id.recyc_view_crop_invoice_item_list);
-        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(DashboardActivity.PREFERENCES_USER_ID),subTotalTextView);
+        itemListRecyclerAdapter = new CropItemListRecyclerAdapter(this,new ArrayList<CropProductItem>(),dbHandler.getCropProducts(DashboardActivity.RETRIEVED_USER_ID),subTotalTextView);
         itemListRecyclerView.setAdapter(itemListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         itemListRecyclerView.setLayoutManager(linearLayoutManager);
@@ -123,7 +123,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
         addPaymentBtn = findViewById(R.id.btn_add_payment);
 
         ArrayList<CropSpinnerItem> customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.RETRIEVED_USER_ID)){
             customersList.add(x);
         }
         customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
@@ -378,7 +378,7 @@ public class CropInvoiceManagerActivity extends AppCompatActivity implements Pay
 
     public CropInvoice saveInvoice(){
         cropInvoice = new CropInvoice();
-        cropInvoice.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropInvoice.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropInvoice.setTermsAndConditions(termsAndConditionsTxt.getText().toString());
         cropInvoice.setTerms(termsSp.getSelectedItem().toString());
         cropInvoice.setCustomerNotes(notesTxt.getText().toString());

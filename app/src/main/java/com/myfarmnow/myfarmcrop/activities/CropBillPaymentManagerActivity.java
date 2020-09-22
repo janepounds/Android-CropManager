@@ -85,14 +85,14 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
         ((ArrayAdapter)paymentModeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> billsList = new ArrayList<>();
-        for(CropBill x: dbHandler.getCropBills(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropBill x: dbHandler.getCropBills(DashboardActivity.RETRIEVED_USER_ID)){
             billsList.add(x);
         }
         billsSpinnerAdapter = new CropSpinnerAdapter(billsList,"Bill",this);
         billSp.setAdapter(billsSpinnerAdapter);
 
         ArrayList<CropSpinnerItem> suppliersList = new ArrayList<>();
-        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.RETRIEVED_USER_ID)){
             suppliersList.add(x);
         }
         supplierSpinnerAdapter = new CropSpinnerAdapter(suppliersList,"Supplier",this);
@@ -122,7 +122,7 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
 
     public void savePayment(){
         cropPaymentBill = new CropPaymentBill();
-        cropPaymentBill.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropPaymentBill.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropPaymentBill.setReferenceNumber(referenceNumberTxt.getText().toString());
         cropPaymentBill.setDate(paymentDateTxt.getText().toString());
         cropPaymentBill.setMode(paymentModeSp.getSelectedItem().toString());
@@ -134,7 +134,7 @@ public class CropBillPaymentManagerActivity extends AppCompatActivity {
     }
     public void updatePayment(){
         if(cropPaymentBill !=null){
-            cropPaymentBill.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            cropPaymentBill.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropPaymentBill.setReferenceNumber(referenceNumberTxt.getText().toString());
             cropPaymentBill.setDate(paymentDateTxt.getText().toString());
             cropPaymentBill.setMode(paymentModeSp.getSelectedItem().toString());

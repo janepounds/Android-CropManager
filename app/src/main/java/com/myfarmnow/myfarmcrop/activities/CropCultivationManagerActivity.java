@@ -222,7 +222,7 @@ public class CropCultivationManagerActivity extends AppCompatActivity {
 
     public void saveCultivation(){
         cultivation = new CropCultivation();
-        cultivation.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cultivation.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cultivation.setDate(dateTxt.getText().toString());
         cultivation.setOperator(operatorTxt.getText().toString());
         cultivation.setOperation(operationTxt.getSelectedItem().toString());
