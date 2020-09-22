@@ -51,7 +51,7 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_farm_records_dashboard);
 
-        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.PREFERENCES_USER_ID);
+        MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.RETRIEVED_USER_ID);
 
 
     }

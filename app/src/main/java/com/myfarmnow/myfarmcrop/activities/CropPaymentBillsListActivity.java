@@ -26,7 +26,7 @@ public class CropPaymentBillsListActivity extends AppCompatActivity {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         paymentBillListRecyclerView = findViewById(R.id.crop_payment_bill_recyc_view);
-        cropPaymentBillsListRecyclerAdapter = new CropPaymentBillsListRecyclerAdapter(this,dbHandler.getCropPaymentBills(DashboardActivity.PREFERENCES_USER_ID));
+        cropPaymentBillsListRecyclerAdapter = new CropPaymentBillsListRecyclerAdapter(this,dbHandler.getCropPaymentBills(DashboardActivity.RETRIEVED_USER_ID));
         paymentBillListRecyclerView.setAdapter(cropPaymentBillsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         paymentBillListRecyclerView.setLayoutManager(linearLayoutManager);

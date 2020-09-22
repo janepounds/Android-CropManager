@@ -262,7 +262,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     }
     public void saveSeeds(){
         fertilizerInventory = new CropInventoryFertilizer();
-        fertilizerInventory.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        fertilizerInventory.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         fertilizerInventory.setPurchaseDate(dateTxt.getText().toString());
         fertilizerInventory.setFertilizerName(nameTxt.getText().toString());
         fertilizerInventory.setType(typeSp.getSelectedItem().toString());
@@ -286,7 +286,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
 
         if(fertilizerInventory != null) {
 
-            fertilizerInventory.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            fertilizerInventory.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             fertilizerInventory.setPurchaseDate(dateTxt.getText().toString());
             fertilizerInventory.setFertilizerName(nameTxt.getText().toString());
             fertilizerInventory.setType(typeSp.getSelectedItem().toString());

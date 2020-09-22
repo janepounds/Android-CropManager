@@ -194,7 +194,7 @@ public class AddFieldFragment extends Fragment {
 
     public void saveFields(){
         cropField = new CropField();
-        cropField.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropField.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropField.setFieldName(binding.txtCropFieldName.getText().toString());
         cropField.setFieldType( binding.spCropFieldType.getSelectedItem().toString());
         cropField.setStatus(binding.spCropFieldStatus.getSelectedItem().toString());
@@ -204,7 +204,7 @@ public class AddFieldFragment extends Fragment {
 
 
         dbHandler.insertCropField(cropField);
-        Log.w("userId",DashboardActivity.PREFERENCES_USER_ID);
+        Log.w("userId",DashboardActivity.RETRIEVED_USER_ID);
 
     }
     public void updateField(){

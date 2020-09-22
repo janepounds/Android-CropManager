@@ -94,7 +94,7 @@ public class CropListFragment extends Fragment {
     private void loadCropInventories(){
         cropListRecyclerAdapter.clearCropList();
 
-        cropListRecyclerAdapter.addList(dbHandler.getCrops(DashboardActivity.PREFERENCES_USER_ID));
+        cropListRecyclerAdapter.addList(dbHandler.getCrops(DashboardActivity.RETRIEVED_USER_ID));
 
     }
 

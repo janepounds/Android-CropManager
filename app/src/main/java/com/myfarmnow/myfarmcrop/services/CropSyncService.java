@@ -90,7 +90,7 @@ public class CropSyncService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent,flags,startId);
-        userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this);
+        userId = DashboardActivity.getPreferences(DashboardActivity.RETRIEVED_USER_ID, this);
         if(!userId.equals("")){
             prepareSyncRequest();
 
@@ -2421,7 +2421,7 @@ public class CropSyncService extends Service {
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
 
-        params.put("userId", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID,this));
+        params.put("userId", DashboardActivity.getPreferences(DashboardActivity.RETRIEVED_USER_ID,this));
         params.put("firstName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME,this));
         params.put("lastName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,this));
         params.put("country",DashboardActivity.getPreferences("country",this));

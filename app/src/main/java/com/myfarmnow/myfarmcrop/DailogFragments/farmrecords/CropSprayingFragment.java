@@ -49,7 +49,7 @@ public class CropSprayingFragment extends DialogFragment {
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner windDirectionSp,waterConditionSp,sprayIdSp,recurrenceSp,remindersSp;
-    ImageView datePicker;
+    ImageView datePicker,sprayClose;
 
     TextView rateUnitsTextView,currencyTxt;
     private Context context;
@@ -95,6 +95,7 @@ public class CropSprayingFragment extends DialogFragment {
     public void initializeForm(View view){
         dateTxt =view.findViewById(R.id.txt_crop_spraying_treatment_date);
         datePicker = view.findViewById(R.id.image_date_picker);
+        sprayClose = view.findViewById(R.id.crop_spraying_close);
 //        startTimeTxt =view.findViewById(R.id.txt_crop_spraying_start_time);
 //        endTimeTxt =view.findViewById(R.id.txt_crop_spraying_end_time);
 //        operatorTxt =view.findViewById(R.id.txt_crop_spraying_performed_by);
@@ -118,6 +119,7 @@ public class CropSprayingFragment extends DialogFragment {
 //        remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
 
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
+        sprayClose.setOnClickListener(v -> getDialog().dismiss());
 
         DashboardActivity.addDatePicker(dateTxt,context);
         datePicker.setOnClickListener(v ->DashboardActivity.addDatePicker(dateTxt,context));
@@ -281,7 +283,7 @@ public class CropSprayingFragment extends DialogFragment {
 //        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
-        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.RETRIEVED_USER_ID)){
             spraysList.add(x);
         }
         CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",context);
@@ -310,7 +312,7 @@ public class CropSprayingFragment extends DialogFragment {
 
     public void saveSpraying(){
         cropSpraying = new CropSpraying();
-        cropSpraying.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropSpraying.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
         cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
         cropSpraying.setCropId(cropId);

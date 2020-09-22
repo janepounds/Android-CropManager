@@ -244,7 +244,7 @@ public class StoreAddSprayFragment extends DialogFragment {
     }
     public void saveSeeds(){
         sprayInventory = new CropInventorySpray();
-        sprayInventory.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        sprayInventory.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         sprayInventory.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
         sprayInventory.setName(seedNameTxt.getText().toString());
         sprayInventory.setPurchaseDate(purchaseDatTxt.getText().toString());
@@ -269,7 +269,7 @@ public class StoreAddSprayFragment extends DialogFragment {
 
         if(sprayInventory != null) {
 
-            sprayInventory.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            sprayInventory.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             sprayInventory.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             sprayInventory.setPurchaseDate(purchaseDatTxt.getText().toString());
             sprayInventory.setName(seedNameTxt.getText().toString());

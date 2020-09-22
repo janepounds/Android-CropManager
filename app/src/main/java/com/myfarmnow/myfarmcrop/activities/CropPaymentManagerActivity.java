@@ -88,13 +88,13 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(this);
         paymentNumberTxt.setText(dbHandler.getNextPaymentNumber());
         ArrayList<CropSpinnerItem> customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.RETRIEVED_USER_ID)){
             customersList.add(x);
         }
         customersSpinnerAdapter = new CropSpinnerAdapter(customersList,"Customer",this);
         customersSp.setAdapter(customersSpinnerAdapter);
         ArrayList<CropSpinnerItem> invoicesList = new ArrayList<>();
-        for(CropInvoice x: dbHandler.getCropInvoices(DashboardActivity.PREFERENCES_USER_ID)){
+        for(CropInvoice x: dbHandler.getCropInvoices(DashboardActivity.RETRIEVED_USER_ID)){
             invoicesList.add(x);
         }
         invoicesSpinnerAdapter = new CropSpinnerAdapter(invoicesList,"Invoice",this);
@@ -127,7 +127,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
 
     public void savePayment(){
         cropInvoicePayment = new CropInvoicePayment();
-            cropInvoicePayment.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            cropInvoicePayment.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             cropInvoicePayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
             cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());
@@ -140,7 +140,7 @@ public class CropPaymentManagerActivity extends AppCompatActivity {
     }
     public void updatePayment(){
         if(cropInvoicePayment !=null){
-            cropInvoicePayment.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+            cropInvoicePayment.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropInvoicePayment.setCustomerId(((CropSpinnerItem)customersSp.getSelectedItem()).getId());
             cropInvoicePayment.setInvoiceId(((CropSpinnerItem)invoiceSp.getSelectedItem()).getId());
             cropInvoicePayment.setPaymentNumber(paymentNumberTxt.getText().toString());

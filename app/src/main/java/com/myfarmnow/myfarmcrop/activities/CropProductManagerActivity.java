@@ -109,7 +109,7 @@ public class CropProductManagerActivity extends AppCompatActivity {
     }
     public void saveFields(){
         cropProduct = new CropProduct();
-        cropProduct.setUserId(DashboardActivity.PREFERENCES_USER_ID);
+        cropProduct.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropProduct.setName(nameTxt.getText().toString());
         cropProduct.setCode( codeTxt.getText().toString());
         cropProduct.setSellingPrice(Float.parseFloat(priceTxt.getText().toString()));
