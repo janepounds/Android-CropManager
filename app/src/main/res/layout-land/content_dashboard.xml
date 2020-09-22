@@ -526,7 +526,6 @@
                             android:layout_height="108dp"
                             android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:onClick="openCalculators"
                             android:orientation="vertical"
                             android:paddingBottom="5dp"
                             android:layout_gravity="center"

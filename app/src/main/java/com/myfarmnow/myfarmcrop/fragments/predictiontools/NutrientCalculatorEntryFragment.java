@@ -1,7 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.predictiontools;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,8 +19,6 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropNutrientsCalculatorEntryActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropNutrientsCalculatorResults;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentNutrientCalculatorEntryBinding;
