@@ -64,7 +64,7 @@ public class FinancialRecordsFragment extends Fragment {
 
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
-        cropIncomeExpensesListRecyclerAdapter = new CropIncomeExpensesListRecyclerAdapter(context,dbHandler.getCropIncomeExpenses(DashboardActivity.getPreferences("userId",context)));
+        cropIncomeExpensesListRecyclerAdapter = new CropIncomeExpensesListRecyclerAdapter(context,dbHandler.getCropIncomeExpenses(DashboardActivity.PREFERENCES_USER_ID));
         binding.cropIncomeExpenseRecycView.setAdapter(cropIncomeExpensesListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropIncomeExpenseRecycView.setLayoutManager(linearLayoutManager);

@@ -228,7 +228,7 @@ public class AddFinancialRecordFragment extends Fragment {
         });
 
         ArrayList<CropSpinnerItem> cropsItems = new ArrayList<>();
-        for(Crop x: dbHandler.getCrops(DashboardActivity.getPreferences("userId",context))){
+        for(Crop x: dbHandler.getCrops(DashboardActivity.PREFERENCES_USER_ID)){
             cropsItems.add(x);
         }
         cropsSpinnerAdapter = new CropSpinnerAdapter(cropsItems,"Crops",context);
@@ -265,11 +265,11 @@ public class AddFinancialRecordFragment extends Fragment {
 
 
         customersList = new ArrayList<>();
-        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.getPreferences("userId",context))){
+        for(CropCustomer x: dbHandler.getCropCustomers(DashboardActivity.PREFERENCES_USER_ID)){
             customersList.add(x.getName());
         }
         suppliersList = new ArrayList<>();
-        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.getPreferences("userId",context))){
+        for(CropSupplier x: dbHandler.getCropSuppliers(DashboardActivity.PREFERENCES_USER_ID)){
             suppliersList.add(x.getName());
         }
         customerSupplierAdapter = new ArrayAdapter<String>(context,
@@ -286,7 +286,7 @@ public class AddFinancialRecordFragment extends Fragment {
 
     public void saveFields() {
         cropIncomeExpense = new CropIncomeExpense();
-        cropIncomeExpense.setUserId(DashboardActivity.getPreferences("userId", context));
+        cropIncomeExpense.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         cropIncomeExpense.setDate(binding.txtCropIncomeExpenseDate.getText().toString());
         cropIncomeExpense.setCategory(binding.spCropIncomeExpenseCategory.getSelectedItem().toString());
         cropIncomeExpense.setTransaction(binding.spCropIncomeExpenseTransaction.getSelectedItem().toString());
@@ -302,7 +302,7 @@ public class AddFinancialRecordFragment extends Fragment {
     public void updateField(){
         if(cropIncomeExpense !=null){
 
-            cropIncomeExpense.setUserId(DashboardActivity.getPreferences("userId", context));
+            cropIncomeExpense.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             cropIncomeExpense.setDate(binding.txtCropIncomeExpenseDate.getText().toString());
             cropIncomeExpense.setCategory(binding.spCropIncomeExpenseCategory.getSelectedItem().toString());
             cropIncomeExpense.setTransaction(binding.spCropIncomeExpenseTransaction.getSelectedItem().toString());

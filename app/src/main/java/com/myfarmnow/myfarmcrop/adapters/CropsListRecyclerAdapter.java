@@ -158,7 +158,8 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     Crop crop = cropsList.get(getAdapterPosition());
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId", crop.getId());
-                    navController.navigate(R.id.action_cropListFragment_to_cropsNotesListFragment);
+                    Log.e("CropID",crop.getId());
+                    navController.navigate(R.id.action_cropListFragment_to_cropsNotesListFragment,bundle);
                 }
             });
 

@@ -191,7 +191,7 @@ public class StoreAddSeedFragment extends DialogFragment {
 
     public void saveSeeds() {
         seedsInventoryToEdit = new CropInventorySeeds();
-        seedsInventoryToEdit.setUserId(DashboardActivity.getPreferences("userId", context));
+        seedsInventoryToEdit.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
         seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
         seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
@@ -210,7 +210,7 @@ public class StoreAddSeedFragment extends DialogFragment {
 
         if (seedsInventoryToEdit != null) {
 
-            seedsInventoryToEdit.setUserId(DashboardActivity.getPreferences("userId", context));
+            seedsInventoryToEdit.setUserId(DashboardActivity.PREFERENCES_USER_ID);
             seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
             seedsInventoryToEdit.setName(seedNameTxt.getText().toString());

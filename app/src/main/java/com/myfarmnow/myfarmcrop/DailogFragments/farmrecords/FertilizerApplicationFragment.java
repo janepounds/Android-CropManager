@@ -300,7 +300,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
 //        ((ArrayAdapter)fertilizerFormSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
-        for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(DashboardActivity.getPreferences("userId",context))){
+        for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(DashboardActivity.PREFERENCES_USER_ID)){
             fertlizersList.add(x);
         }
         fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",context);
@@ -314,7 +314,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
 
     public void saveFertilizerApplication(){
         fertilizerApplication = new CropFertilizerApplication();
-        fertilizerApplication.setUserId(DashboardActivity.getPreferences("userId",context));
+        fertilizerApplication.setUserId(DashboardActivity.PREFERENCES_USER_ID);
         fertilizerApplication.setDate(dateTxt.getText().toString());
         fertilizerApplication.setCropId(cropId);
 //        fertilizerApplication.setReason(reasonTxt.getText().toString());

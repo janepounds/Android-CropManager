@@ -1247,7 +1247,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 notification.setType(type);
                 notification.setStatus(context.getString(R.string.notification_status_pending));
                 ;
-                notification.setUserId(DashboardActivity.getPreferences("userId", context));
+                notification.setUserId(DashboardActivity.PREFERENCES_USER_ID);
 
                 notificationsList.add(notification);
                 varyingCalendar.add(calendarIdentifier, repeatFrequency);//increase the varying calendar
@@ -4631,7 +4631,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         while (!res.isAfterLast()) {
             Crop crop = new Crop();
-//            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
+            crop.setId(res.getString(res.getColumnIndex(CROP_CROP_ID)));
             crop.setUserId(res.getString(res.getColumnIndex(CROP_CROP_USER_ID)));
             crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));

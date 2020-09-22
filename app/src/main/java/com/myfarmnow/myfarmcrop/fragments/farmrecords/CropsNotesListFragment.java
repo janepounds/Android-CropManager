@@ -13,6 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,7 +53,7 @@ public class CropsNotesListFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Notes");
-        binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
+        binding.toolbar.setNavigationOnClickListener(view -> navController.navigate(R.id.action_cropsNotesListFragment_to_cropListFragment));
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -63,6 +64,7 @@ public class CropsNotesListFragment extends Fragment {
         navController = Navigation.findNavController(view);
         if(getArguments()!=null){
             cropId = getArguments().getString("cropId");
+            Log.e("CropID",cropId);
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         cropsNotesListRecyclerAdapter = new CropsNotesListRecyclerAdapter(context,dbHandler.getCropNotes(cropId, CropNote.IS_FOR_CROP));
@@ -83,7 +85,10 @@ public class CropsNotesListFragment extends Fragment {
             case R.id.action_add_new:
                 item.setTitle("Add New");
                //navigate to add notes
-                navController.navigate(R.id.action_cropsNotesListFragment_to_addCropNotesFragment);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("cropId",cropId);
+                navController.navigate(R.id.action_cropsNotesListFragment_to_addCropNotesFragment,bundle);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

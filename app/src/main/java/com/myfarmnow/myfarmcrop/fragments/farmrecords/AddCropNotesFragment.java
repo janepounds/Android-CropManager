@@ -12,14 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropsNotesManagerActivity;
+
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropNotesBinding;
@@ -58,8 +58,9 @@ public class AddCropNotesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         if(getArguments()!=null){
-            cropNote = (CropNote)getArguments().getSerializable("cropNote");
             cropId = getArguments().getString("cropId");
+            Log.e("CropID",cropId );
+            cropNote = (CropNote)getArguments().getSerializable("cropNote");
 
         }
 
