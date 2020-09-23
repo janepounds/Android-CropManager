@@ -941,31 +941,12 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
 
         }*/
         else {
+
             if (currentFragment == defaultHomeFragment)
-                new AlertDialog.Builder(this)
-                        .setMessage("Are you sure you want to exit?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                BuyInputsActivity.super.onBackPressed();
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
+                BuyInputsActivity.super.onBackPressed();
             else
                 showHomePage();
-           /* this.doublePressedBackToExit = true;
-            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
 
-            // Delay of 2 seconds
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    // Set doublePressedBackToExit false after 2 seconds
-                    doublePressedBackToExit = false;
-                }
-            }, 2000);*/
         }
     }
 

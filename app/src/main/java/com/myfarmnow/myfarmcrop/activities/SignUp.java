@@ -96,7 +96,6 @@ public class SignUp extends AppCompatActivity {
 
     Toolbar toolbar;
     ActionBar actionBar;
-
     DialogLoader dialogLoader;
 
     //AdView mAdView;
