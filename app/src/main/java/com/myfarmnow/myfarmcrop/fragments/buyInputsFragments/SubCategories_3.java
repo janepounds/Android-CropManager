@@ -46,7 +46,7 @@ public class SubCategories_3 extends Fragment {
         // Get CategoryID from Bundle arguments
         parentCategoryID = getArguments().getInt("CategoryID");
 
-        
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString("CategoryName", getString(R.string.actionCategory)));
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();

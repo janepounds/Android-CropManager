@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.fragments;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,13 +17,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import android.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -72,6 +71,16 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
+        setHasOptionsMenu(true);
+
+        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle("My Account");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         fragmentManager=getActivity().getSupportFragmentManager();
         currentFragment=fragmentManager.getPrimaryNavigationFragment();
 
@@ -206,15 +215,7 @@ public class AccountFragment extends Fragment {
                logout();
             }
         });
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
-        setHasOptionsMenu(true);
 
-        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setTitle("My Account");
-
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
 
         return binding.getRoot();
     }
@@ -232,13 +233,13 @@ public class AccountFragment extends Fragment {
             myAddresses = new My_Addresses(null);
             if(currentFragment==null)
                 fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, myAddresses)
+                        .add(R.id.main_fragment_container, myAddresses)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             else
                 fragmentManager.beginTransaction()
                         .hide(currentFragment)
-                        .add(R.id.fragment_container, myAddresses)
+                        .add(R.id.main_fragment_container, myAddresses)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
         } else {
@@ -252,13 +253,13 @@ public class AccountFragment extends Fragment {
             myOrders = new My_Orders();
             if(currentFragment==null)
                 fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, myOrders)
+                        .add(R.id.main_fragment_container, myOrders)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             else
                 fragmentManager.beginTransaction()
                         .hide(currentFragment)
-                        .add(R.id.fragment_container, myOrders)
+                        .add(R.id.main_fragment_container, myOrders)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
         } else {
@@ -272,13 +273,13 @@ public class AccountFragment extends Fragment {
         fragment = new My_Cart();
         if(currentFragment==null)
             fragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(getString(R.string.actionHome)).commit();
         else
             fragmentManager.beginTransaction()
                     .hide(currentFragment)
-                    .add(R.id.fragment_container, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(getString(R.string.actionHome)).commit();
 
@@ -291,13 +292,13 @@ public class AccountFragment extends Fragment {
             myfavorites = new WishList();
             if(currentFragment==null)
                 fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, myfavorites)
+                        .add(R.id.main_fragment_container, myfavorites)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             else
                 fragmentManager.beginTransaction()
                         .hide(currentFragment)
-                        .add(R.id.fragment_container, myfavorites)
+                        .add(R.id.main_fragment_container, myfavorites)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
         } else {

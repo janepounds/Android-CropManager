@@ -137,7 +137,7 @@ public class DashboardActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) )).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) )).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
@@ -199,6 +199,8 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.actionFavourites));
         } else if (curruntFrag instanceof SettingsFragment) {
             actionBar.setTitle(getString(R.string.actionSettings));
+        }else if (curruntFrag instanceof AccountFragment) {
+            actionBar.setTitle(getString(R.string.actionAccount));
         }
 
     }
@@ -219,7 +221,7 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
         return true;
     };
 
