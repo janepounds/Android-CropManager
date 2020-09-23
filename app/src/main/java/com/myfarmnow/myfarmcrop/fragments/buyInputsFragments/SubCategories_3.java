@@ -46,9 +46,7 @@ public class SubCategories_3 extends Fragment {
         // Get CategoryID from Bundle arguments
         parentCategoryID = getArguments().getInt("CategoryID");
 
-        // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
-        //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
+        
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString("CategoryName", getString(R.string.actionCategory)));
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();

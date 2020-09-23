@@ -65,7 +65,6 @@ public class Languages extends Fragment {
         rootView = inflater.inflate(R.layout.languages, container, false);
     
        // MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionLanguage));
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();

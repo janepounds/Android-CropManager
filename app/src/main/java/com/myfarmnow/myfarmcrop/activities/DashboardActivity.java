@@ -14,6 +14,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -49,6 +51,14 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Update_Account;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
@@ -67,7 +77,7 @@ import java.util.concurrent.TimeUnit;
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
 
-    public static final String PREFERENCES_FILE_NAME = "pref";
+    public static final String PREFERENCES_FILE_NAME = "UserInfo";
 
     public static final String FARM_NAME_PREFERENCES_ID = "farmname";
     public static final String STREET_PREFERENCES_ID = "addressStreet";
@@ -91,7 +101,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     MyAppPrefsManager myAppPrefsManager;
-
+    Toolbar toolbar;
+    ActionBar actionBar;
 
     @Override
     protected void onStart() {
@@ -131,6 +142,34 @@ public class DashboardActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        toolbar = findViewById(R.id.myToolbar);
+
+        // Get ActionBar and Set the Title and HomeButton of Toolbar
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        actionBar.setTitle(ConstantValues.APP_HEADER);
+
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // Handle ToolbarNavigationClickListener with OnBackStackChangedListener
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+
+                // Check BackStackEntryCount of FragmentManager
+                if (getSupportFragmentManager().getBackStackEntryCount() <= 0)  {
+                    // Set DrawerToggle Indicator and default ToolbarNavigationClickListener
+                    actionBar.setTitle(ConstantValues.APP_HEADER);
+                    actionBar.setHomeButtonEnabled(false);
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+
+                }
+                actionBar.setHomeButtonEnabled(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                setupTitle();
+
+            }
+        });
 
         if (!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, DashboardActivity.this).equals("yes")) {
             getAppToken();
@@ -139,6 +178,31 @@ public class DashboardActivity extends AppCompatActivity {
         startService(new Intent(this, CropSyncService.class));
         scheduleBackgroundWork();
     }
+
+
+    private void setupTitle() {
+
+        Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
+        if (curruntFrag instanceof My_Cart) {
+            actionBar.setTitle(getString(R.string.actionCart));
+        } else if (curruntFrag instanceof Shipping_Address) {
+            actionBar.setTitle(getString(R.string.shipping_address));
+        } else if (curruntFrag instanceof Nearby_Merchants) {
+            actionBar.setTitle(getString(R.string.nearby_merchants));
+        } else if (curruntFrag instanceof Update_Account) {
+            actionBar.setTitle(getString(R.string.actionAccount));
+        } else if (curruntFrag instanceof My_Orders) {
+            actionBar.setTitle(getString(R.string.actionOrders));
+        } else if (curruntFrag instanceof My_Addresses) {
+            actionBar.setTitle(getString(R.string.actionAddresses));
+        } else if (curruntFrag instanceof WishList) {
+            actionBar.setTitle(getString(R.string.actionFavourites));
+        } else if (curruntFrag instanceof SettingsFragment) {
+            actionBar.setTitle(getString(R.string.actionSettings));
+        }
+
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
         Fragment selectedFragment = null;
@@ -332,8 +396,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public static String getPreferences(String key, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
-                0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME,
+                MODE_PRIVATE);
         return sharedPreferences.getString(key, "");
 
     }
@@ -408,37 +472,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public void logout(View view) {
-
-        startService(new Intent(this, CropSyncService.class));
-        final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Logging out..");
-        dialog.setCancelable(false);
-        dialog.show();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                dialog.dismiss();
-                //remove shared preferences
-                SharedPreferences sharedPreferences = DashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME, 0);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
-
-                //remove database
-                DashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
-
-                WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
-                WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
-                finish();
-                Intent openList = new Intent(DashboardActivity.this, Login.class);
-                startActivity(openList);
-            }
-        }, 10000);
-
-
-    }
 
     public void shareApp(View view) {
 

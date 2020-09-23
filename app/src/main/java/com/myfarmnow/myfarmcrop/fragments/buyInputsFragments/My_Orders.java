@@ -80,13 +80,13 @@ public class My_Orders extends Fragment {
         banner_adView = rootView.findViewById(R.id.banner_adView);
         orders_recycler = rootView.findViewById(R.id.orders_recycler);
         continueShoppingButton = rootView.findViewById(R.id.continue_shopping_btn);
-    
+
+
+        dialogLoader = new DialogLoader(getContext());
 
         // Hide some of the Views
         emptyRecord.setVisibility(View.GONE);
 
-
-        dialogLoader = new DialogLoader(getContext());
 
 
         // Request for User's Orders

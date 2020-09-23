@@ -540,22 +540,6 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
             }
 
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionShareApp))) {
-            mSelectedItem = selectedItem;
-
-            // Share App with the help of static method of Utilities class
-            Utilities.shareMyApp(BuyInputsActivity.this);
-
-
-
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionRateApp))) {
-            mSelectedItem = selectedItem;
-
-            // Rate App with the help of static method of Utilities class
-//            Utilities.rateMyApp(BuyInputsActivity.this);
-
-
-
         } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionSettings))) {
             mSelectedItem = selectedItem;
 
@@ -599,27 +583,6 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
             finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
 
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionLogout))) {
-            mSelectedItem = selectedItem;
-
-            // Edit UserID in SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("userID", "");
-            editor.apply();
-
-            // Set UserLoggedIn in MyAppPrefsManager
-            MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(this);
-            myAppPrefsManager.setUserLoggedIn(false);
-
-            // Set isLogged_in of ConstantValues
-            ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
-
-            FirebaseAuth.getInstance().signOut();
-
-            // Navigate to Login Activity
-            startActivity(new Intent(BuyInputsActivity.this, Login.class));
-            finish();
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
         }
 
     }
@@ -971,14 +934,7 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
             floatingActionButton.setVisibility(isEnabled ? View.VISIBLE : View.GONE);
     }
 
-    public void toggleNavigaiton(boolean isEnabled) {
-        if (ConstantValues.NAVIGATION_STYLE.equals("side")) {
-            setDrawerEnabled(isEnabled);
-        } else {
-            enableBottomNavigation(isEnabled);
 
-        }
-    }
 
     public void clearBackStackInclusive(String tag) {
         getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);

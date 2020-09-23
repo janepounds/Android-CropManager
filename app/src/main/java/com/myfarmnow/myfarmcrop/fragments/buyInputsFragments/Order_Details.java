@@ -59,8 +59,6 @@ public class Order_Details extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.buy_inputs_order_details, container, false);
 
-        ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
-
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
 
