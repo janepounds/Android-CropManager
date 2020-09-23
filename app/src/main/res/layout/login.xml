@@ -89,7 +89,7 @@
                             android:layout_height="30dip"
                             android:layout_centerVertical="true"
                             android:padding="5dp"
-                            android:src="@drawable/ic_profile"></ImageView>
+                            android:src="@drawable/ic_profile"/>
 
                         <EditText
                             android:id="@+id/user_email"
@@ -120,7 +120,7 @@
                             android:layout_height="30dip"
                             android:layout_centerVertical="true"
                             android:padding="5dp"
-                            android:src="@drawable/ic_password"></ImageView>
+                            android:src="@drawable/ic_password"/>
 
                         <EditText
                             android:id="@+id/user_password"
