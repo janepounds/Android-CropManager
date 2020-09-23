@@ -51,8 +51,6 @@ public class MarketPlaceHomeFragment extends Fragment {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
         return binding.getRoot();
     }
 
@@ -71,13 +69,9 @@ public class MarketPlaceHomeFragment extends Fragment {
 
         binding.sellProduce.setOnClickListener(v -> navController.navigate(R.id.action_marketPlaceHomeFragment_to_sellProduceFragment));
 
-
-        binding.buyInputs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent buyinputs = new Intent(getActivity(), BuyInputsActivity.class);
-                getActivity().startActivity(buyinputs);
-            }
+        binding.buyInputs.setOnClickListener(v -> {
+            Intent buyInputs = new Intent(getActivity(), BuyInputsActivity.class);
+            requireActivity().startActivity(buyInputs);
         });
     }
 }
