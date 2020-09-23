@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -164,6 +163,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
+                            android:id="@+id/layout_my_addresses"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -195,6 +195,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/layoutMyOrders"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -226,6 +227,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/layoutMyCart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -257,6 +259,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/layoutFavourites"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -334,6 +337,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
+                            android:id="@+id/layout_change_password"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -427,6 +431,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/layoutPrivacyPolicy"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -458,6 +463,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/layoutRefundPolicy"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -483,7 +489,7 @@
                                 android:paddingStart="@dimen/dimen_10dp"
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
-                                android:text="My Rating &amp; Reviews"
+                                android:text="@string/refund_policy"
                                 android:textSize="20sp" />
 
                         </RelativeLayout>
@@ -504,38 +510,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
-
-                            <ImageView
-                                android:id="@+id/news_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_news" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/news_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="News"
-                                android:textSize="20sp" />
-
-                        </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/layout_share_app"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -566,7 +543,43 @@
 
                         </RelativeLayout>
 
+
                         <RelativeLayout
+                            android:id="@+id/layout_news"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+
+                            <ImageView
+                                android:id="@+id/news_icon"
+                                android:layout_width="17.07dp"
+                                android:layout_height="20.27dp"
+                                android:layout_gravity="center|start"
+                                android:layout_margin="@dimen/dimen_10dp"
+                                android:src="@drawable/ic_news" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/news_icon"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/josefin_sans"
+                                android:maxLines="1"
+                                android:paddingStart="@dimen/dimen_10dp"
+                                android:paddingEnd="@dimen/dimen_10dp"
+                                android:src="@drawable/ic_user"
+                                android:text="News"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/layoutRateMyApp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
@@ -596,8 +609,8 @@
                                 android:textSize="20sp" />
 
                         </RelativeLayout>
-
                         <RelativeLayout
+                            android:id="@+id/layout_logout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
