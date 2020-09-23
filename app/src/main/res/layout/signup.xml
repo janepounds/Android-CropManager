@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/windowBackground"
-    tools:context="com.myfarmnow.myfarmcrop.activities.Signup">
+    tools:context="com.myfarmnow.myfarmcrop.activities.SignUp" >
 
     <include
         android:id="@+id/myToolbar"
