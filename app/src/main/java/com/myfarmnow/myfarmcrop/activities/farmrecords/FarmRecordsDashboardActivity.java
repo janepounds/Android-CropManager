@@ -10,31 +10,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropContactManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropCustomersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInvoicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropProductsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPurchaseOrdersListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSalesOrdersListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSuppliersListActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.ActivityFarmRecordsDashboardBinding;
@@ -95,20 +81,7 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         startActivity(openSettings);
         finish();
     }
-    public void openEmployeeList(View view){
-        Intent openList = new Intent(this, CropEmployeesListActivity.class);
-        startActivity(openList);
-    }
-
-
-
-    public void openFertilizerCalculator(View view){
-        //CropFertilizerCalculatorEntryActivity
-        Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
-        startActivity(openList);
-    }
-
-
+ 
     public void openBillsList(View view){
         Intent openList = new Intent(this, CropBillsListActivity.class);
         startActivity(openList);

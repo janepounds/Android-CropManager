@@ -21,7 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerCalculatorEntryActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 
@@ -127,14 +126,6 @@ public class ServicesDashboardActivity extends AppCompatActivity {
             }
         });
         ed_.setInputType(InputType.TYPE_NULL);
-    }
-
-
-
-    public void openFertilizerCalculator(View view){
-        //CropFertilizerCalculatorEntryActivity
-        Intent openList = new Intent(this, CropFertilizerCalculatorEntryActivity.class);
-        startActivity(openList);
     }
 
 
