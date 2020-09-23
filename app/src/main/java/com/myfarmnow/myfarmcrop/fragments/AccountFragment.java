@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -18,6 +21,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import android.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -57,7 +65,7 @@ public class AccountFragment extends Fragment {
     public SettingsFragment settings;
     public My_Cart my_cart;
 
-    ActionBar actionBar;
+    private ActionBar actionBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -198,6 +206,16 @@ public class AccountFragment extends Fragment {
                logout();
             }
         });
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
+        setHasOptionsMenu(true);
+
+        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle("My Account");
+
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
         return binding.getRoot();
     }
 
@@ -322,4 +340,25 @@ public class AccountFragment extends Fragment {
     }
 
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.edit_profile_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.toolbar_edit_profile:
+                Toast.makeText(context, "Edit Profile", Toast.LENGTH_SHORT).show();
+
+                return true;
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }

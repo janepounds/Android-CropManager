@@ -13,26 +13,23 @@ import java.util.regex.Pattern;
  **/
 
 public class ValidateInputs {
-    
-    private static String blockCharacters = "[$&+~;=\\\\?@|/'<>^*()%!-]";
 
+    private static String blockCharacters = "[$&+~;=\\\\?@|/'<>^*()%!-]";
 
     //*********** Validate Email Address ********//
 
     public static boolean isValidEmail(String email) {
         //return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        return  TextUtils.isEmpty(email) || Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return TextUtils.isEmpty(email) || Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-
-    
     //*********** Validate Name Input ********// 
 
     public static boolean isValidName(String name) {
         String regExpn = "^([a-zA-Z ]{1,24})+$";
         if (name.equalsIgnoreCase(""))
             return false;
-        
+
         CharSequence inputStr = name;
         Pattern pattern = Pattern.compile(blockCharacters, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);
@@ -40,8 +37,6 @@ public class ValidateInputs {
         return !pattern.matcher(inputStr).find();
     }
 
-
-    
     //*********** Validate User Login ********//
 
     public static boolean isValidLogin(String login) {
@@ -54,8 +49,6 @@ public class ValidateInputs {
         return matcher.matches();
     }
 
-
-    
     //*********** Validate Password Input ********//
 
     public static boolean isValidPassword(String password) {
@@ -68,16 +61,16 @@ public class ValidateInputs {
         return matcher.matches();
     }
 
-    
+    public static boolean isPasswordMatching(String password, String confirmationPassword) {
+        return password.trim().equals(confirmationPassword.trim());
+    }
 
     //*********** Validate Phone Number********//
 
     public static boolean isValidPhoneNo(String phoneNo) {
-        return phoneNo.length()>=10 && Patterns.PHONE.matcher(phoneNo).matches();
+        return phoneNo.length() >= 10 && Patterns.PHONE.matcher(phoneNo).matches();
     }
 
-
-    
     //*********** Validate Number Input ********//
 
     public static boolean isValidNumber(String number) {
@@ -90,24 +83,19 @@ public class ValidateInputs {
         return matcher.matches();
     }
 
-    
-    
-
     //*********** Validate Any Input ********//
 
     public static boolean isValidInput(String input) {
         String regExpn = "(.*?)?((?:[a-z][a-z]+))";
         if (input.equalsIgnoreCase(""))
             return false;
-        
+
         CharSequence inputStr = input;
         Pattern pattern = Pattern.compile(blockCharacters, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);
 
         return !pattern.matcher(inputStr).find();
     }
-
-    
 
     //*********** Validate Search Query ********//
 
