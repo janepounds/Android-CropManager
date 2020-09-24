@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/toolbar_edit_profile"
+        app:actionLayout="@layout/layout_animated_ic_cart"
+        android:icon="@drawable/ic_edit_profile"
+        android:title="Edit Profile"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/toolbar_ic_language"
+        android:icon="@drawable/ic_language"
+        android:title="@string/actionLanguage"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/toolbar_ic_currency"
+        android:icon="@drawable/ic_action_currency"
+        android:title="@string/label_currency"
+        app:showAsAction="ifRoom" />
+
+</menu>

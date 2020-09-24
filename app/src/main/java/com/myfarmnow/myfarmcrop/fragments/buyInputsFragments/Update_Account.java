@@ -31,6 +31,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.customs.CircularImageView;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.database.User_Info_BuyInputsDB;
@@ -99,7 +100,7 @@ public class Update_Account extends Fragment {
 
 
         // Get the CustomerID from SharedPreferences
-        customers_id = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customers_id = DashboardActivity.RETRIEVED_USER_ID;
 
 
         // Binding Layout Views

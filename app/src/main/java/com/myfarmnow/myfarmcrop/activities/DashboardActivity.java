@@ -1,9 +1,10 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -26,8 +28,9 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import android.os.Handler;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -44,6 +47,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -51,6 +55,8 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
@@ -65,6 +71,7 @@ import com.myfarmnow.myfarmcrop.services.BackupWorker;
 import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
 import com.myfarmnow.myfarmcrop.services.CropSyncService;
 import com.myfarmnow.myfarmcrop.utils.NotificationScheduler;
+import com.myfarmnow.myfarmcrop.utils.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,8 +109,11 @@ public class DashboardActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     MyAppPrefsManager myAppPrefsManager;
     Toolbar toolbar;
-    ActionBar actionBar;
+    Fragment defaultHomeFragment;
 
+    public Fragment currentFragment;
+    public  static ActionBar actionBar;
+    public static  boolean FLAG_PROFILE;
     @Override
     protected void onStart() {
         super.onStart();
@@ -136,13 +146,13 @@ public class DashboardActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) )).commit();
+        defaultHomeFragment=new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) );
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment ).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        toolbar = findViewById(R.id.myToolbar);
+        toolbar = findViewById(R.id.main_Toolbar);
 
         // Get ActionBar and Set the Title and HomeButton of Toolbar
         setSupportActionBar(toolbar);
@@ -182,7 +192,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void setupTitle() {
 
-        Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
+        Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         if (curruntFrag instanceof My_Cart) {
             actionBar.setTitle(getString(R.string.actionCart));
         } else if (curruntFrag instanceof Shipping_Address) {
@@ -224,6 +234,139 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
         return true;
     };
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate toolbar_menu Menu
+        getMenuInflater().inflate(R.menu.toolbar_main_menu, menu);
+
+        // Bind Menu Items
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+
+        currentFragment=this.getSupportFragmentManager().getPrimaryNavigationFragment();
+//        profileItem.setActionView(R.layout.layout_animated_ic_cart);
+        profileItem.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to My_Cart Fragment
+                Fragment fragment = new Update_Account();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if(currentFragment==null)
+                    fragmentManager.beginTransaction()
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
+                else
+                fragmentManager.beginTransaction()
+                        .hide(currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+            }
+        });
+
+
+        // Tint Menu Icons with the help of static method of Utilities class
+        Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
+
+        return true;
+    }
+
+    //*********** Prepares the OptionsMenu of Toolbar ********//
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Fragment fragment;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                DashboardActivity.super.onBackPressed();
+
+                break;
+
+            case R.id.toolbar_ic_language:
+                // Navigate to Languages Fragment
+                fragment = new Languages();
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+                break;
+
+            case R.id.toolbar_ic_currency:
+
+
+
+                // Navigate to Currency Fragment
+                fragment = new CurrencyFrag();
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+
+                break;
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // Get FragmentManager
+        FragmentManager fm = getSupportFragmentManager();
+
+
+        if (fm.getBackStackEntryCount() > 0) {
+
+            // Pop previous Fragment
+            fm.popBackStack();
+
+        } else {
+            if (currentFragment == defaultHomeFragment)
+                new AlertDialog.Builder(this)
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                DashboardActivity.super.onBackPressed();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            else
+                showHomePage();
+
+        }
+    }
+
+
+    private void showHomePage() {
+        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(defaultHomeFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        currentFragment = defaultHomeFragment;
+
+        actionBar.setTitle(getString(R.string.app_name));
+    }
 
     /**
      * Schedules the background tasks such as synchronisation and notification

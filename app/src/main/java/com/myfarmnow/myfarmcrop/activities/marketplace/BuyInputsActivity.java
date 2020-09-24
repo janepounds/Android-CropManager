@@ -713,30 +713,22 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
     public boolean onPrepareOptionsMenu(Menu menu) {
 
         if (FLAG_FAVORITE) {
-            MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
-            MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
             MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
             MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
             MenuItem youtubeItem = menu.findItem(R.id.toolbar_ic_favorite);
 
             youtubeItem.setVisible(true);
-            languageItem.setVisible(false);
             searchItem.setVisible(false);
             cartItem.setVisible(false);
-            currencyItem.setVisible(false);
             // FLAG_FAVORITE = false;
         }
 
 
         if (FLAG_YOUTUBE) {
-            MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
-            MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
             MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
             MenuItem youtubeItem = menu.findItem(R.id.toolbar_ic_favorite);
             MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
             youtubeItem.setVisible(true);
-            languageItem.setVisible(false);
-            currencyItem.setVisible(false);
             searchItem.setVisible(false);
             cartItem.setVisible(false);
             FLAG_YOUTUBE = false;

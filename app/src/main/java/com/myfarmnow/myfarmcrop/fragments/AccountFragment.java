@@ -17,14 +17,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import android.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -37,7 +33,6 @@ import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAccountBinding;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.MeFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
@@ -64,21 +59,20 @@ public class AccountFragment extends Fragment {
     public SettingsFragment settings;
     public My_Cart my_cart;
 
-    private ActionBar actionBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false);
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
+//        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
 
-        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setTitle("My Account");
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar = ((DashboardActivity) requireActivity()).getSupportActionBar();
+//        assert actionBar != null;
+        DashboardActivity.actionBar.setTitle("My Account");
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         fragmentManager=getActivity().getSupportFragmentManager();
@@ -342,24 +336,29 @@ public class AccountFragment extends Fragment {
 
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.edit_profile_menu, menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        profileItem.setVisible(true);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.toolbar_edit_profile:
-                Toast.makeText(context, "Edit Profile", Toast.LENGTH_SHORT).show();
-
-                return true;
-
-            default:
-
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//
+//            case R.id.toolbar_edit_profile:
+//                Toast.makeText(context, "Edit Profile", Toast.LENGTH_SHORT).show();
+//
+//                return true;
+//
+//            default:
+//
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//    }
 }

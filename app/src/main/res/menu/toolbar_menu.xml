@@ -2,16 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/toolbar_ic_language"
-        android:icon="@drawable/ic_language"
-        android:title="@string/actionLanguage"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/toolbar_ic_currency"
-        android:icon="@drawable/ic_action_currency"
-        android:title="@string/currency"
-        app:showAsAction="ifRoom" />
+
 
     <item
         android:id="@+id/toolbar_ic_search"
@@ -33,5 +24,6 @@
         android:icon="@drawable/toggle_ic_cart"
         android:title="@string/actionCart"
         app:showAsAction="always" />
+
 
 </menu>
