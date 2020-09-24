@@ -676,20 +676,11 @@ public class SignUp extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.account_fragment_menu, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
             finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
-        } else if (item.getItemId() == R.id.toolbar_edit_profile) {
-            Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
