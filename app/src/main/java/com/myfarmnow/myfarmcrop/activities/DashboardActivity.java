@@ -332,8 +332,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public static String getPreferences(String key, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
-                0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
         return sharedPreferences.getString(key, "");
 
     }

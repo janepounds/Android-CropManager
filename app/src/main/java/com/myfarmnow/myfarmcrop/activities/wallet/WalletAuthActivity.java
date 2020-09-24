@@ -17,9 +17,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
-import com.myfarmnow.myfarmcrop.models.wallet.TokenResponse;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.venmo.android.pin.PinFragment;
@@ -121,16 +121,16 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
         call.enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.code()==200) {
 
                     Log.w("Get Token: ", "OnSuccess running");
                     TokenResponse tokenResponse = response.body();
 
-                    JSONArray accessToken = tokenResponse.getData().getOriginal();
-                    Log.w("LoginToken: ",accessToken.toString());
-//                        WALLET_ACCESS_TOKEN = accessToken;
-//
-//                        WalletHomeActivity.startHome(context);
+                    String accessToken = tokenResponse.getData().getAccess_token();
+                    Log.w("LoginToken: ",accessToken);
+                        WALLET_ACCESS_TOKEN = accessToken;
+
+                        WalletHomeActivity.startHome(context);
                     //now you can go to next wallet page
 
 
@@ -138,7 +138,7 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                         dialog.dismiss();
                 }else {
 
-                    if(response.body().getStatusCode()==403) {
+                    if(response.code()==403) {
                         //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
                         if (errorTextView != null){
                             errorTextView.setText(response.body().getMessage());
@@ -146,11 +146,11 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                             errorTextView.requestFocus();
                         }
 
-                    }else if(response.body().getStatusCode()==404){
+                    }else if(response.code()==404){
                         Log.e("info", new String(response.body().getMessage()));
                         WalletLoginHelper.userRegister( dialog, context,password);
                     }
-                    if (response.body().getMessage() != null) {
+                    if (response.errorBody() != null) {
                         Log.e("info", new String(response.message()));
                     } else {
                         Log.e("info", "Something got very very wrong");

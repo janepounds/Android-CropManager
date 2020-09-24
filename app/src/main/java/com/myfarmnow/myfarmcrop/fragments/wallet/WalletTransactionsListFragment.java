@@ -32,8 +32,11 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletTransactionsListBinding;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -45,6 +48,9 @@ import java.util.List;
 import java.util.Objects;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WalletTransactionsListFragment extends Fragment {
     private static final String TAG = "WalletTransactionsList";
@@ -90,6 +96,69 @@ public class WalletTransactionsListFragment extends Fragment {
     }
 
     private void actualStatementData() {
+//        ProgressDialog dialog;
+//        dialog = new ProgressDialog(context);
+//        dialog.setIndeterminate(true);
+//        dialog.setMessage("Please Wait..");
+//        dialog.setCancelable(false);
+//        dialog.show();
+//        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+//
+//        /**********RETROFIT IMPLEMENTATION************/
+//        APIRequests apiRequests = APIClient.getWalletInstance();
+//        Call<List<WalletTransactionResponse>> call  = apiRequests.transactionList(access_token);
+//        call.enqueue(new Callback<List<WalletTransactionResponse>>() {
+//            @Override
+//            public void onResponse(Call<List<WalletTransactionResponse>> call, Response<List<WalletTransactionResponse>> response) {
+//                if(response.code()== 200){
+//                    try {
+//                        List<WalletTransactionResponse> data = response.body();
+//                        //getting transactions
+//                        String[] transactions = new String[data.size()];
+//
+//                        for (int i = 0; i < data.size(); i++) {
+//                            transactions[i] = data.get(i).getData();
+//                            //type
+//                            if (record.getString("type").equals("Charge")) {
+//                                data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
+//                            } else if (record.getString("type").equals("FoodPurchase")) {
+//                                data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
+//                                data.setIsPurchase(true);
+//                            } else if (record.getString("type").equals("Deposit")) {
+//                                data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
+//                            } else if (record.getString("type").equals("Transfer")) {
+//                                String userName = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context) + " " + WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context);
+//
+//                                if (userName.equals(record.getString("sender"))) {
+//                                    data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
+//                                } else {
+//                                    data = new WalletTransaction(record.getString("date"), record.getString("sender"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
+//                                }
+//                            } else if (record.getString("type").equals("Withdraw")) {
+//                                data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
+//                            }
+//                            if (data != null) {
+//                                dataList.add(data);
+//                            }
+//                        }
+//                        statementAdapter.notifyDataSetChanged();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//
+//                    dialog.dismiss();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<WalletTransactionResponse>> call, Throwable t) {
+//
+//            }
+//        });
+
+
+
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);

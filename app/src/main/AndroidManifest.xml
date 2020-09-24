@@ -342,6 +342,7 @@
         <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
 
 
+        <activity android:name=".activities.wallet.WalletHomeActivity"/>
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />
