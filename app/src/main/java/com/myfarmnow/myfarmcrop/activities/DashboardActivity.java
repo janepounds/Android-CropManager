@@ -245,12 +245,12 @@ public class DashboardActivity extends AppCompatActivity {
         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
         MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
         MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
-        languageItem.setVisible(false);
-        currencyItem.setVisible(false);
 
         currentFragment=this.getSupportFragmentManager().getPrimaryNavigationFragment();
-//        profileItem.setActionView(R.layout.layout_animated_ic_cart);
+
         profileItem.getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,6 +274,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Tint Menu Icons with the help of static method of Utilities class
         Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
+        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
+        Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
 
         return true;
     }
@@ -297,7 +299,24 @@ public class DashboardActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                DashboardActivity.super.onBackPressed();
+
+                if (currentFragment == defaultHomeFragment)
+                    new AlertDialog.Builder(this)
+                            .setMessage("Are you sure you want to exit?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    DashboardActivity.super.onBackPressed();
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                else if (fragmentManager.getBackStackEntryCount() > 0) {
+                    // Pop previous Fragment
+                    fragmentManager.popBackStack();
+                }
+                else
+                    showHomePage();
 
                 break;
 
@@ -338,10 +357,8 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         if (fm.getBackStackEntryCount() > 0) {
-
             // Pop previous Fragment
             fm.popBackStack();
-
         } else {
             if (currentFragment == defaultHomeFragment)
                 new AlertDialog.Builder(this)
@@ -362,7 +379,8 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private void showHomePage() {
-        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(defaultHomeFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+//        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(defaultHomeFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment ).commit();
         currentFragment = defaultHomeFragment;
 
         actionBar.setTitle(getString(R.string.app_name));

@@ -3,6 +3,9 @@ package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -63,7 +66,7 @@ public class My_Orders extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.buy_inputs_orders, container, false);
-
+        setHasOptionsMenu(true);
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionOrders));
 
@@ -235,6 +238,20 @@ public class My_Orders extends Fragment {
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
+    }
     
    
 }

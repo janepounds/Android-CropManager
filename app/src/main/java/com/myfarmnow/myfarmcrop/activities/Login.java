@@ -644,7 +644,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     //*********** Proceed Forgot Password Request ********//
 
-    private void processForgotPassword(String email) {
+    private  void processForgotPassword(String email) {
 
         dialogLoader.showProgressDialog();
 
