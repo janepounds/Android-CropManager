@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -67,7 +68,7 @@ public class AccountFragment extends Fragment {
     public Update_Account update_account;
     public My_Orders myOrders;
     public My_Addresses myAddresses;
-    public WishList myfavorites;
+    public WishList myFavorites;
     public SettingsFragment settings;
     public My_Cart my_cart;
 
@@ -95,18 +96,21 @@ public class AccountFragment extends Fragment {
                 getMyAddresses();
             }
         });
+
         binding.layoutMyOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getMyOrders();
             }
         });
+
         binding.layoutMyCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToMycart();
             }
         });
+
         binding.layoutFavourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,12 +124,14 @@ public class AccountFragment extends Fragment {
                 reteApp();
             }
         });
+
         binding.layoutShareApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shareApp();
             }
         });
+
         binding.layoutPrivacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,10 +220,11 @@ public class AccountFragment extends Fragment {
                 alertDialog.show();
             }
         });
+
         binding.layoutLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               logout();
+                logout();
             }
         });
         binding.layoutChangePassword.setOnClickListener(new View.OnClickListener() {
@@ -238,12 +245,11 @@ public class AccountFragment extends Fragment {
         this.context = context;
     }
 
-
-    public void getMyAddresses(){
+    public void getMyAddresses() {
 
         if (myAddresses == null) {
             myAddresses = new My_Addresses(null);
-            if(currentFragment==null)
+            if (currentFragment == null)
                 fragmentManager.beginTransaction()
                         .add(R.id.main_fragment_container, myAddresses)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -260,11 +266,12 @@ public class AccountFragment extends Fragment {
         currentFragment = myAddresses;
         DashboardActivity.actionBar.setTitle(getString(R.string.actionAddresses));
     }
-    public void getMyOrders(){
+
+    public void getMyOrders() {
 
         if (myOrders == null) {
             myOrders = new My_Orders();
-            if(currentFragment==null)
+            if (currentFragment == null)
                 fragmentManager.beginTransaction()
                         .add(R.id.main_fragment_container, myOrders)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -282,10 +289,10 @@ public class AccountFragment extends Fragment {
         DashboardActivity.actionBar.setTitle(getString(R.string.actionOrders));
     }
 
-    public void goToMycart(){
+    public void goToMycart() {
         // Navigate to My_Cart Fragment
         fragment = new My_Cart();
-        if(currentFragment==null)
+        if (currentFragment == null)
             fragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -301,34 +308,33 @@ public class AccountFragment extends Fragment {
         DashboardActivity.actionBar.setTitle(getString(R.string.actionCart));
     }
 
-
-    public void getmyFavourites(){
-        if (myfavorites == null) {
-            myfavorites = new WishList();
-            if(currentFragment==null)
+    public void getmyFavourites() {
+        if (myFavorites == null) {
+            myFavorites = new WishList();
+            if (currentFragment == null)
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, myfavorites)
+                        .add(R.id.main_fragment_container, myFavorites)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             else
                 fragmentManager.beginTransaction()
                         .hide(currentFragment)
-                        .add(R.id.main_fragment_container, myfavorites)
+                        .add(R.id.main_fragment_container, myFavorites)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
         } else {
-            fragmentManager.beginTransaction().show(myfavorites).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+            fragmentManager.beginTransaction().show(myFavorites).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
         }
         currentFragment = myfavorites;
         DashboardActivity.actionBar.setTitle(getString(R.string.actionFavourites));
     }
 
-    public void  shareApp(){
+    public void shareApp() {
         // Share App with the help of static method of Utilities class
         Utilities.shareMyApp(getContext());
     }
 
-    public  void reteApp(){
+    public void reteApp() {
         // Rate App with the help of static method of Utilities class
         Utilities.rateMyApp(getContext());
 
@@ -352,7 +358,7 @@ public class AccountFragment extends Fragment {
         FirebaseAuth.getInstance().signOut();
 
         // Navigate to Login Activity
-        startActivity(new Intent( getActivity(), Login.class));
+        startActivity(new Intent(getActivity(), Login.class));
         getActivity().finish();
         getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }

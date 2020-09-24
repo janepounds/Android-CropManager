@@ -21,7 +21,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
@@ -48,9 +48,7 @@
                             android:text="@string/signup"
                             android:textColor="@color/textColorPrimary"
                             android:textSize="26sp"
-                            android:textStyle="bold"
-
-                            />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/signUp_loginText"
