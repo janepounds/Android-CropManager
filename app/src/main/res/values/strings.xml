@@ -843,7 +843,8 @@
         <item>Supplier</item>
         <item>Agronomist</item>
         <item>Others</item>
-    </string-array>]
+    </string-array>
+    ]
 
     <string-array name="market_price_crops_list">
         <item>Select Crop</item>
@@ -1707,14 +1708,14 @@
     <string name="actionFavourites"> MY FAVORITES </string>
     <string name="actionSettings"> SETTINGS </string>
     <string name="actionNews"> News </string>
-    <string name="actionBooking" translatable="false" > Dr.CdmKart Appointment Booking </string>
+    <string name="actionBooking" translatable="false"> Dr.CdmKart Appointment Booking </string>
     <string name="actionWhatsApp" translatable="false">Customer Support</string>
     <string name="actionIntro"> INTRO </string>
     <string name="actionAbout"> ABOUT US </string>
     <string name="actionContactUs"> CONTACT US </string>
     <string name="actionShareApp"> SHARE APP </string>
     <string name="actionRateApp"> RATE APP </string>
-    <string name="actionPartner" translatable="false" > Partner </string>
+    <string name="actionPartner" translatable="false"> Partner </string>
     <string name="actionLogin"> LOGIN </string>
     <string name="actionLogout"> LOGOUT </string>
     <string name="actionMe"> Me </string>
@@ -1925,16 +1926,16 @@
 
     <string name="veryfynumbertxt"> Please enter verification code sent in your text message. </string>
 
-    <string name="report_now" translatable="false" > WhatsApp Now! </string>
-    <string name="cancel_now" translatable="false" > Cancel </string>
-    <string name="whats_app_msg" translatable="false" > Connect to CdmKart Customer Support! Feel Free to Chat/Call with Us! </string>
+    <string name="report_now" translatable="false"> WhatsApp Now! </string>
+    <string name="cancel_now" translatable="false"> Cancel </string>
+    <string name="whats_app_msg" translatable="false"> Connect to CdmKart Customer Support! Feel Free to Chat/Call with Us! </string>
 
-    <string name="partner_now" translatable="false" > Join Now! </string>
-    <string name="partner_msg" translatable="false" > Does your business need on-demand, hyperlocal deliveries? CdmKart for Business is the one-stop solution you’re looking for. </string>
+    <string name="partner_now" translatable="false"> Join Now! </string>
+    <string name="partner_msg" translatable="false"> Does your business need on-demand, hyperlocal deliveries? CdmKart for Business is the one-stop solution you’re looking for. </string>
 
-    <string name="book_now" translatable="false" > Book Now! </string>
-    <string name="booking_msg" translatable="false" > Now Book your Appointment Fast and Easily and Get your Appointment Token Number! </string>
-    <string name="reviews_ratings" translatable="false" > Ratings and Reviews </string>
+    <string name="book_now" translatable="false"> Book Now! </string>
+    <string name="booking_msg" translatable="false"> Now Book your Appointment Fast and Easily and Get your Appointment Token Number! </string>
+    <string name="reviews_ratings" translatable="false"> Ratings and Reviews </string>
 
     <!--  Errors Message Strings -->
     <string name="enter_name"> Enter Your Name </string>
@@ -1947,7 +1948,7 @@
     <string name="invalid_last_name"> Invalid Last Name </string>
     <string name="invalid_email"> Invalid Email Address </string>
     <string name="invalid_password"> Invalid Password </string>
-    <string name="invalid_password_length" translatable="false" > Password length must between 6 - 24 </string>
+    <string name="invalid_password_length" translatable="false"> Password length must between 6 - 24 </string>
     <string name="invalid_contact"> Invalid Contact No. </string>
     <string name="invalid_post_code"> Invalid Postal Code </string>
     <string name="invalid_credit_card"> Invalid Credit Card Number </string>
@@ -1994,7 +1995,7 @@
     <string name="official_web"> Official Website </string>
     <string name="share_app"> Share App </string>
     <string name="rate_app"> Rate App </string>
-    <string name="whats_app" translatable="false" > WhatsApp Customer Support </string>
+    <string name="whats_app" translatable="false"> WhatsApp Customer Support </string>
     <string name="privacy_policy"> Privacy Policy </string>
     <string name="refund_policy"> Refund Policy </string>
     <string name="service_terms"> Terms of Service </string>
@@ -2060,10 +2061,7 @@
     <string name="dialog_internet_description">You seem to have no internet connection, this app requires internet to get the latest content.\n\nYou can continue to see your favorite/offline items!</string>
     <string name="title_activity_woo_commerce_login">Sign in</string>
 
-
-    <string name="app_terms_services">
-        Creating an account means you\'re okay with our
-    </string>
+    <string name="app_terms_services">By creating an account, you agree to our</string>
 
     <string-array name="sortBy_array">
         <item> Newest </item>
@@ -2085,28 +2083,28 @@
     </string>
 
 
-    <string name="official_whatsapp" translatable="false" >Customer Support</string>
-    <string name="a_z" translatable="false" >A_Z</string>
-    <string name="ugandan_code" translatable="false" >+256 </string>
+    <string name="official_whatsapp" translatable="false">Customer Support</string>
+    <string name="a_z" translatable="false">A_Z</string>
+    <string name="ugandan_code" translatable="false">+256 </string>
     <string name="delivery_time">Put time and date when you want this delivery</string>
-    <string name="select_date" translatable="false" > Please select date first </string>
-    <string name="packing_charge" translatable="false" >Packing charges</string>
-    <string name="enter_delivery_time_date" translatable="false" >Click here to enter delivery time and date.</string>
-    <string name="select_time_slot" translatable="false" >Please select delivery time slot.</string>
-    <string name="can_not_select_time_slot" translatable="false" > You can not select previous time slot, please select coming time slot </string>
+    <string name="select_date" translatable="false"> Please select date first </string>
+    <string name="packing_charge" translatable="false">Packing charges</string>
+    <string name="enter_delivery_time_date" translatable="false">Click here to enter delivery time and date.</string>
+    <string name="select_time_slot" translatable="false">Please select delivery time slot.</string>
+    <string name="can_not_select_time_slot" translatable="false"> You can not select previous time slot, please select coming time slot </string>
 
     <string name="flashSale"> Flash Sale </string>
     <string name="upcoming"> UPCOMING </string>
     <string name="cannot_add_upcoming"> You can not add upcoming item to cart. </string>
-    <string name="today" translatable="false" >Today</string>
-    <string name="tomorrow" translatable="false" >Tomorrow</string>
-    <string name="select_schedule" translatable="false" >Select schedule</string>
-    <string name="polling" translatable="false" >Polling</string>
-    <string name="rate_product" translatable="false" >Rate Product</string>
-    <string name="vendors" translatable="false" >Vendors</string>
-    <string name="vendor_detail" translatable="false" >Vendor Detail</string>
-    <string name="email_subject" translatable="false" >Hello There</string>
-    <string name="shop_by_category" translatable="false" >Shop by category</string>
+    <string name="today" translatable="false">Today</string>
+    <string name="tomorrow" translatable="false">Tomorrow</string>
+    <string name="select_schedule" translatable="false">Select schedule</string>
+    <string name="polling" translatable="false">Polling</string>
+    <string name="rate_product" translatable="false">Rate Product</string>
+    <string name="vendors" translatable="false">Vendors</string>
+    <string name="vendor_detail" translatable="false">Vendor Detail</string>
+    <string name="email_subject" translatable="false">Hello There</string>
+    <string name="shop_by_category" translatable="false">Shop by category</string>
     <string name="select_option">Please select at-least one option of question</string>
     <string name="thirkural">Thirukural</string>
     <string name="timing">Timing</string>
@@ -2115,22 +2113,20 @@
     <string name="enter_location">Search location</string>
 
 
-
-
     <!-- Wallet plugin strings -->
     <string name="title_activity_wallet_loan_app_add_amount" translatable="false">Apply for Loan</string>
     <string name="title_activity_wallet_loan_preview_request" translatable="false">Apply for Loan</string>
-    <string name="title_activity_wallet_loan_app_photos" translatable="false" >Apply Loan</string>
-    <string name="title_activity_wallet_loan_app_referees_manager" translatable="false" >Apply for Loan</string>
-    <string name="title_activity_wallet_loans_list" translatable="false" >Loans</string>
+    <string name="title_activity_wallet_loan_app_photos" translatable="false">Apply Loan</string>
+    <string name="title_activity_wallet_loan_app_referees_manager" translatable="false">Apply for Loan</string>
+    <string name="title_activity_wallet_loans_list" translatable="false">Loans</string>
 
 
     <string name="btn_continue" translatable="false">CONTINUE</string>
     <string name="checkout" translatable="false">Checkout</string>
-    <string name="sponsors" translatable="false" >Cabral Tech Ltd</string>
+    <string name="sponsors" translatable="false">Cabral Tech Ltd</string>
 
     <string name="searchShippingAddress" translatable="false">Search Delivery Address</string>
-    <string name="QNShippingAddress" translatable="false" >Where would do you like your goods be delivered?</string>
+    <string name="QNShippingAddress" translatable="false">Where would do you like your goods be delivered?</string>
     <string name="nearby_merchants" translatable="false">Select Merchant</string>
     <string name="Receivername" translatable="false">Receiver Name</string>
     <string name="Receivercontact_no" translatable="false">Receiver Phone Number</string>

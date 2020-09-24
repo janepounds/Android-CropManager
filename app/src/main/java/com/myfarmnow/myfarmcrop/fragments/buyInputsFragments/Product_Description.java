@@ -128,7 +128,7 @@ public class Product_Description extends Fragment {
         
         // Set the Title of Toolbar
       //  MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.product_description));
 
         ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);

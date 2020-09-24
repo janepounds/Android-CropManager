@@ -70,8 +70,6 @@ public class SearchFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionSearch));
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();

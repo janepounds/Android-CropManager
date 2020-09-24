@@ -91,13 +91,7 @@ public class Products extends Fragment {
 
         // Toggle Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         if (!isSubFragment) {
-            if (isMenuItem) {
-                //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-                ((BuyInputsActivity)getActivity()).toggleNavigaiton(true);
-            } else {
-                //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
-            }
+
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop));
         }
 

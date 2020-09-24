@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Criteria;
@@ -31,10 +32,14 @@ import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.core.graphics.drawable.DrawableCompat;
 
@@ -469,6 +474,53 @@ public class Utilities {
         context.startActivity(Intent.createChooser(sharingIntent, "Share Via"));
     }
 
+    //*********** Used to Share the App with Others ********//
+
+    public static void rateMyApp(final Context context) {
+
+        android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(context);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        View dialogView = inflater.inflate(R.layout.buy_inputs_dialog_info, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+
+        final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+        final TextView dialog_message = dialogView.findViewById(R.id.dialog_message);
+        final Button dialog_button_positive = dialogView.findViewById(R.id.dialog_button_positive);
+        final Button dialog_button_negative = dialogView.findViewById(R.id.dialog_button_negative);
+
+        dialog_title.setText(context.getString(R.string.rate_app));
+        dialog_message.setText(context.getString(R.string.rate_app_msg));
+        dialog_button_positive.setText(context.getString(R.string.rate_now));
+        dialog_button_negative.setText(context.getString(R.string.not_now));
+
+
+        final android.app.AlertDialog alertDialog = dialog.create();
+        alertDialog.show();
+
+        dialog_button_negative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        dialog_button_positive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+                Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+
+                try {
+                    context.startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(context, "Couldn't launch the market", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
 
     //*********** Shares the Product with its Image and Url ********//

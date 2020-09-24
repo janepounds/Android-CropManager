@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -49,7 +52,7 @@ public class HomeFragment extends Fragment {
     private Context appContext;
     RelativeLayout mainlayout;
     LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
-    Toolbar toolbar;
+
 
     LinearLayout walletLinearLayout, fieldsLinearLayout, farmrecordsLinearLayout, predictiontoolsLinearLayout, marketplaceLinearLayout,
             agronomyLinearLayout, servicesLinearLayout, tasksLinearLayout, userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
@@ -80,11 +83,13 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for appContext fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+//        toolbar = view.findViewById(R.id.toolbar);
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
         initializeDashboard(view);
         return view;
     }
@@ -237,28 +242,19 @@ public class HomeFragment extends Fragment {
         ed_.setInputType(InputType.TYPE_NULL);
     }
 
-    public static void addTimePicker(final EditText ed_, final Context context) {
-        ed_.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        NumberFormat formatter = new DecimalFormat("00");
-                        ed_.setText(formatter.format(selectedHour) + ":" + formatter.format(selectedMinute));
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-
-            }
-        });
-        ed_.setInputType(InputType.TYPE_NULL);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
     }
+
 }

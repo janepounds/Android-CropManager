@@ -540,22 +540,6 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
             }
 
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionShareApp))) {
-            mSelectedItem = selectedItem;
-
-            // Share App with the help of static method of Utilities class
-            Utilities.shareMyApp(BuyInputsActivity.this);
-
-
-
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionRateApp))) {
-            mSelectedItem = selectedItem;
-
-            // Rate App with the help of static method of Utilities class
-//            Utilities.rateMyApp(BuyInputsActivity.this);
-
-
-
         } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionSettings))) {
             mSelectedItem = selectedItem;
 
@@ -599,27 +583,6 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
             finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
 
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionLogout))) {
-            mSelectedItem = selectedItem;
-
-            // Edit UserID in SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("userID", "");
-            editor.apply();
-
-            // Set UserLoggedIn in MyAppPrefsManager
-            MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(this);
-            myAppPrefsManager.setUserLoggedIn(false);
-
-            // Set isLogged_in of ConstantValues
-            ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
-
-            FirebaseAuth.getInstance().signOut();
-
-            // Navigate to Login Activity
-            startActivity(new Intent(BuyInputsActivity.this, Login.class));
-            finish();
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
         }
 
     }
@@ -750,30 +713,22 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
     public boolean onPrepareOptionsMenu(Menu menu) {
 
         if (FLAG_FAVORITE) {
-            MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
-            MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
             MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
             MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
             MenuItem youtubeItem = menu.findItem(R.id.toolbar_ic_favorite);
 
             youtubeItem.setVisible(true);
-            languageItem.setVisible(false);
             searchItem.setVisible(false);
             cartItem.setVisible(false);
-            currencyItem.setVisible(false);
             // FLAG_FAVORITE = false;
         }
 
 
         if (FLAG_YOUTUBE) {
-            MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
-            MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
             MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
             MenuItem youtubeItem = menu.findItem(R.id.toolbar_ic_favorite);
             MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
             youtubeItem.setVisible(true);
-            languageItem.setVisible(false);
-            currencyItem.setVisible(false);
             searchItem.setVisible(false);
             cartItem.setVisible(false);
             FLAG_YOUTUBE = false;
@@ -941,31 +896,12 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
 
         }*/
         else {
+
             if (currentFragment == defaultHomeFragment)
-                new AlertDialog.Builder(this)
-                        .setMessage("Are you sure you want to exit?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                BuyInputsActivity.super.onBackPressed();
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
+                BuyInputsActivity.super.onBackPressed();
             else
                 showHomePage();
-           /* this.doublePressedBackToExit = true;
-            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
 
-            // Delay of 2 seconds
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    // Set doublePressedBackToExit false after 2 seconds
-                    doublePressedBackToExit = false;
-                }
-            }, 2000);*/
         }
     }
 
@@ -990,14 +926,7 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
             floatingActionButton.setVisibility(isEnabled ? View.VISIBLE : View.GONE);
     }
 
-    public void toggleNavigaiton(boolean isEnabled) {
-        if (ConstantValues.NAVIGATION_STYLE.equals("side")) {
-            setDrawerEnabled(isEnabled);
-        } else {
-            enableBottomNavigation(isEnabled);
 
-        }
-    }
 
     public void clearBackStackInclusive(String tag) {
         getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);

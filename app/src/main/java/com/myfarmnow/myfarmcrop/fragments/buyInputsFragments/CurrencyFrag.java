@@ -67,8 +67,8 @@ public class CurrencyFrag extends Fragment {
         rootView = inflater.inflate(R.layout.buy_inputs__currency, container, false);
         
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        ((BuyInputsActivity)getActivity()).toggleNavigaiton(false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.currency));
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.label_currency));
         
         
         appPrefs = new MyAppPrefsManager(getContext());

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -65,7 +68,7 @@ public class My_Addresses extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.buy_inputs_my__addresses, container, false);
-
+        setHasOptionsMenu(true);
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAddresses));
@@ -317,6 +320,22 @@ public class My_Addresses extends Fragment {
             }
         });
         
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
     }
 
 }

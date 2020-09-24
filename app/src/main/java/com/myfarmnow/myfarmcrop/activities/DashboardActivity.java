@@ -1,9 +1,10 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,6 +15,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,8 +28,9 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import android.os.Handler;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -42,6 +47,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -49,12 +55,23 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Update_Account;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
 import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
 import com.myfarmnow.myfarmcrop.services.CropSyncService;
 import com.myfarmnow.myfarmcrop.utils.NotificationScheduler;
+import com.myfarmnow.myfarmcrop.utils.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,7 +84,7 @@ import java.util.concurrent.TimeUnit;
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
 
-    public static final String PREFERENCES_FILE_NAME = "pref";
+    public static final String PREFERENCES_FILE_NAME = "UserInfo";
 
     public static final String FARM_NAME_PREFERENCES_ID = "farmname";
     public static final String STREET_PREFERENCES_ID = "addressStreet";
@@ -91,8 +108,12 @@ public class DashboardActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     MyAppPrefsManager myAppPrefsManager;
+    Toolbar toolbar;
+    Fragment defaultHomeFragment;
 
-
+    public Fragment currentFragment;
+    public  static ActionBar actionBar;
+    public static  boolean FLAG_PROFILE;
     @Override
     protected void onStart() {
         super.onStart();
@@ -125,12 +146,40 @@ public class DashboardActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) )).commit();
+        defaultHomeFragment=new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) );
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment ).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        toolbar = findViewById(R.id.main_Toolbar);
+
+        // Get ActionBar and Set the Title and HomeButton of Toolbar
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        actionBar.setTitle(ConstantValues.APP_HEADER);
+
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // Handle ToolbarNavigationClickListener with OnBackStackChangedListener
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+
+                // Check BackStackEntryCount of FragmentManager
+                if (getSupportFragmentManager().getBackStackEntryCount() <= 0)  {
+                    // Set DrawerToggle Indicator and default ToolbarNavigationClickListener
+                    actionBar.setTitle(ConstantValues.APP_HEADER);
+                    actionBar.setHomeButtonEnabled(false);
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+
+                }
+                actionBar.setHomeButtonEnabled(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                setupTitle();
+
+            }
+        });
 
         if (!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, DashboardActivity.this).equals("yes")) {
             getAppToken();
@@ -139,6 +188,33 @@ public class DashboardActivity extends AppCompatActivity {
         startService(new Intent(this, CropSyncService.class));
         scheduleBackgroundWork();
     }
+
+
+    private void setupTitle() {
+
+        Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
+        if (curruntFrag instanceof My_Cart) {
+            actionBar.setTitle(getString(R.string.actionCart));
+        } else if (curruntFrag instanceof Shipping_Address) {
+            actionBar.setTitle(getString(R.string.shipping_address));
+        } else if (curruntFrag instanceof Nearby_Merchants) {
+            actionBar.setTitle(getString(R.string.nearby_merchants));
+        } else if (curruntFrag instanceof Update_Account) {
+            actionBar.setTitle(getString(R.string.actionAccount));
+        } else if (curruntFrag instanceof My_Orders) {
+            actionBar.setTitle(getString(R.string.actionOrders));
+        } else if (curruntFrag instanceof My_Addresses) {
+            actionBar.setTitle(getString(R.string.actionAddresses));
+        } else if (curruntFrag instanceof WishList) {
+            actionBar.setTitle(getString(R.string.actionFavourites));
+        } else if (curruntFrag instanceof SettingsFragment) {
+            actionBar.setTitle(getString(R.string.actionSettings));
+        }else if (curruntFrag instanceof AccountFragment) {
+            actionBar.setTitle(getString(R.string.actionAccount));
+        }
+
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
         Fragment selectedFragment = null;
@@ -155,9 +231,160 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
         return true;
     };
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate toolbar_menu Menu
+        getMenuInflater().inflate(R.menu.toolbar_main_menu, menu);
+
+        // Bind Menu Items
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+
+
+        currentFragment=this.getSupportFragmentManager().getPrimaryNavigationFragment();
+
+        profileItem.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to My_Cart Fragment
+                Fragment fragment = new Update_Account();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if(currentFragment==null)
+                    fragmentManager.beginTransaction()
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
+                else
+                fragmentManager.beginTransaction()
+                        .hide(currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+            }
+        });
+
+
+        // Tint Menu Icons with the help of static method of Utilities class
+        Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
+        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
+        Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
+
+        return true;
+    }
+
+    //*********** Prepares the OptionsMenu of Toolbar ********//
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Fragment fragment;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+
+                if (currentFragment == defaultHomeFragment)
+                    new AlertDialog.Builder(this)
+                            .setMessage("Are you sure you want to exit?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    DashboardActivity.super.onBackPressed();
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                else if (fragmentManager.getBackStackEntryCount() > 0) {
+                    // Pop previous Fragment
+                    fragmentManager.popBackStack();
+                }
+                else
+                    showHomePage();
+
+                break;
+
+            case R.id.toolbar_ic_language:
+                // Navigate to Languages Fragment
+                fragment = new Languages();
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+                break;
+
+            case R.id.toolbar_ic_currency:
+
+
+
+                // Navigate to Currency Fragment
+                fragment = new CurrencyFrag();
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+
+                break;
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // Get FragmentManager
+        FragmentManager fm = getSupportFragmentManager();
+
+
+        if (fm.getBackStackEntryCount() > 0) {
+            // Pop previous Fragment
+            fm.popBackStack();
+        } else {
+            if (currentFragment == defaultHomeFragment)
+                new AlertDialog.Builder(this)
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                DashboardActivity.super.onBackPressed();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            else
+                showHomePage();
+
+        }
+    }
+
+
+    private void showHomePage() {
+//        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(defaultHomeFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment ).commit();
+        currentFragment = defaultHomeFragment;
+
+        actionBar.setTitle(getString(R.string.app_name));
+    }
 
     /**
      * Schedules the background tasks such as synchronisation and notification
@@ -332,7 +559,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public static String getPreferences(String key, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME,
+                MODE_PRIVATE);
         return sharedPreferences.getString(key, "");
 
     }
@@ -407,37 +635,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public void logout(View view) {
-
-        startService(new Intent(this, CropSyncService.class));
-        final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Logging out..");
-        dialog.setCancelable(false);
-        dialog.show();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                dialog.dismiss();
-                //remove shared preferences
-                SharedPreferences sharedPreferences = DashboardActivity.this.getSharedPreferences(PREFERENCES_FILE_NAME, 0);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
-
-                //remove database
-                DashboardActivity.this.deleteDatabase(MyFarmDbHandlerSingleton.DATABASE_NAME);
-
-                WorkManager.getInstance().cancelAllWorkByTag(TASK_BACKUP_DATA_TAG);
-                WorkManager.getInstance().cancelAllWorkByTag(TASK_SEND_NOTIFICATIONS_TAG);
-                finish();
-                Intent openList = new Intent(DashboardActivity.this, Login.class);
-                startActivity(openList);
-            }
-        }, 10000);
-
-
-    }
 
     public void shareApp(View view) {
 

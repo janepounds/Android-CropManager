@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CartItemsAdapter;
@@ -94,7 +95,7 @@ public class My_Cart extends Fragment {
 
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        ((BuyInputsActivity) getActivity()).toggleNavigaiton(false);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
 
 
@@ -371,6 +372,8 @@ public class My_Cart extends Fragment {
         // Hide Cart Icon in the Toolbar
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
         MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        profileItem.setVisible(false);
         cartItem.setVisible(false);
         searchItem.setVisible(true);
     }

@@ -27,7 +27,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -64,6 +67,7 @@ import com.myfarmnow.myfarmcrop.R;
 
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
+import com.myfarmnow.myfarmcrop.databinding.SignupBinding;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 import com.myfarmnow.myfarmcrop.utils.CheckPermissions;
 import com.myfarmnow.myfarmcrop.utils.LocaleHelper;
@@ -89,14 +93,14 @@ import retrofit2.Callback;
  **/
 
 public class SignUp extends AppCompatActivity {
-
-    View parentView;
-    File profileImage;
+    private static final String TAG = "SignUp";
+    private View parentView;
+    private File profileImage;
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
+    private SignupBinding binding;
 
     Toolbar toolbar;
     ActionBar actionBar;
-
     DialogLoader dialogLoader;
 
     //AdView mAdView;
@@ -120,7 +124,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
+        binding = DataBindingUtil.setContentView(this, R.layout.signup);
 
         //MobileAds.initialize(this, ConstantValues.ADMOBE_ID);
 
@@ -136,7 +140,6 @@ public class SignUp extends AppCompatActivity {
         actionBar.setTitle(getString(R.string.signup));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
         // Binding Layout Views
         user_photo = (CircularImageView) findViewById(R.id.user_photo);
         user_firstname = (EditText) findViewById(R.id.user_firstname);
@@ -144,12 +147,12 @@ public class SignUp extends AppCompatActivity {
         user_email = (EditText) findViewById(R.id.user_email);
         user_password = (EditText) findViewById(R.id.user_password);
         user_mobile = (EditText) findViewById(R.id.user_mobile);
-        signupBtn = (Button) findViewById(R.id.signupBtn);
-        and_text = (TextView) findViewById(R.id.and);
+        signupBtn = (Button) findViewById(R.id.signUpBtn);
+//        and_text = (TextView) findViewById(R.id.and_text);
         service_terms = (TextView) findViewById(R.id.service_terms);
         privacy_policy = (TextView) findViewById(R.id.privacy_policy);
         refund_policy = (TextView) findViewById(R.id.refund_policy);
-        signup_loginText = (TextView) findViewById(R.id.signup_loginText);
+        signup_loginText = (TextView) findViewById(R.id.signUp_loginText);
         banner_adView = (FrameLayout) findViewById(R.id.banner_adView);
         //user_photo_edit_fab = (FloatingActionButton) findViewById(R.id.user_photo_edit_fab);
 
@@ -181,200 +184,171 @@ public class SignUp extends AppCompatActivity {
 
         dialogLoader = new DialogLoader(SignUp.this);
 
-        and_text.setText(" " + getString(R.string.and) + " ");
+//        and_text.setText(" " + getString(R.string.and) + " ");
+
+        binding.textPrivacyPolicy.setOnClickListener(v -> {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(true);
+
+            final ImageButton dialog_button = (ImageButton) dialogView.findViewById(R.id.dialog_button);
+            final TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
+            final WebView dialog_webView = (WebView) dialogView.findViewById(R.id.dialog_webView);
+
+            dialog_title.setText(getString(R.string.privacy_policy));
 
 
-        privacy_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
-                dialog.setView(dialogView);
-                dialog.setCancelable(true);
+            String description = ConstantValues.PRIVACY_POLICY;
+            String styleSheet = "<style> " +
+                    "body{background:#eeeeee; margin:10; padding:10} " +
+                    "p{color:#757575;} " +
+                    "img{display:inline; height:auto; max-width:100%;}" +
+                    "</style>";
 
-                final ImageButton dialog_button = (ImageButton) dialogView.findViewById(R.id.dialog_button);
-                final TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
-                final WebView dialog_webView = (WebView) dialogView.findViewById(R.id.dialog_webView);
-
-                dialog_title.setText(getString(R.string.privacy_policy));
-
-
-                String description = ConstantValues.PRIVACY_POLICY;
-                String styleSheet = "<style> " +
-                        "body{background:#eeeeee; margin:10; padding:10} " +
-                        "p{color:#757575;} " +
-                        "img{display:inline; height:auto; max-width:100%;}" +
-                        "</style>";
-
-                dialog_webView.setVerticalScrollBarEnabled(true);
-                dialog_webView.setHorizontalScrollBarEnabled(false);
-                dialog_webView.setBackgroundColor(Color.TRANSPARENT);
-                dialog_webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-                dialog_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
+            dialog_webView.setVerticalScrollBarEnabled(true);
+            dialog_webView.setHorizontalScrollBarEnabled(false);
+            dialog_webView.setBackgroundColor(Color.TRANSPARENT);
+            dialog_webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+            dialog_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
 
 
-                final AlertDialog alertDialog = dialog.create();
+            final AlertDialog alertDialog = dialog.create();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    alertDialog.getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this, R.color.colorPrimaryDark));
-                }
-
-                dialog_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-
-                alertDialog.show();
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                alertDialog.getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this, R.color.colorPrimaryDark));
             }
+
+            dialog_button.setOnClickListener(v1 -> alertDialog.dismiss());
+
+            alertDialog.show();
+
         });
 
-        refund_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
-                dialog.setView(dialogView);
-                dialog.setCancelable(true);
+//        refund_policy.setOnClickListener(v -> {
+//            AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
+//            View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
+//            dialog.setView(dialogView);
+//            dialog.setCancelable(true);
+//
+//            final ImageButton dialog_button = (ImageButton) dialogView.findViewById(R.id.dialog_button);
+//            final TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
+//            final WebView dialog_webView = (WebView) dialogView.findViewById(R.id.dialog_webView);
+//
+//            dialog_title.setText(getString(R.string.refund_policy));
+//
+//
+//            String description = ConstantValues.REFUND_POLICY;
+//            String styleSheet = "<style> " +
+//                    "body{background:#eeeeee; margin:10; padding:10} " +
+//                    "p{color:#757575;} " +
+//                    "img{display:inline; height:auto; max-width:100%;}" +
+//                    "</style>";
+//
+//            dialog_webView.setVerticalScrollBarEnabled(true);
+//            dialog_webView.setHorizontalScrollBarEnabled(false);
+//            dialog_webView.setBackgroundColor(Color.TRANSPARENT);
+//            dialog_webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+//            dialog_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
+//
+//
+//            final AlertDialog alertDialog = dialog.create();
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                alertDialog.getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this, R.color.colorPrimaryDark));
+//            }
+//
+//            dialog_button.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    alertDialog.dismiss();
+//                }
+//            });
+//
+//            alertDialog.show();
+//        });
 
-                final ImageButton dialog_button = (ImageButton) dialogView.findViewById(R.id.dialog_button);
-                final TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
-                final WebView dialog_webView = (WebView) dialogView.findViewById(R.id.dialog_webView);
+        binding.textTermsOfService.setOnClickListener(v -> {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(true);
 
-                dialog_title.setText(getString(R.string.refund_policy));
+            final ImageButton dialog_button = (ImageButton) dialogView.findViewById(R.id.dialog_button);
+            final TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
+            final WebView dialog_webView = (WebView) dialogView.findViewById(R.id.dialog_webView);
 
-
-                String description = ConstantValues.REFUND_POLICY;
-                String styleSheet = "<style> " +
-                        "body{background:#eeeeee; margin:10; padding:10} " +
-                        "p{color:#757575;} " +
-                        "img{display:inline; height:auto; max-width:100%;}" +
-                        "</style>";
-
-                dialog_webView.setVerticalScrollBarEnabled(true);
-                dialog_webView.setHorizontalScrollBarEnabled(false);
-                dialog_webView.setBackgroundColor(Color.TRANSPARENT);
-                dialog_webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-                dialog_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
+            dialog_title.setText(getString(R.string.service_terms));
 
 
-                final AlertDialog alertDialog = dialog.create();
+            String description = ConstantValues.TERMS_SERVICES;
+            String styleSheet = "<style> " +
+                    "body{background:#eeeeee; margin:10; padding:10} " +
+                    "p{color:#757575;} " +
+                    "img{display:inline; height:auto; max-width:100%;}" +
+                    "</style>";
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    alertDialog.getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this, R.color.colorPrimaryDark));
-                }
+            dialog_webView.setVerticalScrollBarEnabled(true);
+            dialog_webView.setHorizontalScrollBarEnabled(false);
+            dialog_webView.setBackgroundColor(Color.TRANSPARENT);
+            dialog_webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+            dialog_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
 
-                dialog_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
 
-                alertDialog.show();
+            final AlertDialog alertDialog = dialog.create();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                alertDialog.getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this, R.color.colorPrimaryDark));
             }
-        });
 
-        service_terms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
-                dialog.setView(dialogView);
-                dialog.setCancelable(true);
-
-                final ImageButton dialog_button = (ImageButton) dialogView.findViewById(R.id.dialog_button);
-                final TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
-                final WebView dialog_webView = (WebView) dialogView.findViewById(R.id.dialog_webView);
-
-                dialog_title.setText(getString(R.string.service_terms));
-
-
-                String description = ConstantValues.TERMS_SERVICES;
-                String styleSheet = "<style> " +
-                        "body{background:#eeeeee; margin:10; padding:10} " +
-                        "p{color:#757575;} " +
-                        "img{display:inline; height:auto; max-width:100%;}" +
-                        "</style>";
-
-                dialog_webView.setVerticalScrollBarEnabled(true);
-                dialog_webView.setHorizontalScrollBarEnabled(false);
-                dialog_webView.setBackgroundColor(Color.TRANSPARENT);
-                dialog_webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-                dialog_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
-
-
-                final AlertDialog alertDialog = dialog.create();
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    alertDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    alertDialog.getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this, R.color.colorPrimaryDark));
+            dialog_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
                 }
+            });
 
-                dialog_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-
-                alertDialog.show();
-            }
+            alertDialog.show();
         });
-
-
-        // Handle Click event of user_photo_edit_fab FAB
-        /*
-        user_photo_edit_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (CheckPermissions.is_CAMERA_PermissionGranted()  &&  CheckPermissions.is_STORAGE_PermissionGranted()) {
-                    pickImage();
-                }
-                else {
-                    ActivityCompat.requestPermissions
-                            (
-                                    SignUp.this,
-                                    new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    CheckPermissions.PERMISSIONS_REQUEST_CAMERA
-                            );
-                }
-            }
-        });
-        */
-
 
         // Handle Click event of signup_loginText TextView
-        signup_loginText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish SignUpActivity to goto the LoginActivity
-                finish();
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
-            }
+        signup_loginText.setOnClickListener(v -> {
+            // Finish SignUpActivity to goto the LoginActivity
+            finish();
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
         });
 
         // Handle Click event of signupBtn Button
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Validate Login Form Inputs
-                boolean isValidData = validateForm();
+        signupBtn.setOnClickListener(v -> {
+            // Validate Login Form Inputs
+            boolean isValidData = validateForm();
 
-                if (isValidData) {
-                    parentView = v;
+            if (isValidData) {
+                parentView = v;
 
-                    // Proceed User Registration
+                // Proceed User Registration
 
-                    processRegistration();
-                    //sendVerificationCode(getResources().getString(R.string.indian_code)+user_mobile.getText().toString().trim());
-                }
+                processRegistration();
+                //sendVerificationCode(getResources().getString(R.string.indian_code)+user_mobile.getText().toString().trim());
             }
         });
+
+//        binding.textTermsOfService.setOnClickListener(v -> {
+////            Toast.makeText(SignUp.this, "Terms of service", Toast.LENGTH_SHORT).show();
+//
+//            Uri uri = Uri.parse("http://www.google.com"); // missing 'http://' will cause crashed
+//            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+//        });
+
+//        binding.textPrivacyPolicy.setOnClickListener(v -> {
+////            Toast.makeText(SignUp.this, "Privacy Policy", Toast.LENGTH_SHORT).show();
+//
+//            Uri uri = Uri.parse("http://www.google.com"); // missing 'http://' will cause crashed
+//            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+//        });
     }
 
     //*********** Picks User Profile Image from Gallery or Camera ********//
@@ -389,7 +363,6 @@ public class SignUp extends AppCompatActivity {
         startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
 
     }
-
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
 
@@ -450,19 +423,11 @@ public class SignUp extends AppCompatActivity {
         btn_resend = dialogOTP.findViewById(R.id.btn_resend);
         btn_submit = dialogOTP.findViewById(R.id.btn_submit);
 
-        btn_resend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendVerificationCode(user_mobile.getText().toString().trim());
-            }
-        });
+        btn_resend.setOnClickListener(view -> sendVerificationCode(user_mobile.getText().toString().trim()));
 
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!ed_otp.getText().toString().trim().isEmpty()) {
-                    verifyVerificationCode(ed_otp.getText().toString().trim());
-                }
+        btn_submit.setOnClickListener(view -> {
+            if (!ed_otp.getText().toString().trim().isEmpty()) {
+                verifyVerificationCode(ed_otp.getText().toString().trim());
             }
         });
 
@@ -483,7 +448,6 @@ public class SignUp extends AppCompatActivity {
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
     }
-
 
     //the callback to detect the verification status
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -518,7 +482,6 @@ public class SignUp extends AppCompatActivity {
             mVerificationId = s;
         }
     };
-
 
     private void verifyVerificationCode(String code) {
         //creating the credential
@@ -560,7 +523,6 @@ public class SignUp extends AppCompatActivity {
                 });
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -600,7 +562,6 @@ public class SignUp extends AppCompatActivity {
             }
         }
     }
-
 
     //*********** Proceed User Registration Request ********//
 
@@ -663,7 +624,6 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-
     //*********** Validate SignUp Form Inputs ********//
 
     private boolean validateForm() {
@@ -676,20 +636,23 @@ public class SignUp extends AppCompatActivity {
         } else if (!ValidateInputs.isValidEmail(user_email.getText().toString().trim())) {
             user_email.setError(getString(R.string.invalid_email));
             return false;
-        } else if (user_password.getText().toString().trim().length() < 6) {
-            user_password.setError(getString(R.string.invalid_password_length));
+        } else if (binding.userPassword.getText().toString().trim().length() < 6) {
+            binding.userPassword.setError(getString(R.string.invalid_password_length));
             return false;
-        } else if (!ValidateInputs.isValidPassword(user_password.getText().toString().trim())) {
-            user_password.setError(getString(R.string.invalid_password));
+        } else if (!ValidateInputs.isValidPassword(binding.userPassword.getText().toString().trim())) {
+            binding.userPassword.setError(getString(R.string.invalid_password));
             return false;
-        } /*else if (!ValidateInputs.isValidNumber(user_mobile.getText().toString().trim())) {
+        } else if (!ValidateInputs.isPasswordMatching(binding.userPassword.getText().toString(), binding.userConfirmPassword.getText().toString())) {
+            binding.userPassword.setError("Password does not match");
+            binding.userConfirmPassword.setError("Password does not match");
+            return false;
+        }   /*else if (!ValidateInputs.isValidNumber(user_mobile.getText().toString().trim())) {
             user_mobile.setError(getString(R.string.invalid_contact));
             return false;
         }*/ else {
             return true;
         }
     }
-
 
     //*********** Set the Base Context for the ContextWrapper ********//
 
@@ -702,7 +665,6 @@ public class SignUp extends AppCompatActivity {
 
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }
-
 
     //*********** Called when the Activity has detected the User pressed the Back key ********//
 
@@ -722,7 +684,6 @@ public class SignUp extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 }
 

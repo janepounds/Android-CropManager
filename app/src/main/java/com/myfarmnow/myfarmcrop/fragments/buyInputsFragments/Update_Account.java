@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +31,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.CircularImageView;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.database.User_Info_BuyInputsDB;
@@ -63,26 +68,27 @@ import retrofit2.Response;
 
 
 public class Update_Account extends Fragment {
-
-    View rootView;
-    String customers_id;
-    String profileImageCurrent = "";
-    File profileImageChanged;
+    private static final String TAG = "Update_Account";
+    private Context context;
+    private View rootView;
+    private String customers_id;
+    private String profileImageCurrent = "";
+    private File profileImageChanged;
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
 
-    String imageID;
-    Boolean isImgUploaded = false;
+    private String imageID;
+    private Boolean isImgUploaded = false;
 
-    Button updateInfoBtn;
-    CircularImageView user_photo;
-    FloatingActionButton user_photo_edit_fab;
-    EditText input_first_name, input_last_name, input_dob, input_contact_no;
+    private Button updateInfoBtn;
+    private CircularImageView user_photo;
+    private FloatingActionButton user_photo_edit_fab;
+    private EditText input_first_name, input_last_name, input_dob, input_contact_no;
     //input_current_password, input_new_password;
 
-    DialogLoader dialogLoader;
+    private DialogLoader dialogLoader;
 
-    UserDetails userInfo;
-    User_Info_BuyInputsDB userInfoDB = new User_Info_BuyInputsDB();
+    private UserDetails userInfo;
+    private User_Info_BuyInputsDB userInfoDB = new User_Info_BuyInputsDB();
 
 
     @Nullable
@@ -99,7 +105,7 @@ public class Update_Account extends Fragment {
 
 
         // Get the CustomerID from SharedPreferences
-        customers_id = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customers_id = DashboardActivity.RETRIEVED_USER_ID;
 
 
         // Binding Layout Views
@@ -113,10 +119,8 @@ public class Update_Account extends Fragment {
         updateInfoBtn = rootView.findViewById(R.id.updateInfoBtn);
         user_photo_edit_fab = rootView.findViewById(R.id.user_photo_edit_fab);
 
-
         // Set KeyListener of some View to null
         input_dob.setKeyListener(null);
-
 
         dialogLoader = new DialogLoader(getContext());
 
@@ -153,30 +157,22 @@ public class Update_Account extends Fragment {
 
 
         // Set User's Photo
-/*
+
         if (!TextUtils.isEmpty(userInfo.getAvatar()) && userInfo.getAvatar() != null) {
             profileImageCurrent = userInfo.getAvatar();
-            Glide.with(getContext())
-                    .asBitmap()
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.profile)
-                            .error(R.drawable.profile)
-                            .fitCenter())
-                    .load(ConstantValues.ECOMMERCE_URL + profileImageCurrent)
-                    .into(user_photo);
 
         } else {
             profileImageCurrent = "";
-            Glide.with(getContext())
-                    .asBitmap()
-                    .apply(new RequestOptions()
-                            .placeholder(R.drawable.profile)
-                            .error(R.drawable.profile)
-                            .fitCenter())
-                    .load(ConstantValues.ECOMMERCE_URL + profileImageCurrent)
-                    .into(user_photo);
         }
-*/
+
+        Glide.with(getContext())
+                .asBitmap()
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.profile)
+                        .error(R.drawable.profile)
+                        .fitCenter())
+                .load(ConstantValues.ECOMMERCE_URL + profileImageCurrent)
+                .into(user_photo);
 
 
         // Handle Touch event of input_dob EditText
@@ -225,27 +221,24 @@ public class Update_Account extends Fragment {
             }
         });
 
-
         // Handle Click event of user_photo_edit_fab FAB
-/*
+
         user_photo_edit_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (CheckPermissions.is_CAMERA_PermissionGranted() && CheckPermissions.is_STORAGE_PermissionGranted()) {
-                    pickImage();
-                } else {
+                if (!CheckPermissions.is_CAMERA_PermissionGranted() && !CheckPermissions.is_STORAGE_PermissionGranted()) {
                     requestPermissions
                             (
                                     new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     CheckPermissions.PERMISSIONS_REQUEST_CAMERA
                             );
+                } else {
+                    pickImage();
                 }
 
             }
         });
-*/
-
 
         // Handle Click event of updateInfoBtn Button
         updateInfoBtn.setOnClickListener(new View.OnClickListener() {
@@ -270,9 +263,7 @@ public class Update_Account extends Fragment {
             }
         });
 
-
         return rootView;
-
     }
 
     //*********** Picks User Profile Image from Gallery or Camera ********//
@@ -285,7 +276,6 @@ public class Update_Account extends Fragment {
         // Start Activity with Image Picker Intent
         startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
     }
-
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
     @Override
@@ -353,7 +343,6 @@ public class Update_Account extends Fragment {
         });
     }
 
-
     // Getting image URI
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -369,7 +358,6 @@ public class Update_Account extends Fragment {
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
-
 
     //*********** This method is invoked for every call on requestPermissions(Activity, String[], int) ********//
     @Override
@@ -410,7 +398,6 @@ public class Update_Account extends Fragment {
             }
         }
     }
-
 
     //*********** Updates User's Personal Information ********//
     private void updateCustomerInfo() {
@@ -479,7 +466,6 @@ public class Update_Account extends Fragment {
         });
     }
 
-
     //*********** Validate User Info Form Inputs ********//
     private boolean validateInfoForm() {
         if (!ValidateInputs.isValidName(input_first_name.getText().toString().trim())) {
@@ -492,7 +478,6 @@ public class Update_Account extends Fragment {
             return true;
         }
     }
-
 
     //*********** Validate Password Info Form Inputs ********//
     /*
@@ -508,4 +493,10 @@ public class Update_Account extends Fragment {
         }
     }
     */
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 }
