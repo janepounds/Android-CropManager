@@ -325,7 +325,7 @@ public class AccountFragment extends Fragment {
         } else {
             fragmentManager.beginTransaction().show(myFavorites).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
         }
-        currentFragment = myfavorites;
+        currentFragment = myFavorites;
         DashboardActivity.actionBar.setTitle(getString(R.string.actionFavourites));
     }
 
