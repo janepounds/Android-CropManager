@@ -29,6 +29,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -137,7 +139,6 @@ public class SignUp extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setTitle(getString(R.string.signup));
         actionBar.setDisplayHomeAsUpEnabled(true);
-
 
         // Binding Layout Views
         user_photo = (CircularImageView) findViewById(R.id.user_photo);
@@ -562,7 +563,6 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-
     //*********** Proceed User Registration Request ********//
 
     private void processRegistration() {
@@ -624,7 +624,6 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-
     //*********** Validate SignUp Form Inputs ********//
 
     private boolean validateForm() {
@@ -667,7 +666,6 @@ public class SignUp extends AppCompatActivity {
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }
 
-
     //*********** Called when the Activity has detected the User pressed the Back key ********//
 
     @Override
@@ -678,15 +676,23 @@ public class SignUp extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.account_fragment_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
             finish();
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
+        } else if (item.getItemId() == R.id.toolbar_edit_profile) {
+            Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 }
 
