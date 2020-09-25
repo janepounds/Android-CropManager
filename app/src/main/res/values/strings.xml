@@ -1205,7 +1205,6 @@
         <item>Last 6 months</item>
         <item>Last 12 months</item>
         <item>Last year</item>
-
     </string-array>
 
     <string-array name="graph_crops_season">
@@ -2136,5 +2135,12 @@
     <string name="sendemail">SEND EMAIL</string>
     <string name="forgot_title">Enter the email address you used to create your account and we will email you a link to reset your password</string>
     <string name="filter">Filter</string>
+
+    <string-array name="buy_produce_quantity">
+        <item>750 ml - Bottle</item>
+        <item>700 ml - Bottle</item>
+        <item>650 ml - Bottle</item>
+        <item>600 ml - Bottle</item>
+    </string-array>
 
 </resources>
