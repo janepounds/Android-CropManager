@@ -127,7 +127,7 @@ public class SearchMerchantForPairing extends DialogFragment {
                                 fragmentManager.popBackStack(getString(R.string.select_merchants_fragment), FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                                 dismiss();
-                                fragmentManager.beginTransaction().add(R.id.main_fragment, nearby_merchants)
+                                fragmentManager.beginTransaction().add(R.id.main_fragment_container, nearby_merchants)
                                         .addToBackStack(getString(R.string.select_merchants_fragment)).commit();
 
                             }catch (Exception e){

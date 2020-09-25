@@ -22,12 +22,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.AddressListAdapter;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.models.address_model.AddressData;
 import com.myfarmnow.myfarmcrop.models.address_model.AddressDetails;
-import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
@@ -101,10 +100,10 @@ public class My_Addresses extends Fragment {
                 args.putBoolean("isUpdate", false);
                 fragment.setArguments(args);
 
-                FragmentManager fragmentManager = ((BuyInputsActivity) getContext()).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((DashboardActivity) getContext()).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .hide(((BuyInputsActivity)getActivity()).currentFragment)
-                        .add(R.id.main_fragment, fragment)
+                        .hide(((DashboardActivity)getActivity()).currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .addToBackStack(null).commit();
             }
         });
@@ -120,10 +119,10 @@ public class My_Addresses extends Fragment {
                 args.putBoolean("isUpdate", false);
                 fragment.setArguments(args);
 
-                FragmentManager fragmentManager = ((BuyInputsActivity) getContext()).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((DashboardActivity) getContext()).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .hide(((BuyInputsActivity)getActivity()).currentFragment)
-                        .add(R.id.main_fragment, fragment)
+                        .hide(((DashboardActivity)getActivity()).currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .addToBackStack(null).commit();
             }
         });

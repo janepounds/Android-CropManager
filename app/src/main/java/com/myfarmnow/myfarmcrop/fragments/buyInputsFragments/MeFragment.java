@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
@@ -30,7 +32,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     ImageView languages;
     ImageView currencies;
 
-    BuyInputsActivity activity;
+    Activity activity;
+    FragmentManager fm;
 
     public MeFragment() {
         // Required empty public constructor
@@ -41,8 +44,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_me, container, false);
 
-        activity = (BuyInputsActivity) getActivity();
-
+        activity= getActivity();
+        fm=getActivity().getSupportFragmentManager();
         loginRegister = rootView.findViewById(R.id.loginRegister);
         aboutUs = rootView.findViewById(R.id.aboutUs);
         intro = rootView.findViewById(R.id.intro);
@@ -74,42 +77,39 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.loginRegister:
                 if (ConstantValues.IS_USER_LOGGED_IN){
-                    activity.getSupportFragmentManager()
+                    fm
                             .beginTransaction()
-                            .add(R.id.main_fragment, new UpdateAccountFragment())
+                            .add(R.id.main_fragment_container, new UpdateAccountFragment())
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(null).commit();
                 } else {
-                    startActivity(new Intent(getActivity(), Login.class));
+                    startActivity(new Intent(activity, Login.class));
                 }
                 break;
-            case R.id.intro:
-//                startActivity(new Intent(getActivity(), IntroScreen.class));
-                break;
             case R.id.shareApp:
-                Utilities.shareMyApp(getActivity());
+                Utilities.shareMyApp(activity);
                 break;
             case R.id.rateReview:
-//                Utilities.rateMyApp(getActivity());
+//                Utilities.rateMyApp(activity);
                 break;
             case R.id.settings:
-                activity.getSupportFragmentManager()
+                fm
                         .beginTransaction()
-                        .add(R.id.main_fragment, new SettingsFragment())
+                        .add(R.id.main_fragment_container, new SettingsFragment())
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
                 break;
             case R.id.languages:
-                activity.getSupportFragmentManager()
+                fm
                         .beginTransaction()
-                        .add(R.id.main_fragment, new Languages())
+                        .add(R.id.main_fragment_container, new Languages())
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
                 break;
             case R.id.currencies:
-                activity.getSupportFragmentManager()
+                fm
                         .beginTransaction()
-                        .add(R.id.main_fragment, new CurrencyFrag())
+                        .add(R.id.main_fragment_container, new CurrencyFrag())
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
 

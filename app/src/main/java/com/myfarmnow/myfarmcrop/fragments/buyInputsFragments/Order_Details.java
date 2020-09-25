@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CouponsAdapter;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.OrderedProductsListAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;

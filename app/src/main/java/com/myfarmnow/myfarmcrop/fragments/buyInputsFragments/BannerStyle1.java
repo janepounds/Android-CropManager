@@ -136,7 +136,7 @@ public class BannerStyle1 extends Fragment implements BaseSliderView.OnSliderCli
                 Fragment fragment = new Product_Description();
                 fragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             }
@@ -162,7 +162,7 @@ public class BannerStyle1 extends Fragment implements BaseSliderView.OnSliderCli
                 Fragment fragment = new Products();
                 fragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             }
@@ -175,7 +175,7 @@ public class BannerStyle1 extends Fragment implements BaseSliderView.OnSliderCli
             Fragment fragment = new Products();
             fragment.setArguments(bundle);
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(getString(R.string.actionHome)).commit();
 
@@ -187,7 +187,7 @@ public class BannerStyle1 extends Fragment implements BaseSliderView.OnSliderCli
             Fragment fragment = new Products();
             fragment.setArguments(bundle);
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(getString(R.string.actionHome)).commit();
 
@@ -199,7 +199,7 @@ public class BannerStyle1 extends Fragment implements BaseSliderView.OnSliderCli
             Fragment fragment = new Products();
             fragment.setArguments(bundle);
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(getString(R.string.actionHome)).commit();
 

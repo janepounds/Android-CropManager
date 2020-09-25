@@ -110,7 +110,7 @@ public class Categories_3 extends Fragment {
 
 
         // Initialize the CategoryListAdapter for RecyclerView
-        categoryListAdapter = new CategoryListAdapter_3(getContext(), mainCategoriesList, false);
+        categoryListAdapter = new CategoryListAdapter_3(getActivity(), mainCategoriesList, false);
 
         // Set the Adapter and LayoutManager to the RecyclerView
         category_recycler.setAdapter(categoryListAdapter);

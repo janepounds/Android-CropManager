@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.MerchantsListAdapter;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
@@ -118,7 +118,7 @@ public class Nearby_Merchants extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((BuyInputsActivity)getActivity()).clearBackStackInclusive( getString(R.string.select_merchants_fragment)); // tag (addToBackStack tag) should be the same which was used while transacting the F2 fragment
+        ((DashboardActivity)getActivity()).clearBackStackInclusive( getString(R.string.select_merchants_fragment)); // tag (addToBackStack tag) should be the same which was used while transacting the F2 fragment
     }
 
 

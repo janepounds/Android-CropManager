@@ -126,7 +126,7 @@ public class NewsCategoriesAdapter extends RecyclerView.Adapter<NewsCategoriesAd
             categoryNews.setArguments(newsCategoryInfo);
             FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, categoryNews)
+                    .add(R.id.main_fragment_container, categoryNews)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(null).commit();
         }

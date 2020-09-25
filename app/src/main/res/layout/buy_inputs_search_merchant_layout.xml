@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/solidwhite_shape"
     android:orientation="vertical"
-    tools:context=".activities.BuyInputsActivity" >
+    tools:context=".activities.DashboardActivity" >
 
     <LinearLayout
         android:id="@+id/layout_add_money"

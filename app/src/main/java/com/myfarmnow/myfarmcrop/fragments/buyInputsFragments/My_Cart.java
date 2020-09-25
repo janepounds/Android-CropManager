@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CartItemsAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -43,7 +42,6 @@ import com.myfarmnow.myfarmcrop.models.product_model.GetStock;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductData;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductStock;
-import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 
 import java.io.IOException;
@@ -154,7 +152,7 @@ public class My_Cart extends Fragment {
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionCart)).commit();
 
@@ -184,8 +182,8 @@ public class My_Cart extends Fragment {
                                 // Navigate to Login Activity
                                 Intent i = new Intent(getContext(), Login.class);
                                 getContext().startActivity(i);
-                                ((BuyInputsActivity) getContext()).finish();
-                                ((BuyInputsActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                                ((DashboardActivity) getContext()).finish();
+                                ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                             }
                         }
 
@@ -226,8 +224,8 @@ public class My_Cart extends Fragment {
                                         // Navigate to Login Activity
                                         Intent i = new Intent(getContext(), Login.class);
                                         getContext().startActivity(i);
-                                        ((BuyInputsActivity) getContext()).finish();
-                                        ((BuyInputsActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                                        ((DashboardActivity) getContext()).finish();
+                                        ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                                     }
                                 }
 
@@ -507,7 +505,7 @@ public class My_Cart extends Fragment {
             if (isAllStockValid(stocks)) {
                 Fragment fragment = new My_Addresses(My_Cart.this);
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.main_fragment, fragment)
+                fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                         .addToBackStack(getString(R.string.actionAddresses)).commit();
 
             } else {
@@ -541,7 +539,7 @@ public class My_Cart extends Fragment {
             if (isAllStockValid(stocks)) {
                 Fragment fragment = new My_Addresses(My_Cart.this);
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.main_fragment, fragment)
+                fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                         .addToBackStack(getString(R.string.actionAddresses)).commit();
 
             } else {

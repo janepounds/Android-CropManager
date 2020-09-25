@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
 import com.myfarmnow.myfarmcrop.models.order_model.OrderProducts;
@@ -155,9 +155,9 @@ public class OrderedProductsListAdapter extends RecyclerView.Adapter<OrderedProd
 
             Fragment fragment = new Product_Description();
             fragment.setArguments(categoryInfo);
-            FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(null).commit();
         }

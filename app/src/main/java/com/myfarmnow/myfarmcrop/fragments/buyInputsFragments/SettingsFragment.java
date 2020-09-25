@@ -35,7 +35,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
@@ -232,7 +232,7 @@ public class SettingsFragment extends Fragment {
                 // Navigate to Languages Fragment
                 Fragment fragment = new Languages();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.main_fragment, fragment)
+                fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                         .addToBackStack(null).commit();
             }
         });
@@ -468,8 +468,8 @@ public class SettingsFragment extends Fragment {
                 } else {
                     // Navigate to Login Activity
                     startActivity(new Intent(getContext(), Login.class));
-                    ((BuyInputsActivity) getContext()).finish();
-                    ((BuyInputsActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                    ((DashboardActivity) getContext()).finish();
+                    ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                 }
             }
         });
@@ -545,15 +545,15 @@ public class SettingsFragment extends Fragment {
                     Fragment fragment = new UpdateAccountFragment();
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
-                            .add(R.id.main_fragment, fragment)
+                            .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(getString(R.string.actionCart)).commit();
 
                 } else {
                     // Navigate to Login Activity
                     startActivity(new Intent(getContext(), Login.class));
-                    ((BuyInputsActivity) getContext()).finish();
-                    ((BuyInputsActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                    ((DashboardActivity) getContext()).finish();
+                    ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                 }
             }
         });

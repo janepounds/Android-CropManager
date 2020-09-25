@@ -35,7 +35,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -265,8 +265,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                         // Navigate to Login Activity
                         Intent i = new Intent(context, Login.class);
                         context.startActivity(i);
-                        ((BuyInputsActivity) context).finish();
-                        ((BuyInputsActivity) context).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                        ((DashboardActivity) context).finish();
+                        ((DashboardActivity) context).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                     }
                 }
             });
@@ -287,10 +287,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     Fragment fragment = new Product_Description(holder.product_checked);
                     fragment.setArguments(itemInfo);
                     //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                    FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .hide(((BuyInputsActivity)context).currentFragment)
-                            .add(R.id.main_fragment, fragment)
+                            .hide(((DashboardActivity)context).currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(null).commit();
                     
@@ -317,10 +317,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     Fragment fragment = new Product_Description(holder.product_checked);
                     fragment.setArguments(itemInfo);
                     //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                    FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .hide(((BuyInputsActivity)context).currentFragment)
-                            .add(R.id.main_fragment, fragment)
+                            .hide(((DashboardActivity)context).currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(null).commit();
                     
@@ -418,10 +418,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                             Fragment fragment = new Product_Description(holder.product_checked);
                             fragment.setArguments(itemInfo);
                             //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                            FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                             fragmentManager.beginTransaction()
-                                    .hide(((BuyInputsActivity)context).currentFragment)
-                                    .add(R.id.main_fragment, fragment)
+                                    .hide(((DashboardActivity)context).currentFragment)
+                                    .add(R.id.main_fragment_container, fragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .addToBackStack(null).commit();
                             
@@ -437,7 +437,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                     Snackbar.make(view, context.getString(R.string.cannot_add_upcoming), Snackbar.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    Utilities.animateCartMenuIcon(context, (BuyInputsActivity) context);
+                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
                                     // Add Product to User's Cart
                                     addProductToCart(product);
                                     
@@ -454,7 +454,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                     Snackbar.make(view, context.getString(R.string.outOfStock), Snackbar.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    Utilities.animateCartMenuIcon(context, (BuyInputsActivity) context);
+                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
                                     // Add Product to User's Cart
                                     addProductToCart(product);
     
@@ -480,10 +480,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                             Fragment fragment = new Product_Description(holder.product_checked);
                             fragment.setArguments(itemInfo);
                             //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                            FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                             fragmentManager.beginTransaction()
-                                    .hide(((BuyInputsActivity)context).currentFragment)
-                                    .add(R.id.main_fragment, fragment)
+                                    .hide(((DashboardActivity)context).currentFragment)
+                                    .add(R.id.main_fragment_container, fragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .addToBackStack(null).commit();
 
@@ -499,7 +499,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                     Snackbar.make(v, context.getString(R.string.cannot_add_upcoming), Snackbar.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    Utilities.animateCartMenuIcon(context, (BuyInputsActivity) context);
+                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
                                     // Add Product to User's Cart
                                     addProductToCart(product);
 
@@ -516,7 +516,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                     Snackbar.make(v, context.getString(R.string.outOfStock), Snackbar.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    Utilities.animateCartMenuIcon(context, (BuyInputsActivity) context);
+                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
                                     // Add Product to User's Cart
                                     addProductToCart(product);
 
@@ -701,7 +701,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         
         
         // Recreate the OptionsMenu
-        ((BuyInputsActivity) context).invalidateOptionsMenu();
+        ((DashboardActivity) context).invalidateOptionsMenu();
         
     }
 

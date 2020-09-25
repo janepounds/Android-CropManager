@@ -9,7 +9,6 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.utils.NotificationHelper;
@@ -61,7 +60,7 @@ public class MyFirebaseInstanceIdService extends FirebaseMessagingService {
         notificationBitmap = getBitmapFromUrl(notification_image);
 
 
-        Intent notificationIntent = new Intent(getApplicationContext(), BuyInputsActivity.class);
+        Intent notificationIntent = new Intent(getApplicationContext(), DashboardActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         NotificationHelper.showNewNotification

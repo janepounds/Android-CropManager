@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
@@ -106,7 +106,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                     ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
                     Fragment fragment = new Nearby_Merchants(parentFrag.my_cart);
                     FragmentManager fragmentManager = parentFrag.getFragmentManager();
-                    fragmentManager.beginTransaction().add(R.id.main_fragment, fragment)
+                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                             .addToBackStack(context.getString(R.string.select_merchants_fragment)).commit();
                 }else{
                     // Request the Server to Change Default Address
@@ -151,9 +151,9 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                 ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
                 Fragment fragment = new Shipping_Address(null,parentFrag);
                 fragment.setArguments(addressInfo);
-                FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
             }

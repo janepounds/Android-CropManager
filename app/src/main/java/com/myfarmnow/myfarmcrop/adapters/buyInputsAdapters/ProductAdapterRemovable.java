@@ -31,7 +31,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.User_Recents_BuyInputsDB;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
@@ -183,9 +183,9 @@ public class ProductAdapterRemovable extends RecyclerView.Adapter<ProductAdapter
                 Fragment fragment = new Product_Description();
                 fragment.setArguments(itemInfo);
                 //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
 

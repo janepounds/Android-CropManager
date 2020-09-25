@@ -1,7 +1,6 @@
 package com.myfarmnow.myfarmcrop.fragments;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,11 +19,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -34,13 +31,13 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.agronomy.AgronomyDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.FarmRecordsDashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.marketplace.MarketPlaceActivity;
 import com.myfarmnow.myfarmcrop.activities.predictiontools.PredictionToolsDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.services.ServicesDashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.NotificationTabsLayoutAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.MarketPlaceHomeFragment;
 import com.myfarmnow.myfarmcrop.models.CropNotification;
 
 import java.text.DecimalFormat;
@@ -84,12 +81,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for appContext fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
-//        toolbar = view.findViewById(R.id.toolbar);
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-//
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+
         initializeDashboard(view);
         return view;
     }
@@ -138,7 +131,10 @@ public class HomeFragment extends Fragment {
             startActivity(openFields);
         });
 
-        marketplaceLinearLayout.setOnClickListener(view1 -> startActivity(new Intent(appContext, MarketPlaceActivity.class)));
+        marketplaceLinearLayout.setOnClickListener(view1 ->
+                 getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, new MarketPlaceHomeFragment(), getString(R.string.actionMarketPlace)).commit()
+
+        );
 
         agronomyLinearLayout.setOnClickListener(v -> {
             Intent openFields = new Intent(appContext, AgronomyDashboardActivity.class);

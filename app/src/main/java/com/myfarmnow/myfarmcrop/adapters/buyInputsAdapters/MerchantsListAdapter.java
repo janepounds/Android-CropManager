@@ -154,7 +154,7 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
 
                     // Navigate to CheckoutFinal Fragment
                     Fragment fragment = new CheckoutFinal(my_cart, user_cart_BuyInputs_db,merchantsDetails.getMerchantId()+"");
-                    fragmentManager.beginTransaction().add(R.id.main_fragment, fragment, context.getString(R.string.checkout))
+                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment, context.getString(R.string.checkout))
                             .addToBackStack(null).commit();
                 }
 

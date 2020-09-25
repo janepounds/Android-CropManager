@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.Maps.PlacesFieldSelector;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ShippingTimeSlotsAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -630,12 +630,12 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
                         // Address has been added to User's Addresses
                         // Navigate to Addresses fragment
-                        ((BuyInputsActivity) getContext()).getSupportFragmentManager().popBackStack();
+                        ((DashboardActivity) getContext()).getSupportFragmentManager().popBackStack();
                         if( my_cart!=null){
                             // Navigate to Shipping_Methods Fragment
                             Fragment fragment = new Nearby_Merchants(my_cart);
                             FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction().add(R.id.main_fragment, fragment)
+                            fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                                     .addToBackStack(null).commit();
                         }else
                         parentFrag.RequestAllAddresses();
@@ -697,7 +697,7 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
                         // Address has been Edited
                         // Navigate to Addresses fragment
-                        ((BuyInputsActivity) getContext()).getSupportFragmentManager().popBackStack();
+                        ((DashboardActivity) getContext()).getSupportFragmentManager().popBackStack();
                         parentFrag.RequestAllAddresses();
 
                     }

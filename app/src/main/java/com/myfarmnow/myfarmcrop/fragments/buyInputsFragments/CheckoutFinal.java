@@ -76,7 +76,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.DemoCouponsListAdapter;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.PaymentMethodAdapter;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
@@ -629,7 +629,7 @@ public class CheckoutFinal extends Fragment {
                 fragment.setArguments(args);
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_fragment, fragment)
+                fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
                         .addToBackStack(null).commit();
             }
         });
@@ -647,7 +647,7 @@ public class CheckoutFinal extends Fragment {
                 fragment.setArguments(args);
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_fragment, fragment)
+                fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
                         .addToBackStack(null).commit();
             }
         });
@@ -768,8 +768,8 @@ public class CheckoutFinal extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (!"".equalsIgnoreCase(BuyInputsActivity.paymentNonceToken)) {
-                                paymentNonceToken = BuyInputsActivity.paymentNonceToken;
+                            if (!"".equalsIgnoreCase(DashboardActivity.paymentNonceToken)) {
+                                paymentNonceToken = DashboardActivity.paymentNonceToken;
                                 // Proceed Order
                                 proceedOrder();
 
@@ -1422,7 +1422,7 @@ public class CheckoutFinal extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
-                        Intent notificationIntent = new Intent(getContext(), BuyInputsActivity.class);
+                        Intent notificationIntent = new Intent(getContext(), DashboardActivity.class);
                         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         // Order has been placed Successfully
@@ -1441,7 +1441,7 @@ public class CheckoutFinal extends Fragment {
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.popBackStack(getString(R.string.actionHome), FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         fragmentManager.beginTransaction()
-                                .add(R.id.main_fragment, fragment)
+                                .add(R.id.main_fragment_container, fragment)
                                 .addToBackStack(null)
                                 .commit();
 

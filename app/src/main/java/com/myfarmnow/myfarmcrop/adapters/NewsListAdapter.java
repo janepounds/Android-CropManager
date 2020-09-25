@@ -145,7 +145,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyView
             newsDescription.setArguments(newsInfo);
             FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, newsDescription)
+                    .add(R.id.main_fragment_container, newsDescription)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(null).commit();
         }

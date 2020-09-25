@@ -106,7 +106,7 @@ public class My_Orders extends Fragment {
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionCart)).commit();
             }

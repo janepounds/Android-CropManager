@@ -22,7 +22,7 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </com.google.android.material.appbar.AppBarLayout>
-        
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -122,5 +122,6 @@
         </ScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </layout>

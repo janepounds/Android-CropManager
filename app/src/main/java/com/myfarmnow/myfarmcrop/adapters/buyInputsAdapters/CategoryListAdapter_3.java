@@ -1,7 +1,7 @@
 package com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters;
 
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Products;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SubCategories_3;
@@ -37,11 +37,11 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
 
     boolean isSubCategory;
 
-    Context context;
+    Activity context;
     List<CategoryDetails> categoriesList;
 
 
-    public CategoryListAdapter_3(Context context, List<CategoryDetails> categoriesList, boolean isSubCategory) {
+    public CategoryListAdapter_3(Activity context, List<CategoryDetails> categoriesList, boolean isSubCategory) {
         this.context = context;
         this.isSubCategory = isSubCategory;
         this.categoriesList = categoriesList;
@@ -135,9 +135,9 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
             }
 
             fragment.setArguments(categoryInfo);
-            FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment, fragment)
+                    .add(R.id.main_fragment_container, fragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(null).commit();
         }

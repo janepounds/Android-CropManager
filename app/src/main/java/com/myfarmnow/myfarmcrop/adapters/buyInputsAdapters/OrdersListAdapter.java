@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Order_Details;
@@ -144,9 +144,9 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
                 Fragment fragment = new Order_Details();
                 fragment.setArguments(itemInfo);
                 //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
             }

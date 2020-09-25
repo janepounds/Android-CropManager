@@ -7,19 +7,22 @@
     android:orientation="vertical">
 
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/windowBackground"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true"
+        app:layout_behavior="com.myfarmnow.myfarmcrop.customs.AppBarFlingScrollBehavior"
+
         app:elevation="0dp" >
+
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,52 +32,34 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+
                     <FrameLayout
                         android:id="@+id/bannerFrameHome9"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerFrame"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha=".8"
-                        android:visibility="gone"
-                        app:shimmer_duration="900">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/placeholder" />
-                    </com.facebook.shimmer.ShimmerFrameLayout>
                 </RelativeLayout>
 
-                <FrameLayout
-                    android:layout_margin="12dp"
-                    android:id="@+id/home9_categories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/windowBackground" />
 
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
-                    style="@style/MyCustomTabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:tabBackground="@color/white"
-                    app:tabIndicatorColor="@color/textColorSecondaryDark"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/textColorSecondaryDark"
-                    app:tabTextColor="@color/textColorSecondaryLight" />
             </LinearLayout>
 
         </FrameLayout>
 
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
+
+    <FrameLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/home9_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/windowBackground" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

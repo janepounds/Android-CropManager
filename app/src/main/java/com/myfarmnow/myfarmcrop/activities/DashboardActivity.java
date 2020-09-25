@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
-import android.net.Uri;
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 
 import android.os.Bundle;
 
@@ -17,7 +19,9 @@ import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.WrappedDrawable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +36,8 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -50,35 +56,40 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SearchFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.MarketPlaceHomeFragment;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.SellProduceFragment;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
 import com.myfarmnow.myfarmcrop.services.CropNotificationsSendWorker;
 import com.myfarmnow.myfarmcrop.services.CropSyncService;
+import com.myfarmnow.myfarmcrop.utils.LocaleHelper;
 import com.myfarmnow.myfarmcrop.utils.NotificationScheduler;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+
+import static android.provider.SettingsSlicesContract.KEY_LOCATION;
 
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
@@ -110,9 +121,15 @@ public class DashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     Fragment defaultHomeFragment;
 
+    public static String mSelectedItem;
+    private static final String SELECTED_ITEM_ID = "selected";
+
     public Fragment currentFragment;
     public  static ActionBar actionBar;
-    public static  boolean FLAG_PROFILE;
+
+    // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
+    public static String paymentNonceToken;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -145,8 +162,11 @@ public class DashboardActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         //transaction.replace(R.id.fragment_crop_dashboard_graphs_section, new CropDashboardGraphsFragment()).commit();
-        defaultHomeFragment=new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) );
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment ).commit();
+
+
+        // Select SELECTED_ITEM from SavedInstanceState
+        mSelectedItem = savedInstanceState == null ? ConstantValues.DEFAULT_HOME_STYLE : savedInstanceState.getString(SELECTED_ITEM_ID);
+        setupDefaultHomePage(mSelectedItem);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
@@ -210,6 +230,12 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.actionSettings));
         }else if (curruntFrag instanceof AccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
+        } else if (curruntFrag instanceof MarketPlaceHomeFragment) {
+            actionBar.setTitle(getString(R.string.actionMarketPlace));
+        }else if (curruntFrag instanceof BuyInputsHomePage) {
+            actionBar.setTitle(getString(R.string.app_name));
+        }else if (curruntFrag instanceof SellProduceFragment) {
+            actionBar.setTitle(getString(R.string.actionproducemarket));
         }
 
     }
@@ -233,6 +259,65 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
         return true;
     };
+
+
+    private void setupDefaultHomePage(String defaultHome) {
+        defaultHomeFragment=new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) );
+        getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, defaultHomeFragment, getString(R.string.homeStyle9)).commit();
+        currentFragment = defaultHomeFragment;
+
+    }
+
+    //*********** Called by the System when the Device's Configuration changes while Activity is Running ********//
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Configure ActionBarDrawerToggle with new Configuration
+    }
+
+
+    //*********** Invoked to Save the Instance's State when the Activity may be Temporarily Destroyed ********//
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (Shipping_Address.map != null) {
+            outState.putParcelable(Shipping_Address.KEY_CAMERA_POSITION,Shipping_Address.map.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, Shipping_Address.lastKnownLocation);
+        }
+        super.onSaveInstanceState(outState);
+
+        super.onSaveInstanceState(outState);
+        // Save the Selected NavigationDrawer Item
+        outState.putString(SELECTED_ITEM_ID, mSelectedItem);
+    }
+
+
+    //*********** Set the Base Context for the ContextWrapper ********//
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+
+        String languageCode = ConstantValues.LANGUAGE_CODE;
+        if ("".equalsIgnoreCase(languageCode) || languageCode == null )
+            languageCode = ConstantValues.LANGUAGE_CODE = "en";
+
+        super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
+    }
+
+
+    //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(getString(R.string.checkout));
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
 
 
     @Override
@@ -285,8 +370,62 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+
+        // Get No. of Cart Items with the static method of My_Cart Fragment
+        int cartSize = My_Cart.getCartSize();
+
+
+        // if Cart has some Items
+        if (cartSize > 0) {
+
+            // Animation for cart_menuItem
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake_icon);
+            animation.setRepeatMode(Animation.REVERSE);
+            animation.setRepeatCount(1);
+
+            cartItem.getActionView().startAnimation(animation);
+            cartItem.getActionView().setAnimation(null);
+
+
+            LayerDrawable icon = null;
+            Drawable drawable = cartItem.getIcon();
+
+            if (drawable instanceof DrawableWrapper) {
+                drawable = ((DrawableWrapper) drawable).getWrappedDrawable();
+            } else if (drawable instanceof WrappedDrawable) {
+                drawable = ((WrappedDrawable) drawable).getWrappedDrawable();
+            }
+
+
+            if (drawable instanceof LayerDrawable) {
+                icon = (LayerDrawable) drawable;
+            } else if (drawable instanceof DrawableWrapper) {
+                DrawableWrapper wrapper = (DrawableWrapper) drawable;
+                if (wrapper.getWrappedDrawable() instanceof LayerDrawable) {
+                    icon = (LayerDrawable) wrapper.getWrappedDrawable();
+                }
+            }
+
+//                icon = (LayerDrawable) drawable;
+
+
+            // Set BadgeCount on Cart_Icon with the static method of NotificationBadger class
+            if (icon != null)
+                NotificationBadger.setBadgeCount(this, icon, String.valueOf(cartSize));
+
+
+        } else {
+            // Set the Icon for Empty Cart
+            cartItem.setIcon(R.drawable.ic_cart_empty);
+        }
+
+
+
         return super.onPrepareOptionsMenu(menu);
     }
+
+
 
 
     @Override
@@ -317,6 +456,26 @@ public class DashboardActivity extends AppCompatActivity {
                 else
                     showHomePage();
 
+                break;
+            case R.id.toolbar_ic_search:
+
+                // Navigate to SearchFragment Fragment
+                fragment = new SearchFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+                break;
+
+            case R.id.toolbar_ic_cart:
+
+                // Navigate to My_Cart Fragment
+                fragment = new My_Cart();
+                fragmentManager.beginTransaction()
+                        .hide(currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
                 break;
 
             case R.id.toolbar_ic_language:
@@ -613,50 +772,9 @@ public class DashboardActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public static void saveUser(JSONObject user, Context context) throws JSONException {
 
-        DashboardActivity.savePreferences(FARM_NAME_PREFERENCES_ID, user.getString("farmname"), context);
-        DashboardActivity.savePreferences(PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
-        DashboardActivity.savePreferences("email", user.getString("email"), context);
-        DashboardActivity.savePreferences(PREFERENCES_USER_ID, user.getString("id"), context);
-        DashboardActivity.savePreferences(PREFERENCES_LAST_NAME, user.getString("lastname"), context);
-        DashboardActivity.savePreferences("country", user.getString("country"), context);
-        DashboardActivity.savePreferences("countryCode", user.getString("countryCode"), context);
-        DashboardActivity.savePreferences(PREFERENCES_USER_EMAIL, user.getString("email"), context);
-        DashboardActivity.savePreferences(STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
-        DashboardActivity.savePreferences(CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
-        DashboardActivity.savePreferences(COUNTRY_PREFERENCES_ID, user.getString("addressCountry"), context);
-        DashboardActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
-        DashboardActivity.savePreferences("latitude", user.getString("latitude"), context);
-        DashboardActivity.savePreferences("longitude", user.getString("longitude"), context);
-//        DashboardActivity.savePreferences(PREFERENCES_USER_PASSWORD, user.getString("password"), context);
-        // DashboardActivity.savePreferences("userimage", user.getString("userimage"), this);
-
-    }
-
-
-    public void shareApp(View view) {
-
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-        String shareMessage = "\nLet me recommend you this application\n\n";
-        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager";
-        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-        startActivity(Intent.createChooser(shareIntent, "choose one"));
-
-
-    }
-
-    public void rateApp(View view) {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=com.myfarmnow.cropmanager")));
-
-        } catch (android.content.ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=com.myfarmnow.cropmanager")));
-        }
+    public void clearBackStackInclusive(String tag) {
+        getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
 }

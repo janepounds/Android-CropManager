@@ -18,9 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import androidx.databinding.DataBindingUtil;
@@ -81,8 +83,7 @@ public class AccountFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false);
 //        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
-        DashboardActivity.actionBar.setTitle(getString(R.string.actionAccount));
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAccount));
         parentView=binding.txtUserAddress;
 
         fragmentManager=getActivity().getSupportFragmentManager();

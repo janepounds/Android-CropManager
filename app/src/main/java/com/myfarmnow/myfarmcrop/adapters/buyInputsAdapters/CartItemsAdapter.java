@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
 import com.myfarmnow.myfarmcrop.database.User_Recents_BuyInputsDB;
@@ -99,9 +99,9 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
                     // Navigate to Products Fragment
                     Fragment fragment = new Products();
                     fragment.setArguments(bundle);
-                    FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .add(R.id.main_fragment, fragment)
+                            .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(context.getString(R.string.actionCart)).commit();
                 }
@@ -224,9 +224,9 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
                     // Navigate to Product_Description of selected Product
                     Fragment fragment = new Product_Description();
                     fragment.setArguments(itemInfo);
-                    FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .add(R.id.main_fragment, fragment)
+                            .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(null)
                             .commit();

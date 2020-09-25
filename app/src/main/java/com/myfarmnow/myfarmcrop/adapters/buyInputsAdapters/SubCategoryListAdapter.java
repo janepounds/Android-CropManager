@@ -19,7 +19,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.CircularImageView;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Products;
@@ -125,9 +125,9 @@ public class SubCategoryListAdapter extends BaseAdapter {
                 // Navigate to Products Fragment
                 Fragment fragment = new Products();
                 fragment.setArguments(categoryInfo);
-                FragmentManager fragmentManager = ((BuyInputsActivity) context).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment, fragment)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null).commit();
             }

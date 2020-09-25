@@ -12,7 +12,7 @@ import android.net.Uri;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 
 
 /**
@@ -37,7 +37,7 @@ public class NotificationHelper {
             notificationIntent = intent;
         }
         else {
-            notificationIntent = new Intent(context.getApplicationContext(), BuyInputsActivity.class);
+            notificationIntent = new Intent(context.getApplicationContext(), DashboardActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
 

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CategoryListAdapter_3;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
@@ -78,7 +77,7 @@ public class SubCategories_3 extends Fragment {
 
 
         // Initialize the CategoryListAdapter and LayoutManager for RecyclerView
-        categoryListAdapter = new CategoryListAdapter_3(getContext(), subCategoriesList, true);
+        categoryListAdapter = new CategoryListAdapter_3(getActivity(), subCategoriesList, true);
         category_recycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Set the Adapter to the RecyclerView

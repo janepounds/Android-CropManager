@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductAttributesAdapter;
@@ -430,8 +430,8 @@ public class Product_Description extends Fragment {
                     // Navigate to Login Activity
                     Intent i = new Intent(getContext(), Login.class);
                     getContext().startActivity(i);
-                    ((BuyInputsActivity) getContext()).finish();
-                    ((BuyInputsActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                    ((DashboardActivity) getContext()).finish();
+                    ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                 }
             }
         });
@@ -470,7 +470,7 @@ public class Product_Description extends Fragment {
                         
                         
                         // Recreate the OptionsMenu
-                        ((BuyInputsActivity) getContext()).invalidateOptionsMenu();
+                        ((DashboardActivity) getContext()).invalidateOptionsMenu();
                         
                         Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
                         checkImageView.setVisibility(View.VISIBLE);
@@ -959,8 +959,8 @@ public class Product_Description extends Fragment {
                 }
                 else {
                     getContext().startActivity(new Intent(getContext(), Login.class));
-                    ((BuyInputsActivity) getContext()).finish();
-                    ((BuyInputsActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                    ((DashboardActivity) getContext()).finish();
+                    ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                 }
             }
         });
