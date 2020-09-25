@@ -20,8 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
-import android.widget.Toast;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,7 +36,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Update_Account;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 
@@ -53,7 +51,7 @@ public class AccountFragment extends Fragment {
     FragmentManager fragmentManager;
 
 
-    public Update_Account update_account;
+    public UpdateAccountFragment update_accountFragment;
     public My_Orders myOrders;
     public My_Addresses myAddresses;
     public WishList myFavorites;

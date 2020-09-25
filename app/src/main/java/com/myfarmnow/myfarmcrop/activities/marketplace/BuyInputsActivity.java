@@ -3,7 +3,6 @@ package com.myfarmnow.myfarmcrop.activities.marketplace;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.appcompat.widget.Toolbar;
@@ -48,19 +46,15 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SearchFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Thank_You;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Update_Account;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
-import com.myfarmnow.myfarmcrop.network.StartAppRequests;
-import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.utils.DrawerLocker;
 import com.myfarmnow.myfarmcrop.utils.LocaleHelper;
-import com.myfarmnow.myfarmcrop.utils.NotificationScheduler;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 
 import am.appwise.components.ni.NoInternetDialog;
 
@@ -105,7 +99,7 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
     public Products topSellers;
     public Products superDeals;
     public Products mostLiked;
-    public Update_Account update_account;
+    public UpdateAccountFragment update_accountFragment;
     public My_Orders myOrders;
     public My_Addresses myAddresses;
     public WishList myfavorites;
@@ -198,7 +192,7 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
             actionBar.setTitle(getString(R.string.shipping_address));
         } else if (curruntFrag instanceof Nearby_Merchants) {
             actionBar.setTitle(getString(R.string.nearby_merchants));
-        } else if (curruntFrag instanceof Update_Account) {
+        } else if (curruntFrag instanceof UpdateAccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
         } else if (curruntFrag instanceof My_Orders) {
             actionBar.setTitle(getString(R.string.actionOrders));
@@ -442,18 +436,18 @@ public class BuyInputsActivity extends AppCompatActivity implements  DrawerLocke
         } else if (selectedItem.equalsIgnoreCase(getString(R.string.actionAccount))) {
             if (ConstantValues.IS_USER_LOGGED_IN) {
                 mSelectedItem = selectedItem;
-                if (update_account == null) {
+                if (update_accountFragment == null) {
                     // Navigate to Update_Account Fragment
-                    update_account = new Update_Account();
+                    update_accountFragment = new UpdateAccountFragment();
                     fragmentManager.beginTransaction()
                             .hide(currentFragment)
-                            .add(R.id.main_fragment, update_account)
+                            .add(R.id.main_fragment, update_accountFragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit();
                 } else {
-                    fragmentManager.beginTransaction().hide(currentFragment).show(update_account).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+                    fragmentManager.beginTransaction().hide(currentFragment).show(update_accountFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                 }
-                currentFragment = update_account;
+                currentFragment = update_accountFragment;
 
                 actionBar.setTitle(getString(R.string.actionAccount));
 

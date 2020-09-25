@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -14,14 +15,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,25 +28,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.constants.ConstantValues;
-import com.myfarmnow.myfarmcrop.customs.CircularImageView;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.database.User_Info_BuyInputsDB;
+import com.myfarmnow.myfarmcrop.databinding.FragmentUpdateAccountBinding;
 import com.myfarmnow.myfarmcrop.models.uploadimage.UploadImageModel;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
-import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 import com.myfarmnow.myfarmcrop.utils.CheckPermissions;
 import com.myfarmnow.myfarmcrop.utils.ImagePicker;
 import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import am.appwise.components.ni.NoInternetDialog;
 import okhttp3.MediaType;
@@ -67,10 +63,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Update_Account extends Fragment {
-    private static final String TAG = "Update_Account";
+public class UpdateAccountFragment extends Fragment {
+    private static final String TAG = "UpdateAccountFragment";
+    private FragmentUpdateAccountBinding binding;
+    private String image;
+
     private Context context;
-    private View rootView;
     private String customers_id;
     private String profileImageCurrent = "";
     private File profileImageChanged;
@@ -79,65 +77,51 @@ public class Update_Account extends Fragment {
     private String imageID;
     private Boolean isImgUploaded = false;
 
-    private Button updateInfoBtn;
-    private CircularImageView user_photo;
-    private FloatingActionButton user_photo_edit_fab;
-    private EditText input_first_name, input_last_name, input_dob, input_contact_no;
-    //input_current_password, input_new_password;
-
     private DialogLoader dialogLoader;
 
     private UserDetails userInfo;
     private User_Info_BuyInputsDB userInfoDB = new User_Info_BuyInputsDB();
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.update_account, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_update_account, container, false);
 
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
-        //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAccount));
+        // MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(getString(R.string.actionAccount));
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
 
-
         // Get the CustomerID from SharedPreferences
         customers_id = DashboardActivity.RETRIEVED_USER_ID;
-
-
-        // Binding Layout Views
-        user_photo = rootView.findViewById(R.id.user_photo);
-        input_first_name = rootView.findViewById(R.id.firstname);
-        input_last_name = rootView.findViewById(R.id.lastname);
-        input_dob = rootView.findViewById(R.id.dob);
-        input_contact_no = rootView.findViewById(R.id.contact);
-        //input_current_password = (EditText) rootView.findViewById(R.id.current_password);
-        //input_new_password = (EditText) rootView.findViewById(R.id.new_password);
-        updateInfoBtn = rootView.findViewById(R.id.updateInfoBtn);
-        user_photo_edit_fab = rootView.findViewById(R.id.user_photo_edit_fab);
+        Log.d(TAG, "onCreateView: Customer ID = " + customers_id);
 
         // Set KeyListener of some View to null
-        input_dob.setKeyListener(null);
+        binding.dob.setKeyListener(null);
 
         dialogLoader = new DialogLoader(getContext());
 
         // Get the User's Info from the Local Databases User_Info_DB
         userInfo = userInfoDB.getUserData(customers_id);
 
+        Log.d(TAG, "onCreateView: Email = " + userInfo.getEmail());
+        Log.d(TAG, "onCreateView: First Name = " + userInfo.getFirstName());
+        Log.d(TAG, "onCreateView: Last Name = " + userInfo.getLastName());
+        Log.d(TAG, "onCreateView: Contact = " + userInfo.getPhone());
+        Log.d(TAG, "onCreateView: Date of Birth = " + userInfo.getDob());
 
         // Set User's Info to Form Inputs
-        input_first_name.setText(userInfo.getFirstName());
-        input_last_name.setText(userInfo.getLastName());
-        input_contact_no.setText(userInfo.getPhone());
-
+        binding.firstName.setText(userInfo.getFirstName());
+        binding.lastName.setText(userInfo.getLastName());
+        binding.email.setText(userInfo.getEmail());
+        binding.contact.setText(userInfo.getPhone());
 
         // Set User's Date of Birth
-
         if (userInfo.getDob() == null || userInfo.getDob().equalsIgnoreCase("0000-00-00 00:00:00")) {
-            input_dob.setText("");
+            binding.dob.setText("");
         } else {
             // Get the String of Date from userInfo
             String dateString = userInfo.getDob();
@@ -152,155 +136,138 @@ public class Update_Account extends Fragment {
                 e.printStackTrace();
             }
 
-            input_dob.setText(dateFormat.format(convertedDate));
+            binding.dob.setText(dateFormat.format(convertedDate));
         }
-
 
         // Set User's Photo
 
-        if (!TextUtils.isEmpty(userInfo.getAvatar()) && userInfo.getAvatar() != null) {
-            profileImageCurrent = userInfo.getAvatar();
-
-        } else {
-            profileImageCurrent = "";
-        }
-
-        Glide.with(getContext())
-                .asBitmap()
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.profile)
-                        .error(R.drawable.profile)
-                        .fitCenter())
-                .load(ConstantValues.ECOMMERCE_URL + profileImageCurrent)
-                .into(user_photo);
-
+//        if (!TextUtils.isEmpty(userInfo.getAvatar()) && userInfo.getAvatar() != null) {
+//            profileImageCurrent = userInfo.getAvatar();
+//
+//        } else {
+//            profileImageCurrent = "";
+//        }
+//
+//        Glide.with(getContext())
+//                .asBitmap()
+//                .apply(new RequestOptions()
+//                        .placeholder(R.drawable.profile)
+//                        .error(R.drawable.profile)
+//                        .fitCenter())
+//                .load(ConstantValues.ECOMMERCE_URL + profileImageCurrent)
+//                .into(user_photo);
 
         // Handle Touch event of input_dob EditText
-        input_dob.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+        binding.dob.setOnTouchListener((v, event) -> {
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // Get Calendar instance
-                    final Calendar calendar = Calendar.getInstance();
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Get Calendar instance
+                final Calendar calendar = Calendar.getInstance();
 
-                    // Initialize DateSetListener of DatePickerDialog
-                    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Initialize DateSetListener of DatePickerDialog
+                DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
 
-                            // Set the selected Date Info to Calendar instance
-                            calendar.set(Calendar.YEAR, year);
-                            calendar.set(Calendar.MONTH, monthOfYear);
-                            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    // Set the selected Date Info to Calendar instance
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, monthOfYear);
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                            // Set Date Format
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    // Set Date Format
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-                            // Set Date in input_dob EditText
-                            input_dob.setText(dateFormat.format(calendar.getTime()));
-                        }
-                    };
+                    // Set Date in input_dob EditText
+                    binding.dob.setText(dateFormat.format(calendar.getTime()));
+                };
 
 
-                    // Initialize DatePickerDialog
-                    DatePickerDialog datePicker = new DatePickerDialog
-                            (
-                                    getContext(),
-                                    date,
-                                    calendar.get(Calendar.YEAR),
-                                    calendar.get(Calendar.MONTH),
-                                    calendar.get(Calendar.DAY_OF_MONTH)
-                            );
-                    datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
-                    // Show datePicker Dialog
-                    datePicker.show();
-                }
+                // Initialize DatePickerDialog
+                DatePickerDialog datePicker = new DatePickerDialog
+                        (
+                                context,
+                                date,
+                                calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH)
+                        );
+                datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
 
-                return false;
+                // Show datePicker Dialog
+                datePicker.show();
             }
+
+            return false;
         });
 
         // Handle Click event of user_photo_edit_fab FAB
+        binding.userPhotoEditFab.setOnClickListener(view -> {
 
-        user_photo_edit_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!CheckPermissions.is_CAMERA_PermissionGranted() && !CheckPermissions.is_STORAGE_PermissionGranted()) {
-                    requestPermissions
-                            (
-                                    new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    CheckPermissions.PERMISSIONS_REQUEST_CAMERA
-                            );
-                } else {
-                    pickImage();
-                }
-
+            if (!CheckPermissions.is_CAMERA_PermissionGranted() && !CheckPermissions.is_STORAGE_PermissionGranted()) {
+                requestPermissions
+                        (
+                                new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                CheckPermissions.PERMISSIONS_REQUEST_CAMERA
+                        );
+            } else {
+                pickImage();
             }
+
         });
 
         // Handle Click event of updateInfoBtn Button
-        updateInfoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Validate User's Info Form Inputs
-                boolean isValidData = validateInfoForm();
+        binding.updateInfoBtn.setOnClickListener(v -> {
+            // Validate User's Info Form Inputs
+            boolean isValidData = validateInfoForm();
 
-                if (isValidData) {
+            if (isValidData) {
 
-                    updateCustomerInfo();
-                        /*
-                        if ("".equalsIgnoreCase(input_current_password.getText().toString()) && "".equalsIgnoreCase(input_new_password.getText().toString())) {
-                            // Proceed User Registration
+                updateCustomerInfo();
+                    /*
+                    if ("".equalsIgnoreCase(input_current_password.getText().toString()) && "".equalsIgnoreCase(input_new_password.getText().toString())) {
+                        // Proceed User Registration
+                        updateCustomerInfo();
+                    } else {
+                        if (validatePasswordForm())
                             updateCustomerInfo();
-                        } else {
-                            if (validatePasswordForm())
-                                updateCustomerInfo();
-                        }
-                        */
-                }
+                    }
+                    */
             }
         });
 
-        return rootView;
+        return binding.getRoot();
     }
 
     //*********** Picks User Profile Image from Gallery or Camera ********//
     private void pickImage() {
-        // Intent with Image Picker Apps from the static method of ImagePicker class
-        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(getContext());
-        chooseImageIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        chooseImageIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-        // Start Activity with Image Picker Intent
-        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
+        Intent intent = ImagePicker.getImagePickerIntent(context);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        startActivityForResult(intent, PICK_IMAGE_ID);
     }
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PICK_IMAGE_ID) {
 
                 // Get the User Selected Image as Bitmap from the static method of ImagePicker class
-                Bitmap bitmap = ImagePicker.getImageFromResult(this.getActivity(), resultCode, data);
+                Bitmap bitmap = ImagePicker.getImageFromResult(context, resultCode, data);
 
                 // Upload the Bitmap to ImageView
-                user_photo.setImageBitmap(bitmap);
+                binding.userPhoto.setImageBitmap(bitmap);
 
                 // Get the converted Bitmap as Base64ImageString from the static method of Helper class
                 //profileImageChanged = Utilities.getBase64ImageStringFromBitmap(bitmap);
 
                 // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-                Uri tempUri = getImageUri(getContext(), bitmap);
+                Uri tempUri = getImageUri(context, bitmap);
 
                 // CALL THIS METHOD TO GET THE ACTUAL PATH
                 profileImageChanged = new File(getRealPathFromURI(tempUri));
 
                 RequestImageUpload();
-
             }
         }
     }
@@ -308,13 +275,22 @@ public class Update_Account extends Fragment {
     private void RequestImageUpload() {
         dialogLoader.showProgressDialog();
         MultipartBody.Part filePart = null;
+
         if (profileImageChanged != null) {
             filePart = MultipartBody.Part.createFormData("file", profileImageChanged.getName(), RequestBody.create(MediaType.parse("image/*"), profileImageChanged));
+            Log.d(TAG, "RequestImageUpload: filePart not null");
         }
+
         Call<UploadImageModel> call = BuyInputsAPIClient.getInstance().uploadImage(filePart);
         call.enqueue(new Callback<UploadImageModel>() {
             @Override
             public void onResponse(Call<UploadImageModel> call, Response<UploadImageModel> response) {
+                Log.d(TAG, "onResponse: Response = " + response.code());
+                Log.d(TAG, "onResponse: ResponseMessage = " + response.message());
+                Log.d(TAG, "onResponse: Headers = " + response.headers());
+                Log.d(TAG, "onResponse: Success = " + response.body().getSuccess());
+                Log.d(TAG, "onResponse: Message = " + response.body().getMessage());
+                Log.d(TAG, "onResponse: Response = " + response.body().getData().toString());
 
                 if (response.isSuccessful()) {
 
@@ -330,7 +306,7 @@ public class Update_Account extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 dialogLoader.hideProgressDialog();
             }
@@ -407,11 +383,11 @@ public class Update_Account extends Fragment {
         Call<UserData> call = BuyInputsAPIClient.getInstance()
                 .updateCustomerInfo
                         (customers_id,
-                                input_first_name.getText().toString().trim(),
-                                input_last_name.getText().toString().trim(),
+                                binding.firstName.getText().toString().trim(),
+                                binding.lastName.getText().toString().trim(),
                                 "1",
-                                input_contact_no.getText().toString().trim(),
-                                input_dob.getText().toString().trim(),
+                                binding.contact.getText().toString().trim(),
+                                binding.dob.getText().toString().trim(),
                                 imageID);
 
         call.enqueue(new Callback<UserData>() {
@@ -439,15 +415,15 @@ public class Update_Account extends Fragment {
                         editor.apply();
 
 
-                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.getRoot(), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Unable to Update User's Info.
-                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.getRoot(), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
                     } else if (response.body().getSuccess().equalsIgnoreCase("2")) {
                         // Unable to Update User's Info.
-                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.getRoot(), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
                     } else {
                         // Unable to get Success status
                         Toast.makeText(getContext(), getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
@@ -468,11 +444,11 @@ public class Update_Account extends Fragment {
 
     //*********** Validate User Info Form Inputs ********//
     private boolean validateInfoForm() {
-        if (!ValidateInputs.isValidName(input_first_name.getText().toString().trim())) {
-            input_first_name.setError(getString(R.string.invalid_first_name));
+        if (!ValidateInputs.isValidName(binding.firstName.getText().toString().trim())) {
+            binding.firstName.setError(getString(R.string.invalid_first_name));
             return false;
-        } else if (!ValidateInputs.isValidName(input_last_name.getText().toString().trim())) {
-            input_last_name.setError(getString(R.string.invalid_last_name));
+        } else if (!ValidateInputs.isValidName(binding.lastName.getText().toString().trim())) {
+            binding.lastName.setError(getString(R.string.invalid_last_name));
             return false;
         } else {
             return true;

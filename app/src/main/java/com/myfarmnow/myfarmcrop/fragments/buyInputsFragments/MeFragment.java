@@ -77,7 +77,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                     activity.enableBottomNavigation(false);
                     activity.getSupportFragmentManager()
                             .beginTransaction()
-                            .add(R.id.main_fragment, new Update_Account())
+                            .add(R.id.main_fragment, new UpdateAccountFragment())
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(null).commit();
                 } else {
