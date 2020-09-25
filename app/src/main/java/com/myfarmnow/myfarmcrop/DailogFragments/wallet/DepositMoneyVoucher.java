@@ -23,15 +23,21 @@ import androidx.fragment.app.DialogFragment;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DepositMoneyVoucher extends DialogFragment {
@@ -96,108 +102,76 @@ public class DepositMoneyVoucher extends DialogFragment {
     }
 
     public void initiateDeposit(){
-
+        dialog.show();
+        /************RETROFIT IMPLEMENTATION*************/
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        String email = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity);
+        String phoneNumber =  WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_PHONE_NUMBER,this.activity);
         String codeEntered = voucherTxt.getText().toString();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity));
-        params.put("phoneNumber", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_PHONE_NUMBER,this.activity));
-        params.put("codeEntered",codeEntered);
-
-        client.setTimeout(30000);
-        client.post(ApiPaths.WALLET_INITIATE_VOUCHER_DEPOSIT, params, new JsonHttpResponseHandler() {
-
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<UserData> call = apiRequests.voucherDeposit(access_token,email,phoneNumber,codeEntered);
+        call.enqueue(new Callback<UserData>() {
             @Override
-            public void onStart() {
-                dialog.show();
-            }
-
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                refreshActivity();
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if(statusCode==401){
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                if(response.code()== 200){
+                    refreshActivity();
+                }else if(response.code()==401){
                     WalletAuthActivity.startAuth(activity, true);
-                }else if(statusCode == 500){
-                    if (errorResponse != null) {
-                        try {
-                            errorMsgTxt.setText(errorResponse.getString("message"));
-                        } catch (JSONException e) {
-                            Log.e("info Error: ", e.getMessage());
-                            errorMsgTxt.setText("Error Occurred Please Check and Try again");
-                        }
+                }else if(response.code()==500){
+                    if (response.errorBody() != null) {
+                        errorMsgTxt.setText(response.body().getMessage());
                     } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
-                    Log.e("info 500", new String(String.valueOf(errorResponse))+", code: "+statusCode);
-                }
-                else if(statusCode == 400){
-                    if (errorResponse != null) {
-                        try {
-                            errorMsgTxt.setText(errorResponse.getString("message"));
-                        } catch (JSONException e) {
-                            Log.e("info", e.getMessage());
-                            errorMsgTxt.setText("Error Occurred Please Check and Try again");
-                        }
+                    Log.e("info 500", new String(String.valueOf(response.errorBody()))+", code: "+response.code());
+
+                }else if(response.code() ==400){
+                    if (response.errorBody() != null) {
+                        errorMsgTxt.setText(response.body().getMessage());
                     } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
-                    Log.e("info 500", new String(String.valueOf(errorResponse))+", code: "+statusCode);
-                }
-                else if(statusCode == 406){
-                    if (errorResponse != null) {
-                        try {
-                            errorMsgTxt.setText(errorResponse.getString("message"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("info", e.getMessage());
+                    Log.e("info 500", new String(String.valueOf(response.errorBody()))+", code: "+response.code());
+
+                }else if(response.code() ==406){
+                    if (response.errorBody() != null) {
+
+                            errorMsgTxt.setText(response.errorBody().toString());
                             errorMsgTxt.setText("Error Occurred Please Check and Try again");
-                        }
+
                     }else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
-                    Log.e("info 406", new String(String.valueOf(errorResponse))+", code: "+statusCode);
+                    Log.e("info 406", new String(String.valueOf(response.errorBody()))+", code: "+response.code());
                 }
-                else {
+                else{
                     errorMsgTxt.setText("Error Occurred Try again later");
-                    if (errorResponse != null) {
-                        try {
-                            errorMsgTxt.setText(errorResponse.getString("message"));
-                        } catch (JSONException e) {
-                            Log.e("info", e.getMessage());
-                            errorMsgTxt.setText("Error Occurred Please Check and Try again");
-                        }
-                        Log.e("info", new String(String.valueOf(errorResponse))+", code: "+statusCode);
+                    if (response.errorBody() != null) {
+                        errorMsgTxt.setText(response.errorBody().toString());
+                        Log.e("info", new String(String.valueOf(response.errorBody()))+", code: "+response.code());
                     } else {
 
-                        Log.e("info", "Something got very very wrong, code: "+statusCode);
+                        Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
                 }
-                errorMsgTxt.setVisibility(View.VISIBLE);
-                dialog.dismiss();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
 
-                        errorMsgTxt.setText(errorResponse);
-
-                    Log.e("info : "+statusCode,errorResponse );
-                } else {
-
-                    Log.e("info : "+statusCode, "Something got very wrong");
                 }
+
+
+
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+
+                    errorMsgTxt.setText(t.getMessage());
+
+
+                    Log.e("info : ", "Something got very wrong");
+
                 errorMsgTxt.setText("Error Occurred Try again later");
                 errorMsgTxt.setVisibility(View.VISIBLE);
                 dialog.dismiss();

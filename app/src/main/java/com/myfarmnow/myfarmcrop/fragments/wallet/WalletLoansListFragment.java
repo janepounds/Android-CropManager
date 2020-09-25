@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -31,9 +32,13 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoansListBinding;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.LoanListResponse;
+import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.PayLoan;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -44,6 +49,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WalletLoansListFragment extends Fragment {
     private static final String TAG = "WalletLoansListFragment";
@@ -95,72 +103,65 @@ public class WalletLoansListFragment extends Fragment {
     }
 
     private void actualStatementData() {
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(context);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-
-        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context));
-        client.get(ApiPaths.WALLET_LOANS_LIST, params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
-
+        /*************RETROFIT IMPLEMENTATION********************/
+        String access_token =  WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        String userId = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context);
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<LoanListResponse> call = apiRequests.getUserLoans(userId,access_token);
+        call.enqueue(new Callback<LoanListResponse>() {
             @Override
-            public void onStart() {
-                dialog = new ProgressDialog(context);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(false);
-                dialog.show();
-            }
+            public void onResponse(Call<LoanListResponse> call, Response<LoanListResponse> response) {
+                if(response.code() == 200){
+                    try {
+                        LoanApplication data = null;
+                        LoanListResponse loanListResponse = response.body();
+                       List <LoanListResponse.Loans> loans = loanListResponse.getLoans();
+                        interest = (float) response.body().getInterest();
+                        for (int i = 0; i < loans.size(); i++) {
+                            LoanListResponse.Loans record = loans.get(i);
+                            Gson gson = new Gson();
+                            String res = gson.toJson(record);
+                            JSONObject jsonObject = new JSONObject(res);
+                            data = new LoanApplication(jsonObject);
+                            dataList.add(data);
+                            if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
+                                binding.walletApplyLoanLayout.setVisibility(View.GONE);
+                                binding.walletPayLoanLayout.setVisibility(View.VISIBLE);
+                            }
 
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                try {
-                    LoanApplication data = null;
-                    JSONArray transactions = response.getJSONArray("loans");
-                    interest = (float) response.getDouble("Interest");
-                    for (int i = 0; i < transactions.length(); i++) {
-                        JSONObject record = transactions.getJSONObject(i);
-                        data = new LoanApplication(record);
-                        dataList.add(data);
-                        if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
-                            binding.walletApplyLoanLayout.setVisibility(View.GONE);
-                            binding.walletPayLoanLayout.setVisibility(View.VISIBLE);
                         }
-
+                        statementAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("info : ", e.getMessage());
                     }
-                    statementAdapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("info : ", e.getMessage());
+
+
+                    dialog.dismiss();
+                }else if(response.code()==401){
+
+                    if (response.errorBody() != null) {
+                        Log.e("info", new String(String.valueOf(response.errorBody())));
+                    } else {
+                        Log.e("info", "Something got very very wrong");
+                    }
+                    dialog.dismiss();
                 }
-
-
-                dialog.dismiss();
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (statusCode == 401) {
-                    WalletAuthActivity.startAuth(context, true);
-                }
-                if (errorResponse != null) {
-                    Log.e("info", new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info", "Something got very very wrong");
-                }
-                dialog.dismiss();
-            }
+            public void onFailure(Call<LoanListResponse> call, Throwable t) {
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : " + statusCode, "Something got very very wrong");
-                }
+                    Log.e("info : " , new String(String.valueOf(t.getMessage())));
+                    Log.e("info : " , "Something got very very wrong");
+
                 dialog.dismiss();
                 WalletAuthActivity.startAuth(context, true);
             }

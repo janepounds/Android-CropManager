@@ -33,6 +33,9 @@ import com.flutterwave.raveutils.verification.RaveVerificationUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +44,9 @@ import java.text.NumberFormat;
 import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DepositMoneyMobile extends DialogFragment {
@@ -186,118 +192,76 @@ public class DepositMoneyMobile extends DialogFragment {
 
 
     public void creditAfterDeposit(String txRef) {
+        /******************RETROFIT IMPLEMENTATION**************************/
         dialog = new ProgressDialog(this.activity);
         dialog.setIndeterminate(true);
         dialog.setMessage("Crediting Account..");
-
+        dialog.show();
 
         String amountEntered = addMoneyTxt.getText().toString();
         double amount = Float.parseFloat(amountEntered);
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-
-        params.put("email", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, this.activity));
-        params.put("referenceNumber", txRef);
-        params.put("amount", amount);
-
-        client.setTimeout(30000);
-        client.post(ApiPaths.WALLET_CREDIT_USER_DEPOSIT, params, new JsonHttpResponseHandler() {
-
+        String referenceNumber = txRef;
+        String email = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, this.activity);
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<WalletTransaction> call = apiRequests.creditUser(access_token,email,amount,referenceNumber);
+        call.enqueue(new Callback<WalletTransaction>() {
             @Override
-            public void onStart() {
-                dialog.show();
-            }
+            public void onResponse(Call<WalletTransaction> call, Response<WalletTransaction> response) {
+                if(response.code() == 200){
+                    dialog.cancel();
 
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                dialog.cancel();
+                    refreshActivity();
+                }else if(response.code() == 401){
 
-                if (dialog.isShowing()) {
+                        WalletAuthActivity.startAuth(activity, true);
+                    } else if (response.code() == 500) {
+                        if (response.errorBody() != null) {
+                            Toast.makeText(activity,response.body().getRecepient(), Toast.LENGTH_LONG).show();
+                        } else {
+
+                            Log.e("info", "Something got very very wrong, code: " + response.code());
+                        }
+                        Log.e("info 500", String.valueOf(response.errorBody()) + ", code: " + response.code());
+                    } else if (response.code() == 400) {
+                        if (response.errorBody() != null) {
+                            Toast.makeText(activity, response.errorBody().toString(), Toast.LENGTH_LONG).show();
+                        } else {
+
+                            Log.e("info", "Something got very very wrong, code: " + response.code());
+                        }
+                        Log.e("info 500", String.valueOf(response.errorBody()) + ", code: " + response.code());
+                    } else if (response.code() == 406) {
+                        if (response.errorBody() != null) {
+
+                            Toast.makeText(activity, response.errorBody().toString(), Toast.LENGTH_LONG).show();
+                        } else {
+
+                            Log.e("info", "Something got very very wrong, code: " + response.code());
+                        }
+                        Log.e("info 406", String.valueOf(response.errorBody()) + ", code: " + response.code());
+                    } else {
+
+                        if (response.errorBody() != null) {
+
+                            Toast.makeText(activity, response.errorBody().toString(), Toast.LENGTH_LONG).show();
+                            Log.e("info", String.valueOf(response.errorBody()) + ", code: " + response.code());
+                        } else {
+
+                            Log.e("info", "Something got very very wrong, code: " + response.code());
+                        }
+                    }
                     dialog.dismiss();
                 }
 
-                refreshActivity();
-
-            }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (statusCode == 401) {
-                    WalletAuthActivity.startAuth(activity, true);
-                } else if (statusCode == 500) {
-                    if (errorResponse != null) {
-                        try {
-                            Toast.makeText(activity, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            Log.e("info Error: ", e.getMessage());
+            public void onFailure(Call<WalletTransaction> call, Throwable t) {
 
-                        }
-                    } else {
-
-                        Log.e("info", "Something got very very wrong, code: " + statusCode);
-                    }
-                    Log.e("info 500", String.valueOf(errorResponse) + ", code: " + statusCode);
-                } else if (statusCode == 400) {
-                    if (errorResponse != null) {
-                        try {
-                            Toast.makeText(activity, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            Log.e("info", e.getMessage());
-                        }
-                    } else {
-
-                        Log.e("info", "Something got very very wrong, code: " + statusCode);
-                    }
-                    Log.e("info 500", String.valueOf(errorResponse) + ", code: " + statusCode);
-                } else if (statusCode == 406) {
-                    if (errorResponse != null) {
-                        try {
-
-                            Toast.makeText(activity, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("info", e.getMessage());
-                        }
-                    } else {
-
-                        Log.e("info", "Something got very very wrong, code: " + statusCode);
-                    }
-                    Log.e("info 406", String.valueOf(errorResponse) + ", code: " + statusCode);
-                } else {
-
-                    if (errorResponse != null) {
-                        try {
-
-                            Toast.makeText(activity, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            Log.e("info", e.getMessage());
-                        }
-                        Log.e("info", String.valueOf(errorResponse) + ", code: " + statusCode);
-                    } else {
-
-                        Log.e("info", "Something got very very wrong, code: " + statusCode);
-                    }
-                }
-                dialog.dismiss();
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-
-                    Toast.makeText(activity, errorResponse, Toast.LENGTH_LONG).show();
-
-                    Log.e("info : " + statusCode, errorResponse);
-                } else {
-
-                    Log.e("info : " + statusCode, "Something got very wrong");
-                }
-                dialog.dismiss();
             }
         });
 
