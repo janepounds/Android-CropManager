@@ -75,19 +75,15 @@ public interface APIRequests {
                           @Field("latitude") String latitude,
                           @Field("longitude") String longitude,
                           @Field("password") String password
-
     );
 
-
     /**************  WALLET REQUESTS *******************************/
-
     //wallet authentication
     @FormUrlEncoded
     @POST("emaishawallet/user/authenticate")
     Call<WalletAuthentication> authenticate (@Field("email") String email,
                                              @Field("password") String password
     );
-
 
     //wallet registration
     @FormUrlEncoded
@@ -101,6 +97,7 @@ public interface APIRequests {
                                          @Field("addressCityOrTown") String addressCityOrTown
 
     );
+
     //refresh token
     @FormUrlEncoded
     @POST("wallet/token/get")

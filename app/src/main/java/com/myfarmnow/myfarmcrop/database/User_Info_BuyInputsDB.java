@@ -30,11 +30,7 @@ public class User_Info_BuyInputsDB {
     public static final String CUSTOMERS_NEWSLETTER              = "customers_newsletter";
     public static final String CUSTOMERS_PICTURE                 = "customers_picture";
 
-
-
-
     //*********** Returns the Query to Create TABLE_USER_INFO ********//
-
     public static String createTable() {
 
         return "CREATE TABLE "+ TABLE_USER_INFO +
@@ -53,10 +49,7 @@ public class User_Info_BuyInputsDB {
                 ")";
     }
 
-
-
     //*********** Insert New User Data ********//
-
     public void insertUserData(UserDetails user){
         // get and open SQLiteDatabase Instance from static method of DB_Manager class
         db = BuyInputsDB_Manager.getInstance().openDatabase();

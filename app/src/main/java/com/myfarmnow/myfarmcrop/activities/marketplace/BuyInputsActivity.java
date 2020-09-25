@@ -46,7 +46,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SearchFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Thank_You;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Update_Account;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
@@ -175,7 +175,7 @@ public class BuyInputsActivity extends AppCompatActivity{
             actionBar.setTitle(getString(R.string.shipping_address));
         } else if (curruntFrag instanceof Nearby_Merchants) {
             actionBar.setTitle(getString(R.string.nearby_merchants));
-        } else if (curruntFrag instanceof Update_Account) {
+        } else if (curruntFrag instanceof UpdateAccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
         } else if (curruntFrag instanceof My_Orders) {
             actionBar.setTitle(getString(R.string.actionOrders));

@@ -47,7 +47,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
-
 /**
  * APIRequests contains all the Network Request Methods with relevant API Endpoints
  **/
@@ -55,7 +54,6 @@ import retrofit2.http.Query;
 public interface APIRequestsForBuyInputs {
 
     //******************** User Data ********************//
-
     @Multipart
     @POST("processregistration")
     Call<UserData> processRegistration(
@@ -98,9 +96,7 @@ public interface APIRequestsForBuyInputs {
                                       @Field("customers_dob") String customers_dob,
                                       @Field("image_id") String image_id);
 
-
     //******************** Address Data ********************//
-
     @POST("getcountries")
     Call<Countries> getCountries();
 
@@ -151,9 +147,7 @@ public interface APIRequestsForBuyInputs {
     Call<AddressData> deleteUserAddress(@Field("customers_id") String customers_id,
                                         @Field("address_book_id") String address_book_id);
 
-
     //******************** OrderProductCategory Data ********************//
-
     @FormUrlEncoded
     @POST("allcategories")
     Call<CategoryData> getAllCategories(@Field("language_id") int language_id);
@@ -294,9 +288,9 @@ public interface APIRequestsForBuyInputs {
     @GET("getcurrencies")
     Call<CurrencyModel> getCurrency();
 
-
     @GET("get_feasible_selling_shops")
     Call<MerchantData> getNearbyMerchants(@Query("latitude") String latitude, @Query("longitude") String longitude, @Query("productlist") String productlist);
+
     @GET("get_sellPrices_by_shopId")
     Call<MerchantData> getMerchantsProductData(@Query("shopID") String shopID, @Query("productlist") String productlist);
 }
