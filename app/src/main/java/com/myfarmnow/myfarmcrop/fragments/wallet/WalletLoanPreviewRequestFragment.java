@@ -30,8 +30,11 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppInitiateBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanPreviewRequestBinding;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.RequestLoanresponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +42,9 @@ import org.json.JSONObject;
 import java.text.NumberFormat;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WalletLoanPreviewRequestFragment extends Fragment {
     private static final String TAG = "WalletLoanPreviewRequest";
@@ -100,81 +106,59 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     }
 
     public void initiateApplication() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context));
-        params.put("amount", loanApplication.getAmount());
-        params.put("duration", loanApplication.getDuration());
-        params.put("loanType", loanApplication.getLoanType());
-        params.put("interest", loanApplication.getInterestRate());
-        client.setTimeout(20000);
-        client.post(ApiPaths.WALLET_LOAN_APPLICATION_INITIATE, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                dialog.show();
-            }
+        /*****************RETROFIT IMPLEMENTATION*******************/
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        String userId =WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context);
+        float amount = loanApplication.getAmount();
+        int duration =  loanApplication.getDuration();
+        String loanType = loanApplication.getLoanType();
+        double interest =loanApplication.getInterestRate();
 
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<RequestLoanresponse> call = apiRequests.requestLoans(access_token,userId,amount,duration,loanType);
+        call.enqueue(new Callback<RequestLoanresponse>() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                try {
+            public void onResponse(Call<RequestLoanresponse> call, Response<RequestLoanresponse> response) {
+                if(response.code()== 200){
+
                     Bundle bundle = new Bundle();
                     assert getArguments() != null;
-                    bundle.putString("loanApplicationId", response.getString("loanApplicationId"));
-
-                    navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment, bundle);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (statusCode == 401) {
+                    bundle.putString("loanApplicationId", String.valueOf(Integer.parseInt(response.body().getData().getLoanApplicationId())));
+                }else if(response.code() == 401) {
                     WalletAuthActivity.startAuth(context, true);
-                } else if (statusCode == 500) {
-                    binding.textViewErrorMessage.setText("Error Occurred Try again later");
-                    Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                } else if (statusCode == 400) {
-                    try {
-                        binding.textViewErrorMessage.setText(errorResponse.getString("errors"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                } else if (statusCode == 406) {
-                    try {
-                        binding.textViewErrorMessage.setText(errorResponse.getString("errors"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Log.e("info 406", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                } else {
-                    binding.textViewErrorMessage.setText("Error Occurred Try again later");
-                    if (errorResponse != null) {
-                        Log.e("info", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
+                } else if (response.code() == 500) {
+                        binding.textViewErrorMessage.setText("Error Occurred Try again later");
+                        Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                    } else if (response.code() == 400) {
+                    binding.textViewErrorMessage.setText(response.errorBody().toString());
+                    Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                    } else if (response.code() == 406) {
+                    binding.textViewErrorMessage.setText(response.errorBody().toString());
+                    Log.e("info 406", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                     } else {
-                        Log.e("info", "Something got very very wrong, code: " + statusCode);
+                        binding.textViewErrorMessage.setText("Error Occurred Try again later");
+                        if (response.errorBody() != null) {
+                            Log.e("info", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                        } else {
+                            Log.e("info", "Something got very very wrong, code: " + response.code());
+                        }
                     }
+                    binding.textViewErrorMessage.setVisibility(View.VISIBLE);
+                    dialog.dismiss();
                 }
-                binding.textViewErrorMessage.setVisibility(View.VISIBLE);
-                dialog.dismiss();
-            }
+
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : " + statusCode, "Something got very very wrong");
-                }
+            public void onFailure(Call<RequestLoanresponse> call, Throwable t) {
+
+                Log.e("info : " , "Something got very very wrong");
+
                 binding.textViewErrorMessage.setText("Error Occurred Try again later");
                 binding.textViewErrorMessage.setVisibility(View.VISIBLE);
                 dialog.dismiss();
+
             }
-
-
         });
+
     }
 }

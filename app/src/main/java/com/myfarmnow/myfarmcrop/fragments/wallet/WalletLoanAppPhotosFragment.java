@@ -48,8 +48,11 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppPhotosBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanPreviewRequestBinding;
 import com.myfarmnow.myfarmcrop.helpers.ImageUtils;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletLoanAddPicResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +69,9 @@ import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WalletLoanAppPhotosFragment extends Fragment {
     private static final String TAG = "WalletLoanAppPhotosFragment";
@@ -224,6 +230,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
         JSONObject requestObject = new JSONObject();
 
         if (isNidFrontAdded || isSelfieAdded || isNidbackAdded) {
+            String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
 
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(20000);
@@ -244,62 +251,37 @@ public class WalletLoanAppPhotosFragment extends Fragment {
                     requestObject.put("userPhoto", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) binding.imageViewLoanPhotosSelfie.getDrawable()).getBitmap()), Base64.DEFAULT));
                 }
 
-                HttpEntity params;
-                try {
-                    params = new StringEntity(requestObject.toString());
-                    ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    return;
-                }
 
 
-                client.post(context, ApiPaths.WALLET_LOAN_APPLICATION_ADD_PHOTOS, params, "application/json", new JsonHttpResponseHandler() {
-
+            /*******************RETROFIT IMPLEMENTATION****************************/
+                APIRequests apiRequests = APIClient.getWalletInstance();
+                Call<WalletLoanAddPicResponse> call = apiRequests.addLoanPhotos(access_token,requestObject);
+                call.enqueue(new Callback<WalletLoanAddPicResponse>() {
                     @Override
-                    public void onStart() {
-                        dialog.show();
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                        Bundle bundle = new Bundle();
-                        assert getArguments() != null;
-                        bundle.putString("loanApplicationId", loanApplicationId);
-                        bundle.putInt("refereeNumber", 1);
-
-                        navController.navigate(R.id.action_walletLoanAppPhotosFragment_to_walletLoansListFragment, bundle);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                        if (statusCode == 401) {
+                    public void onResponse(Call<WalletLoanAddPicResponse> call, Response<WalletLoanAddPicResponse> response) {
+                        if(response.code()== 200){
+                            Bundle bundle = new Bundle();
+                            assert getArguments() != null;
+                            bundle.putString("loanApplicationId", loanApplicationId);
+                            bundle.putInt("refereeNumber", 1);
+                            navController.navigate(R.id.action_walletLoanAppPhotosFragment_to_walletLoansListFragment, bundle);
+                        }else if(response.code()==401){
                             WalletAuthActivity.startAuth(context, true);
-                        } else if (statusCode == 500) {
+                        } else if (response.code() == 500) {
                             binding.textViewErrorMessage.setText("Error Occurred Try again later");
-                            Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                        } else if (statusCode == 400) {
-                            try {
-                                binding.textViewErrorMessage.setText(errorResponse.getString("message"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                        } else if (statusCode == 406) {
-                            try {
-                                binding.textViewErrorMessage.setText(errorResponse.getString("message"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            Log.e("info 406", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
+                            Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                        } else if (response.code() == 400) {
+                            binding.textViewErrorMessage.setText(response.errorBody().toString());
+                            Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                        } else if (response.code() == 406) {
+                            binding.textViewErrorMessage.setText(response.errorBody().toString());
+                            Log.e("info 406", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                         } else {
                             binding.textViewErrorMessage.setText("Error Occurred Try again later");
-                            if (errorResponse != null) {
-                                Log.e("info", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
+                            if (response.errorBody() != null) {
+                                Log.e("info", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                             } else {
-                                Log.e("info", "Something got very wrong, code: " + statusCode);
+                                Log.e("info", "Something got very wrong, code: " + response.code());
                             }
                         }
                         binding.textViewErrorMessage.setVisibility(View.VISIBLE);
@@ -307,17 +289,17 @@ public class WalletLoanAppPhotosFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                        if (errorResponse != null) {
-                            Log.e("info 1A: " + statusCode, new String(String.valueOf(errorResponse)));
-                        } else {
-                            Log.e("info 1A: " + statusCode, "Something got very very wrong");
-                        }
+                    public void onFailure(Call<WalletLoanAddPicResponse> call, Throwable t) {
+
+                            Log.e("info 1A: " , new String(String.valueOf(t.getMessage())));
+
+                            Log.e("info 1A: ", "Something got very very wrong");
+
 
                         dialog.dismiss();
-
                     }
                 });
+
 
 
             } catch (JSONException e) {

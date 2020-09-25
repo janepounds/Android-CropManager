@@ -110,12 +110,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_star"
+                            android:drawableEnd="@drawable/ic_star_rate"
                             android:gravity="center_vertical"
                             android:text="5"
                             android:textColor="@color/textColorPrimaryDark"
                             android:textSize="18sp"
-                            android:drawableRight="@drawable/ic_star" />
+                            android:drawableRight="@drawable/ic_star_rate" />
 
                         <ProgressBar
                             android:id="@+id/rating_progress_5"
@@ -138,12 +138,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_star"
+                            android:drawableEnd="@drawable/ic_star_rate"
                             android:gravity="center_vertical"
                             android:text="4"
                             android:textColor="@color/textColorPrimaryDark"
                             android:textSize="18sp"
-                            android:drawableRight="@drawable/ic_star" />
+                            android:drawableRight="@drawable/ic_star_rate" />
 
                         <ProgressBar
                             android:id="@+id/rating_progress_4"
@@ -166,12 +166,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_star"
+                            android:drawableEnd="@drawable/ic_star_rate"
                             android:gravity="center_vertical"
                             android:text="3"
                             android:textColor="@color/textColorPrimaryDark"
                             android:textSize="18sp"
-                            android:drawableRight="@drawable/ic_star" />
+                            android:drawableRight="@drawable/ic_star_rate" />
 
                         <ProgressBar
                             android:id="@+id/rating_progress_3"
@@ -194,12 +194,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_star"
+                            android:drawableEnd="@drawable/ic_star_rate"
                             android:gravity="center_vertical"
                             android:text="2"
                             android:textColor="@color/textColorPrimaryDark"
                             android:textSize="18sp"
-                            android:drawableRight="@drawable/ic_star" />
+                            android:drawableRight="@drawable/ic_star_rate" />
 
                         <ProgressBar
                             android:id="@+id/rating_progress_2"
@@ -222,12 +222,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_star"
+                            android:drawableEnd="@drawable/ic_star_rate"
                             android:gravity="center_vertical"
                             android:text="1"
                             android:textColor="@color/textColorPrimaryDark"
                             android:textSize="18sp"
-                            android:drawableRight="@drawable/ic_star" />
+                            android:drawableRight="@drawable/ic_star_rate" />
 
                         <ProgressBar
                             android:id="@+id/rating_progress_1"
