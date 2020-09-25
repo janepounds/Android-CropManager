@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class Products extends Fragment {
 
     TabLayout product_tabs;
     ViewPager product_viewpager;
+    TextView category_title;
 
     ViewPagerCustomAdapter viewPagerCustomAdapter;
 
@@ -69,6 +71,7 @@ public class Products extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.buy_inputs_products, container, false);
+        category_title= rootView.findViewById(R.id.txt_category_title);
 
         if (getArguments() != null) {
             if (getArguments().containsKey("sortBy")) {
@@ -85,6 +88,7 @@ public class Products extends Fragment {
 
             if (getArguments().containsKey("CategoryName")) {
                 selectedTabText = getArguments().getString("CategoryName", "Category");
+                category_title.setText(selectedTabText);
             }
         }
 
@@ -134,13 +138,10 @@ public class Products extends Fragment {
         viewPagerCustomAdapter = new ViewPagerCustomAdapter(getChildFragmentManager());
 
         // Initialize All_Products Fragment with specified arguments
-        Fragment allProducts = new All_Products();
         Bundle bundleInfo = new Bundle();
         bundleInfo.putString("sortBy", sortBy);
-        allProducts.setArguments(bundleInfo);
 
         // Add the Fragments to the ViewPagerAdapter with TabHeader
-        viewPagerCustomAdapter.addFragment(allProducts, getContext().getString(R.string.all));
 
 
         for (int i=0;  i < finalCategoriesList.size();  i++) {

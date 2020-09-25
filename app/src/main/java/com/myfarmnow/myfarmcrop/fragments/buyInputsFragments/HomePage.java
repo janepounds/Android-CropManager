@@ -27,34 +27,15 @@
 
  import am.appwise.components.ni.NoInternetDialog;
 
- public class HomePage_9 extends Fragment {
+ public class HomePage extends Fragment {
      View rootView;
 
      ViewPager viewPager;
-     TabLayout tabLayout;
      StartAppRequests startAppRequests;
 
      List<BannerDetails> bannerImages = new ArrayList<>();
      List<CategoryDetails> allCategoriesList = new ArrayList<>();
      FragmentManager fragmentManager;
-
-     Top_Seller topSeller;
-     Special_Deals specialDeals;
-     Most_Liked mostLiked;
-     All_Products allProducts;
-
-     @Override
-     public void onHiddenChanged(boolean hidden) {
-         super.onHiddenChanged(hidden);
-         if (!hidden) {
-             if (topSeller != null && specialDeals != null && mostLiked != null && allProducts != null){
-                 topSeller.invalidateProducts();
-                 specialDeals.invalidateProducts();
-                 mostLiked.invalidateProducts();
-                 allProducts.invalidateProducts();
-             }
-         }
-     }
 
      @Override
      public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,9 +55,7 @@
          bannerImages = ((CropManagerApp) getContext().getApplicationContext()).getBannersList();
          allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
 
-         // Binding Layout Views
-         viewPager = rootView.findViewById(R.id.myViewPager);
-         tabLayout = rootView.findViewById(R.id.tabs);
+         // Binding Layout View
 
          if (bannerImages.isEmpty() || allCategoriesList.isEmpty())
              new MyTask().execute();
@@ -94,10 +73,8 @@
          allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
          // Setup BannerSlider
          setupBannerSlider(bannerImages);
-         // Setup ViewPagers
-         setupViewPagerOne(viewPager);
+
          // Add corresponding ViewPagers to TabLayouts
-         tabLayout.setupWithViewPager(viewPager);
          fragmentManager = getFragmentManager();
 
          Bundle categoryBundle = new Bundle();
@@ -108,55 +85,11 @@
          categories.setArguments(categoryBundle);
          fragmentManager.beginTransaction().replace(R.id.home9_categories, categories).commit();
 
-         allProducts = new All_Products();
          Bundle bundleInfo = new Bundle();
          bundleInfo.putString("sortBy", "Newest");
-         allProducts.setArguments(bundleInfo);
-         fragmentManager.beginTransaction().replace(R.id.home9_products_fragment, allProducts).commit();
 
      }
 
-
-     //*********** Setup the given ViewPager ********//
-     private void setupViewPagerOne(ViewPager viewPager) {
-
-         // Initialize new Bundle for Fragment arguments
-         Bundle bundle = new Bundle();
-         bundle.putBoolean("isHeaderVisible", false);
-
-         // Initialize Fragments
-         topSeller = new Top_Seller();
-         specialDeals = new Special_Deals();
-         mostLiked = new Most_Liked();
-
-         topSeller.setArguments(bundle);
-         specialDeals.setArguments(bundle);
-         mostLiked.setArguments(bundle);
-
-
-         // Initialize ViewPagerAdapter with ChildFragmentManager for ViewPager
-         ViewPagerCustomAdapter viewPagerCustomAdapter = new ViewPagerCustomAdapter(getChildFragmentManager());
-
-         // Add the Fragments to the ViewPagerAdapter with TabHeader
-         viewPagerCustomAdapter.addFragment(topSeller, getString(R.string.topSeller));
-         viewPagerCustomAdapter.addFragment(specialDeals, getString(R.string.super_deals));
-         viewPagerCustomAdapter.addFragment(mostLiked, getString(R.string.most_liked));
-
-
-         viewPager.setOffscreenPageLimit(2);
-
-         // Attach the ViewPagerAdapter to given ViewPager
-         viewPager.setAdapter(viewPagerCustomAdapter);
-
-
-         /*Configuration config = getResources().getConfiguration();
-         if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-             //use the RTL trick here
-             viewPager.setRotationY(180);
-             viewPager.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-         }*/
-
-     }
 
      //*********** Setup the BannerSlider with the given List of BannerImages ********//
      private void setupBannerSlider(final List<BannerDetails> bannerImages) {

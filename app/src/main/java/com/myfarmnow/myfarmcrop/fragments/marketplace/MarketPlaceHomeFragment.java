@@ -21,9 +21,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropMachineServicesListActivity;
 import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.activities.marketplace.MarketPlaceActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMarketplaceHomeBinding;
+import com.myfarmnow.myfarmcrop.models.CropMachine;
 
 import java.util.Objects;
 
@@ -70,6 +72,7 @@ public class MarketPlaceHomeFragment extends Fragment {
         binding.sellProduce.setOnClickListener(v -> navController.navigate(R.id.action_marketPlaceHomeFragment_to_sellProduceFragment));
 
         binding.buyInputs.setOnClickListener(v -> {
+                    
             Intent buyInputs = new Intent(getActivity(), BuyInputsActivity.class);
             requireActivity().startActivity(buyInputs);
         });

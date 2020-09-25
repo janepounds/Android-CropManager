@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.network;
 
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantData;
+import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
@@ -32,6 +33,20 @@ import retrofit2.http.Query;
  **/
 
 public interface APIRequests {
+    //******************** News Data ********************//
+
+    @FormUrlEncoded
+    @POST("getallnews")
+    Call<NewsData> getAllNews(@Field("language_id") int language_id,
+                              @Field("page_number") int page_number,
+                              @Field("is_feature") int is_feature,
+                              @Field("categories_id") String categories_id);
+
+    @FormUrlEncoded
+    @POST("allnewscategories")
+    Call<com.myfarmnow.myfarmcrop.models.news_model.news_categories.NewsCategoryData> allNewsCategories(@Field("language_id") int language_id,
+                                                                                                  @Field("page_number") int page_number);
+
     //Update User
     @POST("update/{id}/{oldPassword}")
     Call<UserData> update(@Field("id")String id,

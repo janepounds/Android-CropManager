@@ -74,7 +74,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.loginRegister:
                 if (ConstantValues.IS_USER_LOGGED_IN){
-                    activity.enableBottomNavigation(false);
                     activity.getSupportFragmentManager()
                             .beginTransaction()
                             .add(R.id.main_fragment, new Update_Account())
@@ -94,7 +93,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 //                Utilities.rateMyApp(getActivity());
                 break;
             case R.id.settings:
-                activity.enableBottomNavigation(false);
                 activity.getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.main_fragment, new SettingsFragment())
@@ -102,7 +100,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                         .addToBackStack(null).commit();
                 break;
             case R.id.languages:
-                activity.enableBottomNavigation(false);
                 activity.getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.main_fragment, new Languages())
@@ -110,7 +107,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                         .addToBackStack(null).commit();
                 break;
             case R.id.currencies:
-                activity.enableBottomNavigation(false);
                 activity.getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.main_fragment, new CurrencyFrag())

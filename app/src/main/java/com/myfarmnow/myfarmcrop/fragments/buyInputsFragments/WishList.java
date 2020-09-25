@@ -51,8 +51,8 @@ public class WishList extends Fragment {
     TextView emptyRecord;
     TextView sortListText;
     ProgressBar progressBar, mainProgress;
-    ToggleButton filterButton;
-    ToggleButton toggleLayoutView;
+    LinearLayout filterLayout;
+
     RecyclerView favourites_recycler;
 
     GridLayoutManager gridLayoutManager;
@@ -90,12 +90,12 @@ public class WishList extends Fragment {
 
 
         // Binding Layout Views
-        bottomBar = rootView.findViewById(R.id .bottomBar);
+        bottomBar = rootView.findViewById(R.id .topBar);
         sortListText = rootView.findViewById(R.id.sort_text);
         emptyRecord = rootView.findViewById(R.id.empty_record);
         progressBar = rootView.findViewById(R.id.loading_bar);
-        filterButton = rootView.findViewById(R.id.filterBtn);
-        toggleLayoutView = rootView.findViewById(R.id.layout_toggleBtn);
+        filterLayout = rootView.findViewById(R.id.filter_layout);
+//        toggleLayoutView = rootView.findViewById(R.id.layout_toggleBtn);
         favourites_recycler = rootView.findViewById(R.id.products_recycler);
         mainProgress = rootView.findViewById(R.id.progressBar);
 
@@ -104,7 +104,7 @@ public class WishList extends Fragment {
         bottomBar.setVisibility(View.GONE);
         emptyRecord.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
-        filterButton.setVisibility(View.GONE);
+        filterLayout.setVisibility(View.GONE);
         mainProgress.setVisibility(View.GONE);
 
 

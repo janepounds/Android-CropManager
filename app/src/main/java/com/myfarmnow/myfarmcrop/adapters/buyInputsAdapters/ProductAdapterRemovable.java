@@ -310,7 +310,7 @@ public class ProductAdapterRemovable extends RecyclerView.Adapter<ProductAdapter
 
     private void setupDefaultLayoutId() {
         defaultSmLayoutId = R.layout.layout_product_18_grid_sm;
-        defaultLgLayoutId = R.layout.layout_product_18_grid_lg;
+        defaultLgLayoutId = R.layout.layout_product_major;
     }
 }
 

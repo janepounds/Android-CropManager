@@ -2135,5 +2135,6 @@
     <string name="select_merchants_fragment" translatable="false">select_merchants_fragment</string>
     <string name="sendemail">SEND EMAIL</string>
     <string name="forgot_title">Enter the email address you used to create your account and we will email you a link to reset your password</string>
+    <string name="filter">Filter</string>
 
 </resources>
