@@ -4,6 +4,9 @@ package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -48,8 +51,8 @@ public class WishList extends Fragment {
     TextView emptyRecord;
     TextView sortListText;
     ProgressBar progressBar, mainProgress;
-    ToggleButton filterButton;
-    ToggleButton toggleLayoutView;
+    LinearLayout filterLayout;
+
     RecyclerView favourites_recycler;
 
     GridLayoutManager gridLayoutManager;
@@ -74,7 +77,7 @@ public class WishList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.buy_inputs_f_products_vertical, container, false);
-
+        setHasOptionsMenu(true);
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionFavourites));
@@ -87,12 +90,12 @@ public class WishList extends Fragment {
 
 
         // Binding Layout Views
-        bottomBar = rootView.findViewById(R.id .bottomBar);
+        bottomBar = rootView.findViewById(R.id .topBar);
         sortListText = rootView.findViewById(R.id.sort_text);
         emptyRecord = rootView.findViewById(R.id.empty_record);
         progressBar = rootView.findViewById(R.id.loading_bar);
-        filterButton = rootView.findViewById(R.id.filterBtn);
-        toggleLayoutView = rootView.findViewById(R.id.layout_toggleBtn);
+        filterLayout = rootView.findViewById(R.id.filter_layout);
+//        toggleLayoutView = rootView.findViewById(R.id.layout_toggleBtn);
         favourites_recycler = rootView.findViewById(R.id.products_recycler);
         mainProgress = rootView.findViewById(R.id.progressBar);
 
@@ -101,7 +104,7 @@ public class WishList extends Fragment {
         bottomBar.setVisibility(View.GONE);
         emptyRecord.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
-        filterButton.setVisibility(View.GONE);
+        filterLayout.setVisibility(View.GONE);
         mainProgress.setVisibility(View.GONE);
 
 
@@ -225,7 +228,20 @@ public class WishList extends Fragment {
         });
     }
 
-
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
+    }
 
     /*********** LoadMoreTask Used to Load more Products from the Server in the Background Thread using AsyncTask ********/
 

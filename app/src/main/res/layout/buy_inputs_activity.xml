@@ -20,27 +20,17 @@
                 android:id="@+id/main_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/bottomNavigation" />
+                android:layout_above="@id/btm_navigation" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigation"
+                android:id="@+id/btm_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:theme="@style/BottomNavigationTheme"
-                app:menu="@menu/bottomnavigaiotn_menu" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/settingsFabBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_above="@id/bottomNavigation"
-                android:layout_margin="@dimen/margin_16"
-                android:theme="@style/BottomNavigationTheme"
-                android:src="@drawable/ic_settings"
-                android:tint="@color/white" />
+                android:background="@color/white"
+                app:labelVisibilityMode="auto"
+                app:itemIconTint="@color/transparent"
+                app:menu="@menu/bottom_navigation_menu" />
 
         </RelativeLayout>
 

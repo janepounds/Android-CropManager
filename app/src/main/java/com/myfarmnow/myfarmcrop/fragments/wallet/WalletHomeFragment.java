@@ -30,12 +30,15 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentWalletHomeBinding;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.Buy;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyMobile;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVisa;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVoucher;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.TransferMoney;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +46,9 @@ import org.json.JSONObject;
 import java.text.NumberFormat;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WalletHomeFragment extends Fragment {
     private static final String TAG = "WalletHomeFragment";
@@ -200,66 +206,46 @@ public class WalletHomeFragment extends Fragment {
     }
 
     public void updateBalance() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        Log.w("Token", WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.context));
-        client.get(ApiPaths.WALLET_GET_BALANCE, params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
-
+        /***************RETROFIT IMPLEMENTATION****************/
+        dialog = new ProgressDialog(context);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(true);
+        dialog.show();
+        String access_token =WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<BalanceResponse> call = apiRequests.requestBalance(access_token);
+        call.enqueue(new Callback<BalanceResponse>() {
             @Override
-            public void onStart() {
-                dialog = new ProgressDialog(context);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(true);
-                dialog.show();
-            }
+            public void onResponse(Call<BalanceResponse> call, Response<BalanceResponse> response) {
+                if(response.code()==200) {
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    balance = response.getDouble("balance");
+                    balance = response.body().getData().getBalance();
 
                     Log.d(TAG, "onSuccess: Balance = " + balance);
 
                     binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                dialog.dismiss();
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                if (statusCode == 401) {
+                    dialog.dismiss();
+                }else if(response.code()==401){
                     Toast.makeText(context, "Session Expired", Toast.LENGTH_LONG).show();
-                    // WalletAuthActivity.startAuth(context, true);
-
                 }
-                if (errorResponse != null) {
-                    Log.e("info", new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info", "Something got very very wrong");
+                else {
+                    Log.e("info", new String(String.valueOf(response.body().getMessage())));
                 }
 
-//                dialog.dismiss();
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : " + statusCode, "Something got very very wrong");
-                }
+            public void onFailure(Call<BalanceResponse> call, Throwable t) {
+                Log.e("info : " , new String(String.valueOf(t.getMessage())));
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
                 WalletAuthActivity.startAuth(context, false);
+
             }
         });
+
     }
 
 

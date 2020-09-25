@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="5dp">
 
-    <com.cabral.emaisha.customs.CircularImageView
+    <com.myfarmnow.myfarmcrop.customs.CircularImageView
         android:id="@+id/author_image"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -46,8 +46,12 @@ public class OffersFragment extends Fragment {
         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
         MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
         MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
         profileItem.setVisible(false);
         languageItem.setVisible(false);
         currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
     }
 }

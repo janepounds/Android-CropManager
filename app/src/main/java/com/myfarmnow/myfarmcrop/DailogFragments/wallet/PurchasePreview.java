@@ -24,8 +24,13 @@ import androidx.fragment.app.DialogFragment;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.MerchantInfoResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletPurchaseConfirmResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletPurchaseResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -46,6 +51,9 @@ import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PurchasePreview extends DialogFragment {
     ScrollView summaryScrollView;
@@ -124,69 +132,53 @@ public class PurchasePreview extends DialogFragment {
     }
 
     public void getMechantName(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        Log.d("URL", ApiPaths.MERCHANT_GET_INFO+WalletPurchase.getInstance().getMechantId());
-        client.get(ApiPaths.MERCHANT_GET_INFO+WalletPurchase.getInstance().getMechantId(), params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
-            @Override
-            public void onStart() {
-                dialog = new ProgressDialog(activity);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(false);
-                dialog.show();
-            }
 
-
+        /***************RETROFIT IMPLEMENTATION***********************/
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(activity);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        int merchantId = Integer.parseInt(WalletPurchase.getInstance().getMechantId());
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<MerchantInfoResponse> call = apiRequests.getMerchant(access_token,merchantId);
+        call.enqueue(new Callback<MerchantInfoResponse>() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                try {
-                    businessName = response.getString("businessName");
+            public void onResponse(Call<MerchantInfoResponse> call, Response<MerchantInfoResponse> response) {
+                if(response.code()==200){
+                    businessName = response.body().getData().getBusinessName();
                     mechantNameTextView.setText(businessName);
                     confirmBtn.setVisibility(View.VISIBLE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                if(statusCode==412) {
+                    dialog.dismiss();
+                }else if(response.code()==412) {
                     String businessName = null;
-                    try {
-                        businessName = errorResponse.getString("message");
-                        mechantNameTextView.setText(businessName);
-                        errorTextView.setText(businessName);
-                        errorTextView.setVisibility(View.VISIBLE);
-                        // confirmBtn.setEnabled(true);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    businessName = response.body().getMessage();
+                    mechantNameTextView.setText(businessName);
+                    errorTextView.setText(businessName);
+                    errorTextView.setVisibility(View.VISIBLE);
+                    // confirmBtn.setEnabled(true);
                 }
-                else if(statusCode==401){
+                else if(response.code()==401){
                     WalletAuthActivity.startAuth(activity, true);
                 }
-                if (errorResponse != null) {
-                    Log.e("info", String.valueOf(errorResponse));
+                if (response.errorBody() != null) {
+                    Log.e("info", String.valueOf(response.errorBody()));
                 } else {
                     Log.e("info", "Something got very very wrong");
                 }
 
                 dialog.dismiss();
             }
+
             @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, errorResponse);
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
+            public void onFailure(Call<MerchantInfoResponse> call, Throwable t) {
+
+                    Log.e("info : ", t.getMessage());
+                    Log.e("info : ", "Something got very very wrong");
+
                 mechantNameTextView.setText("Unknown Merchant");
 
                 errorTextView.setText("Error while checking for mechant occured");
@@ -194,44 +186,29 @@ public class PurchasePreview extends DialogFragment {
                 dialog.dismiss();
             }
         });
+
+
     }
 
     public void processPayment(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
 
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("merchantId",WalletPurchase.getInstance().getMechantId());
-            requestObject.put("amount",WalletPurchase.getInstance().getAmount());
-            requestObject.put("coupon",WalletPurchase.getInstance().getCoupon());
-
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                return;
-            }
-
-
-            client.post(activity, ApiPaths.WALLET_PAY_MERCHANT,params,"application/json", new JsonHttpResponseHandler() {
-                ProgressDialog dialog;
-                @Override
-                public void onStart() {
-                    dialog = new ProgressDialog(activity);
-                    dialog.setIndeterminate(true);
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //logic to save the updated fields
+        /*****RETROFIT IMPLEMENTATION******/
+        int merchantId =Integer.parseInt(WalletPurchase.getInstance().getMechantId());
+        double amount = WalletPurchase.getInstance().getAmount();
+        String coupon  = WalletPurchase.getInstance().getCoupon();
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(activity);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
+        Call<WalletPurchaseResponse> call = apiRequests.makeTransaction(access_token,merchantId,amount,coupon);
+        call.enqueue(new Callback<WalletPurchaseResponse>() {
+            @Override
+            public void onResponse(Call<WalletPurchaseResponse> call, Response<WalletPurchaseResponse> response) {
+                if(response.code()== 200){
                     dialog.dismiss();
                     final Dialog dialog = new Dialog(activity);
                     dialog.setContentView(R.layout.wallet_dialog_one_button);
@@ -254,131 +231,85 @@ public class PurchasePreview extends DialogFragment {
                     });
                     dialog.show();
 
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                    try {
-                        errorTextView.setText(errorResponse.getString("message"));
-                        error_message_layout.setVisibility(View.VISIBLE);
-                        errorTextView.setVisibility(View.VISIBLE);
-                        if(errorResponse != null){
-                            Log.e("BACKUP RESPONSE 1A"+statusCode,errorResponse.toString());
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        errorTextView.setText("Error occured! Try again later");
-                    }
-
-                    dialog.dismiss();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1A: "+statusCode, errorResponse);
-                    } else {
-                        Log.e("info 1A: "+statusCode, "Something got very very wrong");
-                    }
-                    errorTextView.setText("Error occured! Try again later");
+                }else{
+                    errorTextView.setText(response.errorBody().toString());
                     error_message_layout.setVisibility(View.VISIBLE);
                     errorTextView.setVisibility(View.VISIBLE);
+                    if(response.errorBody() != null){
+                        Log.e("BACKUP RESPONSE 1A"+response.code(),response.errorBody().toString());
+                    }
+
                     dialog.dismiss();
 
                 }
-            });
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-    public void comfirmPayment(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-
-            requestObject.put("merchantId",WalletPurchase.getInstance().getMechantId());
-            requestObject.put("amount",WalletPurchase.getInstance().getAmount());
-            requestObject.put("coupon",WalletPurchase.getInstance().getCoupon());
-            Log.e("Coupon Error",WalletPurchase.getInstance().getCoupon());
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                return;
             }
 
+            @Override
+            public void onFailure(Call<WalletPurchaseResponse> call, Throwable t) {
 
-            client.post(activity, ApiPaths.WALLET_CPMFIRM_PAY_MERCHANT,params,"application/json", new JsonHttpResponseHandler() {
-                ProgressDialog dialog;
-                @Override
-                public void onStart() {
-                    dialog = new ProgressDialog(activity);
-                    dialog.setIndeterminate(true);
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
-                }
+                    Log.e("info 1A: ", t.getMessage());
+                    Log.e("info 1A: ", "Something got very very wrong");
 
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //logic to save the updated fields
+                errorTextView.setText("Error occured! Try again later");
+                error_message_layout.setVisibility(View.VISIBLE);
+                errorTextView.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+
+            }
+
+        });
+
+
+    }
+    public void comfirmPayment(){
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(activity);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
+        int merchantId =Integer.parseInt(WalletPurchase.getInstance().getMechantId());
+        double amount = WalletPurchase.getInstance().getAmount();
+        String coupon  = WalletPurchase.getInstance().getCoupon();
+
+        /*********RETROFIT IMPLEMENTATION**************/
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<WalletPurchaseConfirmResponse> call = apiRequests.confirmPayment(merchantId,amount,coupon);
+        call.enqueue(new Callback<WalletPurchaseConfirmResponse>() {
+            @Override
+            public void onResponse(Call<WalletPurchaseConfirmResponse> call, Response<WalletPurchaseConfirmResponse> response) {
+                if(response.code() == 200){
                     dialog.dismiss();
                     discount_layout.setVisibility(View.VISIBLE);
                     discountTextView.setVisibility(View.VISIBLE);
-                    try {
-                        discountTextView.setText("UGX "+response.getString("discount"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e("Success message Failure",e.getMessage());
-                    }
 
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
-                    try {
-                        errorTextView.setText(errorResponse.getString("message"));
-                        error_message_layout.setVisibility(View.VISIBLE);
-                        errorTextView.setVisibility(View.VISIBLE);
-                        if(errorResponse != null){
-                            Log.e("BACKUP RESPONSE 1A"+statusCode,errorResponse.toString());
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        errorTextView.setText("Error occured! Try again later");
-                    }
-
-                    dialog.dismiss();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1A: "+statusCode, errorResponse);
-                    } else {
-                        Log.e("info 1A: "+statusCode, "Something got very very wrong");
-                    }
-                    errorTextView.setText("Error occured! Try again later");
+                    discountTextView.setText("UGX "+response.body().getData().getCharge());
+                }else {
+                    errorTextView.setText(response.errorBody().toString());
                     error_message_layout.setVisibility(View.VISIBLE);
                     errorTextView.setVisibility(View.VISIBLE);
+                    if(response.errorBody() != null){
+                        Log.e("BACKUP RESPONSE 1A"+response.code(),response.errorBody().toString());
+                    }
+
                     dialog.dismiss();
 
                 }
-            });
+
+            }
+
+            @Override
+            public void onFailure(Call<WalletPurchaseConfirmResponse> call, Throwable t) {
+
+                    Log.e("info 1A: ", t.getMessage());
+                    Log.e("info 1A: ", "Something got very very wrong");
+                errorTextView.setText("Error occured! Try again later");
+                error_message_layout.setVisibility(View.VISIBLE);
+                errorTextView.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        });
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }

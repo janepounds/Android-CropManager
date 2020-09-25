@@ -60,13 +60,14 @@ public class Category_Products extends Fragment {
     String sortBy = "Newest";
 
     LinearLayout bottomBar;
+    LinearLayout layout_filter;
     LinearLayout sortList;
+    Button resetFiltersBtn;
+
     TextView emptyRecord;
     TextView sortListText;
-    Button resetFiltersBtn;
     ProgressBar progressBar, mainProgress;
-    ToggleButton filterButton;
-    ToggleButton toggleLayoutView;
+
     RecyclerView category_products_recycler;
     
     LoadMoreTask loadMoreTask;
@@ -116,14 +117,13 @@ public class Category_Products extends Fragment {
 
 
         // Binding Layout Views
-        bottomBar = rootView.findViewById(R.id.bottomBar);
+        bottomBar = rootView.findViewById(R.id.topBar);
         sortList = rootView.findViewById(R.id.sort_list);
         sortListText = rootView.findViewById(R.id.sort_text);
         emptyRecord = rootView.findViewById(R.id.empty_record);
         progressBar =  rootView.findViewById(R.id.loading_bar);
         resetFiltersBtn = rootView.findViewById(R.id.resetFiltersBtn);
-        filterButton = rootView.findViewById(R.id.filterBtn);
-        toggleLayoutView = rootView.findViewById(R.id.layout_toggleBtn);
+        layout_filter = rootView.findViewById(R.id.filter_layout);
         category_products_recycler = rootView.findViewById(R.id.products_recycler);
         mainProgress = rootView.findViewById(R.id.progressBar);
 
@@ -133,10 +133,9 @@ public class Category_Products extends Fragment {
         resetFiltersBtn.setVisibility(View.GONE);
         
         
-        isGridView = true;
+        isGridView = false;
         isFilterApplied = false;
-        filterButton.setChecked(isFilterApplied);
-        toggleLayoutView.setChecked(isGridView);
+//        layout_filter.setChecked(isFilterApplied);
     
     
         // Set sortListText text
@@ -165,7 +164,7 @@ public class Category_Products extends Fragment {
         // Initialize GridLayoutManager and LinearLayoutManager
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         linearLayoutManager = new LinearLayoutManager(getContext());
-        if(categoryProductsList.size()<5)
+        if(categoryProductsList.size()<3)
             bottomBar.setVisibility(View.INVISIBLE);
         // Initialize the ProductAdapter for RecyclerView
         productAdapter = new ProductAdapter(getContext(), categoryProductsList, false,false);
@@ -199,14 +198,7 @@ public class Category_Products extends Fragment {
         productAdapter.notifyDataSetChanged();
     
     
-        // Toggle RecyclerView's LayoutManager
-        toggleLayoutView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isGridView = isChecked;
-                setRecyclerViewLayoutManager(isGridView);
-            }
-        });
+
 
 
         // Initialize FilterDialog and Override its abstract methods
@@ -215,7 +207,7 @@ public class Category_Products extends Fragment {
             public void clearFilters() {
                 // Clear Filters
                 isFilterApplied = false;
-                filterButton.setChecked(false);
+//                layout_filter.setChecked(false);
                 filters = null;
                 categoryProductsList.clear();
                 new LoadMoreTask(pageNo, filters).execute();
@@ -225,7 +217,7 @@ public class Category_Products extends Fragment {
             public void applyFilters(PostFilterData postFilterData) {
                 // Apply Filters
                 isFilterApplied = true;
-                filterButton.setChecked(true);
+//                layout_filter.setChecked(true);
                 filters = postFilterData;
                 categoryProductsList.clear();
                 new LoadMoreTask(pageNo, filters).execute();
@@ -234,21 +226,21 @@ public class Category_Products extends Fragment {
 
 
         // Handle the Click event of Filter Button
-        filterButton.setOnClickListener(new View.OnClickListener() {
+        layout_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (isFilterApplied) {
-                    filterButton.setChecked(true);
+//                    layout_filter.setChecked(true);
                     filterDialog.show();
 
                 } else {
-                    filterButton.setChecked(false);
+//                    layout_filter.setVisibility(View.INVISIBLE);
                     filterDialog = new FilterDialog(getContext(), categoryID, filtersList, maxPrice) {
                         @Override
                         public void clearFilters() {
                             isFilterApplied = false;
-                            filterButton.setChecked(false);
+//                            layout_filter.setChecked(false);
                             filters = null;
                             categoryProductsList.clear();
                             new LoadMoreTask(pageNo, filters).execute();
@@ -257,7 +249,7 @@ public class Category_Products extends Fragment {
                         @Override
                         public void applyFilters(PostFilterData postFilterData) {
                             isFilterApplied = true;
-                            filterButton.setChecked(true);
+//                            layout_filter.setChecked(true);
                             filters = postFilterData;
                             categoryProductsList.clear();
                             new LoadMoreTask(pageNo, filters).execute();
@@ -357,7 +349,7 @@ public class Category_Products extends Fragment {
             @Override
             public void onClick(View v) {
                 isFilterApplied = false;
-                filterButton.setChecked(false);
+//                layout_filter.setChecked(false);
                 filters = null;
                 categoryProductsList.clear();
                 new LoadMoreTask(pageNo, filters).execute();

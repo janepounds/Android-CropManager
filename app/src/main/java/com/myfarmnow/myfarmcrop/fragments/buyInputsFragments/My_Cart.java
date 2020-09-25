@@ -372,6 +372,8 @@ public class My_Cart extends Fragment {
         // Hide Cart Icon in the Toolbar
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
         MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        profileItem.setVisible(false);
         cartItem.setVisible(false);
         searchItem.setVisible(true);
     }

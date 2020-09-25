@@ -9,8 +9,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionReceiptResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -26,6 +30,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //import com.myfarmnow.myfarmcrop.wallet.database.MyFarmDbHandlerSingleton;
 
@@ -62,95 +69,86 @@ public class WalletPurchaseCardPreviewActivity extends AppCompatActivity {
         if(!getIntent().hasExtra("referenceNumber")){
             finish();
         }
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
-
-        client.get(ApiPaths.WALLET_PAYMENTS_MERCHANT_RECEIPT +getIntent().getStringExtra("referenceNumber"), params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(WalletPurchaseCardPreviewActivity.this);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
+        /******************RETROFIT IMPLEMENTATION************************/
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<WalletTransactionReceiptResponse> call = apiRequests.getReceipt(WalletAuthActivity.WALLET_ACCESS_TOKEN,getIntent().getStringExtra("referenceNumber"));
+        call.enqueue(new Callback<WalletTransactionReceiptResponse>() {
             @Override
-            public void onStart() {
-                dialog = new ProgressDialog(WalletPurchaseCardPreviewActivity.this);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(false);
-                dialog.show();
+            public void onResponse(Call<WalletTransactionReceiptResponse> call, Response<WalletTransactionReceiptResponse> response) {
+                if(response.code()== 200){
+                    try {
+                        WalletTransactionReceiptResponse.ReceiptData.TransactionsData transaction = response.body().getData().getTransaction();
+
+                        totalTextView.setText("UGX "+ NumberFormat.getInstance().format(transaction.getAmount()));
+                        referenceNoTextView.setText(transaction.getReferenceNumber());
+                        merchantNameTextView.setText(transaction.getReceiver());
+                        SimpleDateFormat localFormat = new SimpleDateFormat(WalletSettingsSingleton.getInstance().getDateFormat()+" '|' HH:mm:ss a", Locale.ENGLISH);
+                        localFormat.setTimeZone(TimeZone.getDefault());
+                        String currentDateandTime = null;
+                        SimpleDateFormat incomingFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        incomingFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        currentDateandTime = localFormat.format(incomingFormat.parse(transaction.getDate()));
+                        dateTextView.setText(currentDateandTime);
+
+                        if(transaction.getStatus().equals("Completed"))
+                            statusTextView.setText("Successful");
+                        else
+                            statusTextView.setText(transaction.getStatus());
+
+                        receiptNumberTextView.setText(transaction.getReceiptNumber());
+
+                        if(transaction.getType().equals("FoodPurchase"))
+                            serviceTextView.setText("Food Purchase");
+                        else
+                            serviceTextView.setText("Money "+transaction.getType());
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        Log.e("Info2: ","-"+e.getMessage());
+                    }
+
+
+                    dialog.dismiss();
+                }else
+                    if(response.code()==401){
+                        WalletAuthActivity.startAuth(WalletPurchaseCardPreviewActivity.this, true);
+                    }
+                    else{
+                        errorTextView.setText("Error while loading receipt");
+                        errorTextView.setVisibility(View.VISIBLE);
+                    }
+                    if (response.errorBody() != null) {
+                        Log.e("info", new String(String.valueOf(response.errorBody())));
+                    } else {
+                        Log.e("info", "Something got very very wrong");
+                    }
+                    dialog.dismiss();
+
+
             }
+
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                try {
-                    JSONObject transaction = response.getJSONObject("transaction");
-                    totalTextView.setText("UGX "+ NumberFormat.getInstance().format(transaction.getDouble("amount")));
-                    referenceNoTextView.setText(transaction.getString("referenceNumber"));
-                    merchantNameTextView.setText(transaction.getString("receiver"));
-                    SimpleDateFormat localFormat = new SimpleDateFormat(WalletSettingsSingleton.getInstance().getDateFormat()+" '|' HH:mm:ss a", Locale.ENGLISH);
-                    localFormat.setTimeZone(TimeZone.getDefault());
-                    String currentDateandTime = null;
-                    SimpleDateFormat incomingFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    incomingFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    currentDateandTime = localFormat.format(incomingFormat.parse(transaction.getString("date")));
-                    dateTextView.setText(currentDateandTime);
+            public void onFailure(Call<WalletTransactionReceiptResponse> call, Throwable t) {
 
-                    if(transaction.getString("status").equals("Completed"))
-                        statusTextView.setText("Successful");
-                    else
-                    statusTextView.setText(transaction.getString("status"));
+                    Log.e("info : ", new String(String.valueOf(t.getMessage())));
 
-                    receiptNumberTextView.setText(transaction.getString("receiptNumber"));
+                    Log.e("info : " ,"Something got very very wrong");
 
-                    if(transaction.getString("type").equals("FoodPurchase"))
-                        serviceTextView.setText("Food Purchase");
-                    else
-                        serviceTextView.setText("Money "+transaction.getString("type"));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("Info1: ","-"+e.getMessage());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    Log.e("Info2: ","-"+e.getMessage());
-                }
-
-
-                dialog.dismiss();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if(statusCode==401){
-                    WalletAuthActivity.startAuth(WalletPurchaseCardPreviewActivity.this, true);
-                }
-                else{
-                    errorTextView.setText("Error while loading receipt");
-                    errorTextView.setVisibility(View.VISIBLE);
-                }
-                if (errorResponse != null) {
-                    Log.e("info", new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info", "Something got very very wrong");
-                }
-                dialog.dismiss();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
 
                 errorTextView.setText("Error while loading receipt");
                 errorTextView.setVisibility(View.VISIBLE);
-                //WalletAuthActivity.startAuth(WalletPurchaseCardPreviewActivity.this, true);
             }
         });
 
 
-
-
     }
-
-
 
 
 }

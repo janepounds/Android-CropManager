@@ -2,6 +2,8 @@ package com.myfarmnow.myfarmcrop.helpers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletAuthentication;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletUserRegistration;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
@@ -31,12 +35,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class WalletLoginHelper {
-
+public class WalletLoginHelper extends AppCompatActivity{
 
 
     public static void checkLogin(final String rawpassword, final Context context, final TextView errorTextView, final ProgressDialog dialog) {
+
         final RequestParams params = new RequestParams();
+
         /*****RETROFIT IMPLEMENTATION*******/
         final String email = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, context);
         final String phoneNumber = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, context);
@@ -44,42 +49,33 @@ public class WalletLoginHelper {
         params.put("password", rawpassword);
         params.put("phoneNumber", phoneNumber);
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<UserData> call = apiRequests.authenticate(email,rawpassword);
+        Call<WalletAuthentication> call = apiRequests.authenticate(email,rawpassword);
         Log.w("email_log",email);
-        Log.e("Info ", ApiPaths.Emaisha_Wallet_LOGIN_GET_ALL + "?" + params);
+        Log.w("Info ", ApiPaths.Emaisha_Wallet_LOGIN_GET_ALL + "?" + params);
         dialog.show();
-        call.enqueue(new Callback<UserData>() {
+        call.enqueue(new Callback<WalletAuthentication>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-                if (response.isSuccessful()) {
-                    String status = response.body().getSuccess();
+            public void onResponse(Call<WalletAuthentication> call, Response<WalletAuthentication> response) {
+                if(response.code()==200){
                     try {
-                        if (status.equals("failure")) {
+                    Gson gson = new Gson();
+                    String user = gson.toJson(response.body().getData());
+                    JSONObject object =new JSONObject(user);
 
-                            Toast.makeText(context, "Invalid login detail", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            Gson gson = new Gson();
-                            String user = gson.toJson(response.body().getData());
-                            JSONObject object =new JSONObject(user);
-                            Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
-                            Log.e("response", response.toString());
-                            WalletHomeActivity.saveUser(object, context);
-                            ((AppCompatActivity) context).finish();
-                            dialog.dismiss();
-                            WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
-
-
-                        }
+                    Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
+                    Log.d("response", response.toString());
+                    WalletHomeActivity.saveUser(object, context);
+                    ((AppCompatActivity) context).finish();
+                    dialog.dismiss();
+                    WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if(response.errorBody()!=null){
-                    Log.e("info1 " , String.valueOf(response.errorBody().toString()));
-                }
 
-                if (response.code() == 403) {
-                    //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();
+                }else if(response.code()==404){
+                    WalletLoginHelper.userRegister(dialog, context, rawpassword);
+
+                }else if(response.code()==403){
                     if (errorTextView != null) {
                         errorTextView.setText(response.body().getMessage());
                         errorTextView.setVisibility(View.VISIBLE);
@@ -87,26 +83,14 @@ public class WalletLoginHelper {
                     }
 
 
-                } else if (response.code() == 404) {
-
-                    WalletLoginHelper.userRegister(dialog, context, rawpassword);
                 }
-                dialog.dismiss();
 
 
             }
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                Log.e("info1 " , String.valueOf(t.getMessage()));
-
-                Log.e("info1", "Something got very  wrong 0001");
-
-                try {
-                    dialog.dismiss();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onFailure(Call<WalletAuthentication> call, Throwable t) {
+                Log.e("info2 : " , t.getMessage());
 
             }
         });
@@ -136,14 +120,16 @@ public class WalletLoginHelper {
 
 
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<UserData> call = apiRequests.create(firstname,lastname,email,password,phoneNumber,addressStreet,addressCityOrTown);
-        call.enqueue(new Callback<UserData>() {
+        Call<WalletUserRegistration> call = apiRequests.create(firstname,lastname,email,password,phoneNumber,addressStreet,addressCityOrTown);
+        call.enqueue(new Callback<WalletUserRegistration>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-                if (response.isSuccessful()){
+            public void onResponse(Call<WalletUserRegistration> call, Response<WalletUserRegistration> response) {
+                if (response.code()==200){
                     try {
+                        //get user data
+                        WalletUserRegistration.ResponseData userdata = response.body().getData();
                         Gson gson = new Gson();
-                        String user = gson.toJson(response.body().getData());
+                        String user = gson.toJson(userdata);
                         JSONObject object =new JSONObject(user);
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                         Log.e("response", response.toString());
@@ -157,11 +143,10 @@ public class WalletLoginHelper {
                         e.printStackTrace();
                         Log.e("Error:", e.getMessage());
                     }
-                }else{
-                    if (response.code() == 403) {
+                }else if (response.code() == 403) {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
 
-                    } else if (response.code() == 400 ) {
+                    } else if (response.code() == 400) {
                         //user has account
                         Log.w("Account Exists", "Attempting  User Login");
                         WalletLoginHelper.checkLogin(rawPassword, context, null, dialog);
@@ -172,10 +157,10 @@ public class WalletLoginHelper {
                     }
 
                 }
-            }
+
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
+            public void onFailure(Call<WalletUserRegistration> call, Throwable t) {
 
                     Log.e("info : " , t.getMessage());
 
