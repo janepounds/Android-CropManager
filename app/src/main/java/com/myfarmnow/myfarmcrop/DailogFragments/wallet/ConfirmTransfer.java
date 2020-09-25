@@ -23,7 +23,10 @@ import androidx.fragment.app.DialogFragment;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.InitiateTransferResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -39,6 +42,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmTransfer extends DialogFragment {
 
@@ -198,102 +204,83 @@ public class ConfirmTransfer extends DialogFragment {
     }
 
     public void initiateDeposit(final String phoneNumber, final float amount) {
+        ProgressDialog dialog;
         String countryCode = "+256";
-
+        String access_token =WalletAuthActivity.WALLET_ACCESS_TOKEN;
         Toast.makeText(activity, phoneNumber, Toast.LENGTH_LONG).show();
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-        client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);
-        params.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, activity));
-        params.put("countryCode", countryCode);
-        params.put("receiverPhoneNumber", phoneNumber);
-        params.put("amount", amount);
-        params.put("currency", "UGX");
-        client.setTimeout(20000);
-        client.post(ApiPaths.WALLET_INITIATE_TRANSFER, params, new JsonHttpResponseHandler() {
-            ProgressDialog dialog;
-
+        dialog = new ProgressDialog(activity);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
+        /*****RETROFIT IMPLEMENTATION*****/
+        APIRequests apiRequests = APIClient.getWalletInstance();
+        Call<InitiateTransferResponse> call = apiRequests.initiateTransfer(access_token,Double.parseDouble(new Float(amount).toString()),phoneNumber);
+        call.enqueue(new Callback<InitiateTransferResponse>() {
             @Override
-            public void onStart() {
+            public void onResponse(Call<InitiateTransferResponse> call, Response<InitiateTransferResponse> response) {
+                if(response.code() ==200){
+                    dialog.dismiss();
+                    final Dialog dialog = new Dialog(activity);
+                    dialog.setContentView(R.layout.wallet_dialog_one_button);
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
+                    TextView text = dialog.findViewById(R.id.dlg_one_button_tv_message);
+                    text.setText("You have transferred UGX " + NumberFormat.getInstance().format(amount) + " to " + businessName);
+                    TextView title = dialog.findViewById(R.id.dlg_one_button_tv_title);
+                    title.setText("SUCCESS!");
+                    Button dialogButton = (Button) dialog.findViewById(R.id.dlg_one_button_btn_ok);
+                    dialogButton.setText("OK");
+                    dialogButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            //finish();
+                            Intent goToWallet = new Intent(activity, WalletHomeActivity.class);
+                            startActivity(goToWallet);
+                        }
+                    });
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    dialog.show();
 
-                dialog = new ProgressDialog(activity);
-                dialog.setIndeterminate(true);
-                dialog.setMessage("Please Wait..");
-                dialog.setCancelable(false);
-                dialog.show();
-            }
-
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-                dialog.dismiss();
-                final Dialog dialog = new Dialog(activity);
-                dialog.setContentView(R.layout.wallet_dialog_one_button);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.setCancelable(false);
-                TextView text = dialog.findViewById(R.id.dlg_one_button_tv_message);
-                text.setText("You have transferred UGX " + NumberFormat.getInstance().format(amount) + " to " + businessName);
-                TextView title = dialog.findViewById(R.id.dlg_one_button_tv_title);
-                title.setText("SUCCESS!");
-                Button dialogButton = (Button) dialog.findViewById(R.id.dlg_one_button_btn_ok);
-                dialogButton.setText("OK");
-                dialogButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        //finish();
-                        Intent goToWallet = new Intent(activity, WalletHomeActivity.class);
-                        startActivity(goToWallet);
-                    }
-                });
-                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                dialog.show();
-
-                //0703993246
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (statusCode == 401) {
+                    //0703993246
+                }else if(response.code() == 401) {
                     WalletAuthActivity.startAuth(activity, true);
-                } else if (statusCode == 500) {
-                    errorTextView.setText("Error Occurred Try again later");
-                    Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                } else if (statusCode == 400) {
-                    errorTextView.setText("Check your input details");
-                    Log.e("info 500", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                } else if (statusCode == 406) {
-                    try {
-                        errorTextView.setText(errorResponse.getString("message"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Log.e("info 406", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                } else {
-                    errorTextView.setText("Error Occurred Try again later");
-                    if (errorResponse != null) {
-                        Log.e("info", new String(String.valueOf(errorResponse)) + ", code: " + statusCode);
-                    } else {
-                        Log.e("info", "Something got very very wrong, code: " + statusCode);
-                    }
                 }
-                errorTextView.setVisibility(View.VISIBLE);
-                dialog.dismiss();
+                    else if (response.code() == 500) {
+                        errorTextView.setText("Error Occurred Try again later");
+                        Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                    } else if (response.code() == 400) {
+                        errorTextView.setText("Check your input details");
+                        Log.e("info 500", new String(String.valueOf(response.errorBody()) + ", code: " + response.code()));
+                    } else if (response.code() == 406) {
+
+
+                            Log.d("reespnse message",response.message());
+//                            errorTextView.setText(message);
+
+                        Log.e("info 406", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                    } else {
+                        errorTextView.setText("Error Occurred Try again later");
+
+                            Log.e("info", "Something got very very wrong, code: " + response.code());
+
+                    }
+                    errorTextView.setVisibility(View.VISIBLE);
+                    dialog.dismiss();
+
+
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                if (errorResponse != null) {
-                    Log.e("info : " + statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : " + statusCode, "Something got very very wrong");
-                }
+            public void onFailure(Call<InitiateTransferResponse> call, Throwable t) {
+                Log.e("info : " , new String(String.valueOf(t.getMessage())));
                 errorTextView.setText("Error Occurred Try again later");
                 errorTextView.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
         });
+//phone number = +256780598708
 
 
     }

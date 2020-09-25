@@ -4,13 +4,23 @@ package com.myfarmnow.myfarmcrop.network;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantData;
 import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsData;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.InitiateTransferResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.MerchantInfoResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletAuthentication;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletPurchaseConfirmResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletPurchaseResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionReceiptResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletUserRegistration;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
-import com.myfarmnow.myfarmcrop.models.wallet.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 
 import org.checkerframework.checker.nullness.compatqual.PolyNullDecl;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -19,6 +29,8 @@ import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.GET;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Field;
@@ -72,21 +84,21 @@ public interface APIRequests {
     //wallet authentication
     @FormUrlEncoded
     @POST("emaishawallet/user/authenticate")
-    Call<UserData> authenticate (@Field("email") String email,
-                                 @Field("password") String password
+    Call<WalletAuthentication> authenticate (@Field("email") String email,
+                                             @Field("password") String password
     );
 
 
     //wallet registration
     @FormUrlEncoded
     @POST("emaishawallet/user/create")
-    Call<UserData> create (@Field("firstname") String firstname,
-                           @Field("lastname")  String lastname,
-                           @Field("email") String email,
-                           @Field("password") String password,
-                           @Field("phoneNumber") String phoneNumber,
-                           @Field("addressStreet") String addressStreet,
-                           @Field("addressCityOrTown") String addressCityOrTown
+    Call<WalletUserRegistration> create (@Field("firstname") String firstname,
+                                         @Field("lastname")  String lastname,
+                                         @Field("email") String email,
+                                         @Field("password") String password,
+                                         @Field("phoneNumber") String phoneNumber,
+                                         @Field("addressStreet") String addressStreet,
+                                         @Field("addressCityOrTown") String addressCityOrTown
 
     );
     //refresh token
@@ -101,46 +113,57 @@ public interface APIRequests {
     );
 
     //request balance
+
     @GET("wallet/balance/request")
-    Call<UserData> requestBalance(@Field("AuthToken") String token
+    Call<BalanceResponse> requestBalance(@Header("Authorization") String token
 
     );
 
     //initiate transfer
+    @FormUrlEncoded
     @POST("wallet/transfer/initiate")
-    Call<UserData> initiateTransfer(@Field("AuthToken") String token,
-                                    @Field("amount") Double amount,
-                                    @Field("receiverPhoneNumber") String receiverPhoneNumber
+    Call<InitiateTransferResponse> initiateTransfer(@Header("Authorization") String token,
+                                                    @Field("amount") Double amount,
+                                                    @Field("receiverPhoneNumber") String receiverPhoneNumber
 
 
     );
 
+    //wallet transaction list
+    @POST("wallet/transactions/list")
+    Call<List<WalletTransactionResponse>> transactionList(@Header("Authorization") String token);
+
     //make transaction
+    @FormUrlEncoded
+    @Headers({"Accept: application/json"})
     @POST("wallet/payments/merchant")
-    Call<WalletPurchase> makeTransaction(@Field("merchantId") int merchantId,
-                                         @Field("amount") Double amount,
-                                         @Field("coupon") String coupon
+    Call<WalletPurchaseResponse> makeTransaction(@Header("Authorization") String token,
+                                                 @Field("merchantId") int merchantId,
+                                                 @Field("amount") Double amount,
+                                                 @Field("coupon") String coupon
 
     );
     //confirm payment
-    @Multipart
-    @POST("")
-    Call<MerchantData> confirmPayment(
-            @Part("merchantId") RequestBody merchantId,
-            @Part("amount") RequestBody amount,
-            @Part("coupon") RequestBody coupon
+    @FormUrlEncoded
+    @POST("wallet/payments/comfirm_paymerchant")
+    Call<WalletPurchaseConfirmResponse> confirmPayment(
+            @Field("merchantId") int merchantId,
+            @Field("amount") double amount,
+            @Field("coupon") String coupon
 
 
     );
     //get merchant information
     @GET("wallet/merchant/{merchantId}")
-    Call<MerchantData> getMerchant(@Path("merchantId") int merchantId
+    Call<MerchantInfoResponse> getMerchant(@Header("Authorization") String token,
+                                           @Path("merchantId") int merchantId
 
     );
 
     //get merchant receipt
-    @GET("/wallet/payments/receipt/{merchantId}")
-    Call<MerchantData> getReceipt(@Path("merchantId") int merchantId
+    @GET("/wallet/payments/receipt/{referenceNumber}")
+    Call<WalletTransactionReceiptResponse> getReceipt(@Header("Authorization") String token,
+                                                      @Path("referenceNumber") String referenceNumber
 
     );
     //get user loans
