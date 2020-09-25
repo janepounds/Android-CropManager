@@ -101,7 +101,7 @@ public class WishList extends Fragment {
 
 
         // Hide some of the Views
-        bottomBar.setVisibility(View.GONE);
+//        bottomBar.setVisibility(View.GONE);
         emptyRecord.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         filterLayout.setVisibility(View.GONE);

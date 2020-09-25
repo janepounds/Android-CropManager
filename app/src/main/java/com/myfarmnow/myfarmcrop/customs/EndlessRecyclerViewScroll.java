@@ -73,21 +73,21 @@ public abstract class EndlessRecyclerViewScroll extends RecyclerView.OnScrollLis
                 onLoadMore(current_page);
             }
             
-    
-    
-            if (bottomBar != null) {
-                // Animate the loading view to 0% opacity. After the animation ends,
-                // set its visibility to GONE as an optimization step (it won't participate in layout passes, etc.)
-                bottomBar.animate()
-                        .alpha(0f)
-                        .setDuration(200)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                bottomBar.setVisibility(View.GONE);
-                            }
-                        });
-            }
+//
+//
+//            if (bottomBar != null) {
+//                // Animate the loading view to 0% opacity. After the animation ends,
+//                // set its visibility to GONE as an optimization step (it won't participate in layout passes, etc.)
+//                bottomBar.animate()
+//                        .alpha(0f)
+//                        .setDuration(200)
+//                        .setListener(new AnimatorListenerAdapter() {
+//                            @Override
+//                            public void onAnimationEnd(Animator animation) {
+//                                bottomBar.setVisibility(View.GONE);
+//                            }
+//                        });
+//            }
 
 
         } else if (dy < 0) {
