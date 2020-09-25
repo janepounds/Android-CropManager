@@ -542,7 +542,7 @@ public class SettingsFragment extends Fragment {
                 if (ConstantValues.IS_USER_LOGGED_IN) {
 
                     // Navigate to Update_Account Fragment
-                    Fragment fragment = new Update_Account();
+                    Fragment fragment = new UpdateAccountFragment();
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .add(R.id.main_fragment, fragment)

@@ -23,6 +23,7 @@
     <color name="device_problem">#dc4436</color>
     <color name="gray">#f0f1ed</color>
     <color name="gray_mh">#F5F5F5</color>
+    <color name="gray_head">#C4C4C4</color>
     <color name="green_mh">#3fc926</color>
     <color name="transparent">#00000000</color>
 
@@ -60,7 +61,7 @@
     <color name="textColorSecondaryLight">#666666</color>
 
     <color name="windowBackground">#FFFFFF</color>
-    <color name="windowBackgroundDark">#e6e6e6</color>
+    <color name="windowBackgroundDark">#FAF9F9</color>
     <color name="windowBackgroundLight">#f2f2f2</color>
 
     <color name="layoutBackground">#d9d9d9</color>

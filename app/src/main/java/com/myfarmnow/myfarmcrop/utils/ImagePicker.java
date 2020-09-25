@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.utils;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,22 +24,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * ImagePicker class is used for picking images from Gallery or Camera with Android Intents
  **/
 
 public class ImagePicker {
-
     private static final String TAG = "ImagePicker";
     private static final String TEMP_IMG_NAME = "tempImage";
     private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;
 
     private static int minWidthQuality = DEFAULT_MIN_WIDTH_QUALITY;
 
-
     //*********** Returns Intent with Options of Image Picker Apps like Gallery, Camera etc ********//
-
     public static Intent getImagePickerIntent(Context context) {
         // Chooser Intent of Filesystem Options
         Intent chooserIntent = null;
@@ -87,8 +82,6 @@ public class ImagePicker {
         return chooserIntent;
     }
 
-
-    
     //*********** Adds Intents to the IntentList ********//
 
     private static List<Intent> addIntentToList(Context context, List<Intent> intentList, Intent intent) {
@@ -105,8 +98,6 @@ public class ImagePicker {
         return  intentList;
     }
 
-
-    
     //*********** Returns Temp File ********//
 
     private static File getTempFile(Context context) {
@@ -119,8 +110,6 @@ public class ImagePicker {
         return imageFile;
     }
 
-
-    
     //*********** Returns the User Selected Image as Bitmap ********//
 
     public static Bitmap getImageFromResult(Context context, int resultCode, Intent imageReturnedIntent) {
@@ -144,8 +133,6 @@ public class ImagePicker {
         return bitmap;
     }
 
-
-    
     //*********** Resize to avoid using too much Memory loading Big Images (2560*1920) ********//
 
     private static Bitmap getResizedImage(Context context, Uri selectedImage) {
@@ -161,8 +148,6 @@ public class ImagePicker {
         
         return resizedBitmap;
     }
-
-
     
     //*********** Returns Bitmap Decoded from Uri ********//
 
@@ -182,8 +167,6 @@ public class ImagePicker {
         return decodedBitmap;
     }
 
-
-    
     //*********** Used for the Rotation of Image ********//
 
     private static int getRotation(Context context, Uri imageUri, boolean isCamera) {
@@ -197,9 +180,7 @@ public class ImagePicker {
 
         return rotation;
     }
-    
-    
-    
+
     //*********** Used for the Rotation of Image ********//
     
     private static int getRotationFromCamera(Context context, Uri imageFile) {
@@ -229,8 +210,6 @@ public class ImagePicker {
         return rotate;
     }
     
-    
-    
     //*********** Used for the Rotation of Image ********//
     
     public static int getRotationFromGallery(Context context, Uri imageUri) {
@@ -257,9 +236,7 @@ public class ImagePicker {
 
         return result;
     }
-    
-    
-    
+
     //*********** Rotates the Bitmap ********//
     
     private static Bitmap rotate(Bitmap bm, int rotation) {

@@ -76,8 +76,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     long end ;
     long server;
     CountDownTimer mCountDownTimer;
-    int defaultSmLayoutId;
-    int defaultLgLayoutId;
 
     
     
@@ -88,7 +86,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.isFlash = isFlash;
         recents_db = new User_Recents_BuyInputsDB();
         customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-        setupDefaultLayoutId();
+
     }
 
 
@@ -98,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.isHorizontal = isHorizontal;
         recents_db = new User_Recents_BuyInputsDB();
         customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-        setupDefaultLayoutId();
+
     }
     
     
@@ -107,16 +105,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     
     @Override
     public MyViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View itemView = null;
-        
-        // Check which Layout will be Inflated
-        if (isHorizontal) {
-            itemView = LayoutInflater.from(parent.getContext()).inflate(defaultSmLayoutId, parent, false);
-        }
-        else {
-            itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(isGridView ? defaultLgLayoutId : R.layout.layout_product_0_list_lg, parent, false);
-        }
+        View itemView
+                = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_product_major, parent, false);
         
         // Return a new holder instance
         return new MyViewHolder(itemView);
@@ -715,11 +705,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         
     }
 
-    private void setupDefaultLayoutId() {
-
-        defaultSmLayoutId = R.layout.layout_product_18_grid_sm;
-        defaultLgLayoutId = R.layout.layout_product_18_grid_lg;
-    }
 
     public String nFormate(double d) {
         NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);

@@ -42,7 +42,7 @@
                         android:gravity="center"
                         android:padding="20dp">
 
-                        <com.cabral.emaisha.customs.CircularImageView
+                        <com.myfarmnow.myfarmcrop.customs.CircularImageView
                             android:id="@+id/profile_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"

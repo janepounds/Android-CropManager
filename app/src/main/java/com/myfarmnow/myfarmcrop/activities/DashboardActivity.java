@@ -47,7 +47,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.marketplace.BuyInputsActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -63,7 +62,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Update_Account;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
@@ -199,7 +198,7 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.shipping_address));
         } else if (curruntFrag instanceof Nearby_Merchants) {
             actionBar.setTitle(getString(R.string.nearby_merchants));
-        } else if (curruntFrag instanceof Update_Account) {
+        } else if (curruntFrag instanceof UpdateAccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
         } else if (curruntFrag instanceof My_Orders) {
             actionBar.setTitle(getString(R.string.actionOrders));
@@ -255,7 +254,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to My_Cart Fragment
-                Fragment fragment = new Update_Account();
+                Fragment fragment = new UpdateAccountFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 if(currentFragment==null)
                     fragmentManager.beginTransaction()

@@ -195,6 +195,6 @@
         android:scaleType="center"
         android:visibility="gone"
         android:src="@drawable/checked"
-        android:tint="@color/white" />
+        app:tint="@color/white" />
 
 </androidx.cardview.widget.CardView>
