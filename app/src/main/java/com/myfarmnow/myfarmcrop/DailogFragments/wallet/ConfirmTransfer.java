@@ -129,6 +129,7 @@ public class ConfirmTransfer extends DialogFragment {
     }
 
     public void getReceiverName() {
+        /*************RETROFIT IMPLEMENTATION*******************/
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
         client.addHeader("Authorization", "Bearer " + WalletAuthActivity.WALLET_ACCESS_TOKEN);

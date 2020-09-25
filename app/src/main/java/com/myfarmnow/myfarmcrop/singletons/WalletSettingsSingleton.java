@@ -10,7 +10,7 @@ public class WalletSettingsSingleton {
     private static final WalletSettingsSingleton ourInstance = new WalletSettingsSingleton();
 
     private String dateFormat ="dd/LL/yyyy";
-    private String currency ="USD";
+    private String currency ="UGX";
     private String weightUnits="Kg";
     private String areaUnits="Acres";
     private String id;

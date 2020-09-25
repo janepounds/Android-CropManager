@@ -26,9 +26,13 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.LoanPayResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +44,9 @@ import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PayLoan extends DialogFragment {
@@ -95,92 +102,54 @@ public class PayLoan extends DialogFragment {
     }
 
     public void processPayment(){
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(activity);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("Please Wait..");
+        dialog.setCancelable(false);
+        dialog.show();
 
-        float amount = Float.parseFloat(totalAmountTxt.getText().toString());
+            float amount = Float.parseFloat(totalAmountTxt.getText().toString());
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-        client.addHeader("Authorization","Bearer "+ WalletAuthActivity.WALLET_ACCESS_TOKEN);
+            String access_token =WalletAuthActivity.WALLET_ACCESS_TOKEN;
+            String userId = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, activity);
+            
 
-        JSONObject requestObject = new JSONObject();
-
-        try {
-
-            requestObject.put("amount",amount);
-            requestObject.put("userId", WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, activity));
-
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                return;
-            }
-
-
-            client.post(activity, ApiPaths.WALLET_PAY_LOAN,params,"application/json", new JsonHttpResponseHandler() {
-
-                ProgressDialog dialog;
+            /*********RETROFIT IMPLEMENTATION*************/
+            APIRequests apiRequests = APIClient.getWalletInstance();
+            Call<LoanPayResponse> call = apiRequests.loanPay(access_token,amount,userId);
+            call.enqueue(new Callback<LoanPayResponse>() {
                 @Override
-                public void onStart() {
-                    dialog = new ProgressDialog(activity);
-                    dialog.setIndeterminate(true);
-                    dialog.setMessage("Please Wait..");
-                    dialog.setCancelable(false);
-                    dialog.show();
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //logic to save the updated fields
-                    dialog.dismiss();
-
-//                    Intent openW = new Intent(activity, WalletLoansListActivity.class);
-//                    startActivity(openW);
-
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    Fragment fragment = new WalletLoansListFragment();
+                public void onResponse(Call<LoanPayResponse> call, Response<LoanPayResponse> response) {
+                    if(response.code()== 200){
+                        dialog.dismiss();
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        Fragment fragment = new WalletLoansListFragment();
 
                         fragmentManager.beginTransaction()
                                 .add(R.id.mainView, fragment)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .commit();
+                    }else if(response.errorBody()!=null){
+
+                            errorTextView.setText("Error occured! Try again later");
+                        }
+                        else{
+                            errorTextView.setText(response.body().getMessage());}
+                            errorTextView.setVisibility(View.VISIBLE);
+                             dialog.dismiss();
 
 
                 }
 
                 @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                public void onFailure(Call<LoanPayResponse> call, Throwable t) {
+                    Log.e("info 1A: ", new String(String.valueOf(t.getMessage())));
 
-                    try {
-                        errorTextView.setText(errorResponse.getString("message"));
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        errorTextView.setText("Error occured! Try again later");
-                    }
-                    errorTextView.setVisibility(View.VISIBLE);
-                    dialog.dismiss();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1A: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1A: "+statusCode, "Something got very wrong");
-                    }
-
-
-                    dialog.dismiss();
-
+                    Log.e("info 1A: ", "Something got very wrong");
                 }
             });
 
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
     }

@@ -176,7 +176,7 @@ public class Category_Products extends Fragment {
 
 
         // Handle the Scroll event of Product's RecyclerView
-        category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll(bottomBar) {
+        category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
             @Override
             public void onLoadMore(final int current_page) {
                 
@@ -319,7 +319,7 @@ public class Category_Products extends Fragment {
 
 
                         // Handle the Scroll event of Product's RecyclerView
-                        category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll(bottomBar) {
+                        category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
                             @Override
                             public void onLoadMore(final int current_page) {
                                 
@@ -405,6 +405,9 @@ public class Category_Products extends Fragment {
         } else {
             emptyRecord.setVisibility(View.GONE);
             resetFiltersBtn.setVisibility(View.GONE);
+        }
+        if(productAdapter.getItemCount() >= 3){
+            bottomBar.setVisibility(View.VISIBLE);
         }
     }
 

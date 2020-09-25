@@ -6,19 +6,25 @@ import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantData;
 import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsData;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.InitiateTransferResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.LoanListResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.LoanPayResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.MerchantInfoResponse;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.RequestLoanresponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletAuthentication;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletLoanAddPicResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletPurchaseConfirmResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletPurchaseResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionReceiptResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionResponse;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletUserRegistration;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 
 import org.checkerframework.checker.nullness.compatqual.PolyNullDecl;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -61,7 +67,7 @@ public interface APIRequests {
 
     //Update User
     @POST("update/{id}/{oldPassword}")
-    Call<UserData> update(@Field("id")String id,
+    Call<UserData> update(@Field("id") String id,
                           @Field("firstname") String firstname,
                           @Field("lastname") String lastname,
                           @Field("country") String country,
@@ -81,20 +87,20 @@ public interface APIRequests {
     //wallet authentication
     @FormUrlEncoded
     @POST("emaishawallet/user/authenticate")
-    Call<WalletAuthentication> authenticate (@Field("email") String email,
-                                             @Field("password") String password
+    Call<WalletAuthentication> authenticate(@Field("email") String email,
+                                            @Field("password") String password
     );
 
     //wallet registration
     @FormUrlEncoded
     @POST("emaishawallet/user/create")
-    Call<WalletUserRegistration> create (@Field("firstname") String firstname,
-                                         @Field("lastname")  String lastname,
-                                         @Field("email") String email,
-                                         @Field("password") String password,
-                                         @Field("phoneNumber") String phoneNumber,
-                                         @Field("addressStreet") String addressStreet,
-                                         @Field("addressCityOrTown") String addressCityOrTown
+    Call<WalletUserRegistration> create(@Field("firstname") String firstname,
+                                        @Field("lastname") String lastname,
+                                        @Field("email") String email,
+                                        @Field("password") String password,
+                                        @Field("phoneNumber") String phoneNumber,
+                                        @Field("addressStreet") String addressStreet,
+                                        @Field("addressCityOrTown") String addressCityOrTown
 
     );
 
@@ -102,9 +108,8 @@ public interface APIRequests {
     @FormUrlEncoded
     @POST("wallet/token/get")
     Call<TokenResponse> getToken(
-                            @Field("email") String email,
-                            @Field("password") String password
-
+            @Field("email") String email,
+            @Field("password") String password
 
 
     );
@@ -127,8 +132,8 @@ public interface APIRequests {
     );
 
     //wallet transaction list
-    @POST("wallet/transactions/list")
-    Call<List<WalletTransactionResponse>> transactionList(@Header("Authorization") String token);
+    @GET("wallet/transactions/list")
+    Call<WalletTransactionResponse> transactionList(@Header("Authorization") String token);
 
     //make transaction
     @FormUrlEncoded
@@ -140,6 +145,7 @@ public interface APIRequests {
                                                  @Field("coupon") String coupon
 
     );
+
     //confirm payment
     @FormUrlEncoded
     @POST("wallet/payments/comfirm_paymerchant")
@@ -150,6 +156,7 @@ public interface APIRequests {
 
 
     );
+
     //get merchant information
     @GET("wallet/merchant/{merchantId}")
     Call<MerchantInfoResponse> getMerchant(@Header("Authorization") String token,
@@ -163,22 +170,28 @@ public interface APIRequests {
                                                       @Path("referenceNumber") String referenceNumber
 
     );
+
     //get user loans
     @GET("wallet/loan/user/loans")
-    Call<UserData> getUserLoans(@Field("userId") int userId
+    Call<LoanListResponse> getUserLoans(@Field("userId") String userId,
+                                        @Header("Authorization") String token
 
     );
+
     //request loans
     @POST("wallet/loan/user/request")
-    Call<UserData>requestLoans(@Field("userId") int userId,
-                               @Field("amount") Double amount,
-                               @Field("duration") int duration,
-                               @Field("loanType") String loanType
+    Call<RequestLoanresponse> requestLoans(@Header("Authorization") String token,
+                                           @Field("userId") String userId,
+                                           @Field("amount") double amount,
+                                           @Field("duration") int duration,
+                                           @Field("loanType") String loanType
 
     );
-   //add loan photos
+
+    //add loan photos
     @POST("wallet/loan/user/photos/add")
-    Call<UserData> addLoanPhotos(@Field("loanApplicationId") int loanApplicationId
+    Call<WalletLoanAddPicResponse> addLoanPhotos(@Header("Authorization") String token,
+                                                 JSONObject object
 
     );
 
@@ -187,280 +200,32 @@ public interface APIRequests {
     Call<UserData> getWalletUser(@Path("phoneNumber") String phoneNumber
 
     );
+
     //create user credit
     @GET("wallet/flutter/payment/credituser")
-    Call<WalletTransaction> createUserCredit(@Field("email") String email,
-                                             @Field("amount") Double amount,
-                                             @Field("referenceNumber") int referenceNumber
+    Call<WalletTransaction> creditUser(@Header("Authorization") String token,
+                                       @Field("email") String email,
+                                       @Field("amount") Double amount,
+                                       @Field("referenceNumber") String referenceNumber
 
     );
 
     //voucher deposit
+    @FormUrlEncoded
     @POST("wallet/payment/voucherdeposit")
-    Call<UserData> voucherDeposit(
+    Call<UserData> voucherDeposit(@Header("Authorization") String token,
+                                  @Field("email") String email,
+                                  @Field("phoneNumber") String phoneNumber,
+                                  @Field("codeEntered") String codeEntered
+
 
     );
-//    @Multipart
-//    @POST("processregistration")
-//    Call<UserData> processRegistration(
-//            @Part("customers_firstname") RequestBody customers_firstname,
-//            @Part("customers_lastname") RequestBody customers_lastname,
-//            @Part("email") RequestBody email,
-//            @Part("password") RequestBody password,
-//            @Part("country_code") RequestBody country_code,
-//            @Part("customers_telephone") RequestBody customers_picture);
-//
-//    @FormUrlEncoded
-//    @POST("processlogin")
-//    Call<UserData> processLogin(@Field("email") String customers_email_address,
-//                                @Field("password") String customers_password);
-//
-//    @FormUrlEncoded
-//    @POST("facebookregistration")
-//    Call<UserData> facebookRegistration(@Field("access_token") String access_token);
-//
-//    @FormUrlEncoded
-//    @POST("googleregistration")
-//    Call<UserData> googleRegistration(@Field("idToken") String idToken,
-//                                      @Field("customers_id") String userId,
-//                                      @Field("givenName") String givenName,
-//                                      @Field("familyName") String familyName,
-//                                      @Field("email") String email,
-//                                      @Field("imageUrl") String imageUrl);
-//
-//    @FormUrlEncoded
-//    @POST("processforgotpassword")
-//    Call<UserData> processForgotPassword(@Field("email") String customers_email_address);
-//
-//    @FormUrlEncoded
-//    @POST("updatecustomerinfo")
-//    Call<UserData> updateCustomerInfo(@Field("customers_id") String customers_id,
-//                                      @Field("customers_firstname") String customers_firstname,
-//                                      @Field("customers_lastname") String customers_lastname,
-//                                      @Field("customers_gender") String customers_gender,
-//                                      @Fieldtxt_crop_fertilizer_qty("customers_telephone") String customers_telephone,
-//                                      @Field("customers_dob") String customers_dob,
-//                                      @Field("image_id") String image_id);
-//
-//
-//    //******************** Address Data ********************//
-//
-//    @POST("getcountries")
-//    Call<Countries> getCountries();
-//
-//    @FormUrlEncoded
-//    @POST("getzones")
-//    Call<Zones> getZones(@Field("zone_country_id") String zone_country_id);
-//
-//    @FormUrlEncoded
-//    @POST("getalladdress")
-//    Call<AddressData> getAllAddress(@Field("customers_id") String customers_id);
-//
-//    @FormUrlEncoded
-//    @POST("addshippingaddress")
-//    Call<AddressData> addUserAddress(@Field("customers_id") String customers_id,
-//                                     @Field("entry_firstname") String entry_firstname,
-//                                     @Field("entry_lastname") String entry_lastname,
-//                                     @Field("entry_street_address") String entry_street_address,
-//                                     @Field("entry_postcode") String entry_postcode,
-//                                     @Field("entry_city") String entry_city,
-//                                     @Field("entry_country_id") String entry_country_id,
-//                                     @Field("entry_latitude") String latitude,
-//                                     @Field("entry_longitude") String longitude,
-//                                     @Field("entry_contact") String contact,
-//                                     @Field("is_default") String customers_default_address_id);
-//
-//    @FormUrlEncoded
-//    @POST("updateshippingaddress")
-//    Call<AddressData> updateUserAddress(@Field("customers_id") String customers_id,
-//                                        @Field("address_id") String address_id,
-//                                        @Field("entry_firstname") String entry_firstname,
-//                                        @Field("entry_lastname") String entry_lastname,
-//                                        @Field("entry_street_address") String entry_street_address,
-//                                        @Field("entry_postcode") String entry_postcode,
-//                                        @Field("entry_city") String entry_city,
-//                                        @Field("entry_country_id") String entry_country_id,
-//                                        @Field("entry_latitude") String latitude,
-//                                        @Field("entry_longitude") String longitude,
-//                                        @Field("entry_contact") String contact,
-//                                        @Field("is_default") String customers_default_address_id);
-//
-//    @FormUrlEncoded
-//    @POST("updatedefaultaddress")
-//    Call<AddressData> updateDefaultAddress(@Field("customers_id") String customers_id,
-//                                           @Field("address_book_id") String address_book_id);
-//
-//    @FormUrlEncoded
-//    @POST("deleteshippingaddress")
-//    Call<AddressData> deleteUserAddress(@Field("customers_id") String customers_id,
-//                                        @Field("address_book_id") String address_book_id);
-//
-//
-//    //******************** OrderProductCategory Data ********************//
-//
-//    @FormUrlEncoded
-//    @POST("allcategories")
-//    Call<CategoryData> getAllCategories(@Field("language_id") int language_id);
-//
-//    //******************** Product Data ********************//
-//
-//    @POST("getallproducts")
-//    Call<ProductData> getAllProducts(@Body GetAllProducts getAllProducts);
-//
-//    @POST("getquantity")
-//    Call<ProductStock> getProductStock(@Body GetStock getStock);
-//
-//    @FormUrlEncoded
-//    @POST("likeproduct")
-//    Call<ProductData> likeProduct(@Field("liked_products_id") int liked_products_id,
-//                                  @Field("liked_customers_id") String liked_customers_id);
-//
-//    @FormUrlEncoded
-//    @POST("unlikeproduct")
-//    Call<ProductData> unlikeProduct(@Field("liked_products_id") int liked_products_id,
-//                                    @Field("liked_customers_id") String liked_customers_id);
-//
-//    @FormUrlEncoded
-//    @POST("getfilters")
-//    Call<FilterData> getFilters(@Field("categories_id") int categories_id,
-//                                @Field("language_id") int language_id);
-//
-//    @FormUrlEncoded
-//    @POST("getsearchdata")
-//    Call<SearchData> getSearchData(@Field("searchValue") String searchValue,
-//                                   @Field("language_id") int language_id,
-//                                   @Field("currency_code") String currency_code);
-//
-//    //******************** News Data ********************//
-//
-//    @FormUrlEncoded
-//    @POST("getallnews")
-//    Call<NewsData> getAllNews(@Field("language_id") int language_id,
-//                              @Field("page_number") int page_number,
-//                              @Field("is_feature") int is_feature,
-//                              @Field("categories_id") String categories_id);
-//
-//    @FormUrlEncoded
-//    @POST("allnewscategories")
-//    Call<NewsCategoryData> allNewsCategories(@Field("language_id") int language_id,
-//                                             @Field("page_number") int page_number);
-//
-//    //******************** Order Data ********************//
-//
-//    @POST("addtoorder")
-//    Call<OrderData> addToOrder(@Body PostOrder postOrder);
-//
-//    @FormUrlEncoded
-//    @POST("getorders")
-//    Call<OrderData> getOrders(@Field("customers_id") String customers_id,
-//                              @Field("language_id") int language_id,
-//                              @Field("currency_code") String currency_code);
-//
-//    @FormUrlEncoded
-//    @POST("updatestatus")
-//    Call<OrderData> updatestatus(@Field("customers_id") String customers_id,
-//                                 @Field("orders_id") int orders_id);
-//
-//    @FormUrlEncoded
-//    @POST("getcoupon")
-//    Call<CouponsData> getCouponInfo(@Field("code") String code);
-//
-//    @FormUrlEncoded
-//    @POST("getpaymentmethods")
-//    Call<PaymentMethodsData> getPaymentMethods(@Field("language_id") int language_id);
-//
-//    @GET("generatebraintreetoken")
-//    Call<GetBrainTreeToken> generateBraintreeToken();
-//
-//    //******************** Banner Data ********************//
-//
-//    @GET("getbanners")
-//    Call<BannerData> getBanners();
-//
-//    //******************** Tax & Shipping Data ********************//
-//
-//    @POST("getrate")
-//    Call<ShippingRateData> getShippingMethodsAndTax(@Body PostTaxAndShippingData postTaxAndShippingData);
-//
-//    //******************** Contact Us Data ********************//
-//
-//    @FormUrlEncoded
-//    @POST("contactus")
-//    Call<ContactUsData> contactUs(@Field("name") String name,
-//                                  @Field("email") String email,
-//                                  @Field("message") String message);
-//
-//    //******************** Languages Data ********************//
-//
-//    @GET("getlanguages")
-//    Call<LanguageData> getLanguages();
-//
-//    //******************** App Settings Data ********************//
-//
-//    @GET("sitesetting")
-//    Call<AppSettingsData> getAppSetting();
-//
-//
-//    //******************** Static Pages Data ********************//
-//
-//    @FormUrlEncoded
-//    @POST("getallpages")
-//    Call<PagesData> getStaticPages(@Field("language_id") int language_id);
-//
-//    //******************** Notifications Data ********************//
-//
-//    @FormUrlEncoded
-//    @POST("registerdevices")
-//    Call<UserData> registerDeviceToFCM(@Field("device_id") String device_id,
-//                                       @Field("device_type") String device_type,
-//                                       @Field("ram") String ram,
-//                                       @Field("processor") String processor,
-//                                       @Field("device_os") String device_os,
-//                                       @Field("location") String location,
-//                                       @Field("device_model") String device_model,
-//                                       @Field("manufacturer") String manufacturer,
-//                                       @Field("customers_id") String customers_id);
-//
-//    @FormUrlEncoded
-//    @POST("notify_me")
-//    Call<ContactUsData> notify_me(@Field("is_notify") String is_notify,
-//                                  @Field("device_id") String device_id);
-//
-//    @FormUrlEncoded
-//    @POST("givereview")
-//    Call<GiveRating> giveRating(@FieldMap Map<String, String> stringMap);
-//
-//    @GET("getreviews")
-//    Call<GetRatings> getProductReviews(@Query("products_id") String product_id,
-//                                       @Query("languages_id") String languages_id);
-//
-//    // This Api will give us City bounds
-//    @GET("getlocation")
-//    Call<GoogleAPIResponse> getCityBounds(@Query(value = "address", encoded = true) String address);
-//
-//    // Upload Image
-//    @Multipart
-//    @POST("uploadimage")
-//    Call<UploadImageModel> uploadImage(@Part MultipartBody.Part filePart);
-//
-//    // Update Password
-//    @GET("updatepassword")
-//    Call<UserData> updatePassword(@Query("oldpassword") String oldPassword,
-//                                  @Query("newpassword") String newPassword,
-//                                  @Query("customers_id") String customers_id);
-//
-//    //Change Currency
-//    @GET("getcurrencies")
-//    Call<CurrencyModel> getCurrency();
-//
-//    @GET("generatpaytmhashes")
-//    Call<Checksum> getPayTMChecksum(
-//            @Query("customers_id") String customerID,
-//            @Query("amount") String totalAmount
-//    );
-//
-//    @GET("get_feasible_selling_shops")
-//    Call<MerchantData> getNearbyMerchants(@Query("latitude") String latitude, @Query("longitude") String longitude, @Query("productlist") String productlist);
-//    @GET("get_sellPrices_by_shopId")
-//    Call<MerchantData> getMerchantsProductData(@Query("shopID") String shopID, @Query("productlist") String productlist);
+
+    //loan pay
+    @FormUrlEncoded
+    @Headers({"Accept: application/json"})
+    @POST("wallet/payments/loanpay")
+    Call<LoanPayResponse> loanPay(@Header("Authorization") String token,
+                                  @Field("amount") double amount,
+                                  @Field("userId") String userId);
 }
