@@ -23,12 +23,14 @@
             android:layout_marginTop="@dimen/dimen_10dp">
 
             <ImageView
+                android:id="@+id/produce_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/dimen_10dp"
                 android:src="@drawable/image_20" />
 
             <TextView
+                android:id="@+id/percentage_sale_off"
                 android:layout_width="43dp"
                 android:layout_height="43dp"
                 android:background="@drawable/round_badge_drawable"
@@ -67,6 +69,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/produce_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -78,6 +81,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/produce_sale_discount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_5dp"
@@ -132,6 +136,7 @@
                                 android:src="@drawable/ic_star_border" />
 
                             <TextView
+                                android:id="@+id/produce_overall_rating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -170,6 +175,7 @@
                     android:padding="3.4dp">
 
                     <Spinner
+                        android:id="@+id/spinner_produce_quantity"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
@@ -189,6 +195,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="10dp"
                         android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
                 </RelativeLayout>
 
             </LinearLayout>
@@ -213,12 +220,14 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/product_price_old"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/josefin_sans"
                             android:text="UGX : 15,000" />
 
                         <TextView
+                            android:id="@+id/product_price_new"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_5dp"
@@ -230,6 +239,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/product_card_Btn"
                         android:layout_width="76dp"
                         android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
