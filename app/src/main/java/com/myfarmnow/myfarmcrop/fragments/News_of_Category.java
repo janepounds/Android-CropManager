@@ -27,6 +27,7 @@ import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsData;
 import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsDetails;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.google.android.material.snackbar.Snackbar;
+import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,7 +167,7 @@ public class News_of_Category extends Fragment {
 
     public void RequestAllNews(int pageNumber) {
         dialogLoader.showProgressDialog();
-        Call<NewsData> call = APIClient.getInstance()
+        Call<NewsData> call = BuyInputsAPIClient.getInstance()
                 .getAllNews
                         (
                                 ConstantValues.LANGUAGE_ID,

@@ -3,6 +3,9 @@ package com.myfarmnow.myfarmcrop.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -31,6 +34,7 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Transformers.BaseTransformer;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -60,7 +64,7 @@ public class News extends Fragment implements BaseSliderView.OnSliderClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.news, container, false);
-
+        setHasOptionsMenu(true);
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionNews));
@@ -214,7 +218,7 @@ public class News extends Fragment implements BaseSliderView.OnSliderClickListen
     public void RequestNewsBanners(int pageNumber) {
 
         dialogLoader.showProgressDialog();
-        Call<NewsData> call = APIClient.getInstance()
+        Call<NewsData> call = BuyInputsAPIClient.getInstance()
                 .getAllNews
                         (
                                 ConstantValues.LANGUAGE_ID,
@@ -259,6 +263,21 @@ public class News extends Fragment implements BaseSliderView.OnSliderClickListen
             }
         });
     }
-    
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(false);
+    }
+
 }
 

@@ -71,6 +71,7 @@ public class AccountFragment extends Fragment {
     public WishList myFavorites;
     public SettingsFragment settings;
     public My_Cart my_cart;
+    public News news;
 
     View parentView;
     DialogLoader dialogLoader;
@@ -88,6 +89,13 @@ public class AccountFragment extends Fragment {
 
         fragmentManager=getActivity().getSupportFragmentManager();
         currentFragment=fragmentManager.getPrimaryNavigationFragment();
+
+        binding.layoutNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getNews();
+            }
+        });
 
         binding.layoutMyAddresses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,6 +334,27 @@ public class AccountFragment extends Fragment {
         }
         currentFragment = myFavorites;
         DashboardActivity.actionBar.setTitle(getString(R.string.actionFavourites));
+    }
+
+    public void getNews() {
+        if (news == null) {
+            news = new News();
+            if (currentFragment == null)
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, news)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+            else
+                fragmentManager.beginTransaction()
+                        .hide(currentFragment)
+                        .add(R.id.main_fragment_container, news)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+        } else {
+            fragmentManager.beginTransaction().show(news).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+        }
+        currentFragment = news;
+        DashboardActivity.actionBar.setTitle(getString(R.string.actionNews));
     }
 
     public void shareApp() {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.myfarmnow.myfarmcrop.models.news_model.news_categories.NewsCategoryDa
 import com.myfarmnow.myfarmcrop.models.news_model.news_categories.NewsCategoryDetails;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.google.android.material.snackbar.Snackbar;
+import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,8 @@ public class NewsCategories extends Fragment {
     Boolean isHeaderVisible = false;
 
     ProgressBar progressBar;
-    TextView emptyText, headerText;
+    TextView  headerText;
+    LinearLayout emptyText;
     RecyclerView news_recycler;
 
     NewsCategoriesAdapter newsCategoriesAdapter;
@@ -71,7 +74,7 @@ public class NewsCategories extends Fragment {
 
         // Binding Layout Views
         headerText = rootView.findViewById(R.id.news_header);
-        emptyText = rootView.findViewById(R.id.empty_record_text);
+        emptyText = rootView.findViewById(R.id.no_record_placeholder);
         progressBar =  rootView.findViewById(R.id.loading_bar);
         news_recycler = rootView.findViewById(R.id.news_recycler);
 
@@ -151,7 +154,7 @@ public class NewsCategories extends Fragment {
 
     public void RequestAllNewsCategories(int pageNumber) {
         dialogLoader.showProgressDialog();
-        Call<NewsCategoryData> call = APIClient.getInstance()
+        Call<NewsCategoryData> call = BuyInputsAPIClient.getInstance()
                 .allNewsCategories
                         (
                                 ConstantValues.LANGUAGE_ID,

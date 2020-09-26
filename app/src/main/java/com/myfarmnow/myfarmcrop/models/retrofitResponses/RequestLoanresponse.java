@@ -71,7 +71,7 @@ public class RequestLoanresponse {
         }
 
         public String getLoanApplicationId() {
-            return loanApplicationId;
+            return loanApplicationId+"";
         }
 
         public void setLoanApplicationId(int loanApplicationId) {

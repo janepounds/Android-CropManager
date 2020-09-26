@@ -123,7 +123,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     public static String mSelectedItem;
     private static final String SELECTED_ITEM_ID = "selected";
-
     public Fragment currentFragment;
     public  static ActionBar actionBar;
 

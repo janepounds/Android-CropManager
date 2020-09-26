@@ -26,14 +26,38 @@
         android:layout_below="@+id/news_header"
         android:layout_above="@+id/loading_bar" />
 
-    <TextView
-        android:id="@+id/empty_record_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/record_not_found"
-        android:textSize="18sp"
-        android:textColor="@color/textColorSecondaryLight"
-        android:layout_centerInParent="true" />
+    <LinearLayout
+        android:id="@+id/no_record_placeholder"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:orientation="vertical"
+        android:background="@drawable/ic_newspaper"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/no_record"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/josefin_sans"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/found"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/josefin_sans"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/loading_bar"

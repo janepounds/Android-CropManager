@@ -52,10 +52,11 @@ android:orientation="vertical"
         android:text="News Categories" />
 
     </com.google.android.material.tabs.TabLayout>
-<ImageView
-    android:layout_width="match_parent"
-    android:src="@drawable/ic_newspaper"
-    android:layout_height="300dp">
 
-</ImageView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/ic_newspaper"
+        android:layout_height="300dp" >
+    </ImageView>
+
     </LinearLayout>

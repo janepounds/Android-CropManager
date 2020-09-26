@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,8 @@ public class News_All extends Fragment {
     Boolean isHeaderVisible = false;
 
     ProgressBar progressBar;
-    TextView emptyText, headerText;
+    TextView  headerText;
+    LinearLayout emptyText;
     RecyclerView news_recycler;
 
     NewsListAdapter newsAdapter;
@@ -72,7 +74,7 @@ public class News_All extends Fragment {
 
         // Binding Layout Views
         headerText = rootView.findViewById(R.id.news_header);
-        emptyText = rootView.findViewById(R.id.empty_record_text);
+        emptyText = rootView.findViewById(R.id.no_record_placeholder);
         progressBar =  rootView.findViewById(R.id.loading_bar);
         news_recycler = rootView.findViewById(R.id.news_recycler);
 
@@ -157,7 +159,7 @@ public class News_All extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        Call<NewsData> call = APIClient.getInstance()
+        Call<NewsData> call = BuyInputsAPIClient.getInstance()
                 .getAllNews
                         (
                                 ConstantValues.LANGUAGE_ID,

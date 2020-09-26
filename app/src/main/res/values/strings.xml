@@ -2137,6 +2137,8 @@
     <string name="filter">Filter</string>
     <string name="actionMarketPlace">Marketplace</string>
     <string name="actionproducemarket">Produce Market</string>
+    <string name="no_record">No Record</string>
+    <string name="found">Found</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>
