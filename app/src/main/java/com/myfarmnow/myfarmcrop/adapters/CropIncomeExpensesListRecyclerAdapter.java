@@ -16,7 +16,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.farmrecords.CropIncomeExpenseManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -128,9 +127,9 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
                                                                           .setNegativeButton(android.R.string.no, null).show();
                                                               } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))) {
                                                                   CropIncomeExpense cropIncomeExpense = cropIncomeExpensesList.get(getAdapterPosition());
-                                                                  Intent editCropIncomeExpense = new Intent(mContext, CropIncomeExpenseManagerActivity.class);
-                                                                  editCropIncomeExpense.putExtra("cropIncomeExpense", cropIncomeExpense);
-                                                                  mContext.startActivity(editCropIncomeExpense);
+//                                                                  Intent editCropIncomeExpense = new Intent(mContext, CropIncomeExpenseManagerActivity.class);
+//                                                                  editCropIncomeExpense.putExtra("cropIncomeExpense", cropIncomeExpense);
+//                                                                  mContext.startActivity(editCropIncomeExpense);
 
                                                               }
 

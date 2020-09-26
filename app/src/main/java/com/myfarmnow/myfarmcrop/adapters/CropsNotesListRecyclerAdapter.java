@@ -16,7 +16,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropsNotesManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNote;
 
@@ -86,6 +85,7 @@ public class CropsNotesListRecyclerAdapter  extends RecyclerView.Adapter<CropsNo
             notesDateTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_date);
             notesTxt = itemView.findViewById(R.id.txt_view_crop_notes_card_notes);
             moreButton = itemView.findViewById(R.id.img_crop_notes_card_more);
+
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -112,11 +112,11 @@ public class CropsNotesListRecyclerAdapter  extends RecyclerView.Adapter<CropsNo
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-                                CropNote cropsNotes = cropsNotesList.get(getAdapterPosition());
-                                Intent editCropsNotes = new Intent(mContext, CropsNotesManagerActivity.class);
-                                editCropsNotes.putExtra("cropNote", cropsNotes);
-                                editCropsNotes.putExtra("cropId",cropsNotes.getParentId());
-                                mContext.startActivity(editCropsNotes);
+//                                CropNote cropsNotes = cropsNotesList.get(getAdapterPosition());
+//                                Intent editCropsNotes = new Intent(mContext, CropsNotesManagerActivity.class);
+//                                editCropsNotes.putExtra("cropNote", cropsNotes);
+//                                editCropsNotes.putExtra("cropId",cropsNotes.getParentId());
+//                                mContext.startActivity(editCropsNotes);
                             }
 
 

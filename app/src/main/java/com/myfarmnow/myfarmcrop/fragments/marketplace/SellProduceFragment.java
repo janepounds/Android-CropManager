@@ -34,9 +34,7 @@ public class SellProduceFragment extends Fragment {
     private static final String TAG = "SellProduceFragment";
     private FragmentSellProduceBinding binding;
     private Context context;
-    private ActionBar actionBar;
-
-    private NavController navController;
+    
     private SellProduceViewPagerAdapter sellProduceViewPagerAdapter;
 
     @Override

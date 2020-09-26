@@ -22,11 +22,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropCultivationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropIrrigationManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropScoutingManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropTransplantingManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropsNotesListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -201,9 +196,9 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_cultivate))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
-                                Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
-                                intent.putExtra("cropId", crop.getId());
-                                mContext.startActivity(intent);
+//                                Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
+//                                intent.putExtra("cropId", crop.getId());
+//                                mContext.startActivity(intent);
 
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_fertilizer))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
@@ -219,24 +214,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 bundle.putString("cropId", crop.getId());
                                 navController.navigate(R.id.action_cropListFragment_to_cropSprayingFragment,bundle);
                             }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_irrigation))){
-                                Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showIrrigation = new Intent(mContext, CropIrrigationManagerActivity.class);
-                                showIrrigation.putExtra("cropId",crop.getId());
-                                mContext.startActivity(showIrrigation);
-                            }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_transplanting))){
-                                Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showTransplanting = new Intent(mContext, CropTransplantingManagerActivity.class);
-                                showTransplanting.putExtra("cropId",crop.getId());
-                                mContext.startActivity(showTransplanting);
-                            }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_scouting))){
-                                Crop crop = cropsList.get(getAdapterPosition());
-                                Intent showScouting = new Intent(mContext, CropScoutingManagerActivity.class);
-                                showScouting.putExtra("cropId",crop.getId());
-                                mContext.startActivity(showScouting);
-                            }
+
                             else if (item.getTitle().toString().equals(mContext.getString(R.string.label_harvest))){
                                 Crop crop = cropsList.get(getAdapterPosition());
                                 //navigate to harvest dialog fragment

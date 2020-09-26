@@ -21,7 +21,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropSoilAnalysisListActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
@@ -153,12 +152,6 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
 //                                Intent editField = new Intent(mContext, CropFieldManagerActivity.class);
 //                                editField.putExtra("cropField",  cropField);
 //                                mContext.startActivity(editField);
-                            }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_soil_analysis))){
-                                CropField cropField = cropFieldsList.get(getAdapterPosition());
-                                Intent showSoilAnalysis = new Intent(mContext, CropSoilAnalysisListActivity.class);
-                                showSoilAnalysis.putExtra("fieldId",cropField.getId());
-                                mContext.startActivity(showSoilAnalysis);
                             }
 
 
