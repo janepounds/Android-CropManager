@@ -16,10 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropBillsListActivity;
-import com.myfarmnow.myfarmcrop.activities.CropEmployeesListActivity;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.activities.CropPaymentBillsListActivity;
 import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -81,17 +78,6 @@ public class FarmRecordsDashboardActivity extends AppCompatActivity  {
         startActivity(openSettings);
         finish();
     }
- 
-    public void openBillsList(View view){
-        Intent openList = new Intent(this, CropBillsListActivity.class);
-        startActivity(openList);
-    }
-    public void openBillPaymentsList(View view){
-        Intent openList = new Intent(this, CropPaymentBillsListActivity.class);
-        startActivity(openList);
-    }
-
-
 
 
 

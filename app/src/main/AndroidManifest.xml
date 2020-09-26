@@ -83,12 +83,6 @@
             android:label="Crop Notes Manager" />
 
         <activity
-            android:name=".activities.CropContactsListActivity"
-            android:label="Contacts" />
-        <activity
-            android:name=".activities.CropContactManagerActivity"
-            android:label="Contact Manager" />
-        <activity
             android:name=".activities.CropScoutingManagerActivity"
             android:label="Scouting Manager" />
         <activity
@@ -98,42 +92,11 @@
             android:name=".activities.CropIrrigationManagerActivity"
             android:label="Irrigation Manager" />
         <activity
-            android:name=".activities.CropPaymentBillsListActivity"
-            android:label="Payments" />
-        <activity
-            android:name=".activities.CropBillsListActivity"
-            android:label="Bills" />
-        <activity
-            android:name=".activities.CropBillPaymentManagerActivity"
-            android:label="Bill Payment Manager" />
-        <activity
-            android:name=".activities.CropBillPreviewActivity"
-            android:label="Bill Preview" />
-        <activity
-            android:name=".activities.CropBillManagerActivity"
-            android:label="Bill Manager" />
-        <activity
-            android:name=".activities.CropPurchaseOrderPreviewActivity"
-            android:label="Purchase Order Preview" />
-        <activity
-            android:name=".activities.CropPurchaseOrdersListActivity"
-            android:label="Purchase Orders" />
-        <activity
-            android:name=".activities.CropPurchaseOrderManagerActivity"
-            android:label="Purchase Order Manager"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activities.CropTasksListActivity"
             android:label="Tasks" />
         <activity
             android:name=".activities.CropTaskManagerActivity"
             android:label="Task Manager" />
-        <activity
-            android:name=".activities.farmrecords.CropIncomeExpensesListActivity"
-            android:label="Income / Expenses " />
-        <activity
-            android:name=".activities.farmrecords.CropIncomeExpenseManagerActivity"
-            android:label="Income / Expenses Manager" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -146,17 +109,8 @@
         </provider>
 
         <activity
-            android:name=".activities.CropEmployeesListActivity"
-            android:label="Employees" />
-        <activity
             android:name=".activities.CropProductManagerActivity"
             android:label="@string/product_manager" />
-        <activity
-            android:name=".activities.CropCustomerManagerActivity"
-            android:label="@string/activity_crop_customer_manager_title" />
-        <activity
-            android:name=".activities.CropEmployeeManagerActivity"
-            android:label="Employee Manager" />
         <activity
             android:name=".activities.CropSoilAnalysisListActivity"
             android:label="@string/activity_soil_analysis_list_label" />
@@ -177,11 +131,6 @@
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--        <intent-filter>-->
-            <!--            <action android:name="android.intent.action.MAIN" />-->
-            <!--            &lt;!&ndash;  &ndash;&gt;-->
-            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--        </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.agronomy.AgronomyDashboardActivity"
@@ -228,56 +177,13 @@
             android:label="@string/title_activity_crop_estimate_manager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CropCustomersListActivity"
-            android:label="@string/title_activity_crop_customers_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.CropProductsListActivity"
             android:label="@string/title_activity_crop_products_list"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.CropSuppliersListActivity"
-            android:label="@string/title_activity_crop_supplies_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropSupplierManagerActivity"
-            android:label="@string/title_activity_crop_supplier_manager" />
-        <activity
             android:name=".activities.farmrecords.CropEstimatesListActivity"
             android:label="@string/title_activity_crop_estimates_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropInvoiceManagerActivity"
-            android:label="@string/title_activity_crop_invoice_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropInvoicesListActivity"
-            android:label="@string/title_activity_crop_invoices_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropPaymentManagerActivity"
-            android:label="@string/title_activity_crop_payment_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropPaymentsListActivity"
-            android:label="@string/title_activity_crop_payments_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropInvoicePreviewActivity"
-            android:label="@string/title_activity_crop_invoice_preview"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropSalesOrdersListActivity"
-            android:label="@string/title_activity_crop_sales_order_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropSalesOrderManagerActivity"
-            android:label="@string/title_activity_crop_sales_order_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CropSalesOrderPreviewActivity"
-            android:label="@string/title_activity_crop_sales_order_preview"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.Login"

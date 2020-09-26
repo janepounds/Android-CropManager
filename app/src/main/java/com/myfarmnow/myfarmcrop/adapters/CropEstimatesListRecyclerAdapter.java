@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.farmrecords.CropEstimateManagerActivity;
-import com.myfarmnow.myfarmcrop.activities.CropInvoiceManagerActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropEstimate;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -139,12 +138,6 @@ public class CropEstimatesListRecyclerAdapter extends RecyclerView.Adapter<CropE
                                 Intent editEstimate = new Intent(mContext, CropEstimateManagerActivity.class);
                                 editEstimate.putExtra("cropEstimate",cropEstimate);
                                 mContext.startActivity(editEstimate);
-                            }
-                            else if (item.getTitle().toString().equals(mContext.getString(R.string.label_convert_to_invoice))){
-                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
-                                Intent recordPayment = new Intent(mContext, CropInvoiceManagerActivity.class);
-                                recordPayment.putExtra("cropEstimate",cropEstimate);
-                                mContext.startActivity(recordPayment);
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_preview_estimate))){
 //                                CropEstimate cropEstimate = cropEstimatesList.get(getAdapterPosition());
 //                                Intent editEstimate = new Intent(mContext, CropEstimatePreviewActivity.class);
