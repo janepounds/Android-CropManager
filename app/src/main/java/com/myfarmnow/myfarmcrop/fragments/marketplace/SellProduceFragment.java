@@ -60,7 +60,6 @@ public class SellProduceFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         sellProduceViewPagerAdapter = new SellProduceViewPagerAdapter(requireActivity().getSupportFragmentManager());
 
         binding.viewPager.setAdapter(sellProduceViewPagerAdapter);

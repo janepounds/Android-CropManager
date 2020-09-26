@@ -10,6 +10,7 @@
         android:background="@color/gray">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:layout_marginTop="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -19,6 +20,7 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabIndicatorHeight="4dp"
                 android:background="@color/colorPrimary"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/opaqueWhite"
