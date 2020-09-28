@@ -1,6 +1,10 @@
  package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
+ import android.annotation.SuppressLint;
  import android.content.Context;
+ import android.content.DialogInterface;
+ import android.graphics.drawable.Drawable;
+ import android.graphics.drawable.LayerDrawable;
  import android.os.AsyncTask;
  import android.os.Bundle;
  import android.view.LayoutInflater;
@@ -9,14 +13,20 @@
  import android.view.MenuItem;
  import android.view.View;
  import android.view.ViewGroup;
+ import android.view.animation.Animation;
+ import android.view.animation.AnimationUtils;
  import android.widget.Toast;
 
  import androidx.annotation.Nullable;
  import androidx.appcompat.app.ActionBar;
+ import androidx.appcompat.app.AlertDialog;
  import androidx.appcompat.app.AppCompatActivity;
+ import androidx.appcompat.graphics.drawable.DrawableWrapper;
  import androidx.appcompat.widget.Toolbar;
+ import androidx.core.graphics.drawable.WrappedDrawable;
  import androidx.fragment.app.Fragment;
  import androidx.fragment.app.FragmentManager;
+ import androidx.fragment.app.FragmentTransaction;
  import androidx.viewpager.widget.ViewPager;
 
  import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +36,7 @@
  import com.myfarmnow.myfarmcrop.app.CropManagerApp;
  import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ViewPagerCustomAdapter;
  import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+ import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
  import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
  import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
  import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
@@ -44,6 +55,8 @@
  import retrofit2.Call;
  import retrofit2.Callback;
  import retrofit2.Response;
+
+ import static com.facebook.FacebookSdk.getApplicationContext;
 
  public class BuyInputsHomePage extends Fragment {
      View rootView;
@@ -197,7 +210,6 @@
          cartItem.setVisible(true);
 
      }
-
 
      private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
          Fragment selectedFragment = null;

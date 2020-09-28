@@ -121,10 +121,11 @@ public class DashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     Fragment defaultHomeFragment;
 
+
     public static String mSelectedItem;
     private static final String SELECTED_ITEM_ID = "selected";
-    public Fragment currentFragment;
     public  static ActionBar actionBar;
+    public Fragment currentFragment;
 
     // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
     public static String paymentNonceToken;
@@ -346,11 +347,31 @@ public class DashboardActivity extends AppCompatActivity {
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(getString(R.string.actionHome)).commit();
                 else
-                fragmentManager.beginTransaction()
-                        .hide(currentFragment)
-                        .add(R.id.main_fragment_container, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
+                    fragmentManager.beginTransaction()
+                            .hide(currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
+            }
+        });
+
+        cartItem.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to My_Cart Fragment
+                Fragment fragment = new My_Cart();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if(currentFragment==null)
+                    fragmentManager.beginTransaction()
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
+                else
+                    fragmentManager.beginTransaction()
+                            .hide(currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
             }
         });
 
@@ -371,6 +392,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
+        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
         // Get No. of Cart Items with the static method of My_Cart Fragment
         int cartSize = My_Cart.getCartSize();
 

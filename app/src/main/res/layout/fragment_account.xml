@@ -80,8 +80,8 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Sserubiri Joseph"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="20sp"
+                                android:textColor="#737373"
+                                android:textSize="@dimen/dimen_20sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -104,7 +104,7 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="60dp"
                             android:layout_marginStart="@dimen/dimen_10dp"
                             android:layout_marginEnd="@dimen/dimen_10dp"
                             android:background="@drawable/rounded_corners2_button_green"
@@ -127,7 +127,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.2" />
+                                app:layout_constraintGuide_begin="78dp" />
 
                             <TextView
                                 android:id="@+id/txt_user_address"
@@ -139,6 +139,7 @@
                                 android:gravity="center|start"
                                 android:text="Nakibinge, Rd, Kampala, Uganda"
                                 android:textColor="@android:color/white"
+                                android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.0"
@@ -191,7 +192,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Delivery Addresses"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -223,7 +224,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="My Orders"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -241,7 +242,8 @@
                                 android:layout_height="20.27dp"
                                 android:layout_gravity="center|start"
                                 android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_cart" />
+                                android:src="@drawable/ic_cart"
+                                app:tint="@color/colorPrimary" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -255,7 +257,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="My Cart"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -273,7 +275,7 @@
                                 android:layout_height="20.27dp"
                                 android:layout_gravity="center|start"
                                 android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_cart" />
+                                android:src="@drawable/ic_favorite" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -287,7 +289,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="My Favourites"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -318,7 +320,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="My Rating &amp; Reviews"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -365,7 +367,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Change Password"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -396,7 +398,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Customer Support"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -427,7 +429,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Official Website"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -459,7 +461,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Privacy Policy"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -491,7 +493,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="@string/refund_policy"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -540,7 +542,7 @@
                             android:paddingEnd="@dimen/dimen_10dp"
                             android:src="@drawable/ic_user"
                             android:text="Share App"
-                            android:textSize="20sp" />
+                            android:textSize="16sp" />
 
                     </RelativeLayout>
 
@@ -574,7 +576,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="News"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 
@@ -607,7 +609,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Rate App"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
                         <RelativeLayout
@@ -638,7 +640,7 @@
                                 android:paddingEnd="@dimen/dimen_10dp"
                                 android:src="@drawable/ic_user"
                                 android:text="Logout"
-                                android:textSize="20sp" />
+                                android:textSize="16sp" />
 
                         </RelativeLayout>
 

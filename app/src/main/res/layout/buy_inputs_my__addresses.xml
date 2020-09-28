@@ -16,10 +16,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:tint="@color/grey"
             android:src="@drawable/ic_location"
             android:layout_width="140dp"
-            android:layout_height="140dp" />
+            android:layout_height="140dp"
+            app:tint="@color/grey" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,12 +64,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabSize="normal"
-            android:src="@drawable/ic_add_location"
+            android:src="@drawable/ic_add_location_24"
             android:tint="@color/white"
             android:elevation="5dp"
             android:translationZ="3dp"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="50dp"
             app:backgroundTint="@color/colorAccentGreen" />
 
     </FrameLayout>

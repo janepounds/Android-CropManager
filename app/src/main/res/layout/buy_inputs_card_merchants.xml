@@ -49,7 +49,7 @@
                     android:text="Bukooola Inputs shop"
                     android:textSize="16sp"
                     android:layout_marginLeft="40dp"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textStyle="bold"
                     android:layout_alignLeft="@+id/shop_icon_image"
                     android:textColor="@color/textColorSecondary" />
@@ -82,7 +82,7 @@
                     android:text="Nansana, Kampala"
                     android:textSize="16sp"
                     android:layout_marginLeft="40dp"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textStyle="bold"
                     android:layout_alignLeft="@+id/location_icon_image"
                     android:textColor="@color/textColorSecondary" />
@@ -123,7 +123,7 @@
                     android:maxLines="1"
                     android:text="@string/total"
                     android:textSize="16sp"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textStyle="bold"
                     android:textColor="@color/textColorSecondary" />
 
@@ -134,7 +134,7 @@
                     android:maxLines="1"
                     android:text="UGX 52,0000"
                     android:textSize="16sp"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textStyle="bold"
                     android:textColor="@color/textColorSecondary"
                     android:textAlignment="textEnd"
@@ -167,7 +167,7 @@
                 android:textColor="@color/white"
                 android:background="@drawable/rounded_corners2_button_green"
                 android:layout_marginRight="@dimen/dimen_10dp"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/josefin_sans"/>
 
             <Button
                 android:id="@+id/ignore_btn"
@@ -179,7 +179,7 @@
                 android:textSize="16sp"
                 android:textAllCaps="false"
                 android:background="@drawable/rounded_corners_green_borded_button_white"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/josefin_sans"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true" />
 

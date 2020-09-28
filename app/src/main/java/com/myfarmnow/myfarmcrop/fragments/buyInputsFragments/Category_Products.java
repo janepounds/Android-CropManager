@@ -167,7 +167,7 @@ public class Category_Products extends Fragment {
         if(categoryProductsList.size()<3)
             bottomBar.setVisibility(View.INVISIBLE);
         // Initialize the ProductAdapter for RecyclerView
-        productAdapter = new ProductAdapter(getContext(), categoryProductsList, false,false);
+        productAdapter = new ProductAdapter(getActivity(), getActivity().getSupportFragmentManager(),categoryProductsList, false,false);
 
         
         setRecyclerViewLayoutManager(isGridView);

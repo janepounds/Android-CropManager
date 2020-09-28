@@ -23,11 +23,26 @@
             android:layout_marginTop="@dimen/dimen_10dp">
 
             <ImageView
-                android:id="@+id/produce_image"
+                android:id="@+id/product_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/dimen_10dp"
-                android:src="@drawable/image_20" />
+                android:src="@drawable/placeholder" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerFrame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lg_card_cover_height"
+                android:alpha=".7"
+                app:shimmer_duration="1500">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/lg_card_cover_height"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <TextView
                 android:id="@+id/percentage_sale_off"
@@ -42,7 +57,6 @@
                 app:autoSizeTextType="uniform" />
 
         </RelativeLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,8 +82,9 @@
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
+
                         <TextView
-                            android:id="@+id/produce_name"
+                            android:id="@+id/product_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -81,7 +96,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/produce_sale_discount"
+                            android:id="@+id/active_ingredient"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_5dp"
@@ -92,6 +107,7 @@
                             android:textSize="18sp" />
 
                         <RelativeLayout
+                            android:id="@+id/product_like_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -150,6 +166,8 @@
                                 android:textSize="14sp" />
 
                         </RelativeLayout>
+
+
 
                     </LinearLayout>
 
@@ -262,5 +280,52 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/saleLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/productItemTagSale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccentGreen"
+            android:padding="2dp"
+            android:text="SALE"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/productItemTagOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productItemTagSale"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorAccentGreen"
+            android:padding="2dp"
+            android:text=" OFF"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/product_checked"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:clickable="true"
+        android:paddingBottom="20dp"
+        android:scaleType="center"
+        android:src="@drawable/checked" />
 
 </androidx.cardview.widget.CardView>

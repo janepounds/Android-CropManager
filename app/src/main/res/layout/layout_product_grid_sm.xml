@@ -152,7 +152,7 @@
                     android:textOn=""
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/toggle_ic_favorite"
+                    android:background="@drawable/ic_favorite"
                     android:layout_alignParentRight="true" />
 
             </RelativeLayout>
