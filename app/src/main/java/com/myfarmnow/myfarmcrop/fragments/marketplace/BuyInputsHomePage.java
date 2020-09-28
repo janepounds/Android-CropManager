@@ -1,4 +1,4 @@
- package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
+ package com.myfarmnow.myfarmcrop.fragments.marketplace;
 
  import android.annotation.SuppressLint;
  import android.content.Context;
@@ -41,6 +41,8 @@
  import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
  import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
  import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BannerStyle1;
+ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Categories_3;
  import com.myfarmnow.myfarmcrop.models.banner_model.BannerDetails;
  import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
  import com.myfarmnow.myfarmcrop.models.user_model.UserData;
