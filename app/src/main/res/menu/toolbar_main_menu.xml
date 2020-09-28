@@ -29,7 +29,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/toolbar_ic_search"
-        android:icon="@drawable/ic_search_menu"
+        android:icon="@drawable/ic_search_menu24"
         android:title="@string/actionSearch"
         app:showAsAction="ifRoom" />
     <!--app:actionViewClass="android.widget.SearchView"-->

@@ -61,7 +61,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BuyInputsHomePage;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
@@ -354,7 +354,7 @@ public class DashboardActivity extends AppCompatActivity {
                             .addToBackStack(getString(R.string.actionHome)).commit();
             }
         });
-        cartItem.setActionView(R.layout.layout_animated_ic_cart);
+        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
         cartItem.getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -378,7 +378,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Tint Menu Icons with the help of static method of Utilities class
         Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
-        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
+//        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
         Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
 
         return true;
@@ -392,7 +392,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
-        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
         // Get No. of Cart Items with the static method of My_Cart Fragment
         int cartSize = My_Cart.getCartSize();
 
@@ -509,8 +508,6 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.toolbar_ic_currency:
-
-
 
                 // Navigate to Currency Fragment
                 fragment = new CurrencyFrag();

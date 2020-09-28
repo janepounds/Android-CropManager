@@ -41,12 +41,12 @@
             android:textSize="14sp"
             android:textColor="@color/textColorSecondaryLight"
             android:textColorHint="@color/textColorPrimaryDark"
-            android:drawableStart="@drawable/ic_search"
+            android:drawableStart="@drawable/places_ic_search"
             android:drawablePadding="5dp"
             android:padding="5dp"
             android:layout_centerVertical="true"
             android:background="@drawable/rounded_corners_edittext_dark"
-            android:drawableLeft="@drawable/ic_search" />
+            android:drawableLeft="@drawable/places_ic_search" />
 
     </RelativeLayout>
 
