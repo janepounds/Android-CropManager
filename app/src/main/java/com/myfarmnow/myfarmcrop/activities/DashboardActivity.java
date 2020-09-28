@@ -354,7 +354,7 @@ public class DashboardActivity extends AppCompatActivity {
                             .addToBackStack(getString(R.string.actionHome)).commit();
             }
         });
-
+        cartItem.setActionView(R.layout.layout_animated_ic_cart);
         cartItem.getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
