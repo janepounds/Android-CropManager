@@ -1,19 +1,260 @@
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.LivestockRecordsFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-<FrameLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_livestock_records"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@drawable/home_background">
 
-</FrameLayout>
-</layout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp">
+
+
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_breeding_stock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_breeding_stock" />
+
+                        <TextView
+                            android:id="@+id/tv_breeding_stock"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:fontFamily="@font/josefin_sans_semibold"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Breeding Stock"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_matings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_matings" />
+
+                        <TextView
+                            android:id="@+id/tv_matings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:fontFamily="@font/josefin_sans_semibold"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Matings"
+                            android:textAllCaps="true"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_litters"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_litter" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:fontFamily="@font/josefin_sans_semibold"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Litters"
+                            android:textAllCaps="true"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_medications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_financial_records" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:fontFamily="@font/josefin_sans_semibold"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="Medications"
+                            android:textAllCaps="true"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/frame_layout_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/black_border"
+        android:padding="1dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                app:tabBackground="@drawable/tab_color_selector"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/green_mh"
+                app:tabIndicatorHeight="0dp"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/black" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.viewpager.widget.ViewPager>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

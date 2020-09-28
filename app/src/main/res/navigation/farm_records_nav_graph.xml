@@ -41,7 +41,20 @@
         android:id="@+id/livestockRecordsFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.LivestockRecordsFragment"
         android:label="@string/label_livestockrecords"
-        tools:layout="@layout/fragment_livestock_records" />
+        tools:layout="@layout/fragment_livestock_records" >
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_breedingStockViewFragment"
+            app:destination="@id/breedingStockViewFragment" />
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_matingViewFragment"
+            app:destination="@id/matingViewFragment" />
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_littersViewFragment"
+            app:destination="@id/littersViewFragment" />
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_medicationsViewFragment"
+            app:destination="@id/medicationsViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/storeFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.StoreFragment"
@@ -212,4 +225,60 @@
             android:id="@+id/action_addCropNotesFragment_to_cropsNotesListFragment"
             app:destination="@id/cropsNotesListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/breedingStockViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment"
+        android:label="Breeding Stock"
+        tools:layout="@layout/fragment_breeding_stock_view" >
+        <action
+            android:id="@+id/action_breedingStockViewFragment_to_addBreedingStockFragment"
+            app:destination="@id/addBreedingStockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matingViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingViewFragment"
+        android:label="Matings"
+        tools:layout="@layout/fragment_mating_view" >
+        <action
+            android:id="@+id/action_matingViewFragment_to_addMatingsFragment"
+            app:destination="@id/addMatingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/littersViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.LittersViewFragment"
+        android:label="Litters"
+        tools:layout="@layout/fragment_litters_view" >
+        <action
+            android:id="@+id/action_littersViewFragment_to_addLittersFragment"
+            app:destination="@id/addLittersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicationsViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MedicationsViewFragment"
+        android:label="Medications"
+        tools:layout="@layout/fragment_medications_view" >
+        <action
+            android:id="@+id/action_medicationsViewFragment_to_addMedicationFragment"
+            app:destination="@id/addMedicationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBreedingStockFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddBreedingStockFragment"
+        android:label="Add Breeding Stock"
+        tools:layout="@layout/fragment_add_breeding_stock" />
+    <fragment
+        android:id="@+id/addMatingsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddMatingsFragment"
+        android:label="Add Matings"
+        tools:layout="@layout/fragment_add_matings" />
+    <fragment
+        android:id="@+id/addLittersFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddLittersFragment"
+        android:label="Add Litters"
+        tools:layout="@layout/fragment_add_litters" />
+    <fragment
+        android:id="@+id/addMedicationFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddMedicationFragment"
+        android:label="Add Medication"
+        tools:layout="@layout/fragment_add_medication" />
 </navigation>

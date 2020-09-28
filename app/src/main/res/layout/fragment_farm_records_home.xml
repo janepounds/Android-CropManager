@@ -4,19 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.FarmRecordsHomeFragment">
 
-
-
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
 
         <RelativeLayout
@@ -299,4 +295,5 @@
     </LinearLayout>
 
 </FrameLayout>
+
 </layout>

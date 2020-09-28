@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.fragments.farmrecords;
+package com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,31 +11,32 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
 
 import com.myfarmnow.myfarmcrop.R;
 
-public class LivestockRecordsFragment extends Fragment {
+public class BreedingStockViewFragment extends Fragment {
+    private static final String TAG = "BreedingStockViewFragment";
     private Context context;
 
     private Toolbar toolbar;
-    private LinearLayout layout_breeding_stock, layout_matings, layout_litters, layout_medications;
+    private Button addAnimal;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_livestock_records, container, false);
+        View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
-        toolbar = view.findViewById(R.id.toolbar_livestock_records);
-        layout_breeding_stock = view.findViewById(R.id.layout_breeding_stock);
-        layout_matings = view.findViewById(R.id.layout_matings);
-        layout_litters = view.findViewById(R.id.layout_litters);
-        layout_medications = view.findViewById(R.id.layout_medications);
+        toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
+        addAnimal = view.findViewById(R.id.add_animal);
+        recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
 
         return view;
     }
@@ -47,10 +48,7 @@ public class LivestockRecordsFragment extends Fragment {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
-        layout_breeding_stock.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_breedingStockViewFragment));
-        layout_matings.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_matingViewFragment));
-        layout_litters.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_littersViewFragment));
-        layout_medications.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_medicationsViewFragment));
+        addAnimal.setOnClickListener(v -> navController.navigate(R.id.action_breedingStockViewFragment_to_addBreedingStockFragment));
     }
 
     @Override

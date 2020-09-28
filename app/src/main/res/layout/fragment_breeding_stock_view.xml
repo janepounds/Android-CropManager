@@ -1,0 +1,102 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_breeding_stock_view"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/edittext_corner"
+                    android:gravity="center"
+                    android:padding="3.4dp">
+
+                    <Spinner
+                        android:id="@+id/animal_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:entries="@array/breeding_stock"
+                        android:gravity="center"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="125dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_10dp">
+
+                <Button
+                    android:id="@+id/add_animal"
+                    android:layout_width="125dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/rounded_corners2_button_green"
+                    android:fontFamily="@font/josefin_sans"
+                    android:text="Add Animal"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/dimen_14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/breeding_stock_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
