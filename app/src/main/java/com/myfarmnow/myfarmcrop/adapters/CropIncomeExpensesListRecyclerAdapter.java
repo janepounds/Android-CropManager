@@ -5,7 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -107,7 +111,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
                      popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                                           @Override
                                                           public boolean onMenuItemClick(MenuItem item) {
-
+                                                              NavController navController = Navigation.findNavController(v);
                                                               if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))) {
                                                                   final CropIncomeExpense cropIncomeExpense = cropIncomeExpensesList.get(getAdapterPosition());
                                                                   new AlertDialog.Builder(mContext)
@@ -127,9 +131,9 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
                                                                           .setNegativeButton(android.R.string.no, null).show();
                                                               } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))) {
                                                                   CropIncomeExpense cropIncomeExpense = cropIncomeExpensesList.get(getAdapterPosition());
-//                                                                  Intent editCropIncomeExpense = new Intent(mContext, CropIncomeExpenseManagerActivity.class);
-//                                                                  editCropIncomeExpense.putExtra("cropIncomeExpense", cropIncomeExpense);
-//                                                                  mContext.startActivity(editCropIncomeExpense);
+                                                                  Bundle bundle = new Bundle();
+                                                                  bundle.putSerializable("cropIncomeExpense",cropIncomeExpense);
+                                                                  navController.navigate(R.id.action_financialRecordsFragment_to_addFinancialRecordFragment,bundle);
 
                                                               }
 

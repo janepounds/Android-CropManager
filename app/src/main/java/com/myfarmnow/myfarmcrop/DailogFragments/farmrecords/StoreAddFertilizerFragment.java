@@ -38,11 +38,10 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private NavController navController;
-    ImageView close;
+    ImageView close,purchaseDatePicker;
     CropInventoryFertilizer fertilizerInventory =null;
-    EditText dateTxt,nameTxt,batchNumberTxt,npkNTxt, npkPTxt, npkKTxt,qtyTxt,serialNumberTxt,supplierTxt,costTxt;
-    EditText macrosCa,macrosMg,macrosS,microsB,microsMn,microsCl,microsMo,microsCu,microsZn,microsFe,microsNa;
-    TextView currencyTxt,txtCropFertilizerUnit;
+    EditText dateTxt,nameTxt,batchNumberTxt,npkNTxt, npkPTxt, npkKTxt,qtyTxt,supplierTxt,costTxt;
+    TextView txtCropFertilizerUnit;
     Spinner typeSp,usageUnitSp;
     Button saveBtn;
 
@@ -78,8 +77,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        navController = Navigation.findNavController(view);
-//
+
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
@@ -108,6 +106,8 @@ public class StoreAddFertilizerFragment extends DialogFragment {
         txtCropFertilizerUnit = view.findViewById(R.id.txt_crop_fertilizer_unit);
         saveBtn = view.findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        purchaseDatePicker= view .findViewById(R.id.image_date_picker);
+        DashboardActivity.addDatePickerImageView(purchaseDatePicker,dateTxt,context);
         DashboardActivity.addDatePicker(dateTxt,context);
         ((ArrayAdapter)typeSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)usageUnitSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -116,14 +116,10 @@ public class StoreAddFertilizerFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try{
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+                    if(position ==0){
+                        ((TextView)view ).setTextColor(Color.GRAY);
+                    }
 
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
                 }catch (Exception e){
 
                 }
@@ -143,14 +139,7 @@ public class StoreAddFertilizerFragment extends DialogFragment {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
-                    else  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
                 }catch (Exception e){
 
                 }
@@ -161,40 +150,25 @@ public class StoreAddFertilizerFragment extends DialogFragment {
 
                 }
                 else if(selection.toLowerCase().equals("kg")){
-
                     txtCropFertilizerUnit.setText("KG");
-
 
                 }
                 else if(selection.toLowerCase().equals("cwt")){
                     txtCropFertilizerUnit.setText("CWT");
-
-
-
-
                 }
                 else if(selection.toLowerCase().equals("tonne")){
                     txtCropFertilizerUnit.setText("TN");
 
-
-
-
                 }
                 else if(selection.toLowerCase().equals("lt")){
-
                     txtCropFertilizerUnit.setText("LT");
-
 
                 }
                 else if(selection.toLowerCase().equals("ml")){
-
                     txtCropFertilizerUnit.setText("ML");
-
 
                 }
                 else if(selection.toLowerCase().equals("m3")){
-
-
                     txtCropFertilizerUnit.setText("M3");
 
 
@@ -209,12 +183,6 @@ public class StoreAddFertilizerFragment extends DialogFragment {
             }
         });
         typeSp.setOnItemSelectedListener(onItemSelectedListener);
-
-
-
-
-//        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
-
 
         fillViews();
 

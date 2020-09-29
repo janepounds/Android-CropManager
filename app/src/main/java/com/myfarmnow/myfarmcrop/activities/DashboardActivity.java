@@ -41,6 +41,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -592,6 +593,29 @@ public class DashboardActivity extends AppCompatActivity {
 
     public static void addDatePicker(final EditText ed_, final Context context) {
         ed_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentDate = Calendar.getInstance();
+                int mYear = mcurrentDate.get(Calendar.YEAR);
+                int mMonth = mcurrentDate.get(Calendar.MONTH);
+                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                final DatePickerDialog mDatePicker = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                        int month = selectedmonth + 1;
+                        NumberFormat formatter = new DecimalFormat("00");
+                        ed_.setText(selectedyear + "-" + formatter.format(month) + "-" + formatter.format(selectedday));
+                    }
+                }, mYear, mMonth, mDay);
+                mDatePicker.show();
+
+            }
+        });
+        ed_.setInputType(InputType.TYPE_NULL);
+    }
+
+    public static void addDatePickerImageView(final ImageView imageView, final EditText ed_, final Context context) {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar mcurrentDate = Calendar.getInstance();

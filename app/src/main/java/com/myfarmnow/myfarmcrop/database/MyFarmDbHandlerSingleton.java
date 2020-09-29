@@ -418,6 +418,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_INCOME_EXPENSE_PAYMENT_STATUS = "paymentStatus";
     public static final String CROP_INCOME_EXPENSE_SELLING_PRICE = "sellingPrice";
     public static final String CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER = "customerSupplier";
+    public static final String CROP_INCOME_EXPENSE_DEPARTMENT = "department";
     public static final String CROP_INCOME_EXPENSE_USER_ID = "userId";
     public static final String CROP_INCOME_EXPENSE_CROP_ID = "cropId";
 
@@ -817,7 +818,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 "FOREIGN KEY( " + CROP_PAYMENT_CUSTOMER_ID + ") REFERENCES  " + CROP_CUSTOMER_TABLE_NAME + " ( " + CROP_CUSTOMER_ID + " ) )";
         String crop_income_expense_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME + " ( " + CROP_INCOME_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CROP_INCOME_EXPENSE_DATE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_USER_ID + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_TRANSACTION + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_ITEM +
                 " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CATEGORY + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_QUANTITY + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_GROSS_AMOUNT + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_UNIT_PRICE + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_TAXES + " REAL, "
-                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
+                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, "+ CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT, "  + CROP_INCOME_EXPENSE_CROP_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " + CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL, " + CROP_TASK_REPEAT_UNTIL + " TEXT, " + CROP_TASK_DAYS_BEFORE
@@ -1010,6 +1011,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
+        db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT DEFAULT NULL");
 
         db.execSQL("ALTER TABLE " + CROP_PAYMENT_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_PAYMENT_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
@@ -5233,6 +5235,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
+        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT,incomeExpense.getDepartment());
         contentValues.put(CROP_SYNC_STATUS, incomeExpense.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, incomeExpense.getGlobalId());
         database.insert(CROP_INCOME_EXPENSE_TABLE_NAME, null, contentValues);
@@ -5256,6 +5259,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
+        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT,incomeExpense.getDepartment());
         contentValues.put(CROP_SYNC_STATUS, incomeExpense.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, incomeExpense.getGlobalId());
         database.update(CROP_INCOME_EXPENSE_TABLE_NAME, contentValues, CROP_INCOME_EXPENSE_ID + " = ?", new String[]{incomeExpense.getId()});
@@ -5300,6 +5304,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             incomeExpense.setPaymentStatus(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_STATUS)));
             incomeExpense.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_SELLING_PRICE)));
             incomeExpense.setCustomerSupplier(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER)));
+            incomeExpense.setDepartment(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_DEPARTMENT)));
             incomeExpense.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(incomeExpense);
             res.moveToNext();
