@@ -155,7 +155,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="4dp"
-            android:background="@drawable/toggle_ic_favorite"
+            android:background="@drawable/ic_favorite"
             android:textOff=""
             android:textOn="" />
 

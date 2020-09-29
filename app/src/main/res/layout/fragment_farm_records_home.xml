@@ -4,19 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.FarmRecordsHomeFragment">
 
-
-
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
 
         <RelativeLayout
@@ -99,6 +95,7 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
+                                    android:fontFamily="@font/josefin_sans_semibold"
                                     android:text="@string/label_croprecords"
                                     android:textAllCaps="true"
                                     android:textColor="#000000"
@@ -143,7 +140,7 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
-
+                                    android:fontFamily="@font/josefin_sans_semibold"
                                     android:text="@string/label_livestockrecords"
                                     android:textAllCaps="true"
                                     android:textColor="#000"
@@ -183,6 +180,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="top"
+                                    android:fontFamily="@font/josefin_sans_semibold"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
                                     android:text="@string/label_store"
@@ -226,6 +224,7 @@
                                     android:layout_gravity="top"
                                     android:gravity="center"
                                     android:paddingBottom="5dp"
+                                    android:fontFamily="@font/josefin_sans_semibold"
                                     android:text="@string/label_financial_records"
                                     android:textAllCaps="true"
                                     android:textColor="#000"
@@ -296,4 +295,5 @@
     </LinearLayout>
 
 </FrameLayout>
+
 </layout>

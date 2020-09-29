@@ -20,8 +20,8 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_cart"
-            android:tint="@color/grey_dark" />
+            android:src="@drawable/ic_shopping_cart_18dp"
+            app:tint="@color/grey_dark" />
 
         <TextView
             android:layout_width="wrap_content"

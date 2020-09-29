@@ -1,24 +1,40 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.graphics.drawable.DrawableWrapper;
+import androidx.core.graphics.drawable.WrappedDrawable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ViewPagerCustomAdapter;
+import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class Products extends Fragment {
@@ -47,10 +63,11 @@ public class Products extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         // Get CategoriesList from AppContext
         allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
-
+        ((DashboardActivity)getActivity()).currentFragment=getActivity().getSupportFragmentManager().getPrimaryNavigationFragment();
         allSubCategoriesList = new ArrayList<>();
 
         // Get SubCategoriesList from AllCategoriesList
@@ -162,6 +179,24 @@ public class Products extends Fragment {
         }
 
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide Cart Icon in the Toolbar
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(false);
+        cartItem.setVisible(true);
+    }
+
+
 
 }
 

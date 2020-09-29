@@ -62,7 +62,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BuyInputsHomePage;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
@@ -122,10 +122,11 @@ public class DashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
     Fragment defaultHomeFragment;
 
+
     public static String mSelectedItem;
     private static final String SELECTED_ITEM_ID = "selected";
-    public Fragment currentFragment;
     public  static ActionBar actionBar;
+    public Fragment currentFragment;
 
     // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
     public static String paymentNonceToken;
@@ -347,18 +348,38 @@ public class DashboardActivity extends AppCompatActivity {
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(getString(R.string.actionHome)).commit();
                 else
-                fragmentManager.beginTransaction()
-                        .hide(currentFragment)
-                        .add(R.id.main_fragment_container, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
+                    fragmentManager.beginTransaction()
+                            .hide(currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
+            }
+        });
+        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
+        cartItem.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to My_Cart Fragment
+                Fragment fragment = new My_Cart();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if(currentFragment==null)
+                    fragmentManager.beginTransaction()
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
+                else
+                    fragmentManager.beginTransaction()
+                            .hide(currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(getString(R.string.actionHome)).commit();
             }
         });
 
 
         // Tint Menu Icons with the help of static method of Utilities class
         Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
-        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
+//        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
         Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
 
         return true;
@@ -488,8 +509,6 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.toolbar_ic_currency:
-
-
 
                 // Navigate to Currency Fragment
                 fragment = new CurrencyFrag();

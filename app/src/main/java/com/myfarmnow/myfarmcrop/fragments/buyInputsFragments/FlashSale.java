@@ -105,7 +105,7 @@ public class FlashSale extends Fragment {
         
         
         // Initialize the ProductAdapterRemovable and LayoutManager for RecyclerView
-        productAdapter = new ProductAdapter(getContext(), flashList, true, true);
+        productAdapter = new ProductAdapter(getActivity(),getActivity().getSupportFragmentManager(), flashList, true, true);
         recents_recycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         
         // Set the Adapter and LayoutManager to the RecyclerView

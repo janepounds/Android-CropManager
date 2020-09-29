@@ -149,10 +149,6 @@
             android:name=".activities.CropFarmReportsActivity"
             android:label="@string/title_activity_crop_farm_reports"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.predictiontools.CropYieldPerformanceActivity"
-            android:label="@string/title_activity_crop_yield_performance"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activities.CropSettingsActivity"

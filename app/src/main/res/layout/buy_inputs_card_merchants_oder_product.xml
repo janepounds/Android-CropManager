@@ -14,7 +14,7 @@
             android:maxLines="1"
             android:text="3 X Weedmaster"
             android:textSize="14sp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/josefin_sans"
             android:textColor="@color/textColorSecondary" />
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="80dp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/josefin_sans"
             android:gravity="end"
             android:maxLines="1"
             android:text="25000"

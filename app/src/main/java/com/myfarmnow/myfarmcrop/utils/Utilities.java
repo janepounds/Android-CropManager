@@ -303,13 +303,13 @@ public class Utilities {
 
     public static void animateCartMenuIcon(Context context, Activity activity) {
 
-        Toolbar toolbar = activity.findViewById(R.id.myToolbar);
+        Toolbar toolbar = activity.findViewById(R.id.main_Toolbar);
 
         MenuItem cartItem = toolbar.getMenu().findItem(R.id.toolbar_ic_cart);
         if (cartItem == null)
             return;
 
-
+        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake_icon);
         animation.setRepeatMode(Animation.ZORDER_TOP);
         animation.setRepeatCount(2);

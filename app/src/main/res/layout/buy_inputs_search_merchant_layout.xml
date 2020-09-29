@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:text="Pair with Shop"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/josefin_sans"
             android:textSize="@dimen/dimen_20dp"
             android:textColor="@color/textColor"
             />
@@ -190,7 +190,7 @@
                     android:drawableTint="#ffffff"
                     android:text="CONTINUE"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/montserrat"
+                    android:fontFamily="@font/josefin_sans"
                     android:textColor="#ffffff"/>
 
             </LinearLayout>
