@@ -53,6 +53,7 @@ import com.myfarmnow.myfarmcrop.models.CropYieldRecord;
 import com.myfarmnow.myfarmcrop.models.DeletedRecord;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
@@ -680,6 +681,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID="globalId";
 
 
+    public static final String LIVESTOCK_RECORDS_MATING_TABLE_NAME = "mating";
+    public static final String LIVESTOCK_RECORDS_MATING_ID = "id";
+    public static final String LIVESTOCK_RECORDS_MATING_USER_ID ="userId";
+    public static final String LIVESTOCK_RECORDS_MATING_DATE = "matingDate";
+    public static final String LIVESTOCK_RECORDS_MATING_MALE_NAME = "maleName";
+    public static final String LIVESTOCK_RECORDS_MATING_FEMALE_NAME ="femaleName";
+    public static final String LIVESTOCK_RECORDS_MATING_METHOD = "method";
+    public static final String LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD = "gestationPeriod";
+    public static final String LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE ="deliveryAlertDaysBefore";
+    public static final String LIVESTOCK_RECORDS_MATING_NOTES = "notes";
+    public static final String LIVESTOCK_RECORDS_MATING_SYNC_STATUS = "syncStatus";
+    public static final String LIVESTOCK_RECORDS_MATING_GLOBAL_ID = "globalId";
+
 
 
 
@@ -913,19 +927,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_BREED + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE + " TEXT, " +
                 LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO + " TEXT, "  + LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";;
 
-       /* Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
-        Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
-        Log.d("SPRAY INVENTORY",crop_inventory_spray_insert_query);
-        Log.d("SPRAY INVENTORY",crop_spraying_insert_query);
-        Log.d("CROP",crop_insert_query);
-        Log.d("CULTIVATE",crop_cultivate_insert_query);
-        Log.d("FERTILIZER",crop_fertilizer_insert_query);
-        Log.d("FIELDS",crop_field_insert_query);
-        Log.d("MACHINE",crop_machine_insert_query);
-        Log.d("CROP PURCHASE ORDER",crop_purchase_order_insert_query);*/
-        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_PAYMENT_BILL_TABLE_NAME);
-        // db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_SERVICE_TABLE_NAME);
-        //db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
+
+        String livestock_records_mating_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MATING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MATING_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_MALE_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_FEMALE_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_METHOD
+                + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE + " REAL, " + LIVESTOCK_RECORDS_MATING_NOTES + " TEXT, "
+                + LIVESTOCK_RECORDS_MATING_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MATING_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";;
+
 
 
 
@@ -969,6 +975,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(add_produce_insert_query);
         database.execSQL(market_price_insert_query);
         database.execSQL(livestock_records_breeding_stock_insert_query);
+        database.execSQL(livestock_records_mating_insert_query);
     }
 
     @Override
@@ -9092,6 +9099,116 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
 
     }
+
+    /**************MATING OPERATIONS*****************/
+
+    public Mating getMating(String id, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal ? LIVESTOCK_RECORDS_MATING_GLOBAL_ID : LIVESTOCK_RECORDS_MATING_ID;
+
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + " where " + key + " = '" + id + "'", null);
+        res.moveToFirst();
+        Mating mating = null;
+        if (!res.isAfterLast()) {
+            mating = new Mating();
+            mating.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_ID)));
+            mating.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_USER_ID)));
+            mating.setMatingDate(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_DATE)));
+            mating.setMaleName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_MALE_NAME)));
+            mating.setFemaleName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_FEMALE_NAME)));
+            mating.setMethod(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_METHOD)));
+            mating.setGestationPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD))));
+            mating.setDeliveryAlertDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE))));
+            mating.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GLOBAL_ID)));
+            mating.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_SYNC_STATUS)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return mating;
+    }
+    public void insertMating(Mating mating) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("LIVESTOCK_RECORDS_MATING_USER_ID",mating.getUserId());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_DATE",mating.getMatingDate());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_MALE_NAME",mating.getMaleName()) ;
+        contentValues.put("LIVESTOCK_RECORDS_MATING_FEMALE_NAME",mating.getFemaleName());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_METHOD", mating.getMethod());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD",mating.getGestationPeriod());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE", mating.getDeliveryAlertDaysBefore());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_NOTES",mating.getNotes());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_SYNC_STATUS",mating.getSyncStatus());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_GLOBAL_ID",mating.getGlobalId());
+        database.insert(LIVESTOCK_RECORDS_MATING_TABLE_NAME, null, contentValues);
+        closeDB();
+
+    }
+
+    public void updateMating(Mating mating) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("LIVESTOCK_RECORDS_MATING_USER_ID",mating.getUserId());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_DATE",mating.getMatingDate());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_MALE_NAME",mating.getMaleName()) ;
+        contentValues.put("LIVESTOCK_RECORDS_MATING_FEMALE_NAME",mating.getFemaleName());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_METHOD", mating.getMethod());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD",mating.getGestationPeriod());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE", mating.getDeliveryAlertDaysBefore());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_NOTES",mating.getNotes());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_SYNC_STATUS",mating.getSyncStatus());
+        contentValues.put("LIVESTOCK_RECORDS_MATING_GLOBAL_ID",mating.getGlobalId());
+        database.update(LIVESTOCK_RECORDS_MATING_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_MATING_ID + " = ?", new String[]{mating.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteMating(String id) {
+        Mating mating = getMating(id, false);
+        openDB();
+        database.delete(LIVESTOCK_RECORDS_MATING_TABLE_NAME, LIVESTOCK_RECORDS_MATING_ID + " = ?", new String[]{id});
+        closeDB();
+        if (mating != null) {
+            recordDeletedRecord("mating", mating.getGlobalId());
+        }
+        return true;
+    }
+
+    public ArrayList<Mating> getMatings(String userId) {
+
+        openDB();
+        ArrayList<Mating> array_list = new ArrayList();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + " where " + LIVESTOCK_RECORDS_MATING_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            Mating mating = new Mating();
+            mating.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_ID)));
+            mating.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_USER_ID)));
+            mating.setMatingDate(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_DATE)));
+            mating.setMaleName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_MALE_NAME)));
+            mating.setFemaleName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_FEMALE_NAME)));
+            mating.setMethod(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_METHOD)));
+            mating.setGestationPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD))));
+            mating.setDeliveryAlertDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE))));
+            mating.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GLOBAL_ID)));
+            mating.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_SYNC_STATUS)));
+            array_list.add(mating);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return array_list;
+
+    }
+
+
 }
 
 
