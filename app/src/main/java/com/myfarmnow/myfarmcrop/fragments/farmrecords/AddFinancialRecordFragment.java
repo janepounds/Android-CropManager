@@ -34,6 +34,7 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddFinancialRecordBinding;
+import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
@@ -91,9 +92,11 @@ public class AddFinancialRecordFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        if (requireActivity().getIntent().hasExtra("cropIncomeExpense")) {
-            cropIncomeExpense = (CropIncomeExpense) requireActivity().getIntent().getSerializableExtra("cropIncomeExpense");
+        //get arguments for edit
+        if(getArguments()!=null){
+            cropIncomeExpense = (CropIncomeExpense)getArguments().getSerializable("cropIncomeExpense");
         }
+
         initializeForm();
 
         return binding.getRoot();
@@ -102,15 +105,12 @@ public class AddFinancialRecordFragment extends Fragment {
     public void initializeForm() {
         categoryAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Category",context);
         binding.spCropIncomeExpenseCategory.setAdapter(categoryAdapter);
-        //transactionSpinner.setEnabled(false);
-//        binding.txtCropIncomeExpenseUnitPrice.setEnabled(false);
-
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         ((ArrayAdapter)binding.spCropIncomeExpensePaymentMode.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)binding.spCropIncomeExpensePaymentStatus.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)binding.spCropIncomeExpenseTransaction.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter)binding.spCropIncomeExpenseCategory.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-
+        DashboardActivity.addDatePickerImageView(binding.imageDatePicker,binding.txtCropIncomeExpenseDate,context);
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -119,14 +119,6 @@ public class AddFinancialRecordFragment extends Fragment {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
-                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
                 }catch (Exception e){
 
                 }
@@ -166,13 +158,7 @@ public class AddFinancialRecordFragment extends Fragment {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
-                    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+
                 }catch (Exception e){
 
                 }
@@ -295,6 +281,7 @@ public class AddFinancialRecordFragment extends Fragment {
         cropIncomeExpense.setPaymentStatus(binding.spCropIncomeExpensePaymentStatus.getSelectedItem().toString());
         cropIncomeExpense.setCustomerSupplier(binding.spinnerCropIncomeExpenseCustomerSupplier.getText().toString());
         cropIncomeExpense.setItem(binding.txtCropIncomeExpenseItem.getText().toString());
+        cropIncomeExpense.setDepartment(binding.txtDepartment.getText().toString());
         dbHandler.insertCropIncomeExpense(cropIncomeExpense);
 
 
@@ -306,17 +293,11 @@ public class AddFinancialRecordFragment extends Fragment {
             cropIncomeExpense.setDate(binding.txtCropIncomeExpenseDate.getText().toString());
             cropIncomeExpense.setCategory(binding.spCropIncomeExpenseCategory.getSelectedItem().toString());
             cropIncomeExpense.setTransaction(binding.spCropIncomeExpenseTransaction.getSelectedItem().toString());
-//            cropIncomeExpense.setCropId(((CropSpinnerItem)binding.spCropIncomeExpenseCrop.getSelectedItem()).getId());
-//            cropIncomeExpense.setTaxes(Float.parseFloat(binding.txtCropIncomeExpenseTaxes.getText().toString()));
-//            cropIncomeExpense.setQuantity(Float.parseFloat(binding.txtCropIncomeExpenseQuantity.getText().toString()));
             cropIncomeExpense.setGrossAmount(Integer.parseInt(binding.txtCropIncomeExpenseGrossAmount.getText().toString()));
             cropIncomeExpense.setPaymentMode(binding.spCropIncomeExpensePaymentMode.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(binding.spCropIncomeExpensePaymentStatus.getSelectedItem().toString());
-
             cropIncomeExpense.setCustomerSupplier(binding.spinnerCropIncomeExpenseCustomerSupplier.getText().toString());
-
-
-//            cropIncomeExpense.setSellingPrice(Float.parseFloat(binding.txtCropIncomeExpenseSellingPrice.getText().toString()));
+            cropIncomeExpense.setDepartment(binding.txtDepartment.getText().toString());
             cropIncomeExpense.setItem(binding.txtCropIncomeExpenseItem.getText().toString());
 
             dbHandler.updateCropIncomeExpense(cropIncomeExpense);
@@ -325,50 +306,22 @@ public class AddFinancialRecordFragment extends Fragment {
     }
     public void fillViews(){
         if(cropIncomeExpense != null){
-            // DashboardActivity.selectSpinnerItemByValue(categorySpinner, cropIncomeExpense.getCategory());
+//             DashboardActivity.selectSpinnerItemByValue(binding.spCropIncomeExpenseCategory, cropIncomeExpense.getCategory());
 //            DashboardActivity.selectSpinnerItemById(binding.spCropIncomeExpenseCrop, cropIncomeExpense.getCropId());
             DashboardActivity.selectSpinnerItemByValue(binding.spCropIncomeExpensePaymentMode, cropIncomeExpense.getPaymentMode());
             DashboardActivity.selectSpinnerItemByValue(binding.spCropIncomeExpensePaymentStatus, cropIncomeExpense.getPaymentStatus());
             DashboardActivity.selectSpinnerItemByValue(binding.spCropIncomeExpenseTransaction, cropIncomeExpense.getTransaction());
-
             binding.txtCropIncomeExpenseDate.setText(cropIncomeExpense.getDate());
             binding.txtCropIncomeExpenseItem.setText(cropIncomeExpense.getItem());
-//            binding.txtCropIncomeExpenseSellingPrice.setText(cropIncomeExpense.getSellingPrice()+"");
-//            binding.txtCropIncomeExpenseQuantity.setText(cropIncomeExpense.getQuantity()+"");
+            binding.txtDepartment.setText(cropIncomeExpense.getDepartment());
             binding.txtCropIncomeExpenseGrossAmount.setText(cropIncomeExpense.getGrossAmount()+"");
-//            binding.txtCropIncomeExpenseUnitPrice.setText(cropIncomeExpense.computeUnitPrice()+"");
             binding.spinnerCropIncomeExpenseCustomerSupplier.setText(cropIncomeExpense.getCustomerSupplier());
-//            binding.txtCropIncomeExpenseTaxes.setText(cropIncomeExpense.getTaxes()+"");
-            //customerSupplierSp.setText(cropIncomeExpense.getCustomerSupplier());
+            
+
         }
 
     }
 
-//    public float computeUnitPrice(){
-//        try{
-//            float grossAmount = Float.parseFloat(binding.txtCropIncomeExpenseGrossAmount.getText().toString());
-//            float quantity = Float.parseFloat(binding.txtCropIncomeExpenseQuantity.getText().toString());
-//            float unitPrice = (grossAmount/quantity);
-//            binding.txtCropIncomeExpenseUnitPrice.setText(unitPrice+"");
-//            return unitPrice;
-//        }catch (Exception e){
-//
-//        }
-//        return 0;
-//    }
-
-//    public float computeAmount(){
-//        try{
-//            float grossAmount = Float.parseFloat(binding.txtCropIncomeExpenseGrossAmount.getText().toString());
-//            float taxes = Float.parseFloat(binding.txtCropIncomeExpenseTaxes.getText().toString());
-//            float amount = (grossAmount-(grossAmount*(taxes/100)));
-//            binding.txtCropIncomeExpenseGrossAmount.setText(amount+"");
-//            return amount;
-//        }catch (Exception e){
-//
-//        }
-//        return 0;
-//    }
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public boolean validateEntries(){
@@ -380,27 +333,14 @@ public class AddFinancialRecordFragment extends Fragment {
         else if(binding.txtCropIncomeExpenseItem.getText().toString().isEmpty()){
             message = getString(R.string.item_not_entered_message);
             binding.txtCropIncomeExpenseItem.requestFocus();
+        }else if(binding.txtDepartment.getText().toString().isEmpty()){
+            message = "You must enter a department";
         }
-//        else if(binding.txtCropIncomeExpenseTaxes.getText().toString().isEmpty()){
-//            message = getString(R.string.taxes_not_entered_message);
-//            binding.txtCropIncomeExpenseTaxes.requestFocus();
-//        }
-//        else if(binding.txtCropIncomeExpenseSellingPrice.getText().toString().isEmpty()){
-//            message = getString(R.string.selling_price_not_entered_message);
-//            binding.txtCropIncomeExpenseSellingPrice.requestFocus();
-//        }
-//        else if(binding.txtCropIncomeExpenseQuantity.getText().toString().isEmpty()){
-//            message = getString(R.string.quantity_not_entered_message);
-//            binding.txtCropIncomeExpenseQuantity.requestFocus();
-//        }
+
         else if(binding.txtCropIncomeExpenseGrossAmount.getText().toString().isEmpty()){
             message = getString(R.string.gross_amount_not_entered_message);
             binding.txtCropIncomeExpenseGrossAmount.requestFocus();
         }
-//        else if(binding.txtCropIncomeExpenseUnitPrice.getText().toString().isEmpty()){
-//            message = getString(R.string.unit_price_not_entered_message);
-//            binding.txtCropIncomeExpenseUnitPrice.requestFocus();
-//        }
 
         else if(binding.spCropIncomeExpenseTransaction.getSelectedItemPosition()==0){
             message = getString(R.string.transaction_not_selected_message);

@@ -40,8 +40,8 @@ public class StoreAddSeedFragment extends DialogFragment {
     private CropInventorySeeds seedsInventoryToEdit = null;
     private MyFarmDbHandlerSingleton dbHandler;
     private NavController navController;
-    EditText purchaseDatTxt, seedNameTxt, varietyTxt, dressingTxt, tgwTxt, quantityTxt, costTxt, batchTxt, manufacturerTxt, supplierTxt;
-    ImageView close;
+    EditText purchaseDatTxt, seedNameTxt, varietyTxt, quantityTxt, costTxt, batchTxt, manufacturerTxt, supplierTxt;
+    ImageView close,purchaseDatePicker;
     Spinner usageUnitSpinner, typeSp;
     Button saveBtn;
 
@@ -50,13 +50,6 @@ public class StoreAddSeedFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-
-//                    (CropInventorySeeds)requireActivity().getIntent().getSerializableExtra("seedsInventory");
-
-
-//        if(getIntent().hasExtra("seedsInventory")){
-//            seedsInventoryToEdit =(CropInventorySeeds)getIntent().getSerializableExtra("seedsInventory");
-//        }
 
 
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -82,7 +75,6 @@ public class StoreAddSeedFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        navController = Navigation.findNavController(view);
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
@@ -109,9 +101,10 @@ public class StoreAddSeedFragment extends DialogFragment {
         saveBtn = view.findViewById(R.id.btn_save);
         typeSp = view.findViewById(R.id.sp_crop_seed_type);
         manufacturerTxt = view.findViewById(R.id.txt_crop_manufacturer);
-
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePicker(purchaseDatTxt, context);
+        purchaseDatePicker= view .findViewById(R.id.image_date_picker);
+        DashboardActivity.addDatePickerImageView(purchaseDatePicker,purchaseDatTxt,context);
         close.setOnClickListener(view1 -> getDialog().dismiss());
 
         ((ArrayAdapter) usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -124,14 +117,8 @@ public class StoreAddSeedFragment extends DialogFragment {
                     if (position == 0) {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
-                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    } else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
                     }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
-                } catch (Exception e) {
+                }catch (Exception e) {
 
                 }
             }
@@ -143,10 +130,6 @@ public class StoreAddSeedFragment extends DialogFragment {
         };
         usageUnitSpinner.setOnItemSelectedListener(onItemSelectedListener);
         typeSp.setOnItemSelectedListener(onItemSelectedListener);
-
-
-//        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
-
 
         fillViews();
 
@@ -183,7 +166,7 @@ public class StoreAddSeedFragment extends DialogFragment {
             batchTxt.setText(seedsInventoryToEdit.getBatchNumber() + "");
             supplierTxt.setText(seedsInventoryToEdit.getSupplier() + "");
             manufacturerTxt.setText(seedsInventoryToEdit.getManufacturer() + "");
-//            tgwTxt.setText(seedsInventoryToEdit.getTgw()+"");
+
 
 
         }
@@ -219,7 +202,6 @@ public class StoreAddSeedFragment extends DialogFragment {
             seedsInventoryToEdit.setBatchNumber(batchTxt.getText().toString());
             seedsInventoryToEdit.setSupplier(supplierTxt.getText().toString());
             seedsInventoryToEdit.setType(typeSp.getSelectedItem().toString());
-
             dbHandler.updateCropSeeds(seedsInventoryToEdit);
         }
     }

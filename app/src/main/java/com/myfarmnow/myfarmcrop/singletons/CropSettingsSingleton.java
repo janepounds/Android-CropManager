@@ -13,7 +13,7 @@ public class CropSettingsSingleton {
     private static final CropSettingsSingleton ourInstance = new CropSettingsSingleton();
 
     private String dateFormat ="dd/mm/yyyy";
-    private String currency ="USD";
+    private String currency ="UGX";
     private String weightUnits="Kg";
     private String areaUnits="Acres";
     private String id;

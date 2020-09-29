@@ -41,16 +41,15 @@ import java.util.ArrayList;
 
 
 public class CropSprayingFragment extends DialogFragment {
-    EditText dateTxt, startTimeTxt,endTimeTxt, operatorTxt, waterVolumeTxt,costTxt, rateTxt,
-            reasonTxt, equipmentUsedTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
+    EditText dateTxt, rateTxt, reasonTxt,weeksTxt,repeatUntilTxt,daysBeforeTxt;
     Button btn_save;
     CropSpraying cropSpraying;
     LinearLayout weeklyRecurrenceLayout,daysBeforeLayout,remindersLayout;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner windDirectionSp,waterConditionSp,sprayIdSp,recurrenceSp,remindersSp;
+    Spinner sprayIdSp,recurrenceSp,remindersSp;
     ImageView datePicker,sprayClose;
-
+//    Spinner windDirectionSp,waterConditionSp;
     TextView rateUnitsTextView,currencyTxt;
     private Context context;
     private NavController navController;
@@ -104,19 +103,19 @@ public class CropSprayingFragment extends DialogFragment {
         rateTxt =view.findViewById(R.id.txt_crop_spraying_rate);
         reasonTxt =view.findViewById(R.id.txt_crop_spraying_treatment_reason);
 //        equipmentUsedTxt =view.findViewById(R.id.txt_crop_spraying_equipment_used);
-//        rateUnitsTextView =view.findViewById(R.id.txt_crop_spraying_rate_units);
+        rateUnitsTextView =view.findViewById(R.id.txt_crop_spraying_rate_units);
 //        currencyTxt =view.findViewById(R.id.txt_crop_spraying_currency);
-//        sprayIdSp =view.findViewById(R.id.sp_crop_spraying_name);
+        sprayIdSp =view.findViewById(R.id.sp_crop_spraying_name);
 //        windDirectionSp =view.findViewById(R.id.sp_crop_spraying_wind_direction);
 //        waterConditionSp =view.findViewById(R.id.sp_crop_spraying_weather_condition);
-//        remindersSp = view.findViewById(R.id.sp_crop_spraying_reminders);
+        remindersSp = view.findViewById(R.id.sp_crop_spraying_reminders);
         recurrenceSp = view.findViewById(R.id.sp_crop_spraying_recurrence);
 //        weeksTxt = view.findViewById(R.id.txt_crop_spraying_weekly_weeks);
 //        repeatUntilTxt = view.findViewById(R.id.txt_crop_spraying_repeat_until);
-//        daysBeforeTxt = view.findViewById(R.id.txt_crop_spraying_days_before);
+        daysBeforeTxt = view.findViewById(R.id.txt_crop_fertilizer_application_days_before);
 //        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_spraying_weekly_reminder);
-//        daysBeforeLayout = view.findViewById(R.id.layout_crop_spraying_days_before);
-//        remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
+        daysBeforeLayout = view.findViewById(R.id.layout_crop_spraying_days_before);
+        remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
 
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         sprayClose.setOnClickListener(v -> getDialog().dismiss());
@@ -145,31 +144,29 @@ public class CropSprayingFragment extends DialogFragment {
                 if(selection.toLowerCase().equals("weekly")){
 
                     remindersLayout.setVisibility(View.VISIBLE);
-//                    remindersSp.setSelection(0);
+                    remindersSp.setSelection(0);
                 }
 
                 if(selection.toLowerCase().equals("daily")){
                     remindersLayout.setVisibility(View.GONE);
-//                    remindersSp.setSelection(2);
+                    remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
                 }
 
                 if(selection.toLowerCase().equals("once")){
                     remindersLayout.setVisibility(View.GONE);
-//                    remindersSp.setSelection(2);
+                    remindersSp.setSelection(2);
                     daysBeforeLayout.setVisibility(View.GONE);
                 }
 
-
                 if(selection.toLowerCase().equals("monthly")){
                     remindersLayout.setVisibility(View.VISIBLE);
-//                    remindersSp.setSelection(0);
+                    remindersSp.setSelection(0);
                 }
-
 
                 if(selection.toLowerCase().equals("annually")){
                     remindersLayout.setVisibility(View.VISIBLE);
-//                    remindersSp.setSelection(0);
+                    remindersSp.setSelection(0);
                 }
 
 
@@ -287,26 +284,26 @@ public class CropSprayingFragment extends DialogFragment {
             spraysList.add(x);
         }
         CropSpinnerAdapter fertilizerAdapter  =new CropSpinnerAdapter(spraysList,"Spray",context);
-//        sprayIdSp.setAdapter(fertilizerAdapter);
+        sprayIdSp.setAdapter(fertilizerAdapter);
 
-//        sprayIdSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if(position==0){
-//                    return;
-//                }
-//                CropInventorySpray inventorySpray = (CropInventorySpray) ((CropSpinnerItem)sprayIdSp.getSelectedItem());
-//                if(inventorySpray.getUsageUnits() != null){
-//                    rateUnitsTextView.setText(inventorySpray.getUsageUnits()+"/ha");
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        sprayIdSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    return;
+                }
+                CropInventorySpray inventorySpray = (CropInventorySpray) ((CropSpinnerItem)sprayIdSp.getSelectedItem());
+                if(inventorySpray.getUsageUnits() != null){
+                    rateUnitsTextView.setText(inventorySpray.getUsageUnits()+"/ha");
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         fillViews();
     }
 
@@ -314,13 +311,8 @@ public class CropSprayingFragment extends DialogFragment {
         cropSpraying = new CropSpraying();
         cropSpraying.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
-        cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
         cropSpraying.setCropId(cropId);
-        cropSpraying.setStartTime(startTimeTxt.getText().toString());
-        cropSpraying.setEndTime(endTimeTxt.getText().toString());
-        cropSpraying.setCost(Float.parseFloat(costTxt.getText().toString()));
-        cropSpraying.setOperator(operatorTxt.getText().toString());
-        cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
+        cropSpraying.setCost(Float.parseFloat("0.00"));
         cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
         cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
         cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
@@ -328,15 +320,19 @@ public class CropSprayingFragment extends DialogFragment {
         cropSpraying.setRepeatUntil(repeatUntilTxt.getText().toString());
         cropSpraying.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
         cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+//
+//        cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
+//        cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
+//        cropSpraying.setStartTime(startTimeTxt.getText().toString());
+//        cropSpraying.setEndTime(endTimeTxt.getText().toString());
+//        cropSpraying.setOperator(operatorTxt.getText().toString());
+//        if(waterConditionSp.getSelectedItemPosition()!=0){
+//            cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
+//        }
+//        if(windDirectionSp.getSelectedItemPosition()!=0){
+//            cropSpraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
+//        }
 
-
-
-        if(waterConditionSp.getSelectedItemPosition()!=0){
-            cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
-        }
-        if(windDirectionSp.getSelectedItemPosition()!=0){
-            cropSpraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
-        }
         dbHandler.insertCropSpraying(cropSpraying);
 
     }
@@ -344,13 +340,8 @@ public class CropSprayingFragment extends DialogFragment {
         if(cropSpraying != null){
             cropSpraying.setDate(dateTxt.getText().toString());
             cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
-            cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
             cropSpraying.setCropId(cropId);
-            cropSpraying.setStartTime(startTimeTxt.getText().toString());
-            cropSpraying.setEndTime(endTimeTxt.getText().toString());
-            cropSpraying.setCost(Float.parseFloat(costTxt.getText().toString()));
-            cropSpraying.setOperator(operatorTxt.getText().toString());
-            cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
+            cropSpraying.setCost(Float.parseFloat("0.0"));
             cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
             cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
             cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
@@ -358,37 +349,37 @@ public class CropSprayingFragment extends DialogFragment {
             cropSpraying.setRepeatUntil(repeatUntilTxt.getText().toString());
             cropSpraying.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
             cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+//            cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
+//            cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
+//            cropSpraying.setStartTime(startTimeTxt.getText().toString());
+//            cropSpraying.setEndTime(endTimeTxt.getText().toString());
+//            cropSpraying.setOperator(operatorTxt.getText().toString());
 
-
-            if(waterConditionSp.getSelectedItemPosition()!=0){
-                cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
-            }
-            if(windDirectionSp.getSelectedItemPosition()!=0){
-                cropSpraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
-            }
             dbHandler.updateCropSpraying(cropSpraying);
         }
     }
     public void fillViews(){
         if(cropSpraying != null){
-            DashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
-            DashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
             DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropSpraying.getRecurrence());
+//
+//            DashboardActivity.selectSpinnerItemByValue(windDirectionSp, cropSpraying.getWindDirection());
+//            DashboardActivity.selectSpinnerItemByValue(waterConditionSp, cropSpraying.getWaterCondition());
 //            DashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
 
             rateTxt.setText(cropSpraying.getRate()+"");
-            waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
             dateTxt.setText(cropSpraying.getDate());
-            startTimeTxt.setText(cropSpraying.getStartTime()+"");
-            endTimeTxt.setText(cropSpraying.getEndTime()+"");
-            equipmentUsedTxt.setText(cropSpraying.getEquipmentUsed());
             reasonTxt.setText(cropSpraying.getTreatmentReason());
-            operatorTxt.setText(cropSpraying.getOperator());
-            costTxt.setText(cropSpraying.getCost()+"");
             rateTxt.setText(cropSpraying.getRate()+"");
             weeksTxt.setText(cropSpraying.getFrequency()+"");
             repeatUntilTxt.setText(cropSpraying.getRepeatUntil());
             daysBeforeTxt.setText(cropSpraying.getDaysBefore()+"");
+//
+//            equipmentUsedTxt.setText(cropSpraying.getEquipmentUsed());
+//            costTxt.setText(cropSpraying.getCost()+"");
+//            waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
+//            startTimeTxt.setText(cropSpraying.getStartTime()+"");
+//            endTimeTxt.setText(cropSpraying.getEndTime()+"");
+//            operatorTxt.setText(cropSpraying.getOperator());
 
 
             DashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getId());
@@ -401,22 +392,15 @@ public class CropSprayingFragment extends DialogFragment {
         if(dateTxt.getText().toString().isEmpty()){
             message = getString(R.string.date_not_entered_message);
             dateTxt.requestFocus();
-        }
-        else if(operatorTxt.getText().toString().isEmpty()){
-            message = getString(R.string.operator_not_entered);
-            operatorTxt.requestFocus();
-        }
-        else if(costTxt.getText().toString().isEmpty()){
-            message = getString(R.string.crop_not_entered);
-            costTxt.requestFocus();
         }else if(rateTxt.getText().toString().isEmpty()){
             message = getString(R.string.rate_not_entered);
             rateTxt.requestFocus();
         }
-        else if(equipmentUsedTxt.getText().toString().isEmpty()){
-            message = getString(R.string.equipment_not_entered);
-            equipmentUsedTxt.requestFocus();
-        }else if(sprayIdSp.getSelectedItemPosition()==0){
+//        else if(equipmentUsedTxt.getText().toString().isEmpty()){
+//            message = getString(R.string.equipment_not_entered);
+//            equipmentUsedTxt.requestFocus();
+//        }
+        else if(sprayIdSp.getSelectedItemPosition()==0){
             message = getString(R.string.spray_name_not_entered);
             sprayIdSp.requestFocus();
         }
@@ -431,10 +415,6 @@ public class CropSprayingFragment extends DialogFragment {
         else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
             message = getString(R.string.repeat_until_not_selected);
             repeatUntilTxt.requestFocus();
-        }
-
-        if(waterVolumeTxt.getText().toString().isEmpty()){
-            waterVolumeTxt.setText("0");
         }
 
 

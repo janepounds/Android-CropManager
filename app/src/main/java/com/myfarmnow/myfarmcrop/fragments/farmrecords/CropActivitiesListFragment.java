@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.adapters.CropActivitiesListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropActivitiesListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropActivitiesListBinding;

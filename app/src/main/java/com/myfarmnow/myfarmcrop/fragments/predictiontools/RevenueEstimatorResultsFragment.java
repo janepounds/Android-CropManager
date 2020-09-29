@@ -65,7 +65,7 @@ public class RevenueEstimatorResultsFragment extends Fragment {
     private FragmentRevenueEstimatorResultsBinding binding;
     private Context context;
     private NavController navController;
-    private Bitmap bitmap,bitmap2;
+    private Bitmap bitmap;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private String fileName ="test";
     private HIChartView pieChartView;

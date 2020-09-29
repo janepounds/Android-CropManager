@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.adapters;
+package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -170,26 +170,19 @@ public class CropInventoryListRecyclerAdapter extends RecyclerView.Adapter<CropI
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("seedsInventory",(CropInventorySeeds)inventory);
                                     navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment,bundle);
-//                                    Intent editInventory = new Intent(mContext, CropInventorySeedsManagerActivity.class);
-//                                    editInventory.putExtra("seedsInventory", (CropInventorySeeds)inventory);
-//                                    mContext.startActivity(editInventory);
+
                                 }else  if(inventory.getInventoryType().equals(CropInventory.CONST_FERTILIZER_INVENTORY)){
                                     //open fertilizer dialog
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("fertilizerInventory", (CropInventoryFertilizer)inventory);
                                     navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment,bundle);
-//                                    Intent editInventory = new Intent(mContext, CropInventoryFertilizerManagerActivity.class);
-//                                    editInventory.putExtra("fertilizerInventory", (CropInventoryFertilizer)inventory);
-//                                    mContext.startActivity(editInventory);
+
                                 }
                                 else  if(inventory.getInventoryType().equals(CropInventory.CONST_SPRAY_INVENTORY)){
                                     //open spray dialog
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("sprayInventory", (CropInventorySpray)inventory);
                                     navController.navigate(R.id.action_storeFragment_to_storeAddSprayFragment,bundle);
-//                                    Intent editInventory = new Intent(mContext, CropInventorySprayManagerActivity.class);
-//                                    editInventory.putExtra("sprayInventory", (CropInventorySpray)inventory);
-//                                    mContext.startActivity(editInventory);
                                 }
                             }
                             return true;
