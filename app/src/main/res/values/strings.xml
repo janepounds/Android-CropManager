@@ -623,6 +623,12 @@
         <item>First Season</item>
         <item>Second Season</item>
     </string-array>
+
+    <string-array name="spinner_sex">
+        <item>Sex</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
     .....
 
     <string-array name="sp_crop_transplanting_variety_earliness">
