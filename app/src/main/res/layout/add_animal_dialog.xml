@@ -246,7 +246,7 @@
                             android:background="@drawable/edittext_corner"
                             android:orientation="horizontal">
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/add_animal_dob"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
@@ -258,6 +258,7 @@
                                 android:textSize="14sp" />
 
                             <ImageView
+                                android:id="@+id/image_dob"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.1"
@@ -311,7 +312,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
-                                android:entries="@array/spinner_sex"
+                                android:entries="@array/sp_livestock_breeding_stock_source"
                                 android:gravity="center"
                                 android:spinnerMode="dropdown" />
 
