@@ -32,15 +32,15 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#F9F9F9"
             android:layout_below="@+id/mainView">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/crop_income_expense_recyc_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content"
                 android:paddingBottom="4dp"
-                >
+                android:background="#F9F9F9">
             </androidx.recyclerview.widget.RecyclerView>
 
         </ScrollView>
