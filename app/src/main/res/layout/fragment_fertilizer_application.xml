@@ -113,7 +113,7 @@
                         android:orientation="horizontal">
 
                         <Spinner
-                            android:id="@+id/spinner_crop_fertilizer_type"
+                            android:id="@+id/sp_crop_fertilizer_application_fertilizer_form"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_centerVertical="true"

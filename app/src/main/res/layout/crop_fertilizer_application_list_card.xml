@@ -24,13 +24,13 @@
             android:layout_weight="0.9"
             android:orientation="vertical">
 
-
-
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/fertilizer_application" />
+                android:background="#444444"
+                android:layout_margin="10dp"
+                android:src="@drawable/fertilizer_application"
+                />
 
             <View
                 android:id="@+id/txt_view_crop_fertilizer_application_card_line"
@@ -57,15 +57,14 @@
                 android:layout_marginBottom="8dp"
                 android:text="20-08-2018"
                 android:textSize="18sp"
-                android:textColor="#A6C0A7" />
+                android:textColor="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/input_shapes_crops_card"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,7 +72,7 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_margin="0dp"
-                    android:padding="4dp">
+                     >
 
                     <TextView
                         android:layout_width="0dp"
@@ -82,8 +81,9 @@
                         android:layout_weight="0.9"
                         android:text="Fertilizer Application"
                         android:textAlignment="gravity"
-                        android:textColor="@color/blackText"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -97,14 +97,16 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:layout_marginRight="11dp"
-                            android:src="@drawable/ic_baseline_more_vert" />
+                            android:src="@drawable/ic_baseline_more_vert"
+                            app:tint="@color/colorPrimary" />
                     </LinearLayout>
+
+
                 </LinearLayout>
 
                 <View
-                    android:layout_width="243dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginStart="15dp"
                     android:layout_marginBottom="5dp"
                     android:background="#D2D3D2" />
                 <LinearLayout
@@ -122,32 +124,6 @@
                         android:textSize="14sp"
                         android:text="Field Preparation"
                         android:textColor="@color/blackText" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="34dp"
-                        android:text="Method : "
-                        android:textSize="14sp"
-                        android:textColor="@color/blackText" />
-
-                    <TextView
-                        android:id="@+id/txt_view_crop_fertilizer_application_card_method"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="50%"
-                        android:textSize="14sp"
-                        android:textColor="#899889" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -206,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="10dp"
+                    android:visibility="gone"
                     android:padding="4dp">
 
                     <TextView

@@ -110,8 +110,8 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
     public class FieldViewHolder extends RecyclerView.ViewHolder{
 
         TextView fieldNameTextView, fieldAreaTextView, soilCategoryTextView, soilTypeTextView, croppableAreaTextView;
-        ImageView moreButton, showHideCropsButton;
-        LinearLayout expandContentLayout;
+        ImageView moreButton;
+        
         public FieldViewHolder(View itemView) {
             super(itemView);
             fieldNameTextView = itemView.findViewById(R.id.txt_crop_field_card_name);
@@ -119,9 +119,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             soilCategoryTextView = itemView.findViewById(R.id.txt_crop_field_card_soil_category);
             soilTypeTextView = itemView.findViewById(R.id.txt_crop_field_card_soil_type);
             croppableAreaTextView = itemView.findViewById(R.id.txt_crop_field_card_croppable_area);
-            expandContentLayout = itemView.findViewById(R.id.layout_crop_field_expand);
             moreButton = itemView.findViewById(R.id.img_crop_fields_card_more);
-            showHideCropsButton = itemView.findViewById(R.id.img_crop_fields_card_show_crops);
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

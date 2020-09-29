@@ -21,7 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.adapters.CropsNotesListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropsNotesListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropsNotesListBinding;
 import com.myfarmnow.myfarmcrop.models.CropNote;

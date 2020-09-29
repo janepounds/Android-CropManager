@@ -99,20 +99,20 @@ public class FertilizerApplicationFragment extends DialogFragment {
 
     public void initializeForm(View view){
         dateTxt =view.findViewById(R.id.txt_crop_fertilizer_application_date);
-        operatorTxt =view.findViewById(R.id.txt_crop_fertilizer_application_operator);
-        costTxt =view.findViewById(R.id.txt_crop_fertilizer_application_labour_cost);
-        rateTxt =view.findViewById(R.id.txt_crop_fertilizer_application_rate);
-        reasonTxt =view.findViewById(R.id.txt_crop_fertilizer_application_reason);
         fertilizerId =view.findViewById(R.id.sp_crop_fertilizer_application_fertilizername);
-        methodSp =view.findViewById(R.id.sp_crop_fertilizer_application_method);
+//        methodSp =view.findViewById(R.id.sp_crop_fertilizer_application_method);
         fertilizerFormSp =view.findViewById(R.id.sp_crop_fertilizer_application_fertilizer_form);
         remindersSp = view.findViewById(R.id.sp_crop_fertilizer_application_reminders);
         recurrenceSp = view.findViewById(R.id.sp_crop_fertilizer_application_recurrence);
-        weeksTxt = view.findViewById(R.id.txt_crop_fertilizer_application_weekly_weeks);
-        currency = view.findViewById(R.id.txt_crop_fertilizer_application_currency);
-        repeatUntilTxt = view.findViewById(R.id.txt_crop_fertilizer_application_repeat_until);
         daysBeforeTxt = view.findViewById(R.id.txt_crop_fertilizer_application_days_before);
-        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_fertilizer_application_weekly_reminder);
+//        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_fertilizer_application_weekly_reminder);
+//        weeksTxt = view.findViewById(R.id.txt_crop_fertilizer_application_weekly_weeks);
+//        currency = view.findViewById(R.id.txt_crop_fertilizer_application_currency);
+//        repeatUntilTxt = view.findViewById(R.id.txt_crop_fertilizer_application_repeat_until);
+//        operatorTxt =view.findViewById(R.id.txt_crop_fertilizer_application_operator);
+//        costTxt =view.findViewById(R.id.txt_crop_fertilizer_application_labour_cost);
+//        rateTxt =view.findViewById(R.id.txt_crop_fertilizer_application_rate);
+//        reasonTxt =view.findViewById(R.id.txt_crop_fertilizer_application_reason);
         daysBeforeLayout = view.findViewById(R.id.layout_crop_fertilizer_application_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_fertilizer_application_reminders);
 
@@ -133,51 +133,6 @@ public class FertilizerApplicationFragment extends DialogFragment {
         for(String x: solidApplicationMethods){
             solidMethodsArrayList.add(new FertilizerFormSpinnerItem(x));
         }
-
-//        fertilizerFormSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                try{
-//                    if(position==0){
-//                        ((TextView) view).setTextColor(Color.GRAY);
-//                    }
-//                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-//
-//                    }
-//                    else {
-//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-//                    }
-//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-//                }catch (Exception e){
-//
-//                }
-//                String selection = parent.getItemAtPosition(position).toString();
-//                if(selection.toLowerCase().equals("solid")){
-//                    methodSp.setEnabled(true);
-//                    applicationMethodAdapter.changeItems(solidMethodsArrayList);
-//                }
-//                else if(selection.toLowerCase().equals("liquid")){
-//                    methodSp.setEnabled(true);
-//                    applicationMethodAdapter.changeItems(liquidMethodsArrayList);
-//                }
-//                else{
-//                    methodSp.setEnabled(false);
-//                }
-//
-//                if(!applicationMethodSet && fertilizerApplication != null){
-//                    DashboardActivity.selectSpinnerItemById(methodSp, fertilizerApplication.getMethod());
-//                    applicationMethodSet =true;
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
 
         recurrenceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -236,44 +191,44 @@ public class FertilizerApplicationFragment extends DialogFragment {
             }
         });
 
-//        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                try{
-//                    if(position==0){
-//                        ((TextView) view).setTextColor(Color.GRAY);
-//                    }
-//                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-//
-//                    }
-//                    else {
-//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-//                    }
-//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-//                }catch (Exception e){
-//
-//                }
-//                String selection = parent.getItemAtPosition(position).toString();
-//                if(selection.toLowerCase().equals("yes")){
-//                    daysBeforeLayout.setVisibility(View.VISIBLE);
-//                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
-//                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-//                    }
-//
-//                }
-//                else{
-//                    daysBeforeLayout.setVisibility(View.GONE);
-//                    weeklyRecurrenceLayout.setVisibility(View.GONE);
-//                }
-//
-//
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        remindersSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    if(position==0){
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    }
+                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                    }
+                    else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
+                }catch (Exception e){
+
+                }
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.toLowerCase().equals("yes")){
+                    daysBeforeLayout.setVisibility(View.VISIBLE);
+                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
+                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
+                    }
+
+                }
+                else{
+                    daysBeforeLayout.setVisibility(View.GONE);
+                    weeklyRecurrenceLayout.setVisibility(View.GONE);
+                }
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         fertilizerApplicationClose.setOnClickListener(v -> getDialog().dismiss());
 
@@ -287,7 +242,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
                     else{
                         updateFertilizerApplication();
                     }
-                    navController = Navigation.findNavController(v);
+                    navController = Navigation.findNavController(getParentFragment().getView());
                     //navigate to crop activities
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId",cropId);
@@ -323,12 +278,12 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setDate(dateTxt.getText().toString());
         fertilizerApplication.setCropId(cropId);
 //        fertilizerApplication.setReason(reasonTxt.getText().toString());
-//        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
+        fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
 //        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
-//        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
 //        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
 
 

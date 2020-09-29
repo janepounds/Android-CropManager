@@ -57,8 +57,10 @@ public class AddCropFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Crops");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        if (requireActivity().getIntent().hasExtra("crop")) {
-            crop = (Crop) requireActivity().getIntent().getSerializableExtra("crop");
+        if (getArguments()!=null) {
+            crop = (Crop) getArguments().getSerializable("crop");
+            binding.cropActionTxt.setText(getString(R.string.actionEditCrop));
+            binding.btnSave.setText(getString(R.string.update));
         }
         initializeForm();
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {

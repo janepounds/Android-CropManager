@@ -119,7 +119,7 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/sp_crop_spray_name"
+                        android:id="@+id/sp_crop_spraying_name"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
@@ -127,7 +127,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:entries="@array/crop_spray_type"
+                        android:entries="@array/crop_spray_name"
                         android:spinnerMode="dropdown"/>
 
                     <ImageView
@@ -169,7 +169,7 @@
                     android:hint="Amount Used" />
 
                 <TextView
-                    android:id="@+id/txt_crop_fertilizer_unit"
+                    android:id="@+id/txt_crop_spraying_rate_units"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_right_corners_green"
@@ -265,6 +265,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layout_crop_spraying_reminders"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -284,6 +285,7 @@
                         android:hint="Reminders"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:inputType="none"
+                        android:entries="@array/sp_crop_task_reminders"
                         android:textSize="14sp"
                         android:layout_marginRight="10dp"/>
 
@@ -291,6 +293,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_crop_spraying_days_before"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"

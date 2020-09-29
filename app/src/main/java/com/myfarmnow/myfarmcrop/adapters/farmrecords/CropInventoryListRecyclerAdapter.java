@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.adapters;
+package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;

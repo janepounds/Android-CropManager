@@ -142,6 +142,10 @@
         <item>Nematocide</item>
     </string-array>
 
+    <string-array name="crop_spray_name">
+        <item>Spray Name</item>
+    </string-array>
+
 
     <string-array name="crop_potassium_fertilizer">
         <item>Potassic Fertilizer</item>
@@ -622,7 +626,19 @@
         <item>First Season</item>
         <item>Second Season</item>
     </string-array>
-    .....
+
+    <string-array name="spinner_sex">
+        <item>Sex</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="sp_livestock_breeding_stock_source">
+        <item>Select</item>
+        <item>Born on Farm</item>
+        <item>Purchased</item>
+    </string-array>
+
 
     <string-array name="sp_crop_transplanting_variety_earliness">
         <item>Select</item>
@@ -2158,7 +2174,18 @@
     <string name="default_fertilizer_usage_units">KG</string>
     <string name="default_income_expense_card_item">Irrigation Pump</string>
     <string name="default_income_expense_card_department">Crop</string>
-
+    <string name="actionEditCrop">Edit Crop</string>
+    <string name="source_not_selected">source not selected</string>
+    <string name="name_not_entered_message">animal name not entered</string>
+    <string name="ear_tag_not_entered_message">ear tag not entered</string>
+    <string name="color_not_entered_message">color not entered</string>
+    <string name="sex_not_selected">sex not selected</string>
+    <string name="breed_not_entered_message">breed not selected</string>
+    <string name="dob_not_entered_message">date of birth not entered</string>
+    <string name="weight_not_entered">weight not entered</string>
+    <string name="father_not_entered_message">father not entered</string>
+    <string name="mother_not_entered_message">mother not entered</string>
+    <string name="photo_not_selected_message">photo not selected</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>
