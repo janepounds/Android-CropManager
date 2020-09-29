@@ -29,7 +29,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.CropInventoryListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentStoreBinding;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
@@ -65,8 +65,6 @@ public class StoreFragment extends Fragment {
         navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-
-
     }
 
 
@@ -160,7 +158,7 @@ public class StoreFragment extends Fragment {
     }
 
     @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             switch (id) {
 
@@ -184,13 +182,10 @@ public class StoreFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-
-
         super.onActivityCreated(savedInstanceState);
         storeFragment = this;
     }

@@ -1,8 +1,8 @@
-package com.myfarmnow.myfarmcrop.adapters;
+package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
@@ -200,7 +200,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 //                                intent.putExtra("cropId", crop.getId());
 //                                mContext.startActivity(intent);
 
-                            } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_fertilizer))) {
+                            } else if (item.getTitle().toString().equals(mContext.getString(R.string.fertilizer_application_title))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
                                 //navigate to fertilizer dialog fragment
                                 Bundle bundle = new Bundle();
@@ -230,12 +230,12 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
                     //
                     popup.getMenu().add(R.string.label_cultivate).setVisible(false);
-                    popup.getMenu().add(R.string.label_fertilizer);
-                    popup.getMenu().add(R.string.label_spray);
-                    popup.getMenu().add(R.string.label_harvest);
                     popup.getMenu().add(R.string.label_irrigation).setVisible(false);
                     popup.getMenu().add(R.string.label_transplanting).setVisible(false);
                     popup.getMenu().add(R.string.label_scouting).setVisible(false);
+                    popup.getMenu().add(R.string.fertilizer_application_title);
+                    popup.getMenu().add(R.string.label_spray);
+                    popup.getMenu().add(R.string.label_harvest);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();
