@@ -143,6 +143,10 @@
         <item>Nematocide</item>
     </string-array>
 
+    <string-array name="crop_spray_name">
+        <item>Spray Name</item>
+    </string-array>
+
 
     <string-array name="crop_potassium_fertilizer">
         <item>Potassic Fertilizer</item>
@@ -622,6 +626,12 @@
         <item>Season</item>
         <item>First Season</item>
         <item>Second Season</item>
+    </string-array>
+
+    <string-array name="spinner_sex">
+        <item>Sex</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
     .....
 
@@ -2148,6 +2158,7 @@
     <string name="actionproducemarket">Produce Market</string>
     <string name="no_record">No Record</string>
     <string name="found">Found</string>
+    <string name="actionEditCrop">Edit Crop</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

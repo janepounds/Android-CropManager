@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.adapters;
+package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,8 +21,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-
-import com.myfarmnow.myfarmcrop.activities.predictiontools.CropFertilizerApplicationManagerActivity;
 
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropActivity;
@@ -84,8 +82,8 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             CropFertilizerApplication fertilizerApplication = (CropFertilizerApplication)cropsList.get(position);
             final FertilizerApplicationViewHolder fertilizerApplicationHolder = (FertilizerApplicationViewHolder)holder;
             fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(fertilizerApplication.getCost())); //TODO replace currency
-            fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" Kg");
-            fertilizerApplicationHolder.methodTextView.setText(fertilizerApplication.getMethod());
+            fertilizerApplicationHolder.dateTextView.setText(fertilizerApplication.getDate());
+
             fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerName());
             fertilizerApplicationHolder.recurrenceTxt.setText(fertilizerApplication.getRecurrence());
 
@@ -354,13 +352,12 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
     public class FertilizerApplicationViewHolder extends RecyclerView.ViewHolder{
 
-        TextView dateTextView, operationTextView, methodTextView, costTextView, rateTextView,recurrenceTxt;
+        TextView dateTextView, operationTextView, costTextView, rateTextView,recurrenceTxt;
         ImageView editButton, moreButton;
         View verticalLineView;
         public FertilizerApplicationViewHolder(View itemView) {
             super(itemView);
             operationTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_operation);
-            methodTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_method);
             dateTextView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_date);
             verticalLineView = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_line);
             recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_fertilizer_application_card_recurrence);
@@ -398,10 +395,10 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
                                 CropFertilizerApplication cropFertilizerApplication = (CropFertilizerApplication)cropsList.get(getAdapterPosition());
-                                Intent editFertilizerApplication = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
-                                editFertilizerApplication.putExtra("fertilizerApplication",cropFertilizerApplication);
-                                editFertilizerApplication.putExtra("cropId",cropFertilizerApplication.getCropId());
-                                mContext.startActivity(editFertilizerApplication);
+//                                Intent editFertilizerApplication = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
+//                                editFertilizerApplication.putExtra("fertilizerApplication",cropFertilizerApplication);
+//                                editFertilizerApplication.putExtra("cropId",cropFertilizerApplication.getCropId());
+//                                mContext.startActivity(editFertilizerApplication);
                             }
                             return true;
                         }

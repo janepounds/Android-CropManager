@@ -781,8 +781,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_fertilizer_application_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ( " + CROP_FERTILIZER_APPLICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_FERTILIZER_APPLICATION_USER_ID + " TEXT," + CROP_FERTILIZER_APPLICATION_CROP_ID + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_DATE + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_OPERATOR + " TEXT," +
-                CROP_FERTILIZER_APPLICATION_METHOD + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_REASON + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_ID + " TEXT NOT NULL," +
-                CROP_FERTILIZER_APPLICATION_RATE + " REAL NOT NULL ," + CROP_FERTILIZER_APPLICATION_COST + " REAL, " + CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " + CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_FERTILIZER_APPLICATION_METHOD + " TEXT," + CROP_FERTILIZER_APPLICATION_REASON + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_ID + " TEXT NOT NULL," +
+                CROP_FERTILIZER_APPLICATION_RATE + " REAL ," + CROP_FERTILIZER_APPLICATION_COST + " REAL, " + CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " + CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
                 CROP_FERTILIZER_APPLICATION_RECURRENCE + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FREQUENCY + " REAL DEFAULT 1, " + CROP_FERTILIZER_APPLICATION_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
 
@@ -4332,7 +4332,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_CROP_ID, fertilizerApplication.getCropId());
         contentValues.put(CROP_FERTILIZER_APPLICATION_DATE, fertilizerApplication.getDate());
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR, fertilizerApplication.getOperator());
-        contentValues.put(CROP_FERTILIZER_APPLICATION_METHOD, fertilizerApplication.getMethod());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_METHOD, "None");
         contentValues.put(CROP_FERTILIZER_APPLICATION_REASON, fertilizerApplication.getReason());
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM, fertilizerApplication.getFertilizerForm());
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID, fertilizerApplication.getFertilizerId());
@@ -4355,7 +4355,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         if (!res.isAfterLast()) {
             id = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_ID));
         }
-        generateNotifications(context.getString(R.string.notification_type_fertilizer_application), id);
+        if(id!="")
+            generateNotifications(context.getString(R.string.notification_type_fertilizer_application), id);
 
         res.close();
         closeDB();

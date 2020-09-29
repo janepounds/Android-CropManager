@@ -43,6 +43,7 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/dimen_20dp">
                 <TextView
+                    android:id="@+id/crop_action_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label_add_crop"

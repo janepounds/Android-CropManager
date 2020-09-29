@@ -45,7 +45,6 @@ public class FieldsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_fields_list,container,false);
-
         setHasOptionsMenu(true);
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
@@ -58,7 +57,6 @@ public class FieldsListFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
         this.context = context;
     }
