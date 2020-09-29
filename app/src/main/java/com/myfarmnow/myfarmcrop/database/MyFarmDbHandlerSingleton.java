@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
+import com.myfarmnow.myfarmcrop.BR;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
@@ -51,6 +52,7 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 import com.myfarmnow.myfarmcrop.models.CropYieldRecord;
 import com.myfarmnow.myfarmcrop.models.DeletedRecord;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
+import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
@@ -107,6 +109,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_HARVEST_TABLE_NAME = "crop_harvest";
     public static final String CROP_CONTACT_TABLE_NAME = "crop_contact";
     public static final String CROP_DELETED_RECORDS_TABLE_NAME = "crop_deleted_records";
+
 
     public static final String CROP_INVENTORY_FERTILIZER_ID = "id";
     public static final String CROP_INVENTORY_FERTILIZER_USER_ID = "userId";
@@ -418,6 +421,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_INCOME_EXPENSE_PAYMENT_STATUS = "paymentStatus";
     public static final String CROP_INCOME_EXPENSE_SELLING_PRICE = "sellingPrice";
     public static final String CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER = "customerSupplier";
+    public static final String CROP_INCOME_EXPENSE_DEPARTMENT = "department";
     public static final String CROP_INCOME_EXPENSE_USER_ID = "userId";
     public static final String CROP_INCOME_EXPENSE_CROP_ID = "cropId";
 
@@ -658,6 +662,27 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String MARKET_PRICE_RETAIL = "retail";
     public static final String MARKET_PRICE_WHOLESALE = "wholesale";
 
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME ="breeding_stock";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_ID="id";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_NAME="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SEX="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_BREED="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE="source";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT = "weight";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER="father";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM="motherDam";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO="photo";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS="syncStatus";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID="globalId";
+
+
+
+
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -817,7 +842,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 "FOREIGN KEY( " + CROP_PAYMENT_CUSTOMER_ID + ") REFERENCES  " + CROP_CUSTOMER_TABLE_NAME + " ( " + CROP_CUSTOMER_ID + " ) )";
         String crop_income_expense_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME + " ( " + CROP_INCOME_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CROP_INCOME_EXPENSE_DATE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_USER_ID + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_TRANSACTION + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_ITEM +
                 " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CATEGORY + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_QUANTITY + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_GROSS_AMOUNT + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_UNIT_PRICE + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_TAXES + " REAL, "
-                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
+                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, "+ CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT, "  + CROP_INCOME_EXPENSE_CROP_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " + CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL, " + CROP_TASK_REPEAT_UNTIL + " TEXT, " + CROP_TASK_DAYS_BEFORE
@@ -883,6 +908,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String market_price_insert_query = " CREATE TABLE IF NOT EXISTS " + MARKET_PRICE_TABLE_NAME + " ( " + MARKET_PRICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                 MARKET_PRICE_CROP + " TEXT NOT NULL, " + MARKET_PRICE_TABLE_MARKET + " TEXT NOT NULL, " + MARKET_PRICE_RETAIL + " TEXT NOT NULL, " + MARKET_PRICE_WHOLESALE + " TEXT NOT NULL " + " ) ";
 
+
+        String livestock_records_breeding_stock_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR
+                + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_BREED + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE + " TEXT, " +
+                LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO + " TEXT, "  + LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";;
+
        /* Log.d("FERTILIZER INVENTORY",crop_inventory_fertilizer_insert_query);
         Log.d("SEEDS INVENTORY",crop_seeds_insert_query);
         Log.d("SPRAY INVENTORY",crop_inventory_spray_insert_query);
@@ -896,6 +926,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE IF EXISTS "+ CROP_PAYMENT_BILL_TABLE_NAME);
         // db.execSQL("DROP TABLE IF EXISTS "+ CROP_MACHINE_SERVICE_TABLE_NAME);
         //db.execSQL("DROP TABLE IF EXISTS "+ CROP_FIELDS_TABLE_NAME);
+
 
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
@@ -937,6 +968,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(crop_deleted_records_insert_query);
         database.execSQL(add_produce_insert_query);
         database.execSQL(market_price_insert_query);
+        database.execSQL(livestock_records_breeding_stock_insert_query);
     }
 
     @Override
@@ -1010,6 +1042,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
+        db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT DEFAULT NULL");
 
         db.execSQL("ALTER TABLE " + CROP_PAYMENT_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_PAYMENT_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
@@ -5234,6 +5267,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
+        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT,incomeExpense.getDepartment());
         contentValues.put(CROP_SYNC_STATUS, incomeExpense.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, incomeExpense.getGlobalId());
         database.insert(CROP_INCOME_EXPENSE_TABLE_NAME, null, contentValues);
@@ -5257,6 +5291,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
+        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT,incomeExpense.getDepartment());
         contentValues.put(CROP_SYNC_STATUS, incomeExpense.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, incomeExpense.getGlobalId());
         database.update(CROP_INCOME_EXPENSE_TABLE_NAME, contentValues, CROP_INCOME_EXPENSE_ID + " = ?", new String[]{incomeExpense.getId()});
@@ -5301,6 +5336,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             incomeExpense.setPaymentStatus(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_PAYMENT_STATUS)));
             incomeExpense.setSellingPrice(res.getFloat(res.getColumnIndex(CROP_INCOME_EXPENSE_SELLING_PRICE)));
             incomeExpense.setCustomerSupplier(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER)));
+            incomeExpense.setDepartment(res.getString(res.getColumnIndex(CROP_INCOME_EXPENSE_DEPARTMENT)));
             incomeExpense.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(incomeExpense);
             res.moveToNext();
@@ -8933,6 +8969,129 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
 
         return marketPriceArrayList;
+    }
+
+    /********CRUD OPERATIONS FOR LIVESTOCK RECORDS***************/
+
+    public BreedingStock getBreedingStock(String id, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal ? LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID : LIVESTOCK_RECORDS_BREEDING_STOCK_ID;
+
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + key + " = '" + id + "'", null);
+        res.moveToFirst();
+        BreedingStock breedingStock = null;
+        if (!res.isAfterLast()) {
+            breedingStock = new BreedingStock();
+            breedingStock.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_ID)));
+            breedingStock.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID)));
+            breedingStock.setName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME)));
+            breedingStock.setEarTag(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG)));
+            breedingStock.setColor(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR)));
+            breedingStock.setSex(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX)));
+            breedingStock.setBreed(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED)));
+            breedingStock.setDateOfBirth(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH)));
+            breedingStock.setSource(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE)));
+            breedingStock.setWeight(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT))));
+            breedingStock.setFather(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER)));
+            breedingStock.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM)));
+            breedingStock.setPhoto(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
+            breedingStock.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return breedingStock;
+    }
+    public void insertBreedingStock(BreedingStock breedingStock) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID",breedingStock.getUserId());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG",breedingStock.getEarTag());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR", breedingStock.getColor());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SEX", breedingStock.getSex());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_BREED", breedingStock.getBreed());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH",breedingStock.getDateOfBirth());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE",breedingStock.getSource());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT",breedingStock.getWeight());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER",breedingStock.getFather());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM",breedingStock.getMotherDam());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO",breedingStock.getPhoto());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS",breedingStock.getSyncStatus());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID",breedingStock.getGlobalId());
+        database.insert(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, null, contentValues);
+        closeDB();
+
+    }
+
+    public void updateBreedingStock(BreedingStock breedingStock) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID",breedingStock.getUserId());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG",breedingStock.getEarTag());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR", breedingStock.getColor());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SEX", breedingStock.getSex());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_BREED", breedingStock.getBreed());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH",breedingStock.getDateOfBirth());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE",breedingStock.getSource());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT",breedingStock.getWeight());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER",breedingStock.getFather());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM",breedingStock.getMotherDam());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO",breedingStock.getPhoto());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS",breedingStock.getSyncStatus());
+        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID",breedingStock.getGlobalId());
+        database.update(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " = ?", new String[]{breedingStock.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteBreedingStock(String id) {
+        BreedingStock breedingStock = getBreedingStock(id, false);
+        openDB();
+        database.delete(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " = ?", new String[]{id});
+        closeDB();
+        if (breedingStock != null) {
+            recordDeletedRecord("breedingStock", breedingStock.getGlobalId());
+        }
+        return true;
+    }
+
+    public ArrayList<BreedingStock> getBreedingStocks(String userId) {
+
+        openDB();
+        ArrayList<BreedingStock> array_list = new ArrayList();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            BreedingStock breedingStock = new BreedingStock();
+            breedingStock.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_ID)));
+            breedingStock.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID)));
+            breedingStock.setName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME)));
+            breedingStock.setEarTag(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG)));
+            breedingStock.setColor(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR)));
+            breedingStock.setSex(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX)));
+            breedingStock.setBreed(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED)));
+            breedingStock.setDateOfBirth(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH)));
+            breedingStock.setSource(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE)));
+            breedingStock.setWeight(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT))));
+            breedingStock.setFather(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER)));
+            breedingStock.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM)));
+            breedingStock.setPhoto(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
+            breedingStock.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS)));
+            breedingStock.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID)));
+            array_list.add(breedingStock);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return array_list;
+
     }
 }
 

@@ -38,11 +38,10 @@ import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 
 public class StoreAddSprayFragment extends DialogFragment {
-    public EditText purchaseDatTxt,seedNameTxt,costTxt,
-            quantityTxt,batchTxt,supplierTxt,activeIngredientsTxt,harvestIntervalTxt,expiryDateTxt;
+    public EditText purchaseDatTxt,seedNameTxt,costTxt, quantityTxt,batchTxt,supplierTxt,expiryDateTxt;
     TextView cropsprayunitsTxt;
     Button saveBtn;
-    ImageView close;
+    ImageView close,purchaseDatePicker,expiryDate;
     Spinner usageUnitSpinner,typeSp;
     MyFarmDbHandlerSingleton dbHandler;
     CropInventorySpray sprayInventory;
@@ -84,7 +83,6 @@ public class StoreAddSprayFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        navController = Navigation.findNavController(view);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
@@ -105,6 +103,10 @@ public class StoreAddSprayFragment extends DialogFragment {
         supplierTxt = view.findViewById(R.id.txt_crop_spray_supplier);
         saveBtn = view.findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        expiryDate = view.findViewById(R.id.image_expiry_date_picker);
+        purchaseDatePicker= view .findViewById(R.id.image_date_picker);
+        DashboardActivity.addDatePickerImageView(purchaseDatePicker,purchaseDatTxt,context);
+        DashboardActivity.addDatePickerImageView(expiryDate,expiryDateTxt,context);
         DashboardActivity.addDatePicker(purchaseDatTxt,context);
         DashboardActivity.addDatePicker(expiryDateTxt,context);
         ((ArrayAdapter)usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -119,13 +121,7 @@ public class StoreAddSprayFragment extends DialogFragment {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
-                   else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
-                    }
-                    else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
                     ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
                 }catch (Exception e){
 
@@ -216,7 +212,6 @@ public class StoreAddSprayFragment extends DialogFragment {
                     //dismiss dialog and refresh fragment
                     navController = Navigation.findNavController(getParentFragment().getView());
                     navController.navigate(R.id.action_storeAddSprayFragment_to_storeFragment);
-//                    getDialog().dismiss();
 
 
 
@@ -253,13 +248,7 @@ public class StoreAddSprayFragment extends DialogFragment {
         sprayInventory.setCost(Float.parseFloat(costTxt.getText().toString()));
         sprayInventory.setBatchNumber(batchTxt.getText().toString());
         sprayInventory.setSupplier(supplierTxt.getText().toString());
-
-
         sprayInventory.setExpiryDate(expiryDateTxt.getText().toString());
-
-        // sprayInventory.setTgw(tgwTxt.getText().toString());
-
-
         dbHandler.insertCropSpray(sprayInventory);
 
 
@@ -315,11 +304,6 @@ public class StoreAddSprayFragment extends DialogFragment {
         }
         // Log.d("ERROR",message);
         return true;
-    }
-
-    //callback interface
-    public interface SprayAddedCallback{
-        void refreshJobsScreen(boolean succesful);
     }
 
 

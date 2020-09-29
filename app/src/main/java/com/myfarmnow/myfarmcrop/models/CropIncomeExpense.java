@@ -21,6 +21,7 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
     float taxes=0;
     String paymentMode="";
     String paymentStatus="";
+    String department = "";
 
     public float getSellingPrice() {
         return sellingPrice;
@@ -146,6 +147,14 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         this.customerSupplier = customerSupplier;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     public  float computeAmount(){
         float amount= ( grossAmount-(grossAmount *(taxes/100)));
         return  amount;
@@ -197,6 +206,7 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
             object.put("sellingPrice",sellingPrice);
             object.put("customerSupplier",customerSupplier);
             object.put("amount",amount);
+            object.put("department",department);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -222,6 +232,7 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         setPaymentStatus(object.getString("paymentStatus"));
         setSellingPrice(Float.parseFloat(object.getString("sellingPrice")));
         setCustomerSupplier(object.getString("customerSupplier"));
+        setDepartment(object.getString("department"));
         setSyncStatus("yes");
     }
     public CropIncomeExpense(){

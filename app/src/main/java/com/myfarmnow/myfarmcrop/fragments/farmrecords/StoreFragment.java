@@ -136,7 +136,6 @@ public class StoreFragment extends Fragment {
     }
 
     public void loadCropInventories() {
-        AsyncHttpClient client = new AsyncHttpClient();
         for (CropInventorySeeds seedsInventory : dbHandler.getCropSeeds(DashboardActivity.RETRIEVED_USER_ID)) {
             cropListRecyclerAdapter.addInventory(seedsInventory);
         }

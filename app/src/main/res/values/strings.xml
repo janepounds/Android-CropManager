@@ -1642,6 +1642,15 @@
     <string name="department">Department</string>
     <string name="fertilizer_application_title">Fertilizer Application</string>
     <string name="spraying_title">Spraying</string>
+
+    <string-array name="breeding_stock">
+        <item> Section</item>
+        <item>Tomatoes</item>
+        <item>Maize</item>
+        <item>Cassava</item>
+        <item>Irish</item>
+    </string-array>
+
     <string-array name="crop_add_produce">
         <item> Crop</item>
         <item>Tomatoes</item>
