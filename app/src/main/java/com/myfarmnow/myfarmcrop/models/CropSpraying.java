@@ -14,6 +14,7 @@ public class CropSpraying implements Serializable,CropActivity {
     String waterCondition;
     String windDirection;
     String equipmentUsed;
+    String sprayType;
     String sprayId;
     float rate;
     String treatmentReason;
@@ -160,7 +161,12 @@ public class CropSpraying implements Serializable,CropActivity {
     public int getType() {
         return CropActivity.CROP_ACTIVITY_SPRAYING;
     }
-
+    public String getSprayType() {
+        return this.sprayType;
+    }
+    public void setSprayType(String sprayType) {
+        this.sprayType=sprayType;
+    }
     public String getRecurrence() {
         return recurrence;
     }
