@@ -663,15 +663,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String MARKET_PRICE_RETAIL = "retail";
     public static final String MARKET_PRICE_WHOLESALE = "wholesale";
 
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME ="breeding_stock";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME ="breedingStock";
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_ID="id";
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_NAME="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SEX="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_BREED="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH="userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_NAME="name";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG="earTag";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR="color";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SEX="sex";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_BREED="breed";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH="dateOfBirth";
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE="source";
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT = "weight";
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER="father";
@@ -1104,6 +1104,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_CONTACT_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_CONTACT_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
+        db.execSQL("");
 
         //delete all settings items except the first one
         db.delete(CROP_SETTINGS_TABLE_NAME, CROP_SETTINGS_ID + " > 1", null);
@@ -9014,19 +9015,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertBreedingStock(BreedingStock breedingStock) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID",breedingStock.getUserId());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG",breedingStock.getEarTag());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR", breedingStock.getColor());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SEX", breedingStock.getSex());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_BREED", breedingStock.getBreed());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH",breedingStock.getDateOfBirth());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE",breedingStock.getSource());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT",breedingStock.getWeight());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER",breedingStock.getFather());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM",breedingStock.getMotherDam());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO",breedingStock.getPhoto());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS",breedingStock.getSyncStatus());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID",breedingStock.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID,breedingStock.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME,breedingStock.getName());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG,breedingStock.getEarTag());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR, breedingStock.getColor());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX, breedingStock.getSex());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED, breedingStock.getBreed());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH,breedingStock.getDateOfBirth());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE,breedingStock.getSource());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT,breedingStock.getWeight());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER,breedingStock.getFather());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM,breedingStock.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO,breedingStock.getPhoto());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS,breedingStock.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID,breedingStock.getGlobalId());
         database.insert(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, null, contentValues);
         closeDB();
 
@@ -9035,19 +9037,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateBreedingStock(BreedingStock breedingStock) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID",breedingStock.getUserId());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG",breedingStock.getEarTag());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR", breedingStock.getColor());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SEX", breedingStock.getSex());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_BREED", breedingStock.getBreed());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH",breedingStock.getDateOfBirth());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE",breedingStock.getSource());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT",breedingStock.getWeight());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER",breedingStock.getFather());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM",breedingStock.getMotherDam());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO",breedingStock.getPhoto());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS",breedingStock.getSyncStatus());
-        contentValues.put("LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID",breedingStock.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID,breedingStock.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME,breedingStock.getName());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG,breedingStock.getEarTag());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR, breedingStock.getColor());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX, breedingStock.getSex());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED, breedingStock.getBreed());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH,breedingStock.getDateOfBirth());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE,breedingStock.getSource());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT,breedingStock.getWeight());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER,breedingStock.getFather());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM,breedingStock.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO,breedingStock.getPhoto());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS,breedingStock.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID,breedingStock.getGlobalId());
         database.update(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " = ?", new String[]{breedingStock.getId()});
 
         closeDB();

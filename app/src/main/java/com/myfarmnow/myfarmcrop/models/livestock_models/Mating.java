@@ -3,7 +3,9 @@ package com.myfarmnow.myfarmcrop.models.livestock_models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Mating {
+import java.io.Serializable;
+
+public class Mating implements Serializable {
     private String id;
     private String userId;
     private String matingDate;
