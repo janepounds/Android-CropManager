@@ -285,6 +285,7 @@
                         android:hint="Reminders"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:inputType="none"
+                        android:entries="@array/sp_crop_task_reminders"
                         android:textSize="14sp"
                         android:layout_marginRight="10dp"/>
 

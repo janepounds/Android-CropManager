@@ -788,7 +788,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_spraying_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_SPRAYING_TABLE_NAME + " ( " + CROP_SPRAYING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_SPRAYING_USER_ID + " TEXT," + CROP_SPRAYING_CROP_ID + " TEXT NOT NULL," + CROP_SPRAYING_DATE + " TEXT NOT NULL," + CROP_SPRAYING_START_TIME + " TEXT," +
-                CROP_SPRAYING_END_TIME + " TEXT," + CROP_SPRAYING_OPERATOR + " TEXT NOT NULL," +
+                CROP_SPRAYING_END_TIME + " TEXT," + CROP_SPRAYING_OPERATOR + " TEXT," +
                 CROP_SPRAYING_WATER_VOLUME + " REAL ," + CROP_SPRAYING_WATER_CONDITION + " TEXT," + CROP_SPRAYING_WIND_DIRECTION + " TEXT, " + CROP_SPRAYING_EQUIPMENT_USED + " TEXT ," +
                 CROP_SPRAYING_SPRAY_ID + " TEXT NOT NULL," + CROP_SPRAYING_RATE + " REAL NOT NULL ," + CROP_SPRAYING_TREATMENT_REASON + " TEXT ," + CROP_SPRAYING_COST + " REAL, " + CROP_SPRAYING_REPEAT_UNTIL + " TEXT, " + CROP_SPRAYING_DAYS_BEFORE + " REAL DEFAULT 0, " +
                 CROP_SPRAYING_RECURRENCE + " TEXT NOT NULL, " + CROP_SPRAYING_FREQUENCY + " REAL DEFAULT 1, " + CROP_SPRAYING_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
@@ -1311,6 +1311,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         //if the action date is greater than repeat until then break
         //if the today + days before is equal to the action date
         //generate the message
+        if(sourceId=="" || sourceId==null)
+            return;
 
         openDB();
         ArrayList<CropNotification> array_list = new ArrayList();
@@ -4272,6 +4274,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         CropSpraying spraying = getCropSpraying(id, false);
         openDB();
         deleteCropNotification(id, context.getString(R.string.notification_type_fertilizer_application));
+        openDB();
         database.delete(CROP_SPRAYING_TABLE_NAME, CROP_SPRAYING_ID + " = ?", new String[]{id});
         closeDB();
         if (spraying != null) {
