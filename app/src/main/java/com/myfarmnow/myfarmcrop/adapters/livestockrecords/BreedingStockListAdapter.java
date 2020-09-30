@@ -36,7 +36,7 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
         mContext =context;
         layoutInflater = LayoutInflater.from(mContext);
 
-        Log.d("CROP FIELDS",breedingStocks.size()+" ");
+        Log.d("BREEDING STOCKS",breedingStocks.size()+" ");
     }
     @NonNull
     @Override
