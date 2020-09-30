@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.models.CropNote;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentAddFieldBinding;
@@ -62,15 +65,17 @@ public class AddFieldFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-        if(requireActivity().getIntent().hasExtra("cropField")){
-            cropField = (com.myfarmnow.myfarmcrop.models.farmrecords.CropField)requireActivity().getIntent().getSerializableExtra("cropField");
+        setHasOptionsMenu(true);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Add Field");
+
+        if(getArguments()!=null){
+            cropField = (com.myfarmnow.myfarmcrop.models.farmrecords.CropField) getArguments().getSerializable("cropField");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Field");
         }
         initializeForm();
-
-
-
 
     }
 
@@ -209,14 +214,13 @@ public class AddFieldFragment extends Fragment {
     }
     public void updateField(){
         if(cropField !=null){
-
+            cropField.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropField.setFieldName(binding.txtCropFieldName.getText().toString());
             cropField.setFieldType( binding.spCropFieldType.getSelectedItem().toString());
             cropField.setStatus(binding.spCropFieldStatus.getSelectedItem().toString());
-            cropField.setTotalArea(Float.parseFloat(binding.txtCropFieldTotalArea.getText().toString()));
+            cropField.setTotalArea(Float.parseFloat(binding.txtCropFieldTotalArea.getText().toString()) );
             cropField.setCroppableArea(Float.parseFloat(binding.txtCropFieldCroppableArea.getText().toString()));
             cropField.setUnits(binding.spCropFieldUnits.getSelectedItem().toString());
-
 
             dbHandler.updateCropField(cropField);
 
@@ -267,7 +271,11 @@ public class AddFieldFragment extends Fragment {
         return true;
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        getActivity().getSupportFragmentManager().popBackStack();
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }
