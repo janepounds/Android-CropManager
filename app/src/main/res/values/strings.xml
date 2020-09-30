@@ -3,7 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="label_fields">Fields</string>
     <string name="label_crops">Crops</string>
-    <string name="units">Units</string>
     <string name="date_not_entered_message">The date has not been entered</string>
     <string name="seed_name_not_entered_message">You must enter a seed Name</string>
     <string name="quantity_not_entered_message">You must enter a quantity</string>
@@ -890,7 +889,6 @@
     <string name="weather_condition">Weather Condition</string>
     <string name="wind_direction">Wind Direction</string>
     <string name="equipment_used">Equipment Used</string>
-    <string name="spray_name">Spray Name</string>
     <string name="treatment_reason">Treatment Reason</string>
     <string name="soil_ph">Soil pH</string>
     <string name="analysis_date">Analysis Date</string>
@@ -926,7 +924,6 @@
     <string name="item_details_label">Item Details</string>
     <string name="label_add_item">Add Item</string>
     <string name="activity_cultivate_manage">Cultivate Manager</string>
-    <string name="ugx">UGX</string>
     <string name="title_activity_crop_estimate_manager">Estimate Manager</string>
     <string name="phone">Phone</string>
     <string name="employee_id">Employee ID</string>
@@ -2164,6 +2161,19 @@
     <string name="actionproducemarket">Produce Market</string>
     <string name="no_record">No Record</string>
     <string name="found">Found</string>
+    <string name="purchase_date">Purchase Date</string>
+    <string name="spray_type">Spray Type</string>
+    <string name="spray_name">Spray Name</string>
+    <string name="units">Units</string>
+    <string name="ugx">UGX</string>
+    <string name="ml">ML</string>
+    <string name="seed_type">Seed Type</string>
+    <string name="seed_name">Seed Name</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="fertilizer_type">Fertilizer Type</string>
+    <string name="default_fertilizer_usage_units">KG</string>
+    <string name="default_income_expense_card_item">Irrigation Pump</string>
+    <string name="default_income_expense_card_department">Crop</string>
     <string name="actionEditCrop">Edit Crop</string>
     <string name="source_not_selected">source not selected</string>
     <string name="name_not_entered_message">animal name not entered</string>

@@ -48,7 +48,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner methodSp, fertilizerFormSp, fertilizerId,recurrenceSp,remindersSp;
-    LinearLayout weeklyRecurrenceLayout,daysBeforeLayout, remindersLayout;
+    LinearLayout daysBeforeLayout, remindersLayout;
     boolean applicationMethodSet = false;//
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
     ArrayList<CropSpinnerItem> solidMethodsArrayList=new ArrayList<CropSpinnerItem>();
@@ -212,14 +212,10 @@ public class FertilizerApplicationFragment extends DialogFragment {
                 String selection = parent.getItemAtPosition(position).toString();
                 if(selection.toLowerCase().equals("yes")){
                     daysBeforeLayout.setVisibility(View.VISIBLE);
-                    if(recurrenceSp.getSelectedItem().equals("Weekly")){
-                        weeklyRecurrenceLayout.setVisibility(View.VISIBLE);
-                    }
 
                 }
                 else{
                     daysBeforeLayout.setVisibility(View.GONE);
-                    weeklyRecurrenceLayout.setVisibility(View.GONE);
                 }
 
 

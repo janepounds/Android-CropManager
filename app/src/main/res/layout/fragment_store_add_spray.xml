@@ -5,10 +5,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.StoreAddSprayFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
+        android:layout_margin="@dimen/dimen_10dp"
         android:background="@drawable/background_custom_dialog">
 
 
@@ -42,6 +43,10 @@
 
             </LinearLayout>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,18 +56,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
-                    android:orientation="horizontal"
-                    >
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/purchase_date"
+                            android:layout_marginBottom="4dp"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:background="@drawable/edittext_corner"
-                        android:layout_marginRight="10dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txt_crop_spray_date_of_purchase"
@@ -70,13 +84,10 @@
                             android:layout_height="50dp"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:layout_marginLeft="5dp"
-                            android:hint="Purchase Date"
                             android:paddingStart="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
                             android:inputType="none"
-                            android:textSize="14sp"
-                            android:layout_marginRight="10dp"/>
+                            android:textSize="14sp" />
 
                         <ImageView
                             android:id="@+id/image_date_picker"
@@ -91,13 +102,20 @@
                             android:src="@drawable/ic_calendar" />
 
                     </RelativeLayout>
-
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        >
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/spray_type"
+                            android:layout_marginBottom="4dp"/>
 
 
                         <RelativeLayout
@@ -105,7 +123,6 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:background="@drawable/edittext_corner"
-                            android:layout_marginStart="12dp"
                             android:orientation="horizontal">
 
                             <Spinner
@@ -116,9 +133,7 @@
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
-                                android:layout_marginLeft="5dp"
                                 android:entries="@array/crop_spray_type"
-                                android:hint="Enter.."
                                 android:spinnerMode="dropdown"/>
 
                             <ImageView
@@ -134,7 +149,6 @@
 
                         </RelativeLayout>
 
-
                     </LinearLayout>
 
                 </LinearLayout>
@@ -142,17 +156,22 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginRight="8dp">
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
 
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/spray_name"
+                            android:layout_marginBottom="4dp"/>
 
                         <EditText
                             android:id="@+id/txt_crop_spray_spray_name"
@@ -162,18 +181,23 @@
                             android:layout_weight="0.5"
                             android:background="@drawable/edittext_corner"
                             android:inputType="text"
-                            android:hint="Spray Name.."
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        >
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/units"
+                            android:layout_marginBottom="4dp" />
 
 
                         <RelativeLayout
@@ -181,7 +205,6 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:background="@drawable/edittext_corner"
-                            android:layout_marginStart="12dp"
                             android:orientation="horizontal">
 
                             <Spinner
@@ -192,9 +215,7 @@
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
-                                android:layout_marginLeft="5dp"
                                 android:entries="@array/crop_spray_usage_units"
-                                android:hint="Units"
                                 android:spinnerMode="dropdown"/>
 
                             <ImageView
@@ -212,13 +233,21 @@
 
                     </LinearLayout>
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height ="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="15dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantity"
+                        android:layout_marginBottom="4dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
                     android:background="@drawable/edittext_corner"
                     android:orientation="horizontal">
 
@@ -227,11 +256,10 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.8"
-                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
                         android:inputType="number"
-                        android:textSize="14sp"
-                        android:hint="Quantity" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txt_crop_spray_units"
@@ -239,26 +267,34 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/edittext_right_corners_green"
                         android:textColor="@color/white"
-                        android:text="ML"
+                        android:text="@string/ml"
                         android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_weight="0.1" />
+                        android:layout_weight="0.15" />
 
+                </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="horizontal"
                     >
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginRight="8dp">
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/batch"
+                            android:layout_marginBottom="4dp"/>
 
 
 
@@ -266,23 +302,32 @@
                             android:id="@+id/txt_crop_spray_batch_no"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:paddingStart="@dimen/dimen_10dp"
                             android:background="@drawable/edittext_corner"
-                            android:hint="Batch"
                             android:inputType="text"
                             android:textSize="14sp"
+                            android:paddingStart="@dimen/dimen_10dp"
                             android:visibility="visible" />
 
                     </LinearLayout>
 
-
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cost"
+                            android:layout_marginBottom="4dp"
+                            />
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
-                        android:layout_alignParentTop="true"
                         android:background="@drawable/edittext_corner"
-                        android:layout_marginStart="12dp"
                         android:orientation="horizontal">
 
                         <EditText
@@ -290,33 +335,37 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
-                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:paddingStart="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
                             android:inputType="number"
-                            android:textSize="14sp"
-                            android:hint="Cost" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/edittext_right_corners_green"
                             android:textColor="@color/white"
-                            android:text="UGX"
+                            android:text="@string/ugx"
                             android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:layout_weight="0.35" />
 
                     </LinearLayout>
 
-
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
-                    android:orientation="horizontal">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height ="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="15dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/supplier"
+                            android:layout_marginBottom="4dp" />
 
                     <EditText
                         android:id="@+id/txt_crop_spray_supplier"
@@ -325,26 +374,20 @@
                         android:paddingStart="@dimen/dimen_10dp"
                         android:background="@drawable/edittext_corner"
                         android:inputType="text"
-                        android:hint="Supplier.."
                         android:textSize="14sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="days"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_weight="0.1"
-                        android:background="@drawable/input_shapes_grey_units_right" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_corner"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
-                    android:orientation="horizontal">
-
+                    android:layout_height ="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expiry_date"
+                        android:layout_marginBottom="4dp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -360,13 +403,10 @@
                             android:layout_height="50dp"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:layout_marginLeft="5dp"
-                            android:hint="Expiry Date"
                             android:paddingStart="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
                             android:inputType="none"
-                            android:textSize="14sp"
-                            android:layout_marginRight="10dp"/>
+                            android:textSize="14sp" />
 
                         <ImageView
                             android:id="@+id/image_expiry_date_picker"
@@ -386,19 +426,37 @@
                 </LinearLayout>
 
 
-                <Button
-                    android:id="@+id/btn_save"
-                    style="@style/Button"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:drawableTint="#ffffff"
-                    android:text="submit"
-                    android:textAllCaps="true"
-                    android:background="@drawable/rounded_corners_button"
-                    android:textColor="#ffffff" />
-            </LinearLayout>
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:background="@drawable/rounded_corners_button">
 
+
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:text="Submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/button_text_size" />
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dip"
+                        android:src="@drawable/ic_right_arrow">
+                    </ImageView>
+                </FrameLayout>
+            </LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </LinearLayout>

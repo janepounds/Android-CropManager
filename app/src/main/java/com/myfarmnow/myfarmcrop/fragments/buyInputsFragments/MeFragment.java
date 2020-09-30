@@ -14,9 +14,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.fragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 
 public class MeFragment extends Fragment implements View.OnClickListener {

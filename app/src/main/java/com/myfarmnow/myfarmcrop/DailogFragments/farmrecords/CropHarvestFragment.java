@@ -47,12 +47,14 @@ public class CropHarvestFragment extends DialogFragment {
     String cropId;
     CropHarvest cropHarvest=null;
     EditText harvestDateTxt,quantityTxt,dateSoldTxt,customerTxt,
-            quantitySoldTxt,storageDateTxt,quantityStoredTxt;
+            quantitySoldTxt,storageDateTxt,quantityStoredTxt, priceTxt;
+
     TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currency2Txt,harvestunitTxt,daysBeforeTxt;
     Spinner harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
     ImageView harvestClose,datePicker;
-//    AutoCompleteTextView operatorSpinner;
-    LinearLayout harvestSoldLayout,harvestStoredLayout;
+
+    LinearLayout harvestSoldLayout,harvestStoredLayout,remindersLayout;
+
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
     ArrayAdapter<String> employeesSpinnerAdapter;
@@ -65,7 +67,6 @@ public class CropHarvestFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_crop_harvest, container, false);
     }
@@ -85,6 +86,7 @@ public class CropHarvestFragment extends DialogFragment {
             cropId = getArguments().getString("cropId");
         }
         initializeForm(view);
+        remindersLayout.setVisibility(View.INVISIBLE);
         return builder.create();
     }
 
@@ -123,21 +125,21 @@ public class CropHarvestFragment extends DialogFragment {
         harvestunitTxt = view.findViewById(R.id.txt_crop_harvest_unit);
         harvestClose = view.findViewById(R.id.harvest_close);
         datePicker = view.findViewById(R.id.image_date_picker);
+        daysBeforeTxt = view.findViewById(R.id.txt_harvest_days_before);
+        remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
+        priceTxt = view.findViewById(R.id.txt_crops_estimated_revenue);
 //        operatorSpinner = view.findViewById(R.id.sp_crop_harvest_operator);
-//        priceTxt = view.findViewById(R.id.txt_crop_harvest_price);
 //        costTxt = view.findViewById(R.id.txt_crop_harvest_cost);
 //        currencyTxt = view.findViewById(R.id.txt_crop_harvest_currency);
 //        harvestMethodTxt = view.findViewById(R.id.txt_crop_harvest_method);
 //        weeksTxt = view.findViewById(R.id.txt_crop_harvest_weekly_weeks);
 //        repeatUntilTxt = view.findViewById(R.id.txt_crop_harvest_repeat_until);
-        daysBeforeTxt = view.findViewById(R.id.txt_harvest_days_before);
 //        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_harvest_weekly_reminder);
-//        daysBeforeLayout = view.findViewById(R.id.layout_crop_harvest_days_before);
-//        remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
 //        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
 //        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
         harvestClose.setOnClickListener(view1 -> dismiss());
         DashboardActivity.addDatePicker(harvestDateTxt,context);
+
         datePicker.setOnClickListener(v ->   DashboardActivity.addDatePicker(harvestDateTxt,context));
 
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -308,9 +310,9 @@ public class CropHarvestFragment extends DialogFragment {
                 android.R.layout.simple_dropdown_item_1line, employeesItems);;
 //        operatorSpinner.setAdapter(employeesSpinnerAdapter);
 
-        ((ArrayAdapter)harvestUnitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter) harvestUnitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         //   ((ArrayAdapter)operatorSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)statusSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter) statusSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -326,12 +328,7 @@ public class CropHarvestFragment extends DialogFragment {
                         updateHarvest();
                     }
 
-//                    Intent cropHarvest = new Intent(context, CropActivitiesListActivity.class);
-//                    cropHarvest.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    cropHarvest.putExtra("cropId",cropId);
-//                    startActivity(cropHarvest);
-//                    requireActivity().finish();
-                    navController = Navigation.findNavController(v);
+                    navController = Navigation.findNavController(getParentFragment().getView());
                     //open crop activities list
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId",cropId);
@@ -366,11 +363,10 @@ public class CropHarvestFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try{
-                    if(position == 0){
-                        // Set the hint text color gray
+                    if(position ==0){
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
-                  else  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                     }
@@ -381,6 +377,16 @@ public class CropHarvestFragment extends DialogFragment {
                 }catch (Exception e){
 
                 }
+                String selection = parent.getItemAtPosition(position).toString();
+
+
+                if(selection.toLowerCase().equals("once")){
+                    remindersLayout.setVisibility(View.GONE);
+                }else {
+                    remindersLayout.setVisibility(View.VISIBLE);
+                }
+
+
 
             }
             @Override
@@ -426,6 +432,7 @@ public class CropHarvestFragment extends DialogFragment {
 
         fillViews();
     }
+
     public void saveHarvest() {
 
         cropHarvest = new CropHarvest();
@@ -445,10 +452,10 @@ public class CropHarvestFragment extends DialogFragment {
         cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
 //        cropHarvest.setMethod(harvestMethodTxt.getText().toString());
-//        cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
+        cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
 //        cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
 //        cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
-        cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        cropHarvest.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
 //        cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
         //check if quantity sold and stored is empty
         if(quantitySoldTxt.getText().toString().isEmpty()){
@@ -482,13 +489,13 @@ public class CropHarvestFragment extends DialogFragment {
             cropHarvest.setStorageDate(storageDateTxt.getText().toString());
             cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
             cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
-            cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
-            cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
+//            cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
+//            cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
             cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
 //            cropHarvest.setOperator(operatorSpinner.getText().toString());
 //            cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
-//            cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
+            cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
 //            cropHarvest.setMethod(harvestMethodTxt.getText().toString());
 //            cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
 //            cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
@@ -496,6 +503,7 @@ public class CropHarvestFragment extends DialogFragment {
             dbHandler.updateCropHarvest(cropHarvest);
         }
     }
+
     public void fillViews(){
         if(cropHarvest != null){
             DashboardActivity.selectSpinnerItemByValue(harvestUnitsSpinner, cropHarvest.getUnits());
@@ -560,11 +568,6 @@ public class CropHarvestFragment extends DialogFragment {
             message = getString(R.string.recurrence_not_selected);
             recurrenceSp.requestFocus();
         }
-        else if(remindersSp.getSelectedItemPosition()==0){
-            message = getString(R.string.reminders_not_selected);
-            remindersSp.requestFocus();
-        }
-
 
         if(message != null){
             Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();

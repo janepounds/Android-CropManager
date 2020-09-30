@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
+package com.myfarmnow.myfarmcrop.fragments;
 
 
 import android.Manifest;
