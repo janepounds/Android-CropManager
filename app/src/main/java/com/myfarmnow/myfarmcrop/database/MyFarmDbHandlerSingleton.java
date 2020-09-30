@@ -5128,20 +5128,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateCropField(CropField field) {
         openDB();
         ContentValues contentValues = new ContentValues();
-//
-//        contentValues.put(CROP_FIELD_USER_ID,field.getUserId());
-//        contentValues.put(CROP_FIELD_NAME,field.getFieldName());
-//        contentValues.put(CROP_FIELD_SOIL_CATEGORY,field.getSoilCategory());
-//        contentValues.put(CROP_FIELD_SOIL_TYPE,field.getSoilType());
-//        contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
-//        contentValues.put(CROP_FIELD_UNITS,field.getUnits());
-//        contentValues.put(CROP_FIELD_TOTAL_AREA,field.getTotalArea());
-//        contentValues.put(CROP_FIELD_CROPPABLE_AREA,field.getCroppableArea());
-//        contentValues.put(CROP_FIELD_FIELD_TYPE,field.getFieldType());
-//        contentValues.put(CROP_FIELD_LAYOUT_TYPE,field.getLayoutType());
-//        contentValues.put(CROP_FIELD_STATUS,field.getStatus());
-//        contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
-//        contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
+
+        contentValues.put(CROP_FIELD_USER_ID, field.getUserId());
+        contentValues.put(CROP_FIELD_NAME, field.getFieldName());
+        contentValues.put(CROP_FIELD_TOTAL_AREA, field.getTotalArea());
+        contentValues.put(CROP_FIELD_CROPPABLE_AREA, field.getCroppableArea());
+        contentValues.put(CROP_FIELD_UNITS, field.getUnits());
+        contentValues.put(CROP_FIELD_FIELD_TYPE, field.getFieldType());
+        contentValues.put(CROP_FIELD_STATUS, field.getStatus());
+        contentValues.put(CROP_SYNC_STATUS, field.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID, field.getGlobalId());
 
         Log.d("UPDATE FIELD CALLED", contentValues.toString());
         database.update(CROP_FIELDS_TABLE_NAME, contentValues, CROP_FIELD_ID + " = ?", new String[]{field.getId()});
