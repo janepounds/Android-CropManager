@@ -72,7 +72,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SearchFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.UpdateAccountFragment;
+import com.myfarmnow.myfarmcrop.fragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.MarketPlaceHomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.SellProduceFragment;

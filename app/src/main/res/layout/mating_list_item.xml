@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="2:1.1"
+            app:layout_constraintDimensionRatio="2:0.8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -29,92 +29,133 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="78dp" />
+                app:layout_constraintGuide_percent="0.35" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.25" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline38"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.4" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.75" />
+                app:layout_constraintGuide_percent="0.78" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.83" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.55" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline31"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.142857143" />
+                app:layout_constraintGuide_percent="0.65" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.285714286" />
+                app:layout_constraintGuide_percent="0.333333334" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.428571429" />
+                app:layout_constraintGuide_percent="0.500000001" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline34"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.571428572" />
+                app:layout_constraintGuide_percent="0.666666668" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.714285715" />
+                app:layout_constraintGuide_percent="0.833333335" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline36"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.857142858" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/gray"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/mating_item_date"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans_semibold"
+                android:gravity="center|start"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="20/09/2020"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dimen_20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
                 android:gravity="center|start"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="@string/name"
+                android:text="Female"
                 android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="Male"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
+                app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
             <TextView
                 android:layout_width="0dp"
@@ -124,13 +165,13 @@
                 android:text=":"
                 android:textColor="@color/black"
                 app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@+id/guideline31"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toStartOf="@+id/guideline29"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
+                app:layout_constraintEnd_toStartOf="@+id/guideline40"
+                app:layout_constraintStart_toStartOf="@+id/guideline39"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
             <TextView
-                android:id="@+id/breeding_stock_item_name"
+                android:id="@+id/mating_item_female"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"
@@ -141,40 +182,13 @@
                 android:paddingEnd="@dimen/margin_10"
                 android:text="A001"
                 android:textColor="@android:color/black"
-                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
                 app:layout_constraintEnd_toStartOf="@+id/guideline30"
                 app:layout_constraintStart_toStartOf="@+id/guideline37"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center|start"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="Eartag"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@+id/guideline32"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline31" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:text=":"
-                android:textColor="@color/black"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@+id/guideline32"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toStartOf="@+id/guideline29"
-                app:layout_constraintTop_toTopOf="@+id/guideline31" />
-
-            <TextView
-                android:id="@+id/breeding_stock_item_eartag"
+                android:id="@+id/mating_item_male"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"
@@ -183,55 +197,11 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="1761"
-                android:textColor="@android:color/black"
-                app:layout_constraintBottom_toTopOf="@+id/guideline32"
-                app:layout_constraintEnd_toStartOf="@+id/guideline30"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
-                app:layout_constraintTop_toTopOf="@+id/guideline31" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center|start"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="Colour"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@+id/guideline33"
-                app:layout_constraintEnd_toStartOf="@+id/guideline29"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline32" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:text=":"
-                android:textColor="@color/black"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@+id/guideline33"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toStartOf="@+id/guideline29"
-                app:layout_constraintTop_toTopOf="@+id/guideline32" />
-
-            <TextView
-                android:id="@+id/breeding_stock_item_colour"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center|start"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="White"
+                android:text="A001"
                 android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/guideline33"
-                app:layout_constraintEnd_toStartOf="@+id/guideline30"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline40"
                 app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
             <TextView
@@ -241,7 +211,7 @@
                 android:gravity="center|start"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="Breed"
+                android:text="Method"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/guideline34"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -262,7 +232,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline33" />
 
             <TextView
-                android:id="@+id/breeding_stock_item_breed"
+                android:id="@+id/mating_item_method"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"
@@ -271,22 +241,21 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="Boer"
+                android:text="Natural Mating"
                 android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/guideline34"
-                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline37"
                 app:layout_constraintTop_toTopOf="@+id/guideline33" />
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
                 android:gravity="center|start"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="DOB"
+                android:text="Status"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/guideline35"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -307,7 +276,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
             <TextView
-                android:id="@+id/breeding_stock_item_dob"
+                android:id="@+id/mating_item_status"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"
@@ -316,127 +285,27 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="17/08/2018"
+                android:text="Pregnant"
                 android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/guideline35"
-                app:layout_constraintEnd_toStartOf="@+id/guideline30"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
-                app:layout_constraintTop_toTopOf="@+id/guideline34" />
-
-            <com.myfarmnow.myfarmcrop.customs.CircularImageView
-                android:id="@+id/breeding_stock_item_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/dimen_20dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline35"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline30"
-                app:layout_constraintTop_toTopOf="parent" />
-            <ImageView
-                android:id="@+id/breeding_stock_item_more"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:backgroundTint="@color/black"
-                android:textColor="@color/darker_gray"
-                android:src="@drawable/ic_baseline_more_vert"
-                android:layout_gravity="end"
-                android:padding="@dimen/dimen_5dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline31"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/breeding_stock_item_image"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline35" />
-
-
-            <TextView
-                android:id="@+id/breeding_stock_item_litters"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="00"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@+id/guideline36"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline35" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="LITTERS"
-                android:textColor="@android:color/white"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline36" />
-
-            <TextView
-                android:id="@+id/breeding_stock_item_offSprings"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="00"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@+id/guideline36"
-                app:layout_constraintEnd_toStartOf="@+id/guideline38"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
-                app:layout_constraintTop_toTopOf="@+id/guideline35" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="OFFSPRINGS"
-                android:textColor="@android:color/white"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline38"
-                app:layout_constraintStart_toStartOf="@+id/guideline37"
-                app:layout_constraintTop_toTopOf="@+id/guideline36" />
-
-            <TextView
-                android:id="@+id/breeding_stock_item_age"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="5dp"
-                android:text="0YRS/0M/00D"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@+id/guideline36"
                 app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="Expected Delivery"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
             <TextView
@@ -444,46 +313,30 @@
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
                 android:gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+            <TextView
+                android:id="@+id/mating_item_expected_delivery_date"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="AGE"
-                android:textColor="@android:color/white"
+                android:text="24/02/2021"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toTopOf="@+id/guideline36" />
-
-            <TextView
-                android:id="@+id/breeding_stock_item_weight"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="0 KG"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@+id/guideline36"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline39"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
                 app:layout_constraintTop_toTopOf="@+id/guideline35" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="WEIGHT"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline39"
-                app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

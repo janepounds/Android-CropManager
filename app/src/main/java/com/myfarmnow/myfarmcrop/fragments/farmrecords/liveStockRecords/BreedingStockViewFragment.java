@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
@@ -29,6 +31,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -43,9 +48,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropInventoryListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.MyProduceFragment;
+import com.myfarmnow.myfarmcrop.models.CropInventory;
+import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
@@ -60,9 +70,10 @@ public class BreedingStockViewFragment extends Fragment {
     private static final String TAG = "BreedingFragment";
     private Context context;
     private BreedingStock breedingStock;
-
+    private BreedingStockListAdapter breedingStockListAdapter;
+    private LinearLayoutManager linearLayoutManager;
     private Toolbar toolbar;
-    private Button addAnimal;
+   // private Button addAnimal;
     private RecyclerView recyclerView;
 
     // image picker code
@@ -79,6 +90,7 @@ public class BreedingStockViewFragment extends Fragment {
     private EditText name,earTag,colour,breed,weight,father,mother,dateOfBirth;
     private Spinner sex,source;
     private TextView photo;
+    public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
 
     private MyFarmDbHandlerSingleton dbHandler;
 
@@ -89,9 +101,14 @@ public class BreedingStockViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
-        addAnimal = view.findViewById(R.id.add_animal);
+       // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
+        setHasOptionsMenu(true);
 
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         return view;
     }
 
@@ -101,13 +118,19 @@ public class BreedingStockViewFragment extends Fragment {
         NavController navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-
-        addAnimal.setOnClickListener(v -> addAnimal());
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        breedingStockListAdapter = new BreedingStockListAdapter(context, breedingStockArrayList);
+        recyclerView.setAdapter(breedingStockListAdapter);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        loadBreedingStock();
+      //  addAnimal.setOnClickListener(v -> addAnimal());
     }
+
 
     private void addAnimal() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+
         View addAnimalDialog = getLayoutInflater().inflate(R.layout.add_animal_dialog, null);
 
          close = addAnimalDialog.findViewById(R.id.add_animal_close);
@@ -201,7 +224,23 @@ public class BreedingStockViewFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.breeding_stock_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_add_new_animal:
+                addAnimal();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -243,6 +282,12 @@ public class BreedingStockViewFragment extends Fragment {
             }
         }
 
+    }
+
+    public void loadBreedingStock(){
+        for (BreedingStock breedingStock : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID)) {
+            breedingStockListAdapter.addBreedingStock(breedingStock);
+        }
     }
 
     public void fillViews(){
