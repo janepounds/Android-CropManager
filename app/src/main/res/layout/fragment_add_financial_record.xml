@@ -53,182 +53,229 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
-
-                    <RelativeLayout
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:background="@drawable/edittext_corner"
-                        android:layout_marginRight="10dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
 
-                        <EditText
-                            android:id="@+id/txt_crop_income_expense_date"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:layout_marginLeft="5dp"
-                            android:hint="Date"
-                            android:paddingStart="@dimen/dimen_10dp"
-                            android:inputType="none"
-                            android:textSize="14sp"
-                            android:layout_marginRight="10dp"/>
-
-                        <ImageView
-                            android:id="@+id/image_date_picker"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_calendar" />
+                            android:text="@string/date"
+                            android:layout_marginBottom="4dp"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
 
-                    </RelativeLayout>
+                            <EditText
+                                android:id="@+id/txt_crop_income_expense_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:paddingStart="@dimen/dimen_10dp"
+                                android:background="@android:color/transparent"
+                                android:inputType="none"
+                                android:textSize="14sp" />
 
-                    <RelativeLayout
+                            <ImageView
+                                android:id="@+id/image_date_picker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_calendar" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_alignParentTop="true"
+                        android:orientation="vertical"
                         android:layout_marginStart="@dimen/dimen_10dp"
-                        android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="@dimen/dimen_10dp">
 
-                        <Spinner
-                            android:id="@+id/sp_crop_income_expense_transaction"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:gravity="center"
-                            android:entries="@array/sp_crop_income_expense_transaction"
-                            android:spinnerMode="dropdown"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-
-                    </RelativeLayout>
+                            android:text="@string/transaction"
+                            android:layout_marginBottom="4dp"/>
 
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_crop_income_expense_transaction"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:entries="@array/sp_crop_income_expense_transaction"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    >
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/department"
+                            android:layout_marginBottom="4dp"/>
 
                         <EditText
                             android:id="@+id/txt_department"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"
-                            android:hint="@string/department"
+                            android:layout_weight="0.5"
                             android:background="@drawable/edittext_corner"
                             android:inputType="text"
                             android:textSize="14sp" />
+
                     </LinearLayout>
 
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_alignParentTop="true"
+                        android:orientation="vertical"
                         android:layout_marginStart="@dimen/dimen_10dp"
-                        android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="@dimen/dimen_10dp">
 
-                        <Spinner
-                            android:id="@+id/sp_crop_income_expense_category"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:gravity="center"
-                            android:entries="@array/sp_crop_expenses_category"
-                            android:spinnerMode="dropdown"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-
-                    </RelativeLayout>
+                            android:text="@string/category"
+                            android:layout_marginBottom="4dp" />
 
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_crop_income_expense_category"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:entries="@array/sp_crop_expenses_category"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    >
-
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
 
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/item"
+                            android:layout_marginBottom="4dp"/>
 
                         <EditText
                             android:id="@+id/txt_crop_income_expense_item"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:ems="10"
-                            android:hint="@string/item"
-                            android:background="@drawable/edittext_corner"
                             android:paddingStart="@dimen/dimen_10dp"
-                            android:textSize="14sp"
-                            />
+                            android:layout_weight="0.5"
+                            android:background="@drawable/edittext_corner"
+                            android:inputType="text"
+                            android:textSize="14sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_marginStart="@dimen/dimen_10dp"
-                        android:layout_weight="1">
+                        android:layout_marginLeft="@dimen/dimen_10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gross_amount"
+                            android:layout_marginBottom="4dp" />
 
 
                         <EditText
@@ -236,15 +283,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"
+                            android:layout_weight="0.5"
                             android:background="@drawable/edittext_corner"
-                            android:ems="10"
-                            android:hint="@string/gross_amount"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:textSize="14sp" />
 
                     </LinearLayout>
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -255,73 +299,100 @@
                     >
 
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginEnd="@dimen/dimen_10dp"
-                        android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:layout_marginEnd="@dimen/dimen_10dp">
 
-                        <Spinner
-                            android:id="@+id/sp_crop_income_expense_payment_mode"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:gravity="center"
-                            android:entries="@array/sp_crop_income_expense_payment_mode"
-                            android:spinnerMode="dropdown"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                            android:text="@string/payment_mode"
+                            android:layout_marginBottom="4dp"/>
 
-                    </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_crop_income_expense_payment_mode"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:entries="@array/sp_crop_income_expense_payment_mode"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_alignParentTop="true"
+                        android:orientation="vertical"
                         android:layout_marginStart="@dimen/dimen_10dp"
-                        android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="@dimen/dimen_10dp">
 
-                        <Spinner
-                            android:id="@+id/sp_crop_income_expense_payment_status"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:gravity="center"
-                            android:entries="@array/sp_crop_income_expense_payment_status"
-                            android:spinnerMode="dropdown"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                            android:text="@string/payment_status"
+                            android:layout_marginBottom="4dp"/>
 
-                    </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_crop_income_expense_payment_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:entries="@array/sp_crop_income_expense_payment_status"
+                                android:spinnerMode="dropdown"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
 
 
@@ -330,9 +401,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_marginBottom="@dimen/dimen_20dp">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_customer_supplier"
+                        android:layout_marginBottom="4dp"/>
 
                     <AutoCompleteTextView
                         android:id="@+id/spinner_crop_income_expense_customer_supplier"
@@ -340,7 +417,6 @@
                         android:layout_height="50dp"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:textSize="15sp"
-                        android:hint="@string/label_customer_supplier"
                         android:background="@drawable/edittext_corner"
                         />
 
@@ -348,20 +424,36 @@
                 </LinearLayout>
 
 
-                <Button
-                    android:id="@+id/btn_save"
-                    style="@style/Button"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:drawableTint="#ffffff"
-                    android:text="Submit "
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:background="@drawable/rounded_corners_button"
-                    android:padding="@dimen/dimen_10dp"/>
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:background="@drawable/rounded_corners_button">
+
+
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:text="Submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/button_text_size" />
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dip"
+                        android:src="@drawable/ic_right_arrow">
+                    </ImageView>
+                </FrameLayout>
 
 
             </LinearLayout>

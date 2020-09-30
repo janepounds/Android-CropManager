@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
-    android:background="@color/background_gray"
+    android:background="#F4F4F4"
     android:orientation="vertical"
     android:layout_width="match_parent"
     >
@@ -27,7 +27,7 @@
                     android:background="@drawable/input_shapes_crops_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     >
 
                     <LinearLayout
@@ -69,7 +69,7 @@
                         android:max="40"
                         android:progress="20"
                         android:progressTint="@color/colorPrimary"
-                        android:progressBackgroundTint="@color/gray"
+                        android:progressBackgroundTint="#E3E3E3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                     <!-- style="@android:style/Widget.ProgressBar.Horizontal" -->
@@ -83,15 +83,23 @@
                         android:paddingTop="@dimen/margin_10">
 
                         <TextView
-                            android:textSize="14dp"
+                            android:textSize="14sp"
                             android:textColor="#000"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight=".4"
                             android:layout_height="wrap_content"
-                            android:text="Current Stock  :   "/>
+                            android:text="Current Stock"/>
+                        <TextView
+                            android:textSize="14sp"
+                            android:textColor="#000"
+                            android:layout_width="0dp"
+                            android:layout_weight=".1"
+                            android:layout_height="wrap_content"
+                            android:text=":"/>
 
                         <TextView
                             android:id="@+id/txt_view_current_inventory"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0/0 Straws"
@@ -115,15 +123,23 @@
 
                             <TextView
                                 android:id="@+id/txt_view_batch_lbl"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Batch #             :    "
+                                android:text="Batch #"
+                                android:layout_weight=".4"
                                 android:textColor="#000"
-                                android:textSize="14dp" />
+                                android:textSize="14sp" />
+                            <TextView
+                                android:textSize="14sp"
+                                android:textColor="#000"
+                                android:layout_weight=".1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text=":"/>
 
                             <TextView
                                 android:id="@+id/txtView_batch_number"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0/0 Straws"

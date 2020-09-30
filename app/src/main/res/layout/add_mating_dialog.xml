@@ -27,7 +27,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/add_animal_close"
+                        android:id="@+id/add_mating_close"
                         android:layout_width="26.18dp"
                         android:layout_height="26.18dp"
                         android:layout_alignParentEnd="true"
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/josefin_sans_semibold"
                         android:gravity="center"
-                        android:text="Add Animal"
+                        android:text="Add Mating"
                         android:textAllCaps="true"
                         android:textColor="@color/blackText"
                         android:textSize="25sp"
@@ -73,10 +73,10 @@
                             android:layout_marginTop="@dimen/dimen_5dp"
                             android:layout_marginBottom="@dimen/dimen_5dp"
                             android:fontFamily="@font/josefin_sans"
-                            android:text="Name" />
+                            android:text="Mating Date" />
 
                         <EditText
-                            android:id="@+id/add_animal_name"
+                            android:id="@+id/add_mating_date"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/edittext_corner"
@@ -98,10 +98,10 @@
                             android:layout_marginTop="@dimen/dimen_5dp"
                             android:layout_marginBottom="@dimen/dimen_5dp"
                             android:fontFamily="@font/josefin_sans"
-                            android:text="Eartag" />
+                            android:text="Female Name" />
 
                         <EditText
-                            android:id="@+id/add_animal_eartag"
+                            android:id="@+id/add_mating_female_name"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/edittext_corner"
@@ -121,7 +121,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -131,10 +131,10 @@
                             android:layout_marginTop="@dimen/dimen_5dp"
                             android:layout_marginBottom="@dimen/dimen_5dp"
                             android:fontFamily="@font/josefin_sans"
-                            android:text="Colour" />
+                            android:text="Male Name" />
 
                         <EditText
-                            android:id="@+id/add_animal_colour"
+                            android:id="@+id/add_mating_male_name"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/edittext_corner"
@@ -156,7 +156,7 @@
                             android:layout_marginTop="@dimen/dimen_5dp"
                             android:layout_marginBottom="@dimen/dimen_5dp"
                             android:fontFamily="@font/josefin_sans"
-                            android:text="Sex" />
+                            android:text="Method" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                             android:orientation="vertical">
 
                             <Spinner
-                                android:id="@+id/add_animal_sex"
+                                android:id="@+id/add_mating_method"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_centerVertical="true"
@@ -200,140 +200,9 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5dp"
-                            android:layout_marginBottom="@dimen/dimen_5dp"
-                            android:fontFamily="@font/josefin_sans"
-                            android:text="Breed" />
-
-                        <EditText
-                            android:id="@+id/add_animal_breed"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/edittext_corner"
-                            android:entries="@array/crops_list"
-                            android:paddingStart="@dimen/dimen_10dp"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5dp"
-                            android:layout_marginBottom="@dimen/dimen_5dp"
-                            android:fontFamily="@font/josefin_sans"
-                            android:text="Date of Birth" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/edittext_corner"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/add_animal_dob"
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:layout_margin="0dp"
-                                android:layout_weight="0.8"
-                                android:background="@android:color/transparent"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:textSize="14sp" />
-
-                            <ImageView
-                                android:id="@+id/image_dob"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.1"
-                                android:fontFamily="@font/josefin_sans"
-                                android:gravity="center"
-                                android:paddingStart="@dimen/margin_10"
-                                android:paddingEnd="@dimen/margin_10"
-                                android:src="@drawable/ic_calendar_add"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5dp"
-                            android:layout_marginBottom="@dimen/dimen_5dp"
-                            android:fontFamily="@font/josefin_sans"
-                            android:text="Source" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/edittext_corner"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <Spinner
-                                android:id="@+id/add_animal_source"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:entries="@array/sp_livestock_breeding_stock_source"
-                                android:gravity="center"
-                                android:spinnerMode="dropdown" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginRight="10dp"
-                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -343,7 +212,7 @@
                             android:layout_marginTop="@dimen/dimen_5dp"
                             android:layout_marginBottom="@dimen/dimen_5dp"
                             android:fontFamily="@font/josefin_sans"
-                            android:text="Weight" />
+                            android:text="Gestation Period" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -353,7 +222,7 @@
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/add_animal_weight"
+                                android:id="@+id/add_mating_gestation_period"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
                                 android:layout_margin="0dp"
@@ -361,6 +230,7 @@
                                 android:background="@android:color/transparent"
                                 android:inputType="number"
                                 android:paddingStart="@dimen/dimen_10dp"
+                                android:paddingEnd="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
                             <TextView
@@ -372,45 +242,12 @@
                                 android:gravity="center"
                                 android:paddingStart="@dimen/margin_10"
                                 android:paddingEnd="@dimen/margin_10"
-                                android:text="Kg"
+                                android:text="Days"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5dp"
-                            android:layout_marginBottom="@dimen/dimen_5dp"
-                            android:fontFamily="@font/josefin_sans"
-                            android:text="Father/Sire" />
-
-                        <EditText
-                            android:id="@+id/add_animal_father"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/edittext_corner"
-                            android:entries="@array/crops_list"
-                            android:paddingStart="@dimen/dimen_10dp"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -426,15 +263,41 @@
                             android:layout_marginTop="@dimen/dimen_5dp"
                             android:layout_marginBottom="@dimen/dimen_5dp"
                             android:fontFamily="@font/josefin_sans"
-                            android:text="Mother/Dam" />
+                            android:text="Delivery Alert" />
 
-                        <EditText
-                            android:id="@+id/add_animal_mother"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:background="@drawable/edittext_corner"
-                            android:ems="10"
-                            android:textSize="14sp" />
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/add_mating_delivery_alert"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_margin="0dp"
+                                android:layout_weight="0.8"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingStart="@dimen/dimen_10dp"
+                                android:paddingEnd="@dimen/dimen_10dp"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.1"
+                                android:background="@drawable/edittext_right_corners_green"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:paddingStart="@dimen/margin_10"
+                                android:paddingEnd="@dimen/margin_10"
+                                android:text="Days before"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -453,37 +316,23 @@
                         android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_marginBottom="@dimen/dimen_5dp"
                         android:fontFamily="@font/josefin_sans"
-                        android:text="Upload Photo" />
+                        android:text="Note" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:layout_height="115dp"
+                        android:background="@drawable/edittext_corner">
 
                         <EditText
-                            android:id="@+id/txt_crops_estimated_revenue"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_margin="0dp"
-                            android:layout_weight="0.8"
-                            android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:id="@+id/add_mating_note"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_corner"
+                            android:entries="@array/crops_list"
                             android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
                             android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/add_animal_photo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.1"
-                            android:background="@drawable/edittext_right_corners_green"
-                            android:fontFamily="@font/josefin_sans"
-                            android:gravity="center"
-                            android:text="Browse"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -501,7 +350,7 @@
                         android:background="@drawable/rounded_corners_button">
 
                         <Button
-                            android:id="@+id/add_animal_submit"
+                            android:id="@+id/add_mating_submit"
                             style="@style/Button"
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
@@ -513,6 +362,7 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

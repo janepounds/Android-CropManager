@@ -37,9 +37,6 @@ public class FieldsListFragment extends Fragment {
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,8 +58,6 @@ public class FieldsListFragment extends Fragment {
         this.context = context;
     }
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -70,13 +65,11 @@ public class FieldsListFragment extends Fragment {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         cropFieldsListRecyclerAdapter = new CropFieldsListRecyclerAdapter(context,dbHandler.getCropFields(DashboardActivity.RETRIEVED_USER_ID));
         binding.cropFieldRecyclerView.setAdapter(cropFieldsListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropFieldRecyclerView.setLayoutManager(linearLayoutManager);
-
     }
 
     @Override
@@ -97,10 +90,5 @@ public class FieldsListFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
-
-
 
 }
