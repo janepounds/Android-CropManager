@@ -200,11 +200,15 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             final HarvestViewHolder harvestViewHolder = (HarvestViewHolder)holder;
             CropHarvest harvest = (CropHarvest)cropsList.get(position);
             harvestViewHolder.harvestDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(harvest.getDate()));
-            harvestViewHolder.harvestMethodTxt.setText(harvest.getMethod());
+            if(harvest.getDateSold()!=null)
+                harvestViewHolder.harvest_date_sold.setText(harvest.getDateSold());
+            else
+                harvestViewHolder.harvest_date_sold.setVisibility(View.GONE);
+
             harvestViewHolder.quantityTxt.setText(harvest.getQuantity()+" ");
             harvestViewHolder.unitsTxt.setText(harvest.getUnits());
             harvestViewHolder.statusTxt.setText(harvest.getStatus());
-            harvestViewHolder.costTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(harvest.getCost()));
+//            harvestViewHolder.costTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(harvest.getCost()));
             harvestViewHolder.incomeGeneratedTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(harvest.computeIncomeGenerated()));
 
             if(harvest.getStatus().toLowerCase().equals("sold")) {
@@ -536,7 +540,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
     }
 
     public class HarvestViewHolder extends RecyclerView.ViewHolder{
-        TextView harvestDateTxt,harvestMethodTxt,quantityTxt,statusTxt,costTxt,unitsTxt, incomeGeneratedTxt;
+        TextView harvestDateTxt,harvest_date_sold,quantityTxt,statusTxt,costTxt,unitsTxt, incomeGeneratedTxt;
         LinearLayout hideShowLayout,expandContentLayout, incomeGeneratedLayout;
         ImageView moreButton,showHideRemarksButton;
         View verticalLineView;
@@ -544,11 +548,10 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         public HarvestViewHolder(View itemView) {
             super(itemView);
             harvestDateTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_date);
-            harvestMethodTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_method);
+            harvest_date_sold = itemView.findViewById(R.id.txt_view_crop_harvest_date_sold);
             quantityTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_quantity);
             statusTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_status);
             unitsTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_units);
-            costTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_cost);
             verticalLineView = itemView.findViewById(R.id.txt_view_crop_harvest_card_line);
             incomeGeneratedTxt = itemView.findViewById(R.id.txt_view_crop_harvest_card_income_generated);
             incomeGeneratedLayout = itemView.findViewById(R.id.layout_crop_harvest_card_income_generated);

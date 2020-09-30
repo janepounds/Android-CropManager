@@ -7,8 +7,11 @@ import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -123,6 +126,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -146,17 +150,18 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-//                                CropField cropField = cropFieldsList.get(getAdapterPosition());
-//                                Intent editField = new Intent(mContext, CropFieldManagerActivity.class);
-//                                editField.putExtra("cropField",  cropField);
-//                                mContext.startActivity(editField);
+                                CropField cropField = cropFieldsList.get(getAdapterPosition());
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("cropField", cropField);
+                                navController.navigate(R.id.action_fieldsListFragment_to_addFieldFragment,bundle);
+
                             }
 
 
                             return true;
                         }
                     });
-                    popup.getMenu().add(R.string.label_soil_analysis);
+                    //popup.getMenu().add(R.string.label_soil_analysis);
                     popup.getMenu().add(R.string.label_edit);
                     popup.getMenu().add(R.string.label_delete);
                     popup.show();
