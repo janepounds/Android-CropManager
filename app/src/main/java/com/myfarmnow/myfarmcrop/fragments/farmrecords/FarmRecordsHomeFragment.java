@@ -41,7 +41,7 @@ public class FarmRecordsHomeFragment extends Fragment {
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+                getActivity().finish();
             }
         });
 

@@ -379,11 +379,11 @@ public class CropHarvestFragment extends DialogFragment {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
 
-
-                if(selection.toLowerCase().equals("once")){
+                if(selection.toLowerCase().equals("once") || selection.toLowerCase().equals("daily") ){
                     remindersLayout.setVisibility(View.GONE);
                 }else {
                     remindersLayout.setVisibility(View.VISIBLE);
+                    daysBeforeTxt.setVisibility(View.GONE);
                 }
 
 
@@ -415,7 +415,13 @@ public class CropHarvestFragment extends DialogFragment {
 
                 }
 
+                String selection = parent.getItemAtPosition(position).toString();
 
+                if(selection.toLowerCase().equals("yes") ){
+                    daysBeforeTxt.setVisibility(View.VISIBLE);
+                }else {
+                    daysBeforeTxt.setVisibility(View.GONE);
+                }
 
 
             }

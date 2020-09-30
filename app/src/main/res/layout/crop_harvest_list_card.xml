@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -20,8 +21,10 @@
 
 
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="@dimen/dimen_5dp"
+                android:background="#444444"
                 android:scaleType="fitXY"
                 android:src="@drawable/harvesting" />
 
@@ -51,7 +54,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="20-08-2018"
                 android:textSize="18sp"
-                android:textColor="#A6C0A7" />
+                android:textColor="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +81,7 @@
                         android:layout_weight="0.9"
                         android:layout_marginStart="28dp"
                         android:text="@string/harvest"
-                        android:textColor="@color/blackText"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp" />
 
 
@@ -94,7 +97,8 @@
                             android:id="@+id/img_crop_harvest_card_more"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_baseline_more_vert" />
+                            android:src="@drawable/ic_baseline_more_vert"
+                            app:tint="@color/colorPrimary" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -104,35 +108,6 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginBottom="5dp"
                     android:background="#D2D3D2" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp"
-
-                    >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Method : "
-                        android:textColor="@color/blackText"
-                        android:textSize="14sp"
-                        android:layout_marginStart="38dp"
-                        android:layout_weight="0.4"
-                        />
-
-                    <TextView
-                        android:id="@+id/txt_view_crop_harvest_card_method"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:layout_marginStart="6dp"
-                        android:textColor="#899889"
-                        android:text="Hand Picking"/>
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,33 +182,6 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:layout_marginStart="38dp"
-                        android:text="Cost : "
-                        android:textColor="@color/blackText"
-                         />
-
-                    <TextView
-                        android:id="@+id/txt_view_crop_harvest_card_cost"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:layout_marginStart="6dp"
-                        android:text="UGX 150,000"
-                        android:textColor="#899889" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/layout_crop_harvest_card_income_generated"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,6 +208,36 @@
                         android:textColor="#899889" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="0dp"
+                    android:padding="4dp"
+
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Date Sold : "
+                        android:textColor="@color/blackText"
+                        android:textSize="14sp"
+                        android:layout_marginStart="38dp"
+                        android:layout_weight="0.4"
+                        />
+
+                    <TextView
+                        android:id="@+id/txt_view_crop_harvest_date_sold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:layout_marginStart="6dp"
+                        android:textColor="#899889"
+                        android:text="12/07/2020"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
             <LinearLayout
@@ -284,6 +262,7 @@
                     android:layout_marginTop="10dp"
                     android:src="@drawable/arrow_drop_down" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/layout_crop_harvest_expand"

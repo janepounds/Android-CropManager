@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropsNotesListRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropsNotesListBinding;
 import com.myfarmnow.myfarmcrop.models.CropNote;
@@ -47,12 +49,24 @@ public class CropsNotesListFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_crops_notes_list, container, false);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Notes");
-        binding.toolbar.setNavigationOnClickListener(view -> navController.navigate(R.id.action_cropsNotesListFragment_to_cropListFragment));
         // Inflate the layout for this fragment
+        getActivity().getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+
+                // Check BackStackEntryCount of FragmentManager
+              //reload
+                dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+                cropsNotesListRecyclerAdapter = new CropsNotesListRecyclerAdapter(context,dbHandler.getCropNotes(cropId, CropNote.IS_FOR_CROP));
+                binding.cropsNotesRecycView.setAdapter(cropsNotesListRecyclerAdapter);
+                linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+                binding.cropsNotesRecycView.setLayoutManager(linearLayoutManager);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -76,22 +90,25 @@ public class CropsNotesListFragment extends Fragment {
 
 
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
 
             case R.id.action_add_new:
                 item.setTitle("Add New");
-               //navigate to add notes
+                //navigate to add notes
 
                 Bundle bundle = new Bundle();
                 bundle.putString("cropId",cropId);
                 navController.navigate(R.id.action_cropsNotesListFragment_to_addCropNotesFragment,bundle);
+
                 return true;
             default:
+                navController.navigate(R.id.action_cropsNotesListFragment_to_cropListFragment);
+//                getActivity().onBackPressed();
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 }
