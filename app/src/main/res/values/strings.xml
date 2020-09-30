@@ -2194,6 +2194,7 @@
     <string name="note_not_entered">note not entered</string>
     <string name="gestation_period_not_entered">gestation period not entered</string>
     <string name="notification_delivery_alert">delivery alert</string>
+    <string name="update_note">Update Note</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

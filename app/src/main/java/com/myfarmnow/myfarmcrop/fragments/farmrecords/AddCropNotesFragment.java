@@ -64,7 +64,7 @@ public class AddCropNotesFragment extends Fragment {
             cropId = getArguments().getString("cropId");
             Log.e("CropID",cropId );
             cropNote = (CropNote)getArguments().getSerializable("cropNote");
-
+            binding.btnSave.setText(getString(R.string.update_note));
         }
 
         initializeForm();

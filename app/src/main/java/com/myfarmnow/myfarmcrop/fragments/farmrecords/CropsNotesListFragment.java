@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropsNotesListRecyclerAdapter;
-import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropsNotesListBinding;
 import com.myfarmnow.myfarmcrop.models.CropNote;
@@ -60,7 +59,7 @@ public class CropsNotesListFragment extends Fragment {
                 // Check BackStackEntryCount of FragmentManager
               //reload
                 dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-                cropsNotesListRecyclerAdapter = new CropsNotesListRecyclerAdapter(context,dbHandler.getCropNotes(cropId, CropNote.IS_FOR_CROP));
+                cropsNotesListRecyclerAdapter = new CropsNotesListRecyclerAdapter(context, cropId, dbHandler.getCropNotes(cropId, CropNote.IS_FOR_CROP));
                 binding.cropsNotesRecycView.setAdapter(cropsNotesListRecyclerAdapter);
                 linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
                 binding.cropsNotesRecycView.setLayoutManager(linearLayoutManager);
@@ -79,7 +78,7 @@ public class CropsNotesListFragment extends Fragment {
             Log.e("CropID",cropId);
         }
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        cropsNotesListRecyclerAdapter = new CropsNotesListRecyclerAdapter(context,dbHandler.getCropNotes(cropId, CropNote.IS_FOR_CROP));
+        cropsNotesListRecyclerAdapter = new CropsNotesListRecyclerAdapter(context,cropId,dbHandler.getCropNotes(cropId, CropNote.IS_FOR_CROP));
         binding.cropsNotesRecycView.setAdapter(cropsNotesListRecyclerAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropsNotesRecycView.setLayoutManager(linearLayoutManager);

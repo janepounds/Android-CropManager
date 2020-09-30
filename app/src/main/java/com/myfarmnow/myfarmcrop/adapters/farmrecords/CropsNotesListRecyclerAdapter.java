@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,12 +28,14 @@ import java.util.ArrayList;
 public class CropsNotesListRecyclerAdapter  extends RecyclerView.Adapter<CropsNotesListRecyclerAdapter.CropsNotesViewHolder>  {
     LayoutInflater layoutInflater;
     Context mContext;
+    String cropId;
     ArrayList<CropNote> cropsNotesList = new ArrayList<>();
 
 
-    public CropsNotesListRecyclerAdapter(Context context, ArrayList<CropNote> cropsNotes){
+    public CropsNotesListRecyclerAdapter(Context context, String cropId, ArrayList<CropNote> cropsNotes){
         cropsNotesList.addAll(cropsNotes);
         mContext =context;
+        this.cropId=cropId;
         layoutInflater = LayoutInflater.from(mContext);
 
     }
@@ -89,6 +95,7 @@ public class CropsNotesListRecyclerAdapter  extends RecyclerView.Adapter<CropsNo
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -112,11 +119,12 @@ public class CropsNotesListRecyclerAdapter  extends RecyclerView.Adapter<CropsNo
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-//                                CropNote cropsNotes = cropsNotesList.get(getAdapterPosition());
-//                                Intent editCropsNotes = new Intent(mContext, CropsNotesManagerActivity.class);
-//                                editCropsNotes.putExtra("cropNote", cropsNotes);
-//                                editCropsNotes.putExtra("cropId",cropsNotes.getParentId());
-//                                mContext.startActivity(editCropsNotes);
+                                CropNote cropsNotes = cropsNotesList.get(getAdapterPosition());
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("cropNote", cropsNotes);
+                                bundle.putString("cropId",cropId);
+                                navController.navigate(R.id.action_cropsNotesListFragment_to_addCropNotesFragment,bundle);
+
                             }
 
 
