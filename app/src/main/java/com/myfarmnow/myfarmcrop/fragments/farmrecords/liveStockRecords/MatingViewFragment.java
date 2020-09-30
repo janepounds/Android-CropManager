@@ -173,6 +173,7 @@ public class MatingViewFragment extends Fragment {
                 //dismiss dialog and refresh fragment
 
                 dialog.dismiss();
+                loadMatings();
 
 
 
@@ -187,10 +188,11 @@ public class MatingViewFragment extends Fragment {
         dialog = builder.create();
         dialog.show();
     }
-    public void loadMatings(){
-        for (Mating mating : dbHandler.getMatings(DashboardActivity.RETRIEVED_USER_ID)) {
-            matingListAdapter.addMating(mating);
-        }
+    private void loadMatings(){
+        matingListAdapter.clearMatingList();
+
+        matingListAdapter.addList(dbHandler.getMatings(DashboardActivity.RETRIEVED_USER_ID));
+
     }
 
     public void fillViews(){
