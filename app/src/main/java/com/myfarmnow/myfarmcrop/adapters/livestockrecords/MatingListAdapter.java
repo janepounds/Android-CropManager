@@ -43,7 +43,7 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
     @Override
     public MatingListAdapter.MatingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = layoutInflater.inflate(R.layout.breeding_stock_list_item, parent,false);
+        View view = layoutInflater.inflate(R.layout.mating_list_item, parent,false);
 
         MatingViewHolder holder = new MatingViewHolder(view);
         return holder;
@@ -71,6 +71,12 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
     public void onBindViewHolder(@NonNull final MatingListAdapter.MatingViewHolder holder, int position) {
 
         Mating mating = matings.get(position);
+        holder.femaleNameTextView.setText(mating.getFemaleName());
+        holder.maleNameTextView.setText(mating.getMaleName());
+        holder.methodTextView.setText(mating.getMethod());
+
+        computeDeliveryDate(mating.getMatingDate(),mating.getGestationPeriod(),holder);
+
 
 
 
@@ -87,25 +93,41 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
 
     public class MatingViewHolder extends RecyclerView.ViewHolder{
 
-        TextView breedingStockNameTextView,earTagtextView,colorTextView,breedTextView,dobTextView,weightTextView,ageTextView;
+        TextView femaleNameTextView,maleNameTextView,statusTextView,expectedDeliveryTextView,methodTextView;
         ImageView pictureImageView;
 
         public MatingViewHolder(View itemView) {
             super(itemView);
-            breedingStockNameTextView = itemView.findViewById(R.id.breeding_stock_item_name);
-            earTagtextView = itemView.findViewById(R.id.breeding_stock_item_eartag);
-            colorTextView = itemView.findViewById(R.id.breeding_stock_item_colour);
-            breedTextView = itemView.findViewById(R.id.breeding_stock_item_breed);
-            dobTextView = itemView.findViewById(R.id.breeding_stock_item_dob);
-            pictureImageView = itemView.findViewById(R.id.breeding_stock_item_image);
-            weightTextView = itemView.findViewById(R.id.breeding_stock_item_weight);
-            ageTextView = itemView.findViewById(R.id.breeding_stock_item_age);
+            femaleNameTextView = itemView.findViewById(R.id.mating_item_female);
+            maleNameTextView = itemView.findViewById(R.id.mating_item_male);
+            statusTextView = itemView.findViewById(R.id.mating_item_status);
+            expectedDeliveryTextView = itemView.findViewById(R.id.mating_item_expected_delivery_date);
+            methodTextView = itemView.findViewById(R.id.mating_item_method);
+
 
 
 
 
 
         }
+
+
+    }
+
+    public void computeDeliveryDate(String matingDate,float gestationPeriod,MatingViewHolder holder){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date convertedDate = new Date();
+        try {
+
+            convertedDate = dateFormat.parse(matingDate);
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_MONTH,((int)gestationPeriod));
+            String newDate = dateFormat.format(c.getTime());
+            holder.expectedDeliveryTextView.setText(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
 
     }

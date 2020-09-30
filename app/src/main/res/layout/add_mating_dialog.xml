@@ -173,7 +173,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
-                                android:entries="@array/spinner_sex"
+                                android:entries="@array/sp_mating_method"
                                 android:gravity="center"
                                 android:spinnerMode="dropdown" />
 
