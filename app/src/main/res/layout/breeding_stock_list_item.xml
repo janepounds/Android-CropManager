@@ -333,6 +333,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline30"
                 app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/breeding_stock_item_more"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/darker_gray"
+                android:src="@drawable/ic_baseline_more_vert"
+                android:layout_gravity="end"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/breeding_stock_item_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <View
                 android:layout_width="0dp"
@@ -342,6 +355,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
 
             <TextView
                 android:id="@+id/breeding_stock_item_litters"
