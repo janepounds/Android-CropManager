@@ -7,6 +7,7 @@ import android.content.pm.Signature;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.myfarmnow.myfarmcrop.TypefaceUtil;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.BuyInputsDB_Handler;
 import com.myfarmnow.myfarmcrop.database.BuyInputsDB_Manager;
@@ -55,6 +56,7 @@ public class CropManagerApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/JosefinSans-Regular.ttf"); // font from assets: "assets/fonts/JosefinSans-Regular.ttf
 
         // set App Context
         context = this.getApplicationContext();
@@ -79,7 +81,7 @@ public class CropManagerApp extends MultiDexApplication {
 //                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.InAppAlert)
 //                    .unsubscribeWhenNotificationsAreDisabled(false)
 //                    .init();
-        
+
         }
 
     }

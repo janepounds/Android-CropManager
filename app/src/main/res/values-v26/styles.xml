@@ -5,7 +5,8 @@
         <item name="android:background">@color/white</item>
         <item name="android:textColorPrimary">@color/colorAccentGreen</item>
         <item name="android:textColorSecondary">@color/colorAccentGreen</item>
-        <item name="android:font">@font/josefin_sans</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:fontFamily">>@font/josefin_sans</item>
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -14,6 +15,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:font">@font/josefin_sans</item>
+        <item name="android:fontFamily">>@font/josefin_sans</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
@@ -22,13 +24,14 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:font">@font/josefin_sans</item>
         <item name="android:textSize">14sp</item>
-
+        <item name="android:fontFamily">>@font/josefin_sans</item>
     </style>
 
     <style name="DialogFullscreen" parent="@style/Preference.Material" >
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
+        <item name="android:fontFamily">>@font/josefin_sans</item>
     </style>
 
 </resources>
