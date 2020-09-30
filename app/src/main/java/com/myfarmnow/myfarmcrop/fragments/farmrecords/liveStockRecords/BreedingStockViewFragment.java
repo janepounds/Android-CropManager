@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -69,7 +73,7 @@ public class BreedingStockViewFragment extends Fragment {
     private BreedingStockListAdapter breedingStockListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Toolbar toolbar;
-    private Button addAnimal;
+   // private Button addAnimal;
     private RecyclerView recyclerView;
 
     // image picker code
@@ -97,9 +101,14 @@ public class BreedingStockViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
-        addAnimal = view.findViewById(R.id.add_animal);
+       // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
+        setHasOptionsMenu(true);
 
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         return view;
     }
 
@@ -115,8 +124,9 @@ public class BreedingStockViewFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadBreedingStock();
-        addAnimal.setOnClickListener(v -> addAnimal());
+      //  addAnimal.setOnClickListener(v -> addAnimal());
     }
+
 
     private void addAnimal() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
@@ -214,7 +224,23 @@ public class BreedingStockViewFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.breeding_stock_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_add_new_animal:
+                addAnimal();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");

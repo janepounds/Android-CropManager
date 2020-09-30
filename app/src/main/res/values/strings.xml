@@ -1653,11 +1653,11 @@
     <string name="spraying_title">Spraying</string>
 
     <string-array name="breeding_stock">
-        <item> Section</item>
-        <item>Tomatoes</item>
-        <item>Maize</item>
-        <item>Cassava</item>
-        <item>Irish</item>
+        <item> Filter By </item>
+        <item>Name</item>
+        <item>Breed</item>
+        <item>Age</item>
+        <item>DOB</item>
     </string-array>
 
     <string-array name="crop_add_produce">
