@@ -1254,6 +1254,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             if (reminderType.toLowerCase().equals("weekly")) {
                 calendarIdentifier = Calendar.DAY_OF_MONTH;
                 repeatFrequency = 7 * frequency;
+                if(endDate!=null)
                 endDateCalendar.setTime(dateFormat.parse(endDate));
             } else if (reminderType.toLowerCase().equals("monthly")) {
                 calendarIdentifier = Calendar.MONTH;

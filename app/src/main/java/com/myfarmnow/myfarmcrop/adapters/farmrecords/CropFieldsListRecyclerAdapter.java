@@ -111,7 +111,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
 
         TextView fieldNameTextView, fieldAreaTextView, soilCategoryTextView, soilTypeTextView, croppableAreaTextView;
         ImageView moreButton;
-        
+
         public FieldViewHolder(View itemView) {
             super(itemView);
             fieldNameTextView = itemView.findViewById(R.id.txt_crop_field_card_name);

@@ -455,6 +455,7 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -492,6 +493,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_crop_harvest_reminders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen_20dp"
