@@ -209,7 +209,17 @@
         android:id="@+id/cropActivitiesListFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropActivitiesListFragment"
         android:label="fragment_crop_activities_list"
-        tools:layout="@layout/fragment_crop_activities_list" />
+        tools:layout="@layout/fragment_crop_activities_list" >
+        <action
+            android:id="@+id/action_cropActivitiesListFragment_to_fertilizerApplicationFragment"
+            app:destination="@id/fertilizerApplicationFragment" />
+        <action
+            android:id="@+id/action_cropActivitiesListFragment_to_cropHarvestFragment"
+            app:destination="@id/cropHarvestFragment" />
+        <action
+            android:id="@+id/action_cropActivitiesListFragment_to_cropSprayingFragment"
+            app:destination="@id/cropSprayingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cropsNotesListFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropsNotesListFragment"

@@ -127,6 +127,7 @@
                             android:id="@+id/add_mating_female_name"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:paddingStart="@dimen/dimen_10dp"
                             android:background="@drawable/edittext_corner"
                             android:ems="10"
                             android:textSize="14sp" />
@@ -253,7 +254,6 @@
                                 android:background="@android:color/transparent"
                                 android:inputType="number"
                                 android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
                             <TextView
@@ -304,7 +304,6 @@
                                 android:background="@android:color/transparent"
                                 android:inputType="number"
                                 android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
                             <TextView
@@ -315,7 +314,6 @@
                                 android:fontFamily="@font/josefin_sans"
                                 android:gravity="center"
                                 android:paddingStart="@dimen/margin_10"
-                                android:paddingEnd="@dimen/margin_10"
                                 android:text="Days before"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -330,7 +328,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_30dp"
-                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
@@ -351,10 +348,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/edittext_corner"
-                            android:entries="@array/crops_list"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textAlignment="textStart"/>
 
                     </LinearLayout>
 

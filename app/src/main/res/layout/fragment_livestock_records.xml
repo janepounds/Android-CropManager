@@ -112,7 +112,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center"
                             android:padding="20dp"
-                            android:src="@drawable/ic_matings" />
+                            android:src="@drawable/gender_matings" />
 
                         <TextView
                             android:id="@+id/tv_matings"
@@ -154,7 +154,7 @@
                             android:layout_height="90dp"
                             android:layout_gravity="center"
                             android:padding="20dp"
-                            android:src="@drawable/ic_litter" />
+                            android:src="@drawable/litters" />
 
                         <TextView
                             android:layout_width="match_parent"

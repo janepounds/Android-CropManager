@@ -7,8 +7,11 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -86,7 +89,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
             fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerName());
             fertilizerApplicationHolder.recurrenceTxt.setText(fertilizerApplication.getRecurrence());
-
+            fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" kg");
             final ViewTreeObserver observer = fertilizerApplicationHolder.operationTextView.getViewTreeObserver();
             observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -170,7 +173,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             sprayingViewHolder.sprayNameTextView.setText(field.getSprayName());
             sprayingViewHolder.sprayType.setText(field.getSprayType());
             sprayingViewHolder.recurrenceTextView.setText(field.getRecurrence());
-            sprayingViewHolder.rateTextView.setText(field.getRate()+" Kg");
+            sprayingViewHolder.rateTextView.setText(field.getRate()+" lt");
             sprayingViewHolder.treatmentReasonTextView.setText(field.getTreatmentReason());
 
 
@@ -244,27 +247,27 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 harvestViewHolder.hideShowLayout.setVisibility(View.VISIBLE);
             }
 
-            final ViewTreeObserver observer = harvestViewHolder.costTxt.getViewTreeObserver();
-            observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        harvestViewHolder.costTxt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    } else {
-                        harvestViewHolder.costTxt.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-
-                    int lineHeight = (int)((36+harvestViewHolder.costTxt.getHeight())*10);
-
-
-
-                    ViewGroup.LayoutParams params = harvestViewHolder.verticalLineView.getLayoutParams();
-                    params.height = lineHeight;
-                    harvestViewHolder.verticalLineView.requestLayout();
-
-
-                }
-            });
+//            final ViewTreeObserver observer = harvestViewHolder.costTxt.getViewTreeObserver();
+//            observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                @Override
+//                public void onGlobalLayout() {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                        harvestViewHolder.costTxt.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                    } else {
+//                        harvestViewHolder.costTxt.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                    }
+//
+//                    int lineHeight = (int)((36+harvestViewHolder.costTxt.getHeight())*10);
+//
+//
+//
+//                    ViewGroup.LayoutParams params = harvestViewHolder.verticalLineView.getLayoutParams();
+//                    params.height = lineHeight;
+//                    harvestViewHolder.verticalLineView.requestLayout();
+//
+//
+//                }
+//            });
 
 
             harvestViewHolder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
@@ -347,7 +350,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -370,11 +373,12 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
-                                CropFertilizerApplication cropFertilizerApplication = (CropFertilizerApplication)cropsList.get(getAdapterPosition());
-//                                Intent editFertilizerApplication = new Intent(mContext, CropFertilizerApplicationManagerActivity.class);
-//                                editFertilizerApplication.putExtra("fertilizerApplication",cropFertilizerApplication);
-//                                editFertilizerApplication.putExtra("cropId",cropFertilizerApplication.getCropId());
-//                                mContext.startActivity(editFertilizerApplication);
+                                CropFertilizerApplication cropFertilizerApplication = (CropFertilizerApplication) cropsList.get(getAdapterPosition());
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("fertilizerApplication", cropFertilizerApplication);
+                                bundle.putString("cropId",cropFertilizerApplication.getCropId());
+                                navController.navigate(R.id.action_cropActivitiesListFragment_to_fertilizerApplicationFragment,bundle);
+
                             }
                             return true;
                         }
@@ -494,6 +498,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 @Override
                 public void onClick(View v) {
 
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -517,11 +522,12 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().equals(mContext.getString(R.string.label_edit))){
 
-//                                CropSpraying cropSpraying =(CropSpraying) cropsList.get(getAdapterPosition());
-//                                Intent editSpraying = new Intent(mContext, CropSprayingManagerActivity.class);
-//                                editSpraying.putExtra("cropSpraying",cropSpraying);
-//                                editSpraying.putExtra("cropId",cropSpraying.getCropId());
-//                                mContext.startActivity(editSpraying);
+                                CropSpraying cropSpraying =(CropSpraying) cropsList.get(getAdapterPosition());
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("cropSpraying", cropSpraying);
+                                bundle.putString("cropId",cropSpraying.getCropId());
+                                navController.navigate(R.id.action_cropActivitiesListFragment_to_cropSprayingFragment,bundle);
+
                             }
                             return true;
                         }
@@ -564,6 +570,8 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    NavController navController = Navigation.findNavController(v);
                     final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
                     PopupMenu popup = new PopupMenu(wrapper, v);
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -587,11 +595,13 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
-//                                CropHarvest cropHarvest = (CropHarvest)cropsList.get(getAdapterPosition());
-//                                Intent editHarvest = new Intent(mContext, CropHarvestManagerActivity.class);
-//                                editHarvest.putExtra("cropHarvest",cropHarvest);
-//                                editHarvest.putExtra("cropId",cropHarvest.getCropId());
-//                                mContext.startActivity(editHarvest);
+                                CropHarvest cropHarvest = (CropHarvest)cropsList.get(getAdapterPosition());
+
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("cropHarvest", cropHarvest);
+                                bundle.putString("cropId",cropHarvest.getCropId());
+                                navController.navigate(R.id.action_cropActivitiesListFragment_to_cropHarvestFragment,bundle);
+
                             }
 
 
