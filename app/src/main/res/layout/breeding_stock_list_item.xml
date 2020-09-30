@@ -333,6 +333,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline30"
                 app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/breeding_stock_item_more"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/darker_gray"
+                android:src="@drawable/ic_baseline_more_vert"
+                android:layout_gravity="end"
+                android:padding="@dimen/dimen_5dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/breeding_stock_item_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <View
                 android:layout_width="0dp"
@@ -343,6 +357,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
+
             <TextView
                 android:id="@+id/breeding_stock_item_litters"
                 android:layout_width="0dp"
@@ -352,7 +367,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="03"
+                android:text="00"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toTopOf="@+id/guideline36"
                 app:layout_constraintEnd_toStartOf="@+id/guideline37"
@@ -385,7 +400,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="07"
+                android:text="00"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toTopOf="@+id/guideline36"
                 app:layout_constraintEnd_toStartOf="@+id/guideline38"
@@ -416,8 +431,8 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
-                android:text="4YRS 1M 17D"
+                android:paddingEnd="5dp"
+                android:text="0YRS/0M/00D"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toTopOf="@+id/guideline36"
                 app:layout_constraintEnd_toStartOf="@+id/guideline39"
@@ -448,7 +463,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="105 KG"
+                android:text="0 KG"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toTopOf="@+id/guideline36"
                 app:layout_constraintEnd_toEndOf="parent"
