@@ -78,6 +78,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         builder.setView(view);
         if(getArguments()!=null){
             cropId = getArguments().getString("cropId");
+            fertilizerApplication =(CropFertilizerApplication) getArguments().getSerializable("fertilizerApplication");
         }
         initializeForm(view);
         return builder.create();
@@ -111,7 +112,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
 //        repeatUntilTxt = view.findViewById(R.id.txt_crop_fertilizer_application_repeat_until);
 //        operatorTxt =view.findViewById(R.id.txt_crop_fertilizer_application_operator);
 //        costTxt =view.findViewById(R.id.txt_crop_fertilizer_application_labour_cost);
-//        rateTxt =view.findViewById(R.id.txt_crop_fertilizer_application_rate);
+        rateTxt =view.findViewById(R.id.txt_crop_fertilizer_qty);
 //        reasonTxt =view.findViewById(R.id.txt_crop_fertilizer_application_reason);
         daysBeforeLayout = view.findViewById(R.id.layout_crop_fertilizer_application_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_fertilizer_application_reminders);
@@ -227,6 +228,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
         });
 
         fertilizerApplicationClose.setOnClickListener(v -> getDialog().dismiss());
+        if(fertilizerApplication!=null)
+            btn_save.setText(getString(R.string.update));
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,38 +276,28 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         fertilizerApplication.setDate(dateTxt.getText().toString());
         fertilizerApplication.setCropId(cropId);
-//        fertilizerApplication.setReason(reasonTxt.getText().toString());
         fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
-//        fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
         fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
+        fertilizerApplication.setRate( Float.parseFloat(rateTxt.getText().toString()) );
+//        fertilizerApplication.setReason(reasonTxt.getText().toString());
 //        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
-
-
-
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
 
     }
     public void updateFertilizerApplication(){
         if(fertilizerApplication != null){
+            fertilizerApplication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             fertilizerApplication.setDate(dateTxt.getText().toString());
-            fertilizerApplication.setRate(Float.parseFloat(rateTxt.getText().toString()));
             fertilizerApplication.setCropId(cropId);
-            fertilizerApplication.setCost(Float.parseFloat(costTxt.getText().toString()));
-            fertilizerApplication.setOperator(operatorTxt.getText().toString());
-            fertilizerApplication.setReason(reasonTxt.getText().toString());
             fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
-            fertilizerApplication.setMethod((methodSp.getSelectedItem()).toString());
             fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
             fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
             fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
-            fertilizerApplication.setRepeatUntil(repeatUntilTxt.getText().toString());
             fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
-            fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
-
-
+            fertilizerApplication.setRate( Float.parseFloat(rateTxt.getText().toString()) );
             dbHandler.updateCropFertilizerApplication(fertilizerApplication);
 
         }
@@ -316,14 +309,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
             DashboardActivity.selectSpinnerItemByValue(remindersSp, fertilizerApplication.getReminders());
             DashboardActivity.selectSpinnerItemById(fertilizerId, fertilizerApplication.getFertilizerName());
 
-            rateTxt.setText(fertilizerApplication.getRate()+"");
             dateTxt.setText(fertilizerApplication.getDate());
-            reasonTxt.setText(fertilizerApplication.getReason());
-            operatorTxt.setText(fertilizerApplication.getOperator());
-            costTxt.setText(fertilizerApplication.getCost()+"");
-            rateTxt.setText(fertilizerApplication.getRate()+"");
-            weeksTxt.setText(fertilizerApplication.getFrequency()+"");
-            repeatUntilTxt.setText(fertilizerApplication.getRepeatUntil());
+            rateTxt.setText("0"+fertilizerApplication.getRate());
             daysBeforeTxt.setText(fertilizerApplication.getDaysBefore()+"");
 
             DashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getFertilizerId());
