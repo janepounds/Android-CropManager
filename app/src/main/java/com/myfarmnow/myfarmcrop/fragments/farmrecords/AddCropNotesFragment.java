@@ -14,6 +14,9 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -44,12 +47,12 @@ public class AddCropNotesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_crop_notes, container, false);
+        setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Notes");
-        binding.toolbar.setNavigationOnClickListener(view -> navController.popBackStack());
+
         return binding.getRoot();
     }
 
@@ -85,7 +88,7 @@ public class AddCropNotesFragment extends Fragment {
                     //pop back
                     Bundle bundle = new Bundle();
                     bundle.putString("cropId",cropNote.getParentId());
-                    navController.navigate(R.id.action_addCropNotesFragment_to_cropsNotesListFragment,bundle);
+                    navController.navigate(R.id.action_addCropNotesFragment_to_cropsNotesListFragment, bundle);
 
                 }
             }
@@ -103,17 +106,11 @@ public class AddCropNotesFragment extends Fragment {
         cropNote.setNotes(binding.txtCropNoteDescription.getText().toString());
         cropNote.setDate(binding.txtCropNoteDate.getText().toString());
         cropNote.setIsFor(CropNote.IS_FOR_CROP);
-
-
         dbHandler.insertCropNote(cropNote);
-
-
     }
 
     public void updateField(){
         if(cropNote != null){
-
-
             cropNote.setNotes(binding.txtCropNoteDescription.getText().toString());
             cropNote.setDate(binding.txtCropNoteDate.getText().toString());
             cropNote.setIsFor(CropNote.IS_FOR_CROP);
@@ -124,17 +121,10 @@ public class AddCropNotesFragment extends Fragment {
 
     public void fillViews(){
         if(cropNote != null){
-
-
             binding.txtCropNoteDate.setText(cropNote.getDate());
             binding.txtCropNoteDescription.setText(cropNote.getNotes());
-
-
         }
-
-
     }
-
 
     public boolean validateEntries(){
         String message = null;
@@ -155,4 +145,15 @@ public class AddCropNotesFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.crop_list_activitys_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        getActivity().getSupportFragmentManager().popBackStack();
+        return super.onOptionsItemSelected(item);
+    }
+
 }
