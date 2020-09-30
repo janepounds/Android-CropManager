@@ -292,6 +292,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layout_crop_spraying_days_before"
                 android:layout_width="match_parent"
