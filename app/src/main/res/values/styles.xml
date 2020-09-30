@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorAccentGreen</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:typeface">serif</item>
         <item name="android:fontFamily">@font/josefin_sans</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
@@ -26,6 +27,7 @@
 
     <style name="ButtonFinancial" parent="Base.TextAppearance.AppCompat.Button">
         <item name="backgroundTint">@color/estimates_manager_button</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
 
@@ -41,6 +43,7 @@
         <item name="android:textSize">23sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/textColor</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <!-- Custom Preference Theme inherits from the v14 support library Material Theme -->
@@ -57,6 +60,7 @@
 
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/background_custom_dialog</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
 
@@ -70,6 +74,7 @@
 
     <style name="MySplashScreen" parent="AppTheme">
         <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
 
     </style>
 
@@ -97,6 +102,7 @@
         <item name="android:background">@color/white</item>
         <item name="android:textColorPrimary">@color/colorAccentGreen</item>
         <item name="android:textColorSecondary">@color/colorAccentGreen</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <style name="MyToolbarPopUp" parent="AppTheme">
@@ -110,11 +116,13 @@
         <item name="colorPrimary">@color/colorAccentGreen</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:scrollbarThumbVertical">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
@@ -134,11 +142,13 @@
     <!-- Custom Preference Theme inherits from the v14 support library Material Theme -->
     <style name="AppPreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
         <item name="preferenceStyle">@style/AppPreference</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <!-- Style for an Preference Entry -->
     <style name="AppPreference" parent="@style/Preference.Material">
         <item name="android:layout">@layout/preference_material</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <!--Youtube List Style-->
@@ -151,11 +161,13 @@
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slideup_dialog</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
 
@@ -217,6 +229,7 @@
         <item name="android:progressDrawable">@drawable/custom_rating_bar_bg</item>
         <item name="android:minHeight">10dp</item>
         <item name="android:maxHeight">10dp</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <!-- Wallet plugin Style-->
@@ -253,6 +266,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="actionMenuTextAppearance">@style/MyMenuTextAppearance</item>
+        <item name="android:fontFamily">@font/josefin_sans</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
