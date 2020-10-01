@@ -7,26 +7,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.CropFarmReportsActivity;
-import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
-import com.myfarmnow.myfarmcrop.databinding.FragmentFarmRecordsHomeBinding;
 
 
 public class CropRecordsFragment extends Fragment {
@@ -77,8 +68,7 @@ private Context context;
         binding.layoutDashboardFinancialRecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openSettings = new Intent(getContext(), CropFarmReportsActivity.class);
-                startActivity(openSettings);
+                navController.navigate(R.id.action_cropRecordsFragment_to_productionReportsFragment);
             }
         });
 
