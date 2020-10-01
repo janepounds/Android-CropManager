@@ -710,6 +710,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE ="noOfFemale";
     public static final String LIVESTOCK_RECORDS_LITTERS_WEANING = "weaning";
     public static final String LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT = "weaningAlert";
+    public static final String LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM = "motherDam";
+    public static final String LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE = "fatherSire";
     public static final String LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS = "syncStatus";
     public static final String LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID = "globalId";
 
@@ -969,11 +971,11 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE + " REAL, " + LIVESTOCK_RECORDS_MATING_NOTES + " TEXT, "
                 + LIVESTOCK_RECORDS_MATING_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MATING_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
 
-        String livestock_records_litter_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_LITTERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_LITTERS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE + " REAL, " + LIVESTOCK_RECORDS_LITTERS_BREEDING_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE + " REAL DEFAULT 0, " +
-                LIVESTOCK_RECORDS_LITTERS_BORN_DEAD + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_WEANING + " REAL, " + LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT + " REAL, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+        String livestock_records_litter_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_LITTERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_LITTERS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE + " REAL, " + LIVESTOCK_RECORDS_LITTERS_BREEDING_ID + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE + " REAL DEFAULT 0, " +
+                LIVESTOCK_RECORDS_LITTERS_BORN_DEAD + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_WEANING + " REAL, " + LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT + " REAL, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
 
         String livestock_records_medications_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MEDICATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION + " TEXT, " +
-                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
 
 
 
@@ -9320,6 +9322,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             litter.setNoOfMale(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE))));
             litter.setNoOfFemale(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE))));
             litter.setWeaning(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING))));
+            litter.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM)));
+            litter.setFatherSire(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE)));
             litter.setWeaningAlert(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT))));
             litter.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS)));
             litter.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID)));
@@ -9344,6 +9348,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE, litter.getNoOfFemale());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING,litter.getWeaning());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT,litter.getWeaningAlert());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM,litter.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE,litter.getFatherSire());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS, litter.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID, litter.getGlobalId());
         database.insert(LIVESTOCK_RECORDS_LITTERS_TABLE_NAME, null, contentValues);
@@ -9363,6 +9369,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE, litter.getNoOfFemale());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING,litter.getWeaning());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT,litter.getWeaningAlert());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM,litter.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE,litter.getFatherSire());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS, litter.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID, litter.getGlobalId());
         database.update(LIVESTOCK_RECORDS_LITTERS_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_LITTERS_ID + " = ?", new String[]{litter.getId()});
@@ -9402,6 +9410,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             litter.setNoOfMale(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE))));
             litter.setNoOfFemale(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE))));
             litter.setWeaning(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING))));
+            litter.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM)));
+            litter.setFatherSire(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE)));
             litter.setWeaningAlert(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT))));
             litter.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS)));
             litter.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID)));
@@ -9423,8 +9433,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select " + CROP_CROP_TABLE_NAME + ".*," + CROP_FIELDS_TABLE_NAME + "." + CROP_FIELD_NAME + " from " + CROP_CROP_TABLE_NAME + " LEFT JOIN " + CROP_FIELDS_TABLE_NAME + " ON " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_FIELD_ID + "=" + CROP_FIELDS_TABLE_NAME + "." + CROP_FIELD_ID + " where " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " where " + LIVESTOCK_RECORDS_LITTERS_USER_ID + " = " + userId, null);
         res.moveToFirst();
+
 
         while (!res.isAfterLast()) {
             Litter litter = new Litter();
@@ -9438,6 +9449,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             litter.setNoOfMale(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE))));
             litter.setNoOfFemale(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE))));
             litter.setWeaning(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING))));
+            litter.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM)));
+            litter.setFatherSire(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE)));
             litter.setWeaningAlert(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT))));
             litter.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS)));
             litter.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID)));
@@ -9449,6 +9462,79 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return array_list;
 
+    }
+
+
+    public ArrayList<BreedingStock> getFemaleBreeds(String userId,String gender) {
+        openDB();
+        ArrayList<BreedingStock> array_list = new ArrayList();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId + " AND " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX +  " = '" + gender + "'", null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            BreedingStock breedingStock = new BreedingStock();
+            breedingStock.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_ID)));
+            breedingStock.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID)));
+            breedingStock.setName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME)));
+            breedingStock.setEarTag(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG)));
+            breedingStock.setColor(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR)));
+            breedingStock.setSex(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX)));
+            breedingStock.setBreed(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED)));
+            breedingStock.setDateOfBirth(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH)));
+            breedingStock.setSource(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE)));
+            breedingStock.setWeight(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT))));
+            breedingStock.setFather(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER)));
+            breedingStock.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM)));
+            breedingStock.setPhoto(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
+            breedingStock.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS)));
+            breedingStock.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID)));
+            array_list.add(breedingStock);
+            res.moveToNext();
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return array_list;
+    }
+
+    public ArrayList<BreedingStock> getMaleBreeds(String userId,String gender) {
+        openDB();
+        ArrayList<BreedingStock> array_list = new ArrayList();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId + " AND " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX + " = '" + gender + "'", null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            BreedingStock breedingStock = new BreedingStock();
+            breedingStock.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_ID)));
+            breedingStock.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID)));
+            breedingStock.setName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME)));
+            breedingStock.setEarTag(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG)));
+            breedingStock.setColor(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR)));
+            breedingStock.setSex(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX)));
+            breedingStock.setBreed(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED)));
+            breedingStock.setDateOfBirth(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH)));
+            breedingStock.setSource(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE)));
+            breedingStock.setWeight(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT))));
+            breedingStock.setFather(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER)));
+            breedingStock.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM)));
+            breedingStock.setPhoto(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
+            breedingStock.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS)));
+            breedingStock.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID)));
+            array_list.add(breedingStock);
+            res.moveToNext();
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+
+        return array_list;
     }
 
     /************MEDICATION OPERATIONS*****************************************/
