@@ -17,18 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.databinding.FragmentFinancialRecordsBinding;
 
 public class ProductionReportsFragment extends Fragment {
-    private FragmentFinancialRecordsBinding binding;
     private Context context;
-
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
         this.context = context;
     }
@@ -38,15 +32,15 @@ public class ProductionReportsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-
+//        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_production_reports, container, false);
+        View view = inflater.inflate(R.layout.fragment_production_reports, container, false);
 
-        return binding.getRoot();
+        return view;
     }
 }
