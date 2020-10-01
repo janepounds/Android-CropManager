@@ -2210,6 +2210,14 @@
     <string name="litter">Litter</string>
     <string name="dam">Dam</string>
     <string name="sire">Sire</string>
+    <string name="add_medication">Add Medication</string>
+    <string name="medication_type">Medication Type</string>
+    <string name="animal">Animal</string>
+    <string name="health_condition">Health Condition</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="dosage">Dosage</string>
+    <string name="treatment_period">Treatment Period</string>
+    <string name="technical_personnel">Technical Personnel</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>
