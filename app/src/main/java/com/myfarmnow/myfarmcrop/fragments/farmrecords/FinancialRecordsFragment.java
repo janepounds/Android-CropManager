@@ -6,11 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,16 +24,42 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropIncomeExpensesListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentFinancialRecordsBinding;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class FinancialRecordsFragment extends Fragment {
-    private FragmentFinancialRecordsBinding binding;
     private Context context;
-    private CropIncomeExpensesListRecyclerAdapter cropIncomeExpensesListRecyclerAdapter;
-    private LinearLayoutManager linearLayoutManager;
-    private MyFarmDbHandlerSingleton dbHandler;
-    NavController navController;
+    private NavController navController;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_financial_records, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar_financial_record);
+        RecyclerView recyclerView = view.findViewById(R.id.crop_income_expense_recyclerView);
+
+        MyFarmDbHandlerSingleton dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+
+        CropIncomeExpensesListRecyclerAdapter cropIncomeExpensesListRecyclerAdapter = new CropIncomeExpensesListRecyclerAdapter(context, dbHandler.getCropIncomeExpenses(DashboardActivity.RETRIEVED_USER_ID));
+        recyclerView.setAdapter(cropIncomeExpensesListRecyclerAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        setHasOptionsMenu(true);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Financial Records");
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> navController.popBackStack());
+
+        return view;
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -43,50 +70,19 @@ public class FinancialRecordsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_financial_records, container, false);
-
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-
-        cropIncomeExpensesListRecyclerAdapter = new CropIncomeExpensesListRecyclerAdapter(context,dbHandler.getCropIncomeExpenses(DashboardActivity.RETRIEVED_USER_ID));
-        binding.cropIncomeExpenseRecycView.setAdapter(cropIncomeExpensesListRecyclerAdapter);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
-        binding.cropIncomeExpenseRecycView.setLayoutManager(linearLayoutManager);
-        setHasOptionsMenu(true);
-
-        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Financial Records");
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.popBackStack();
-            }
-        });
-
-        return binding.getRoot();
-    }
-
-    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater){
+    public void onCreateOptionsMenu(@NotNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.crop_list_activitys_menu, menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_add_new:
-              navController.navigate(R.id.action_financialRecordsFragment_to_addFinancialRecordFragment);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_add_new) {
+            navController.navigate(R.id.action_financialRecordsFragment_to_addFinancialRecordFragment);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }
