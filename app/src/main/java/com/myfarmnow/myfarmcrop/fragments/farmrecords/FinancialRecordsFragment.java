@@ -34,12 +34,8 @@ public class FinancialRecordsFragment extends Fragment {
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
 
-
-
-
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
         this.context = context;
     }
@@ -48,9 +44,8 @@ public class FinancialRecordsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
          navController = Navigation.findNavController(view);
-
-
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +77,6 @@ public class FinancialRecordsFragment extends Fragment {
 
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater){
         inflater.inflate(R.menu.crop_list_activitys_menu, menu);
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -90,13 +84,9 @@ public class FinancialRecordsFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_add_new:
               navController.navigate(R.id.action_financialRecordsFragment_to_addFinancialRecordFragment);
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 }
