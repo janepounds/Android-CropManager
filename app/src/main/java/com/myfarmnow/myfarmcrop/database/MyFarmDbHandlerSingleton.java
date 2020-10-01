@@ -9433,8 +9433,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + ".*," + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + "." + LIVESTOCK_RECORDS_BREEDING_STOCK_NAME + " from " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " LEFT JOIN " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " ON " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + "." + LIVESTOCK_RECORDS_LITTERS_BREEDING_ID + "=" + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + "." + LIVESTOCK_RECORDS_LITTERS_BREEDING_ID + " where " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + "." + LIVESTOCK_RECORDS_LITTERS_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " where " + LIVESTOCK_RECORDS_LITTERS_USER_ID + " = " + userId, null);
         res.moveToFirst();
+
 
         while (!res.isAfterLast()) {
             Litter litter = new Litter();

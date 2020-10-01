@@ -83,6 +83,15 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
     public void onBindViewHolder(@NonNull final LittersListAdapter.LitterViewHolder holder, int position) {
 
         Litter litter = litters.get(position);
+        holder.litterTextView.setText(litter.getId());
+        holder.damTextView.setText(litter.getMotherDam());
+        holder.sireTextView.setText(litter.getFatherSire());
+        holder.dobTextView.setText(litter.getDateOfBirth());
+//        holder.litterSizeTextView.setText(litter.getLitterSize());
+//        holder.maleTextView.setText(litter.getNoOfMale());
+//        holder.femalesTextView.setText(litter.getNoOfFemale());
+
+
 
 
 
@@ -99,21 +108,21 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
 
     public class LitterViewHolder extends RecyclerView.ViewHolder{
 
-        TextView breedingStockNameTextView,earTagtextView,colorTextView,breedTextView,dobTextView,weightTextView,ageTextView;
+        TextView litterTextView,damTextView,sireTextView,dobTextView,litterSizeTextView,femalesTextView,maleTextView,ageTextView;
         ImageView pictureImageView,moreOpertions;
 
 
         public LitterViewHolder(View itemView) {
             super(itemView);
-            breedingStockNameTextView = itemView.findViewById(R.id.breeding_stock_item_name);
-            earTagtextView = itemView.findViewById(R.id.breeding_stock_item_eartag);
-            colorTextView = itemView.findViewById(R.id.breeding_stock_item_colour);
-            breedTextView = itemView.findViewById(R.id.breeding_stock_item_breed);
-            dobTextView = itemView.findViewById(R.id.breeding_stock_item_dob);
-            pictureImageView = itemView.findViewById(R.id.breeding_stock_item_image);
-            weightTextView = itemView.findViewById(R.id.breeding_stock_item_weight);
-            ageTextView = itemView.findViewById(R.id.breeding_stock_item_age);
-            moreOpertions = itemView.findViewById(R.id.breeding_stock_item_more);
+            litterTextView = itemView.findViewById(R.id.litter_item_id_number);
+            damTextView = itemView.findViewById(R.id.litter_item_dam);
+            sireTextView = itemView.findViewById(R.id.litter_item_sire);
+            dobTextView = itemView.findViewById(R.id.litter_item_dob);
+            litterSizeTextView = itemView.findViewById(R.id.litter_item_size);
+            maleTextView = itemView.findViewById(R.id.litter_item_males);
+            femalesTextView = itemView.findViewById(R.id.litter_item_females);
+            ageTextView = itemView.findViewById(R.id.litter_item_age);
+            moreOpertions = itemView.findViewById(R.id.litter_item_more);
             moreOpertions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
