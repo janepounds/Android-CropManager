@@ -190,7 +190,6 @@ public class MatingViewFragment extends Fragment {
     }
     private void loadMatings(){
         matingListAdapter.clearMatingList();
-
         matingListAdapter.addList(dbHandler.getMatings(DashboardActivity.RETRIEVED_USER_ID));
 
     }
