@@ -291,9 +291,13 @@
         tools:layout="@layout/fragment_add_matings" />
     <fragment
         android:id="@+id/addLittersFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddLittersFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddLittersFragment"
         android:label="Add Litters"
-        tools:layout="@layout/fragment_add_litters" />
+        tools:layout="@layout/fragment_add_litters" >
+        <action
+            android:id="@+id/action_addLittersFragment_to_littersViewFragment"
+            app:destination="@id/littersViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addMedicationFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddMedicationFragment"

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="20dp"
     android:layout_margin="@dimen/dimen_10dp"
-    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddLittersFragment">
+    tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddLittersFragment">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -30,7 +30,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/add_animal_close"
+                        android:id="@+id/add_litter_close"
                         android:layout_width="26.18dp"
                         android:layout_height="26.18dp"
                         android:layout_alignParentEnd="true"
@@ -178,7 +178,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
-                                android:entries="@array/spinner_sex"
+                                android:entries="@array/spinner_breed"
                                 android:gravity="center"
                                 android:spinnerMode="dropdown" />
 
@@ -225,7 +225,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
-                                android:entries="@array/spinner_sex"
+                                android:entries="@array/spinner_breed"
                                 android:gravity="center"
                                 android:spinnerMode="dropdown" />
 

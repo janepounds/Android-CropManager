@@ -666,6 +666,10 @@
         <item>Field</item>
 
     </string-array>
+    <string-array name="spinner_breed">
+        <item>Select</item>
+
+    </string-array>
 
     <string-array name="sp_crop_scouting_infestation_level">
         <item>Select</item>
@@ -2210,6 +2214,15 @@
     <string name="litter">Litter</string>
     <string name="dam">Dam</string>
     <string name="sire">Sire</string>
+    <string name="weaning_alert_not_entered">weaning alert not entered</string>
+    <string name="weaning_days_not_entered">weaning days not entered</string>
+    <string name="no_of_female_not_entered">number of female not entered</string>
+    <string name="no_of_male_not_entered">number of male not entered</string>
+    <string name="born_dead_not_entered">born dead not entered</string>
+    <string name="born_alive_not_entered">born alive not entered</string>
+    <string name="mother_dam_not_selected">mother dam not selected</string>
+    <string name="father_sire_not_selected">father sire not selected</string>
+    <string name="litter_size_not_entered">litter size not entered</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

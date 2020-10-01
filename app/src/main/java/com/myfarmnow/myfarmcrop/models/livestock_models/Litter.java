@@ -9,6 +9,8 @@ public class Litter {
     private String dateOfBirth;
     private int litterSize;
     private String breedingId;
+    private String motherDam;
+    private String fatherSire;
     private int bornAlive;
     private int bornDead;
     private int noOfMale;
@@ -18,6 +20,21 @@ public class Litter {
     private String syncStatus="no";
     private String globalId;
 
+    public String getMotherDam() {
+        return motherDam;
+    }
+
+    public void setMotherDam(String motherDam) {
+        this.motherDam = motherDam;
+    }
+
+    public String getFatherSire() {
+        return fatherSire;
+    }
+
+    public void setFatherSire(String fatherSire) {
+        this.fatherSire = fatherSire;
+    }
 
     public String getId() {
         return id;
@@ -140,6 +157,8 @@ public class Litter {
             object.put("breedingId",breedingId);
             object.put("bornAlive",bornAlive);
             object.put("bornDead",bornDead);
+            object.put("motherDam",motherDam);
+            object.put("fatherSire",fatherSire);
             object.put("noOfMale",noOfMale);
             object.put("noOfFemale",noOfFemale);
             object.put("weaning",weaning);
@@ -162,6 +181,8 @@ public class Litter {
         setBornDead(Integer.parseInt(object.getString("bornDead")));
         setNoOfMale(Integer.parseInt(object.getString("noOfMale")));
         setNoOfFemale(Integer.parseInt(object.getString("noOfFemale")));
+        setMotherDam(object.getString("motherDam"));
+        setFatherSire(object.getString("fatherSire"));
         setWeaning(Integer.parseInt(object.getString("weaning")));
         setWeaningAlert(Integer.parseInt(object.getString("weaningAlert")));
         setSyncStatus("yes");
