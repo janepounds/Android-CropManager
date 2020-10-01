@@ -2218,6 +2218,15 @@
     <string name="dosage">Dosage</string>
     <string name="treatment_period">Treatment Period</string>
     <string name="technical_personnel">Technical Personnel</string>
+    <string name="field_name">Field Name</string>
+    <string name="field_type">Field Type</string>
+    <string name="status">Status</string>
+    <string name="select_unit">Select Unit</string>
+    <string name="field_size">Field Size</string>
+    <string name="croppable_area">Croppable Area</string>
+    <string name="field">Field</string>
+    <string name="season">Season</string>
+    <string name="estimated_yield">Estimated Yield</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>
