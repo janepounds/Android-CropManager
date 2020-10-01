@@ -171,15 +171,36 @@
                         android:layout_marginBottom="4dp"
                         android:text="@string/department" />
 
-                    <EditText
-                        android:id="@+id/txt_department"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/edittext_corner"
-                        android:inputType="text"
-                        android:paddingStart="@dimen/dimen_10dp"
-                        android:textSize="14sp" />
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/sp_department"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:entries="@array/sp_crop_income_department"
+                            android:gravity="center"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

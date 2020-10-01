@@ -585,6 +585,13 @@
         <item>Pending Payment</item>
     </string-array>
 
+    <string-array name="sp_crop_income_department">
+        <item></item>
+        <item>All</item>
+        <item>Crops</item>
+        <item>Livestock</item>
+    </string-array>
+
     <string-array name="sp_crop_task_type">
         <item>Select Type</item>
         <item>Soil Analysis</item>

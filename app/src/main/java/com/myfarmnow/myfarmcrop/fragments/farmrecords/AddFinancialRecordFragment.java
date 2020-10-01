@@ -56,8 +56,8 @@ public class AddFinancialRecordFragment extends Fragment {
     private Toolbar toolbar;
     private ImageView imageDatePicker;
 
-    private Spinner expenseTransaction, expenseCategory, expensePaymentMode, expensePaymentStatus;
-    private EditText expenseDate, department, item, grossAmount;
+    private Spinner expenseTransaction, expenseCategory, expensePaymentMode, expensePaymentStatus,department;
+    private EditText expenseDate, item, grossAmount;
     private AutoCompleteTextView customerSupplier;
     private Button btnSave;
 
@@ -81,7 +81,7 @@ public class AddFinancialRecordFragment extends Fragment {
         expensePaymentStatus = view.findViewById(R.id.sp_crop_income_expense_payment_status);
         expenseDate = view.findViewById(R.id.txt_crop_income_expense_date);
         item = view.findViewById(R.id.txt_crop_income_expense_item);
-        department = view.findViewById(R.id.txt_department);
+        department = view.findViewById(R.id.sp_department);
         grossAmount = view.findViewById(R.id.txt_crop_income_expense_gross_amount);
         customerSupplier = view.findViewById(R.id.spinner_crop_income_expense_customer_supplier);
         btnSave = view.findViewById(R.id.btn_save);
@@ -280,7 +280,7 @@ public class AddFinancialRecordFragment extends Fragment {
         cropIncomeExpense.setPaymentStatus(expensePaymentStatus.getSelectedItem().toString());
         cropIncomeExpense.setCustomerSupplier(customerSupplier.getText().toString());
         cropIncomeExpense.setItem(item.getText().toString());
-        cropIncomeExpense.setDepartment(department.getText().toString());
+        cropIncomeExpense.setDepartment(department.getSelectedItem().toString());
         dbHandler.insertCropIncomeExpense(cropIncomeExpense);
     }
 
@@ -295,7 +295,7 @@ public class AddFinancialRecordFragment extends Fragment {
             cropIncomeExpense.setPaymentMode(expensePaymentMode.getSelectedItem().toString());
             cropIncomeExpense.setPaymentStatus(expensePaymentStatus.getSelectedItem().toString());
             cropIncomeExpense.setCustomerSupplier(customerSupplier.getText().toString());
-            cropIncomeExpense.setDepartment(department.getText().toString());
+            cropIncomeExpense.setDepartment(department.getSelectedItem().toString());
             cropIncomeExpense.setItem(item.getText().toString());
 
             dbHandler.updateCropIncomeExpense(cropIncomeExpense);
@@ -309,9 +309,9 @@ public class AddFinancialRecordFragment extends Fragment {
             DashboardActivity.selectSpinnerItemByValue(expensePaymentMode, cropIncomeExpense.getPaymentMode());
             DashboardActivity.selectSpinnerItemByValue(expensePaymentStatus, cropIncomeExpense.getPaymentStatus());
             DashboardActivity.selectSpinnerItemByValue(expenseTransaction, cropIncomeExpense.getTransaction());
+            DashboardActivity.selectSpinnerItemByValue(department, cropIncomeExpense.getDepartment());
             expenseDate.setText(cropIncomeExpense.getDate());
             item.setText(cropIncomeExpense.getItem());
-            department.setText(cropIncomeExpense.getDepartment());
             grossAmount.setText(cropIncomeExpense.getGrossAmount() + "");
             customerSupplier.setText(cropIncomeExpense.getCustomerSupplier());
         }
@@ -326,7 +326,7 @@ public class AddFinancialRecordFragment extends Fragment {
         } else if (item.getText().toString().isEmpty()) {
             message = getString(R.string.item_not_entered_message);
             item.requestFocus();
-        } else if (department.getText().toString().isEmpty()) {
+        } else if (department.getSelectedItem().toString().isEmpty()) {
             message = "You must enter a department";
         } else if (grossAmount.getText().toString().isEmpty()) {
             message = getString(R.string.gross_amount_not_entered_message);
