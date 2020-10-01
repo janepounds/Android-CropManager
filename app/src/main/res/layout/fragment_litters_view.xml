@@ -1,13 +1,460 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.LittersViewFragment">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_10"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="@dimen/margin_10"
+    android:layout_marginBottom="5dp"
+    android:background="@color/gray"
+    app:cardElevation="@dimen/margin_10">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:1.1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="78dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="98dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.18" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.36" />
+
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.54" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.714285715" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.857142858" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="@string/litter"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/litter_item_id_number"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="001#"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="@string/dam"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline31" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline31" />
+
+            <TextView
+                android:id="@+id/litter_item_dam"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="A001"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="@+id/guideline31" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="@string/sire"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline34"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/guideline34"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+            <TextView
+                android:id="@+id/litter_item_sire"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="B001"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline34"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="DOB"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline35"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/guideline35"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+            <TextView
+                android:id="@+id/litter_item_dob"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="17/08/2018"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline35"
+                app:layout_constraintEnd_toStartOf="@+id/guideline30"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+            <com.myfarmnow.myfarmcrop.customs.CircularImageView
+                android:id="@+id/litter_item_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/dimen_20dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline35"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/litter_item_more"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/darker_gray"
+                android:src="@drawable/ic_baseline_more_vert"
+                android:layout_gravity="end"
+                android:padding="@dimen/dimen_5dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/litter_item_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+
+            <TextView
+                android:id="@+id/litter_item_size"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="00"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/guideline36"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="SIZE"
+                android:textColor="@android:color/white"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline37"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+            <TextView
+                android:id="@+id/litter_item_males"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="00"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/guideline36"
+                app:layout_constraintEnd_toStartOf="@+id/guideline38"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="MALES"
+                android:textColor="@android:color/white"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline38"
+                app:layout_constraintStart_toStartOf="@+id/guideline37"
+                app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+            <TextView
+                android:id="@+id/litter_item_age"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="5dp"
+                android:text="0YRS/0M/00D"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/guideline36"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline39"
+                app:layout_constraintTop_toTopOf="@+id/guideline35"
+                 />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="FEMALES"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                app:layout_constraintStart_toStartOf="@+id/guideline38"
+                app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+            <TextView
+                android:id="@+id/litter_item_females"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="00"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/guideline36"
+                app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                app:layout_constraintStart_toStartOf="@+id/guideline38"
+                app:layout_constraintTop_toTopOf="@+id/guideline35"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:text="AGE"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline39"
+                app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

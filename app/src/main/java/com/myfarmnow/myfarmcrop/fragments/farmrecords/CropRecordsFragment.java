@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.CropFarmReportsActivity;
+import com.myfarmnow.myfarmcrop.activities.CropSettingsActivity;
 import com.myfarmnow.myfarmcrop.databinding.FragmentCropRecordsBinding;
 import com.myfarmnow.myfarmcrop.databinding.FragmentFarmRecordsHomeBinding;
 
@@ -41,9 +44,10 @@ private Context context;
 
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.title_crop_records);
+
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +74,13 @@ private Context context;
 //        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
         binding.layoutFieldDashboardFields.setOnClickListener(view1 -> navController.navigate(R.id.action_cropRecordsFragment_to_fieldsListFragment));
         binding.layoutCropDashboardCrops.setOnClickListener(view2 -> navController.navigate(R.id.action_cropRecordsFragment_to_cropListFragment));
+        binding.layoutDashboardFinancialRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openSettings = new Intent(getContext(), CropFarmReportsActivity.class);
+                startActivity(openSettings);
+            }
+        });
 
     }
 
