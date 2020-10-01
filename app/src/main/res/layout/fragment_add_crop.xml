@@ -63,11 +63,17 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_marginRight="@dimen/dimen_10dp">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/crop"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
 
 
                         <AutoCompleteTextView
@@ -76,9 +82,7 @@
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:entries="@array/crops_list"
-                            android:background="@drawable/edittext_corner"
-                            android:textSize="14sp"
-                            android:hint="Crop"/>
+                            android:background="@drawable/edittext_corner"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -88,7 +92,12 @@
                         android:layout_weight="1"
                         android:layout_marginStart="@dimen/dimen_10dp">
 
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/variety"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
 
                         <EditText
                             android:id="@+id/txt_crops_variety"
@@ -96,11 +105,7 @@
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:ems="10"
-                            android:hint="Variety"
-                            android:background="@drawable/edittext_corner"
-                            android:textSize="14sp"
-
-                            />
+                            android:background="@drawable/edittext_corner"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -110,8 +115,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_30dp">
+                    android:layout_marginBottom="@dimen/dimen_20dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/field"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -146,15 +162,25 @@
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
                     </RelativeLayout>
-
-
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/season"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="@dimen/dimen_10dp"
                         android:background="@drawable/edittext_corner"
                         android:orientation="horizontal">
 
@@ -181,7 +207,7 @@
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
                     </RelativeLayout>
-
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -189,7 +215,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_30dp">
+                    android:layout_marginBottom="@dimen/dimen_20dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -198,7 +224,12 @@
                         android:layout_marginRight="@dimen/dimen_10dp"
                         >
 
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/planting_date"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
 
                         <EditText
                             android:id="@+id/txt_crops_date_sown"
@@ -206,8 +237,6 @@
                             android:layout_height="50dp"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:ems="10"
-                            android:hint="@string/planting_date"
-                            android:textSize="14sp"
                             android:inputType="date"
                             android:focusable="false"
                             android:background="@drawable/edittext_corner"
@@ -220,7 +249,12 @@
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_marginStart="@dimen/margin_10">
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/field_size"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
                         <EditText
                             android:id="@+id/txt_crops_area"
                             android:layout_width="match_parent"
@@ -228,9 +262,7 @@
                             android:paddingStart="@dimen/dimen_10dp"
                             android:background="@drawable/edittext_corner"
                             android:ems="10"
-                            android:hint="Field Size"
-                            android:inputType="numberDecimal"
-                            android:textSize="14sp" />
+                            android:inputType="numberDecimal" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -254,6 +286,17 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="@dimen/dimen_30dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/harvest_units"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -287,7 +330,7 @@
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
                     </RelativeLayout>
-
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -295,7 +338,12 @@
                         android:layout_weight="1"
                         android:layout_marginStart="@dimen/margin_10">
 
-
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/estimated_yield"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
 
                         <EditText
                             android:id="@+id/txt_crops_estimated_yield"
@@ -304,27 +352,28 @@
                             android:paddingStart="@dimen/dimen_10dp"
                             android:ems="10"
                             android:inputType="numberDecimal"
-                            android:hint="Estimated Yield"
-                            android:background="@drawable/edittext_corner"
-                            android:textSize="14sp"
-                            />
+                            android:background="@drawable/edittext_corner"/>
                     </LinearLayout>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginBottom="@dimen/dimen_30dp"
                     android:gravity="center_vertical">
 
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/estimated_revenue"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="@dimen/dimen_16sp"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@drawable/edittext_corner"
-                        android:layout_weight="1">
+                        android:background="@drawable/edittext_corner">
 
 
                         <TextView
@@ -345,11 +394,9 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_margin="0dp"
-                            android:hint="Estimated Revenue"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
                             android:inputType="number"
-                            android:textSize="14sp"
                             android:layout_weight="0.8"
                             />
                         <TextView
@@ -370,20 +417,36 @@
 
 
 
-                <Button
-                    android:id="@+id/btn_save"
-                    style="@style/Button"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:drawableTint="#ffffff"
-                    android:text="Submit "
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:background="@drawable/rounded_corners_button"
-                    android:padding="@dimen/dimen_10dp"/>
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:background="@drawable/rounded_corners_button">
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:text="save"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/button_text_size" />
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dip"
+                        android:src="@drawable/ic_right_arrow">
+                    </ImageView>
+                </FrameLayout>
 
 
 

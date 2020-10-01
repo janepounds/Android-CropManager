@@ -73,8 +73,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     private static final String TAG = "MyFarmDbHandler";
 
     public static final String DATABASE_NAME = "myFarm.db";
-    private static int database_version = 1;
-    private static int database_version_2 = 2;
+    private static int database_version = 3;
 
     public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME = "crop_inventory_fertilizer";
     public static final String CROP_INVENTORY_SEEDS_TABLE_NAME = "crop_inventory_seeds";
@@ -743,7 +742,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     private MyFarmDbHandlerSingleton(Context context) {
 
-        super(context, DATABASE_NAME, null, database_version_2);
+        super(context, DATABASE_NAME, null, database_version);
         this.context = context;
     }
 
@@ -1033,11 +1032,20 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         if (oldVersion == 1 && newVersion == 2) {
             upGradingTablesFromVersion1ToVersion2(db);
 
+        }else if(oldVersion == 1 && newVersion == 3){
+
+            upGradingTablesFromVersion1ToVersion2(db);
+            upGradingTablesFromVersion2ToVersion3(db);
+        } else if(oldVersion == 2 && newVersion == 3){
+            upGradingTablesFromVersion2ToVersion3(db);
         }
         onCreate(db);
 
     }
+    public void upGradingTablesFromVersion2ToVersion3(SQLiteDatabase db){
 
+        db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT");
+    }
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
         database = db;
