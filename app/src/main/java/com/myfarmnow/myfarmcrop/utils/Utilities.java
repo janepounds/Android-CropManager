@@ -69,7 +69,6 @@ import java.util.concurrent.TimeUnit;
 
 
 import static android.content.Context.LOCATION_SERVICE;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -310,7 +309,7 @@ public class Utilities {
             return;
 
         cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake_icon);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.shake_icon);
         animation.setRepeatMode(Animation.ZORDER_TOP);
         animation.setRepeatCount(2);
 
