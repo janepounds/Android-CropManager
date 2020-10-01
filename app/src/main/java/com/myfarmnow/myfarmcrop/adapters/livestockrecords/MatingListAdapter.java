@@ -49,11 +49,7 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
         return holder;
     }
 
-    public void appendList(ArrayList<Mating> matings){
 
-        this.matings.addAll(matings);
-        notifyDataSetChanged();
-    }
 
     public void addMating(Mating mating){
         this.matings.add(mating);
@@ -65,6 +61,17 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
         this.matings.addAll(matings);
         notifyDataSetChanged();
     }
+
+    public void addList(ArrayList<Mating> breedingStocks){
+        this.matings.clear();
+        this.matings.addAll(matings);
+        notifyDataSetChanged();
+    }
+
+    public void clearMatingList(){
+        matings.clear();
+    }
+
 
 
     @Override
