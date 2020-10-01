@@ -49,17 +49,10 @@ public class CropListFragment extends Fragment {
         setHasOptionsMenu(true);
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Crops");
 
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.popBackStack();
-            }
-        });
         return binding.getRoot();
 
     }
@@ -116,7 +109,9 @@ public class CropListFragment extends Fragment {
             case R.id.action_add_new:
                 navController.navigate(R.id.action_cropListFragment_to_addCropFragment);
                 return true;
+
             default:
+                navController.navigate(R.id.action_cropListFragment_to_cropRecordsFragment);
                 return super.onOptionsItemSelected(item);
         }
     }

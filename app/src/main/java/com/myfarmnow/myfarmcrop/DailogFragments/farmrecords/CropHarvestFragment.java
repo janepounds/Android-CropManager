@@ -84,6 +84,7 @@ public class CropHarvestFragment extends DialogFragment {
         if(getArguments()!=null){
             cropHarvest = (CropHarvest)getArguments().getSerializable("cropHarvest");
             cropId = getArguments().getString("cropId");
+
         }
         initializeForm(view);
         remindersLayout.setVisibility(View.INVISIBLE);
@@ -314,6 +315,8 @@ public class CropHarvestFragment extends DialogFragment {
         //   ((ArrayAdapter)operatorSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) statusSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
+        if(cropHarvest!=null)
+        saveBtn.setText(getString(R.string.update));
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -379,11 +382,11 @@ public class CropHarvestFragment extends DialogFragment {
                 }
                 String selection = parent.getItemAtPosition(position).toString();
 
-
-                if(selection.toLowerCase().equals("once")){
+                if(selection.toLowerCase().equals("once") || selection.toLowerCase().equals("daily") ){
                     remindersLayout.setVisibility(View.GONE);
                 }else {
                     remindersLayout.setVisibility(View.VISIBLE);
+                    daysBeforeTxt.setVisibility(View.GONE);
                 }
 
 
@@ -415,7 +418,13 @@ public class CropHarvestFragment extends DialogFragment {
 
                 }
 
+                String selection = parent.getItemAtPosition(position).toString();
 
+                if(selection.toLowerCase().equals("yes") ){
+                    daysBeforeTxt.setVisibility(View.VISIBLE);
+                }else {
+                    daysBeforeTxt.setVisibility(View.GONE);
+                }
 
 
             }
@@ -441,7 +450,6 @@ public class CropHarvestFragment extends DialogFragment {
         cropHarvest.setDate(harvestDateTxt.getText().toString());
         cropHarvest.setUnits(harvestUnitsSpinner.getSelectedItem().toString());
         cropHarvest.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
-//        cropHarvest.setOperator(operatorSpinner.getText().toString());
         cropHarvest.setStatus(statusSpinner.getSelectedItem().toString());
         cropHarvest.setDateSold(dateSoldTxt.getText().toString());
         cropHarvest.setCustomer(customerTxt.getText().toString());
@@ -451,13 +459,9 @@ public class CropHarvestFragment extends DialogFragment {
         cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
         cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
-//        cropHarvest.setMethod(harvestMethodTxt.getText().toString());
         cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
-//        cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
-//        cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
         cropHarvest.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
-//        cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
-        //check if quantity sold and stored is empty
+
         if(quantitySoldTxt.getText().toString().isEmpty()){
             cropHarvest.setQuantitySold(0);
         }
@@ -471,12 +475,20 @@ public class CropHarvestFragment extends DialogFragment {
 
             cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
         }
+//        cropHarvest.setOperator(operatorSpinner.getText().toString());
+//        cropHarvest.setMethod(harvestMethodTxt.getText().toString());
+//        cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
+//        cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
+//        cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+        //check if quantity sold and stored is empty
+
 
         dbHandler.insertCropHarvest(cropHarvest);
     }
 
     public void updateHarvest(){
         if(cropHarvest != null){
+            cropHarvest.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropHarvest.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropHarvest.setCropId(cropId);
             cropHarvest.setDate(harvestDateTxt.getText().toString());
@@ -485,21 +497,28 @@ public class CropHarvestFragment extends DialogFragment {
             cropHarvest.setStatus(statusSpinner.getSelectedItem().toString());
             cropHarvest.setDateSold(dateSoldTxt.getText().toString());
             cropHarvest.setCustomer(customerTxt.getText().toString());
-            cropHarvest.setQuantitySold(Float.parseFloat(quantitySoldTxt.getText().toString()));
             cropHarvest.setStorageDate(storageDateTxt.getText().toString());
-            cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
             cropHarvest.setUnits(quantityStoredUnitsTxt.getText().toString());
-//            cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
-//            cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
+            cropHarvest.setUnits("/ "+pricePerUnitTxt.getText().toString());
+            cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
             cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
-//            cropHarvest.setOperator(operatorSpinner.getText().toString());
-//            cropHarvest.setCost(Float.parseFloat(costTxt.getText().toString()));
             cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
-//            cropHarvest.setMethod(harvestMethodTxt.getText().toString());
-//            cropHarvest.setRepeatUntil(repeatUntilTxt.getText().toString());
-//            cropHarvest.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
-//            cropHarvest.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
+            cropHarvest.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
+
+            if(quantitySoldTxt.getText().toString().isEmpty()){
+                cropHarvest.setQuantitySold(0);
+            }
+            else{
+                cropHarvest.setQuantitySold(Float.parseFloat(quantitySoldTxt.getText().toString()));
+            }
+            if(quantityStoredTxt.getText().toString().isEmpty()){
+                cropHarvest.setQuantityStored(0);
+            }
+            else{
+
+                cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
+            }
             dbHandler.updateCropHarvest(cropHarvest);
         }
     }
@@ -520,16 +539,16 @@ public class CropHarvestFragment extends DialogFragment {
             quantityStoredUnitsTxt.setText(cropHarvest.getUnits());
             pricePerUnitTxt.setText(cropHarvest.getUnits());
             quantitySoldUnitsTxt.setText(cropHarvest.getUnits());
+            priceTxt.setText(cropHarvest.getPrice()+"");
+            daysBeforeTxt.setText(cropHarvest.getDaysBefore()+"");
+
 //            costTxt.setText(cropHarvest.getCost()+"");
-//            priceTxt.setText(cropHarvest.getPrice()+"");
 //            operatorSpinner.setText(cropHarvest.getEmployeeId());
 //            harvestMethodTxt.setText(cropHarvest.getMethod());
 //            weeksTxt.setText(cropHarvest.getFrequency()+"");
 //            repeatUntilTxt.setText(cropHarvest.getRepeatUntil());
-//            daysBeforeTxt.setText(cropHarvest.getDaysBefore()+"");
 
         }
-
     }
 
     public float computeIncomeGenerated(){

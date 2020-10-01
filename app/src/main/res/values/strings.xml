@@ -1653,11 +1653,11 @@
     <string name="spraying_title">Spraying</string>
 
     <string-array name="breeding_stock">
-        <item> Section</item>
-        <item>Tomatoes</item>
-        <item>Maize</item>
-        <item>Cassava</item>
-        <item>Irish</item>
+        <item> Filter By </item>
+        <item>Name</item>
+        <item>Breed</item>
+        <item>Age</item>
+        <item>DOB</item>
     </string-array>
 
     <string-array name="crop_add_produce">
@@ -2186,12 +2186,28 @@
     <string name="father_not_entered_message">father not entered</string>
     <string name="mother_not_entered_message">mother not entered</string>
     <string name="photo_not_selected_message">photo not selected</string>
+    <string name="mating_date_not_entered">mating date not entered</string>
+    <string name="female_name_not_entered">female name not entered</string>
+    <string name="male_name_not_entered">male name not entered</string>
+    <string name="deliverey_alert_not_entered">delivery alert not entered</string>
+    <string name="method_not_selected">method not selected</string>
+    <string name="note_not_entered">note not entered</string>
+    <string name="gestation_period_not_entered">gestation period not entered</string>
+    <string name="notification_delivery_alert">delivery alert</string>
+    <string name="update_note">Update Note</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>
         <item>700 ml - Bottle</item>
         <item>650 ml - Bottle</item>
         <item>600 ml - Bottle</item>
+    </string-array>
+
+    <string-array name="sp_mating_method">
+        <item>select</item>
+        <item>Natural Mating</item>
+        <item>Artificial Insemination</item>
+        <item>Embryo transfer</item>
     </string-array>
 
 </resources>

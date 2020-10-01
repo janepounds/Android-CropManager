@@ -1492,9 +1492,29 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
             }
         }
+//       else if (type.equals(context.getString(R.string.notification_delivery_alert))) {
+//           //Delivery alert
+//                query = "select " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + ".*," +" from " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + " where " + LIVESTOCK_RECORDS_MATING_ID + " = " + sourceId;
+//
+//            res = db.rawQuery(query, null);
+//            res.moveToFirst();
+//
+//            if (!res.isAfterLast()) {
+//
+//            }
+//                String reminderType = res.getString(res.getColumnIndex(CROP_SPRAYING_RECURRENCE));
+//                String startDate = res.getString(res.getColumnIndex(CROP_SPRAYING_DATE));
+//                String repeatUntil = res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL));
+//                int frequency = res.getInt(res.getColumnIndex(CROP_SPRAYING_FREQUENCY));
+//                ;
+//                int daysBefore = res.getInt(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE));
+//                String message = context.getString(R.string.notification_type_spraying) + " (" + res.getString(res.getColumnIndex(CROP_CROP_NAME)) + ")";
+//                array_list.addAll(createNotification(reminderType, startDate, frequency, daysBefore, message, type, repeatUntil, sourceId));
+//            }
 
 
-        closeDB();
+
+            closeDB();
 
 
         for (CropNotification notification : array_list) {
@@ -5108,20 +5128,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateCropField(CropField field) {
         openDB();
         ContentValues contentValues = new ContentValues();
-//
-//        contentValues.put(CROP_FIELD_USER_ID,field.getUserId());
-//        contentValues.put(CROP_FIELD_NAME,field.getFieldName());
-//        contentValues.put(CROP_FIELD_SOIL_CATEGORY,field.getSoilCategory());
-//        contentValues.put(CROP_FIELD_SOIL_TYPE,field.getSoilType());
-//        contentValues.put(CROP_FIELD_WATERCOURSE,field.getWatercourse());
-//        contentValues.put(CROP_FIELD_UNITS,field.getUnits());
-//        contentValues.put(CROP_FIELD_TOTAL_AREA,field.getTotalArea());
-//        contentValues.put(CROP_FIELD_CROPPABLE_AREA,field.getCroppableArea());
-//        contentValues.put(CROP_FIELD_FIELD_TYPE,field.getFieldType());
-//        contentValues.put(CROP_FIELD_LAYOUT_TYPE,field.getLayoutType());
-//        contentValues.put(CROP_FIELD_STATUS,field.getStatus());
-//        contentValues.put(CROP_SYNC_STATUS,field.getSyncStatus());
-//        contentValues.put(CROP_GLOBAL_ID,field.getGlobalId());
+
+        contentValues.put(CROP_FIELD_USER_ID, field.getUserId());
+        contentValues.put(CROP_FIELD_NAME, field.getFieldName());
+        contentValues.put(CROP_FIELD_TOTAL_AREA, field.getTotalArea());
+        contentValues.put(CROP_FIELD_CROPPABLE_AREA, field.getCroppableArea());
+        contentValues.put(CROP_FIELD_UNITS, field.getUnits());
+        contentValues.put(CROP_FIELD_FIELD_TYPE, field.getFieldType());
+        contentValues.put(CROP_FIELD_STATUS, field.getStatus());
+        contentValues.put(CROP_SYNC_STATUS, field.getSyncStatus());
+        contentValues.put(CROP_GLOBAL_ID, field.getGlobalId());
 
         Log.d("UPDATE FIELD CALLED", contentValues.toString());
         database.update(CROP_FIELDS_TABLE_NAME, contentValues, CROP_FIELD_ID + " = ?", new String[]{field.getId()});
@@ -9140,17 +9156,26 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertMating(Mating mating) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("LIVESTOCK_RECORDS_MATING_USER_ID",mating.getUserId());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_DATE",mating.getMatingDate());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_MALE_NAME",mating.getMaleName()) ;
-        contentValues.put("LIVESTOCK_RECORDS_MATING_FEMALE_NAME",mating.getFemaleName());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_METHOD", mating.getMethod());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD",mating.getGestationPeriod());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE", mating.getDeliveryAlertDaysBefore());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_NOTES",mating.getNotes());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_SYNC_STATUS",mating.getSyncStatus());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_GLOBAL_ID",mating.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_USER_ID,mating.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_DATE,mating.getMatingDate());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_MALE_NAME,mating.getMaleName()) ;
+        contentValues.put(LIVESTOCK_RECORDS_MATING_FEMALE_NAME,mating.getFemaleName());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_METHOD, mating.getMethod());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD,mating.getGestationPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE, mating.getDeliveryAlertDaysBefore());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES,mating.getNotes());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS,mating.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID,mating.getGlobalId());
         database.insert(LIVESTOCK_RECORDS_MATING_TABLE_NAME, null, contentValues);
+
+//        //generate Notifications
+//        String id = "";
+//        Cursor res = database.rawQuery("select * from " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + " where " + LIVESTOCK_RECORDS_MATING_ID + " = " + mating.getId() + " AND " + LIVESTOCK_RECORDS_MATING_DATE + " = '" + mating.getMatingDate() + "'", null);
+//        res.moveToFirst();
+//        if (!res.isAfterLast()) {
+//            id = res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_ID));
+//        }
+//        generateNotifications(context.getString(R.string.notification_delivery_alert), id);
         closeDB();
 
     }
@@ -9158,16 +9183,16 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateMating(Mating mating) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("LIVESTOCK_RECORDS_MATING_USER_ID",mating.getUserId());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_DATE",mating.getMatingDate());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_MALE_NAME",mating.getMaleName()) ;
-        contentValues.put("LIVESTOCK_RECORDS_MATING_FEMALE_NAME",mating.getFemaleName());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_METHOD", mating.getMethod());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD",mating.getGestationPeriod());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE", mating.getDeliveryAlertDaysBefore());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_NOTES",mating.getNotes());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_SYNC_STATUS",mating.getSyncStatus());
-        contentValues.put("LIVESTOCK_RECORDS_MATING_GLOBAL_ID",mating.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_USER_ID,mating.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_DATE,mating.getMatingDate());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_MALE_NAME,mating.getMaleName()) ;
+        contentValues.put(LIVESTOCK_RECORDS_MATING_FEMALE_NAME,mating.getFemaleName());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_METHOD, mating.getMethod());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD,mating.getGestationPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE, mating.getDeliveryAlertDaysBefore());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES,mating.getNotes());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS,mating.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID,mating.getGlobalId());
         database.update(LIVESTOCK_RECORDS_MATING_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_MATING_ID + " = ?", new String[]{mating.getId()});
 
         closeDB();

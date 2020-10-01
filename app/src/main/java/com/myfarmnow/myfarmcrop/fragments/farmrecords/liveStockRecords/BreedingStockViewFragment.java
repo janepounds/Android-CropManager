@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -69,8 +73,9 @@ public class BreedingStockViewFragment extends Fragment {
     private BreedingStockListAdapter breedingStockListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Toolbar toolbar;
-    private Button addAnimal;
+   // private Button addAnimal;
     private RecyclerView recyclerView;
+    private  NavController navController;
 
     // image picker code
     private static final int IMAGE_PICK_CODE = 0;
@@ -97,16 +102,21 @@ public class BreedingStockViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
-        addAnimal = view.findViewById(R.id.add_animal);
+       // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
+        setHasOptionsMenu(true);
 
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
+         navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
@@ -115,11 +125,12 @@ public class BreedingStockViewFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadBreedingStock();
-        addAnimal.setOnClickListener(v -> addAnimal());
+      //  addAnimal.setOnClickListener(v -> addAnimal());
     }
 
-    private void addAnimal() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
+
+    public void addAnimal(Context cntx) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(cntx, R.style.CustomAlertDialog);
 
         View addAnimalDialog = getLayoutInflater().inflate(R.layout.add_animal_dialog, null);
 
@@ -182,25 +193,32 @@ public class BreedingStockViewFragment extends Fragment {
                 chooseImage();
             }
         });
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        submit.setOnClickListener(v -> {
-            if(validateEntries()){
-                if(breedingStock==null){
-                    saveBreedingStock();
+                if(validateEntries()){
+                    if(breedingStock==null){
+                        saveBreedingStock();
+                    }
+                    else{
+                        updateBreedingStock();
+                    }
+                    //dismiss dialog and refresh fragment
+
+                    dialog.dismiss();
+                   loadBreedingStock();
+
+
+
+
+
+                }else{
+                    Log.d("ERROR","Testing");
                 }
-                else{
-                    updateBreedingStock();
-                }
-                //dismiss dialog and refresh fragment
-
-                dialog.dismiss();
-
-
-
-            }else{
-                Log.d("ERROR","Testing");
             }
         });
+
 
         builder.setView(addAnimalDialog);
         builder.setCancelable(true);
@@ -214,7 +232,23 @@ public class BreedingStockViewFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.breeding_stock_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_add_new_animal:
+                addAnimal(context);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -258,12 +292,13 @@ public class BreedingStockViewFragment extends Fragment {
 
     }
 
-    public void loadBreedingStock(){
-        for (BreedingStock breedingStock : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID)) {
-            breedingStockListAdapter.addBreedingStock(breedingStock);
-        }
-    }
 
+    private void loadBreedingStock(){
+        breedingStockListAdapter.clearBreedingStockList();
+
+        breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID));
+
+    }
     public void fillViews(){
         if(breedingStock != null){
             name.setText(breedingStock.getName());
@@ -368,5 +403,7 @@ public class BreedingStockViewFragment extends Fragment {
         // Log.d("ERROR",message);
         return true;
     }
+
+
 
 }

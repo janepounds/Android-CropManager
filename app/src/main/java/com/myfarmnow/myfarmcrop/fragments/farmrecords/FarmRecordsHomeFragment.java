@@ -2,6 +2,8 @@ package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,7 +43,7 @@ public class FarmRecordsHomeFragment extends Fragment {
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+                getActivity().finish();
             }
         });
 
@@ -65,6 +67,35 @@ public class FarmRecordsHomeFragment extends Fragment {
 //        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
         binding.layoutInventoryStore.setOnClickListener(view2 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
         binding.layoutDashboardFinancialRecords.setOnClickListener(view3 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
-        binding.layoutCropDashboardInventory.setOnClickListener(view12 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
+        binding.layoutCropDashboardInventory.setOnClickListener(view12 ->SelectAnimal());
+    }
+
+    private void SelectAnimal() {
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Select Animal");
+        // add a list
+        String[] forms = {"Cattle", "Goats", "Rabbits","Sheep"};
+        builder.setItems(forms, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0: // Cattle
+                    case 1: // Goats
+
+                    case 2: // Rabbits
+
+                    case 3: // Sheep
+                      navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment);
+                        break;
+
+
+                }
+            }
+        });
+
+// create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
