@@ -49,7 +49,6 @@ public class AddMedicationFragment extends DialogFragment {
     private NavController navController;
 
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -74,6 +73,14 @@ public class AddMedicationFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        TextView title = view.findViewById(R.id.medication_title);
+        //get arguments for edit
+        if(getArguments()!=null){
+            medication = (Medication) getArguments().getSerializable("medication");
+            title.setText(getArguments().getString("title"));
+            Log.w("title",getArguments().getString("title"));
+        }
+
 
 
     }
@@ -95,6 +102,7 @@ public class AddMedicationFragment extends DialogFragment {
         submit = view.findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePickerImageView(datePicker,medicationDate,context);
+
 
         ArrayList<LivestockSpinnerItem> Animals = new ArrayList<>();
         for (BreedingStock x : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID)) {
@@ -173,8 +181,9 @@ public class AddMedicationFragment extends DialogFragment {
             dosage.setText(medication.getDosage() + "");
             notes.setText(medication.getNote());
             technicalPersonnel.setText(medication.getTechnicalPersonal());
+            treatmentPeriod.setText(medication.getTreatmentPeriod() + "");
             DashboardActivity.selectSpinnerItemByValue(MedicationType,medication.getMedicationType());
-            DashboardActivity.selectSpinnerItemByValue(Animal,medication.getAnimal());
+//            DashboardActivity.selectSpinnerItemByValue(Animal,medication.getAnimal());
             DashboardActivity.selectSpinnerItemByValue(HealthCondition,medication.getHealthCondition());
 
 
@@ -212,8 +221,8 @@ public class AddMedicationFragment extends DialogFragment {
             medication.setMedicationsName(medicationName.getText().toString());
 //            medication.setBreedingId(((com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock)Animal.getSelectedItem()).getId());
             medication.setManufacturer(manufacturer.getText().toString());
-            medication.setDosage(Integer.parseInt(dosage.getText().toString()));
-            medication.setTreatmentPeriod(Integer.parseInt(treatmentPeriod.getText().toString()));
+            medication.setDosage(Float.parseFloat(dosage.getText().toString()));
+            medication.setTreatmentPeriod(Float.parseFloat(treatmentPeriod.getText().toString()));
             medication.setNote(notes.getText().toString());
             medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
             dbHandler.updateMedication(medication);

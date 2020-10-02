@@ -184,11 +184,11 @@ public class AddLittersFragment extends DialogFragment {
     public void fillViews(){
         if(litter != null){
             litterDob.setText(litter.getDateOfBirth());
-            litterSize.setText(litter.getLitterSize());
+//            litterSize.setText(litter.getLitterSize());
             bornAlive.setText(litter.getBornAlive());
             bornDead.setText(litter.getBornDead());
-            noOfFemale.setText(litter.getNoOfFemale());
-            noOfMale.setText(litter.getNoOfMale());
+//            noOfFemale.setText(litter.getNoOfFemale());
+//            noOfMale.setText(litter.getNoOfMale());
             weaning.setText(litter.getWeaning());
             weaningAlert.setText(litter.getWeaningAlert());
             DashboardActivity.selectSpinnerItemByValue(motherDam,litter.getMotherDam());

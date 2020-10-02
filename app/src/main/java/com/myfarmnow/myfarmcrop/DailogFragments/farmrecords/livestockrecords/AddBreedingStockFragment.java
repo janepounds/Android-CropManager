@@ -182,7 +182,7 @@ public class AddBreedingStockFragment extends DialogFragment {
                     //dismiss dialog and refresh fragment
 
                     navController = Navigation.findNavController(getParentFragment().getView());
-                    navController.popBackStack();
+                    navController.navigate(R.id.action_addBreedingStockFragment_to_breedingStockViewFragment);
 
 
 
