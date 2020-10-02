@@ -767,15 +767,14 @@ public class DashboardActivity extends AppCompatActivity {
 
     public static void selectSpinnerItemByValue(Spinner spnr, String value) {
 
-        ArrayAdapter<String> adapter = (ArrayAdapter) spnr.getAdapter();
-        //((TextView) spnr.getChildAt(0)).setTextColor(Color.BLUE);
         if (value == null) {
             return;
         }
 
-        for (int position = 0; position < adapter.getCount(); position++) {
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spnr.getAdapter();
+        for (int position = 1; position < adapter.getCount(); position++) {
 
-            String item = adapter.getItem(position);
+            String item = spnr.getAdapter().getItem(position)+"";
             if (item.toLowerCase().equals(value.toLowerCase())) {
                 spnr.setSelection(position);
                 return;

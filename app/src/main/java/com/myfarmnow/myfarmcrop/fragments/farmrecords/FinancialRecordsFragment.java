@@ -56,7 +56,7 @@ public class FinancialRecordsFragment extends Fragment {
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
-        toolbar.setNavigationOnClickListener(v -> navController.popBackStack());
+        toolbar.setNavigationOnClickListener(v -> navController.navigate(R.id.action_financialRecordsFragment_to_farmRecordsHomeFragment));
 
         return view;
     }
