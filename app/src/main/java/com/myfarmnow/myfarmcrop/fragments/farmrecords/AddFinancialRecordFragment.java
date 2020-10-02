@@ -90,6 +90,12 @@ public class AddFinancialRecordFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_addFinancialRecordFragment_to_financialRecordsFragment);
+            }
+        });
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
@@ -116,6 +122,7 @@ public class AddFinancialRecordFragment extends Fragment {
         navController = Navigation.findNavController(view);
 //        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 //        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+
     }
 
     public void initializeForm() {
@@ -307,12 +314,27 @@ public class AddFinancialRecordFragment extends Fragment {
 
     public void fillViews() {
         if (cropIncomeExpense != null) {
-//             DashboardActivity.selectSpinnerItemByValue(binding.spCropIncomeExpenseCategory, cropIncomeExpense.getCategory());
 //            DashboardActivity.selectSpinnerItemById(binding.spCropIncomeExpenseCrop, cropIncomeExpense.getCropId());
             DashboardActivity.selectSpinnerItemByValue(expensePaymentMode, cropIncomeExpense.getPaymentMode());
             DashboardActivity.selectSpinnerItemByValue(expensePaymentStatus, cropIncomeExpense.getPaymentStatus());
             DashboardActivity.selectSpinnerItemByValue(expenseTransaction, cropIncomeExpense.getTransaction());
             DashboardActivity.selectSpinnerItemByValue(department, cropIncomeExpense.getDepartment());
+
+            if (cropIncomeExpense.getTransaction().toLowerCase().equals("income")) {
+                expenseCategory.setEnabled(true);
+                categoryAdapter.changeItems(incomeArrayList);
+
+
+            } else if (cropIncomeExpense.getTransaction().toLowerCase().equals("expense")) {
+                expenseCategory.setEnabled(true);
+                categoryAdapter.changeItems(expensesArrayList);
+
+            }
+            expenseCategory.setAdapter(categoryAdapter);
+
+            Log.e("CategoryItem",expenseCategory.getAdapter().getItem(7)+"");
+            DashboardActivity.selectSpinnerItemByValue(expenseCategory, cropIncomeExpense.getCategory());
+
             expenseDate.setText(cropIncomeExpense.getDate());
             item.setText(cropIncomeExpense.getItem());
             grossAmount.setText(cropIncomeExpense.getGrossAmount() + "");

@@ -143,6 +143,7 @@ public class MedicationsListAdapter extends RecyclerView.Adapter<MedicationsList
                                 Medication medication = medications.get(getAdapterPosition());
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("medication", medication);
+                                bundle.putString("title","EDIT MEDICATION");
                                 navController.navigate(R.id.action_medicationsViewFragment_to_addMedicationFragment,bundle);
 
 

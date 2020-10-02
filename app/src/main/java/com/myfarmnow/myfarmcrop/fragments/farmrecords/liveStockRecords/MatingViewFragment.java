@@ -100,11 +100,14 @@ public class MatingViewFragment extends Fragment {
         this.context = context;
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.mating_view_fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,6 +115,7 @@ public class MatingViewFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_add_new_mating:
                 navController.navigate(R.id.action_matingViewFragment_to_addMatingsFragment);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_financialRecordsFragment_to_addFinancialRecordFragment"
             app:destination="@id/addFinancialRecordFragment" />
+        <action
+            android:id="@+id/action_financialRecordsFragment_to_farmRecordsHomeFragment"
+            app:destination="@id/farmRecordsHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/fieldsListFragment"
@@ -266,7 +269,6 @@
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingViewFragment"
         android:label="Matings"
         tools:layout="@layout/fragment_mating_view" >
-
         <action
             android:id="@+id/action_matingViewFragment_to_addMatingsFragment"
             app:destination="@id/addMatingsFragment" />
@@ -311,10 +313,18 @@
         android:id="@+id/addBreedingStockFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddBreedingStockFragment"
         android:label="fragment_add_breeding_stock"
-        tools:layout="@layout/fragment_add_breeding_stock" />
+        tools:layout="@layout/fragment_add_breeding_stock" >
+        <action
+            android:id="@+id/action_addBreedingStockFragment_to_breedingStockViewFragment"
+            app:destination="@id/breedingStockViewFragment" />
+    </dialog>
     <fragment
         android:id="@+id/addMatingsFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddMatingsFragment"
         android:label="fragment_add_matings"
-        tools:layout="@layout/fragment_add_matings" />
+        tools:layout="@layout/fragment_add_matings" >
+        <action
+            android:id="@+id/action_addMatingsFragment_to_matingViewFragment"
+            app:destination="@id/matingViewFragment" />
+    </fragment>
 </navigation>

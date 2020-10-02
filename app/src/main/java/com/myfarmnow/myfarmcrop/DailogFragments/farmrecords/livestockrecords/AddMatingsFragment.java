@@ -130,7 +130,7 @@ public class AddMatingsFragment extends DialogFragment {
                     }
                     //dismiss dialog and refresh fragment
                     navController = Navigation.findNavController(getParentFragment().getView());
-                    navController.popBackStack();
+                    navController.navigate(R.id.action_addMatingsFragment_to_matingViewFragment);
 
 
 
