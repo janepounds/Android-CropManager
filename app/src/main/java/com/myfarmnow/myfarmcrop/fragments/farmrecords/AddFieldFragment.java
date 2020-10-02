@@ -69,7 +69,7 @@ public class AddFieldFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Add Field");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Fields");
 
         if(getArguments()!=null){
             cropField = (com.myfarmnow.myfarmcrop.models.farmrecords.CropField) getArguments().getSerializable("cropField");

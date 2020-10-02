@@ -164,9 +164,8 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
                                 //edit functionality
                                 BreedingStock breedingStock = breedingStocks.get(getAdapterPosition());
                                 Bundle bundle = new Bundle();
-                                bundle.putString("Id", breedingStock.getId());
-                                BreedingStockViewFragment breedingStockViewFragment = new BreedingStockViewFragment();
-                                breedingStockViewFragment.addAnimal(v.getContext());
+                                bundle.putSerializable("breedingStock", breedingStock);
+                                navController.navigate(R.id.action_breedingStockViewFragment_to_addBreedingStockFragment,bundle);
 
 
                             }

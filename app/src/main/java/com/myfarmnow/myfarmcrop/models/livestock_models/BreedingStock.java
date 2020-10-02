@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class BreedingStock implements Serializable ,LitterSpinnerItem{
+public class BreedingStock implements Serializable , LivestockSpinnerItem {
     private String id;
     private String userId;
     private String name;

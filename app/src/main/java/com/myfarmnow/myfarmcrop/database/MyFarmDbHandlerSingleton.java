@@ -53,6 +53,7 @@ import com.myfarmnow.myfarmcrop.models.GraphRecord;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
@@ -723,6 +724,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE = "dosage";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD = "treatmentPeriod";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_NOTES = "note";
+    public static final String LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL = "animal";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL ="technicalPersonal";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS = "syncStatus";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID = "globalId";
@@ -969,8 +971,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         String livestock_records_litter_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_LITTERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_LITTERS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE + " REAL, " + LIVESTOCK_RECORDS_LITTERS_BREEDING_ID + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE + " REAL DEFAULT 0, " +
                 LIVESTOCK_RECORDS_LITTERS_BORN_DEAD + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_WEANING + " REAL, " + LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT + " REAL, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
 
-        String livestock_records_medications_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MEDICATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION + " TEXT, " +
-                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+        String livestock_records_medications_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MEDICATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION + " TEXT, " +
+                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
 
 
 
@@ -1040,7 +1042,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void upGradingTablesFromVersion2ToVersion3(SQLiteDatabase db){
         database = db;
 
-//        db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT ");
+        db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT");
+        db.execSQL(" ALTER TABLE " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL");
     }
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
@@ -9534,6 +9537,137 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     /************MEDICATION OPERATIONS*****************************************/
+    public Medication getMedication(String id, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal ? LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID : LIVESTOCK_RECORDS_MEDICATIONS_ID;
+
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " where " + key + " = '" + id + "'", null);
+        res.moveToFirst();
+        Medication medication = null;
+        if (!res.isAfterLast()) {
+            try {
+                medication = new Medication();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            medication.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_ID)));
+            medication.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID)));
+            medication.setMedicationDate(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE)));
+            medication.setMedicationType(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE)));
+            medication.setBreedingId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID)));
+            medication.setHealthCondition(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION)));
+            medication.setMedicationsName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME)));
+            medication.setManufacturer(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER)));
+            medication.setDosage(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE))));
+            medication.setTreatmentPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD))));
+            medication.setNote(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_NOTES)));
+            medication.setAnimal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL)));
+            medication.setTechnicalPersonal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL)));
+            medication.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS)));
+            medication.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID)));
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return medication;
+    }
+
+    public void insertMedication(Medication medication) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID,medication.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE,medication.getMedicationDate());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE,medication.getMedicationType());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID,medication.getBreedingId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION,medication.getHealthCondition());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME,medication.getMedicationsName());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER,medication.getManufacturer());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE,medication.getDosage());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD,medication.getTreatmentPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_NOTES,medication.getNote());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL,medication.getAnimal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL,medication.getTechnicalPersonal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS, medication.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID, medication.getGlobalId());
+        Log.w("AnimalDb",medication.getAnimal());
+        database.insert(LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME, null, contentValues);
+        closeDB();
+    }
+
+    public void updateMedication(Medication medication) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID,medication.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE,medication.getMedicationDate());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE,medication.getMedicationType());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID,medication.getBreedingId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION,medication.getHealthCondition());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME,medication.getMedicationsName());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER,medication.getManufacturer());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE,medication.getDosage());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD,medication.getTreatmentPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_NOTES,medication.getNote());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL,medication.getAnimal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL,medication.getTechnicalPersonal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS, medication.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID, medication.getGlobalId());
+        database.update(LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_MEDICATIONS_ID + " = ?", new String[]{medication.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteMedication(String id) {
+        Medication medication = getMedication(id, false);
+        openDB();
+        database.delete(LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME, LIVESTOCK_RECORDS_MEDICATIONS_ID + " = ?", new String[]{id});
+        closeDB();
+        if (medication != null) {
+            recordDeletedRecord("medication", medication.getGlobalId());
+        }
+        return true;
+    }
+
+
+
+    public ArrayList<Medication> getMedications(String userId) {
+
+        openDB();
+        ArrayList<Medication> array_list = new ArrayList();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " where " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " = " + userId, null);
+        res.moveToFirst();
+
+
+        while (!res.isAfterLast()) {
+            Medication medication = new Medication();
+            medication.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_ID)));
+            medication.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID)));
+            medication.setMedicationDate(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE)));
+            medication.setMedicationType(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE)));
+            medication.setBreedingId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID)));
+            medication.setHealthCondition(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION)));
+            medication.setMedicationsName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME)));
+            medication.setManufacturer(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER)));
+            medication.setDosage(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE))));
+            medication.setTreatmentPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD))));
+            medication.setNote(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_NOTES)));
+            medication.setAnimal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL)));
+            medication.setTechnicalPersonal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL)));
+            medication.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS)));
+            medication.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID)));
+            array_list.add(medication);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return array_list;
+
+    }
 
 
 }

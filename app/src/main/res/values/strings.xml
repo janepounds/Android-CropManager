@@ -668,6 +668,18 @@
         <item>Rodent</item>
         <item>Weed</item>
     </string-array>
+    <string-array name="sp_medication_type">
+        <item>Select</item>
+        <item>Vaccination</item>
+        <item>Treatment</item>
+    </string-array>
+
+    <string-array name="sp_medication_health_condition">
+        <item>Select</item>
+        <item>Foot And Mouth</item>
+        <item>Mucoid Enteritis</item>
+        <item>Coccidiosis</item>
+    </string-array>
 
     <string-array name="sp_crops_fields">
         <item>Field</item>
@@ -2247,6 +2259,17 @@
     <string name="field">Field</string>
     <string name="season">Season</string>
     <string name="estimated_yield">Estimated Yield</string>
+    <string name="title_add_field">Add Field</string>
+    <string name="technical_personnel_not_entered">technical personnel not entered</string>
+    <string name="notes_not_entered">notes not entered</string>
+    <string name="treatment_period_not_entered">treatment period not entered</string>
+    <string name="dosage_not_entered">dosage not entered</string>
+    <string name="manufacturer_not_entered">manufacturer not entered</string>
+    <string name="medication_name_not_entered">medication name not entered</string>
+    <string name="health_condition_not_selected">health condition not entered</string>
+    <string name="animal_not_selected">animal not selected</string>
+    <string name="medication_type_not_selected">medication type not selected</string>
+    <string name="medication_date_not_entered">medication date not entered</string>
     <string name="update_financial_record">Edit Financial Record</string>
 
     <string-array name="buy_produce_quantity">
