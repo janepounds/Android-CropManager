@@ -73,9 +73,9 @@ public class BreedingStockViewFragment extends Fragment {
     private BreedingStockListAdapter breedingStockListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Toolbar toolbar;
-   // private Button addAnimal;
+    // private Button addAnimal;
     private RecyclerView recyclerView;
-    private  NavController navController;
+    private NavController navController;
 
     // image picker code
     private static final int IMAGE_PICK_CODE = 0;
@@ -86,10 +86,10 @@ public class BreedingStockViewFragment extends Fragment {
     private Uri produceImageUri = null;
     private Bitmap produceImageBitmap = null;
     private String encodedImage;
-    private ImageView close,datePicker;
+    private ImageView close, datePicker;
     private Button submit;
-    private EditText name,earTag,colour,breed,weight,father,mother,dateOfBirth;
-    private Spinner sex,source;
+    private EditText name, earTag, colour, breed, weight, father, mother, dateOfBirth;
+    private Spinner sex, source;
     private TextView photo;
     public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
 
@@ -102,7 +102,7 @@ public class BreedingStockViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
-       // addAnimal = view.findViewById(R.id.add_animal);
+        // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
         setHasOptionsMenu(true);
 
@@ -116,16 +116,16 @@ public class BreedingStockViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         breedingStockListAdapter = new BreedingStockListAdapter(context, breedingStockArrayList);
         recyclerView.setAdapter(breedingStockListAdapter);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadBreedingStock();
-      //  addAnimal.setOnClickListener(v -> addAnimal());
+        //  addAnimal.setOnClickListener(v -> addAnimal());
     }
 
     public void addAnimal(Context cntx) {
@@ -133,36 +133,36 @@ public class BreedingStockViewFragment extends Fragment {
 
         View addAnimalDialog = getLayoutInflater().inflate(R.layout.add_animal_dialog, null);
 
-         close = addAnimalDialog.findViewById(R.id.add_animal_close);
-         name = addAnimalDialog.findViewById(R.id.add_animal_name);
-         earTag = addAnimalDialog.findViewById(R.id.add_animal_eartag);
-         colour = addAnimalDialog.findViewById(R.id.add_animal_colour);
-         sex = addAnimalDialog.findViewById(R.id.add_animal_sex);
-         breed = addAnimalDialog.findViewById(R.id.add_animal_breed);
-         dateOfBirth = addAnimalDialog.findViewById(R.id.add_animal_dob);
-         source = addAnimalDialog.findViewById(R.id.add_animal_source);
-         weight = addAnimalDialog.findViewById(R.id.add_animal_weight);
-         father = addAnimalDialog.findViewById(R.id.add_animal_father);
-         mother = addAnimalDialog.findViewById(R.id.add_animal_mother);
-         photo = addAnimalDialog.findViewById(R.id.add_animal_photo);
-         submit = addAnimalDialog.findViewById(R.id.add_animal_submit);
+        close = addAnimalDialog.findViewById(R.id.add_animal_close);
+        name = addAnimalDialog.findViewById(R.id.add_animal_name);
+        earTag = addAnimalDialog.findViewById(R.id.add_animal_eartag);
+        colour = addAnimalDialog.findViewById(R.id.add_animal_colour);
+        sex = addAnimalDialog.findViewById(R.id.add_animal_sex);
+        breed = addAnimalDialog.findViewById(R.id.add_animal_breed);
+        dateOfBirth = addAnimalDialog.findViewById(R.id.add_animal_dob);
+        source = addAnimalDialog.findViewById(R.id.add_animal_source);
+        weight = addAnimalDialog.findViewById(R.id.add_animal_weight);
+        father = addAnimalDialog.findViewById(R.id.add_animal_father);
+        mother = addAnimalDialog.findViewById(R.id.add_animal_mother);
+        photo = addAnimalDialog.findViewById(R.id.add_animal_photo);
+        submit = addAnimalDialog.findViewById(R.id.add_animal_submit);
         datePicker = addAnimalDialog.findViewById(R.id.image_dob);
-        ((ArrayAdapter)sex.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter)source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        DashboardActivity.addDatePickerImageView(datePicker,dateOfBirth,context);
+        ((ArrayAdapter) sex.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter) source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        DashboardActivity.addDatePickerImageView(datePicker, dateOfBirth, context);
 
         close.setOnClickListener(view -> dialog.dismiss());
-        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+        AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    if(position == 0){
+                try {
+                    if (position == 0) {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
 
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
 
                 }
             }
@@ -195,18 +195,17 @@ public class BreedingStockViewFragment extends Fragment {
 
         submit.setOnClickListener(v -> {
 
-            if(validateEntries()){
-                if(breedingStock==null){
+            if (validateEntries()) {
+                if (breedingStock == null) {
                     saveBreedingStock();
-                }
-                else{
+                } else {
                     updateBreedingStock();
                 }
                 //dismiss dialog and refresh fragment
                 dialog.dismiss();
-               loadBreedingStock();
-            }else{
-                Log.d("ERROR","Testing");
+                loadBreedingStock();
+            } else {
+                Log.d("ERROR", "Testing");
             }
         });
 
@@ -223,7 +222,7 @@ public class BreedingStockViewFragment extends Fragment {
         this.context = context;
     }
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.breeding_stock_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -279,29 +278,29 @@ public class BreedingStockViewFragment extends Fragment {
         }
     }
 
-    private void loadBreedingStock(){
+    private void loadBreedingStock() {
         breedingStockListAdapter.clearBreedingStockList();
 
         breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID));
     }
 
-    public void fillViews(){
-        if(breedingStock != null){
+    public void fillViews() {
+        if (breedingStock != null) {
             name.setText(breedingStock.getName());
             earTag.setText(breedingStock.getEarTag());
             colour.setText(breedingStock.getColor());
             breed.setText(breedingStock.getBreed());
             dateOfBirth.setText(breedingStock.getDateOfBirth());
-            weight.setText(breedingStock.getWeight()+ "");
+            weight.setText(breedingStock.getWeight() + "");
             father.setText(breedingStock.getFather());
             mother.setText(breedingStock.getMotherDam());
             photo.setText(breedingStock.getPhoto());
-            DashboardActivity.selectSpinnerItemByValue(sex,breedingStock.getSex());
-            DashboardActivity.selectSpinnerItemByValue(source,breedingStock.getSource());
+            DashboardActivity.selectSpinnerItemByValue(sex, breedingStock.getSex());
+            DashboardActivity.selectSpinnerItemByValue(source, breedingStock.getSource());
         }
     }
 
-    public void saveBreedingStock(){
+    public void saveBreedingStock() {
         breedingStock = new BreedingStock();
         breedingStock.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         breedingStock.setName(name.getText().toString());
@@ -318,9 +317,9 @@ public class BreedingStockViewFragment extends Fragment {
         dbHandler.insertBreedingStock(breedingStock);
     }
 
-    public void updateBreedingStock(){
+    public void updateBreedingStock() {
 
-        if(breedingStock != null) {
+        if (breedingStock != null) {
             breedingStock.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             breedingStock.setName(name.getText().toString());
             breedingStock.setEarTag(earTag.getText().toString());
@@ -337,56 +336,31 @@ public class BreedingStockViewFragment extends Fragment {
         }
     }
 
-    public boolean validateEntries(){
+    public boolean validateEntries() {
         String message = null;
-        if(name.getText().toString().isEmpty()){
+
+        if (name.getText().toString().isEmpty()) {
             message = getString(R.string.name_not_entered_message);
             name.requestFocus();
         }
-        else if(earTag.getText().toString().isEmpty()){
-            message = getString(R.string.ear_tag_not_entered_message);
-            earTag.requestFocus();
-        }
-
-        else if(colour.getText().toString().isEmpty()){
+        else if (colour.getText().toString().isEmpty()) {
             message = getString(R.string.color_not_entered_message);
             colour.requestFocus();
-        }else if(sex.getSelectedItemPosition()==0){
+        } else if (sex.getSelectedItemPosition() == 0) {
             message = getString(R.string.sex_not_selected);
             sex.requestFocus();
-        }
-        else if(source.getSelectedItemPosition()==0){
+        } else if (source.getSelectedItemPosition() == 0) {
             message = getString(R.string.source_not_selected);
             source.requestFocus();
-        }else if(breed.getText().toString().isEmpty()){
-            message = getString(R.string.breed_not_entered_message);
-            breed.requestFocus();
-        }
-        else if(dateOfBirth.getText().toString().isEmpty()){
-            message = getString(R.string.dob_not_entered_message);
-            dateOfBirth.requestFocus();
-        }
-        else if(weight.getText().toString().isEmpty()){
-            message = getString(R.string.weight_not_entered);
-            weight.requestFocus();
-        }
-        else if(father.getText().toString().isEmpty()){
-            message = getString(R.string.father_not_entered_message);
-            father.requestFocus();
-        }
-        else if(mother.getText().toString().isEmpty()){
-            message = getString(R.string.mother_not_entered_message);
-            mother.requestFocus();
         }
 
-        if(message != null){
-            Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+        if (message != null) {
+            Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
             return false;
         }
         // Log.d("ERROR",message);
         return true;
     }
-
 
 
 }

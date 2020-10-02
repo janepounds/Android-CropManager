@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,18 +20,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.myfarmnow.myfarmcrop.R;
 
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
-import com.myfarmnow.myfarmcrop.databinding.FragmentWalletHomeBinding;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
-import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.Buy;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyMobile;
 import com.myfarmnow.myfarmcrop.DailogFragments.wallet.DepositMoneyVisa;
@@ -40,12 +38,8 @@ import com.myfarmnow.myfarmcrop.DailogFragments.wallet.TransferMoney;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.NumberFormat;
 
-import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,7 +47,6 @@ import retrofit2.Response;
 public class WalletHomeFragment extends Fragment {
     private static final String TAG = "WalletHomeFragment";
     private Context context;
-    private FragmentWalletHomeBinding binding;
     private NavController navController = null;
 
     public static double balance = 0;
@@ -63,13 +56,33 @@ public class WalletHomeFragment extends Fragment {
     //Imageucf
     private ProgressDialog dialog;
 
+    Toolbar toolbar;
+    TextView walletBalance, usernameWalletHome;
+    LinearLayout layoutWalletTransfer, layoutWalletTransactions, layoutWalletLoans, layoutWalletCoupons, layoutWalletBuy;
+    ImageButton btnWalletDeposit, btnWalletTransfer, btnWalletTransactions,btnWalletLoans, btnWalletCoupons,btnWalletBuy;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet_home, container, false);
 
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.toolbar);
+        toolbar = view.findViewById(R.id.toolbar_wallet_home);
+        walletBalance = view.findViewById(R.id.wallet_balance);
+        usernameWalletHome = view.findViewById(R.id.username_wallet_home);
+        btnWalletDeposit = view.findViewById(R.id.btn_wallet_deposit);
+        layoutWalletTransfer = view.findViewById(R.id.layout_wallet_transfer);
+        layoutWalletTransactions = view.findViewById(R.id.layout_wallet_transactions);
+        layoutWalletLoans = view.findViewById(R.id.layout_wallet_loans);
+        layoutWalletCoupons = view.findViewById(R.id.layout_wallet_coupons);
+        layoutWalletBuy = view.findViewById(R.id.layout_wallet_buy);
+        btnWalletTransfer = view.findViewById(R.id.btn_wallet_transfer);
+        btnWalletTransactions = view.findViewById(R.id.btn_wallet_transactions);
+        btnWalletLoans = view.findViewById(R.id.btn_wallet_loans);
+        btnWalletCoupons = view.findViewById(R.id.btn_wallet_coupons);
+        btnWalletBuy = view.findViewById(R.id.btn_wallet_buy);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
         actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
@@ -81,12 +94,11 @@ public class WalletHomeFragment extends Fragment {
 
         fm = requireActivity().getSupportFragmentManager();
 
-        binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
+        walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
         updateBalance();
 
-        //TextView walletUsername = view.findViewById(R.id.wallet_username);
-        binding.usernameWalletHome.setText(ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
+        usernameWalletHome.setText(ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
 
         Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
 
@@ -96,7 +108,7 @@ public class WalletHomeFragment extends Fragment {
         dialog.setCancelable(false);
 
         // return view;
-        return binding.getRoot();
+        return view;
     }
 
     @Override
@@ -104,24 +116,24 @@ public class WalletHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        binding.toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         Bundle bundle = new Bundle();
         assert getArguments() != null;
         bundle.putDouble("balance", balance);
 
-        binding.btnWalletDeposit.setOnClickListener(view19 -> navController.navigate(R.id.action_walletHomeFragment_to_depositPayments, bundle));
-        binding.layoutWalletTransfer.setOnClickListener(view110 -> openTransfer());
-        binding.layoutWalletTransactions.setOnClickListener(view111 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
-        binding.layoutWalletLoans.setOnClickListener(view112 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
-        binding.layoutWalletCoupons.setOnClickListener(view18 -> comingSoon());
-        binding.layoutWalletBuy.setOnClickListener(view17 -> openBuy());
-        binding.btnWalletDeposit.setOnClickListener(view16 -> navController.navigate(R.id.action_walletHomeFragment_to_depositPayments, bundle));
-        binding.btnWalletTransfer.setOnClickListener(view15 -> openTransfer());
-        binding.btnWalletTransactions.setOnClickListener(view14 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
-        binding.btnWalletLoans.setOnClickListener(view13 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
-        binding.btnWalletCoupons.setOnClickListener(view12 -> comingSoon());
-        binding.btnWalletBuy.setOnClickListener(view1 -> openBuy());
+        btnWalletDeposit.setOnClickListener(view19 -> navController.navigate(R.id.action_walletHomeFragment_to_depositPayments, bundle));
+        layoutWalletTransfer.setOnClickListener(view110 -> openTransfer());
+        layoutWalletTransactions.setOnClickListener(view111 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
+        layoutWalletLoans.setOnClickListener(view112 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
+        layoutWalletCoupons.setOnClickListener(view18 -> comingSoon());
+        layoutWalletBuy.setOnClickListener(view17 -> openBuy());
+        btnWalletDeposit.setOnClickListener(view16 -> navController.navigate(R.id.action_walletHomeFragment_to_depositPayments, bundle));
+        btnWalletTransfer.setOnClickListener(view15 -> openTransfer());
+        btnWalletTransactions.setOnClickListener(view14 -> navController.navigate(R.id.action_walletHomeFragment_to_walletTransactionsListFragment));
+        btnWalletLoans.setOnClickListener(view13 -> navController.navigate(R.id.action_walletHomeFragment_to_walletLoansListFragment));
+        btnWalletCoupons.setOnClickListener(view12 -> comingSoon());
+        btnWalletBuy.setOnClickListener(view1 -> openBuy());
     }
 
     @Override
@@ -212,42 +224,35 @@ public class WalletHomeFragment extends Fragment {
         dialog.setMessage("Please Wait..");
         dialog.setCancelable(true);
         dialog.show();
-        String access_token =WalletAuthActivity.WALLET_ACCESS_TOKEN;
+        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<BalanceResponse> call = apiRequests.requestBalance(access_token);
         call.enqueue(new Callback<BalanceResponse>() {
             @Override
             public void onResponse(Call<BalanceResponse> call, Response<BalanceResponse> response) {
-                if(response.code()==200) {
-
+                if (response.code() == 200) {
                     balance = response.body().getData().getBalance();
 
                     Log.d(TAG, "onSuccess: Balance = " + balance);
 
-                    binding.walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
-
+                    walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
                     dialog.dismiss();
-                }else if(response.code()==401){
+                } else if (response.code() == 401) {
                     Toast.makeText(context, "Session Expired", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     Log.e("info", new String(String.valueOf(response.body().getMessage())));
                 }
-
             }
 
             @Override
             public void onFailure(Call<BalanceResponse> call, Throwable t) {
-                Log.e("info : " , new String(String.valueOf(t.getMessage())));
+                Log.e("info : ", new String(String.valueOf(t.getMessage())));
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
                 WalletAuthActivity.startAuth(context, false);
-
             }
         });
-
     }
-
 
     public void openBuy() {
         FragmentTransaction ft = this.fm.beginTransaction();
