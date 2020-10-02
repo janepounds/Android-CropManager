@@ -87,13 +87,16 @@ public class AddFinancialRecordFragment extends Fragment {
         btnSave = view.findViewById(R.id.btn_save);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
         if (getArguments() != null) {
             cropIncomeExpense = (CropIncomeExpense) getArguments().getSerializable("cropIncomeExpense");
+            btnSave.setText(getString(R.string.update));
+            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.update_financial_record));
         }
 
         initializeForm();
@@ -111,8 +114,8 @@ public class AddFinancialRecordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
     }
 
     public void initializeForm() {
