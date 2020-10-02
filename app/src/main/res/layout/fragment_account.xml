@@ -1,517 +1,516 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/dimen_5dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray">
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:elevation="@dimen/dimen_5dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:layout_marginBottom="?attr/actionBarSize">
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:cardElevation="@dimen/dimen_10dp">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardElevation="@dimen/dimen_10dp">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
                         android:orientation="vertical"
-                        android:padding="8dp">
+                        android:padding="5dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
+                        <ImageView
+                            android:layout_width="58.1dp"
+                            android:layout_height="58.1dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Sserubiri Joseph"
+                            android:textColor="#737373"
+                            android:textSize="@dimen/dimen_20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="+25698765432"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp"
+                        android:background="@drawable/rounded_corners2_button_green"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:padding="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_location"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="w,1:1"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline28"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline28"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="5dp">
+                            app:layout_constraintGuide_begin="78dp" />
 
-                            <ImageView
-                                android:layout_width="58.1dp"
-                                android:layout_height="58.1dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="vertical"
-                            android:padding="5dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/dimen_10dp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Sserubiri Joseph"
-                                android:textColor="#737373"
-                                android:textSize="@dimen/dimen_20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/dimen_10dp"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="+25698765432"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                        <TextView
+                            android:id="@+id/txt_user_address"
+                            android:layout_width="151dp"
+                            android:layout_height="40dp"
                             android:layout_marginStart="@dimen/dimen_10dp"
                             android:layout_marginEnd="@dimen/dimen_10dp"
-                            android:background="@drawable/rounded_corners2_button_green"
-                            android:orientation="vertical"
-                            android:padding="5dp">
+                            android:fontFamily="@font/josefin_sans"
+                            android:gravity="center|start"
+                            android:text="Nakibinge, Rd, Kampala, Uganda"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/guideline28"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:padding="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_location"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintDimensionRatio="w,1:1"
-                                app:layout_constraintEnd_toStartOf="@+id/guideline28"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/guideline28"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintGuide_begin="78dp" />
+                </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/txt_user_address"
-                                android:layout_width="151dp"
-                                android:layout_height="40dp"
-                                android:layout_marginStart="@dimen/dimen_10dp"
-                                android:layout_marginEnd="@dimen/dimen_10dp"
-                                android:fontFamily="@font/josefin_sans"
-                                android:gravity="center|start"
-                                android:text="Nakibinge, Rd, Kampala, Uganda"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="@+id/guideline28"
-                                app:layout_constraintTop_toTopOf="parent" />
+            </androidx.cardview.widget.CardView>
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                app:cardElevation="@dimen/dimen_10dp">
 
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
+                <LinearLayout
+                    android:id="@+id/layout_statement_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10dp"
-                    app:cardElevation="@dimen/dimen_10dp">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/layout_statement_card"
+                    <RelativeLayout
+                        android:id="@+id/layout_my_addresses"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        <RelativeLayout
-                            android:id="@+id/layout_my_addresses"
+                        <ImageView
+                            android:id="@+id/pin_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_pin" />
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/pin_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Delivery Addresses"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/pin_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_pin" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/pin_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Delivery Addresses"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_my_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/about_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_about" />
 
-                        <RelativeLayout
-                            android:id="@+id/layoutMyOrders"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/about_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="My Orders"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/about_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_about" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/about_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="My Orders"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_my_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/cart_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_cart_empty"
+                            app:tint="@color/colorPrimary" />
 
-                        <RelativeLayout
-                            android:id="@+id/layoutMyCart"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/cart_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="My Cart"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/cart_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_cart_empty"
-                                app:tint="@color/colorPrimary" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/cart_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="My Cart"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_favourites"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/favourite_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_favorite" />
 
-                        <RelativeLayout
-                            android:id="@+id/layoutFavourites"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/favourite_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="My Favourites"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/favourite_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_favorite" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/favourite_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="My Favourites"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/rate_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_rate" />
 
-                        <RelativeLayout
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/rate_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="My Rating &amp; Reviews"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/rate_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_rate" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/rate_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="My Rating &amp; Reviews"
-                                android:textSize="16sp" />
+                </LinearLayout>
 
-                        </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-                    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                app:cardElevation="@dimen/dimen_10dp">
 
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10dp"
-                    app:cardElevation="@dimen/dimen_10dp">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:id="@+id/layout_change_password"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        <RelativeLayout
-                            android:id="@+id/layout_change_password"
+                        <ImageView
+                            android:id="@+id/password_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_surface" />
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/password_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Change Password"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/password_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_surface" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/password_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Change Password"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/support_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_support" />
 
-                        <RelativeLayout
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/support_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Customer Support"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/support_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_support" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/support_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Customer Support"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/website_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_internet" />
 
-                        <RelativeLayout
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/website_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Official Website"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/website_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_internet" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/website_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Official Website"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_privacy_policy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/privacy_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_contract" />
 
-                        <RelativeLayout
-                            android:id="@+id/layoutPrivacyPolicy"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/privacy_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Privacy Policy"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/privacy_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_contract" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/privacy_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Privacy Policy"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_refund_policy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/refund_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_group" />
 
-                        <RelativeLayout
-                            android:id="@+id/layoutRefundPolicy"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/refund_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="@string/refund_policy"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/refund_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_group" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/refund_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="@string/refund_policy"
-                                android:textSize="16sp" />
+                </LinearLayout>
 
-                        </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-                    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                app:cardElevation="@dimen/dimen_10dp">
 
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10dp"
-                    android:layout_marginBottom="@dimen/dimen_10dp"
-                    app:cardElevation="@dimen/dimen_10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    android:orientation="vertical">
 
 
                     <RelativeLayout
@@ -556,102 +555,100 @@
                         android:padding="5dp">
 
 
-                            <ImageView
-                                android:id="@+id/news_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_news" />
+                        <ImageView
+                            android:id="@+id/news_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_news" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/news_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="News"
-                                android:textSize="16sp" />
-
-                        </RelativeLayout>
-
-
-                        <RelativeLayout
-                            android:id="@+id/layoutRateMyApp"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/news_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="News"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/rate_app_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_rate" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/rate_app_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Rate App"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_rate_my_app"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/layout_logout"
+                        <ImageView
+                            android:id="@+id/rate_app_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_rate" />
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="5dp">
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/rate_app_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Rate App"
+                            android:textSize="16sp" />
 
-                            <ImageView
-                                android:id="@+id/logout_icon"
-                                android:layout_width="17.07dp"
-                                android:layout_height="20.27dp"
-                                android:layout_gravity="center|start"
-                                android:layout_margin="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_logout" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/logout_icon"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/josefin_sans"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/dimen_10dp"
-                                android:paddingEnd="@dimen/dimen_10dp"
-                                android:src="@drawable/ic_user"
-                                android:text="Logout"
-                                android:textSize="16sp" />
+                    <RelativeLayout
+                        android:id="@+id/layout_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/logout_icon"
+                            android:layout_width="17.07dp"
+                            android:layout_height="20.27dp"
+                            android:layout_gravity="center|start"
+                            android:layout_margin="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_logout" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/logout_icon"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/josefin_sans"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:paddingEnd="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_user"
+                            android:text="Logout"
+                            android:textSize="16sp" />
 
-                </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </ScrollView>
+            </androidx.cardview.widget.CardView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </LinearLayout>
 
-</layout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
