@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="10dp"
     android:background="@color/gray"
     app:cardElevation="@dimen/margin_10">
 
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintDimensionRatio="2:.8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,14 +41,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.46" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.75" />
+                app:layout_constraintGuide_percent="0.68" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline30"
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.84" />
+                app:layout_constraintGuide_percent="0.78" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -281,7 +281,6 @@
                 android:gravity="center|start"
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="5dp"
                 android:text="17/08/2018"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
@@ -294,7 +293,8 @@
                 android:id="@+id/litter_item_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/dimen_20dp"
+                android:layout_margin="12dp"
+                android:src="@drawable/ic_animal_group"
                 app:layout_constraintBottom_toTopOf="@+id/guideline35"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -332,8 +332,7 @@
                 android:fontFamily="@font/josefin_sans"
                 android:gravity="center"
                 android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
+                android:paddingEnd="20dp"
                 android:text="00"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toTopOf="@+id/guideline36"
@@ -345,11 +344,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
+                android:gravity="center|start"
                 android:maxLines="1"
-                android:padding="8dp"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
+               android:paddingStart="25dp"
                 android:text="SIZE"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -362,10 +359,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
+                android:gravity="center|start"
+                android:layout_marginStart="@dimen/dimen_10dp"
                 android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
                 android:text="00"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toTopOf="@+id/guideline36"
@@ -377,11 +373,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
-                android:gravity="center"
+                android:gravity="center|start"
                 android:maxLines="1"
-                android:padding="8dp"
-                android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
                 android:text="MALES"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -396,7 +389,7 @@
                 android:fontFamily="@font/josefin_sans"
                 android:gravity="center"
                 android:maxLines="1"
-                android:paddingStart="1dp"
+
                 android:paddingEnd="5dp"
                 android:text="0YRS/0M/00D"
                 android:textColor="@android:color/white"
@@ -413,7 +406,6 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
                 android:text="FEMALES"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"

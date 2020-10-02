@@ -112,6 +112,7 @@
                                 android:layout_height="50dp"
                                 android:background="@drawable/edittext_corner"
                                 android:ems="10"
+                                android:paddingStart="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -440,6 +441,7 @@
                                 android:layout_height="50dp"
                                 android:background="@drawable/edittext_corner"
                                 android:ems="10"
+                                android:paddingStart="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -475,7 +477,7 @@
                                 android:layout_margin="0dp"
                                 android:layout_weight="0.8"
                                 android:background="@android:color/transparent"
-                                android:inputType="number"
+                                android:inputType="none"
                                 android:paddingStart="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
