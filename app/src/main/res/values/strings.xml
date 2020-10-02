@@ -1586,7 +1586,7 @@
     <string name="label_livestockrecords">Livestock Records</string>
     <string name="label_store">Store</string>
     <string name="label_financial_records">Financial Records</string>
-    <string name="label_add_financial_records">Add Entry</string>
+    <string name="label_add_financial_records">Add Financial Record</string>
     <string name="label_livestock">Livestock</string>
     <string name="label_ask_agronomist">Ask Agronomist</string>
     <string name="title_farm_records">Farm Records</string>
