@@ -177,6 +177,7 @@ public class StoreAddSeedFragment extends DialogFragment {
         seedsInventoryToEdit.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
         seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
+        seedsInventoryToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
         seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
         seedsInventoryToEdit.setVariety(varietyTxt.getText().toString());
         seedsInventoryToEdit.setCost(Float.parseFloat(costTxt.getText().toString()));
@@ -196,6 +197,7 @@ public class StoreAddSeedFragment extends DialogFragment {
             seedsInventoryToEdit.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());
+            seedsInventoryToEdit.setQuantity(Float.parseFloat(quantityTxt.getText().toString()));
             seedsInventoryToEdit.setName(seedNameTxt.getText().toString());
             seedsInventoryToEdit.setVariety(varietyTxt.getText().toString());
             seedsInventoryToEdit.setCost(Float.parseFloat(costTxt.getText().toString()));

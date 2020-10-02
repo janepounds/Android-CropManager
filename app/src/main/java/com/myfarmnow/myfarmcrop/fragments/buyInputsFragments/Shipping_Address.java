@@ -76,7 +76,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 //
 
@@ -239,7 +238,7 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
 
         // [START_EXCLUDE silent]
         // Construct a PlacesClient
-        Places.initialize(getApplicationContext(), getString(R.string.maps_api_key));
+        Places.initialize(getContext(), getString(R.string.maps_api_key));
         placesClient = Places.createClient(getContext());
 
         // Construct a FusedLocationProviderClient.

@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
-import com.myfarmnow.myfarmcrop.BR;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
@@ -61,14 +59,11 @@ import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
-import org.json.JSONException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 
 public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     private static final String TAG = "MyFarmDbHandler";
@@ -1045,6 +1040,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     }
     public void upGradingTablesFromVersion2ToVersion3(SQLiteDatabase db){
+        database = db;
 
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT");
         db.execSQL(" ALTER TABLE " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL");
@@ -1877,7 +1873,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Expense'", null);
+        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Expense' AND "+ CROP_INCOME_EXPENSE_DEPARTMENT + " IN ('All', 'Crops')", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -2199,7 +2195,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Income'", null);
+        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Income' AND "+ CROP_INCOME_EXPENSE_DEPARTMENT + " IN ('All', 'Crops')", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {

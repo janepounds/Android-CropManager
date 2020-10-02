@@ -29,7 +29,7 @@
         android:layout_height="@dimen/dimen_30dp"
         android:tint="@color/red"
         android:layout_margin="@dimen/margin_10"
-        android:src="@drawable/com_facebook_close"
+        android:src="@drawable/ic_close"
         android:id="@+id/closeBtn"/>
 
 

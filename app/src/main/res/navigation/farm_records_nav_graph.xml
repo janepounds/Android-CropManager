@@ -73,6 +73,10 @@
         <action
             android:id="@+id/action_storeFragment_to_storeAddFertilizerFragment"
             app:destination="@id/storeAddFertilizerFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_farmRecordsHomeFragment"
+            app:destination="@id/farmRecordsHomeFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/financialRecordsFragment"

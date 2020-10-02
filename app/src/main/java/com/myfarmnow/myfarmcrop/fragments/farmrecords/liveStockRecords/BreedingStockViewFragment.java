@@ -68,9 +68,9 @@ public class BreedingStockViewFragment extends Fragment {
     private BreedingStockListAdapter breedingStockListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Toolbar toolbar;
-   // private Button addAnimal;
+    // private Button addAnimal;
     private RecyclerView recyclerView;
-    private  NavController navController;
+    private NavController navController;
 
     // image picker code
     private static final int IMAGE_PICK_CODE = 0;
@@ -81,10 +81,10 @@ public class BreedingStockViewFragment extends Fragment {
     private Uri produceImageUri = null;
     private Bitmap produceImageBitmap = null;
     private String encodedImage;
-    private ImageView close,datePicker;
+    private ImageView close, datePicker;
     private Button submit;
-    private EditText name,earTag,colour,breed,weight,father,mother,dateOfBirth;
-    private Spinner sex,source;
+    private EditText name, earTag, colour, breed, weight, father, mother, dateOfBirth;
+    private Spinner sex, source;
     private TextView photo;
     public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
 
@@ -97,7 +97,7 @@ public class BreedingStockViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
-       // addAnimal = view.findViewById(R.id.add_animal);
+        // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
         setHasOptionsMenu(true);
 
@@ -111,16 +111,16 @@ public class BreedingStockViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         breedingStockListAdapter = new BreedingStockListAdapter(context, breedingStockArrayList);
         recyclerView.setAdapter(breedingStockListAdapter);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadBreedingStock();
-      //  addAnimal.setOnClickListener(v -> addAnimal());
+        //  addAnimal.setOnClickListener(v -> addAnimal());
     }
 
 
@@ -131,10 +131,10 @@ public class BreedingStockViewFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.breeding_stock_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -147,19 +147,17 @@ public class BreedingStockViewFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
 
 
 
-
-    private void loadBreedingStock(){
+    private void loadBreedingStock() {
         breedingStockListAdapter.clearBreedingStockList();
 
         breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID));
-
     }
-
 
 
 }
