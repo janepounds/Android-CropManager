@@ -63,8 +63,7 @@ public class CropRecordsFragment extends Fragment {
         crops.setOnClickListener(view2 -> navController.navigate(R.id.action_cropRecordsFragment_to_cropListFragment));
 
         productionReports.setOnClickListener((View.OnClickListener) v -> {
-//            Intent openSettings = new Intent(getContext(), CropFarmReportsActivity.class);
-//            startActivity(openSettings);
+            navController.navigate(R.id.action_cropRecordsFragment_to_productionReportsFragment);
         });
     }
 }
