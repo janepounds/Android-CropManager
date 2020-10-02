@@ -3,57 +3,56 @@ package com.myfarmnow.myfarmcrop.fragments.farmrecords;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.databinding.FragmentFarmRecordsHomeBinding;
+
+import java.util.Objects;
 
 public class FarmRecordsHomeFragment extends Fragment {
     private static final String TAG = "FarmRecordsHomeFragment";
     private Context context;
     private NavController navController;
-    private FragmentFarmRecordsHomeBinding binding;
 
+    private Toolbar toolbar;
+    private LinearLayout cropRecords, livestockRecords, store, financialRecords;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_records_home, container, false);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_farm_records_home, container, false);
 
-        return binding.getRoot();
+        toolbar = view.findViewById(R.id.toolbar_farm_records_home);
+        cropRecords = view.findViewById(R.id.layout_crop_dashboard_crops);
+        livestockRecords = view.findViewById(R.id.layout_crop_dashboard_livestock_records);
+        store = view.findViewById(R.id.layout_dashboard_store);
+        financialRecords = view.findViewById(R.id.layout_dashboard_financial_records);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> requireActivity().finish());
+
+        return view;
     }
-
 
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
         this.context = context;
     }
@@ -63,11 +62,11 @@ public class FarmRecordsHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        binding.layoutCropDashboardCrops.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_cropRecordsFragment));
-//        binding.layoutInventoryStore.setOnClickListener(view1 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment));
-        binding.layoutInventoryStore.setOnClickListener(view2 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
-        binding.layoutDashboardFinancialRecords.setOnClickListener(view3 -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
-        binding.layoutCropDashboardInventory.setOnClickListener(view12 ->SelectAnimal());
+        cropRecords.setOnClickListener(v -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_cropRecordsFragment));
+        store.setOnClickListener(v -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_storeFragment));
+        financialRecords.setOnClickListener(v -> navController.navigate(R.id.action_farmRecordsHomeFragment_to_financialRecordsFragment));
+
+        livestockRecords.setOnClickListener(v -> SelectAnimal());
     }
 
     private void SelectAnimal() {
@@ -75,21 +74,18 @@ public class FarmRecordsHomeFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Select Animal");
         // add a list
-        String[] forms = {"Cattle", "Goats", "Rabbits","Sheep"};
+        String[] forms = {"Cattle", "Goats", "Rabbits", "Sheep"};
+
         builder.setItems(forms, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0: // Cattle
                     case 1: // Goats
-
                     case 2: // Rabbits
-
                     case 3: // Sheep
-                      navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment);
+                        navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment);
                         break;
-
-
                 }
             }
         });

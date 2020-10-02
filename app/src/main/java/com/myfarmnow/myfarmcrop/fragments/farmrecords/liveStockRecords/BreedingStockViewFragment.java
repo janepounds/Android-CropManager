@@ -128,7 +128,6 @@ public class BreedingStockViewFragment extends Fragment {
       //  addAnimal.setOnClickListener(v -> addAnimal());
     }
 
-
     public void addAnimal(Context cntx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(cntx, R.style.CustomAlertDialog);
 
@@ -193,32 +192,23 @@ public class BreedingStockViewFragment extends Fragment {
                 chooseImage();
             }
         });
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if(validateEntries()){
-                    if(breedingStock==null){
-                        saveBreedingStock();
-                    }
-                    else{
-                        updateBreedingStock();
-                    }
-                    //dismiss dialog and refresh fragment
+        submit.setOnClickListener(v -> {
 
-                    dialog.dismiss();
-                   loadBreedingStock();
-
-
-
-
-
-                }else{
-                    Log.d("ERROR","Testing");
+            if(validateEntries()){
+                if(breedingStock==null){
+                    saveBreedingStock();
                 }
+                else{
+                    updateBreedingStock();
+                }
+                //dismiss dialog and refresh fragment
+                dialog.dismiss();
+               loadBreedingStock();
+            }else{
+                Log.d("ERROR","Testing");
             }
         });
-
 
         builder.setView(addAnimalDialog);
         builder.setCancelable(true);
@@ -232,23 +222,21 @@ public class BreedingStockViewFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
     }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.breeding_stock_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_add_new_animal:
-                addAnimal(context);
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_add_new_animal) {
+            addAnimal(context);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
+
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -289,16 +277,14 @@ public class BreedingStockViewFragment extends Fragment {
                 }
             }
         }
-
     }
-
 
     private void loadBreedingStock(){
         breedingStockListAdapter.clearBreedingStockList();
 
         breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID));
-
     }
+
     public void fillViews(){
         if(breedingStock != null){
             name.setText(breedingStock.getName());
@@ -312,10 +298,9 @@ public class BreedingStockViewFragment extends Fragment {
             photo.setText(breedingStock.getPhoto());
             DashboardActivity.selectSpinnerItemByValue(sex,breedingStock.getSex());
             DashboardActivity.selectSpinnerItemByValue(source,breedingStock.getSource());
-
-
         }
     }
+
     public void saveBreedingStock(){
         breedingStock = new BreedingStock();
         breedingStock.setUserId(DashboardActivity.RETRIEVED_USER_ID);
@@ -331,10 +316,8 @@ public class BreedingStockViewFragment extends Fragment {
         breedingStock.setMotherDam(mother.getText().toString());
         breedingStock.setPhoto(encodedImage);
         dbHandler.insertBreedingStock(breedingStock);
-
-
-
     }
+
     public void updateBreedingStock(){
 
         if(breedingStock != null) {
