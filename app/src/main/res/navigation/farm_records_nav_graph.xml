@@ -39,6 +39,7 @@
         <action
             android:id="@+id/action_cropRecordsFragment_to_farmRecordsHomeFragment"
             app:destination="@id/farmRecordsHomeFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/livestockRecordsFragment"
@@ -125,9 +126,13 @@
     </fragment>
     <fragment
         android:id="@+id/productionReportsFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.ProductionReportsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropProductionReports"
         android:label="@string/label_production_reports"
-        tools:layout="@layout/fragment_production_reports" />
+        tools:layout="@layout/fragment_crop_production_reports" >
+        <action
+            android:id="@+id/action_productionReportsFragment_to_cropRecordsFragment"
+            app:destination="@id/cropRecordsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addFieldFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFieldFragment"
@@ -291,9 +296,13 @@
         tools:layout="@layout/fragment_add_matings" />
     <fragment
         android:id="@+id/addLittersFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddLittersFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddLittersFragment"
         android:label="Add Litters"
-        tools:layout="@layout/fragment_add_litters" />
+        tools:layout="@layout/fragment_add_litters" >
+        <action
+            android:id="@+id/action_addLittersFragment_to_littersViewFragment"
+            app:destination="@id/littersViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addMedicationFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddMedicationFragment"

@@ -23,13 +23,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -90,7 +83,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
 
-    private CallbackManager callbackManager;
+//    private CallbackManager callbackManager;
 
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions mGoogleSignInOptions;
@@ -280,18 +273,18 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
         // Handle Facebook Login Button click
-        facebookLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Logout the User if already Logged-in
-                if (AccessToken.getCurrentAccessToken() != null) {
-                    LoginManager.getInstance().logOut();
-                }
-
-                // Login and Access User Date
-                LoginManager.getInstance().logInWithReadPermissions(Login.this, Arrays.asList("public_profile", "user_friends"));
-            }
-        });
+//        facebookLoginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Logout the User if already Logged-in
+//                if (AccessToken.getCurrentAccessToken() != null) {
+//                    LoginManager.getInstance().logOut();
+//                }
+//
+//                // Login and Access User Date
+//                LoginManager.getInstance().logInWithReadPermissions(Login.this, Arrays.asList("public_profile", "user_friends"));
+//            }
+//        });
 
 
         // Handle Google Login Button click
@@ -333,7 +326,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             handleGoogleSignInResult(result);
         }
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 

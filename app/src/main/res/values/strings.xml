@@ -585,6 +585,13 @@
         <item>Pending Payment</item>
     </string-array>
 
+    <string-array name="sp_crop_income_department">
+        <item></item>
+        <item>All</item>
+        <item>Crops</item>
+        <item>Livestock</item>
+    </string-array>
+
     <string-array name="sp_crop_task_type">
         <item>Select Type</item>
         <item>Soil Analysis</item>
@@ -664,6 +671,10 @@
 
     <string-array name="sp_crops_fields">
         <item>Field</item>
+
+    </string-array>
+    <string-array name="spinner_breed">
+        <item>Select</item>
 
     </string-array>
 
@@ -2210,6 +2221,32 @@
     <string name="litter">Litter</string>
     <string name="dam">Dam</string>
     <string name="sire">Sire</string>
+    <string name="weaning_alert_not_entered">weaning alert not entered</string>
+    <string name="weaning_days_not_entered">weaning days not entered</string>
+    <string name="no_of_female_not_entered">number of female not entered</string>
+    <string name="no_of_male_not_entered">number of male not entered</string>
+    <string name="born_dead_not_entered">born dead not entered</string>
+    <string name="born_alive_not_entered">born alive not entered</string>
+    <string name="mother_dam_not_selected">mother dam not selected</string>
+    <string name="father_sire_not_selected">father sire not selected</string>
+    <string name="litter_size_not_entered">litter size not entered</string>
+    <string name="add_medication">Add Medication</string>
+    <string name="medication_type">Medication Type</string>
+    <string name="animal">Animal</string>
+    <string name="health_condition">Health Condition</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="dosage">Dosage</string>
+    <string name="treatment_period">Treatment Period</string>
+    <string name="technical_personnel">Technical Personnel</string>
+    <string name="field_name">Field Name</string>
+    <string name="field_type">Field Type</string>
+    <string name="status">Status</string>
+    <string name="select_unit">Select Unit</string>
+    <string name="field_size">Field Size</string>
+    <string name="croppable_area">Croppable Area</string>
+    <string name="field">Field</string>
+    <string name="season">Season</string>
+    <string name="estimated_yield">Estimated Yield</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

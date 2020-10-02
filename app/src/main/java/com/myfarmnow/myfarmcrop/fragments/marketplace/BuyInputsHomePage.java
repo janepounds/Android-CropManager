@@ -58,7 +58,6 @@
  import retrofit2.Callback;
  import retrofit2.Response;
 
- import static com.facebook.FacebookSdk.getApplicationContext;
 
  public class BuyInputsHomePage extends Fragment {
      View rootView;

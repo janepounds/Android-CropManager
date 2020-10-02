@@ -33,7 +33,7 @@
                         android:layout_height="match_parent"
                         android:alpha=".2"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/icons_stripe"
+                        android:src="@drawable/ic_star_black"
                         app:tint="@color/black" />
 
                     <LinearLayout

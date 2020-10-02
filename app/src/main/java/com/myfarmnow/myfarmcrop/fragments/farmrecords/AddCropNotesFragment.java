@@ -152,7 +152,7 @@ public class AddCropNotesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        getActivity().getSupportFragmentManager().popBackStack();
+        navController.navigate(R.id.action_addCropNotesFragment_to_cropsNotesListFragment);
         return super.onOptionsItemSelected(item);
     }
 

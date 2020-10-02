@@ -84,10 +84,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <!--        <activity-->
-        <!--            android:name=".activities.farmrecords.CropFieldsListActivity"-->
-        <!--            android:label="@string/title_activity_crop_fields_list"-->
-        <!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"
@@ -141,12 +137,6 @@
             android:name=".activities.SignUp"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
-        <activity
-            android:name=".activities.CropFarmReportsActivity"
-            android:label="@string/title_activity_crop_farm_reports"
-            android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.CropSettingsActivity"
             android:label="@string/title_activity_crop_settings"
@@ -158,9 +148,6 @@
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />
-        <activity
-            android:name=".activities.wallet.LoanStatusPreviewActivity"
-            android:label="@string/title_activity_loan_status_preview" />
 
         <!-- Scheduled Notifications -->
 
