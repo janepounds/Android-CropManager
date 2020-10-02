@@ -262,6 +262,7 @@
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingViewFragment"
         android:label="Matings"
         tools:layout="@layout/fragment_mating_view" >
+
         <action
             android:id="@+id/action_matingViewFragment_to_addMatingsFragment"
             app:destination="@id/addMatingsFragment" />
@@ -284,28 +285,32 @@
             android:id="@+id/action_medicationsViewFragment_to_addMedicationFragment"
             app:destination="@id/addMedicationFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addBreedingStockFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddBreedingStockFragment"
-        android:label="Add Breeding Stock"
-        tools:layout="@layout/fragment_add_breeding_stock" />
-    <fragment
-        android:id="@+id/addMatingsFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddMatingsFragment"
-        android:label="Add Matings"
-        tools:layout="@layout/fragment_add_matings" />
-    <fragment
+    <dialog
         android:id="@+id/addLittersFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddLittersFragment"
-        android:label="Add Litters"
+        android:label="fragment_add_litters"
         tools:layout="@layout/fragment_add_litters" >
         <action
             android:id="@+id/action_addLittersFragment_to_littersViewFragment"
             app:destination="@id/littersViewFragment" />
-    </fragment>
-    <fragment
+    </dialog>
+    <dialog
         android:id="@+id/addMedicationFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.AddMedicationFragment"
-        android:label="Add Medication"
-        tools:layout="@layout/fragment_add_medication" />
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddMedicationFragment"
+        android:label="fragment_add_medication"
+        tools:layout="@layout/fragment_add_medication" >
+        <action
+            android:id="@+id/action_addMedicationFragment_to_medicationsViewFragment"
+            app:destination="@id/medicationsViewFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/addBreedingStockFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddBreedingStockFragment"
+        android:label="fragment_add_breeding_stock"
+        tools:layout="@layout/fragment_add_breeding_stock" />
+    <fragment
+        android:id="@+id/addMatingsFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddMatingsFragment"
+        android:label="fragment_add_matings"
+        tools:layout="@layout/fragment_add_matings" />
 </navigation>

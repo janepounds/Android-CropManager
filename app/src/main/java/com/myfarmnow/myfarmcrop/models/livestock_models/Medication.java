@@ -1,9 +1,13 @@
 package com.myfarmnow.myfarmcrop.models.livestock_models;
 
+import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Medication {
+import java.io.Serializable;
+
+public class Medication implements LivestockSpinnerItem, Serializable {
     private String id;
     private String userId;
     private String medicationDate;
@@ -15,6 +19,7 @@ public class Medication {
     private float dosage;
     private float treatmentPeriod;
     private String note;
+    private String animal;
     private String technicalPersonal;
     private String syncStatus="no";
     private String globalId;
@@ -37,6 +42,14 @@ public class Medication {
 
     public String getMedicationDate() {
         return medicationDate;
+    }
+
+    public String getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(String animal) {
+        this.animal = animal;
     }
 
     public void setMedicationDate(String medicationDate) {
@@ -149,6 +162,7 @@ public class Medication {
             object.put("dosage",dosage);
             object.put("treatmentPeriod",treatmentPeriod);
             object.put("note",note);
+            object.put("animal",animal);
             object.put("technicalPersonal",technicalPersonal);
             object.put("syncStatus",syncStatus);
             object.put("globalId",globalId);
@@ -170,6 +184,7 @@ public class Medication {
         setDosage((float)object.getDouble("dosage"));
         setTreatmentPeriod((float)object.getDouble("treatmentPeriod"));
         setNote(object.getString("note"));
+        setAnimal(object.getString("animal"));
         setTechnicalPersonal(object.getString("technicalPersonal"));
         setSyncStatus("yes");
     }

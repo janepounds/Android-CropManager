@@ -28,6 +28,7 @@ import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingS
 import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingViewFragment;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -151,8 +152,8 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
                                 //edit functionality
                                 Mating mating = matings.get(getAdapterPosition());
                                 Bundle bundle = new Bundle();
-                                bundle.putString("Id", mating.getId());
-                                MatingViewFragment matingViewFragment = new MatingViewFragment();
+                                bundle.putSerializable("mating", mating);
+                                navController.navigate(R.id.action_matingViewFragment_to_addMatingsFragment,bundle);
 
 
 
