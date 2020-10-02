@@ -2259,6 +2259,7 @@
     <string name="field">Field</string>
     <string name="season">Season</string>
     <string name="estimated_yield">Estimated Yield</string>
+    <string name="title_add_field">Add Field</string>
     <string name="technical_personnel_not_entered">technical personnel not entered</string>
     <string name="notes_not_entered">notes not entered</string>
     <string name="treatment_period_not_entered">treatment period not entered</string>
