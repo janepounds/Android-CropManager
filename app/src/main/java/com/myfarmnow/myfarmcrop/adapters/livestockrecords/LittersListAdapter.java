@@ -2,10 +2,7 @@ package com.myfarmnow.myfarmcrop.adapters.livestockrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -24,13 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment;
-import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,9 +67,6 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
     }
 
 
-
-
-
     @Override
     public void onBindViewHolder(@NonNull final LittersListAdapter.LitterViewHolder holder, int position) {
 
@@ -90,11 +78,6 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
 //        holder.litterSizeTextView.setText(litter.getLitterSize());
 //        holder.maleTextView.setText(litter.getNoOfMale());
 //        holder.femalesTextView.setText(litter.getNoOfFemale());
-
-
-
-
-
 
     }
 
@@ -150,11 +133,11 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
                                         .setNegativeButton(android.R.string.no, null).show();
                             }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
                                 //edit functionality
-//                                BreedingStock breedingStock = breedingStocks.get(getAdapterPosition());
-//                                Bundle bundle = new Bundle();
-//                                bundle.putString("Id", breedingStock.getId());
-//                                BreedingStockViewFragment breedingStockViewFragment = new BreedingStockViewFragment();
-//                                breedingStockViewFragment.addAnimal(v.getContext());
+
+                                Litter litter = litters.get(getAdapterPosition());
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("litter", litter);
+                                navController.navigate(R.id.action_littersViewFragment_to_addLittersFragment,bundle);
 
 
                             }

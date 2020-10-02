@@ -3,7 +3,9 @@ package com.myfarmnow.myfarmcrop.models.livestock_models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Litter {
+import java.io.Serializable;
+
+public class Litter implements LivestockSpinnerItem, Serializable {
     private String id;
     private String userId;
     private String dateOfBirth;

@@ -1,237 +1,221 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/mainlayout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_crop_records"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_below="@+id/mainView"
+        android:background="@drawable/home_background"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/mainView"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/mainView"
-            android:background="@drawable/home_background">
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:paddingRight="@dimen/dimen_20dp"
-                android:paddingLeft="@dimen/dimen_20dp">
-
-
-                <LinearLayout
-                    android:id="@+id/buttons"
-                    android:layout_alignParentTop="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-
-
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:background="@drawable/background_round_white">
-
-
-                        <LinearLayout
-                            android:id="@+id/layout_field_dashboard_fields"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:paddingBottom="5dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="20dp"
-                                android:src="@drawable/ic_field"
-                                android:layout_gravity="center"/>
-
-                            <TextView
-                                android:id="@+id/tv_matings"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="center"
-                                android:paddingBottom="5dp"
-                                android:text="@string/label_fields"
-                                android:textAllCaps="true"
-                                android:textColor="#000000"
-                                android:textStyle="bold" />
-
-
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_marginTop="@dimen/dimen_20dp"
-                        android:background="@drawable/background_round_white">
-
-                        <LinearLayout
-                            android:id="@+id/layout_crop_dashboard_crops"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:paddingBottom="5dp">
-
-                            <ImageView
-                                android:layout_width="160dp"
-                                android:layout_height="90dp"
-                                android:padding="20dp"
-                                android:src="@drawable/ic_crop_records"
-                                android:layout_gravity="center"/>
-
-                            <TextView
-                                android:id="@+id/tv_litar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="center"
-                                android:paddingBottom="5dp"
-                                android:text="@string/label_crops"
-                                android:textAllCaps="true"
-                                android:textColor="#000"
-                                android:textStyle="bold" />
-
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_marginTop="@dimen/dimen_20dp"
-                        android:background="@drawable/background_round_white">
-
-                        <LinearLayout
-                            android:id="@+id/layout_dashboard_financial_records"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:paddingBottom="5dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="90dp"
-                                android:padding="20dp"
-                                android:src="@drawable/ic_report" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="center"
-                                android:paddingBottom="5dp"
-                                android:text="@string/label_production_reports"
-                                android:textAllCaps="true"
-                                android:textColor="#000"
-                                android:textStyle="bold" />
-
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-
-
-
-                </LinearLayout>
-
-
-
-
-            </RelativeLayout>
-        </ScrollView>
-
-
-        <FrameLayout
-            android:id="@+id/frame_layout_notifications"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/black_border"
-            android:padding="1dp"
-            android:visibility="gone">
 
             <LinearLayout
+                android:id="@+id/buttons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="40dp"
-                    app:tabBackground="@drawable/tab_color_selector"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/green_mh"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabSelectedTextColor="@color/black"
-                    app:tabTextColor="@color/black"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
-                    ></com.google.android.material.tabs.TabLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_dashboard_fields"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager"
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_field" />
+
+                        <TextView
+                            android:id="@+id/tv_matings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="@string/label_fields"
+                            android:textAllCaps="true"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
-                </androidx.viewpager.widget.ViewPager>
+                    <LinearLayout
+                        android:id="@+id/layout_dashboard_crops"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_crop_records" />
+
+                        <TextView
+                            android:id="@+id/tv_litar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="@string/label_crops"
+                            android:textAllCaps="true"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/background_round_white"
+                    android:clipToPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_dashboard_production_reports"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:padding="20dp"
+                            android:src="@drawable/ic_report" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:text="@string/label_production_reports"
+                            android:textAllCaps="true"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
             </LinearLayout>
 
 
-        </FrameLayout>
+        </RelativeLayout>
+    </ScrollView>
 
-    </RelativeLayout>
-</layout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/black_border"
+        android:padding="1dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                app:tabBackground="@drawable/tab_color_selector"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/green_mh"
+                app:tabIndicatorHeight="0dp"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/black" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.viewpager.widget.ViewPager>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

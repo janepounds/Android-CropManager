@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,11 +21,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LittersListAdapter;
+import com.myfarmnow.myfarmcrop.adapters.livestockrecords.MedicationsListAdapter;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
+
+import java.util.ArrayList;
 
 public class MedicationsViewFragment extends Fragment {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private Context context;
+    private NavController navController;
+    private MyFarmDbHandlerSingleton dbHandler;
+    private MedicationsListAdapter medicationsListAdapter;
+    private ArrayList<Medication>medicationArrayList= new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,9 +63,28 @@ public class MedicationsViewFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        medicationsListAdapter = new MedicationsListAdapter(context, medicationArrayList);
+        recyclerView.setAdapter(medicationsListAdapter);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        loadMedication();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.medication_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void loadMedication(){
+        medicationsListAdapter.clearMedicationList();
+
+        medicationsListAdapter.addList(dbHandler.getMedications(DashboardActivity.RETRIEVED_USER_ID));
+
     }
 
     @Override
@@ -57,6 +92,7 @@ public class MedicationsViewFragment extends Fragment {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_add_medication:
+                navController.navigate(R.id.action_medicationsViewFragment_to_addMedicationFragment);
 
                 return true;
             default:

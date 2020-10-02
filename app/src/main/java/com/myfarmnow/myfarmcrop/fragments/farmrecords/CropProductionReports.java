@@ -112,8 +112,8 @@ public class CropProductionReports extends Fragment {
 
         drawIncomesCategoryPie(year+"-01-01",year+"-12-31");
         drawExpensesCategoryPie(year+"-01-01",year+"-12-31");
-        drawExpensesByActivityPie(year+"-01-01",year+"-12-31");
-        drawExpensesCropsPie(year,"First Season");
+//        drawExpensesByActivityPie(year+"-01-01",year+"-12-31");
+//        drawExpensesCropsPie(year,"First Season");
 
         incomeCategoryRangeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -141,19 +141,20 @@ public class CropProductionReports extends Fragment {
 
             }
         });
-        expensesActivityRangeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String>dates = getGraphDateRange(position);
-                drawExpensesByActivityPie(dates.get("startDate"),dates.get("endDate"));
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        expensesActivityRangeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                HashMap<String, String>dates = getGraphDateRange(position);
+//                drawExpensesByActivityPie(dates.get("startDate"),dates.get("endDate"));
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         yearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -166,17 +167,18 @@ public class CropProductionReports extends Fragment {
 
             }
         });
-        seasonsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                drawExpensesCropsPie(Integer.parseInt(yearsSpinner.getSelectedItem().toString()),seasonsSpinner.getSelectedItem().toString());
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        seasonsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                drawExpensesCropsPie(Integer.parseInt(yearsSpinner.getSelectedItem().toString()),seasonsSpinner.getSelectedItem().toString());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         return view;
     }

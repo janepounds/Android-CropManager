@@ -10,19 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
-import com.myfarmnow.myfarmcrop.models.livestock_models.LitterSpinnerItem;
+import com.myfarmnow.myfarmcrop.models.livestock_models.LivestockSpinnerItem;
 
 import java.util.ArrayList;
 
-public class LitterSpinnerAdapter extends ArrayAdapter<LitterSpinnerItem> {
-    ArrayList<LitterSpinnerItem> values=new ArrayList<>();
+public class LivestockSpinnerAdapter extends ArrayAdapter<LivestockSpinnerItem> {
+    ArrayList<LivestockSpinnerItem> values=new ArrayList<>();
     String breedLabel;
     Context context;
-    public LitterSpinnerAdapter(ArrayList<LitterSpinnerItem> items,final String breedLabel, Context context) {
+    public LivestockSpinnerAdapter(ArrayList<LivestockSpinnerItem> items, final String breedLabel, Context context) {
         super(context,  android.R.layout.simple_spinner_item);
         this.breedLabel =breedLabel;
-        values.add(new LitterSpinnerItem() {
+        values.add(new LivestockSpinnerItem() {
             @Override
             public String getId() {
                 return null;
@@ -34,11 +33,11 @@ public class LitterSpinnerAdapter extends ArrayAdapter<LitterSpinnerItem> {
         values.addAll(items);
         this.context =context;
     }
-    public void add(LitterSpinnerItem item){
+    public void add(LivestockSpinnerItem item){
         values.add(item);
         notifyDataSetChanged();
     }
-    public void changeDefaultItem(LitterSpinnerItem defaultItem){
+    public void changeDefaultItem(LivestockSpinnerItem defaultItem){
         values.remove(0);
         values.add(0,defaultItem);
         notifyDataSetChanged();
@@ -49,7 +48,7 @@ public class LitterSpinnerAdapter extends ArrayAdapter<LitterSpinnerItem> {
     }
 
     @Override
-    public LitterSpinnerItem getItem(int position){
+    public LivestockSpinnerItem getItem(int position){
         return values.get(position);
     }
 
@@ -59,9 +58,9 @@ public class LitterSpinnerAdapter extends ArrayAdapter<LitterSpinnerItem> {
     }
 
 
-    public void changeItems(ArrayList<LitterSpinnerItem> items){
+    public void changeItems(ArrayList<LivestockSpinnerItem> items){
         values.clear();
-        values.add(new LitterSpinnerItem() {
+        values.add(new LivestockSpinnerItem() {
             @Override
             public String getId() {
                 return null;

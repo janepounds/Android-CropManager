@@ -63,8 +63,19 @@ public class StoreFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+        setHasOptionsMenu(true);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Store");
+
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_storeFragment_to_farmRecordsHomeFragment);
+            }
+        });
     }
 
 
@@ -153,25 +164,27 @@ public class StoreFragment extends Fragment {
 
         super.onCreateOptionsMenu(menu, inflater);
 
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             switch (id) {
-
+                case R.id.home:
+                    navController.navigate(R.id.action_storeFragment_to_farmRecordsHomeFragment);
+                    return true;
 
                 case R.id.storeAddFertilizerFragment:
-                   navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment);
-
+                    navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment);
                     return true;
 
                 case R.id.storeAddSeedFragment:
                     navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment);
                     return true;
+
                 case R.id.storeAddSprayFragment:
                 navController.navigate(R.id.action_storeFragment_to_storeAddSprayFragment);
+                    return true;
 
                 default:
                     return super.onOptionsItemSelected(item);
