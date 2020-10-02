@@ -61,6 +61,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
         holder.itemTextView.setText(incomeExpense.getItem());
         holder.transactionTextView.setText(incomeExpense.getTransaction());
         holder.categoryTextView.setText(incomeExpense.getCategory());
+        holder.departmentTextView.setText(incomeExpense.getDepartment());
         holder.statusTextView.setText(incomeExpense.getPaymentStatus());
         holder.amountTextView.setText("UGX" + "  " + " " + NumberFormat.getInstance().format(incomeExpense.computeAmount()));
         holder.dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(incomeExpense.getDate()));
@@ -72,7 +73,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
     }
 
     public class IncomeExpenseViewHolder extends RecyclerView.ViewHolder {
-        TextView itemTextView, transactionTextView, categoryTextView, statusTextView, amountTextView, dateTextView;
+        TextView itemTextView, transactionTextView, categoryTextView, departmentTextView, statusTextView, amountTextView, dateTextView;
         ImageView moreButton;
 
         public IncomeExpenseViewHolder(View itemView) {
@@ -80,6 +81,7 @@ public class CropIncomeExpensesListRecyclerAdapter extends RecyclerView.Adapter<
             itemTextView = itemView.findViewById(R.id.txt_crop_income_expense_card_item);
             transactionTextView = itemView.findViewById(R.id.txt_crop_income_expense_card_transaction);
             categoryTextView = itemView.findViewById(R.id.txt_crop_income_expense_card_category);
+            departmentTextView= itemView.findViewById(R.id.txt_crop_income_expense_card_department);
             statusTextView = itemView.findViewById(R.id.txt_crop_income_expense_card_status);
             amountTextView = itemView.findViewById(R.id.txt_crop_income_expense_card_gross_amount);
             dateTextView = itemView.findViewById(R.id.txt_crop_income_expense_card_date);
