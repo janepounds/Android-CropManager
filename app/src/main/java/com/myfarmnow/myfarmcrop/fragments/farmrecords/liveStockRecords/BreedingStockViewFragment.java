@@ -147,7 +147,7 @@ public class BreedingStockViewFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
 
