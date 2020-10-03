@@ -129,6 +129,9 @@
         <action
             android:id="@+id/action_cropListFragment_to_cropRecordsFragment"
             app:destination="@id/cropRecordsFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_galleryViewFragment"
+            app:destination="@id/galleryViewFragment" />
 
     </fragment>
     <fragment
@@ -325,4 +328,18 @@
             android:id="@+id/action_addMatingFragment_to_matingsViewFragment"
             app:destination="@id/matingsViewFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/galleryViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.gallery.GalleryViewFragment"
+        android:label="fragment_gallery_view"
+        tools:layout="@layout/fragment_gallery_view" >
+        <action
+            android:id="@+id/action_galleryViewFragment_to_addPhotoInGalleryFragment"
+            app:destination="@id/addPhotoInGalleryFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addPhotoInGalleryFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.gallery.AddPhotoInGalleryFragment"
+        android:label="fragment_add_photo_in_gallery"
+        tools:layout="@layout/fragment_add_photo_in_gallery" />
 </navigation>

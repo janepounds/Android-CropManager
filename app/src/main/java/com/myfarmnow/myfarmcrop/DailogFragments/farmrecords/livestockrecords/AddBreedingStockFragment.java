@@ -94,6 +94,9 @@ public class AddBreedingStockFragment extends DialogFragment {
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
 
         }
+        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
+        initializeForm(view);
+
 
         builder.setView(view);
         return builder.create();
