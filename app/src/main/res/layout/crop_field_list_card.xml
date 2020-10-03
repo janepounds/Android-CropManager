@@ -280,12 +280,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:background="#a4b7a0"
         android:padding="4dp"
         android:visibility="gone"
         >
-
 
     </LinearLayout>
 </LinearLayout>
