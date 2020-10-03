@@ -74,23 +74,42 @@ public class FarmRecordsHomeFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Select Animal");
         // add a list
-        String[] forms = {"Cattle", "Goats", "Rabbits", "Sheep"};
+        String[] forms = {"Cattle", "Goat", "Rabbit", "Sheep", "Pig"};
 
         builder.setItems(forms, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
+                String selectedAnimal = null;
+
                 switch (item) {
                     case 0: // Cattle
-                    case 1: // Goats
-                    case 2: // Rabbits
-                    case 3: // Sheep
-                        navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment);
+                        selectedAnimal = "Cattle";
                         break;
+                    case 1: // Goats
+                        selectedAnimal = "Goat";
+                        break;
+                    case 2: // Rabbits
+                        selectedAnimal = "Rabbit";
+                        break;
+                    case 3: // Sheep
+                        selectedAnimal = "Sheep";
+                        break;
+                    case 4: // Pig
+                        selectedAnimal = "Pig";
+                        break;
+                }
+
+                if (selectedAnimal != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("animal", selectedAnimal);
+                    navController.navigate(R.id.action_farmRecordsHomeFragment_to_livestockRecordsFragment, bundle);
+                } else {
+                    // TODO
                 }
             }
         });
 
-// create and show the alert dialog
+        // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }

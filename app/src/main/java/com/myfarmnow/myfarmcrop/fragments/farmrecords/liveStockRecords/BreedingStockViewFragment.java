@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -45,26 +44,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
-import com.myfarmnow.myfarmcrop.fragments.marketplace.MyProduceFragment;
-import com.myfarmnow.myfarmcrop.models.CropInventory;
-import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
-import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
-import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BreedingStockViewFragment extends Fragment {
     private static final String TAG = "BreedingFragment";
@@ -340,12 +328,13 @@ public class BreedingStockViewFragment extends Fragment {
         String message = null;
 
         if (name.getText().toString().isEmpty()) {
+            name.setError("Required");
             message = getString(R.string.name_not_entered_message);
-            name.requestFocus();
-        }
-        else if (colour.getText().toString().isEmpty()) {
+//            name.requestFocus();
+        } else if (colour.getText().toString().isEmpty()) {
+            name.setError("Required");
             message = getString(R.string.color_not_entered_message);
-            colour.requestFocus();
+//            colour.requestFocus();
         } else if (sex.getSelectedItemPosition() == 0) {
             message = getString(R.string.sex_not_selected);
             sex.requestFocus();
