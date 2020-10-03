@@ -27,10 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -44,13 +41,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-*/
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -67,12 +57,10 @@ import com.myfarmnow.myfarmcrop.R;
 
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
-import com.myfarmnow.myfarmcrop.databinding.SignupBinding;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 import com.myfarmnow.myfarmcrop.utils.CheckPermissions;
 import com.myfarmnow.myfarmcrop.utils.LocaleHelper;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
-import com.myfarmnow.myfarmcrop.network.APIClient;
 
 import com.myfarmnow.myfarmcrop.utils.ImagePicker;
 import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
@@ -97,7 +85,6 @@ public class SignUp extends AppCompatActivity {
     private View parentView;
     private File profileImage;
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
-    private SignupBinding binding;
 
     Toolbar toolbar;
     ActionBar actionBar;
@@ -107,14 +94,14 @@ public class SignUp extends AppCompatActivity {
     Button signupBtn;
     FrameLayout banner_adView;
     TextView signup_loginText;
-    TextView service_terms, privacy_policy, refund_policy, and_text;
+    TextView termsOfService, privacyPolicy, refund_policy, and_text;
     CircularImageView user_photo;
     //FloatingActionButton user_photo_edit_fab;
     EditText user_firstname, user_lastname, user_email, user_password, user_mobile;
 
     //Custom Dialog Vies
     Dialog dialogOTP;
-    EditText ed_otp;
+    EditText ed_otp, userPassword, userConfirmPassword;
     //It is the verification id that will be sent to the user
     private String mVerificationId;
     //firebase auth object
@@ -124,10 +111,9 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.signup);
+        setContentView(R.layout.signup);
 
         //MobileAds.initialize(this, ConstantValues.ADMOBE_ID);
-
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(SignUp.this).build();
         //noInternetDialog.show();
 
@@ -145,12 +131,14 @@ public class SignUp extends AppCompatActivity {
         user_firstname = (EditText) findViewById(R.id.user_firstname);
         user_lastname = (EditText) findViewById(R.id.user_lastname);
         user_email = (EditText) findViewById(R.id.user_email);
-        user_password = (EditText) findViewById(R.id.user_password);
         user_mobile = (EditText) findViewById(R.id.user_mobile);
         signupBtn = (Button) findViewById(R.id.signUpBtn);
 //        and_text = (TextView) findViewById(R.id.and_text);
-        service_terms = (TextView) findViewById(R.id.service_terms);
-        privacy_policy = (TextView) findViewById(R.id.privacy_policy);
+
+        userPassword = (EditText) findViewById(R.id.user_password);
+        userConfirmPassword = (EditText) findViewById(R.id.user_confirm_password);
+        termsOfService = (TextView) findViewById(R.id.text_terms_of_service);
+        privacyPolicy = (TextView) findViewById(R.id.text_privacy_policy);
         refund_policy = (TextView) findViewById(R.id.refund_policy);
         signup_loginText = (TextView) findViewById(R.id.signUp_loginText);
         banner_adView = (FrameLayout) findViewById(R.id.banner_adView);
@@ -186,7 +174,7 @@ public class SignUp extends AppCompatActivity {
 
 //        and_text.setText(" " + getString(R.string.and) + " ");
 
-        binding.textPrivacyPolicy.setOnClickListener(v -> {
+        privacyPolicy.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
             dialog.setView(dialogView);
@@ -270,7 +258,7 @@ public class SignUp extends AppCompatActivity {
 //            alertDialog.show();
 //        });
 
-        binding.textTermsOfService.setOnClickListener(v -> {
+        termsOfService.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_webview_fullscreen, null);
             dialog.setView(dialogView);
@@ -636,15 +624,15 @@ public class SignUp extends AppCompatActivity {
         } else if (!ValidateInputs.isValidEmail(user_email.getText().toString().trim())) {
             user_email.setError(getString(R.string.invalid_email));
             return false;
-        } else if (binding.userPassword.getText().toString().trim().length() < 6) {
-            binding.userPassword.setError(getString(R.string.invalid_password_length));
+        } else if (userPassword.getText().toString().trim().length() < 6) {
+            userPassword.setError(getString(R.string.invalid_password_length));
             return false;
-        } else if (!ValidateInputs.isValidPassword(binding.userPassword.getText().toString().trim())) {
-            binding.userPassword.setError(getString(R.string.invalid_password));
+        } else if (!ValidateInputs.isValidPassword(userPassword.getText().toString().trim())) {
+            userPassword.setError(getString(R.string.invalid_password));
             return false;
-        } else if (!ValidateInputs.isPasswordMatching(binding.userPassword.getText().toString(), binding.userConfirmPassword.getText().toString())) {
-            binding.userPassword.setError("Password does not match");
-            binding.userConfirmPassword.setError("Password does not match");
+        } else if (!ValidateInputs.isPasswordMatching(userPassword.getText().toString(), userConfirmPassword.getText().toString())) {
+            userPassword.setError("Password does not match");
+            userConfirmPassword.setError("Password does not match");
             return false;
         }   /*else if (!ValidateInputs.isValidNumber(user_mobile.getText().toString().trim())) {
             user_mobile.setError(getString(R.string.invalid_contact));

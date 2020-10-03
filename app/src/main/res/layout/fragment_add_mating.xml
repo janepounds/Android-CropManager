@@ -47,6 +47,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/mating_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/josefin_sans_semibold"

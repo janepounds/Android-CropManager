@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Mating implements LivestockSpinnerItem,Serializable {
+public class Mating implements LivestockSpinnerItem, Serializable {
     private String id;
     private String userId;
     private String matingDate;
@@ -13,10 +13,11 @@ public class Mating implements LivestockSpinnerItem,Serializable {
     private String femaleName;
     private String method;
     private float gestationPeriod = 0;
-    private float deliveryAlertDaysBefore =0;
+    private float deliveryAlertDaysBefore = 0;
     private String notes;
-    private String syncStatus="no";
+    private String syncStatus = "no";
     private String globalId;
+    private String animalType;
 
     public String getId() {
         return id;
@@ -106,54 +107,51 @@ public class Mating implements LivestockSpinnerItem,Serializable {
         this.globalId = globalId;
     }
 
-    public Mating(){
-
+    public String getAnimalType() {
+        return animalType;
     }
 
-    public void computeDeliveryDate(){
-
-
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
     }
 
-    public Mating(JSONObject object) throws JSONException{
+    public Mating() {
+        // Empty constructor required
+    }
+
+    public Mating(JSONObject object) throws JSONException {
         setUserId(object.getString("userId"));
         setGlobalId(object.getString("id"));
         setMatingDate(object.getString("matingDate"));
         setMaleName(object.getString("maleName"));
         setFemaleName(object.getString("femaleName"));
         setMethod(object.getString("method"));
-        setGestationPeriod((float)object.getDouble("gestationPeriod"));
-        setDeliveryAlertDaysBefore((float)object.getDouble("deliveryAlertDaysBefore"));
+        setGestationPeriod((float) object.getDouble("gestationPeriod"));
+        setDeliveryAlertDaysBefore((float) object.getDouble("deliveryAlertDaysBefore"));
         setNotes(object.getString("notes"));
+        setAnimalType(object.getString("animalType"));
         setSyncStatus("yes");
-
     }
 
-    public JSONObject toJson(){
+    public JSONObject toJson() {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",id);
-            object.put("userId",userId);
-            object.put("matingDate",matingDate);
-            object.put("maleName",maleName);
-            object.put("femaleName",femaleName);
-            object.put("method",method);
-            object.put("gestationPeriod",gestationPeriod);
-            object.put("deliveryAlertDaysBefore",deliveryAlertDaysBefore);
-            object.put("notes",notes);
-            object.put("syncStatus",syncStatus);
-            object.put("globalId",globalId);
-
+            object.put("id", id);
+            object.put("userId", userId);
+            object.put("matingDate", matingDate);
+            object.put("maleName", maleName);
+            object.put("femaleName", femaleName);
+            object.put("method", method);
+            object.put("gestationPeriod", gestationPeriod);
+            object.put("deliveryAlertDaysBefore", deliveryAlertDaysBefore);
+            object.put("notes", notes);
+            object.put("syncStatus", syncStatus);
+            object.put("globalId", globalId);
+            object.put("animalType", animalType);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
     }
-
-
-
-
-
-
 }

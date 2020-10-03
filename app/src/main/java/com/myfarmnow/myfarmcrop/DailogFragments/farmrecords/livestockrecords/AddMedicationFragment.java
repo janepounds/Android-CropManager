@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,6 +35,7 @@ import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.LivestockSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -41,28 +43,31 @@ public class AddMedicationFragment extends DialogFragment {
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private Medication medication;
-    private EditText medicationDate,medicationName,manufacturer,dosage,treatmentPeriod,notes,technicalPersonnel;
-    private ImageView close,datePicker;
-    private Spinner Animal,HealthCondition,MedicationType;
+    private EditText medicationDate, medicationName, manufacturer, dosage, treatmentPeriod, notes, technicalPersonnel;
+    private ImageView close, datePicker;
+    private Spinner Animal, HealthCondition, MedicationType;
     private Button submit;
     private LivestockSpinnerAdapter livestockSpinnerAdapter;
     private NavController navController;
+    private TextView medicationTitle;
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context =context;
+        this.context = context;
     }
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
 
         //get arguments for edit
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             medication = (Medication) getArguments().getSerializable("medication");
+
         }
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_medication, null);
+        View view = getLayoutInflater().inflate(R.layout.fragment_add_medication, null);
         initializeForm(view);
         builder.setView(view);
         return builder.create();
@@ -72,21 +77,14 @@ public class AddMedicationFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        TextView title = view.findViewById(R.id.medication_title);
-        //get arguments for edit
-        if(getArguments()!=null){
-            medication = (Medication) getArguments().getSerializable("medication");
-            title.setText(getArguments().getString("title"));
-            Log.w("title",getArguments().getString("title"));
-        }
-
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
     }
 
 
-    public void initializeForm(View view){
+    public void initializeForm(View view) {
+        medicationTitle = view.findViewById(R.id.medication_title);
         close = view.findViewById(R.id.add_medication_close);
         medicationDate = view.findViewById(R.id.add_medication_date);
         Animal = view.findViewById(R.id.add_medication_animal_sp);
@@ -100,8 +98,8 @@ public class AddMedicationFragment extends DialogFragment {
         technicalPersonnel = view.findViewById(R.id.add_medication_technical_personnel);
         datePicker = view.findViewById(R.id.image_date_picker);
         submit = view.findViewById(R.id.btn_save);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePickerImageView(datePicker,medicationDate,context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        DashboardActivity.addDatePickerImageView(datePicker, medicationDate, context);
 
 
         ArrayList<LivestockSpinnerItem> Animals = new ArrayList<>();
@@ -125,17 +123,17 @@ public class AddMedicationFragment extends DialogFragment {
 
         close.setOnClickListener(view1 -> dismiss());
 
-        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+        AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    if(position == 0){
+                try {
+                    if (position == 0) {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
 
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
 
                 }
             }
@@ -147,17 +145,15 @@ public class AddMedicationFragment extends DialogFragment {
         };
 
 
-
         fillViews();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries()){
-                    if(medication==null){
+                if (validateEntries()) {
+                    if (medication == null) {
                         saveMedication();
-                    }
-                    else{
+                    } else {
                         updateMedication();
                     }
                     //dismiss dialog and refresh fragment
@@ -165,16 +161,17 @@ public class AddMedicationFragment extends DialogFragment {
                     navController.navigate(R.id.action_addMedicationFragment_to_medicationsViewFragment);
 
 
-
-
-                }else{
-                    Log.d("ERROR","Testing");
+                } else {
+                    Log.d("ERROR", "Testing");
                 }
             }
         });
     }
-    public void fillViews(){
-        if(medication != null){
+
+    public void fillViews() {
+        if (medication != null) {
+            submit.setText(getString(R.string.update));
+            medicationTitle.setText(getString(R.string.update_medication));
             medicationDate.setText(medication.getMedicationDate());
             medicationName.setText(medication.getMedicationsName());
             manufacturer.setText(medication.getManufacturer());
@@ -182,14 +179,18 @@ public class AddMedicationFragment extends DialogFragment {
             notes.setText(medication.getNote());
             technicalPersonnel.setText(medication.getTechnicalPersonal());
             treatmentPeriod.setText(medication.getTreatmentPeriod() + "");
-            DashboardActivity.selectSpinnerItemByValue(MedicationType,medication.getMedicationType());
-//            DashboardActivity.selectSpinnerItemByValue(Animal,medication.getAnimal());
-            DashboardActivity.selectSpinnerItemByValue(HealthCondition,medication.getHealthCondition());
+
+            DashboardActivity.selectSpinnerItemByValue(MedicationType, medication.getMedicationType());
+            DashboardActivity.selectSpinnerItemByValue(Animal, medication.getAnimal());
+            DashboardActivity.selectSpinnerItemByValue(HealthCondition, medication.getHealthCondition());
 
 
         }
     }
-    public void saveMedication(){
+
+    public void saveMedication() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
         medication = new Medication();
         medication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
 //        medication.setBreedingId(Animal.);
@@ -204,15 +205,17 @@ public class AddMedicationFragment extends DialogFragment {
         medication.setNote(notes.getText().toString());
         medication.setAnimal(Animal.getSelectedItem().toString());
         medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
-        Log.w("Animal",Animal.getSelectedItem().toString());
+        medication.setAnimal(sharedPreferenceHelper.getSelectedAnimal());
+        Log.w("Animal", Animal.getSelectedItem().toString());
         dbHandler.insertMedication(medication);
 
 
-
     }
-    public void updateMedication(){
 
-        if(medication != null) {
+    public void updateMedication() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
+        if (medication != null) {
             medication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             medication.setMedicationDate(medicationDate.getText().toString());
             medication.setMedicationType(MedicationType.getSelectedItem().toString());
@@ -225,51 +228,48 @@ public class AddMedicationFragment extends DialogFragment {
             medication.setTreatmentPeriod(Float.parseFloat(treatmentPeriod.getText().toString()));
             medication.setNote(notes.getText().toString());
             medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
+            medication.setAnimal(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateMedication(medication);
         }
     }
 
-    public boolean validateEntries(){
+    public boolean validateEntries() {
         String message = null;
 
-        if(medicationDate.getText().toString().isEmpty()){
+        if (medicationDate.getText().toString().isEmpty()) {
             message = getString(R.string.medication_date_not_entered);
             medicationDate.requestFocus();
-        }
-        else if(MedicationType.getSelectedItemPosition()==0) {
+        } else if (MedicationType.getSelectedItemPosition() == 0) {
             message = getString(R.string.medication_type_not_selected);
             MedicationType.requestFocus();
-        }
-
-        else if(Animal.getSelectedItemPosition()==0){
+        } else if (Animal.getSelectedItemPosition() == 0) {
             message = getString(R.string.animal_not_selected);
             Animal.requestFocus();
-        }else if(HealthCondition.getSelectedItemPosition()==0){
+        } else if (HealthCondition.getSelectedItemPosition() == 0) {
             message = getString(R.string.health_condition_not_selected);
             HealthCondition.requestFocus();
-        }
-        else if(medicationName.getText().toString().isEmpty()){
+        } else if (medicationName.getText().toString().isEmpty()) {
             message = getString(R.string.medication_name_not_entered);
             medicationName.requestFocus();
-        }else if(manufacturer.getText().toString().isEmpty()){
+        } else if (manufacturer.getText().toString().isEmpty()) {
             message = getString(R.string.manufacturer_not_entered);
             manufacturer.requestFocus();
-        }else if(dosage.getText().toString().isEmpty()){
+        } else if (dosage.getText().toString().isEmpty()) {
             message = getString(R.string.dosage_not_entered);
             dosage.requestFocus();
-        }else if(treatmentPeriod.getText().toString().isEmpty()){
+        } else if (treatmentPeriod.getText().toString().isEmpty()) {
             message = getString(R.string.treatment_period_not_entered);
             treatmentPeriod.requestFocus();
-        }else if(notes.getText().toString().isEmpty()){
+        } else if (notes.getText().toString().isEmpty()) {
             message = getString(R.string.notes_not_entered);
             notes.requestFocus();
-        }else if(technicalPersonnel.getText().toString().isEmpty()){
+        } else if (technicalPersonnel.getText().toString().isEmpty()) {
             message = getString(R.string.technical_personnel_not_entered);
             technicalPersonnel.requestFocus();
         }
 
-        if(message != null){
-            Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+        if (message != null) {
+            Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
             return false;
         }
         // Log.d("ERROR",message);

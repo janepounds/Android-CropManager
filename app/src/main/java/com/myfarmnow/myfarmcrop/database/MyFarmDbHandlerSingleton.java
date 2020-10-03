@@ -661,49 +661,49 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String MARKET_PRICE_RETAIL = "retail";
     public static final String MARKET_PRICE_WHOLESALE = "wholesale";
 
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME ="breedingStock";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_ID="id";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID="userId";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_NAME="name";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG="earTag";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR="color";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SEX="sex";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_BREED="breed";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH="dateOfBirth";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE="source";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME = "breedingStock";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_ID = "id";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID = "userId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_NAME = "name";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG = "earTag";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR = "color";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SEX = "sex";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_BREED = "breed";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH = "dateOfBirth";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE = "source";
     public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT = "weight";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER="father";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM="motherDam";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO="photo";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS="syncStatus";
-    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID="globalId";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER = "father";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM = "motherDam";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO = "photo";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS = "syncStatus";
+    public static final String LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID = "globalId";
+    public static final String LIVESTOCK_RECORDS_ANIMAL_TYPE = "animalType";
 
 
     public static final String LIVESTOCK_RECORDS_MATING_TABLE_NAME = "mating";
     public static final String LIVESTOCK_RECORDS_MATING_ID = "id";
-    public static final String LIVESTOCK_RECORDS_MATING_USER_ID ="userId";
+    public static final String LIVESTOCK_RECORDS_MATING_USER_ID = "userId";
     public static final String LIVESTOCK_RECORDS_MATING_DATE = "matingDate";
     public static final String LIVESTOCK_RECORDS_MATING_MALE_NAME = "maleName";
-    public static final String LIVESTOCK_RECORDS_MATING_FEMALE_NAME ="femaleName";
+    public static final String LIVESTOCK_RECORDS_MATING_FEMALE_NAME = "femaleName";
     public static final String LIVESTOCK_RECORDS_MATING_METHOD = "method";
     public static final String LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD = "gestationPeriod";
-    public static final String LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE ="deliveryAlertDaysBefore";
+    public static final String LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE = "deliveryAlertDaysBefore";
     public static final String LIVESTOCK_RECORDS_MATING_NOTES = "notes";
     public static final String LIVESTOCK_RECORDS_MATING_SYNC_STATUS = "syncStatus";
     public static final String LIVESTOCK_RECORDS_MATING_GLOBAL_ID = "globalId";
 
 
-
-    public static final String LIVESTOCK_RECORDS_LITTERS_TABLE_NAME ="litters";
-    public static final String LIVESTOCK_RECORDS_LITTERS_ID ="id";
-    public static final String LIVESTOCK_RECORDS_LITTERS_USER_ID ="userId";
+    public static final String LIVESTOCK_RECORDS_LITTERS_TABLE_NAME = "litters";
+    public static final String LIVESTOCK_RECORDS_LITTERS_ID = "id";
+    public static final String LIVESTOCK_RECORDS_LITTERS_USER_ID = "userId";
     public static final String LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH = "dateOfBirth";
     public static final String LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE = "litterSize";
     public static final String LIVESTOCK_RECORDS_LITTERS_BREEDING_ID = "breedingId";
     public static final String LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE = "bornAlive";
     public static final String LIVESTOCK_RECORDS_LITTERS_BORN_DEAD = "bornDead";
     public static final String LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE = "noOfMale";
-    public static final String LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE ="noOfFemale";
+    public static final String LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE = "noOfFemale";
     public static final String LIVESTOCK_RECORDS_LITTERS_WEANING = "weaning";
     public static final String LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT = "weaningAlert";
     public static final String LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM = "motherDam";
@@ -715,22 +715,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME = "medications";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_ID = "id";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_USER_ID = "userId";
-    public static final String LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE ="medicationDate";
+    public static final String LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE = "medicationDate";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE = "medicationType";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID = "breedingId";
-    public static final String LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION ="healthCondition";
+    public static final String LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION = "healthCondition";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME = "medicationName";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER = "manufacturer";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE = "dosage";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD = "treatmentPeriod";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_NOTES = "note";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL = "animal";
-    public static final String LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL ="technicalPersonal";
+    public static final String LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL = "technicalPersonal";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS = "syncStatus";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID = "globalId";
-
-
-
 
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
@@ -892,7 +889,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 "FOREIGN KEY( " + CROP_PAYMENT_CUSTOMER_ID + ") REFERENCES  " + CROP_CUSTOMER_TABLE_NAME + " ( " + CROP_CUSTOMER_ID + " ) )";
         String crop_income_expense_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_INCOME_EXPENSE_TABLE_NAME + " ( " + CROP_INCOME_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CROP_INCOME_EXPENSE_DATE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_USER_ID + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_TRANSACTION + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_ITEM +
                 " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_CATEGORY + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_QUANTITY + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_GROSS_AMOUNT + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_UNIT_PRICE + " REAL NOT NULL, " + CROP_INCOME_EXPENSE_TAXES + " REAL, "
-                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, "+ CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT, "  + CROP_INCOME_EXPENSE_CROP_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
+                + CROP_INCOME_EXPENSE_PAYMENT_MODE + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_PAYMENT_STATUS + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_SELLING_PRICE + " REAL , " + CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER + " TEXT NOT NULL, " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT, " + CROP_INCOME_EXPENSE_CROP_ID + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
         String crop_task_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_TASK_TABLE_NAME + " ( " + CROP_TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_TASK_CROP_ID + " TEXT NOT NULL, " + CROP_TASK_USER_ID + " TEXT NOT NULL, " + CROP_TASK_DATE + " TEXT NOT NULL, " + CROP_TASK_TITLE + " TEXT NOT NULL, " +
                 CROP_TASK_EMPLOYEE_ID + " TEXT NOT NULL, " + CROP_TASK_STATUS + " TEXT NOT NULL, " + CROP_TASK_TYPE + " TEXT NOT NULL, " + CROP_TASK_DESCRIPTION + " TEXT NOT NULL, " + CROP_TASK_RECURRENCE + " TEXT NOT NULL, " + CROP_TASK_REMINDERS + " TEXT NOT NULL, " + CROP_TASK_REPEAT_UNTIL + " TEXT, " + CROP_TASK_DAYS_BEFORE
@@ -961,21 +958,18 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String livestock_records_breeding_stock_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR
                 + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_BREED + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE + " TEXT, " +
-                LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO + " TEXT, "  + LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";;
-
+                LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
+        ;
 
         String livestock_records_mating_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MATING_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MATING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MATING_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_MALE_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_FEMALE_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_METHOD
                 + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE + " REAL, " + LIVESTOCK_RECORDS_MATING_NOTES + " TEXT, "
-                + LIVESTOCK_RECORDS_MATING_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MATING_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+                + LIVESTOCK_RECORDS_MATING_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MATING_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
 
         String livestock_records_litter_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_LITTERS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_LITTERS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE + " REAL, " + LIVESTOCK_RECORDS_LITTERS_BREEDING_ID + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE + " REAL DEFAULT 0, " +
-                LIVESTOCK_RECORDS_LITTERS_BORN_DEAD + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_WEANING + " REAL, " + LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT + " REAL, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
+                LIVESTOCK_RECORDS_LITTERS_BORN_DEAD + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_WEANING + " REAL, " + LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT + " REAL, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
 
         String livestock_records_medications_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MEDICATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION + " TEXT, " +
-                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no' " + " )";
-
-
-
+                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
@@ -1029,22 +1023,24 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         if (oldVersion == 1 && newVersion == 2) {
             upGradingTablesFromVersion1ToVersion2(db);
 
-        }else if(oldVersion == 1 && newVersion == 3){
+        } else if (oldVersion == 1 && newVersion == 3) {
 
             upGradingTablesFromVersion1ToVersion2(db);
             upGradingTablesFromVersion2ToVersion3(db);
-        } else if(oldVersion == 2 && newVersion == 3){
+        } else if (oldVersion == 2 && newVersion == 3) {
             upGradingTablesFromVersion2ToVersion3(db);
         }
         onCreate(db);
 
     }
-    public void upGradingTablesFromVersion2ToVersion3(SQLiteDatabase db){
+
+    public void upGradingTablesFromVersion2ToVersion3(SQLiteDatabase db) {
         database = db;
 
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT");
         db.execSQL(" ALTER TABLE " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL");
     }
+
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
         database = db;
@@ -1309,8 +1305,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             if (reminderType.toLowerCase().equals("weekly")) {
                 calendarIdentifier = Calendar.DAY_OF_MONTH;
                 repeatFrequency = 7 * frequency;
-                if(endDate!=null)
-                endDateCalendar.setTime(dateFormat.parse(endDate));
+                if (endDate != null)
+                    endDateCalendar.setTime(dateFormat.parse(endDate));
             } else if (reminderType.toLowerCase().equals("monthly")) {
                 calendarIdentifier = Calendar.MONTH;
                 repeatFrequency = 1;
@@ -1366,7 +1362,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         //if the action date is greater than repeat until then break
         //if the today + days before is equal to the action date
         //generate the message
-        if(sourceId=="" || sourceId==null)
+        if (sourceId == "" || sourceId == null)
             return;
 
         openDB();
@@ -1567,8 +1563,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 //            }
 
 
-
-            closeDB();
+        closeDB();
 
 
         for (CropNotification notification : array_list) {
@@ -1873,7 +1868,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Expense' AND "+ CROP_INCOME_EXPENSE_DEPARTMENT + " IN ('All', 'Crops')", null);
+        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Expense' AND " + CROP_INCOME_EXPENSE_DEPARTMENT + " IN ('All', 'Crops')", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -2195,7 +2190,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         ArrayList<GraphRecord> expensesList = new ArrayList<>();
         Cursor res;
         SQLiteDatabase db = this.getReadableDatabase();
-        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Income' AND "+ CROP_INCOME_EXPENSE_DEPARTMENT + " IN ('All', 'Crops')", null);
+        res = db.rawQuery("select * from " + CROP_INCOME_EXPENSE_TABLE_NAME + " where " + CROP_INCOME_EXPENSE_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') AND " + CROP_INCOME_EXPENSE_TRANSACTION + " = 'Income' AND " + CROP_INCOME_EXPENSE_DEPARTMENT + " IN ('All', 'Crops')", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -4434,7 +4429,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         if (!res.isAfterLast()) {
             id = res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_ID));
         }
-        if(id!="")
+        if (id != "")
             generateNotifications(context.getString(R.string.notification_type_fertilizer_application), id);
 
         res.close();
@@ -5349,7 +5344,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
-        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT,incomeExpense.getDepartment());
+        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT, incomeExpense.getDepartment());
         contentValues.put(CROP_SYNC_STATUS, incomeExpense.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, incomeExpense.getGlobalId());
         database.insert(CROP_INCOME_EXPENSE_TABLE_NAME, null, contentValues);
@@ -5373,7 +5368,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_INCOME_EXPENSE_PAYMENT_STATUS, incomeExpense.getPaymentStatus());
         contentValues.put(CROP_INCOME_EXPENSE_SELLING_PRICE, incomeExpense.getSellingPrice());
         contentValues.put(CROP_INCOME_EXPENSE_CUSTOMER_SUPPLIER, incomeExpense.getCustomerSupplier());
-        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT,incomeExpense.getDepartment());
+        contentValues.put(CROP_INCOME_EXPENSE_DEPARTMENT, incomeExpense.getDepartment());
         contentValues.put(CROP_SYNC_STATUS, incomeExpense.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, incomeExpense.getGlobalId());
         database.update(CROP_INCOME_EXPENSE_TABLE_NAME, contentValues, CROP_INCOME_EXPENSE_ID + " = ?", new String[]{incomeExpense.getId()});
@@ -9086,23 +9081,25 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return breedingStock;
     }
+
     public void insertBreedingStock(BreedingStock breedingStock) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID,breedingStock.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME,breedingStock.getName());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG,breedingStock.getEarTag());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID, breedingStock.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME, breedingStock.getName());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG, breedingStock.getEarTag());
         contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR, breedingStock.getColor());
         contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX, breedingStock.getSex());
         contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED, breedingStock.getBreed());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH,breedingStock.getDateOfBirth());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE,breedingStock.getSource());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT,breedingStock.getWeight());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER,breedingStock.getFather());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM,breedingStock.getMotherDam());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO,breedingStock.getPhoto());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS,breedingStock.getSyncStatus());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID,breedingStock.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH, breedingStock.getDateOfBirth());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE, breedingStock.getSource());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT, breedingStock.getWeight());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER, breedingStock.getFather());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM, breedingStock.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO, breedingStock.getPhoto());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS, breedingStock.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID, breedingStock.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, breedingStock.getAnimalType());
         database.insert(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, null, contentValues);
         closeDB();
 
@@ -9111,20 +9108,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateBreedingStock(BreedingStock breedingStock) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID,breedingStock.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME,breedingStock.getName());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG,breedingStock.getEarTag());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID, breedingStock.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME, breedingStock.getName());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG, breedingStock.getEarTag());
         contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR, breedingStock.getColor());
         contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX, breedingStock.getSex());
         contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED, breedingStock.getBreed());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH,breedingStock.getDateOfBirth());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE,breedingStock.getSource());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT,breedingStock.getWeight());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER,breedingStock.getFather());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM,breedingStock.getMotherDam());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO,breedingStock.getPhoto());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS,breedingStock.getSyncStatus());
-        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID,breedingStock.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH, breedingStock.getDateOfBirth());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE, breedingStock.getSource());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT, breedingStock.getWeight());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER, breedingStock.getFather());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM, breedingStock.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO, breedingStock.getPhoto());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS, breedingStock.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID, breedingStock.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, breedingStock.getAnimalType());
         database.update(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " = ?", new String[]{breedingStock.getId()});
 
         closeDB();
@@ -9168,6 +9166,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             breedingStock.setPhoto(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
             breedingStock.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS)));
             breedingStock.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID)));
+            breedingStock.setAnimalType(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_ANIMAL_TYPE)));
             array_list.add(breedingStock);
             res.moveToNext();
         }
@@ -9200,6 +9199,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             mating.setDeliveryAlertDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE))));
             mating.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GLOBAL_ID)));
             mating.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_SYNC_STATUS)));
+            mating.setAnimalType(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_ANIMAL_TYPE)));
             res.moveToNext();
         }
 
@@ -9207,19 +9207,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return mating;
     }
+
     public void insertMating(Mating mating) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_MATING_USER_ID,mating.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_DATE,mating.getMatingDate());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_MALE_NAME,mating.getMaleName()) ;
-        contentValues.put(LIVESTOCK_RECORDS_MATING_FEMALE_NAME,mating.getFemaleName());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_USER_ID, mating.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_DATE, mating.getMatingDate());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_MALE_NAME, mating.getMaleName());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_FEMALE_NAME, mating.getFemaleName());
         contentValues.put(LIVESTOCK_RECORDS_MATING_METHOD, mating.getMethod());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD,mating.getGestationPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD, mating.getGestationPeriod());
         contentValues.put(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE, mating.getDeliveryAlertDaysBefore());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES,mating.getNotes());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS,mating.getSyncStatus());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID,mating.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES, mating.getNotes());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS, mating.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID, mating.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, mating.getAnimalType());
         database.insert(LIVESTOCK_RECORDS_MATING_TABLE_NAME, null, contentValues);
 
 //        //generate Notifications
@@ -9237,16 +9239,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateMating(Mating mating) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_MATING_USER_ID,mating.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_DATE,mating.getMatingDate());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_MALE_NAME,mating.getMaleName()) ;
-        contentValues.put(LIVESTOCK_RECORDS_MATING_FEMALE_NAME,mating.getFemaleName());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_USER_ID, mating.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_DATE, mating.getMatingDate());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_MALE_NAME, mating.getMaleName());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_FEMALE_NAME, mating.getFemaleName());
         contentValues.put(LIVESTOCK_RECORDS_MATING_METHOD, mating.getMethod());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD,mating.getGestationPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD, mating.getGestationPeriod());
         contentValues.put(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE, mating.getDeliveryAlertDaysBefore());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES,mating.getNotes());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS,mating.getSyncStatus());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID,mating.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES, mating.getNotes());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS, mating.getSyncStatus());
+        contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID, mating.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, mating.getAnimalType());
         database.update(LIVESTOCK_RECORDS_MATING_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_MATING_ID + " = ?", new String[]{mating.getId()});
 
         closeDB();
@@ -9337,20 +9340,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertLitter(Litter litter) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH,litter.getDateOfBirth());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_USER_ID,litter.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE,litter.getLitterSize());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BREEDING_ID,litter.getBreedingId());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE,litter.getBornAlive());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_DEAD,litter.getBornDead());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE,litter.getNoOfMale());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH, litter.getDateOfBirth());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_USER_ID, litter.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE, litter.getLitterSize());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BREEDING_ID, litter.getBreedingId());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE, litter.getBornAlive());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_DEAD, litter.getBornDead());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE, litter.getNoOfMale());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE, litter.getNoOfFemale());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING,litter.getWeaning());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT,litter.getWeaningAlert());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM,litter.getMotherDam());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE,litter.getFatherSire());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING, litter.getWeaning());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT, litter.getWeaningAlert());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM, litter.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE, litter.getFatherSire());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS, litter.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID, litter.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, litter.getAnimalType());
         database.insert(LIVESTOCK_RECORDS_LITTERS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -9358,20 +9362,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateLitter(Litter litter) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH,litter.getDateOfBirth());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_USER_ID,litter.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE,litter.getLitterSize());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BREEDING_ID,litter.getBreedingId());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE,litter.getBornAlive());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_DEAD,litter.getBornDead());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE,litter.getNoOfMale());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH, litter.getDateOfBirth());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_USER_ID, litter.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE, litter.getLitterSize());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BREEDING_ID, litter.getBreedingId());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE, litter.getBornAlive());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_BORN_DEAD, litter.getBornDead());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE, litter.getNoOfMale());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE, litter.getNoOfFemale());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING,litter.getWeaning());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT,litter.getWeaningAlert());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM,litter.getMotherDam());
-        contentValues.put(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE,litter.getFatherSire());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING, litter.getWeaning());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT, litter.getWeaningAlert());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM, litter.getMotherDam());
+        contentValues.put(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE, litter.getFatherSire());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS, litter.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID, litter.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, litter.getAnimalType());
         database.update(LIVESTOCK_RECORDS_LITTERS_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_LITTERS_ID + " = ?", new String[]{litter.getId()});
 
         closeDB();
@@ -9464,12 +9469,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<BreedingStock> getFemaleBreeds(String userId,String gender) {
+    public ArrayList<BreedingStock> getFemaleBreeds(String userId, String gender) {
         openDB();
         ArrayList<BreedingStock> array_list = new ArrayList();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId + " AND " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX +  " = '" + gender + "'", null);
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId + " AND " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX + " = '" + gender + "'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -9500,7 +9505,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
     }
 
-    public ArrayList<BreedingStock> getMaleBreeds(String userId,String gender) {
+    public ArrayList<BreedingStock> getMaleBreeds(String userId, String gender) {
         openDB();
         ArrayList<BreedingStock> array_list = new ArrayList();
 
@@ -9566,6 +9571,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             medication.setTechnicalPersonal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL)));
             medication.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS)));
             medication.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID)));
+            medication.setAnimalType(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_ANIMAL_TYPE)));
             res.moveToNext();
         }
 
@@ -9577,21 +9583,22 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertMedication(Medication medication) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID,medication.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE,medication.getMedicationDate());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE,medication.getMedicationType());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID,medication.getBreedingId());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION,medication.getHealthCondition());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME,medication.getMedicationsName());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER,medication.getManufacturer());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE,medication.getDosage());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD,medication.getTreatmentPeriod());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_NOTES,medication.getNote());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL,medication.getAnimal());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL,medication.getTechnicalPersonal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID, medication.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE, medication.getMedicationDate());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE, medication.getMedicationType());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID, medication.getBreedingId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION, medication.getHealthCondition());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME, medication.getMedicationsName());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER, medication.getManufacturer());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE, medication.getDosage());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD, medication.getTreatmentPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_NOTES, medication.getNote());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL, medication.getAnimal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL, medication.getTechnicalPersonal());
         contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS, medication.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID, medication.getGlobalId());
-        Log.w("AnimalDb",medication.getAnimal());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, medication.getAnimalType());
+        Log.w("AnimalDb", medication.getAnimal());
         database.insert(LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -9599,20 +9606,21 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void updateMedication(Medication medication) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID,medication.getUserId());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE,medication.getMedicationDate());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE,medication.getMedicationType());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID,medication.getBreedingId());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION,medication.getHealthCondition());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME,medication.getMedicationsName());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER,medication.getManufacturer());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE,medication.getDosage());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD,medication.getTreatmentPeriod());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_NOTES,medication.getNote());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL,medication.getAnimal());
-        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL,medication.getTechnicalPersonal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_USER_ID, medication.getUserId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE, medication.getMedicationDate());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE, medication.getMedicationType());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID, medication.getBreedingId());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION, medication.getHealthCondition());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME, medication.getMedicationsName());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER, medication.getManufacturer());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE, medication.getDosage());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD, medication.getTreatmentPeriod());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_NOTES, medication.getNote());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL, medication.getAnimal());
+        contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL, medication.getTechnicalPersonal());
         contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS, medication.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID, medication.getGlobalId());
+        contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, medication.getAnimalType());
         database.update(LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME, contentValues, LIVESTOCK_RECORDS_MEDICATIONS_ID + " = ?", new String[]{medication.getId()});
 
         closeDB();
@@ -9628,7 +9636,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
         return true;
     }
-
 
 
     public ArrayList<Medication> getMedications(String userId) {
