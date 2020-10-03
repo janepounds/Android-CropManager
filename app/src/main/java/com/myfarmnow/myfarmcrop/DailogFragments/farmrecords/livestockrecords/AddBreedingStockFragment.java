@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -93,6 +94,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         //get arguments for edit
         if(getArguments()!=null){
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Animal");
         }
         View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
         initializeForm(view);

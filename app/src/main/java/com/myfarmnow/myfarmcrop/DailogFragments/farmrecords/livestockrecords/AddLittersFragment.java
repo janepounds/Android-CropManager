@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -61,6 +62,7 @@ public class AddLittersFragment extends DialogFragment {
         //get arguments for edit
         if(getArguments()!=null){
             litter = (Litter) getArguments().getSerializable("litter");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Litter");
         }
         View view =getLayoutInflater().inflate(R.layout.fragment_add_litters, null);
         initializeForm(view);

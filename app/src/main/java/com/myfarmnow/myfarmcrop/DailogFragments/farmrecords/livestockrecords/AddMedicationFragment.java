@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -61,6 +62,7 @@ public class AddMedicationFragment extends DialogFragment {
         //get arguments for edit
         if(getArguments()!=null){
             medication = (Medication) getArguments().getSerializable("medication");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Medication");
         }
         View view =getLayoutInflater().inflate(R.layout.fragment_add_medication, null);
         initializeForm(view);
@@ -74,12 +76,7 @@ public class AddMedicationFragment extends DialogFragment {
         navController = Navigation.findNavController(view);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         TextView title = view.findViewById(R.id.medication_title);
-        //get arguments for edit
-        if(getArguments()!=null){
-            medication = (Medication) getArguments().getSerializable("medication");
-            title.setText(getArguments().getString("title"));
-            Log.w("title",getArguments().getString("title"));
-        }
+
 
 
 
