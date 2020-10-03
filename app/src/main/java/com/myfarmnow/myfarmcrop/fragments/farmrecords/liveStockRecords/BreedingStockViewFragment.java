@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -45,21 +44,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropFieldsListRecyclerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
-import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BreedingStockViewFragment extends Fragment {
     private static final String TAG = "BreedingFragment";
@@ -105,6 +98,7 @@ public class BreedingStockViewFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         return view;
     }
 
@@ -119,6 +113,7 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setAdapter(breedingStockListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
         loadBreedingStock();
         //  addAnimal.setOnClickListener(v -> addAnimal());
     }

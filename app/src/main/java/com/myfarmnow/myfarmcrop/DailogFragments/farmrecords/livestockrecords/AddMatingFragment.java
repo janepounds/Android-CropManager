@@ -8,13 +8,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -29,20 +26,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LivestockSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.livestockrecords.MatingListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
-import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
-import com.myfarmnow.myfarmcrop.models.livestock_models.LivestockSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 
-import java.util.ArrayList;
 
-public class AddMatingsFragment extends DialogFragment {
+public class AddMatingFragment extends DialogFragment {
+
+
     private Context context;
     private Mating mating;
     private MyFarmDbHandlerSingleton dbHandler;
@@ -51,6 +43,7 @@ public class AddMatingsFragment extends DialogFragment {
     private Button submit;
     private Spinner method;
     private ImageView close;
+    private TextView matingTitle;
 
 
     @Override
@@ -60,13 +53,15 @@ public class AddMatingsFragment extends DialogFragment {
     }
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
 
         //get arguments for edit
         if(getArguments()!=null){
             mating = (Mating) getArguments().getSerializable("mating");
+
         }
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_matings, null);
+        View view =getLayoutInflater().inflate(R.layout.fragment_add_mating, null);
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         initializeForm(view);
         builder.setView(view);
         return builder.create();
@@ -75,13 +70,14 @@ public class AddMatingsFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+
 
 
     }
 
 
     public void initializeForm(View view){
+        matingTitle = view.findViewById(R.id.mating_title);
         close = view.findViewById(R.id.add_mating_close);
         matingDate = view.findViewById(R.id.add_mating_date);
         femaleName = view.findViewById(R.id.add_mating_female_name);
@@ -92,6 +88,7 @@ public class AddMatingsFragment extends DialogFragment {
         note = view.findViewById(R.id.add_mating_note);
         submit = view.findViewById(R.id.add_mating_submit);
         DashboardActivity.addDatePicker(matingDate,context);
+        close.setOnClickListener(view1 -> dismiss());
         ((ArrayAdapter)method.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
             @Override
@@ -130,7 +127,7 @@ public class AddMatingsFragment extends DialogFragment {
                     }
                     //dismiss dialog and refresh fragment
                     navController = Navigation.findNavController(getParentFragment().getView());
-                    navController.navigate(R.id.action_addMatingsFragment_to_matingViewFragment);
+                    navController.navigate(R.id.action_addMatingFragment_to_matingsViewFragment);
 
 
 
@@ -144,6 +141,8 @@ public class AddMatingsFragment extends DialogFragment {
 
     public void fillViews(){
         if(mating != null){
+            submit.setText(getString(R.string.update));
+            matingTitle.setText(getString(R.string.update_mating));
             matingDate.setText(mating.getMatingDate());
             femaleName.setText(mating.getFemaleName());
             maleName.setText(mating.getMaleName());

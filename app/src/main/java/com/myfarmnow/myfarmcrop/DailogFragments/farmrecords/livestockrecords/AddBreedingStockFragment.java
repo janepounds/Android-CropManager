@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -85,14 +86,13 @@ public class AddBreedingStockFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
-
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
-        initializeForm(view);
         if(getArguments()!=null){
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
-            submit.setText(getString(R.string.update));
-            breeder_form_title.setText(getString(R.string.update_animal));
+
         }
+        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
+        initializeForm(view);
+
 
         builder.setView(view);
         return builder.create();
@@ -127,7 +127,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         ((ArrayAdapter) source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         DashboardActivity.addDatePickerImageView(datePicker, dateOfBirth, context);
 
-        close.setOnClickListener(view1-> dialog.dismiss());
+        close.setOnClickListener(view1-> dismiss());
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -239,6 +239,8 @@ public class AddBreedingStockFragment extends DialogFragment {
 
     public void fillViews(){
         if(breedingStock != null){
+            submit.setText(getString(R.string.update));
+            breeder_form_title.setText(getString(R.string.update_animal));
             name.setText(breedingStock.getName());
             earTag.setText(breedingStock.getEarTag());
             colour.setText(breedingStock.getColor());

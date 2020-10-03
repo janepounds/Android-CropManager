@@ -50,14 +50,14 @@
             android:id="@+id/action_livestockRecordsFragment_to_breedingStockViewFragment"
             app:destination="@id/breedingStockViewFragment" />
         <action
-            android:id="@+id/action_livestockRecordsFragment_to_matingViewFragment"
-            app:destination="@id/matingViewFragment" />
-        <action
             android:id="@+id/action_livestockRecordsFragment_to_littersViewFragment"
             app:destination="@id/littersViewFragment" />
         <action
             android:id="@+id/action_livestockRecordsFragment_to_medicationsViewFragment"
             app:destination="@id/medicationsViewFragment" />
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_matingsViewFragment"
+            app:destination="@id/matingsViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeFragment"
@@ -129,6 +129,9 @@
         <action
             android:id="@+id/action_cropListFragment_to_cropRecordsFragment"
             app:destination="@id/cropRecordsFragment" />
+        <action
+            android:id="@+id/action_cropListFragment_to_galleryViewFragment"
+            app:destination="@id/galleryViewFragment" />
 
     </fragment>
     <fragment
@@ -265,15 +268,6 @@
             app:destination="@id/addBreedingStockFragment" />
     </fragment>
     <fragment
-        android:id="@+id/matingViewFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingViewFragment"
-        android:label="Matings"
-        tools:layout="@layout/fragment_mating_view" >
-        <action
-            android:id="@+id/action_matingViewFragment_to_addMatingsFragment"
-            app:destination="@id/addMatingsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/littersViewFragment"
         android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.LittersViewFragment"
         android:label="Litters"
@@ -319,12 +313,33 @@
             app:destination="@id/breedingStockViewFragment" />
     </dialog>
     <fragment
-        android:id="@+id/addMatingsFragment"
-        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddMatingsFragment"
-        android:label="fragment_add_matings"
-        tools:layout="@layout/fragment_add_matings" >
+        android:id="@+id/matingsViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingsViewFragment"
+        android:label="Matings" >
         <action
-            android:id="@+id/action_addMatingsFragment_to_matingViewFragment"
-            app:destination="@id/matingViewFragment" />
+            android:id="@+id/action_matingsViewFragment_to_addMatingFragment"
+            app:destination="@id/addMatingFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/addMatingFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.livestockrecords.AddMatingFragment"
+        android:label="Matings" >
+        <action
+            android:id="@+id/action_addMatingFragment_to_matingsViewFragment"
+            app:destination="@id/matingsViewFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/galleryViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.gallery.GalleryViewFragment"
+        android:label="fragment_gallery_view"
+        tools:layout="@layout/fragment_gallery_view" >
+        <action
+            android:id="@+id/action_galleryViewFragment_to_addPhotoInGalleryFragment"
+            app:destination="@id/addPhotoInGalleryFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addPhotoInGalleryFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.gallery.AddPhotoInGalleryFragment"
+        android:label="fragment_add_photo_in_gallery"
+        tools:layout="@layout/fragment_add_photo_in_gallery" />
 </navigation>

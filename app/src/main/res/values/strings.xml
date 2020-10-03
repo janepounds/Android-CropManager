@@ -2274,6 +2274,11 @@
     <string name="update_animal">Edit Animal</string>
     <string name="reason">Reason</string>
     <string name="label_harvesting">HARVESTING</string>
+    <string name="update_litter">update Litter</string>
+    <string name="update_mating">update mating</string>
+    <string name="update_medication">update medication</string>
+    <string name="caption">Caption</string>
+    <string name="add">Add</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

@@ -110,7 +110,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
         TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
 
-        LinearLayout activitiesBtn, notesBtn;
+        LinearLayout activitiesBtn, notesBtn,galleryBtn;
 
         public CropCardViewHolder(View itemView) {
             super(itemView);
@@ -127,6 +127,21 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
 
             activitiesBtn = itemView.findViewById(R.id.btn_crop_activities);
             notesBtn = itemView.findViewById(R.id.btn_crop_notes);
+            galleryBtn = itemView.findViewById(R.id.btn_crop_gallery);
+
+            galleryBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController navController = Navigation.findNavController(v);
+                    Crop crop = cropsList.get(getAdapterPosition());
+                    Bundle bundle = new Bundle();
+                    String cropId = crop.getId();
+                    bundle.putString("cropId", cropId);
+                    navController.navigate(R.id.action_cropListFragment_to_galleryViewFragment, bundle);
+
+                }
+            });
+
 
             activitiesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override

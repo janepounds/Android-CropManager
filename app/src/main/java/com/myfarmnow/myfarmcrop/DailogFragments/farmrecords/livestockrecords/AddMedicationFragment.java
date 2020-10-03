@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -47,6 +48,7 @@ public class AddMedicationFragment extends DialogFragment {
     private Button submit;
     private LivestockSpinnerAdapter livestockSpinnerAdapter;
     private NavController navController;
+    private TextView medicationTitle;
 
 
     @Override
@@ -61,6 +63,7 @@ public class AddMedicationFragment extends DialogFragment {
         //get arguments for edit
         if(getArguments()!=null){
             medication = (Medication) getArguments().getSerializable("medication");
+
         }
         View view =getLayoutInflater().inflate(R.layout.fragment_add_medication, null);
         initializeForm(view);
@@ -73,13 +76,8 @@ public class AddMedicationFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        TextView title = view.findViewById(R.id.medication_title);
-        //get arguments for edit
-        if(getArguments()!=null){
-            medication = (Medication) getArguments().getSerializable("medication");
-            title.setText(getArguments().getString("title"));
-            Log.w("title",getArguments().getString("title"));
-        }
+
+
 
 
 
@@ -87,6 +85,7 @@ public class AddMedicationFragment extends DialogFragment {
 
 
     public void initializeForm(View view){
+        medicationTitle = view.findViewById(R.id.medication_title);
         close = view.findViewById(R.id.add_medication_close);
         medicationDate = view.findViewById(R.id.add_medication_date);
         Animal = view.findViewById(R.id.add_medication_animal_sp);
@@ -175,6 +174,8 @@ public class AddMedicationFragment extends DialogFragment {
     }
     public void fillViews(){
         if(medication != null){
+            submit.setText(getString(R.string.update));
+            medicationTitle.setText(getString(R.string.update_medication));
             medicationDate.setText(medication.getMedicationDate());
             medicationName.setText(medication.getMedicationsName());
             manufacturer.setText(medication.getManufacturer());
@@ -182,8 +183,9 @@ public class AddMedicationFragment extends DialogFragment {
             notes.setText(medication.getNote());
             technicalPersonnel.setText(medication.getTechnicalPersonal());
             treatmentPeriod.setText(medication.getTreatmentPeriod() + "");
+
             DashboardActivity.selectSpinnerItemByValue(MedicationType,medication.getMedicationType());
-//            DashboardActivity.selectSpinnerItemByValue(Animal,medication.getAnimal());
+            DashboardActivity.selectSpinnerItemByValue(Animal,medication.getAnimal());
             DashboardActivity.selectSpinnerItemByValue(HealthCondition,medication.getHealthCondition());
 
 

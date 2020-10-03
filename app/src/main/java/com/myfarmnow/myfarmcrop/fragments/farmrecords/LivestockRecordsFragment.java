@@ -12,14 +12,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 public class LivestockRecordsFragment extends Fragment {
+    private static final String TAG = "LivestockRecords";
     private Context context;
 
     private Toolbar toolbar;
@@ -37,6 +40,14 @@ public class LivestockRecordsFragment extends Fragment {
         layout_litters = view.findViewById(R.id.layout_litters);
         layout_medications = view.findViewById(R.id.layout_medications);
 
+        assert getArguments() != null;
+        Log.d(TAG, "onCreateView: Animal = " + getArguments().getString("animal"));
+
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+        preferenceModel.insertSelectedAnimal(getArguments().getString("animal"));
+
+        Log.d(TAG, "onCreateView: SharedPreference = " + preferenceModel.getSelectedAnimal());
+
         return view;
     }
 
@@ -48,7 +59,7 @@ public class LivestockRecordsFragment extends Fragment {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         layout_breeding_stock.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_breedingStockViewFragment));
-        layout_matings.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_matingViewFragment));
+        layout_matings.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_matingsViewFragment));
         layout_litters.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_littersViewFragment));
         layout_medications.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_medicationsViewFragment));
     }
