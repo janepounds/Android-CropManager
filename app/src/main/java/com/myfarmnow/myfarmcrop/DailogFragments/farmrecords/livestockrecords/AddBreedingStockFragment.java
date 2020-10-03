@@ -55,11 +55,7 @@ public class AddBreedingStockFragment extends DialogFragment {
     private static final String TAG = "BreedingFragment";
     private Context context;
     private BreedingStock breedingStock;
-    private BreedingStockListAdapter breedingStockListAdapter;
-    private LinearLayoutManager linearLayoutManager;
-    private Toolbar toolbar;
-    // private Button addAnimal;
-    private RecyclerView recyclerView;
+
     private NavController navController;
 
     // image picker code
@@ -75,9 +71,7 @@ public class AddBreedingStockFragment extends DialogFragment {
     private Button submit;
     private EditText name,earTag,colour,breed,weight,father,mother,dateOfBirth;
     private Spinner sex,source;
-    private TextView photo;
-    public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
-
+    private TextView photo, breeder_form_title;
     private MyFarmDbHandlerSingleton dbHandler;
 
 
@@ -92,12 +86,16 @@ public class AddBreedingStockFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
+
+        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
+        initializeForm(view);
         if(getArguments()!=null){
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Animal");
+            submit.setText(getString(R.string.update));
+            breeder_form_title.setText(getString(R.string.update_animal));
         }
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
-        initializeForm(view);
+
         builder.setView(view);
         return builder.create();
     }
@@ -112,6 +110,7 @@ public class AddBreedingStockFragment extends DialogFragment {
 
 
     public void initializeForm(View view) {
+        breeder_form_title= view.findViewById(R.id.breeder_form_title);
         close = view.findViewById(R.id.add_animal_close);
         name = view.findViewById(R.id.add_animal_name);
         earTag = view.findViewById(R.id.add_animal_eartag);
@@ -267,7 +266,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         breedingStock.setBreed(breed.getText().toString());
         breedingStock.setDateOfBirth(dateOfBirth.getText().toString());
         breedingStock.setSource(source.getSelectedItem().toString());
-        breedingStock.setWeight(Float.parseFloat(weight.getText().toString()));
+        breedingStock.setWeight(Float.parseFloat("0"+weight.getText().toString()));
         breedingStock.setFather(father.getText().toString());
         breedingStock.setMotherDam(mother.getText().toString());
         breedingStock.setPhoto(encodedImage);
@@ -301,11 +300,6 @@ public class AddBreedingStockFragment extends DialogFragment {
             message = getString(R.string.name_not_entered_message);
             name.requestFocus();
         }
-        else if(earTag.getText().toString().isEmpty()){
-            message = getString(R.string.ear_tag_not_entered_message);
-            earTag.requestFocus();
-        }
-
         else if(colour.getText().toString().isEmpty()){
             message = getString(R.string.color_not_entered_message);
             colour.requestFocus();
@@ -316,25 +310,6 @@ public class AddBreedingStockFragment extends DialogFragment {
         else if(source.getSelectedItemPosition()==0){
             message = getString(R.string.source_not_selected);
             source.requestFocus();
-        }else if(breed.getText().toString().isEmpty()){
-            message = getString(R.string.breed_not_entered_message);
-            breed.requestFocus();
-        }
-        else if(dateOfBirth.getText().toString().isEmpty()){
-            message = getString(R.string.dob_not_entered_message);
-            dateOfBirth.requestFocus();
-        }
-        else if(weight.getText().toString().isEmpty()){
-            message = getString(R.string.weight_not_entered);
-            weight.requestFocus();
-        }
-        else if(father.getText().toString().isEmpty()){
-            message = getString(R.string.father_not_entered_message);
-            father.requestFocus();
-        }
-        else if(mother.getText().toString().isEmpty()){
-            message = getString(R.string.mother_not_entered_message);
-            mother.requestFocus();
         }
 
         if(message != null){

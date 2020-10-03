@@ -12,15 +12,16 @@
    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="5dp"
+    android:layout_marginStart="5dp"
+
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toStartOf="@+id/medication_card_view"
     app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
         android:id="@+id/img_checked"
-        android:layout_width="@dimen/dimen_30dp"
-        android:layout_height="@dimen/dimen_30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/ic_checked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
     <View
         android:id="@+id/line"
         android:layout_width="2dp"
-        android:layout_height="wrap_content"
+        android:layout_height="160dp"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/img_checked"
@@ -40,10 +41,9 @@
     android:id="@+id/medication_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_10dp"
+    android:layout_margin="6dp"
     android:background="@color/gray"
     app:cardElevation="@dimen/dimen_5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="2:.8"
+            app:layout_constraintDimensionRatio="2:.9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -64,14 +64,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="144dp" />
+                app:layout_constraintGuide_begin="81dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="165dp" />
+                app:layout_constraintGuide_begin="106dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline39"
@@ -142,7 +142,7 @@
                 android:paddingEnd="@dimen/margin_10"
                 android:text="20/09/2020"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/guideline60"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,12 +154,12 @@
                 android:layout_height="0dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/josefin_sans"
-                android:gravity="center|start"
+                android:gravity="center"
                 android:maxLines="1"
-                android:paddingStart="@dimen/margin_10"
+
                 android:text="Vaccination"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/guideline60"
                 app:layout_constraintEnd_toStartOf="@+id/guideline30"
@@ -365,7 +365,6 @@
                 android:gravity="center|start"
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
-                android:paddingEnd="@dimen/margin_10"
                 android:text="2.5 Ml/day"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/dimen_16sp"
