@@ -86,13 +86,13 @@ public class AddBreedingStockFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
-
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
-        initializeForm(view);
         if(getArguments()!=null){
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
 
         }
+        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
+        initializeForm(view);
+
 
         builder.setView(view);
         return builder.create();
