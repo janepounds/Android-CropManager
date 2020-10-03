@@ -160,7 +160,7 @@ public class Crop implements Serializable, CropSpinnerItem {
         } catch (ParseException e) {
             Log.d("DATe",getDateSown());
             e.printStackTrace();
-            return "0m 0d";
+            return "--";
 
         }
 
