@@ -56,6 +56,7 @@ public class LittersViewFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Litters");
+
         return view;
     }
 
@@ -76,6 +77,7 @@ public class LittersViewFragment extends Fragment {
         recyclerView.setAdapter(littersListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
         loadLitter();
     }
 
