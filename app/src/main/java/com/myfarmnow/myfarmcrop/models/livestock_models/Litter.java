@@ -19,8 +19,9 @@ public class Litter implements LivestockSpinnerItem, Serializable {
     private int noOfFemale;
     private int weaning;
     private int weaningAlert;
-    private String syncStatus="no";
+    private String syncStatus = "no";
     private String globalId;
+    private String animalType;
 
     public String getMotherDam() {
         return motherDam;
@@ -142,37 +143,46 @@ public class Litter implements LivestockSpinnerItem, Serializable {
         this.globalId = globalId;
     }
 
-    public Litter(){
-
+    public String getAnimalType() {
+        return animalType;
     }
 
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
 
-    public JSONObject toJSON(){
+    public Litter() {
+        // Empty constructor required
+    }
+
+    public JSONObject toJSON() {
 
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",id);
-            object.put("userId",userId);
-            object.put("dateOfBirth",dateOfBirth);
-            object.put("litterSize",litterSize);
-            object.put("breedingId",breedingId);
-            object.put("bornAlive",bornAlive);
-            object.put("bornDead",bornDead);
-            object.put("motherDam",motherDam);
-            object.put("fatherSire",fatherSire);
-            object.put("noOfMale",noOfMale);
-            object.put("noOfFemale",noOfFemale);
-            object.put("weaning",weaning);
-            object.put("weaningAlert",weaningAlert);
-            object.put("syncStatus",syncStatus);
-            object.put("globalId",globalId);
+            object.put("id", id);
+            object.put("userId", userId);
+            object.put("dateOfBirth", dateOfBirth);
+            object.put("litterSize", litterSize);
+            object.put("breedingId", breedingId);
+            object.put("bornAlive", bornAlive);
+            object.put("bornDead", bornDead);
+            object.put("motherDam", motherDam);
+            object.put("fatherSire", fatherSire);
+            object.put("noOfMale", noOfMale);
+            object.put("noOfFemale", noOfFemale);
+            object.put("weaning", weaning);
+            object.put("weaningAlert", weaningAlert);
+            object.put("syncStatus", syncStatus);
+            object.put("globalId", globalId);
+            object.put("animalType", animalType);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
     }
+
     public Litter(JSONObject object) throws JSONException {
         setUserId(object.getString("userId"));
         setGlobalId(object.getString("id"));
@@ -187,6 +197,7 @@ public class Litter implements LivestockSpinnerItem, Serializable {
         setFatherSire(object.getString("fatherSire"));
         setWeaning(Integer.parseInt(object.getString("weaning")));
         setWeaningAlert(Integer.parseInt(object.getString("weaningAlert")));
+        setAnimalType(object.getString("animalType"));
         setSyncStatus("yes");
     }
 }

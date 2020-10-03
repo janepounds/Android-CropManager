@@ -46,6 +46,7 @@ import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapt
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,29 +68,29 @@ public class AddBreedingStockFragment extends DialogFragment {
     private Uri produceImageUri = null;
     private Bitmap produceImageBitmap = null;
     private String encodedImage;
-    private ImageView close,datePicker;
+    private ImageView close, datePicker;
     private Button submit;
-    private EditText name,earTag,colour,breed,weight,father,mother,dateOfBirth;
-    private Spinner sex,source;
+    private EditText name, earTag, colour, breed, weight, father, mother, dateOfBirth;
+    private Spinner sex, source;
     private TextView photo, breeder_form_title;
     private MyFarmDbHandlerSingleton dbHandler;
-
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context =context;
+        this.context = context;
     }
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
 
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
+        View view = getLayoutInflater().inflate(R.layout.fragment_add_breeding_stock, null);
         initializeForm(view);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
 
         }
@@ -103,12 +104,11 @@ public class AddBreedingStockFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
     }
 
 
     public void initializeForm(View view) {
-        breeder_form_title= view.findViewById(R.id.breeder_form_title);
+        breeder_form_title = view.findViewById(R.id.breeder_form_title);
         close = view.findViewById(R.id.add_animal_close);
         name = view.findViewById(R.id.add_animal_name);
         earTag = view.findViewById(R.id.add_animal_eartag);
@@ -127,7 +127,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         ((ArrayAdapter) source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         DashboardActivity.addDatePickerImageView(datePicker, dateOfBirth, context);
 
-        close.setOnClickListener(view1-> dismiss());
+        close.setOnClickListener(view1 -> dismiss());
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -184,7 +184,6 @@ public class AddBreedingStockFragment extends DialogFragment {
                     navController.navigate(R.id.action_addBreedingStockFragment_to_breedingStockViewFragment);
 
 
-
                 } else {
                     Log.d("ERROR", "Testing");
                 }
@@ -236,9 +235,8 @@ public class AddBreedingStockFragment extends DialogFragment {
 
     }
 
-
-    public void fillViews(){
-        if(breedingStock != null){
+    public void fillViews() {
+        if (breedingStock != null) {
             submit.setText(getString(R.string.update));
             breeder_form_title.setText(getString(R.string.update_animal));
             name.setText(breedingStock.getName());
@@ -246,17 +244,20 @@ public class AddBreedingStockFragment extends DialogFragment {
             colour.setText(breedingStock.getColor());
             breed.setText(breedingStock.getBreed());
             dateOfBirth.setText(breedingStock.getDateOfBirth());
-            weight.setText(breedingStock.getWeight()+ "");
+            weight.setText(breedingStock.getWeight() + "");
             father.setText(breedingStock.getFather());
             mother.setText(breedingStock.getMotherDam());
             photo.setText(breedingStock.getPhoto());
-            DashboardActivity.selectSpinnerItemByValue(sex,breedingStock.getSex());
-            DashboardActivity.selectSpinnerItemByValue(source,breedingStock.getSource());
-
-
+            DashboardActivity.selectSpinnerItemByValue(sex, breedingStock.getSex());
+            DashboardActivity.selectSpinnerItemByValue(source, breedingStock.getSource());
         }
     }
-    public void saveBreedingStock(){
+
+    public void saveBreedingStock() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
+        Log.d(TAG, "onCreateView: SharedPreference = " + sharedPreferenceHelper.getSelectedAnimal());
+
         breedingStock = new BreedingStock();
         breedingStock.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         breedingStock.setName(name.getText().toString());
@@ -266,18 +267,18 @@ public class AddBreedingStockFragment extends DialogFragment {
         breedingStock.setBreed(breed.getText().toString());
         breedingStock.setDateOfBirth(dateOfBirth.getText().toString());
         breedingStock.setSource(source.getSelectedItem().toString());
-        breedingStock.setWeight(Float.parseFloat("0"+weight.getText().toString()));
+        breedingStock.setWeight(Float.parseFloat("0" + weight.getText().toString()));
         breedingStock.setFather(father.getText().toString());
         breedingStock.setMotherDam(mother.getText().toString());
         breedingStock.setPhoto(encodedImage);
+        breedingStock.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         dbHandler.insertBreedingStock(breedingStock);
-
-
-
     }
-    public void updateBreedingStock(){
 
-        if(breedingStock != null) {
+    public void updateBreedingStock() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
+        if (breedingStock != null) {
             breedingStock.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             breedingStock.setName(name.getText().toString());
             breedingStock.setEarTag(earTag.getText().toString());
@@ -290,30 +291,29 @@ public class AddBreedingStockFragment extends DialogFragment {
             breedingStock.setFather(father.getText().toString());
             breedingStock.setMotherDam(mother.getText().toString());
             breedingStock.setPhoto(photo.getText().toString());
+            breedingStock.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateBreedingStock(breedingStock);
         }
     }
 
-    public boolean validateEntries(){
+    public boolean validateEntries() {
         String message = null;
-        if(name.getText().toString().isEmpty()){
+        if (name.getText().toString().isEmpty()) {
             message = getString(R.string.name_not_entered_message);
             name.requestFocus();
-        }
-        else if(colour.getText().toString().isEmpty()){
+        } else if (colour.getText().toString().isEmpty()) {
             message = getString(R.string.color_not_entered_message);
             colour.requestFocus();
-        }else if(sex.getSelectedItemPosition()==0){
+        } else if (sex.getSelectedItemPosition() == 0) {
             message = getString(R.string.sex_not_selected);
             sex.requestFocus();
-        }
-        else if(source.getSelectedItemPosition()==0){
+        } else if (source.getSelectedItemPosition() == 0) {
             message = getString(R.string.source_not_selected);
             source.requestFocus();
         }
 
-        if(message != null){
-            Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+        if (message != null) {
+            Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
             return false;
         }
         // Log.d("ERROR",message);
