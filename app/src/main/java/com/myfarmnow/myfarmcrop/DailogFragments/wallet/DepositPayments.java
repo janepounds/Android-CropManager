@@ -2,7 +2,6 @@ package com.myfarmnow.myfarmcrop.DailogFragments.wallet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,19 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
-import androidx.navigation.NavController;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.databinding.WalletPaymentMethodsBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,18 +24,6 @@ public class DepositPayments extends DialogFragment {
     private static final String TAG = "DepositPayments";
     private Context context;
     private double balance;
-
-    private WalletPaymentMethodsBinding binding;
-    private NavController navController = null;
-    AppBarConfiguration appBarConfiguration;
-
-    LinearLayout layoutAddMoney;
-    Button addMoneyImg;
-    TextView addMoneyTxt, phoneNumberTxt, errorMsgTxt;
-    static String PENDING_DEPOSIT_REFERENCE_NUMBER;
-    TextView balanceTextView, titleTextView;
-
-    ProgressDialog dialog;
 
     public static DepositPayments newInstance(double balance) {
         DepositPayments dialog = new DepositPayments();
@@ -63,12 +43,18 @@ public class DepositPayments extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.wallet_payment_methods, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View view = inflater.inflate(R.layout.wallet_payment_methods, null);
+        builder.setView(view);
 
         assert getArguments() != null;
         balance = getArguments().getFloat("interest");
 
-        return new AlertDialog.Builder(context).setView(binding.getRoot()).create();
+        return builder.create();
     }
 
     @Override
