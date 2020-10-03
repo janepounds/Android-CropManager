@@ -46,7 +46,7 @@ public class AddLittersFragment extends DialogFragment {
     private Spinner motherDam,fatherSire;
     private Button submit;
     public LivestockSpinnerAdapter litterSpinnerAdapter;
-
+    private TextView litterTitle;
 
 
 
@@ -58,12 +58,11 @@ public class AddLittersFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-
-        //get arguments for edit
         if(getArguments()!=null){
             litter = (Litter) getArguments().getSerializable("litter");
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Litter");
+
         }
+
         View view =getLayoutInflater().inflate(R.layout.fragment_add_litters, null);
         initializeForm(view);
         builder.setView(view);
@@ -74,12 +73,14 @@ public class AddLittersFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+            //get arguments for edit
 
 
     }
 
 
     public void initializeForm(View view){
+        litterTitle = view.findViewById(R.id.litter_title);
         close = view.findViewById(R.id.add_litter_close);
         litterDob = view.findViewById(R.id.add_litter_dob);
         litterSize = view.findViewById(R.id.add_litter_litters_size);
@@ -185,14 +186,16 @@ public class AddLittersFragment extends DialogFragment {
     }
     public void fillViews(){
         if(litter != null){
+            submit.setText(getString(R.string.update));
+            litterTitle.setText(getString(R.string.update_litter));
             litterDob.setText(litter.getDateOfBirth());
-//            litterSize.setText(litter.getLitterSize());
-            bornAlive.setText(litter.getBornAlive());
-            bornDead.setText(litter.getBornDead());
-//            noOfFemale.setText(litter.getNoOfFemale());
-//            noOfMale.setText(litter.getNoOfMale());
-            weaning.setText(litter.getWeaning());
-            weaningAlert.setText(litter.getWeaningAlert());
+            litterSize.setText(litter.getLitterSize() + "");
+            bornAlive.setText(litter.getBornAlive() + "");
+            bornDead.setText(litter.getBornDead() + "");
+            noOfFemale.setText(litter.getNoOfFemale() + "");
+            noOfMale.setText(litter.getNoOfMale() + "");
+            weaning.setText(litter.getWeaning() + "");
+            weaningAlert.setText(litter.getWeaningAlert() + "");
             DashboardActivity.selectSpinnerItemByValue(motherDam,litter.getMotherDam());
             DashboardActivity.selectSpinnerItemByValue(fatherSire,litter.getFatherSire());
 

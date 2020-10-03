@@ -91,9 +91,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         initializeForm(view);
         if(getArguments()!=null){
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Animal");
-            submit.setText(getString(R.string.update));
-            breeder_form_title.setText(getString(R.string.update_animal));
+
         }
 
         builder.setView(view);
@@ -129,7 +127,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         ((ArrayAdapter) source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         DashboardActivity.addDatePickerImageView(datePicker, dateOfBirth, context);
 
-        close.setOnClickListener(view1-> dialog.dismiss());
+        close.setOnClickListener(view1-> dismiss());
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -241,6 +239,8 @@ public class AddBreedingStockFragment extends DialogFragment {
 
     public void fillViews(){
         if(breedingStock != null){
+            submit.setText(getString(R.string.update));
+            breeder_form_title.setText(getString(R.string.update_animal));
             name.setText(breedingStock.getName());
             earTag.setText(breedingStock.getEarTag());
             colour.setText(breedingStock.getColor());

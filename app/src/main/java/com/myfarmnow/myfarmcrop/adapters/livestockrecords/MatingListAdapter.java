@@ -24,9 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment;
-import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.MatingViewFragment;
-import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 
@@ -153,7 +151,7 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
                                 Mating mating = matings.get(getAdapterPosition());
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("mating", mating);
-                                navController.navigate(R.id.action_matingViewFragment_to_addMatingsFragment,bundle);
+                                navController.navigate(R.id.action_matingsViewFragment_to_addMatingFragment,bundle);
 
 
 

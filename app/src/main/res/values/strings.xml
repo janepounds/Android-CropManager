@@ -2272,6 +2272,9 @@
     <string name="medication_date_not_entered">medication date not entered</string>
     <string name="update_financial_record">Edit Financial Record</string>
     <string name="update_animal">Edit Animal</string>
+    <string name="update_litter">update Litter</string>
+    <string name="update_mating">update mating</string>
+    <string name="update_medication">update medication</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

@@ -105,6 +105,7 @@ public class BreedingStockViewFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         return view;
     }
 
@@ -119,6 +120,7 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setAdapter(breedingStockListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
         loadBreedingStock();
         //  addAnimal.setOnClickListener(v -> addAnimal());
     }
