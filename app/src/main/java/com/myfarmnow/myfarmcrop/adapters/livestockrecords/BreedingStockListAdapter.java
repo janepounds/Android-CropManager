@@ -93,13 +93,19 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
         holder.colorTextView.setText(breedingStock.getColor());
         holder.breedTextView.setText(breedingStock.getBreed());
         holder.dobTextView.setText(breedingStock.getDateOfBirth());
-        holder.weightTextView.setText(breedingStock.getWeight() + " KG");
+
+        if(breedingStock.getWeight() > 0.0f)
+            holder.weightTextView.setText(breedingStock.getWeight() + " KG");
+        else
+            holder.weightTextView.setText("--");
 
         //set image
-        byte[] decodedString = Base64.decode(breedingStock.getPhoto(),Base64.NO_WRAP);
-        InputStream inputStream  = new ByteArrayInputStream(decodedString);
-        Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
-        holder.pictureImageView.setImageBitmap(bitmap);
+        if(breedingStock.getPhoto()!=null){
+            byte[] decodedString = Base64.decode(breedingStock.getPhoto(),Base64.NO_WRAP);
+            InputStream inputStream  = new ByteArrayInputStream(decodedString);
+            Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
+            holder.pictureImageView.setImageBitmap(bitmap);
+        }
 
         try {
             computeAge(breedingStock.getDateOfBirth(),holder);
@@ -164,9 +170,8 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
                                 //edit functionality
                                 BreedingStock breedingStock = breedingStocks.get(getAdapterPosition());
                                 Bundle bundle = new Bundle();
-                                bundle.putString("Id", breedingStock.getId());
-                                BreedingStockViewFragment breedingStockViewFragment = new BreedingStockViewFragment();
-                                breedingStockViewFragment.addAnimal(v.getContext());
+                                bundle.putSerializable("breedingStock", breedingStock);
+                                navController.navigate(R.id.action_breedingStockViewFragment_to_addBreedingStockFragment,bundle);
 
 
                             }
@@ -206,17 +211,25 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
 
             long daysBetween = daysBetween(convertedDate,today.getTime());
             int years = (int)(daysBetween/365);
-            int months = (int)(daysBetween/30);
+            int months = (int)((daysBetween - years*365 )/30);
             int days =(int)(daysBetween%30);
             Log.d("DATES",dob+" "+convertedDate.toString()+" - "+today.getTime().toString()+" days = "+daysBetween);
-            String age = years+ "Y" + months+"M "+days+"D";
+            String age="";
+            if(years>0){
+                age += years+ "Y ";
+            }
+            if(months>0)
+                age += months+ "M ";
+            age += days+"D";
+
             holder.ageTextView.setText(age);
 
 
         } catch (ParseException e) {
             Log.d("DATe",dob);
             e.printStackTrace();
-
+            String age="--";
+            holder.ageTextView.setText(age);
 
         }
 

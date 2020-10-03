@@ -40,15 +40,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
+                    android:layout_margin="15dp"
                     android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="@dimen/dimen_16sp"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal"
-                        android:layout_margin="@dimen/dimen_20dp">
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txt_crop_note_date"
@@ -57,8 +68,6 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:layout_marginLeft="5dp"
-                            android:hint="Date"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:inputType="none"
                             android:textSize="14sp"
@@ -76,7 +85,7 @@
                             android:src="@drawable/ic_calendar" />
 
                     </RelativeLayout>
-
+                </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layout_crop_note_category"
@@ -157,40 +166,57 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginStart="@dimen/dimen_20dp"
-                        android:layout_marginEnd="@dimen/dimen_20dp"
-                        android:background="@drawable/edittext_corner">
+                        android:layout_marginBottom="@dimen/dimen_20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/description"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="@dimen/dimen_16sp"/>
                         <EditText
                             android:id="@+id/txt_crop_note_description"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:hint="Description.."
                             android:gravity="start"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:inputType="textMultiLine"
-                            android:background="@color/transparent"
-                            android:paddingStart="@dimen/dimen_10dp"/>
+                            android:background="@drawable/edittext_corner"
+                            android:padding="@dimen/dimen_10dp"/>
 
                     </LinearLayout>
 
 
-                    <Button
-                        android:id="@+id/btn_save"
-                        style="@style/Button"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:drawableTint="#ffffff"
-                        android:text="Add Notes "
-                        android:textAllCaps="true"
-                        android:textColor="#ffffff"
-                        android:layout_marginStart="100dp"
-                        android:layout_marginEnd="100dp"
-                        android:background="@drawable/rounded_corners_button"/>
+                        android:layout_marginBottom="@dimen/dimen_20dp"
+                        android:background="@drawable/rounded_corners_button">
 
+                        <Button
+                            android:id="@+id/btn_save"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="save"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_margin="10dip"
+                            android:src="@drawable/ic_right_arrow">
+                        </ImageView>
+                    </FrameLayout>
 
 
                 </LinearLayout>

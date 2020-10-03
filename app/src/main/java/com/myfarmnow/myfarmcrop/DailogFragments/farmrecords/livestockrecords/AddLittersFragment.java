@@ -4,14 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -21,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,18 +28,12 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
-import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LitterSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LivestockSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment;
-import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
-import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
-import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
-import com.myfarmnow.myfarmcrop.models.livestock_models.LitterSpinnerItem;
+import com.myfarmnow.myfarmcrop.models.livestock_models.LivestockSpinnerItem;
 
-import java.net.SocketImpl;
 import java.util.ArrayList;
 
 public class AddLittersFragment extends DialogFragment {
@@ -54,12 +45,7 @@ public class AddLittersFragment extends DialogFragment {
     private ImageView close,datePicker;
     private Spinner motherDam,fatherSire;
     private Button submit;
-    public LitterSpinnerAdapter litterSpinnerAdapter;
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_litters, container, false);
-    }
+    public LivestockSpinnerAdapter litterSpinnerAdapter;
 
 
 
@@ -76,9 +62,10 @@ public class AddLittersFragment extends DialogFragment {
         //get arguments for edit
         if(getArguments()!=null){
             litter = (Litter) getArguments().getSerializable("litter");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Litter");
         }
         View view =getLayoutInflater().inflate(R.layout.fragment_add_litters, null);
-
+        initializeForm(view);
         builder.setView(view);
         return builder.create();
     }
@@ -87,7 +74,7 @@ public class AddLittersFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        initializeForm(view);
+
 
     }
 
@@ -108,9 +95,9 @@ public class AddLittersFragment extends DialogFragment {
         submit = view.findViewById(R.id.btn_save);
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePickerImageView(datePicker,litterDob,context);
-        ArrayList<LitterSpinnerItem> motherDams = new ArrayList<>();
+        ArrayList<LivestockSpinnerItem> motherDams = new ArrayList<>();
         for (BreedingStock x : dbHandler.getFemaleBreeds(DashboardActivity.RETRIEVED_USER_ID,"Female")) {
-            motherDams.add(new LitterSpinnerItem() {
+            motherDams.add(new LivestockSpinnerItem() {
                 @Override
                 public String getId() {
                     return null;
@@ -124,13 +111,13 @@ public class AddLittersFragment extends DialogFragment {
             });
         }
 
-        litterSpinnerAdapter = new LitterSpinnerAdapter(motherDams, "Mother", context);
+        litterSpinnerAdapter = new LivestockSpinnerAdapter(motherDams, "Mother", context);
         motherDam.setAdapter(litterSpinnerAdapter);
 
-        ArrayList<LitterSpinnerItem> fatherSires = new ArrayList<>();
+        ArrayList<LivestockSpinnerItem> fatherSires = new ArrayList<>();
 
         for (BreedingStock x : dbHandler.getMaleBreeds(DashboardActivity.RETRIEVED_USER_ID, "Male")) {
-            fatherSires.add(new LitterSpinnerItem() {
+            fatherSires.add(new LivestockSpinnerItem() {
                 @Override
                 public String getId() {
                     return null;
@@ -144,7 +131,7 @@ public class AddLittersFragment extends DialogFragment {
             });
         }
 
-        litterSpinnerAdapter = new LitterSpinnerAdapter(fatherSires, "Father", context);
+        litterSpinnerAdapter = new LivestockSpinnerAdapter(fatherSires, "Father", context);
         fatherSire.setAdapter(litterSpinnerAdapter);
         close.setOnClickListener(view1 -> dismiss());
 
@@ -199,11 +186,11 @@ public class AddLittersFragment extends DialogFragment {
     public void fillViews(){
         if(litter != null){
             litterDob.setText(litter.getDateOfBirth());
-            litterSize.setText(litter.getLitterSize());
+//            litterSize.setText(litter.getLitterSize());
             bornAlive.setText(litter.getBornAlive());
             bornDead.setText(litter.getBornDead());
-            noOfFemale.setText(litter.getNoOfFemale());
-            noOfMale.setText(litter.getNoOfMale());
+//            noOfFemale.setText(litter.getNoOfFemale());
+//            noOfMale.setText(litter.getNoOfMale());
             weaning.setText(litter.getWeaning());
             weaningAlert.setText(litter.getWeaningAlert());
             DashboardActivity.selectSpinnerItemByValue(motherDam,litter.getMotherDam());
