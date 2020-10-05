@@ -63,10 +63,11 @@
                         android:paddingBottom="5dp">
 
                         <ImageView
+                            android:id="@+id/breeding_stock_animal_image"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
-                            android:padding="20dp"
+                            android:layout_margin="@dimen/dimen_20dp"
                             android:src="@drawable/ic_breeding_stock" />
 
                         <TextView
