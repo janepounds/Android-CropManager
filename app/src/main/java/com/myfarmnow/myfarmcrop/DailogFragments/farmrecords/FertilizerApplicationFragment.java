@@ -49,8 +49,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner methodSp, fertilizerFormSp, fertilizerId,recurrenceSp,remindersSp;
-    LinearLayout daysBeforeLayout ;
-    RelativeLayout remindersLayout;
+    LinearLayout daysBeforeLayout, remindersLayout;
     boolean applicationMethodSet = false;//
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
     ArrayList<CropSpinnerItem> solidMethodsArrayList=new ArrayList<CropSpinnerItem>();
