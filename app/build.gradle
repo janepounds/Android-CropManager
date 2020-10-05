@@ -37,6 +37,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     buildToolsVersion '29.0.2'
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 
