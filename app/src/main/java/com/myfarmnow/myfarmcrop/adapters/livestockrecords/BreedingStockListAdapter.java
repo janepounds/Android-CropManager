@@ -65,16 +65,6 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
         return new BreedingStockViewHolder(view);
     }
 
-    public void appendList(ArrayList<BreedingStock> breedingStocks) {
-
-        this.breedingStocks.addAll(breedingStocks);
-        notifyDataSetChanged();
-    }
-
-    public void addBreedingStock(BreedingStock breedingStock) {
-        this.breedingStocks.add(breedingStock);
-    }
-
     public void addList(ArrayList<BreedingStock> breedingStocks) {
         this.breedingStocks.clear();
         this.breedingStocks.addAll(breedingStocks);

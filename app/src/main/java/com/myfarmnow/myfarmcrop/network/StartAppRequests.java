@@ -71,6 +71,7 @@ public class StartAppRequests {
         
 
             //deviceID = FirebaseInstanceId.getInstance().getToken();
+            if(customer_ID!=null)
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
                 @Override
                 public void onSuccess(InstanceIdResult instanceIdResult) {

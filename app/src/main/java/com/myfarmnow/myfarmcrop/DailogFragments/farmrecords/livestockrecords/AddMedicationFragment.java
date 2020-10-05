@@ -102,8 +102,9 @@ public class AddMedicationFragment extends DialogFragment {
         DashboardActivity.addDatePickerImageView(datePicker, medicationDate, context);
 
 
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
         ArrayList<LivestockSpinnerItem> Animals = new ArrayList<>();
-        for (BreedingStock x : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID)) {
+        for (BreedingStock x : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal())) {
             Animals.add(new LivestockSpinnerItem() {
                 @Override
                 public String getId() {
@@ -203,9 +204,8 @@ public class AddMedicationFragment extends DialogFragment {
         medication.setDosage(Integer.parseInt(dosage.getText().toString()));
         medication.setTreatmentPeriod(Integer.parseInt(treatmentPeriod.getText().toString()));
         medication.setNote(notes.getText().toString());
-        medication.setAnimal(Animal.getSelectedItem().toString());
         medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
-        medication.setAnimal(sharedPreferenceHelper.getSelectedAnimal());
+        medication.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         Log.w("Animal", Animal.getSelectedItem().toString());
         dbHandler.insertMedication(medication);
 

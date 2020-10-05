@@ -9139,14 +9139,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<BreedingStock> getBreedingStocks(String userId) {
+    public ArrayList<BreedingStock> getBreedingStocks(String userId, String animal) {
 
         openDB();
         ArrayList<BreedingStock> array_list = new ArrayList();
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId+" AND "+LIVESTOCK_RECORDS_ANIMAL_TYPE+ " = '" + animal+"'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -9598,7 +9598,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS, medication.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID, medication.getGlobalId());
         contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, medication.getAnimalType());
-        Log.w("AnimalDb", medication.getAnimal());
+        Log.w("AnimalMedDb", medication.getAnimal());
         database.insert(LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME, null, contentValues);
         closeDB();
     }
@@ -9638,14 +9638,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Medication> getMedications(String userId) {
+    public ArrayList<Medication> getMedications(String userId,String animal) {
 
         openDB();
         ArrayList<Medication> array_list = new ArrayList();
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " where " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " = " + userId, null);
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " where " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " = " + userId+" AND "+LIVESTOCK_RECORDS_ANIMAL_TYPE+ " = '" + animal+"'", null);
         res.moveToFirst();
 
 

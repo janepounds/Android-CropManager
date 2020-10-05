@@ -49,6 +49,7 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -120,13 +121,15 @@ public class BreedingStockViewFragment extends Fragment {
 
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                navController.navigate(R.id.action_breedingStockViewFragment_to_livestockRecordsFragment);
+                return true;
+//                return super.onOptionsItemSelected(item);
         }
     }
 
     private void loadBreedingStock() {
         breedingStockListAdapter.clearBreedingStockList();
-
-        breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID));
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+        breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal()));
     }
 }
