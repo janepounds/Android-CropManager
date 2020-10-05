@@ -97,9 +97,9 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView  moreButton;
-        TextView cropNameTxtView, cropVarietyTextView, rateTextView, cropAge, croppingYearTxt, seasonTxt;
+        TextView cropNameTxtView, cropVarietyTextView, cropAge, croppingYearTxt, seasonTxt;
 
-        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
+        TextView datePlantedTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
 
         LinearLayout activitiesBtn, notesBtn,galleryBtn;
 
@@ -108,12 +108,10 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             cropNameTxtView = itemView.findViewById(R.id.txt_crop_card_name);
             cropFieldTextView = itemView.findViewById(R.id.txt_crop_card_field);
             cropVarietyTextView = itemView.findViewById(R.id.txt_crop_card_variety);
-            rateTextView = itemView.findViewById(R.id.txt_crop_card_rate);
             datePlantedTxt = itemView.findViewById(R.id.txt_crop_card_actual_date_planted);
             croppingYearTxt = itemView.findViewById(R.id.txt_crop_card_cropping_year);
             seasonTxt = itemView.findViewById(R.id.txt_crop_card_season);
             cropAge = itemView.findViewById(R.id.txt_crop_card_age);
-            plantingMethodTxt = itemView.findViewById(R.id.txt_crop_card_planting_method);
             estimatedRevenueTxt = itemView.findViewById(R.id.txt_crop_card_estimated_revenue);
 
             activitiesBtn = itemView.findViewById(R.id.btn_crop_activities);
