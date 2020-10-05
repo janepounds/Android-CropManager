@@ -66,6 +66,7 @@ public class AddMedicationFragment extends DialogFragment {
         if (getArguments() != null) {
             medication = (Medication) getArguments().getSerializable("medication");
 
+
         }
         View view = getLayoutInflater().inflate(R.layout.fragment_add_medication, null);
         initializeForm(view);
@@ -228,7 +229,7 @@ public class AddMedicationFragment extends DialogFragment {
             medication.setTreatmentPeriod(Float.parseFloat(treatmentPeriod.getText().toString()));
             medication.setNote(notes.getText().toString());
             medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
-            medication.setAnimal(sharedPreferenceHelper.getSelectedAnimal());
+            medication.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateMedication(medication);
         }
     }
@@ -260,12 +261,6 @@ public class AddMedicationFragment extends DialogFragment {
         } else if (treatmentPeriod.getText().toString().isEmpty()) {
             message = getString(R.string.treatment_period_not_entered);
             treatmentPeriod.requestFocus();
-        } else if (notes.getText().toString().isEmpty()) {
-            message = getString(R.string.notes_not_entered);
-            notes.requestFocus();
-        } else if (technicalPersonnel.getText().toString().isEmpty()) {
-            message = getString(R.string.technical_personnel_not_entered);
-            technicalPersonnel.requestFocus();
         }
 
         if (message != null) {

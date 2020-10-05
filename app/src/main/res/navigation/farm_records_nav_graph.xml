@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_livestockRecordsFragment_to_matingsViewFragment"
             app:destination="@id/matingsViewFragment" />
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_farmRecordsHomeFragment"
+            app:destination="@id/farmRecordsHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeFragment"
@@ -287,6 +290,9 @@
         <action
             android:id="@+id/action_medicationsViewFragment_to_addMedicationFragment"
             app:destination="@id/addMedicationFragment" />
+        <action
+            android:id="@+id/action_medicationsViewFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
     </fragment>
     <dialog
         android:id="@+id/addLittersFragment"
@@ -342,7 +348,11 @@
     </fragment>
     <dialog
         android:id="@+id/addPhotoInGalleryFragment"
-        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.gallery.AddPhotoInGalleryFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.crop.AddPhotoInGalleryFragment"
         android:label="fragment_add_photo_in_gallery"
-        tools:layout="@layout/fragment_add_photo_in_gallery" />
+        tools:layout="@layout/fragment_add_photo_in_gallery" >
+        <action
+            android:id="@+id/action_addPhotoInGalleryFragment_to_galleryViewFragment"
+            app:destination="@id/galleryViewFragment" />
+    </dialog>
 </navigation>

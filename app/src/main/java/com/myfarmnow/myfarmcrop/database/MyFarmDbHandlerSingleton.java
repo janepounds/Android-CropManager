@@ -50,6 +50,7 @@ import com.myfarmnow.myfarmcrop.models.CropTransplanting;
 import com.myfarmnow.myfarmcrop.models.CropYieldRecord;
 import com.myfarmnow.myfarmcrop.models.DeletedRecord;
 import com.myfarmnow.myfarmcrop.models.GraphRecord;
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropGallery;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
@@ -729,6 +730,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS = "syncStatus";
     public static final String LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID = "globalId";
 
+    public static final String CROP_RECORDS_CROP_GALLERY_TABLE_NAME = "cropGallery";
+    public static final String CROP_RECORDS_CROP_GALLERY_ID = "id";
+    public static final String CROP_RECORDS_CROP_GALLERY_USER_ID = "userId";
+    public static final String CROP_RECORDS_CROP_GALLERY_PARENT_ID ="parentId";
+    public static final String CROP_RECORDS_CROP_GALLERY_PHOTO = "photo";
+    public static final String CROP_RECORDS_CROP_GALLERY_CAPTION ="caption";
+    public static final String CROP_RECORDS_CROP_GALLERY_SYNC_STATUS ="syncStatus";
+    public static final String CROP_RECORDS_CROP_GALLERY_GLOBAL_ID ="globalId";
+
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
@@ -969,7 +979,10 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 LIVESTOCK_RECORDS_LITTERS_BORN_DEAD + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_LITTERS_WEANING + " REAL, " + LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT + " REAL, " + LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
 
         String livestock_records_medications_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_MEDICATIONS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_MEDICATIONS_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_DATE + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_TYPE + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_BREEDING_ID + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_HEALTH_CONDITION + " TEXT, " +
-                LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
+        LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD + " REAL, " + LIVESTOCK_RECORDS_MEDICATIONS_NOTES + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL + " TEXT, " + LIVESTOCK_RECORDS_MEDICATIONS_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_MEDICATIONS_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
+
+        String crop_records_crop_gallery_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_RECORDS_CROP_GALLERY_TABLE_NAME + " ( " + CROP_RECORDS_CROP_GALLERY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_RECORDS_CROP_GALLERY_PARENT_ID + " TEXT NOT NULL, " + CROP_RECORDS_CROP_GALLERY_USER_ID + " TEXT NOT NULL, " + CROP_RECORDS_CROP_GALLERY_PHOTO + " TEXT NOT NULL, " + CROP_RECORDS_CROP_GALLERY_CAPTION + " TEXT, "  + CROP_RECORDS_CROP_GALLERY_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_RECORDS_CROP_GALLERY_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
+              
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
@@ -1014,6 +1027,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(livestock_records_mating_insert_query);
         database.execSQL(livestock_records_litter_insert_query);
         database.execSQL(livestock_records_medications_insert_query);
+        database.execSQL(crop_records_crop_gallery_insert_query);
     }
 
     @Override
@@ -9674,6 +9688,98 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return array_list;
 
+    }
+
+    /*************CROP GALLERY IMPLEMENTATION*******************************/
+
+    public CropGallery getCropGallery(String galleryId, boolean isGlobal) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String key = isGlobal ? CROP_RECORDS_CROP_GALLERY_GLOBAL_ID : CROP_RECORDS_CROP_GALLERY_ID;
+        Cursor res = db.rawQuery("select * from " + CROP_RECORDS_CROP_GALLERY_TABLE_NAME + " where " + key + " = ?", new String[]{galleryId});
+        res.moveToFirst();
+        CropGallery cropGallery = null;
+        if (!res.isAfterLast()) {
+            cropGallery = new CropGallery();
+            cropGallery.setId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_ID)));
+            cropGallery.setParentId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_PARENT_ID)));
+            cropGallery.setUserId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_USER_ID)));
+            cropGallery.setPhoto(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_PHOTO)));
+            cropGallery.setCaption(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_CAPTION)));
+            cropGallery.setSyncStatus(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_SYNC_STATUS)));
+            cropGallery.setGlobalId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_GLOBAL_ID)));
+            res.moveToNext();
+        }
+        res.close();
+        closeDB();
+        return cropGallery;
+
+    }
+
+    public void insertCropGallery(CropGallery cropGallery) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_PARENT_ID, cropGallery.getParentId());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_PHOTO, cropGallery.getPhoto());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_CAPTION, cropGallery.getCaption());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_USER_ID,cropGallery.getUserId());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_SYNC_STATUS, cropGallery.getSyncStatus());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_GLOBAL_ID, cropGallery.getGlobalId());
+        database.insert(CROP_RECORDS_CROP_GALLERY_TABLE_NAME, null, contentValues);
+        closeDB();
+    }
+
+    public void updateCropGallery(CropGallery cropGallery) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_PARENT_ID, cropGallery.getParentId());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_PHOTO, cropGallery.getPhoto());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_CAPTION, cropGallery.getCaption());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_USER_ID,cropGallery.getUserId());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_SYNC_STATUS, cropGallery.getSyncStatus());
+        contentValues.put(CROP_RECORDS_CROP_GALLERY_GLOBAL_ID, cropGallery.getGlobalId());
+        database.update(CROP_RECORDS_CROP_GALLERY_TABLE_NAME, contentValues, CROP_RECORDS_CROP_GALLERY_ID + " = ?", new String[]{cropGallery.getId()});
+
+        closeDB();
+    }
+
+    public boolean deleteCropGallery(String galleryId) {
+        CropGallery cropGallery = getCropGallery(galleryId, false);
+        openDB();
+        database.delete(CROP_RECORDS_CROP_GALLERY_TABLE_NAME, CROP_RECORDS_CROP_GALLERY_ID + " = ?", new String[]{galleryId});
+        closeDB();
+        if (cropGallery != null) {
+            recordDeletedRecord("cropGallery", cropGallery.getGlobalId());
+        }
+        return true;
+    }
+
+    public ArrayList<CropGallery> getCropgalleries(String parentId, String userId) {
+        openDB();
+        ArrayList<CropGallery> array_list = new ArrayList();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + CROP_RECORDS_CROP_GALLERY_TABLE_NAME + " where " + CROP_RECORDS_CROP_GALLERY_PARENT_ID + " = " + parentId + " AND " + CROP_RECORDS_CROP_GALLERY_USER_ID + " = '" + userId + "'", null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            CropGallery cropGallery = new CropGallery();
+            cropGallery.setId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_ID)));
+            cropGallery.setUserId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_USER_ID)));
+            cropGallery.setParentId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_PARENT_ID)));
+            cropGallery.setPhoto(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_PHOTO)));
+            cropGallery.setCaption(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_CAPTION)));
+            cropGallery.setSyncStatus(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_SYNC_STATUS)));
+            cropGallery.setGlobalId(res.getString(res.getColumnIndex(CROP_RECORDS_CROP_GALLERY_GLOBAL_ID)));
+            array_list.add(cropGallery);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        Log.d("Gallery ", array_list.size() + "");
+        return array_list;
     }
 
 

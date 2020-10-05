@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -20,6 +21,8 @@ import android.widget.LinearLayout;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
+
+import java.util.Objects;
 
 public class LivestockRecordsFragment extends Fragment {
     private static final String TAG = "LivestockRecords";
@@ -40,11 +43,12 @@ public class LivestockRecordsFragment extends Fragment {
         layout_litters = view.findViewById(R.id.layout_litters);
         layout_medications = view.findViewById(R.id.layout_medications);
 
-        assert getArguments() != null;
-        Log.d(TAG, "onCreateView: Animal = " + getArguments().getString("animal"));
-
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
-        preferenceModel.insertSelectedAnimal(getArguments().getString("animal"));
+        if(getArguments() != null){
+            //Log.d(TAG, "onCreateView: Animal = " + getArguments().getString("animal"));
+            preferenceModel.insertSelectedAnimal(getArguments().getString("animal"));
+        }
+
 
         Log.d(TAG, "onCreateView: SharedPreference = " + preferenceModel.getSelectedAnimal());
 
@@ -55,8 +59,15 @@ public class LivestockRecordsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.title_livestock_records);
+
+        toolbar.setNavigationOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_farmRecordsHomeFragment));
 
         layout_breeding_stock.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_breedingStockViewFragment));
         layout_matings.setOnClickListener(v -> navController.navigate(R.id.action_livestockRecordsFragment_to_matingsViewFragment));

@@ -92,7 +92,8 @@ public class AddBreedingStockFragment extends DialogFragment {
         initializeForm(view);
         if (getArguments() != null) {
             breedingStock = (BreedingStock) getArguments().getSerializable("breedingStock");
-
+            submit.setText(getString(R.string.update));
+            breeder_form_title.setText(getString(R.string.update_animal));
         }
 
         builder.setView(view);
@@ -237,8 +238,7 @@ public class AddBreedingStockFragment extends DialogFragment {
 
     public void fillViews() {
         if (breedingStock != null) {
-            submit.setText(getString(R.string.update));
-            breeder_form_title.setText(getString(R.string.update_animal));
+
             name.setText(breedingStock.getName());
             earTag.setText(breedingStock.getEarTag());
             colour.setText(breedingStock.getColor());

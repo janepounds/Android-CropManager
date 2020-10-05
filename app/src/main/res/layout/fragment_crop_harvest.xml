@@ -1,10 +1,12 @@
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="@dimen/dimen_10dp"
     tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.CropHarvestFragment">
 
 
@@ -15,8 +17,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center">
@@ -41,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center"
-                    android:text="@string/label_harvest"
+                    android:text="@string/label_harvesting"
                     android:theme="@style/HeaderThemeWhite"
                     android:textStyle="bold"/>
 
@@ -53,28 +55,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen_20dp"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:layout_marginStart="@dimen/dimen_20dp">
+                android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    android:layout_marginEnd="@dimen/dimen_10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date"
+                        android:layout_marginBottom="4dp"/>
 
                     <RelativeLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
                         android:background="@drawable/edittext_corner"
-                        android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txt_crop_harvest_date"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:hint="Date"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:inputType="none"
                             android:textSize="14sp"/>
@@ -92,15 +100,25 @@
                             android:src="@drawable/ic_calendar" />
 
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/units"
+                        android:layout_marginBottom="4dp"/>
 
                     <RelativeLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/edittext_corner"
-                    android:layout_marginLeft="@dimen/dimen_10dp"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -126,19 +144,27 @@
                         android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
                 </RelativeLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dimen_20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/quantity"
+                android:layout_marginBottom="4dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="1"
                 android:background="@drawable/edittext_corner"
-                android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/dimen_20dp">
+                android:orientation="horizontal">
 
 
                 <EditText
@@ -148,9 +174,7 @@
                     android:layout_weight="0.7"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:background="@android:color/transparent"
-                    android:inputType="number"
-                    android:textSize="14sp"
-                    android:hint="Quantity" />
+                    android:inputType="number" />
 
                 <TextView
                     android:id="@+id/txt_crop_harvest_unit"
@@ -164,16 +188,24 @@
                     android:layout_weight="0.2" />
 
             </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dimen_20dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:layout_marginBottom="4dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_corner"
-                android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/dimen_20dp">
+                android:orientation="horizontal">
 
 
                 <Spinner
@@ -191,14 +223,13 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/white"
-                    android:text="Kg"
-                    android:textSize="14sp"
+                    android:padding="@dimen/dimen_10dp"
                     android:gravity="center"
                     android:layout_weight="0.2"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
             </LinearLayout>
+        </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_crop_harvest_sold"
                 android:layout_width="match_parent"
@@ -206,15 +237,24 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_sold"
+                        android:layout_marginBottom="4dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:background="@drawable/edittext_corner"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:background="@drawable/edittext_corner">
 
 
                     <EditText
@@ -224,14 +264,10 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:layout_marginLeft="@dimen/dimen_20dp"
-                        android:hint="Date Sold"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:inputType="none"
                         android:layout_weight="0.7"
-                        android:textSize="14sp"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:layout_marginRight="10dp"/>
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -246,40 +282,50 @@
                         android:src="@drawable/ic_calendar" />
 
                 </LinearLayout>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_corner"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="@dimen/dimen_20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/customer"
+                        android:layout_marginBottom="4dp"/>
+
+
 
                     <EditText
                         android:id="@+id/txt_crop_harvest_customer"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edittext_corner"
                         android:layout_weight="0.7"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:textSize="14sp"
-                        android:background="@drawable/input_shapes"
-                        android:hint="Customer"
-                        />
+                        android:paddingStart="@dimen/dimen_10dp"/>
 
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
 
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unit_price"
+                        android:layout_marginBottom="4dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_30dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp">
+                    android:gravity="center_vertical">
 
 
                     <LinearLayout
@@ -308,11 +354,9 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_margin="0dp"
-                            android:hint="Unit Price"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
                             android:inputType="number"
-                            android:textSize="14sp"
                             android:layout_weight="0.8"
                             />
                         <TextView
@@ -330,16 +374,25 @@
 
                     </LinearLayout>
                 </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantity_sold"
+                        android:layout_marginBottom="4dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_corner"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:orientation="horizontal">
 
 
                     <EditText
@@ -347,11 +400,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
-                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="number"
-                        android:textSize="14sp"
-                        android:hint="Quantity Sold" />
+                        android:inputType="number"/>
 
                     <TextView
                         android:id="@+id/txt_crop_harvest_sold_unit"
@@ -365,6 +416,7 @@
                         android:layout_weight="0.2" />
 
                 </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
@@ -373,32 +425,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/storage_date"
+                        android:layout_marginBottom="4dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:background="@drawable/edittext_corner"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:background="@drawable/edittext_corner">
 
 
                     <EditText
                         android:id="@+id/txt_crop_harvest_storage_date"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:layout_marginLeft="@dimen/dimen_20dp"
-                        android:hint="Storage Date"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:inputType="none"
                         android:layout_weight="0.7"
-                        android:textSize="14sp"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:layout_marginRight="10dp"/>
+                        android:textSize="14sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -415,17 +470,27 @@
 
 
                 </LinearLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/dimen_20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantity_stored"
+                        android:layout_marginBottom="4dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_corner"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:orientation="horizontal">
 
 
                     <EditText
@@ -433,11 +498,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
-                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:paddingStart="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="number"
-                        android:textSize="14sp"
-                        android:hint="Quantity Stored" />
+                        android:inputType="number"/>
 
                     <TextView
                         android:id="@+id/txt_crop_harvest_stored_unit"
@@ -452,19 +515,26 @@
 
                 </LinearLayout>
 
-
+                </LinearLayout>
 
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dimen_20dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recurrence"
+                android:layout_marginBottom="4dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_corner"
-                android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/dimen_20dp">
+                android:orientation="horizontal">
 
 
                 <Spinner
@@ -482,31 +552,32 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/white"
-                    android:text="Kg"
-                    android:textSize="14sp"
+                    android:padding="@dimen/dimen_10dp"
                     android:gravity="center"
                     android:layout_weight="0.2"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
             </LinearLayout>
 
-
+        </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_crop_harvest_reminders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen_20dp"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:layout_marginStart="@dimen/dimen_20dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reminders"
+                        android:layout_marginBottom="4dp"/>
 
 
                     <RelativeLayout
@@ -544,39 +615,46 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/dimen_10dp"
-                    android:background="@drawable/edittext_corner"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/txt_harvest_days_before"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.7"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:background="@android:color/transparent"
-                        android:inputType="number"
-                        android:textSize="14sp"
-                        android:hint="Days Before" />
+                    android:id="@+id/layout_crop_harvest_days_before"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/edittext_right_corners_green"
-                        android:textColor="@color/white"
-                        android:text="Days"
-                        android:textSize="14sp"
-                        android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/days_before"
+                        android:layout_marginBottom="4dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
 
+
+                        <EditText
+                            android:id="@+id/txt_harvest_days_before"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="number" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+                            android:text="Days"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+
+                    </LinearLayout>
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -591,6 +669,7 @@
                 android:drawableTint="#ffffff"
                 android:text="Submit "
                 android:textAllCaps="true"
+                android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:background="@drawable/rounded_corners_button"
                 android:layout_marginBottom="@dimen/dimen_20dp"/>
@@ -598,5 +677,5 @@
         </LinearLayout>
 
     </ScrollView>
-</LinearLayout>
+</androidx.cardview.widget.CardView>
 
