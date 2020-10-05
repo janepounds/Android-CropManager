@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -17,6 +16,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +25,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNote;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropGallery;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -40,7 +41,8 @@ public class CropGalleryRecyclerAdapter extends RecyclerView.Adapter<CropGallery
     public CropGalleryRecyclerAdapter(Context context, String cropId, ArrayList<CropGallery> cropGalleries){
         cropGalleries.addAll(cropGalleries);
         this.cropId=cropId;
-        layoutInflater = LayoutInflater.from(mContext);
+        layoutInflater = LayoutInflater.from(context);
+        mContext =context;
 
     }
 
@@ -58,9 +60,14 @@ public class CropGalleryRecyclerAdapter extends RecyclerView.Adapter<CropGallery
         this.cropGalleries.addAll(cropGalleries);
         notifyDataSetChanged();
     }
-    public void addCropsGalleries(CropGallery cropGallery){
-        this.cropGalleries.add(cropGallery);
-        notifyItemChanged(getItemCount());
+    public void addList(ArrayList<CropGallery> cropGalleries){
+        this.cropGalleries.clear();
+        this.cropGalleries.addAll(cropGalleries);
+        notifyDataSetChanged();
+    }
+
+    public void clearGalleryList(){
+        cropGalleries.clear();
     }
     public void changeList(ArrayList<CropGallery> cropGalleries){
 
@@ -95,12 +102,60 @@ public class CropGalleryRecyclerAdapter extends RecyclerView.Adapter<CropGallery
 
     public class CropGalleryViewHolder extends RecyclerView.ViewHolder{
         TextView caption;
-        ImageView photo;
+        ImageView photo,moreOptions;
         public CropGalleryViewHolder(View itemView) {
             super(itemView);
 
         caption = itemView.findViewById(R.id.card_view_image_caption);
         photo = itemView.findViewById(R.id.card_view_image);
+        moreOptions = itemView.findViewById(R.id.gallery_item_more);
+        moreOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
+                PopupMenu popup = new PopupMenu(wrapper, v);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        NavController navController = Navigation.findNavController(v);
+                        if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))){
+                            final CropGallery cropGallery = cropGalleries.get(getAdapterPosition());
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle("Confirm")
+                                    .setMessage("Do you really want to delete this image?")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+
+                                            MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropGallery(""+cropGallery.getId());
+                                            cropGalleries.remove(getAdapterPosition());
+                                            notifyItemRemoved(getAdapterPosition());
+
+                                        }})
+                                    .setNegativeButton(android.R.string.no, null).show();
+                        }else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))){
+                            //edit functionality
+                            CropGallery cropGallery = cropGalleries.get(getAdapterPosition());
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("cropGallery", cropGallery);
+                            bundle.putString("cropId",cropId);
+                            navController.navigate(R.id.action_galleryViewFragment_to_addPhotoInGalleryFragment,bundle);
+
+
+
+                        }
+
+
+                        return true;
+                    }
+                });
+                popup.getMenu().add(R.string.label_edit);
+                popup.getMenu().add(R.string.label_delete);
+                popup.show();
+
+            }
+        });
 
 
 

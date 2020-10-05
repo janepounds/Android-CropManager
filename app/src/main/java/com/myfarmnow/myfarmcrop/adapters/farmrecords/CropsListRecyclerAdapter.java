@@ -128,6 +128,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                     Bundle bundle = new Bundle();
                     String cropId = crop.getId();
                     bundle.putString("cropId", cropId);
+                    Log.w("cropId",cropId);
                     navController.navigate(R.id.action_cropListFragment_to_galleryViewFragment, bundle);
 
                 }
@@ -144,6 +145,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                         Bundle bundle = new Bundle();
                         String cropId = crop.getId();
                         bundle.putString("cropId", cropId);
+
                         navController.navigate(R.id.action_cropListFragment_to_cropActivitiesListFragment, bundle);
 //                    Crop crop = cropsList.get(getAdapterPosition());
 //                    Intent showSpray = new Intent(mContext, CropActivitiesListActivity.class);
