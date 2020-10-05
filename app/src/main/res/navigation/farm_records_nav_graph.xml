@@ -287,6 +287,9 @@
         <action
             android:id="@+id/action_medicationsViewFragment_to_addMedicationFragment"
             app:destination="@id/addMedicationFragment" />
+        <action
+            android:id="@+id/action_medicationsViewFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
     </fragment>
     <dialog
         android:id="@+id/addLittersFragment"
