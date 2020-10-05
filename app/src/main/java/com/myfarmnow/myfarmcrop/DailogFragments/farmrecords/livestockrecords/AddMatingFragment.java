@@ -188,9 +188,6 @@ public class AddMatingFragment extends DialogFragment {
         } else if (femaleName.getText().toString().isEmpty()) {
             message = getString(R.string.female_name_not_entered);
             femaleName.requestFocus();
-        } else if (maleName.getText().toString().isEmpty()) {
-            message = getString(R.string.male_name_not_entered);
-            maleName.requestFocus();
         } else if (deliveryAlert.getText().toString().isEmpty()) {
             message = getString(R.string.deliverey_alert_not_entered);
             deliveryAlert.requestFocus();
