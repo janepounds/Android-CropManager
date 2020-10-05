@@ -79,7 +79,7 @@
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:padding="8dp"
-            android:src="@drawable/downarrow"
+            android:src="@drawable/arrow_drop_down"
             android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

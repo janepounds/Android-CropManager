@@ -273,7 +273,7 @@ public class AddFieldFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        getActivity().getSupportFragmentManager().popBackStack();
+        navController.popBackStack();
         return super.onOptionsItemSelected(item);
     }
 

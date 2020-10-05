@@ -97,9 +97,9 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
     public class CropCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView  moreButton;
-        TextView cropNameTxtView, cropVarietyTextView, cropAge, croppingYearTxt, seasonTxt;
+        TextView cropNameTxtView, cropVarietyTextView,  cropAge, croppingYearTxt, seasonTxt;
 
-        TextView datePlantedTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
+        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
 
         LinearLayout activitiesBtn, notesBtn,galleryBtn;
 
