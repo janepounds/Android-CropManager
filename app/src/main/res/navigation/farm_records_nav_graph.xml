@@ -344,5 +344,9 @@
         android:id="@+id/addPhotoInGalleryFragment"
         android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.crop.AddPhotoInGalleryFragment"
         android:label="fragment_add_photo_in_gallery"
-        tools:layout="@layout/fragment_add_photo_in_gallery" />
+        tools:layout="@layout/fragment_add_photo_in_gallery" >
+        <action
+            android:id="@+id/action_addPhotoInGalleryFragment_to_galleryViewFragment"
+            app:destination="@id/galleryViewFragment" />
+    </dialog>
 </navigation>

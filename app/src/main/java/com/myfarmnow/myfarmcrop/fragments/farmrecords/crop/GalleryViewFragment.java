@@ -31,6 +31,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropNote;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropGallery;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -84,13 +85,14 @@ public class GalleryViewFragment extends Fragment {
             Log.e("CropID",cropId);
         }
 
-        cropGalleryRecyclerAdapter = new CropGalleryRecyclerAdapter(context,cropId,dbHandler.getCropgalleries(cropId, DashboardActivity.RETRIEVED_USER_ID));
+        cropGalleryRecyclerAdapter = new CropGalleryRecyclerAdapter(context,cropId,cropGalleryArrayList);
 
         gridLayoutManager = new GridLayoutManager(context, 2);
         // Set layout manager.
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(cropGalleryRecyclerAdapter);
-        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
+        loadGallery();
+        toolbar.setNavigationOnClickListener(view1->navController.popBackStack(R.id.cropListFragment,false));
 
     }
 
@@ -101,14 +103,20 @@ public class GalleryViewFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    private void loadGallery(){
+        cropGalleryRecyclerAdapter.clearGalleryList();
+        cropGalleryRecyclerAdapter.addList(dbHandler.getCropgalleries(cropId, DashboardActivity.RETRIEVED_USER_ID));
 
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_add_photo:
                //open dialog for adding pic
-                navController.navigate(R.id.action_galleryViewFragment_to_addPhotoInGalleryFragment);
+                Bundle bundle = new Bundle();
+                bundle.putString("cropId",cropId);
+                navController.navigate(R.id.action_galleryViewFragment_to_addPhotoInGalleryFragment,bundle);
 
                 return true;
             default:
