@@ -99,19 +99,19 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
         } else {
             switch (breedingStock.getAnimalType()) {
                 case "Cattle":
-                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.defaultcow, mContext.getTheme())).into(holder.pictureImageView);
+                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_default_cattle, mContext.getTheme())).into(holder.pictureImageView);
                     break;
                 case "Goat":
-                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.defaultgoat, mContext.getTheme())).into(holder.pictureImageView);
+                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_default_goat, mContext.getTheme())).into(holder.pictureImageView);
                     break;
                 case "Rabbit":
-                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.defaultrabbit, mContext.getTheme())).into(holder.pictureImageView);
+                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_default_rabbit, mContext.getTheme())).into(holder.pictureImageView);
                     break;
                 case "Sheep":
-                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.defaultsheep, mContext.getTheme())).into(holder.pictureImageView);
+                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_default_sheep, mContext.getTheme())).into(holder.pictureImageView);
                     break;
                 case "Pig":
-                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.defaultpig, mContext.getTheme())).into(holder.pictureImageView);
+                    Glide.with(mContext).load(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.ic_default_pig, mContext.getTheme())).into(holder.pictureImageView);
                     break;
             }
         }

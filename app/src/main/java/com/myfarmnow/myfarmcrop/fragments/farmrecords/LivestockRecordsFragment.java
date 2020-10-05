@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,8 +18,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
@@ -30,6 +33,7 @@ public class LivestockRecordsFragment extends Fragment {
 
     private Toolbar toolbar;
     private LinearLayout layout_breeding_stock, layout_matings, layout_litters, layout_medications;
+    private ImageView animalImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,13 +46,28 @@ public class LivestockRecordsFragment extends Fragment {
         layout_matings = view.findViewById(R.id.layout_matings);
         layout_litters = view.findViewById(R.id.layout_litters);
         layout_medications = view.findViewById(R.id.layout_medications);
+        animalImage = view.findViewById(R.id.breeding_stock_animal_image);
 
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
-        if(getArguments() != null){
+        if (getArguments() != null) {
             //Log.d(TAG, "onCreateView: Animal = " + getArguments().getString("animal"));
             preferenceModel.insertSelectedAnimal(getArguments().getString("animal"));
         }
 
+        switch (preferenceModel.getSelectedAnimal()) {
+            case "Goat":
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_goat, context.getTheme())).into(animalImage);
+                break;
+            case "Rabbit":
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_rabbit, context.getTheme())).into(animalImage);
+                break;
+            case "Sheep":
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_sheep, context.getTheme())).into(animalImage);
+                break;
+            case "Pig":
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_pig, context.getTheme())).into(animalImage);
+                break;
+        }
 
         Log.d(TAG, "onCreateView: SharedPreference = " + preferenceModel.getSelectedAnimal());
 
