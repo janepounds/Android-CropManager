@@ -60,20 +60,11 @@ public class FertilizerApplicationFragment extends DialogFragment {
     private Context context;
 
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fertilizer_application, container, false);
-    }
-
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        LayoutInflater inflater = getLayoutInflater();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         View view =inflater.inflate(R.layout.fragment_fertilizer_application, null);
@@ -82,7 +73,10 @@ public class FertilizerApplicationFragment extends DialogFragment {
             cropId = getArguments().getString("cropId");
             fertilizerApplication =(CropFertilizerApplication) getArguments().getSerializable("fertilizerApplication");
         }
+
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         initializeForm(view);
+
         return builder.create();
     }
 
@@ -90,7 +84,6 @@ public class FertilizerApplicationFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
     }
 
     @Override
@@ -289,6 +282,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
 
     }
+
     public void updateFertilizerApplication(){
         if(fertilizerApplication != null){
             fertilizerApplication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
@@ -304,6 +298,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
 
         }
     }
+
     public void fillViews(){
         if(fertilizerApplication != null){
             DashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());

@@ -291,6 +291,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_crop_spraying_reminders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -303,7 +304,6 @@
                         android:text="@string/reminders"
                         android:layout_marginBottom="4dp"/>
                 <RelativeLayout
-                    android:id="@+id/layout_crop_spraying_reminders"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/edittext_corner"
