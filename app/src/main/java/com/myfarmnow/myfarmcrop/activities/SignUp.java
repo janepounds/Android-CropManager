@@ -93,7 +93,7 @@ public class SignUp extends AppCompatActivity {
     //AdView mAdView;
     Button signupBtn;
     FrameLayout banner_adView;
-    TextView signup_loginText;
+  //  TextView signup_loginText;
     TextView termsOfService, privacyPolicy, refund_policy, and_text;
     CircularImageView user_photo;
     //FloatingActionButton user_photo_edit_fab;
@@ -123,8 +123,9 @@ public class SignUp extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-        actionBar.setTitle(getString(R.string.signup));
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //actionBar.setTitle(getString(R.string.signup));
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         // Binding Layout Views
         user_photo = (CircularImageView) findViewById(R.id.user_photo);
@@ -140,7 +141,7 @@ public class SignUp extends AppCompatActivity {
         termsOfService = (TextView) findViewById(R.id.text_terms_of_service);
         privacyPolicy = (TextView) findViewById(R.id.text_privacy_policy);
         refund_policy = (TextView) findViewById(R.id.refund_policy);
-        signup_loginText = (TextView) findViewById(R.id.signUp_loginText);
+       // signup_loginText = (TextView) findViewById(R.id.signUp_loginText);
         banner_adView = (FrameLayout) findViewById(R.id.banner_adView);
         //user_photo_edit_fab = (FloatingActionButton) findViewById(R.id.user_photo_edit_fab);
 
@@ -303,11 +304,11 @@ public class SignUp extends AppCompatActivity {
         });
 
         // Handle Click event of signup_loginText TextView
-        signup_loginText.setOnClickListener(v -> {
+     //   signup_loginText.setOnClickListener(v -> {
             // Finish SignUpActivity to goto the LoginActivity
-            finish();
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
-        });
+          //  finish();
+           // overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
+     //   });
 
         // Handle Click event of signupBtn Button
         signupBtn.setOnClickListener(v -> {
