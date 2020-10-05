@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -98,6 +99,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     EditText ed_otp;
     private int TEMP_USER_TYPE;
     private static String user_current_phone_number;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,12 +124,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
         // setting Toolbar
-        toolbar = findViewById(R.id.myToolbar);
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setTitle(getString(R.string.login));
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //toolbar = findViewById(R.id.myToolbar);
+       // setSupportActionBar(toolbar);
+       // actionBar = getSupportActionBar();
+      //  actionBar.setTitle("");
+     //   actionBar.setDisplayShowHomeEnabled(false);
+       // actionBar.setDisplayHomeAsUpEnabled(false);
 
 
         // Binding Layout Views
@@ -209,11 +211,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 final Button dialog_button = dialogView.findViewById(R.id.dialog_button);
                 final TextView dialog_forgottext = dialogView.findViewById(R.id.forgot_password_text);
                 final EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
-                final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+               // final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
                 final ImageView dismiss_button = dialogView.findViewById(R.id.dismissButton);
                 dialog_forgottext.setVisibility(View.VISIBLE);
                 dialog_button.setText(getString(R.string.sendemail));
-                dialog_title.setText(getString(R.string.forgot_your_password));
+              //  dialog_title.setText(getString(R.string.forgot_your_password));
 
 
 
