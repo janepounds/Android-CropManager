@@ -66,6 +66,7 @@ public class AddMedicationFragment extends DialogFragment {
         if (getArguments() != null) {
             medication = (Medication) getArguments().getSerializable("medication");
 
+
         }
         View view = getLayoutInflater().inflate(R.layout.fragment_add_medication, null);
         initializeForm(view);
