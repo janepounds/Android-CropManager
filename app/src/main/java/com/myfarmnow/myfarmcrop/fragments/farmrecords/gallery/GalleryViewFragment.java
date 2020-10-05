@@ -10,6 +10,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +24,15 @@ import android.view.ViewGroup;
 
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropGalleryRecyclerAdapter;
+import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropsListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropNote;
+import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropGallery;
+
+import java.util.ArrayList;
 
 
 public class GalleryViewFragment extends Fragment {
@@ -30,7 +41,10 @@ public class GalleryViewFragment extends Fragment {
     private Toolbar toolbar;
     private Context context;
     private  String cropId =null;
-
+    private RecyclerView recyclerView;
+    private CropGalleryRecyclerAdapter cropGalleryRecyclerAdapter;
+    private GridLayoutManager gridLayoutManager;
+    ArrayList<CropGallery> cropGalleryArrayList = new ArrayList();
 
 
     @Override
@@ -39,6 +53,7 @@ public class GalleryViewFragment extends Fragment {
 
         View view= inflater.inflate(R.layout.fragment_gallery_view, container, false);
         toolbar = view.findViewById(R.id.toolbar_gallery);
+        recyclerView = view.findViewById(R.id.gallery_recycler_view);
 
         setHasOptionsMenu(true);
 
@@ -47,6 +62,9 @@ public class GalleryViewFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Gallery");
+
+
+
         return view;
     }
 
@@ -65,6 +83,13 @@ public class GalleryViewFragment extends Fragment {
             cropId = getArguments().getString("cropId");
             Log.e("CropID",cropId);
         }
+
+        cropGalleryRecyclerAdapter = new CropGalleryRecyclerAdapter(context,cropId,dbHandler.getCropgalleries(cropId, DashboardActivity.RETRIEVED_USER_ID));
+
+        gridLayoutManager = new GridLayoutManager(context, 2);
+        // Set layout manager.
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(cropGalleryRecyclerAdapter);
         toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
 
     }

@@ -339,7 +339,7 @@
     </fragment>
     <dialog
         android:id="@+id/addPhotoInGalleryFragment"
-        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.gallery.AddPhotoInGalleryFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.crop.AddPhotoInGalleryFragment"
         android:label="fragment_add_photo_in_gallery"
         tools:layout="@layout/fragment_add_photo_in_gallery" />
 </navigation>
