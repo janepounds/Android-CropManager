@@ -21,8 +21,9 @@ public class Medication implements LivestockSpinnerItem, Serializable {
     private String note;
     private String animal;
     private String technicalPersonal;
-    private String syncStatus="no";
+    private String syncStatus = "no";
     private String globalId;
+    private String animalType;
 
     public String getId() {
         return id;
@@ -144,34 +145,46 @@ public class Medication implements LivestockSpinnerItem, Serializable {
         this.globalId = globalId;
     }
 
-    public Medication(){}
+    public String getAnimalType() {
+        return animalType;
+    }
 
-    public JSONObject toJSON(){
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
+
+    public Medication() {
+        // Empty constructor required
+    }
+
+    public JSONObject toJSON() {
 
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",id);
-            object.put("userId",userId);
-            object.put("medicationDate",medicationDate);
-            object.put("medicationType",medicationType);
-            object.put("breedingId",breedingId);
-            object.put("healthCondition",healthCondition);
-            object.put("medicationsName",medicationsName);
-            object.put("manufacturer",manufacturer);
-            object.put("dosage",dosage);
-            object.put("treatmentPeriod",treatmentPeriod);
-            object.put("note",note);
-            object.put("animal",animal);
-            object.put("technicalPersonal",technicalPersonal);
-            object.put("syncStatus",syncStatus);
-            object.put("globalId",globalId);
+            object.put("id", id);
+            object.put("userId", userId);
+            object.put("medicationDate", medicationDate);
+            object.put("medicationType", medicationType);
+            object.put("breedingId", breedingId);
+            object.put("healthCondition", healthCondition);
+            object.put("medicationsName", medicationsName);
+            object.put("manufacturer", manufacturer);
+            object.put("dosage", dosage);
+            object.put("treatmentPeriod", treatmentPeriod);
+            object.put("note", note);
+            object.put("animal", animal);
+            object.put("technicalPersonal", technicalPersonal);
+            object.put("syncStatus", syncStatus);
+            object.put("globalId", globalId);
+            object.put("animalType", animalType);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
     }
+
     public Medication(JSONObject object) throws JSONException {
         setUserId(object.getString("userId"));
         setGlobalId(object.getString("id"));
@@ -181,11 +194,12 @@ public class Medication implements LivestockSpinnerItem, Serializable {
         setHealthCondition(object.getString("healthCondition"));
         setMedicationsName(object.getString("medicationsName"));
         setManufacturer(object.getString("manufacturer"));
-        setDosage((float)object.getDouble("dosage"));
-        setTreatmentPeriod((float)object.getDouble("treatmentPeriod"));
+        setDosage((float) object.getDouble("dosage"));
+        setTreatmentPeriod((float) object.getDouble("treatmentPeriod"));
         setNote(object.getString("note"));
         setAnimal(object.getString("animal"));
         setTechnicalPersonal(object.getString("technicalPersonal"));
+        setAnimalType(object.getString("animalType"));
         setSyncStatus("yes");
     }
 

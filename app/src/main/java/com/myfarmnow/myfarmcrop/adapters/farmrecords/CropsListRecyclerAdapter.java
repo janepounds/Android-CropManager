@@ -86,15 +86,6 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         notifyDataSetChanged();
     }
 
-    public void addInventory(Crop sheepInventory) {
-        this.cropsList.add(sheepInventory);
-        notifyItemChanged(getItemCount());
-    }
-
-    public ArrayList<Crop> getCropsList() {
-
-        return cropsList;
-    }
 
     public void changeList(ArrayList<Crop> filteredList) {
         this.cropsList.clear();

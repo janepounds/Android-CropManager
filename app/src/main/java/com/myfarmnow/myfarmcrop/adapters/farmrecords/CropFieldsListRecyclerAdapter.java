@@ -95,9 +95,9 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             View view = new View(mContext);
             view.setMinimumHeight(20);
             cropNameAreaTextView.setTypeface(cropNameAreaTextView.getTypeface(), Typeface.BOLD);
-//            holder.expandContentLayout.addView(cropNameAreaTextView);
-//            holder.expandContentLayout.addView(datePlantedTextView);
-//            holder.expandContentLayout.addView(view);
+            holder.expandContentLayout.addView(cropNameAreaTextView);
+            holder.expandContentLayout.addView(datePlantedTextView);
+            holder.expandContentLayout.addView(view);
         }
 
     }
@@ -114,6 +114,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
 
         TextView fieldNameTextView, fieldAreaTextView, soilCategoryTextView, soilTypeTextView, croppableAreaTextView;
         ImageView moreButton;
+        LinearLayout expandContentLayout;
 
         public FieldViewHolder(View itemView) {
             super(itemView);
@@ -123,6 +124,7 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             soilTypeTextView = itemView.findViewById(R.id.txt_crop_field_card_soil_type);
             croppableAreaTextView = itemView.findViewById(R.id.txt_crop_field_card_croppable_area);
             moreButton = itemView.findViewById(R.id.img_crop_fields_card_more);
+            expandContentLayout= itemView.findViewById(R.id.layout_crop_field_expand);
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

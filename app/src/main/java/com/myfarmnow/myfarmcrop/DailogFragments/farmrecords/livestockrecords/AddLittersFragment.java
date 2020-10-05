@@ -33,6 +33,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.LivestockSpinnerItem;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -41,29 +42,28 @@ public class AddLittersFragment extends DialogFragment {
     private NavController navController;
     private Litter litter;
     private MyFarmDbHandlerSingleton dbHandler;
-    private EditText litterDob,litterSize,bornAlive,bornDead,noOfMale,noOfFemale,weaning,weaningAlert;
-    private ImageView close,datePicker;
-    private Spinner motherDam,fatherSire;
+    private EditText litterDob, litterSize, bornAlive, bornDead, noOfMale, noOfFemale, weaning, weaningAlert;
+    private ImageView close, datePicker;
+    private Spinner motherDam, fatherSire;
     private Button submit;
     public LivestockSpinnerAdapter litterSpinnerAdapter;
     private TextView litterTitle;
 
-
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context =context;
+        this.context = context;
     }
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
-        if(getArguments()!=null){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
+        if (getArguments() != null) {
             litter = (Litter) getArguments().getSerializable("litter");
 
         }
 
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_litters, null);
+        View view = getLayoutInflater().inflate(R.layout.fragment_add_litters, null);
         initializeForm(view);
         builder.setView(view);
         return builder.create();
@@ -72,14 +72,11 @@ public class AddLittersFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-            //get arguments for edit
-
-
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        //get arguments for edit
     }
 
-
-    public void initializeForm(View view){
+    public void initializeForm(View view) {
         litterTitle = view.findViewById(R.id.litter_title);
         close = view.findViewById(R.id.add_litter_close);
         litterDob = view.findViewById(R.id.add_litter_dob);
@@ -94,10 +91,10 @@ public class AddLittersFragment extends DialogFragment {
         weaningAlert = view.findViewById(R.id.add_litter_weaning_alert_et);
         datePicker = view.findViewById(R.id.image_dob);
         submit = view.findViewById(R.id.btn_save);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePickerImageView(datePicker,litterDob,context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        DashboardActivity.addDatePickerImageView(datePicker, litterDob, context);
         ArrayList<LivestockSpinnerItem> motherDams = new ArrayList<>();
-        for (BreedingStock x : dbHandler.getFemaleBreeds(DashboardActivity.RETRIEVED_USER_ID,"Female")) {
+        for (BreedingStock x : dbHandler.getFemaleBreeds(DashboardActivity.RETRIEVED_USER_ID, "Female")) {
             motherDams.add(new LivestockSpinnerItem() {
                 @Override
                 public String getId() {
@@ -136,17 +133,17 @@ public class AddLittersFragment extends DialogFragment {
         fatherSire.setAdapter(litterSpinnerAdapter);
         close.setOnClickListener(view1 -> dismiss());
 
-        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+        AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    if(position == 0){
+                try {
+                    if (position == 0) {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
 
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
 
                 }
             }
@@ -157,35 +154,29 @@ public class AddLittersFragment extends DialogFragment {
             }
         };
 
-
-
         fillViews();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries()){
-                    if(litter==null){
+                if (validateEntries()) {
+                    if (litter == null) {
                         saveLitter();
-                    }
-                    else{
+                    } else {
                         updateLitter();
                     }
                     //dismiss dialog and refresh fragment
                     navController = Navigation.findNavController(getParentFragment().getView());
                     navController.navigate(R.id.action_addLittersFragment_to_littersViewFragment);
-
-
-
-
-                }else{
-                    Log.d("ERROR","Testing");
+                } else {
+                    Log.d("ERROR", "Testing");
                 }
             }
         });
     }
-    public void fillViews(){
-        if(litter != null){
+
+    public void fillViews() {
+        if (litter != null) {
             submit.setText(getString(R.string.update));
             litterTitle.setText(getString(R.string.update_litter));
             litterDob.setText(litter.getDateOfBirth());
@@ -196,13 +187,14 @@ public class AddLittersFragment extends DialogFragment {
             noOfMale.setText(litter.getNoOfMale() + "");
             weaning.setText(litter.getWeaning() + "");
             weaningAlert.setText(litter.getWeaningAlert() + "");
-            DashboardActivity.selectSpinnerItemByValue(motherDam,litter.getMotherDam());
-            DashboardActivity.selectSpinnerItemByValue(fatherSire,litter.getFatherSire());
-
-
+            DashboardActivity.selectSpinnerItemByValue(motherDam, litter.getMotherDam());
+            DashboardActivity.selectSpinnerItemByValue(fatherSire, litter.getFatherSire());
         }
     }
-    public void saveLitter(){
+
+    public void saveLitter() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
         litter = new Litter();
         litter.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         litter.setDateOfBirth(litterDob.getText().toString());
@@ -215,14 +207,14 @@ public class AddLittersFragment extends DialogFragment {
         litter.setMotherDam(motherDam.getSelectedItem().toString());
         litter.setFatherSire(fatherSire.getSelectedItem().toString());
         litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
+        litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         dbHandler.insertLitter(litter);
-
-
-
     }
-    public void updateLitter(){
 
-        if(litter != null) {
+    public void updateLitter() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
+        if (litter != null) {
             litter.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             litter.setDateOfBirth(litterDob.getText().toString());
             litter.setLitterSize(Integer.parseInt(litterSize.getText().toString()));
@@ -234,50 +226,47 @@ public class AddLittersFragment extends DialogFragment {
             litter.setMotherDam(motherDam.getSelectedItem().toString());
             litter.setFatherSire(fatherSire.getSelectedItem().toString());
             litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
+            litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateLitter(litter);
         }
     }
 
-    public boolean validateEntries(){
+    public boolean validateEntries() {
         String message = null;
-        if(litterDob.getText().toString().isEmpty()){
+        if (litterDob.getText().toString().isEmpty()) {
             message = getString(R.string.date_not_entered_message);
             litterDob.requestFocus();
-        }
-        else if(litterSize.getText().toString().isEmpty()){
+        } else if (litterSize.getText().toString().isEmpty()) {
             message = getString(R.string.litter_size_not_entered);
             litterSize.requestFocus();
-        }
-
-        else if(fatherSire.getSelectedItemPosition()==0){
+        } else if (fatherSire.getSelectedItemPosition() == 0) {
             message = getString(R.string.father_sire_not_selected);
             fatherSire.requestFocus();
-        }else if(motherDam.getSelectedItemPosition()==0){
+        } else if (motherDam.getSelectedItemPosition() == 0) {
             message = getString(R.string.mother_dam_not_selected);
             motherDam.requestFocus();
-        }
-        else if(bornAlive.getText().toString().isEmpty()){
+        } else if (bornAlive.getText().toString().isEmpty()) {
             message = getString(R.string.born_alive_not_entered);
             bornAlive.requestFocus();
-        }else if(bornDead.getText().toString().isEmpty()){
+        } else if (bornDead.getText().toString().isEmpty()) {
             message = getString(R.string.born_dead_not_entered);
             bornDead.requestFocus();
-        }else if(noOfMale.getText().toString().isEmpty()){
+        } else if (noOfMale.getText().toString().isEmpty()) {
             message = getString(R.string.no_of_male_not_entered);
             noOfMale.requestFocus();
-        }else if(noOfFemale.getText().toString().isEmpty()){
+        } else if (noOfFemale.getText().toString().isEmpty()) {
             message = getString(R.string.no_of_female_not_entered);
             noOfFemale.requestFocus();
-        }else if(weaning.getText().toString().isEmpty()){
+        } else if (weaning.getText().toString().isEmpty()) {
             message = getString(R.string.weaning_days_not_entered);
             weaning.requestFocus();
-        }else if(weaningAlert.getText().toString().isEmpty()){
+        } else if (weaningAlert.getText().toString().isEmpty()) {
             message = getString(R.string.weaning_alert_not_entered);
             weaningAlert.requestFocus();
         }
 
-        if(message != null){
-            Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+        if (message != null) {
+            Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
             return false;
         }
         // Log.d("ERROR",message);
