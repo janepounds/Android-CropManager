@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_livestockRecordsFragment_to_matingsViewFragment"
             app:destination="@id/matingsViewFragment" />
+        <action
+            android:id="@+id/action_livestockRecordsFragment_to_farmRecordsHomeFragment"
+            app:destination="@id/farmRecordsHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeFragment"

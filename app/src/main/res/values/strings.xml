@@ -2289,6 +2289,7 @@
     <string name="sub_county">Sub County</string>
     <string name="village">Village</string>
     <string name="image_preview">Image Preview</string>
+    <string name="title_livestock_records">Livestock Records</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>
