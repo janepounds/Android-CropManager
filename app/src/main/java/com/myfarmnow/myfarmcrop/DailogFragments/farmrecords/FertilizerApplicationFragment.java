@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +49,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
     Spinner methodSp, fertilizerFormSp, fertilizerId,recurrenceSp,remindersSp;
-    LinearLayout daysBeforeLayout, remindersLayout;
+    LinearLayout daysBeforeLayout ;
+    RelativeLayout remindersLayout;
     boolean applicationMethodSet = false;//
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
     ArrayList<CropSpinnerItem> solidMethodsArrayList=new ArrayList<CropSpinnerItem>();
