@@ -26,10 +26,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 
 public class AddMatingFragment extends DialogFragment {
@@ -39,7 +41,7 @@ public class AddMatingFragment extends DialogFragment {
     private Mating mating;
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
-    private EditText matingDate,femaleName,maleName,deliveryAlert,note,gestationPeriod;
+    private EditText matingDate, femaleName, maleName, deliveryAlert, note, gestationPeriod;
     private Button submit;
     private Spinner method;
     private ImageView close;
@@ -49,19 +51,20 @@ public class AddMatingFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context =context;
+        this.context = context;
     }
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
 
         //get arguments for edit
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             mating = (Mating) getArguments().getSerializable("mating");
 
         }
-        View view =getLayoutInflater().inflate(R.layout.fragment_add_mating, null);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        View view = getLayoutInflater().inflate(R.layout.fragment_add_mating, null);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         initializeForm(view);
         builder.setView(view);
         return builder.create();
@@ -70,13 +73,9 @@ public class AddMatingFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
     }
 
-
-    public void initializeForm(View view){
+    public void initializeForm(View view) {
         matingTitle = view.findViewById(R.id.mating_title);
         close = view.findViewById(R.id.add_mating_close);
         matingDate = view.findViewById(R.id.add_mating_date);
@@ -87,20 +86,22 @@ public class AddMatingFragment extends DialogFragment {
         deliveryAlert = view.findViewById(R.id.add_mating_delivery_alert);
         note = view.findViewById(R.id.add_mating_note);
         submit = view.findViewById(R.id.add_mating_submit);
-        DashboardActivity.addDatePicker(matingDate,context);
+        DashboardActivity.addDatePicker(matingDate, context);
+
         close.setOnClickListener(view1 -> dismiss());
-        ((ArrayAdapter)method.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        AdapterView.OnItemSelectedListener onItemSelectedListener =new AdapterView.OnItemSelectedListener() {
+        ((ArrayAdapter) method.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    if(position == 0){
+                try {
+                    if (position == 0) {
                         // Set the hint text color gray
                         ((TextView) view).setTextColor(Color.GRAY);
                     }
 
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP,14);//Change selected text size
-                }catch (Exception e){
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
 
                 }
             }
@@ -111,36 +112,29 @@ public class AddMatingFragment extends DialogFragment {
             }
         };
 
-
-
         fillViews();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries()){
-                    if(mating==null){
+                if (validateEntries()) {
+                    if (mating == null) {
                         saveMating();
-                    }
-                    else{
+                    } else {
                         updateMating();
                     }
                     //dismiss dialog and refresh fragment
                     navController = Navigation.findNavController(getParentFragment().getView());
                     navController.navigate(R.id.action_addMatingFragment_to_matingsViewFragment);
-
-
-
-
-                }else{
-                    Log.d("ERROR","Testing");
+                } else {
+                    Log.d("ERROR", "Testing");
                 }
             }
         });
     }
 
-    public void fillViews(){
-        if(mating != null){
+    public void fillViews() {
+        if (mating != null) {
             submit.setText(getString(R.string.update));
             matingTitle.setText(getString(R.string.update_mating));
             matingDate.setText(mating.getMatingDate());
@@ -148,14 +142,14 @@ public class AddMatingFragment extends DialogFragment {
             maleName.setText(mating.getMaleName());
             deliveryAlert.setText(mating.getDeliveryAlertDaysBefore() + "");
             note.setText(mating.getNotes());
-            gestationPeriod.setText(mating.getGestationPeriod()+"");
-            DashboardActivity.selectSpinnerItemByValue(method,mating.getMethod());
-
-
-
+            gestationPeriod.setText(mating.getGestationPeriod() + "");
+            DashboardActivity.selectSpinnerItemByValue(method, mating.getMethod());
         }
     }
-    public void saveMating(){
+
+    public void saveMating() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
         mating = new Mating();
         mating.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         mating.setMatingDate(matingDate.getText().toString());
@@ -165,14 +159,14 @@ public class AddMatingFragment extends DialogFragment {
         mating.setGestationPeriod(Float.parseFloat(gestationPeriod.getText().toString()));
         mating.setNotes(note.getText().toString());
         mating.setMethod(method.getSelectedItem().toString());
+        mating.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         dbHandler.insertMating(mating);
-
-
-
     }
-    public void updateMating(){
 
-        if(mating != null) {
+    public void updateMating() {
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
+
+        if (mating != null) {
             mating.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             mating.setMatingDate(matingDate.getText().toString());
             mating.setFemaleName(femaleName.getText().toString());
@@ -181,43 +175,36 @@ public class AddMatingFragment extends DialogFragment {
             mating.setGestationPeriod(Float.parseFloat(gestationPeriod.getText().toString()));
             mating.setNotes(note.getText().toString());
             mating.setMethod(method.getSelectedItem().toString());
+            mating.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateMating(mating);
         }
     }
 
-    public boolean validateEntries(){
+    public boolean validateEntries() {
         String message = null;
-        if(matingDate.getText().toString().isEmpty()){
+        if (matingDate.getText().toString().isEmpty()) {
             message = getString(R.string.mating_date_not_entered);
             matingDate.requestFocus();
-        }
-        else if(femaleName.getText().toString().isEmpty()){
+        } else if (femaleName.getText().toString().isEmpty()) {
             message = getString(R.string.female_name_not_entered);
             femaleName.requestFocus();
-        }
-
-        else if(maleName.getText().toString().isEmpty()){
-            message = getString(R.string.male_name_not_entered);
-            maleName.requestFocus();
-        }else if(deliveryAlert.getText().toString().isEmpty()){
+        } else if (deliveryAlert.getText().toString().isEmpty()) {
             message = getString(R.string.deliverey_alert_not_entered);
             deliveryAlert.requestFocus();
-        }
-        else if(method.getSelectedItemPosition()==0){
+        } else if (method.getSelectedItemPosition() == 0) {
             message = getString(R.string.method_not_selected);
             method.requestFocus();
-        }else if(note.getText().toString().isEmpty()){
+        } else if (note.getText().toString().isEmpty()) {
             message = getString(R.string.note_not_entered);
             note.requestFocus();
-        }
-        else if(gestationPeriod.getText().toString().isEmpty()){
+        } else if (gestationPeriod.getText().toString().isEmpty()) {
             message = getString(R.string.gestation_period_not_entered);
             gestationPeriod.requestFocus();
         }
 
 
-        if(message != null){
-            Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
+        if (message != null) {
+            Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
             return false;
         }
         // Log.d("ERROR",message);

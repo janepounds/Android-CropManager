@@ -2,15 +2,17 @@ package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -90,15 +92,36 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
         for(Crop crop : crops){
             TextView cropNameAreaTextView = new TextView(mContext);
             TextView datePlantedTextView = new TextView(mContext);
+            Typeface face = Typeface.createFromAsset(mContext.getAssets(),  "fonts/JosefinSans-Regular.ttf");
+            datePlantedTextView.setTextSize(16f);
+            datePlantedTextView.setTextColor(Color.WHITE);
+            cropNameAreaTextView.setTextSize(16f);
+            cropNameAreaTextView.setTextColor(Color.WHITE);
+
             cropNameAreaTextView.setText(crop.getName()+" ("+crop.getArea()+field.getUnits().toLowerCase()+")");
             datePlantedTextView.setText("Date Planted : "+ CropSettingsSingleton.getInstance().convertToUserFormat(crop.getDateSown())+" ("+crop.computeAge()+")");
+            datePlantedTextView.setTypeface(face );
             View view = new View(mContext);
             view.setMinimumHeight(20);
-            cropNameAreaTextView.setTypeface(cropNameAreaTextView.getTypeface(), Typeface.BOLD);
-//            holder.expandContentLayout.addView(cropNameAreaTextView);
-//            holder.expandContentLayout.addView(datePlantedTextView);
-//            holder.expandContentLayout.addView(view);
+            cropNameAreaTextView.setTypeface(face, Typeface.BOLD);
+            holder.expandContentLayout.addView(cropNameAreaTextView);
+            holder.expandContentLayout.addView(datePlantedTextView);
+            holder.expandContentLayout.addView(view);
         }
+
+        holder.hideShowLayout.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                if (holder.expandContentLayout.getVisibility()==View.VISIBLE){
+                    holder.expandContentLayout.setVisibility(View.GONE);
+                    holder.showHideCropsButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
+                }else{
+                    holder.expandContentLayout.setVisibility(View.VISIBLE);
+                    holder.showHideCropsButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
+                }
+            }
+        });
 
     }
 
@@ -113,7 +136,8 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
     public class FieldViewHolder extends RecyclerView.ViewHolder{
 
         TextView fieldNameTextView, fieldAreaTextView, soilCategoryTextView, soilTypeTextView, croppableAreaTextView;
-        ImageView moreButton;
+        ImageView moreButton, showHideCropsButton;
+        LinearLayout expandContentLayout,hideShowLayout;
 
         public FieldViewHolder(View itemView) {
             super(itemView);
@@ -123,6 +147,10 @@ public class CropFieldsListRecyclerAdapter extends RecyclerView.Adapter<CropFiel
             soilTypeTextView = itemView.findViewById(R.id.txt_crop_field_card_soil_type);
             croppableAreaTextView = itemView.findViewById(R.id.txt_crop_field_card_croppable_area);
             moreButton = itemView.findViewById(R.id.img_crop_fields_card_more);
+            expandContentLayout= itemView.findViewById(R.id.layout_crop_field_expand);
+            hideShowLayout = itemView.findViewById(R.id.layout_crop_field_card_show_hide);
+            showHideCropsButton = itemView.findViewById(R.id.img_crop_field_card_show_crops);
+
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

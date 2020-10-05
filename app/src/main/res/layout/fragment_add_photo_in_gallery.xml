@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.gallery.AddPhotoInGalleryFragment">
+    android:layout_margin="@dimen/dimen_30dp"
+    tools:context="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.crop.AddPhotoInGalleryFragment">
 
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,11 +14,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/add_animal_close"
+                            android:id="@+id/gallery_close"
                             android:layout_width="26.18dp"
                             android:layout_height="26.18dp"
                             android:layout_alignParentEnd="true"
@@ -48,7 +49,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/breeder_form_title"
+                            android:id="@+id/gallery_form_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/josefin_sans_semibold"
@@ -60,7 +61,28 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/gallery_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height ="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="gone">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/image_preview"
+                            android:layout_marginBottom="4dp" />
 
+                        <ImageView
+                            android:id="@+id/image_preview"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:paddingStart="@dimen/dimen_10dp"
+                            android:background="@drawable/edittext_corner"
+                             android:scaleType="centerCrop"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -86,7 +108,7 @@
                             android:layout_marginBottom="@dimen/margin_10">
 
                             <EditText
-                                android:id="@+id/gallery_text"
+                                android:id="@+id/gallery_photo"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
                                 android:layout_margin="0dp"
@@ -97,7 +119,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/add_animal_photo"
+                                android:id="@+id/add_gallery_photo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.1"
@@ -146,7 +168,7 @@
                             android:background="@drawable/rounded_corners_button">
 
                             <Button
-                                android:id="@+id/add_animal_submit"
+                                android:id="@+id/add_photo_submit"
                                 style="@style/Button"
                                 android:layout_width="match_parent"
                                 android:layout_height="55dp"

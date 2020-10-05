@@ -1,7 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFieldFragment">
+    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.AddFieldFragment">
 
     <LinearLayout
 
@@ -40,23 +40,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="5dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
-                    android:layout_marginStart="@dimen/dimen_10dp">
-                    <TextView
-                        android:id="@+id/crop_action_txt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_add_field"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:textColor="@color/blackText"/>
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -83,6 +66,7 @@
                         android:textColor="@color/textColor" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,7 +113,6 @@
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
                     </RelativeLayout>
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -234,47 +217,49 @@
 
                     </LinearLayout>
                 </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dimen_10dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/field_size"
-                    android:layout_marginBottom="4dp"
-                    android:textSize="@dimen/dimen_16sp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/edittext_corner"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/txt_crop_field_total_area"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.7"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:background="@android:color/transparent"
-                        android:inputType="numberDecimal" />
-
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_10dp">
                     <TextView
-                        android:id="@+id/txt_crops_estimated_revenue_units"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/edittext_right_corners_green"
-                        android:textColor="@color/white"
-                        android:text="Units"
-                        android:textSize="14sp"
-                        android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/field_size"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="@dimen/dimen_16sp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
 
+                        <EditText
+                            android:id="@+id/txt_crop_field_total_area"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:background="@android:color/transparent"
+                            android:inputType="numberDecimal" />
+
+                        <TextView
+                            android:id="@+id/txt_crops_estimated_revenue_units"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edittext_right_corners_green"
+                            android:textColor="@color/white"
+                            android:text="Units"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:layout_weight="0.2" />
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
+
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

@@ -2279,6 +2279,7 @@
     <string name="update_medication">update medication</string>
     <string name="caption">Caption</string>
     <string name="add">Add</string>
+
     <string name="welcome_please_login_to_your_account">Welcome, Please Login to your Account</string>
     <string name="forgot_pass">Forgot password</string>
     <string name="don_t_have_an_account_yet">Don’t have an account yet?</string>
@@ -2287,6 +2288,7 @@
     <string name="district">District</string>
     <string name="sub_county">Sub County</string>
     <string name="village">Village</string>
+    <string name="image_preview">Image Preview</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

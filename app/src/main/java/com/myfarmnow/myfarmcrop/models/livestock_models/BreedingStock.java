@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class BreedingStock implements Serializable , LivestockSpinnerItem {
+public class BreedingStock implements Serializable, LivestockSpinnerItem {
     private String id;
     private String userId;
     private String name;
@@ -19,8 +19,9 @@ public class BreedingStock implements Serializable , LivestockSpinnerItem {
     private String father;
     private String motherDam;
     private String photo;
-    private String syncStatus="no";
+    private String syncStatus = "no";
     private String globalId;
+    private String animalType;
 
     public String getId() {
         return id;
@@ -142,38 +143,47 @@ public class BreedingStock implements Serializable , LivestockSpinnerItem {
         this.globalId = globalId;
     }
 
-    public BreedingStock(){
-
+    public String getAnimalType() {
+        return animalType;
     }
 
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
 
-    public JSONObject toJSON(){
+    public BreedingStock() {
+        // Empty constructor required
+    }
+
+    public JSONObject toJSON() {
 
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",id);
-            object.put("globalId",globalId);
-            object.put("userId",userId);
-            object.put("name",name);
-            object.put("earTag",earTag);
-            object.put("color",color);
-            object.put("sex",sex);
-            object.put("breed",breed);
-            object.put("dateOfBirth",dateOfBirth);
-            object.put("source",source);
-            object.put("weight",weight);
-            object.put("father",father);
-            object.put("motherDam",motherDam);
-            object.put("photo",photo);
-            object.put("syncStatus",syncStatus);
-            object.put("globalId",globalId);
+            object.put("id", id);
+            object.put("globalId", globalId);
+            object.put("userId", userId);
+            object.put("name", name);
+            object.put("earTag", earTag);
+            object.put("color", color);
+            object.put("sex", sex);
+            object.put("breed", breed);
+            object.put("dateOfBirth", dateOfBirth);
+            object.put("source", source);
+            object.put("weight", weight);
+            object.put("father", father);
+            object.put("motherDam", motherDam);
+            object.put("photo", photo);
+            object.put("syncStatus", syncStatus);
+            object.put("globalId", globalId);
+            object.put("animalType", animalType);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
     }
+
     public BreedingStock(JSONObject object) throws JSONException {
         setUserId(object.getString("userId"));
         setGlobalId(object.getString("id"));
@@ -184,13 +194,12 @@ public class BreedingStock implements Serializable , LivestockSpinnerItem {
         setBreed(object.getString("breed"));
         setDateOfBirth(object.getString("dateOfBirth"));
         setSource(object.getString("source"));
-        setWeight((float)object.getDouble("weight"));
+        setWeight((float) object.getDouble("weight"));
         setFather(object.getString("father"));
         setMotherDam(object.getString("motherDam"));
         setPhoto(object.getString("photo"));
+        setAnimalType(object.getString("animalType"));
         setSyncStatus("yes");
     }
-
-
 
 }

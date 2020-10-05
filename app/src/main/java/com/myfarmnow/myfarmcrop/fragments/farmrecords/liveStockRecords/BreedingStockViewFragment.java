@@ -49,6 +49,7 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -61,24 +62,8 @@ public class BreedingStockViewFragment extends Fragment {
     private BreedingStockListAdapter breedingStockListAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Toolbar toolbar;
-    // private Button addAnimal;
     private RecyclerView recyclerView;
     private NavController navController;
-
-    // image picker code
-    private static final int IMAGE_PICK_CODE = 0;
-    //permission code
-    private static final int PERMISSION_CODE = 1;
-
-    private Dialog dialog;
-    private Uri produceImageUri = null;
-    private Bitmap produceImageBitmap = null;
-    private String encodedImage;
-    private ImageView close, datePicker;
-    private Button submit;
-    private EditText name, earTag, colour, breed, weight, father, mother, dateOfBirth;
-    private Spinner sex, source;
-    private TextView photo;
     public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
 
     private MyFarmDbHandlerSingleton dbHandler;
@@ -115,11 +100,7 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
         loadBreedingStock();
-        //  addAnimal.setOnClickListener(v -> addAnimal());
     }
-
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -140,19 +121,15 @@ public class BreedingStockViewFragment extends Fragment {
 
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                navController.navigate(R.id.action_breedingStockViewFragment_to_livestockRecordsFragment);
+                return true;
+//                return super.onOptionsItemSelected(item);
         }
-
     }
-
-
-
 
     private void loadBreedingStock() {
         breedingStockListAdapter.clearBreedingStockList();
-
-        breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID));
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+        breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal()));
     }
-
-
 }

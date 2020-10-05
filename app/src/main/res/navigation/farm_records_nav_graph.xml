@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/cropRecordsFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropRecordsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.CropRecordsFragment"
         android:label="@string/title_crop_records"
         tools:layout="@layout/fragment_crop_records" >
         <action
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/fieldsListFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.FieldsListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.FieldsListFragment"
         android:label="@string/label_fields"
         tools:layout="@layout/fragment_fields_list" >
         <action
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/cropListFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.CropListFragment"
         android:label="@string/label_crops"
         tools:layout="@layout/fragment_crop_list" >
         <action
@@ -136,7 +136,7 @@
     </fragment>
     <fragment
         android:id="@+id/productionReportsFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropProductionReports"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.CropProductionReports"
         android:label="@string/label_production_reports"
         tools:layout="@layout/fragment_crop_production_reports" >
         <action
@@ -145,7 +145,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFieldFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddFieldFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.AddFieldFragment"
         android:label="@string/title_add_fields"
         tools:layout="@layout/fragment_add_field" >
         <action
@@ -154,7 +154,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCropFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddCropFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.AddCropFragment"
         android:label="@string/label_crops"
         tools:layout="@layout/fragment_add_crop" />
     <dialog
@@ -222,7 +222,7 @@
     </dialog>
     <fragment
         android:id="@+id/cropActivitiesListFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropActivitiesListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.CropActivitiesListFragment"
         android:label="fragment_crop_activities_list"
         tools:layout="@layout/fragment_crop_activities_list" >
         <action
@@ -237,7 +237,7 @@
     </fragment>
     <fragment
         android:id="@+id/cropsNotesListFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropsNotesListFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.CropsNotesListFragment"
         android:label="fragment_crops_notes_list"
         tools:layout="@layout/fragment_crops_notes_list" >
         <action
@@ -249,7 +249,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCropNotesFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.AddCropNotesFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.AddCropNotesFragment"
         android:label="fragment_add_crop_notes"
         tools:layout="@layout/fragment_add_crop_notes" >
         <action
@@ -266,6 +266,9 @@
         <action
             android:id="@+id/action_breedingStockViewFragment_to_addBreedingStockFragment"
             app:destination="@id/addBreedingStockFragment" />
+        <action
+            android:id="@+id/action_breedingStockViewFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
     </fragment>
     <fragment
         android:id="@+id/littersViewFragment"
@@ -284,6 +287,9 @@
         <action
             android:id="@+id/action_medicationsViewFragment_to_addMedicationFragment"
             app:destination="@id/addMedicationFragment" />
+        <action
+            android:id="@+id/action_medicationsViewFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
     </fragment>
     <dialog
         android:id="@+id/addLittersFragment"
@@ -330,7 +336,7 @@
     </dialog>
     <fragment
         android:id="@+id/galleryViewFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.gallery.GalleryViewFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.GalleryViewFragment"
         android:label="fragment_gallery_view"
         tools:layout="@layout/fragment_gallery_view" >
         <action
@@ -339,7 +345,11 @@
     </fragment>
     <dialog
         android:id="@+id/addPhotoInGalleryFragment"
-        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.gallery.AddPhotoInGalleryFragment"
+        android:name="com.myfarmnow.myfarmcrop.DailogFragments.farmrecords.crop.AddPhotoInGalleryFragment"
         android:label="fragment_add_photo_in_gallery"
-        tools:layout="@layout/fragment_add_photo_in_gallery" />
+        tools:layout="@layout/fragment_add_photo_in_gallery" >
+        <action
+            android:id="@+id/action_addPhotoInGalleryFragment_to_galleryViewFragment"
+            app:destination="@id/galleryViewFragment" />
+    </dialog>
 </navigation>

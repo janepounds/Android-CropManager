@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/gray_mh"
-    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.CropProductionReports">
+    tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.CropProductionReports">
     >
 
     <com.google.android.material.appbar.AppBarLayout

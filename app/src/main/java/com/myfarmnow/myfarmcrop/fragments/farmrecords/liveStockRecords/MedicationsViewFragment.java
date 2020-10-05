@@ -26,6 +26,7 @@ import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LittersListAdapter;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.MedicationsListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,7 @@ public class MedicationsViewFragment extends Fragment {
         recyclerView.setAdapter(medicationsListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
+        toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_medicationsViewFragment_to_livestockRecordsFragment));
         loadMedication();
     }
 
@@ -84,7 +85,8 @@ public class MedicationsViewFragment extends Fragment {
     private void loadMedication(){
         medicationsListAdapter.clearMedicationList();
 
-        medicationsListAdapter.addList(dbHandler.getMedications(DashboardActivity.RETRIEVED_USER_ID));
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+        medicationsListAdapter.addList(dbHandler.getMedications(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal()));
 
     }
 

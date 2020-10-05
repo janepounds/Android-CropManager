@@ -1,4 +1,4 @@
-package com.myfarmnow.myfarmcrop.fragments.farmrecords;
+package com.myfarmnow.myfarmcrop.fragments.farmrecords.crop;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -273,7 +273,7 @@ public class AddFieldFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        getActivity().getSupportFragmentManager().popBackStack();
+        navController.popBackStack();
         return super.onOptionsItemSelected(item);
     }
 

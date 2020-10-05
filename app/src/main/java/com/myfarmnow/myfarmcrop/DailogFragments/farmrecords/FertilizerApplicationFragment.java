@@ -280,8 +280,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
-        fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
-        fertilizerApplication.setRate( Float.parseFloat(rateTxt.getText().toString()) );
+        fertilizerApplication.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
+        fertilizerApplication.setRate( Float.parseFloat("0"+rateTxt.getText().toString()) );
 //        fertilizerApplication.setReason(reasonTxt.getText().toString());
 //        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
@@ -296,8 +296,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
             fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
             fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
             fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
-            fertilizerApplication.setDaysBefore(Float.parseFloat(daysBeforeTxt.getText().toString()));
-            fertilizerApplication.setRate( Float.parseFloat(rateTxt.getText().toString()) );
+            fertilizerApplication.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
+            fertilizerApplication.setRate( Float.parseFloat("0"+rateTxt.getText().toString()) );
             dbHandler.updateCropFertilizerApplication(fertilizerApplication);
 
         }
