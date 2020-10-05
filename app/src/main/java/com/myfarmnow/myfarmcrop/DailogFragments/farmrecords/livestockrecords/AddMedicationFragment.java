@@ -229,7 +229,7 @@ public class AddMedicationFragment extends DialogFragment {
             medication.setTreatmentPeriod(Float.parseFloat(treatmentPeriod.getText().toString()));
             medication.setNote(notes.getText().toString());
             medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
-            medication.setAnimal(sharedPreferenceHelper.getSelectedAnimal());
+            medication.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateMedication(medication);
         }
     }

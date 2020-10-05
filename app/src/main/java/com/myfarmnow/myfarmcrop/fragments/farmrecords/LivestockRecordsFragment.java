@@ -40,11 +40,12 @@ public class LivestockRecordsFragment extends Fragment {
         layout_litters = view.findViewById(R.id.layout_litters);
         layout_medications = view.findViewById(R.id.layout_medications);
 
-        assert getArguments() != null;
-        Log.d(TAG, "onCreateView: Animal = " + getArguments().getString("animal"));
-
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
-        preferenceModel.insertSelectedAnimal(getArguments().getString("animal"));
+        if(getArguments() != null){
+            //Log.d(TAG, "onCreateView: Animal = " + getArguments().getString("animal"));
+            preferenceModel.insertSelectedAnimal(getArguments().getString("animal"));
+        }
+
 
         Log.d(TAG, "onCreateView: SharedPreference = " + preferenceModel.getSelectedAnimal());
 
