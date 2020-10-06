@@ -330,7 +330,6 @@ public class AddFinancialRecordFragment extends Fragment {
             }
             expenseCategory.setAdapter(categoryAdapter);
 
-            Log.e("CategoryItem",expenseCategory.getAdapter().getItem(7)+"");
             DashboardActivity.selectSpinnerItemByValue(expenseCategory, cropIncomeExpense.getCategory());
 
             expenseDate.setText(cropIncomeExpense.getDate());
