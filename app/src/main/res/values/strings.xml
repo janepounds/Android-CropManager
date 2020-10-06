@@ -2272,12 +2272,24 @@
     <string name="medication_date_not_entered">medication date not entered</string>
     <string name="update_financial_record">Edit Financial Record</string>
     <string name="update_animal">Edit Animal</string>
+    <string name="reason">Reason</string>
+    <string name="label_harvesting">HARVESTING</string>
     <string name="update_litter">update Litter</string>
     <string name="update_mating">update mating</string>
     <string name="update_medication">update medication</string>
     <string name="caption">Caption</string>
     <string name="add">Add</string>
+
+    <string name="welcome_please_login_to_your_account">Welcome, Please Login to your Account</string>
+    <string name="forgot_pass">Forgot password</string>
+    <string name="don_t_have_an_account_yet">Don’t have an account yet?</string>
+    <string name="create_a_new_account">Create a New Account.</string>
+    <string name="sign_up">Sign up</string>
+    <string name="district">District</string>
+    <string name="sub_county">Sub County</string>
+    <string name="village">Village</string>
     <string name="image_preview">Image Preview</string>
+    <string name="title_livestock_records">Livestock Records</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

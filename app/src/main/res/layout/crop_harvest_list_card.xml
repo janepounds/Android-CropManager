@@ -14,26 +14,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.9"
-            android:orientation="vertical">
-
-
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="@dimen/dimen_5dp"
-                android:background="#444444"
-                android:scaleType="fitXY"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/rounded_cornor_bg"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:padding="6dp"
                 android:src="@drawable/harvesting" />
 
             <View
                 android:id="@+id/txt_view_crop_harvest_card_line"
-                android:layout_width="1dp"
-                android:layout_height="260dp"
-                android:layout_marginStart="16dp"
-                android:background="#E7EAE7"
+                android:layout_width="2dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="#444444"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -42,28 +43,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
-            android:paddingEnd="20dp"
-            android:paddingBottom="20dp"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_view_crop_harvest_card_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:layout_marginBottom="8dp"
                 android:text="20-08-2018"
-                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:textColor="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="20dp"
+                android:padding="0dp"
                 android:background="@drawable/input_shapes_crops_card"
                 android:orientation="vertical">
 
@@ -72,15 +69,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_margin="0dp"
-                    android:padding="8dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dimen_5dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.9"
-                        android:layout_marginStart="28dp"
                         android:text="@string/harvest"
+                        android:textStyle="bold"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp" />
 
@@ -103,9 +101,8 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="237dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginStart="15dp"
                     android:layout_marginBottom="5dp"
                     android:background="#D2D3D2" />
 
@@ -113,25 +110,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp"
-
-                    >
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="10dp" >
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
+                        android:text="Quantity"
+                        android:textColor="@color/blackText"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="0.4"
-                        android:text="Quantity : "
+                        android:text=":"
                         android:textColor="@color/blackText"
                         android:textSize="14sp" />
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="0.6"
-                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
                     >
                     <TextView
                         android:id="@+id/txt_view_crop_harvest_card_quantity"
@@ -157,25 +158,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp"
-                    >
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.4"
-                        android:text="Status : "
-                        android:layout_marginStart="38dp"
+                        android:layout_weight="1"
+                        android:text="Status"
                         android:textColor="@color/blackText"
                         />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text=":"
+                        android:textColor="@color/blackText"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txt_view_crop_harvest_card_status"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
                         android:text="Sold"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -186,24 +191,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp">
 
                     <TextView
 
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="38dp"
-                        android:layout_weight="0.4"
-                        android:text="Income Generated :"
+                        android:layout_weight="1"
+                        android:text="Income Generated"
                         android:textColor="@color/blackText" />
 
                     <TextView
-                        android:id="@+id/txt_view_crop_harvest_card_income_generated"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:layout_marginStart="6dp"
+                        android:layout_weight="0.4"
+                        android:text=":"
+                        android:textColor="@color/blackText"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_view_crop_harvest_card_income_generated"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="UGX 150,000"
                         android:textColor="#899889" />
                 </LinearLayout>
@@ -212,27 +222,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="0dp"
-                    android:padding="4dp"
-
-                    >
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Date Sold : "
+                        android:text="Date Sold"
                         android:textColor="@color/blackText"
                         android:textSize="14sp"
-                        android:layout_marginStart="38dp"
-                        android:layout_weight="0.4"
+                        android:layout_weight="1"
                         />
-
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:text=":"
+                        android:textColor="@color/blackText"
+                        android:textSize="14sp" />
                     <TextView
                         android:id="@+id/txt_view_crop_harvest_date_sold"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
                         android:textColor="#899889"
                         android:text="12/07/2020"/>
 
@@ -254,12 +266,9 @@
 
                 <ImageView
                     android:id="@+id/img_crop_harvest_card_show_crops"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:backgroundTint="@color/black"
-                    android:textColor="#D2DDD5"
-                    android:layout_marginEnd="18.17dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="@dimen/dimen_10dp"
                     android:src="@drawable/arrow_drop_down" />
             </LinearLayout>
 

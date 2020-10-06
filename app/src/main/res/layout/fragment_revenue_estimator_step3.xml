@@ -1,59 +1,53 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep3Fragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_revenue_estimator_step3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAlignment="center"
                         android:layout_margin="4dp"
-                        android:textStyle="bold"
-                        android:text="@string/fixed_expenses"
                         android:fontFamily="@font/josefin_sans"
+                        android:text="@string/fixed_expenses"
+                        android:textAlignment="center"
                         android:textColor="@color/textColor"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <com.kofigyan.stateprogressbar.StateProgressBar
                         android:id="@+id/revenue_calculator_progress_bar_id"
@@ -73,23 +67,23 @@
                         app:spb_stateNumberForegroundColor="#eeeeee"
                         app:spb_stateTextSize="@dimen/dimen_16sp" />
 
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_20dp"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="0.6"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -103,50 +97,49 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1.4"
                         android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
                         android:background="@drawable/edittext_corner"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.2"
                             android:background="@drawable/edittext_left_corners_green"
-                            android:textColor="@color/white"
-                            android:text="UGX"
-                            android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
                         <EditText
                             android:id="@+id/txt_crop_roi_step_3_power"
                             android:layout_width="0dp"
-                            android:layout_weight="0.7"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
-                            android:paddingRight="@dimen/dimen_10dp"
                             android:inputType="number"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:textAlignment="textEnd"
                             android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_20dp"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="0.6"
-                        >
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -161,49 +154,49 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1.4"
                         android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
                         android:background="@drawable/edittext_corner"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.2"
                             android:background="@drawable/edittext_left_corners_green"
-                            android:textColor="@color/white"
-                            android:text="UGX"
-                            android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
                         <EditText
                             android:id="@+id/txt_crop_roi_step_3_building_repair"
                             android:layout_width="0dp"
-                            android:layout_weight="0.7"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
-                            android:paddingRight="@dimen/dimen_10dp"
                             android:inputType="number"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:textAlignment="textEnd"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_20dp"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="0.6"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -217,49 +210,49 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1.4"
                         android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
                         android:background="@drawable/edittext_corner"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.2"
                             android:background="@drawable/edittext_left_corners_green"
-                            android:textColor="@color/white"
-                            android:text="UGX"
-                            android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
                         <EditText
                             android:id="@+id/txt_crop_roi_step_3_property_taxes"
                             android:layout_width="0dp"
-                            android:layout_weight="0.7"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
-                            android:paddingRight="@dimen/dimen_10dp"
                             android:inputType="number"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:textAlignment="textEnd"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_20dp"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="0.6"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -269,110 +262,106 @@
                             android:textStyle="normal" />
                     </LinearLayout>
 
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1.4"
                         android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
                         android:background="@drawable/edittext_corner"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.2"
                             android:background="@drawable/edittext_left_corners_green"
-                            android:textColor="@color/white"
-                            android:text="UGX"
-                            android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
                         <EditText
                             android:id="@+id/txt_crop_roi_step_3_total_other_costs"
                             android:layout_width="0dp"
-                            android:layout_weight="0.7"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
-                            android:paddingRight="@dimen/dimen_10dp"
                             android:inputType="number"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:textAlignment="textEnd"
                             android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_20dp"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="0.6"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Total Fixed Costs"
                             android:textColor="@color/textColor"
-                            android:textSize="16sp"
-                            />
+                            android:textSize="16sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1.4"
                         android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
                         android:background="@drawable/edittext_corner"
-                        >
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.2"
                             android:background="@drawable/edittext_left_corners_green"
-                            android:textColor="@color/white"
-                            android:text="UGX"
-                            android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
                         <TextView
-                            android:id="@+id/txt_crop_ro1_step_3_total_overhead_costs"
+                            android:id="@+id/txt_crop_roi_step_3_total_over_head_costs"
                             android:layout_width="0dp"
-                            android:layout_weight="0.7"
-                            android:paddingRight="@dimen/dimen_10dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:textAlignment="textEnd"
                             android:inputType="number"
+                            android:paddingRight="@dimen/dimen_10dp"
+                            android:textAlignment="textEnd"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_margin="@dimen/dimen_20dp"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
 
                     <FrameLayout
                         android:layout_width="0dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="@dimen/dimen_20dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round_corners_button_darkgray">
-
+                        android:layout_marginEnd="@dimen/dimen_20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_corners_button_darkgray"
+                        android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/txt_crop_roi_step_3_crop_btn_previous"
@@ -390,13 +379,11 @@
 
                     <FrameLayout
                         android:layout_width="0dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/dimen_20dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_corners_button">
-
-
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corners_button"
+                        android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/txt_crop_roi_step_3_crop_btn_next"
@@ -417,15 +404,17 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="right|center_vertical"
                             android:layout_margin="10dip"
-                            android:visibility="gone"
-                            android:src="@drawable/ic_right_arrow">
-                        </ImageView>
+                            android:src="@drawable/ic_right_arrow"
+                            android:visibility="gone"/>
+
                     </FrameLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
+
         </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

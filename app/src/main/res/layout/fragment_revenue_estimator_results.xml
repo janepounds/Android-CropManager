@@ -1,25 +1,24 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorResultsFragment">
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-<com.google.android.material.appbar.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-</com.google.android.material.appbar.AppBarLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_revenue_estimator_result"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,30 +29,29 @@
             android:id="@+id/scroll_view_crop_roi_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_gray" >
+            android:background="@color/background_gray">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_report_results"
-                        android:fontFamily="@font/josefin_sans"
-                        android:textStyle="bold"
                         android:layout_margin="@dimen/margin_10"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="@string/label_report_results"
+                        android:textAlignment="center"
                         android:textColor="@color/textColor"
                         android:textSize="18sp"
-                        android:textAlignment="center"
+                        android:textStyle="bold"
 
                         />
                 </LinearLayout>
@@ -61,49 +59,47 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/white"
                     android:layout_marginBottom="@dimen/dimen_10dp"
-                    >
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dimen_10dp"
                         android:orientation="horizontal"
-                        >
+                        android:padding="@dimen/dimen_10dp">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Returns Per Acre"
-                            android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp"
-                            />
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="@color/background_gray"
-                        android:layout_height="2dp"></View>
+                        android:layout_height="2dp"
+                        android:background="@color/background_gray"></View>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dimen_10dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="@dimen/dimen_10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical" >
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.5"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -116,9 +112,8 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.1"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -127,35 +122,37 @@
                                     android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_return_over_variable_costs"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="UGX 0"
-                                    android:textColor="@color/textColor"
                                     android:textAlignment="textEnd"
+                                    android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_marginTop="@dimen/dimen_10dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.5"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -168,9 +165,8 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.1"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -179,19 +175,20 @@
                                     android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_return_over_total_expense"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="UGX 0"
-                                    android:textColor="@color/textColor"
                                     android:textAlignment="textEnd"
+                                    android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
 
@@ -205,64 +202,62 @@
                     android:id="@+id/buy_inputs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/white"
                     android:layout_marginBottom="@dimen/dimen_10dp"
-                    >
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="@dimen/dimen_10dp">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Break-even Yield Per Acre"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
-                            />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="@color/background_gray"
-                        android:layout_height="2dp"></View>
+                        android:layout_height="2dp"
+                        android:background="@color/background_gray" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dimen_10dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="@dimen/dimen_10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.5"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/to_cover_expenses"
                                     android:textColor="@color/textColor"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textSize="16sp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.1"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -271,61 +266,61 @@
                                     android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
+                                android:orientation="horizontal"
 
                                 >
 
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_break_even_yield_cover_variable_expenses"
                                     android:layout_width="0dp"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColor"
+                                    android:layout_weight="1"
                                     android:text="0"
                                     android:textAlignment="textEnd"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textColor="@color/textColor"
+                                    android:textSize="16sp" />
+
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_break_even_yield_cover_variable_expenses_units"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Units"
                                     android:textColor="@color/textColor"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textSize="16sp" />
                             </LinearLayout>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.5"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="To Cover Total Expenses : "
                                     android:textColor="@color/textColor"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textSize="16sp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.1"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -334,11 +329,12 @@
                                     android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
+                                android:orientation="horizontal"
 
                                 >
 
@@ -346,20 +342,20 @@
                                     android:id="@+id/txt_crop_roi_results_break_even_yield_cover_total_expenses"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColor"
+                                    android:layout_weight="1"
                                     android:text="0"
                                     android:textAlignment="textEnd"
-                                    android:textSize="16sp"
-                                    android:layout_weight="1"/>
+                                    android:textColor="@color/textColor"
+                                    android:textSize="16sp" />
+
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_break_even_yield_cover_total_expenses_units"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Units"
                                     android:layout_marginStart="4dp"
+                                    android:text="Units"
                                     android:textColor="@color/textColor"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textSize="16sp" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -371,16 +367,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/white"
                     android:layout_marginBottom="@dimen/dimen_10dp"
-                    >
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="@dimen/dimen_10dp" >
+                        android:padding="@dimen/dimen_10dp">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -395,105 +391,107 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="@color/background_gray"
-                        android:layout_height="2dp"></View>
+                        android:layout_height="2dp"
+                        android:background="@color/background_gray" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dimen_10dp"
                         android:orientation="vertical"
-                        >
+                        android:padding="@dimen/dimen_10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.6"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/to_cover_expenses"
                                     android:textColor="@color/textColor"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textSize="16sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_break_even_price_cover_variable_expenses"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColor"
                                     android:text="0"
                                     android:textAlignment="textEnd"
+                                    android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.6"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="To Cover Total Expenses"
                                     android:textColor="@color/textColor"
-                                    android:textSize="16sp"
-                                    />
+                                    android:textSize="16sp" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_break_even_price_cover_total_expenses"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/textColor"
                                     android:text="0"
                                     android:textAlignment="textEnd"
+                                    android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="8dp"
                             android:gravity="center_vertical"
-                            android:padding="4dp"
-                            android:layout_marginTop="8dp">
+                            android:orientation="horizontal"
+                            android:padding="4dp">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.6"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -503,19 +501,20 @@
 
                                     />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_weight="0.4"
-                                >
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/txt_crop_roi_results_return_on_capital"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textColor="@color/textColor"
                                     android:textAlignment="textEnd"
+                                    android:textColor="@color/textColor"
                                     android:textSize="16sp" />
                             </LinearLayout>
 
@@ -531,11 +530,10 @@
                     android:orientation="vertical">
 
                     <com.highsoft.highcharts.core.HIChartView
+                        android:id="@+id/chart_crop_results_pie"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"
-                        android:layout_marginTop="8dp"
-                        android:id="@+id/chart_crop_results_pie"
-                        />
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
 
@@ -545,5 +543,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</layout>

@@ -72,7 +72,7 @@ public class MedicationsViewFragment extends Fragment {
         recyclerView.setAdapter(medicationsListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
+        toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_medicationsViewFragment_to_livestockRecordsFragment));
         loadMedication();
     }
 

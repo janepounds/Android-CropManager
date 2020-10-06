@@ -201,18 +201,11 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
                                 bundle.putSerializable("crop", crop);
                                 navController.navigate(R.id.action_cropListFragment_to_addCropFragment,bundle);
 
-                            } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_cultivate))) {
-                                Crop crop = cropsList.get(getAdapterPosition());
-//                                Intent intent = new Intent(mContext, CropCultivationManagerActivity.class);
-//                                intent.putExtra("cropId", crop.getId());
-//                                mContext.startActivity(intent);
-
-                            } else if (item.getTitle().toString().equals(mContext.getString(R.string.fertilizer_application_title))) {
+                            }  else if (item.getTitle().toString().equals(mContext.getString(R.string.fertilizer_application_title))) {
                                 Crop crop = cropsList.get(getAdapterPosition());
                                 //navigate to fertilizer dialog fragment
                                 Bundle bundle = new Bundle();
                                 bundle.putString("cropId", crop.getId());
-//                                bundle.putSerializable("fertilizerApplication", CropFertilizerApplication);
                                 navController.navigate(R.id.action_cropListFragment_to_fertilizerApplicationFragment,bundle);
                             } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_spray))) {
                                 Crop crop = cropsList.get(getAdapterPosition());

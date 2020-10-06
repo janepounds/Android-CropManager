@@ -18,12 +18,14 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,21 +59,18 @@ public class CropSprayingFragment extends DialogFragment {
     private  String sprayType;
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_crop_spraying, container, false);
-    }
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.CustomAlertDialog);
         // Get the layout inflater
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        LayoutInflater inflater = getLayoutInflater();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         View view =inflater.inflate(R.layout.fragment_crop_spraying, null);
         builder.setView(view);
+
+        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         if(getArguments()!=null){
             cropId = getArguments().getString("cropId");
             cropSpraying = (CropSpraying) getArguments().getSerializable("cropSpraying");
@@ -83,7 +82,6 @@ public class CropSprayingFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
 
     }

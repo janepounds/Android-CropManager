@@ -3,6 +3,8 @@ package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -217,10 +219,22 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             if(harvest.getStatus().toLowerCase().equals("sold")) {
 
                 TextView dateSoldTxt = new TextView(mContext);
+                dateSoldTxt.setTextSize(16f);
+                dateSoldTxt.setTextColor(Color.WHITE);
+                Typeface face = Typeface.createFromAsset(mContext.getAssets(),  "fonts/JosefinSans-Regular.ttf");
+                dateSoldTxt.setTypeface(face );
                 dateSoldTxt.setText("Date Sold:   "+harvest.getDateSold());
+
                 TextView customerTxt = new TextView(mContext);
+                customerTxt.setTextSize(16f);
+                customerTxt.setTextColor(Color.WHITE);
+                customerTxt.setTypeface(face );
                 customerTxt.setText("Customer:   "+harvest.getCustomer());
+
                 TextView quantitySoldTxt = new TextView(mContext);
+                quantitySoldTxt.setTextSize(16f);
+                quantitySoldTxt.setTextColor(Color.WHITE);
+                quantitySoldTxt.setTypeface(face );
                 quantitySoldTxt.setText("Quantity Sold:   "+harvest.getQuantitySold()+" "+harvest.getUnits());
                 View view = new View(mContext);
                 view.setMinimumHeight(20);

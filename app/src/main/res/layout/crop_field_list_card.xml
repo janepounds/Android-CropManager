@@ -64,7 +64,7 @@
 
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1.1"
+                                    android:layout_weight="1"
                                     android:textSize="16dp" />
 
 
@@ -72,11 +72,10 @@
                                 <TextView
                                     android:id="@+id/txt_crop_field_card_area"
                                     android:layout_width="0dp"
-                                    android:layout_weight="0.8"
+                                    android:layout_weight="0.9"
                                     android:layout_height="match_parent"
-                                    android:text="15.5 hactares"
+                                    android:text="15.5 square miles"
                                     android:gravity="center_vertical"
-                                    android:layout_marginStart="-5dp"
                                     android:textColor="@color/blackText"
                                     android:textStyle="bold"
                                     android:textSize="16sp" />
@@ -87,7 +86,6 @@
                                     android:layout_weight="0.2"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="right"
-                                    android:layout_marginLeft="6dp"
                                     android:layout_marginTop="3dp"
                                     android:layout_marginBottom="3dp">
 
@@ -272,8 +270,8 @@
 
         <ImageView
             android:id="@+id/img_crop_field_card_show_crops"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="@dimen/dimen_10dp"
             android:src="@drawable/arrow_drop_down" />
     </LinearLayout>
