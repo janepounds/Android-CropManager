@@ -121,8 +121,6 @@ public class BreedingStockViewFragment extends Fragment {
                     for (BreedingStock x : breedingStockListBackup) {
                         if (selection.toLowerCase().contains(x.getName().toLowerCase()) || position == 1) {
                             filteredList.add(x);
-//                            Collections.sort(filteredList);
-
                         }
 
                     }
