@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class BreedingStock implements Serializable, LivestockSpinnerItem {
     private String id;
@@ -201,5 +202,11 @@ public class BreedingStock implements Serializable, LivestockSpinnerItem {
         setAnimalType(object.getString("animalType"));
         setSyncStatus("yes");
     }
+
+ public static Comparator<BreedingStock> nameComparator = (o1, o2) -> {
+     String name1 = o1.getName().toLowerCase();
+     String name2 = o2.getName().toLowerCase();
+     return name1.compareTo(name2);
+ };
 
 }
