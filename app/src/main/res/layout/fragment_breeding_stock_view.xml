@@ -69,6 +69,7 @@
                         android:layout_height="44dp"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:layout_centerVertical="true"
+                        android:background="@color/transparent"
                         android:layout_toStartOf="@+id/breeding_stock_search" />
 
                 </RelativeLayout>
