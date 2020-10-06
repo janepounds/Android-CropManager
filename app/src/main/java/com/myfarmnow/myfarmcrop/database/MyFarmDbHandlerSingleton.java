@@ -966,7 +966,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 MARKET_PRICE_CROP + " TEXT NOT NULL, " + MARKET_PRICE_TABLE_MARKET + " TEXT NOT NULL, " + MARKET_PRICE_RETAIL + " TEXT NOT NULL, " + MARKET_PRICE_WHOLESALE + " TEXT NOT NULL " + " ) ";
 
 
-        String livestock_records_breeding_stock_insert_query = " CREATE TABLE IF NOT EXISTS " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR
+        String livestock_records_breeding_stock_insert_query = " CREATE TABLE IF NOT EXISTS " +   LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " ( " + LIVESTOCK_RECORDS_BREEDING_STOCK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_NAME + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR
                 + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SEX + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_BREED + " TEXT NOT NULL, " + LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE + " TEXT, " +
                 LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT + " REAL DEFAULT 0, " + LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO + " TEXT, " + LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS + " TEXT DEFAULT 'no', " + LIVESTOCK_RECORDS_ANIMAL_TYPE + " TEXT NOT NULL " + " )";
         ;
@@ -9161,6 +9161,43 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId+" AND "+LIVESTOCK_RECORDS_ANIMAL_TYPE+ " = '" + animal+"'", null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            BreedingStock breedingStock = new BreedingStock();
+            breedingStock.setId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_ID)));
+            breedingStock.setUserId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID)));
+            breedingStock.setName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME)));
+            breedingStock.setEarTag(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG)));
+            breedingStock.setColor(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR)));
+            breedingStock.setSex(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX)));
+            breedingStock.setBreed(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED)));
+            breedingStock.setDateOfBirth(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH)));
+            breedingStock.setSource(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE)));
+            breedingStock.setWeight(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT))));
+            breedingStock.setFather(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER)));
+            breedingStock.setMotherDam(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM)));
+            breedingStock.setPhoto(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
+            breedingStock.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SYNC_STATUS)));
+            breedingStock.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_GLOBAL_ID)));
+            breedingStock.setAnimalType(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_ANIMAL_TYPE)));
+            array_list.add(breedingStock);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        return array_list;
+
+    }
+
+    public ArrayList<BreedingStock> getBreedingStockBySex(String userId, String animal, String sex) {
+
+        openDB();
+        ArrayList<BreedingStock> array_list = new ArrayList();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME + " where " + LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID + " = " + userId+" AND "+LIVESTOCK_RECORDS_ANIMAL_TYPE+ " = '" + animal+"' AND "+LIVESTOCK_RECORDS_BREEDING_STOCK_SEX+" = '"+sex+"'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
