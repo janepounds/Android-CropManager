@@ -69,12 +69,13 @@ public class BreedingStockViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private NavController navController;
     public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
+    public ArrayList<BreedingStock> breedingBackupList = new ArrayList();
     private MyFarmDbHandlerSingleton dbHandler;
     private ArrayList<String> sortedList = new ArrayList<>();
     private EditText searchEdit;
     private ImageView breedingSearch;
     ArrayList<BreedingStock> filteredList = new ArrayList<>();
-    private LinearLayout nameSort;
+    private LinearLayout nameSort,breedSort;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class BreedingStockViewFragment extends Fragment {
         breedingSearch = view.findViewById(R.id.breeding_stock_search);
         searchEdit = view.findViewById(R.id.animal_section_filter);
         nameSort = view.findViewById(R.id.btn_filter_by_name);
-
+        breedSort = view.findViewById(R.id.btn_filter_by_breed);
 
         setHasOptionsMenu(true);
 
@@ -94,6 +95,10 @@ public class BreedingStockViewFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //
+
+
+
         //implementing search
         breedingSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -103,15 +108,9 @@ public class BreedingStockViewFragment extends Fragment {
                 String searchText = searchEdit.getText().toString();
 
                 Log.w("filteredList",filteredList.toString());
-                if (breedingStockArrayList.size() == 0) {
-                    // cropArrayList.clear();
-                    for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
-                        breedingStockArrayList.add(x);
-                    }
-                }
 
                 filteredList.clear();
-                for (BreedingStock x : breedingStockArrayList) {
+                for (BreedingStock x : breedingBackupList) {
                    addToList(searchText.toLowerCase(),x);
 
 
@@ -123,60 +122,24 @@ public class BreedingStockViewFragment extends Fragment {
         });
 
 
-        //load filtered list
+        //sort by name
         nameSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nameSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                Collections.sort(breedingStockArrayList,BreedingStock.nameComparator);
-                breedingStockListAdapter.changeList(breedingStockArrayList);
+                Collections.sort(breedingBackupList,BreedingStock.nameComparator);
+                breedingStockListAdapter.changeList(breedingBackupList);
             }
         });
 
-
-//        filteredList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                try {
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-//
-//                    } else {
-//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-//                    }
-//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
-//                } catch (Exception e) {
-//
-//                }
-//                if (position != 0) {
-//                    String selection = parent.getSelectedItem().toString();
-//                    ArrayList<BreedingStock> filteredList = new ArrayList<>();
-//                    if (breedingStockListBackup.size() == 0) {
-//                        // cropArrayList.clear();
-//                        for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
-//                            breedingStockListBackup.add(x);
-//                        }
-//                    }
-//
-//                    //filteredList.clear();
-//                    for (BreedingStock x : breedingStockListBackup) {
-//                        if (selection.toLowerCase().contains(x.getName().toLowerCase()) || position == 1) {
-//                            filteredList.add(x);
-//                        }
-//
-//                    }
-//
-//                    breedingStockListAdapter.changeList(filteredList);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        breedSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                breedSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                Collections.sort(breedingBackupList,BreedingStock.breedComparator);
+                breedingStockListAdapter.changeList(breedingBackupList);
+            }
+        });
 
 
 
@@ -244,5 +207,12 @@ public class BreedingStockViewFragment extends Fragment {
         breedingStockListAdapter.clearBreedingStockList();
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
         breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal()));
+
+        if (breedingBackupList.size() == 0) {
+            // cropArrayList.clear();
+            for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
+                breedingBackupList.add(x);
+            }
+        }
     }
 }
