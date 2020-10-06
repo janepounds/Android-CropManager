@@ -1,650 +1,377 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.RevenueEstimatorStep4Fragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_revenue_estimator_step4"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        >
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="@string/labour_and_management"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:layout_margin="4dp"
-                            android:textStyle="bold"
-                            android:text="@string/labour_and_management"
-                            android:fontFamily="@font/josefin_sans"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp" />
-
-                        <com.kofigyan.stateprogressbar.StateProgressBar
-                            android:id="@+id/revenue_calculator_progress_bar_id"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:spb_animateToCurrentProgressState="true"
-                            app:spb_checkStateCompleted="true"
-                            app:spb_currentStateDescriptionColor="@color/colorPrimary"
-                            app:spb_currentStateNumber="four"
-                            app:spb_maxStateNumber="five"
-                            app:spb_stateBackgroundColor="#BDBDBD"
-                            app:spb_stateDescriptionColor="#808080"
-                            app:spb_stateForegroundColor="@color/colorPrimary"
-                            app:spb_stateNumberBackgroundColor="#808080"
-                            app:spb_stateNumberForegroundColor="#eeeeee"
-                            app:spb_stateTextSize="@dimen/dimen_16sp" />
+                    <com.kofigyan.stateprogressbar.StateProgressBar
+                        android:id="@+id/revenue_calculator_progress_bar_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:spb_animateToCurrentProgressState="true"
+                        app:spb_checkStateCompleted="true"
+                        app:spb_currentStateDescriptionColor="@color/colorPrimary"
+                        app:spb_currentStateNumber="four"
+                        app:spb_maxStateNumber="five"
+                        app:spb_stateBackgroundColor="#BDBDBD"
+                        app:spb_stateDescriptionColor="#808080"
+                        app:spb_stateForegroundColor="@color/colorPrimary"
+                        app:spb_stateNumberBackgroundColor="#808080"
+                        app:spb_stateNumberForegroundColor="#eeeeee"
+                        app:spb_stateTextSize="@dimen/dimen_16sp" />
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:text="@string/salaried_employee"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dimen_20dp"
-                        android:orientation="vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:text="@string/salaried_employee"
-                            android:textColor="@color/textColor"
-                            android:textStyle="bold"
-                            android:textSize="16sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="0.5"
-                                android:padding="4dp"
-
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/number"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-                                <EditText
-                                    android:id="@+id/txt_crop_roi_step_4_owner_allowance_quantity"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:background="@drawable/edittext_corner"
-                                    android:paddingLeft="@dimen/dimen_10dp"
-                                    android:inputType="number"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/multiplication_sign"
-                                android:paddingTop="@dimen/dimen_10dp"
-                                android:gravity="center"
-                                android:textColor="@color/textColor"
-                                android:textSize="14sp"
-                                android:layout_weight="0.1"/>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_weight="0.5"
-                                android:padding="4dp"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/salary"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:orientation="horizontal"
-                                    android:layout_alignParentTop="true"
-                                    android:background="@drawable/edittext_corner"
-                                    >
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/edittext_left_corners_green"
-                                        android:textColor="@color/white"
-                                        android:text="UGX"
-                                        android:textSize="14sp"
-                                        android:gravity="center"
-                                        android:layout_weight="0.2" />
-                                    <EditText
-                                        android:id="@+id/txt_crop_roi_step_4_owner_allowance_cost"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="0.7"
-                                        android:layout_height="match_parent"
-                                        android:background="@android:color/transparent"
-                                        android:textAlignment="textEnd"
-                                        android:paddingRight="@dimen/dimen_10dp"
-                                        android:inputType="number"
-                                        android:textSize="14sp" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_margin="8dp"
-                        android:visibility="gone"
-                        android:gravity="center_vertical">
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_weight="0.9"
-                            >
+                            android:layout_weight="0.5"
+                            android:orientation="vertical"
+                            android:padding="4dp">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/salaried_employee"
+                                android:text="@string/number"
                                 android:textColor="@color/textColor"
-                                android:textSize="14sp"
-                                />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="0.5"
-                            android:padding="4dp"
-                            >
+                                android:textSize="14sp" />
 
                             <EditText
-                                android:id="@+id/txt_crop_roi_step_4_salaried_employee_quantity"
+                                android:id="@+id/txt_crop_roi_step_4_owner_allowance_quantity"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/input_shapes"
-                                android:textAlignment="textEnd"
+                                android:layout_height="48dp"
+                                android:background="@drawable/edittext_corner"
                                 android:inputType="number"
-                                android:text="0"
+                                android:paddingLeft="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
                         </LinearLayout>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/dimen_10dp"
                             android:text="@string/multiplication_sign"
-                            android:layout_gravity="bottom"
-                            android:layout_marginBottom="6dp"
                             android:textColor="@color/textColor"
+                            android:textSize="14sp" />
 
-                            android:textSize="14sp"
-
-                            android:layout_weight="0.1"/>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_weight="0.5"
-                            android:padding="4dp"
-                            >
-                            <EditText
-                                android:id="@+id/txt_crop_roi_step_4_salaried_employee_cost"
+                            android:orientation="vertical"
+                            android:padding="4dp">
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/input_shapes"
-                                android:textAlignment="textEnd"
-                                android:inputType="number"
-                                android:text="0"
+                                android:text="@string/salary"
+                                android:textColor="@color/textColor"
                                 android:textSize="14sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/edittext_corner"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.2"
+                                    android:background="@drawable/edittext_left_corners_green"
+                                    android:gravity="center"
+                                    android:text="UGX"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                                <EditText
+                                    android:id="@+id/txt_crop_roi_step_4_owner_allowance_cost"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.7"
+                                    android:background="@android:color/transparent"
+                                    android:inputType="number"
+                                    android:paddingRight="@dimen/dimen_10dp"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+
                         </LinearLayout>
                     </LinearLayout>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="@dimen/dimen_20dp"
-                        android:paddingRight="@dimen/dimen_20dp"
-                        android:paddingBottom="@dimen/dimen_20dp"
-                        >
+                        android:layout_weight="0.9"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Casual Employee"
+                            android:text="@string/salaried_employee"
                             android:textColor="@color/textColor"
-                            android:fontFamily="@font/josefin_sans"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="@dimen/dimen_20dp"
-                            android:gravity="center_vertical"
-                            >
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_weight="0.6"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Number"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_weight="1.4"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/edittext_corner"
-                                >
-                                <EditText
-                                    android:id="@+id/txt_crop_roi_step_4_casual_employee_number"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.7"
-                                    android:layout_height="match_parent"
-                                    android:background="@android:color/transparent"
-                                    android:paddingLeft="@dimen/dimen_10dp"
-                                    android:inputType="number"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/edittext_right_corners_green"
-                                    android:textColor="@color/white"
-                                    android:text="@string/employee"
-                                    android:textSize="14sp"
-                                    android:gravity="center"
-                                    android:layout_weight="0.3" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="@dimen/dimen_20dp"
-                            android:gravity="center_vertical"
-                            >
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_weight="0.6"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cost"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_weight="1.4"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/edittext_corner"
-                                >
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/edittext_left_corners_green"
-                                    android:textColor="@color/white"
-                                    android:text="@string/currency"
-                                    android:textSize="14sp"
-                                    android:gravity="center"
-                                    android:layout_weight="0.2" />
-                                <EditText
-                                    android:id="@+id/txt_crop_roi_step_4_casual_employee_cost"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.5"
-                                    android:layout_height="match_parent"
-                                    android:background="@android:color/transparent"
-                                    android:paddingLeft="@dimen/dimen_10dp"
-                                    android:inputType="number"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/edittext_right_corners_green"
-                                    android:textColor="@color/white"
-                                    android:text="@string/per_day"
-                                    android:textSize="14sp"
-                                    android:gravity="center"
-                                    android:layout_weight="0.3" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="@dimen/dimen_20dp"
-                            android:gravity="center_vertical"
-                            >
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_weight="0.6"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Days"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_weight="1.4"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/edittext_corner"
-                                >
-                                <EditText
-                                    android:id="@+id/txt_crop_roi_step_4_casual_employee_hours"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.7"
-                                    android:layout_height="match_parent"
-                                    android:background="@android:color/transparent"
-                                    android:paddingLeft="@dimen/dimen_10dp"
-                                    android:inputType="number"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/edittext_right_corners_green"
-                                    android:textColor="@color/white"
-                                    android:text="@string/per_week"
-                                    android:textSize="14sp"
-                                    android:gravity="center"
-                                    android:layout_weight="0.3" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="@dimen/dimen_20dp"
-                            android:gravity="center_vertical">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_weight="0.6"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Weeks"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:orientation="horizontal"
-                                android:layout_weight="1.4"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/edittext_corner"
-                                >
-                                <EditText
-                                    android:id="@+id/txt_crop_roi_step_4_casual_employee_weeks"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.7"
-                                    android:layout_height="match_parent"
-                                    android:background="@android:color/transparent"
-                                    android:paddingLeft="@dimen/dimen_10dp"
-                                    android:inputType="number"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/edittext_right_corners_green"
-                                    android:textColor="@color/white"
-                                    android:text="@string/per_year"
-                                    android:textSize="14sp"
-                                    android:gravity="center"
-                                    android:layout_weight="0.3" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="@dimen/dimen_20dp"
-                            android:gravity="center_vertical">
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_weight="0.6"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Total"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="14sp"
-                                    />
-                            </LinearLayout>
-
-
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:layout_weight="1.4"
-                                android:orientation="horizontal"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/edittext_corner"
-                                >
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/edittext_left_corners_green"
-                                    android:textColor="@color/white"
-                                    android:text="UGX"
-                                    android:textSize="14sp"
-                                    android:gravity="center"
-                                    android:layout_weight="0.2" />
-                                <EditText
-                                    android:id="@+id/txt_crop_roi_step_4_casual_employee_total"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.7"
-                                    android:layout_height="match_parent"
-                                    android:background="@android:color/transparent"
-                                    android:paddingLeft="@dimen/dimen_10dp"
-                                    android:inputType="number"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-
+                            android:textSize="14sp" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_4_salaried_employee_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_shapes"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="textEnd"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="0.1"
+                        android:text="@string/multiplication_sign"
+
+                        android:textColor="@color/textColor"
+
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_4_salaried_employee_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_shapes"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="textEnd"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dimen_20dp"
+                    android:paddingRight="@dimen/dimen_20dp"
+                    android:paddingBottom="@dimen/dimen_20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="Casual Employee"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginStart="@dimen/dimen_20dp"
-                        android:layout_marginEnd="@dimen/dimen_20dp"
                         android:layout_marginBottom="@dimen/dimen_20dp"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_weight="0.6"
-                            >
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/total_labour_costs"
+                                android:text="Number"
                                 android:textColor="@color/textColor"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="50dp"
-                            android:layout_weight="1.4"
-                            android:orientation="horizontal"
                             android:layout_alignParentTop="true"
+                            android:layout_weight="1.4"
                             android:background="@drawable/edittext_corner"
-                            >
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/txt_crop_roi_step_4_casual_employee_number"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="@dimen/dimen_10dp"
+                                android:textSize="14sp" />
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/edittext_left_corners_green"
-                                android:textColor="@color/white"
-                                android:text="UGX"
-                                android:textSize="14sp"
+                                android:layout_weight="0.3"
+                                android:background="@drawable/edittext_right_corners_green"
                                 android:gravity="center"
-                                android:layout_weight="0.2" />
-                            <EditText
-                                android:id="@+id/txt_crop_roi_step_4_total_labour_costs"
-                                android:layout_width="0dp"
-                                android:layout_weight="0.7"
-                                android:layout_height="match_parent"
-                                android:background="@android:color/transparent"
-                                android:paddingLeft="@dimen/dimen_10dp"
-                                android:inputType="number"
+                                android:text="@string/employee"
+                                android:textColor="@color/white"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginBottom="@dimen/dimen_20dp"
-                        android:layout_marginStart="@dimen/dimen_20dp"
-                        android:layout_marginEnd="@dimen/dimen_20dp"
                         android:gravity="center_vertical"
-                        >
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_weight="0.6"
-                            >
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/total_expenses"
+                                android:text="Cost"
                                 android:textColor="@color/textColor"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="50dp"
-                            android:layout_weight="1.4"
-                            android:orientation="horizontal"
                             android:layout_alignParentTop="true"
+                            android:layout_weight="1.4"
                             android:background="@drawable/edittext_corner"
-                            >
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
+                                android:layout_weight="0.2"
                                 android:background="@drawable/edittext_left_corners_green"
-                                android:textColor="@color/white"
-                                android:text="UGX"
-                                android:textSize="14sp"
                                 android:gravity="center"
-                                android:layout_weight="0.2" />
+                                android:text="@string/currency"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
                             <EditText
-                                android:id="@+id/txt_crop_roi_step_4_crop_total_expenses"
+                                android:id="@+id/txt_crop_roi_step_4_casual_employee_cost"
                                 android:layout_width="0dp"
-                                android:layout_weight="0.7"
                                 android:layout_height="match_parent"
+                                android:layout_weight="0.5"
                                 android:background="@android:color/transparent"
-                                android:paddingLeft="@dimen/dimen_10dp"
                                 android:inputType="number"
+                                android:paddingLeft="@dimen/dimen_10dp"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:background="@drawable/edittext_right_corners_green"
+                                android:gravity="center"
+                                android:text="@string/per_day"
+                                android:textColor="@color/white"
                                 android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -652,74 +379,339 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_margin="@dimen/dimen_20dp"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
                         android:gravity="center_vertical"
-                        >
+                        android:orientation="horizontal">
 
-                        <FrameLayout
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:orientation="horizontal"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="@dimen/dimen_20dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/round_corners_button_darkgray">
+                            android:layout_weight="0.6"
+                            android:orientation="horizontal">
 
-
-                            <Button
-                                android:id="@+id/txt_crop_roi_step_4_crop_btn_previous"
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="1"
-                                android:background="@color/transparent"
-                                android:text="@string/previous"
-                                android:textAllCaps="true"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/button_text_size" />
+                                android:text="Days"
+                                android:textColor="@color/textColor"
+                                android:textSize="14sp" />
+                        </LinearLayout>
 
-                        </FrameLayout>
-
-                        <FrameLayout
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:orientation="horizontal"
-                            android:layout_weight="1"
-                            android:layout_marginStart="@dimen/dimen_20dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_weight="1.4"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/txt_crop_roi_step_4_casual_employee_hours"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="@dimen/dimen_10dp"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:background="@drawable/edittext_right_corners_green"
+                                android:gravity="center"
+                                android:text="@string/per_week"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_corners_button">
+                            android:layout_weight="0.6"
+                            android:orientation="horizontal">
 
-
-
-                            <Button
-                                android:id="@+id/txt_crop_roi_step_4_crop_btn_next"
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="1"
-                                android:background="@color/transparent"
-                                android:text="@string/next"
-                                android:textAllCaps="true"
+                                android:text="Weeks"
+                                android:textColor="@color/textColor"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_weight="1.4"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/txt_crop_roi_step_4_casual_employee_weeks"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="@dimen/dimen_10dp"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:background="@drawable/edittext_right_corners_green"
+                                android:gravity="center"
+                                android:text="@string/per_year"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/button_text_size" />
+                                android:textSize="14sp" />
+                        </LinearLayout>
 
-                            <ImageView
-                                android:layout_width="30dip"
-                                android:layout_height="30dip"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="right|center_vertical"
-                                android:layout_margin="10dip"
-                                android:visibility="gone"
-                                android:src="@drawable/ic_right_arrow">
-                            </ImageView>
-                        </FrameLayout>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Total"
+                                android:textColor="@color/textColor"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_weight="1.4"
+                            android:background="@drawable/edittext_corner"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2"
+                                android:background="@drawable/edittext_left_corners_green"
+                                android:gravity="center"
+                                android:text="UGX"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <EditText
+                                android:id="@+id/txt_crop_roi_step_4_casual_employee_total"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="@dimen/dimen_10dp"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_labour_costs"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:gravity="center"
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_4_total_labour_costs"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>
-            </ScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_expenses"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1.4"
+                        android:background="@drawable/edittext_corner"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2"
+                            android:background="@drawable/edittext_left_corners_green"
+                            android:gravity="center"
+                            android:text="UGX"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/txt_crop_roi_step_4_crop_total_expenses"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:paddingLeft="@dimen/dimen_10dp"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dimen_20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_corners_button_darkgray"
+                        android:orientation="horizontal">
+
+
+                        <Button
+                            android:id="@+id/txt_crop_roi_step_4_crop_btn_previous"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="@string/previous"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corners_button"
+                        android:orientation="horizontal">
+
+
+                        <Button
+                            android:id="@+id/txt_crop_roi_step_4_crop_btn_next"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="@string/next"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_margin="10dip"
+                            android:src="@drawable/ic_right_arrow"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

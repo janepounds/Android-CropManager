@@ -1,201 +1,217 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.predictiontools.CropYieldPerformanceFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_crop_yield_performance"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        <com.google.android.material.appbar.AppBarLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            tools:ignore="MissingConstraints">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints">
-                <LinearLayout
+                android:orientation="vertical">
+
+                <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TableRow
+                    android:layout_height="36dp"
+                    android:background="@drawable/crop_invoice_table_border"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/crop_estimate_small_column_size"
+                        android:layout_height="match_parent"
                         android:background="@drawable/crop_invoice_table_border"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:textAlignment="center"
-                        >
-                        <LinearLayout
-                            android:layout_width="@dimen/crop_estimate_small_column_size"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_crop_yield_crop_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Crop"
-                                android:textStyle="bold"
-                                android:textSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_crop_yield_field"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Field"
-                                android:textStyle="bold"
-                                android:textSize="16sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
+                        android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/text_view_crop_yield_variety"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Variety"
-                                android:textStyle="bold"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="@dimen/crop_estimate_small_column_size"
+                        <TextView
+                            android:id="@+id/text_view_crop_yield_crop_name"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_crop_yield_cropping_year"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Year"
-                                android:textStyle="bold"
-                                android:textSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="60dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_crop_yield_season"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Season"
+                            android:gravity="center"
+                            android:text="Crop"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-                                android:textSize="12sp"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="120dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_view_crop_yield_total_cost"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Total Cost"
-                                android:textStyle="bold"
-                                android:textSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="120dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_view_crop_yield_revenue"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Revenue"
-                                android:textStyle="bold"
-                                android:textSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="120dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_crop_yield_margin"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Margin"
-                                android:textStyle="bold"
-                                android:textSize="12sp"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="@dimen/crop_estimate_small_column_size"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/crop_invoice_table_border"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/text_view_view_crop_yield_roi"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/crop_invoice_table_border"
-                                android:gravity="center"
-                                android:text="Return On Investment"
-                                android:textStyle="bold"
-                                android:textSize="12sp"/>
-                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
 
-                    </TableRow>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/crop_yield_recyc_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintBottom_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintVertical_bias="0.0">
+                        <TextView
+                            android:id="@+id/text_view_crop_yield_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Field"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-                    </androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
 
-            </HorizontalScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+                        <TextView
+                            android:id="@+id/text_view_crop_yield_variety"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Variety"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/crop_estimate_small_column_size"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_view_crop_yield_cropping_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Year"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_view_crop_yield_season"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Season"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_view_view_crop_yield_total_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Total Cost"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_view_view_crop_yield_revenue"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Revenue"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_view_crop_yield_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Margin"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/crop_estimate_small_column_size"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/crop_invoice_table_border"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_view_view_crop_yield_roi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/crop_invoice_table_border"
+                            android:gravity="center"
+                            android:text="Return On Investment"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </TableRow>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/crop_yield_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
