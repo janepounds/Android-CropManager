@@ -48,12 +48,15 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class BreedingStockViewFragment extends Fragment {
     private static final String TAG = "BreedingFragment";
@@ -65,8 +68,10 @@ public class BreedingStockViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private NavController navController;
     public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
-
+    public ArrayList<BreedingStock>breedingStockListBackup = new ArrayList<>();
     private MyFarmDbHandlerSingleton dbHandler;
+    private Spinner filteredList;
+    private ArrayList<String> sortedList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,12 +82,65 @@ public class BreedingStockViewFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
         // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
+        filteredList = view.findViewById(R.id.animal_section_filter);
         setHasOptionsMenu(true);
 
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        //load filtered list
+        filteredList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                    } else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
+
+                }
+                if (position != 0) {
+                    String selection = parent.getSelectedItem().toString();
+                    ArrayList<BreedingStock> filteredList = new ArrayList<>();
+                    if (breedingStockListBackup.size() == 0) {
+                        // cropArrayList.clear();
+                        for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
+                            breedingStockListBackup.add(x);
+                        }
+                    }
+
+                    //filteredList.clear();
+                    for (BreedingStock x : breedingStockListBackup) {
+                        if (selection.toLowerCase().contains(x.getName().toLowerCase()) || position == 1) {
+                            filteredList.add(x);
+//                            Collections.sort(filteredList);
+
+                        }
+
+                    }
+
+                    breedingStockListAdapter.changeList(filteredList);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
 
         return view;
     }
