@@ -452,7 +452,6 @@ public class CropHarvestFragment extends DialogFragment {
         cropHarvest.setUnits(quantitySoldUnitsTxt.getText().toString());
         cropHarvest.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropHarvest.setReminders(remindersSp.getSelectedItem().toString());
-        cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
         cropHarvest.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
 
         if(quantitySoldTxt.getText().toString().isEmpty()){
@@ -467,6 +466,13 @@ public class CropHarvestFragment extends DialogFragment {
         else{
 
             cropHarvest.setQuantityStored(Float.parseFloat(quantityStoredTxt.getText().toString()));
+        }
+        if(priceTxt.getText().toString().isEmpty()){
+            cropHarvest.setPrice(0);
+        }
+        else{
+            cropHarvest.setPrice(Float.parseFloat(priceTxt.getText().toString()));
+
         }
 //        cropHarvest.setOperator(operatorSpinner.getText().toString());
 //        cropHarvest.setMethod(harvestMethodTxt.getText().toString());
