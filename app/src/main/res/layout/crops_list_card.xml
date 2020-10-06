@@ -225,7 +225,7 @@
                                             android:textColor="#000"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:text="4m 20d"
+                                            android:text="0m 0d"
                                             android:layout_weight="1"
                                             />
                                         </LinearLayout>

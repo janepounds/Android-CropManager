@@ -53,7 +53,7 @@ public class CropHarvestFragment extends DialogFragment {
     Spinner harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
     ImageView harvestClose,datePicker;
 
-    LinearLayout harvestSoldLayout,harvestStoredLayout,remindersLayout;
+    LinearLayout harvestSoldLayout,harvestStoredLayout,remindersLayout,harvestDaysBeforeLayout;
 
     Button saveBtn;
     MyFarmDbHandlerSingleton dbHandler;
@@ -119,6 +119,7 @@ public class CropHarvestFragment extends DialogFragment {
         harvestClose = view.findViewById(R.id.harvest_close);
         datePicker = view.findViewById(R.id.image_date_picker);
         daysBeforeTxt = view.findViewById(R.id.txt_harvest_days_before);
+        harvestDaysBeforeLayout = view.findViewById(R.id.layout_crop_harvest_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
         priceTxt = view.findViewById(R.id.txt_crops_estimated_revenue);
 //        operatorSpinner = view.findViewById(R.id.sp_crop_harvest_operator);
@@ -378,7 +379,7 @@ public class CropHarvestFragment extends DialogFragment {
                     remindersLayout.setVisibility(View.GONE);
                 }else {
                     remindersLayout.setVisibility(View.VISIBLE);
-                    daysBeforeTxt.setVisibility(View.GONE);
+                   // harvestDaysBeforeLayout.setVisibility(View.GONE);
                 }
 
 
@@ -413,9 +414,9 @@ public class CropHarvestFragment extends DialogFragment {
                 String selection = parent.getItemAtPosition(position).toString();
 
                 if(selection.toLowerCase().equals("yes") ){
-                    daysBeforeTxt.setVisibility(View.VISIBLE);
+                    harvestDaysBeforeLayout.setVisibility(View.VISIBLE);
                 }else {
-                    daysBeforeTxt.setVisibility(View.GONE);
+                    harvestDaysBeforeLayout.setVisibility(View.GONE);
                 }
 
 
