@@ -107,13 +107,9 @@ public class BreedingStockViewFragment extends Fragment {
 
                 String searchText = searchEdit.getText().toString();
 
-                Log.w("filteredList",filteredList.toString());
-
                 filteredList.clear();
                 for (BreedingStock x : breedingBackupList) {
                    addToList(searchText.toLowerCase(),x);
-
-
 
                 }
 
@@ -174,7 +170,6 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
         loadBreedingStock();
-//        filteredList = breedingStockArrayList;
 
     }
 
@@ -206,13 +201,9 @@ public class BreedingStockViewFragment extends Fragment {
     private void loadBreedingStock() {
         breedingStockListAdapter.clearBreedingStockList();
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
-        breedingStockListAdapter.addList(dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal()));
+        breedingBackupList = dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal());
+        breedingStockListAdapter.addList(breedingBackupList);
 
-        if (breedingBackupList.size() == 0) {
-            // cropArrayList.clear();
-            for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
-                breedingBackupList.add(x);
-            }
-        }
+
     }
 }
