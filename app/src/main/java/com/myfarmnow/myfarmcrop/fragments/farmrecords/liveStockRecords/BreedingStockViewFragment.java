@@ -40,6 +40,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,11 +69,12 @@ public class BreedingStockViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private NavController navController;
     public ArrayList<BreedingStock> breedingStockArrayList = new ArrayList();
-    public ArrayList<BreedingStock>breedingStockListBackup = new ArrayList<>();
     private MyFarmDbHandlerSingleton dbHandler;
-    private Spinner filteredList;
     private ArrayList<String> sortedList = new ArrayList<>();
-
+    private EditText searchEdit;
+    private ImageView breedingSearch;
+    ArrayList<BreedingStock> filteredList = new ArrayList<>();
+    private LinearLayout nameSort;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,61 +82,101 @@ public class BreedingStockViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_breeding_stock_view, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_breeding_stock_view);
-        // addAnimal = view.findViewById(R.id.add_animal);
         recyclerView = view.findViewById(R.id.breeding_stock_recyclerView);
-        filteredList = view.findViewById(R.id.animal_section_filter);
+        breedingSearch = view.findViewById(R.id.breeding_stock_search);
+        searchEdit = view.findViewById(R.id.animal_section_filter);
+        nameSort = view.findViewById(R.id.btn_filter_by_name);
+
+
         setHasOptionsMenu(true);
 
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //implementing search
+        breedingSearch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                String searchText = searchEdit.getText().toString();
+
+                Log.w("filteredList",filteredList.toString());
+                if (breedingStockArrayList.size() == 0) {
+                    // cropArrayList.clear();
+                    for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
+                        breedingStockArrayList.add(x);
+                    }
+                }
+
+                filteredList.clear();
+                for (BreedingStock x : breedingStockArrayList) {
+                   addToList(searchText.toLowerCase(),x);
+
+
+
+                }
+
+                breedingStockListAdapter.changeList(filteredList);
+            }
+        });
 
 
         //load filtered list
-        filteredList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        nameSort.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    } else {
-                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
-                    }
-                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
-                } catch (Exception e) {
-
-                }
-                if (position != 0) {
-                    String selection = parent.getSelectedItem().toString();
-                    ArrayList<BreedingStock> filteredList = new ArrayList<>();
-                    if (breedingStockListBackup.size() == 0) {
-                        // cropArrayList.clear();
-                        for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
-                            breedingStockListBackup.add(x);
-                        }
-                    }
-
-                    //filteredList.clear();
-                    for (BreedingStock x : breedingStockListBackup) {
-                        if (selection.toLowerCase().contains(x.getName().toLowerCase()) || position == 1) {
-                            filteredList.add(x);
-                        }
-
-                    }
-
-                    breedingStockListAdapter.changeList(filteredList);
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                nameSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                Collections.sort(breedingStockArrayList,BreedingStock.nameComparator);
+                breedingStockListAdapter.changeList(breedingStockArrayList);
             }
         });
+
+
+//        filteredList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                try {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+//
+//                    } else {
+//                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+//                    }
+//                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+//                } catch (Exception e) {
+//
+//                }
+//                if (position != 0) {
+//                    String selection = parent.getSelectedItem().toString();
+//                    ArrayList<BreedingStock> filteredList = new ArrayList<>();
+//                    if (breedingStockListBackup.size() == 0) {
+//                        // cropArrayList.clear();
+//                        for (BreedingStock x : breedingStockListAdapter.getBreedingStocksList()) {
+//                            breedingStockListBackup.add(x);
+//                        }
+//                    }
+//
+//                    //filteredList.clear();
+//                    for (BreedingStock x : breedingStockListBackup) {
+//                        if (selection.toLowerCase().contains(x.getName().toLowerCase()) || position == 1) {
+//                            filteredList.add(x);
+//                        }
+//
+//                    }
+//
+//                    breedingStockListAdapter.changeList(filteredList);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
 
@@ -142,7 +184,20 @@ public class BreedingStockViewFragment extends Fragment {
 
         return view;
     }
+        public  void addToList(String searchtext,BreedingStock x){
+            if (x.getName().toLowerCase().contains(searchtext)) {
+                filteredList.add(x);
+            }else if(x.getEarTag().toLowerCase().contains(searchtext)) {
+                filteredList.add(x);
+            }
+            else if(x.getBreed().toLowerCase().contains(searchtext)) {
+                filteredList.add(x);
+            }
+            else if(x.getColor().toLowerCase().contains(searchtext)) {
+                filteredList.add(x);
+            }
 
+        }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -156,6 +211,8 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
         loadBreedingStock();
+//        filteredList = breedingStockArrayList;
+
     }
 
     @Override

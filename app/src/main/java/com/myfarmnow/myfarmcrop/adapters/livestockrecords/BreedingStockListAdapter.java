@@ -200,39 +200,40 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
     }
 
     public void computeAge(String dob, BreedingStockViewHolder holder) throws ParseException {
+        if (!dob.isEmpty()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date convertedDate = new Date();
+            try {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date convertedDate = new Date();
-        try {
+                convertedDate = dateFormat.parse(dob);
+                Calendar today = Calendar.getInstance();       // get calendar instance
+                today.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
+                today.set(Calendar.MINUTE, 0);                 // set minute in hour
+                today.set(Calendar.SECOND, 0);                 // set second in minute
+                today.set(Calendar.MILLISECOND, 0);
 
-            convertedDate = dateFormat.parse(dob);
-            Calendar today = Calendar.getInstance();       // get calendar instance
-            today.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
-            today.set(Calendar.MINUTE, 0);                 // set minute in hour
-            today.set(Calendar.SECOND, 0);                 // set second in minute
-            today.set(Calendar.MILLISECOND, 0);
+                long daysBetween = daysBetween(convertedDate, today.getTime());
+                int years = (int) (daysBetween / 365);
+                int months = (int) ((daysBetween - years * 365) / 30);
+                int days = (int) (daysBetween % 30);
+                Log.d("DATES", dob + " " + convertedDate.toString() + " - " + today.getTime().toString() + " days = " + daysBetween);
+                String age = "";
+                if (years > 0) {
+                    age += years + "Y ";
+                }
+                if (months > 0)
+                    age += months + "M ";
+                age += days + "D";
 
-            long daysBetween = daysBetween(convertedDate, today.getTime());
-            int years = (int) (daysBetween / 365);
-            int months = (int) ((daysBetween - years * 365) / 30);
-            int days = (int) (daysBetween % 30);
-            Log.d("DATES", dob + " " + convertedDate.toString() + " - " + today.getTime().toString() + " days = " + daysBetween);
-            String age = "";
-            if (years > 0) {
-                age += years + "Y ";
+                holder.ageTextView.setText(age);
+
+
+            } catch (ParseException e) {
+                Log.d("DATe", dob);
+                e.printStackTrace();
+                String age = "--";
+                holder.ageTextView.setText(age);
             }
-            if (months > 0)
-                age += months + "M ";
-            age += days + "D";
-
-            holder.ageTextView.setText(age);
-
-
-        } catch (ParseException e) {
-            Log.d("DATe", dob);
-            e.printStackTrace();
-            String age = "--";
-            holder.ageTextView.setText(age);
         }
     }
 
