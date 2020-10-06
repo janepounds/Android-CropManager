@@ -169,7 +169,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <Spinner
+                            <AutoCompleteTextView
                                 android:id="@+id/add_litter_mother_dam_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -216,7 +216,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <Spinner
+                            <AutoCompleteTextView
                                 android:id="@+id/add_litter_father_sire_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
