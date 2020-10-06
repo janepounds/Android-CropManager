@@ -54,7 +54,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_20dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -152,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dimen_20dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -189,11 +189,12 @@
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dimen_20dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -242,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -288,7 +289,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -313,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -380,7 +381,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -430,7 +431,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -477,7 +478,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/dimen_20dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -522,7 +523,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dimen_20dp">
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -580,38 +581,35 @@
                         android:layout_marginBottom="4dp"/>
 
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:gravity="center"
                         android:background="@drawable/edittext_corner"
-                        android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
                         <Spinner
                             android:id="@+id/sp_crop_harvest_reminders"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.7"
+                            android:paddingLeft="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
-                            android:gravity="center"
+                            android:inputType="number"
+                            android:textSize="14sp"
                             android:entries="@array/sp_crop_task_reminders"
                             android:hint="Reminders"
                             android:spinnerMode="dropdown"/>
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/dimen_10dp"
+                            android:gravity="center"
+                            android:layout_weight="0.2"
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -620,7 +618,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -638,7 +638,7 @@
                             android:id="@+id/txt_harvest_days_before"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.7"
+                            android:layout_weight="0.4"
                             android:paddingLeft="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
                             android:inputType="number" />
@@ -651,7 +651,7 @@
                             android:text="Days"
                             android:textSize="14sp"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:layout_weight="0.3" />
 
                     </LinearLayout>
                 </LinearLayout>
