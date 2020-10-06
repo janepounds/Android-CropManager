@@ -64,14 +64,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="81dp" />
+                app:layout_constraintGuide_begin="103dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="106dp" />
+                app:layout_constraintGuide_begin="117dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline39"

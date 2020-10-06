@@ -20,8 +20,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/rounded_cornor_bg"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
@@ -31,7 +31,15 @@
             <View
                 android:id="@+id/txt_view_crop_spraying_card_line"
                 android:layout_width="2dp"
-                android:layout_height="170dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="#444444"
+                android:textAlignment="center"
+                android:visibility="gone"/>
+            <View
+                 android:layout_width="2dp"
+                android:layout_height="190dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="#444444"
@@ -44,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:id="@+id/txt_view_crop_spraying_card_date"

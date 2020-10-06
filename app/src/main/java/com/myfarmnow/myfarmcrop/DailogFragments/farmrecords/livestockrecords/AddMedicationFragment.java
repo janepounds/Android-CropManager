@@ -101,6 +101,7 @@ public class AddMedicationFragment extends DialogFragment {
         submit = view.findViewById(R.id.btn_save);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePickerImageView(datePicker, medicationDate, context);
+        DashboardActivity.addDatePicker(medicationDate,context);
 
 
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);

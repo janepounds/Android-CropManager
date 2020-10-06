@@ -222,20 +222,20 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 dateSoldTxt.setTextSize(16f);
                 dateSoldTxt.setTextColor(Color.WHITE);
                 Typeface face = Typeface.createFromAsset(mContext.getAssets(),  "fonts/JosefinSans-Regular.ttf");
-                dateSoldTxt.setTypeface(face );
-                dateSoldTxt.setText("Date Sold:   "+harvest.getDateSold());
+                dateSoldTxt.setTypeface(face, Typeface.BOLD );
+                dateSoldTxt.setText("Date Sold   :   "+harvest.getDateSold());
 
                 TextView customerTxt = new TextView(mContext);
                 customerTxt.setTextSize(16f);
                 customerTxt.setTextColor(Color.WHITE);
-                customerTxt.setTypeface(face );
-                customerTxt.setText("Customer:   "+harvest.getCustomer());
+                customerTxt.setTypeface(face,Typeface.BOLD );
+                customerTxt.setText("Customer   :   "+harvest.getCustomer());
 
                 TextView quantitySoldTxt = new TextView(mContext);
                 quantitySoldTxt.setTextSize(16f);
                 quantitySoldTxt.setTextColor(Color.WHITE);
-                quantitySoldTxt.setTypeface(face );
-                quantitySoldTxt.setText("Quantity Sold:   "+harvest.getQuantitySold()+" "+harvest.getUnits());
+                quantitySoldTxt.setTypeface(face,Typeface.BOLD );
+                quantitySoldTxt.setText("Quantity Sold   :   "+harvest.getQuantitySold()+" "+harvest.getUnits());
                 View view = new View(mContext);
                 view.setMinimumHeight(20);
                 harvestViewHolder.expandContentLayout.removeAllViews();
@@ -248,9 +248,16 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 harvestViewHolder.incomeGeneratedLayout.setVisibility(View.GONE);
 
                 TextView storageDateTxt = new TextView(mContext);
-                storageDateTxt.setText("Storage Date:   " +harvest.getStorageDate());
+                storageDateTxt.setTextSize(16f);
+                storageDateTxt.setTextColor(Color.WHITE);
+                Typeface face = Typeface.createFromAsset(mContext.getAssets(),  "fonts/JosefinSans-Regular.ttf");
+                storageDateTxt.setTypeface(face, Typeface.BOLD );
+                storageDateTxt.setText("Storage Date   :   " +harvest.getStorageDate());
                 TextView quantityStoredTxt = new TextView(mContext);
-                quantityStoredTxt.setText("Quantity Stored:   "+harvest.getQuantityStored()+" "+harvest.getUnits());
+                quantityStoredTxt.setTextSize(16f);
+                quantityStoredTxt.setTextColor(Color.WHITE);
+                quantityStoredTxt.setTypeface(face,Typeface.BOLD );
+                quantityStoredTxt.setText("Quantity Stored   :   "+harvest.getQuantityStored()+" "+harvest.getUnits());
 
                 View view = new View(mContext);
                 view.setMinimumHeight(20);

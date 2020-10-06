@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment;
+import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
@@ -75,6 +76,16 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
         breedingStocks.clear();
     }
 
+    public ArrayList<BreedingStock> getBreedingStocksList(){
+
+        return breedingStocks;
+    }
+
+    public void changeList(ArrayList<BreedingStock> filteredList) {
+        this.breedingStocks.clear();
+        this.breedingStocks.addAll(filteredList);
+        notifyDataSetChanged();
+    }
 
     @Override
     public void onBindViewHolder(@NonNull final BreedingStockListAdapter.BreedingStockViewHolder holder, int position) {
