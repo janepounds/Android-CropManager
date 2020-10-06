@@ -35,6 +35,14 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="#444444"
+                android:textAlignment="center"
+                android:visibility="gone"/>
+            <View
+                 android:layout_width="2dp"
+                android:layout_height="240dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="#444444"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -261,7 +269,7 @@
                 android:layout_marginEnd="8dp"
 
                 android:id="@+id/layout_crop_harvest_card_show_hide"
-                android:background="#B6C5B6"
+                android:background="#a4b7a0"
                 >
 
                 <ImageView
@@ -279,7 +287,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:background="#B6C5B6"
+                android:background="#a4b7a0"
                 android:padding="4dp"
                 android:visibility="gone"
                 >

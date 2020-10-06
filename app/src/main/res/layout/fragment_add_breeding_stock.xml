@@ -411,7 +411,7 @@
                                 android:fontFamily="@font/josefin_sans"
                                 android:text="Father/Sire" />
 
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/add_animal_father"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -436,7 +436,7 @@
                                 android:fontFamily="@font/josefin_sans"
                                 android:text="Mother/Dam" />
 
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/add_animal_mother"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
