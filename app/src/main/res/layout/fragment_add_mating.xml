@@ -128,7 +128,7 @@
                                 android:fontFamily="@font/josefin_sans"
                                 android:text="Female Name" />
 
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/add_mating_female_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
@@ -162,7 +162,7 @@
                                 android:fontFamily="@font/josefin_sans"
                                 android:text="Male Name" />
 
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/add_mating_male_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"

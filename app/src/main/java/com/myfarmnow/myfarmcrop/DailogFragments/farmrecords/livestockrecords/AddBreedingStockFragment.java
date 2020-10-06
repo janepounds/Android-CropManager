@@ -15,14 +15,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -30,9 +25,7 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -45,13 +38,8 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.AutoCompleteAdapter;
-import com.myfarmnow.myfarmcrop.adapters.livestockrecords.BreedingStockListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropCustomer;
-import com.myfarmnow.myfarmcrop.models.CropSupplier;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
-import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -199,7 +187,7 @@ public class AddBreedingStockFragment extends DialogFragment {
 
 
         ArrayList<String> sireList = new ArrayList<>(), damnList = new ArrayList<>();
-        AutoCompleteAdapter animalListAdapter;
+
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
 
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
@@ -208,13 +196,31 @@ public class AddBreedingStockFragment extends DialogFragment {
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
             damnList.add(x.getName());
         }
-//        animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
-//        father.setAdapter(animalListAdapter);
-//        father.setEnabled(true);
-        ArrayList<BreedingStock> damnList0 =dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female");
+        ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
+        father.setThreshold(1);
+        father.setAdapter(animalListAdapter);
+        father.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        animalListAdapter = new AutoCompleteAdapter(context, 0, android.R.layout.simple_dropdown_item_1line, damnList0);
-        mother.setAdapter(animalListAdapter);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                father.showDropDown();
+            }
+        });
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, damnList);
+        mother.setThreshold(1);
+        mother.setAdapter(adapter);
+
         mother.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -228,11 +234,10 @@ public class AddBreedingStockFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mother.getCompletionHint();
                 mother.showDropDown();
             }
         });
-//        mother.setEnabled(true);
+
 
 
     }
