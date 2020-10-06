@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,7 +46,7 @@ public class AddLittersFragment extends DialogFragment {
     private MyFarmDbHandlerSingleton dbHandler;
     private EditText litterDob, litterSize, bornAlive, bornDead, noOfMale, noOfFemale, weaning, weaningAlert;
     private ImageView close, datePicker;
-    private Spinner motherDam, fatherSire;
+    private AutoCompleteTextView motherDam, fatherSire;
     private Button submit;
     public LivestockSpinnerAdapter litterSpinnerAdapter;
     private TextView litterTitle;
@@ -111,6 +113,8 @@ public class AddLittersFragment extends DialogFragment {
 
         litterSpinnerAdapter = new LivestockSpinnerAdapter(motherDams, "Mother", context);
         motherDam.setAdapter(litterSpinnerAdapter);
+        motherDam.setEnabled(true);
+
 
         ArrayList<LivestockSpinnerItem> fatherSires = new ArrayList<>();
 
@@ -131,6 +135,7 @@ public class AddLittersFragment extends DialogFragment {
 
         litterSpinnerAdapter = new LivestockSpinnerAdapter(fatherSires, "Father", context);
         fatherSire.setAdapter(litterSpinnerAdapter);
+        fatherSire.setEnabled(true);
         close.setOnClickListener(view1 -> dismiss());
 
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
@@ -187,8 +192,9 @@ public class AddLittersFragment extends DialogFragment {
             noOfMale.setText(litter.getNoOfMale() + "");
             weaning.setText(litter.getWeaning() + "");
             weaningAlert.setText(litter.getWeaningAlert() + "");
-            DashboardActivity.selectSpinnerItemByValue(motherDam, litter.getMotherDam());
-            DashboardActivity.selectSpinnerItemByValue(fatherSire, litter.getFatherSire());
+            motherDam.setText(litter.getMotherDam());
+            fatherSire.setText(litter.getFatherSire());
+
         }
     }
 
@@ -204,8 +210,8 @@ public class AddLittersFragment extends DialogFragment {
         litter.setNoOfFemale(Integer.parseInt(noOfFemale.getText().toString()));
         litter.setNoOfMale(Integer.parseInt(noOfMale.getText().toString()));
         litter.setWeaning(Integer.parseInt(weaning.getText().toString()));
-        litter.setMotherDam(motherDam.getSelectedItem().toString());
-        litter.setFatherSire(fatherSire.getSelectedItem().toString());
+        litter.setMotherDam(motherDam.getText().toString());
+        litter.setFatherSire(fatherSire.getText().toString());
         litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
         litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         dbHandler.insertLitter(litter);
@@ -223,8 +229,8 @@ public class AddLittersFragment extends DialogFragment {
             litter.setNoOfFemale(Integer.parseInt(noOfFemale.getText().toString()));
             litter.setNoOfMale(Integer.parseInt(noOfMale.getText().toString()));
             litter.setWeaning(Integer.parseInt(weaning.getText().toString()));
-            litter.setMotherDam(motherDam.getSelectedItem().toString());
-            litter.setFatherSire(fatherSire.getSelectedItem().toString());
+            litter.setMotherDam(motherDam.getText().toString());
+            litter.setFatherSire(fatherSire.getText().toString());
             litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
             litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateLitter(litter);
@@ -239,10 +245,10 @@ public class AddLittersFragment extends DialogFragment {
         } else if (litterSize.getText().toString().isEmpty()) {
             message = getString(R.string.litter_size_not_entered);
             litterSize.requestFocus();
-        } else if (fatherSire.getSelectedItemPosition() == 0) {
+        } else if (fatherSire.getText().toString().isEmpty()) {
             message = getString(R.string.father_sire_not_selected);
             fatherSire.requestFocus();
-        } else if (motherDam.getSelectedItemPosition() == 0) {
+        } else if (motherDam.getText().toString().isEmpty()) {
             message = getString(R.string.mother_dam_not_selected);
             motherDam.requestFocus();
         } else if (bornAlive.getText().toString().isEmpty()) {
