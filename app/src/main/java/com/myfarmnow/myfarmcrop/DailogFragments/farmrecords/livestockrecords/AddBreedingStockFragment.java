@@ -215,6 +215,23 @@ public class AddBreedingStockFragment extends DialogFragment {
 
         animalListAdapter = new AutoCompleteAdapter(context, 0, android.R.layout.simple_dropdown_item_1line, damnList0);
         mother.setAdapter(animalListAdapter);
+        mother.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mother.getCompletionHint();
+                mother.showDropDown();
+            }
+        });
 //        mother.setEnabled(true);
 
 
