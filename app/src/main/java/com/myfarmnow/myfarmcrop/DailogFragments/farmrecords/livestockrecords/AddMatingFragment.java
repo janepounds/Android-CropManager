@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,8 +33,11 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
+
+import java.util.ArrayList;
 
 
 public class AddMatingFragment extends DialogFragment {
@@ -41,7 +47,8 @@ public class AddMatingFragment extends DialogFragment {
     private Mating mating;
     private MyFarmDbHandlerSingleton dbHandler;
     NavController navController;
-    private EditText matingDate, femaleName, maleName, deliveryAlert, note, gestationPeriod;
+    private EditText matingDate, deliveryAlert, note, gestationPeriod;
+    AutoCompleteTextView  femaleName, maleName;
     private Button submit;
     private Spinner method;
     private ImageView close;
@@ -131,6 +138,59 @@ public class AddMatingFragment extends DialogFragment {
                 }
             }
         });
+
+        ArrayList<String> sireList = new ArrayList<>(), damnList = new ArrayList<>();
+
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+
+        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
+            sireList.add(x.getName());
+        }
+        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
+            damnList.add(x.getName());
+        }
+        ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
+        maleName.setThreshold(1);
+        maleName.setAdapter(animalListAdapter);
+        maleName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                maleName.showDropDown();
+            }
+        });
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, damnList);
+        femaleName.setThreshold(1);
+        femaleName.setAdapter(adapter);
+
+        femaleName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                femaleName.showDropDown();
+            }
+        });
+
     }
 
     public void fillViews() {

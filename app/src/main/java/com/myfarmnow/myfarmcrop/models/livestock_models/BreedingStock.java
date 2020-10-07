@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class BreedingStock implements Serializable, LivestockSpinnerItem {
     private String id;
@@ -202,4 +203,25 @@ public class BreedingStock implements Serializable, LivestockSpinnerItem {
         setSyncStatus("yes");
     }
 
+ public static Comparator<BreedingStock> nameComparator = (o1, o2) -> {
+     String name1 = o1.getName().toLowerCase();
+     String name2 = o2.getName().toLowerCase();
+     return name1.compareTo(name2);
+ };
+    public static Comparator<BreedingStock> breedComparator = (o1, o2) -> {
+        String breed1 = o1.getBreed().toLowerCase();
+        String breed2 = o2.getBreed().toLowerCase();
+        return breed1.compareTo(breed2);
+    };
+
+    public static Comparator<BreedingStock>sexComparator = (o1, o2) -> {
+        String sex1 = o1.getSex().toLowerCase();
+        String sex2 = o2.getSex().toLowerCase();
+        return sex1.compareTo(sex2);
+    };
+    public static Comparator<BreedingStock> earTagComparator = (o1, o2) -> {
+        String ear1 = o1.getEarTag().toLowerCase();
+        String ear2 = o2.getEarTag().toLowerCase();
+        return ear1.compareTo(ear2);
+    };
 }

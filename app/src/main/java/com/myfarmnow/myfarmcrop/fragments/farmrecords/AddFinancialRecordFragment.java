@@ -187,14 +187,12 @@ public class AddFinancialRecordFragment extends Fragment {
                 if (selection.toLowerCase().equals("income")) {
                     expenseCategory.setEnabled(true);
                     categoryAdapter.changeItems(incomeArrayList);
-                    customerSupplier.setAdapter(new ArrayAdapter<String>(context,
-                            android.R.layout.simple_dropdown_item_1line, customersList));
+                    customerSupplier.setAdapter(new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, customersList));
                     customerSupplier.setEnabled(true);
                 } else if (selection.toLowerCase().equals("expense")) {
                     expenseCategory.setEnabled(true);
                     categoryAdapter.changeItems(expensesArrayList);
-                    customerSupplier.setAdapter(new ArrayAdapter<String>(context,
-                            android.R.layout.simple_dropdown_item_1line, suppliersList));
+                    customerSupplier.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, suppliersList));
                     customerSupplierAdapter.addAll(suppliersList);
                     customerSupplier.setEnabled(true);
 
@@ -332,7 +330,6 @@ public class AddFinancialRecordFragment extends Fragment {
             }
             expenseCategory.setAdapter(categoryAdapter);
 
-            Log.e("CategoryItem",expenseCategory.getAdapter().getItem(7)+"");
             DashboardActivity.selectSpinnerItemByValue(expenseCategory, cropIncomeExpense.getCategory());
 
             expenseDate.setText(cropIncomeExpense.getDate());

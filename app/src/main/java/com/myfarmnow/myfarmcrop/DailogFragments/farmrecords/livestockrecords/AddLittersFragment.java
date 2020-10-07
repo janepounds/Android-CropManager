@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -95,47 +97,62 @@ public class AddLittersFragment extends DialogFragment {
         submit = view.findViewById(R.id.btn_save);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePickerImageView(datePicker, litterDob, context);
-        ArrayList<LivestockSpinnerItem> motherDams = new ArrayList<>();
-        for (BreedingStock x : dbHandler.getFemaleBreeds(DashboardActivity.RETRIEVED_USER_ID, "Female")) {
-            motherDams.add(new LivestockSpinnerItem() {
-                @Override
-                public String getId() {
-                    return null;
-                }
 
-                @NonNull
-                @Override
-                public String toString() {
-                    return x.getName();
-                }
-            });
+
+        ArrayList<String> sireList = new ArrayList<>(), damnList = new ArrayList<>();
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+
+        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
+            sireList.add(x.getName());
         }
-
-        litterSpinnerAdapter = new LivestockSpinnerAdapter(motherDams, "Mother", context);
-        motherDam.setAdapter(litterSpinnerAdapter);
-        motherDam.setEnabled(true);
-
-
-        ArrayList<LivestockSpinnerItem> fatherSires = new ArrayList<>();
-
-        for (BreedingStock x : dbHandler.getMaleBreeds(DashboardActivity.RETRIEVED_USER_ID, "Male")) {
-            fatherSires.add(new LivestockSpinnerItem() {
-                @Override
-                public String getId() {
-                    return null;
-                }
-
-                @NonNull
-                @Override
-                public String toString() {
-                    return x.getName();
-                }
-            });
+        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
+            damnList.add(x.getName());
         }
+        ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
+        fatherSire.setThreshold(1);
+        fatherSire.setAdapter(animalListAdapter);
+        fatherSire.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        litterSpinnerAdapter = new LivestockSpinnerAdapter(fatherSires, "Father", context);
-        fatherSire.setAdapter(litterSpinnerAdapter);
-        fatherSire.setEnabled(true);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                fatherSire.showDropDown();
+            }
+        });
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, damnList);
+        motherDam.setThreshold(1);
+        motherDam.setAdapter(adapter);
+
+        motherDam.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                motherDam.showDropDown();
+            }
+        });
+
+
+
+
         close.setOnClickListener(view1 -> dismiss());
 
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
