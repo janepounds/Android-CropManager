@@ -29,11 +29,8 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 
 public class ServicesDashboardActivity extends AppCompatActivity {
-
-
     ImageView noticationsImageBtn;
     Toolbar toolbar;
-
 
     LinearLayout inventoryLinearLayout,fieldsLinearLayout,cropsLinearLayout,
             incomeExpenseLinearLayout, tasksLinearLayout;
@@ -54,7 +51,6 @@ public class ServicesDashboardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         MyFarmDbHandlerSingleton.getHandlerInstance(this).initializeSettings(DashboardActivity.RETRIEVED_USER_ID);
         initializeDashboard();
-
     }
 
     @Override
@@ -63,10 +59,8 @@ public class ServicesDashboardActivity extends AppCompatActivity {
         return true;
     }
 
-
     public void initializeDashboard(){
-
-        inventoryLinearLayout =findViewById(R.id.layout_inventory_store);
+//        inventoryLinearLayout =findViewById(R.id.layout_inventory_store);
 
         fieldsLinearLayout =findViewById(R.id.layout_crop_dashboard_fields);
 
@@ -102,9 +96,8 @@ public class ServicesDashboardActivity extends AppCompatActivity {
 //                startActivity(openIncomeExpense);
 //            }
 //        });
-
-
     }
+
     public static  void addDatePicker(final EditText ed_, final Context context){
         ed_.setOnClickListener(new View.OnClickListener() {
             @Override
