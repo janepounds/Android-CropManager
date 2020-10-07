@@ -123,10 +123,10 @@ public class BreedingStockViewFragment extends Fragment {
         nameSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nameSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                breedSort.setBackgroundColor(getResources().getColor(R.color.black));
-                earTagSort.setBackgroundColor(getResources().getColor(R.color.black));
-                sexSort.setBackgroundColor(getResources().getColor(R.color.black));
+                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
                 Collections.sort(breedingBackupList,BreedingStock.nameComparator);
                 breedingStockListAdapter.changeList(breedingBackupList);
             }
@@ -136,10 +136,10 @@ public class BreedingStockViewFragment extends Fragment {
         breedSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                breedSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                earTagSort.setBackgroundColor(getResources().getColor(R.color.black));
-                nameSort.setBackgroundColor(getResources().getColor(R.color.black));
-                sexSort.setBackgroundColor(getResources().getColor(R.color.black));
+                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
                 Collections.sort(breedingBackupList,BreedingStock.breedComparator);
                 breedingStockListAdapter.changeList(breedingBackupList);
             }
@@ -148,10 +148,10 @@ public class BreedingStockViewFragment extends Fragment {
         earTagSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                earTagSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                breedSort.setBackgroundColor(getResources().getColor(R.color.black));
-                nameSort.setBackgroundColor(getResources().getColor(R.color.black));
-                sexSort.setBackgroundColor(getResources().getColor(R.color.black));
+                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
                 Collections.sort(breedingBackupList,BreedingStock.earTagComparator);
                 breedingStockListAdapter.changeList(breedingBackupList);
             }
@@ -161,10 +161,10 @@ public class BreedingStockViewFragment extends Fragment {
         sexSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sexSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                breedSort.setBackgroundColor(getResources().getColor(R.color.black));
-                earTagSort.setBackgroundColor(getResources().getColor(R.color.black));
-                nameSort.setBackgroundColor(getResources().getColor(R.color.black));
+                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
                 Collections.sort(breedingBackupList,BreedingStock.sexComparator);
                 breedingStockListAdapter.changeList(breedingBackupList);
             }

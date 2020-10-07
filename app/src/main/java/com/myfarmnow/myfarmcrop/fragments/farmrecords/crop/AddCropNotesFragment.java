@@ -73,6 +73,7 @@ public class AddCropNotesFragment extends Fragment {
     public void initializeForm(){
         dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePicker(binding.txtCropNoteDate,context);
+        DashboardActivity.addDatePickerImageView(binding.datePickerImage,binding.txtCropNoteDate,context);
 
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
 

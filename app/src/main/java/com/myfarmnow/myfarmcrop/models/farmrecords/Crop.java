@@ -139,6 +139,7 @@ public class Crop implements Serializable, CropSpinnerItem {
     }
 
     public String computeAge(){
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date convertedDate = new Date();
         try {
@@ -150,18 +151,27 @@ public class Crop implements Serializable, CropSpinnerItem {
             today.set(Calendar.SECOND, 0);                 // set second in minute
             today.set(Calendar.MILLISECOND, 0);
 
-            long daysBetween = daysBetween(convertedDate,today.getTime());
+            long daysBetween = daysBetween(convertedDate, today.getTime());
+            int years = (int) (daysBetween / 365);
+            int months = (int) ((daysBetween - years * 365) / 30);
+            int days = (int) (daysBetween % 30);
+            Log.d("DATES", getDateSown() + " " + convertedDate.toString() + " - " + today.getTime().toString() + " days = " + daysBetween);
+            String age = "";
+            if (years > 0) {
+                age += years + "Y ";
+            }
+            if (months > 0)
+                age += months + "M ";
+            age += days + "D";
 
-            int months = (int)(daysBetween/30);
-            int days =(int)(daysBetween%30);
-            Log.d("DATES",getDateSown()+" "+convertedDate.toString()+" - "+today.getTime().toString()+" days = "+daysBetween);
-            return months+"m "+days+"d";
+            return age;
+
 
         } catch (ParseException e) {
-            Log.d("DATe",getDateSown());
+            Log.d("DATe", getDateSown());
             e.printStackTrace();
-            return "--";
-
+            String age = "--";
+            return age;
         }
 
     }

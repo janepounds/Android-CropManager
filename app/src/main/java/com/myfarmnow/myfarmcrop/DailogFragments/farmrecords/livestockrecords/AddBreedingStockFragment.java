@@ -43,6 +43,7 @@ import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -67,7 +68,7 @@ public class AddBreedingStockFragment extends DialogFragment {
     private EditText name, earTag, colour, breed, weight, dateOfBirth;
     AutoCompleteTextView father, mother;
     private Spinner sex, source;
-    private TextView photo, breeder_form_title;
+    private TextView photo, breeder_form_title,photoTextView;
     private MyFarmDbHandlerSingleton dbHandler;
 
 
@@ -119,9 +120,11 @@ public class AddBreedingStockFragment extends DialogFragment {
         photo = view.findViewById(R.id.add_animal_photo);
         submit = view.findViewById(R.id.add_animal_submit);
         datePicker = view.findViewById(R.id.image_dob);
+        photoTextView = view.findViewById(R.id.add_animal_photo_text_view);
         ((ArrayAdapter) sex.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         DashboardActivity.addDatePickerImageView(datePicker, dateOfBirth, context);
+        DashboardActivity.addDatePicker( dateOfBirth, context);
 
         close.setOnClickListener(view1 -> dismiss());
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
@@ -277,6 +280,11 @@ public class AddBreedingStockFragment extends DialogFragment {
                     byte[] b = byteArrayOutputStream.toByteArray();
 
                     encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                    //getting image path
+                    String path = produceImageUri.getPath();
+                    File f = new File(path);
+                    String imageName = f.getName();
+                    photoTextView.setText(imageName);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

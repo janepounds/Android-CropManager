@@ -106,13 +106,19 @@ public class AddCropFragment extends Fragment {
 
     public void initializeForm() {
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePicker(txtCropsDateSown, context);
-
-        btnSave.setOnClickListener(v -> {
-
-            if (validateEntries()) {
-                if (crop == null) {
-                    saveCrop();
+        DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
+        DashboardActivity.addDatePickerImageView(binding.datePickerImage,binding.txtCropsDateSown, context);
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validateEntries()) {
+                    if (crop == null) {
+                        saveCrop();
+                    } else {
+                        updateCrop();
+                    }
+                    //go back to list
+                    navController.popBackStack();
                 } else {
                     updateCrop();
                 }

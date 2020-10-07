@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -17,9 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -51,7 +48,7 @@ public class AddMatingFragment extends DialogFragment {
     AutoCompleteTextView  femaleName, maleName;
     private Button submit;
     private Spinner method;
-    private ImageView close;
+    private ImageView close,datePicker;
     private TextView matingTitle;
 
 
@@ -93,7 +90,10 @@ public class AddMatingFragment extends DialogFragment {
         deliveryAlert = view.findViewById(R.id.add_mating_delivery_alert);
         note = view.findViewById(R.id.add_mating_note);
         submit = view.findViewById(R.id.add_mating_submit);
+        datePicker = view.findViewById(R.id.image_date_picker);
         DashboardActivity.addDatePicker(matingDate, context);
+        DashboardActivity.addDatePickerImageView(datePicker,matingDate, context);
+
 
         close.setOnClickListener(view1 -> dismiss());
         ((ArrayAdapter) method.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -191,6 +191,17 @@ public class AddMatingFragment extends DialogFragment {
             }
         });
 
+        if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("cattle"))
+            gestationPeriod.setText("270");
+        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("rabbit"))
+            gestationPeriod.setText("28");
+        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("pig"))
+            gestationPeriod.setText("115");
+        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("goat") )
+            gestationPeriod.setText("150");
+        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("sheep") )
+            gestationPeriod.setText("152");
+
     }
 
     public void fillViews() {
@@ -208,14 +219,19 @@ public class AddMatingFragment extends DialogFragment {
     }
 
     public void saveMating() {
-        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
 
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
         mating = new Mating();
         mating.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         mating.setMatingDate(matingDate.getText().toString());
         mating.setFemaleName(femaleName.getText().toString());
         mating.setMaleName(maleName.getText().toString());
-        mating.setDeliveryAlertDaysBefore(Float.parseFloat(deliveryAlert.getText().toString()));
+        if(!deliveryAlert.getText().toString().isEmpty())
+            mating.setDeliveryAlertDaysBefore(Float.parseFloat(deliveryAlert.getText().toString()));
+        else
+            mating.setDeliveryAlertDaysBefore(Float.parseFloat("0"));
+
+
         mating.setGestationPeriod(Float.parseFloat(gestationPeriod.getText().toString()));
         mating.setNotes(note.getText().toString());
         mating.setMethod(method.getSelectedItem().toString());
@@ -248,18 +264,9 @@ public class AddMatingFragment extends DialogFragment {
         } else if (femaleName.getText().toString().isEmpty()) {
             message = getString(R.string.female_name_not_entered);
             femaleName.requestFocus();
-        } else if (deliveryAlert.getText().toString().isEmpty()) {
-            message = getString(R.string.deliverey_alert_not_entered);
-            deliveryAlert.requestFocus();
         } else if (method.getSelectedItemPosition() == 0) {
             message = getString(R.string.method_not_selected);
             method.requestFocus();
-        } else if (note.getText().toString().isEmpty()) {
-            message = getString(R.string.note_not_entered);
-            note.requestFocus();
-        } else if (gestationPeriod.getText().toString().isEmpty()) {
-            message = getString(R.string.gestation_period_not_entered);
-            gestationPeriod.requestFocus();
         }
 
 
