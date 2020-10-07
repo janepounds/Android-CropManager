@@ -2230,7 +2230,7 @@
     <string name="days">days</string>
     <string name="weaning_alert">Weaning Alert</string>
     <string name="days_before">Days Before</string>
-    <string name="litter">Litter</string>
+    <string name="litter">Litter # </string>
     <string name="dam">Dam</string>
     <string name="sire">Sire</string>
     <string name="weaning_alert_not_entered">weaning alert not entered</string>

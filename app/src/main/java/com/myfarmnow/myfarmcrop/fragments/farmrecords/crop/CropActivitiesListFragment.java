@@ -30,6 +30,8 @@ import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CropActivitiesListFragment extends Fragment {
     private Context context;
@@ -134,6 +136,7 @@ public class CropActivitiesListFragment extends Fragment {
 
                         if (selection == x.getType()) {
                             filteredList.add(x);
+//                            Collections.sort(filteredList);
                         }
 
                     }

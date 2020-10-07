@@ -171,7 +171,7 @@
                     android:background="@drawable/edittext_corner"
                     android:orientation="horizontal">
 
-                    <Spinner
+                    <AutoCompleteTextView
                         android:id="@+id/sp_crop_fertilizer_application_fertilizername"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -180,7 +180,6 @@
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:entries="@array/crop_fertilizer_form"
                         android:spinnerMode="dropdown"/>
 
                     <ImageView
