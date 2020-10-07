@@ -8,7 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,6 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,47 +33,63 @@ import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentAddCropBinding;
 import com.myfarmnow.myfarmcrop.models.CropItem;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
-
 public class AddCropFragment extends Fragment {
-
-    public FragmentAddCropBinding binding;
     private Context context;
     private MyFarmDbHandlerSingleton dbHandler;
     private Crop crop;
     public CropSpinnerAdapter fieldsSpinnerAdapter;
     private NavController navController;
 
+    private Toolbar toolbar;
+    private EditText txtCropsDateSown, txtCropsVariety, txtCropsArea, txtCropsEstimatedRevenue, txtCropsEstimatedYield;
+    private AutoCompleteTextView spCropCrop;
+    private Spinner spCropsField, spCropsSeason, spCropsHarvestUnits, sp_crops_harvest_units;
+    private TextView cropsCurrencyB, txtCropsEstimatedRevenueUnits;
+    private Button btnSave;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_crop, container, false);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAddCrop));
-        if (getArguments()!=null) {
+        View view = inflater.inflate(R.layout.fragment_add_crop, container, false);
+
+        toolbar = view.findViewById(R.id.toolbar_add_crop_fragment);
+        txtCropsDateSown = view.findViewById(R.id.txt_crops_date_sown);
+        spCropCrop = view.findViewById(R.id.sp_crop_crop);
+        spCropsField = view.findViewById(R.id.sp_crops_field);
+        spCropsSeason = view.findViewById(R.id.sp_crops_season);
+        spCropsHarvestUnits = view.findViewById(R.id.sp_crops_harvest_units);
+        cropsCurrencyB = view.findViewById(R.id.crops_currency_b);
+        txtCropsEstimatedRevenueUnits = view.findViewById(R.id.txt_crops_estimated_revenue_units);
+        txtCropsVariety = view.findViewById(R.id.txt_crops_variety);
+        txtCropsArea = view.findViewById(R.id.txt_crops_area);
+        txtCropsEstimatedRevenue = view.findViewById(R.id.txt_crops_estimated_revenue);
+        txtCropsEstimatedYield = view.findViewById(R.id.txt_crops_estimated_yield);
+        btnSave = view.findViewById(R.id.btn_save);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.actionAddCrop));
+
+        if (getArguments() != null) {
             crop = (Crop) getArguments().getSerializable("crop");
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionEditCrop));
-            binding.btnSave.setText(getString(R.string.update));
+            btnSave.setText(getString(R.string.update));
         }
+
         initializeForm();
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.popBackStack();
-            }
-        });
-        return binding.getRoot();
+
+        toolbar.setNavigationOnClickListener(view1 -> navController.popBackStack());
+
+        return view;
     }
 
     @Override
@@ -85,25 +105,23 @@ public class AddCropFragment extends Fragment {
     }
 
     public void initializeForm() {
-
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
+        DashboardActivity.addDatePicker(txtCropsDateSown, context);
 
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateEntries()) {
-                    if (crop == null) {
-                        saveCrop();
-                    } else {
-                        updateCrop();
-                    }
-                    //go back to list
-                    navController.popBackStack();
+        btnSave.setOnClickListener(v -> {
+
+            if (validateEntries()) {
+                if (crop == null) {
+                    saveCrop();
                 } else {
-                    Log.d("ERROR", "Testing");
+                    updateCrop();
                 }
+                //go back to list
+                navController.popBackStack();
+            } else {
+                Log.d("ERROR", "Testing");
             }
+
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
@@ -112,7 +130,7 @@ public class AddCropFragment extends Fragment {
             cropsList.add(cropItem.getName());
         }
 
-        binding.spCropCrop.setAdapter(new ArrayAdapter<String>(context,
+        spCropCrop.setAdapter(new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, cropsList));
 
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
@@ -122,11 +140,11 @@ public class AddCropFragment extends Fragment {
 
         fieldsSpinnerAdapter = new CropSpinnerAdapter(fieldsItems, "Field", context);
 
-        binding.spCropsField.setAdapter(fieldsSpinnerAdapter);
+        spCropsField.setAdapter(fieldsSpinnerAdapter);
 
         // ((ArrayAdapter)cropSP.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter) binding.spCropsSeason.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ((ArrayAdapter) binding.spCropsHarvestUnits.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter) spCropsSeason.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ((ArrayAdapter) spCropsHarvestUnits.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -151,14 +169,13 @@ public class AddCropFragment extends Fragment {
 
             }
         };
-        binding.spCropCrop.setOnItemSelectedListener(onItemSelectedListener);
+        spCropCrop.setOnItemSelectedListener(onItemSelectedListener);
 
-        binding.spCropsSeason.setOnItemSelectedListener(onItemSelectedListener);
+        spCropsSeason.setOnItemSelectedListener(onItemSelectedListener);
 
+        cropsCurrencyB.setText(CropSettingsSingleton.getInstance().getCurrency());
 
-        binding.cropsCurrencyB.setText(CropSettingsSingleton.getInstance().getCurrency());
-
-        binding.spCropsHarvestUnits.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spCropsHarvestUnits.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -167,44 +184,26 @@ public class AddCropFragment extends Fragment {
                         ((TextView) view).setTextColor(Color.GRAY);
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
-
                     } else {
                         ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
                     }
                     ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
                 String selection = parent.getItemAtPosition(position).toString();
                 if (selection.toLowerCase().equals("boxes")) {
-
-                    binding.txtCropsEstimatedRevenueUnits.setText("/ Box");
-
+                    txtCropsEstimatedRevenueUnits.setText("/ Box");
                 } else if (selection.toLowerCase().equals("kg")) {
-
-                    binding.txtCropsEstimatedRevenueUnits.setText("/ Kg");
-
-
+                    txtCropsEstimatedRevenueUnits.setText("/ Kg");
                 } else if (selection.toLowerCase().equals("tonnes")) {
-                    binding.txtCropsEstimatedRevenueUnits.setText("/ Tonne");
-
-
+                    txtCropsEstimatedRevenueUnits.setText("/ Tonne");
                 } else if (selection.toLowerCase().equals("bushels")) {
-
-                    binding.txtCropsEstimatedRevenueUnits.setText("/ Bushel");
-
-
+                    txtCropsEstimatedRevenueUnits.setText("/ Bushel");
                 } else if (selection.toLowerCase().equals("bags")) {
-
-
-                    binding.txtCropsEstimatedRevenueUnits.setText("/ Bag");
-
-
+                    txtCropsEstimatedRevenueUnits.setText("/ Bag");
                 } else if (selection.toLowerCase().equals("bunches")) {
-
-                    binding.txtCropsEstimatedRevenueUnits.setText("/ Bunch");
-
-
+                    txtCropsEstimatedRevenueUnits.setText("/ Bunch");
                 }
 
             }
@@ -215,93 +214,83 @@ public class AddCropFragment extends Fragment {
             }
         });
 
-
         fillViews();
     }
-
 
     public void saveCrop() {
         crop = new Crop();
         crop.setUserId(DashboardActivity.RETRIEVED_USER_ID);
-        crop.setName(binding.spCropCrop.getText().toString());
-        crop.setVariety(binding.txtCropsVariety.getText().toString());
-        crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
-        crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
-        crop.setDateSown(binding.txtCropsDateSown.getText().toString());
-        crop.setArea(Float.parseFloat(binding.txtCropsArea.getText().toString()));
-        crop.setEstimatedRevenue(Float.parseFloat(binding.txtCropsEstimatedRevenue.getText().toString()));
-        crop.setEstimatedYield(Float.parseFloat(binding.txtCropsEstimatedYield.getText().toString()));
-        if (binding.spCropsHarvestUnits.getSelectedItemPosition() != 0) {
-            crop.setHarvestUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
+        crop.setName(spCropCrop.getText().toString());
+        crop.setVariety(txtCropsVariety.getText().toString());
+        crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) spCropsField.getSelectedItem()).getId());
+        crop.setSeason(spCropsSeason.getSelectedItem().toString());
+        crop.setDateSown(txtCropsDateSown.getText().toString());
+        crop.setArea(Float.parseFloat(txtCropsArea.getText().toString()));
+        crop.setEstimatedRevenue(Float.parseFloat(txtCropsEstimatedRevenue.getText().toString()));
+        crop.setEstimatedYield(Float.parseFloat(txtCropsEstimatedYield.getText().toString()));
+        if (spCropsHarvestUnits.getSelectedItemPosition() != 0) {
+            crop.setHarvestUnits(spCropsHarvestUnits.getSelectedItem().toString());
         }
         dbHandler.insertCrop(crop);
-
     }
 
     public void updateCrop() {
         if (crop != null) {
-            crop.setName(binding.spCropCrop.getText().toString());
-            crop.setVariety(binding.txtCropsVariety.getText().toString());
-            crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) binding.spCropsField.getSelectedItem()).getId());
-            crop.setSeason(binding.spCropsSeason.getSelectedItem().toString());
-            crop.setDateSown(binding.txtCropsDateSown.getText().toString());
-            crop.setArea(Float.parseFloat(binding.txtCropsArea.getText().toString()));
-            crop.setEstimatedRevenue(Float.parseFloat(binding.txtCropsEstimatedRevenue.getText().toString()));
-            crop.setEstimatedYield(Float.parseFloat(binding.txtCropsEstimatedYield.getText().toString()));
-            if (binding.spCropsHarvestUnits.getSelectedItemPosition() != 0) {
-                crop.setHarvestUnits(binding.spCropsHarvestUnits.getSelectedItem().toString());
+            crop.setName(spCropCrop.getText().toString());
+            crop.setVariety(txtCropsVariety.getText().toString());
+            crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) spCropsField.getSelectedItem()).getId());
+            crop.setSeason(spCropsSeason.getSelectedItem().toString());
+            crop.setDateSown(txtCropsDateSown.getText().toString());
+            crop.setArea(Float.parseFloat(txtCropsArea.getText().toString()));
+            crop.setEstimatedRevenue(Float.parseFloat(txtCropsEstimatedRevenue.getText().toString()));
+            crop.setEstimatedYield(Float.parseFloat(txtCropsEstimatedYield.getText().toString()));
+            if (spCropsHarvestUnits.getSelectedItemPosition() != 0) {
+                crop.setHarvestUnits(spCropsHarvestUnits.getSelectedItem().toString());
             }
-
             dbHandler.updateCrop(crop);
         }
-
     }
 
     public void fillViews() {
         if (crop != null) {
             // DashboardActivity.selectSpinnerItemByValue(cropSP,crop.getName());
-            binding.txtCropsVariety.setText(crop.getVariety());
-            binding.spCropCrop.setText(crop.getName());
-            DashboardActivity.selectSpinnerItemByValue(binding.spCropsSeason, crop.getSeason());
-            DashboardActivity.selectSpinnerItemByValue(binding.spCropsHarvestUnits, crop.getHarvestUnits());
-            binding.txtCropsDateSown.setText(crop.getDateSown());
-            binding.txtCropsArea.setText(crop.getArea() + "");
-            binding.txtCropsEstimatedYield.setText(crop.getEstimatedYield() + "");
-            binding.txtCropsEstimatedRevenue.setText(crop.getEstimatedRevenue() + "");
-            DashboardActivity.selectSpinnerItemById(binding.spCropsField, crop.getFieldId());
+            txtCropsVariety.setText(crop.getVariety());
+            spCropCrop.setText(crop.getName());
+            DashboardActivity.selectSpinnerItemByValue(spCropsSeason, crop.getSeason());
+            DashboardActivity.selectSpinnerItemByValue(spCropsHarvestUnits, crop.getHarvestUnits());
+            txtCropsDateSown.setText(crop.getDateSown());
+            txtCropsArea.setText(crop.getArea() + "");
+            txtCropsEstimatedYield.setText(crop.getEstimatedYield() + "");
+            txtCropsEstimatedRevenue.setText(crop.getEstimatedRevenue() + "");
+            DashboardActivity.selectSpinnerItemById(spCropsField, crop.getFieldId());
         }
-
     }
-
 
     public boolean validateEntries() {
         String message = null;
-        if (binding.txtCropsDateSown.getText().toString().isEmpty()) {
+        if (txtCropsDateSown.getText().toString().isEmpty()) {
             message = getString(R.string.date_not_entered_message);
-            binding.txtCropsDateSown.requestFocus();
-        } else if (binding.txtCropsArea.getText().toString().isEmpty()) {
+            txtCropsDateSown.requestFocus();
+        } else if (txtCropsArea.getText().toString().isEmpty()) {
             message = getString(R.string.area_not_entered);
-            binding.txtCropsArea.requestFocus();
-        } else if (binding.spCropCrop.getText().toString().isEmpty()) {
+            txtCropsArea.requestFocus();
+        } else if (spCropCrop.getText().toString().isEmpty()) {
             message = "Crop must be entered";
-            binding.spCropCrop.requestFocus();
-        } else if (binding.spCropsField.getSelectedItemPosition() == 0) {
+            spCropCrop.requestFocus();
+        } else if (spCropsField.getSelectedItemPosition() == 0) {
             message = getString(R.string.field_not_selected);
-            binding.spCropsField.requestFocus();
-        } else if (binding.txtCropsEstimatedRevenue.getText().toString().isEmpty()) {
-            binding.txtCropsEstimatedRevenue.setText(getString(R.string.default_numeric_value));
-        } else if (binding.txtCropsEstimatedYield.getText().toString().isEmpty()) {
-            binding.txtCropsEstimatedYield.setText(getString(R.string.default_numeric_value));
+            spCropsField.requestFocus();
+        } else if (txtCropsEstimatedRevenue.getText().toString().isEmpty()) {
+            txtCropsEstimatedRevenue.setText(getString(R.string.default_numeric_value));
+        } else if (txtCropsEstimatedYield.getText().toString().isEmpty()) {
+            txtCropsEstimatedYield.setText(getString(R.string.default_numeric_value));
         }
-
 
         if (message != null) {
             Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
             return false;
         }
-        // Log.d("ERROR",message);
+
         return true;
     }
-
-
 }

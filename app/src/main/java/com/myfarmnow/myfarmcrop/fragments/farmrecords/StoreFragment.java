@@ -8,13 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -24,14 +22,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpClient;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.farmrecords.CropInventoryListRecyclerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentStoreBinding;
 import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
@@ -39,9 +36,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 
 import java.util.ArrayList;
 
-
 public class StoreFragment extends Fragment {
-    private FragmentStoreBinding binding;
     private Context context;
     public ArrayList<CropInventory> cropInventoryList = new ArrayList();
     ArrayList<CropInventory> cropListBackUp = new ArrayList();
@@ -50,56 +45,36 @@ public class StoreFragment extends Fragment {
     NavController navController;
     StoreFragment storeFragment = null;
 
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-
-        super.onAttach(context);
-        this.context = context;
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-        setHasOptionsMenu(true);
-
-        ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Store");
-
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_storeFragment_to_farmRecordsHomeFragment);
-            }
-        });
-    }
-
-
+    private Toolbar toolbar;
+    private Spinner selectInventorySpinner;
+    private RecyclerView inventoryRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false);
+        View view = inflater.inflate(R.layout.fragment_store, container, false);
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = binding.toolbar;
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar = view.findViewById(R.id.toolbar_store_fragment);
+        selectInventorySpinner = view.findViewById(R.id.select_inventory_spinner);
+        inventoryRecyclerView = view.findViewById(R.id.inventory_recyclerview);
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        binding.inventoryRecycView.setLayoutManager(linearLayoutManager);
+        inventoryRecyclerView.setLayoutManager(linearLayoutManager);
         cropListRecyclerAdapter = new CropInventoryListRecyclerAdapter(cropInventoryList, context);
 
-        binding.inventoryRecycView.setAdapter(cropListRecyclerAdapter);
+        inventoryRecyclerView.setAdapter(cropListRecyclerAdapter);
+
         loadCropInventories();
-        binding.selectInventorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        selectInventorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -114,6 +89,7 @@ public class StoreFragment extends Fragment {
                 } catch (Exception e) {
 
                 }
+
                 if (position != 0) {
                     String selection = parent.getSelectedItem().toString();
                     ArrayList<CropInventory> filteredList = new ArrayList<>();
@@ -133,7 +109,6 @@ public class StoreFragment extends Fragment {
                     }
 
                     cropListRecyclerAdapter.changeList(filteredList);
-
                 }
             }
 
@@ -142,8 +117,27 @@ public class StoreFragment extends Fragment {
 
             }
         });
+        return view;
+    }
 
-        return binding.getRoot();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+        setHasOptionsMenu(true);
+
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Store");
+
+        toolbar.setNavigationOnClickListener(v -> navController.navigate(R.id.action_storeFragment_to_farmRecordsHomeFragment));
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     public void loadCropInventories() {
@@ -163,32 +157,31 @@ public class StoreFragment extends Fragment {
         inflater.inflate(R.menu.crop_menu_inventory, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            switch (id) {
-                case R.id.home:
-                    navController.navigate(R.id.action_storeFragment_to_farmRecordsHomeFragment);
-                    return true;
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.home:
+                navController.navigate(R.id.action_storeFragment_to_farmRecordsHomeFragment);
+                return true;
 
-                case R.id.storeAddFertilizerFragment:
-                    navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment);
-                    return true;
+            case R.id.storeAddFertilizerFragment:
+                navController.navigate(R.id.action_storeFragment_to_storeAddFertilizerFragment);
+                return true;
 
-                case R.id.storeAddSeedFragment:
-                    navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment);
-                    return true;
+            case R.id.storeAddSeedFragment:
+                navController.navigate(R.id.action_storeFragment_to_storeAddSeedFragment);
+                return true;
 
-                case R.id.storeAddSprayFragment:
+            case R.id.storeAddSprayFragment:
                 navController.navigate(R.id.action_storeFragment_to_storeAddSprayFragment);
-                    return true;
+                return true;
 
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

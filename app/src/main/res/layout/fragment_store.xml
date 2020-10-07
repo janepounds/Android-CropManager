@@ -1,55 +1,46 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.StoreFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_store_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" >
-
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F4F4F4"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F4F4F4"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:background="@drawable/edittext_corner"
                     android:layout_margin="@dimen/dimen_20dp"
+                    android:background="@drawable/edittext_corner"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -59,28 +50,27 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
+                        android:entries="@array/cropInventories"
                         android:gravity="center"
                         android:paddingLeft="@dimen/margin_10"
-                        android:entries="@array/cropInventories"
-                        android:spinnerMode="dropdown"/>
+                        android:spinnerMode="dropdown" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
                         android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
                 </RelativeLayout>
 
 
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/inventory_recyc_view"
+                    android:id="@+id/inventory_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_20dp"
@@ -94,11 +84,6 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
