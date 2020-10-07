@@ -75,7 +75,7 @@ public class BreedingStockViewFragment extends Fragment {
     private EditText searchEdit;
     private ImageView breedingSearch;
     ArrayList<BreedingStock> filteredList = new ArrayList<>();
-    private LinearLayout nameSort,breedSort;
+    private LinearLayout nameSort,breedSort,earTagSort,sexSort;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,7 +88,8 @@ public class BreedingStockViewFragment extends Fragment {
         searchEdit = view.findViewById(R.id.animal_section_filter);
         nameSort = view.findViewById(R.id.btn_filter_by_name);
         breedSort = view.findViewById(R.id.btn_filter_by_breed);
-
+        earTagSort = view.findViewById(R.id.btn_filter_by_ear_tag);
+        sexSort = view.findViewById(R.id.btn_filter_by_sex);
         setHasOptionsMenu(true);
 
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
@@ -123,16 +124,48 @@ public class BreedingStockViewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 nameSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                breedSort.setBackgroundColor(getResources().getColor(R.color.black));
+                earTagSort.setBackgroundColor(getResources().getColor(R.color.black));
+                sexSort.setBackgroundColor(getResources().getColor(R.color.black));
                 Collections.sort(breedingBackupList,BreedingStock.nameComparator);
                 breedingStockListAdapter.changeList(breedingBackupList);
             }
         });
+        //sort by breed
 
         breedSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 breedSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                earTagSort.setBackgroundColor(getResources().getColor(R.color.black));
+                nameSort.setBackgroundColor(getResources().getColor(R.color.black));
+                sexSort.setBackgroundColor(getResources().getColor(R.color.black));
                 Collections.sort(breedingBackupList,BreedingStock.breedComparator);
+                breedingStockListAdapter.changeList(breedingBackupList);
+            }
+        });
+        //sort by dob
+        earTagSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                earTagSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                breedSort.setBackgroundColor(getResources().getColor(R.color.black));
+                nameSort.setBackgroundColor(getResources().getColor(R.color.black));
+                sexSort.setBackgroundColor(getResources().getColor(R.color.black));
+                Collections.sort(breedingBackupList,BreedingStock.earTagComparator);
+                breedingStockListAdapter.changeList(breedingBackupList);
+            }
+        });
+        //sort by sex
+
+        sexSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sexSort.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                breedSort.setBackgroundColor(getResources().getColor(R.color.black));
+                earTagSort.setBackgroundColor(getResources().getColor(R.color.black));
+                nameSort.setBackgroundColor(getResources().getColor(R.color.black));
+                Collections.sort(breedingBackupList,BreedingStock.sexComparator);
                 breedingStockListAdapter.changeList(breedingBackupList);
             }
         });

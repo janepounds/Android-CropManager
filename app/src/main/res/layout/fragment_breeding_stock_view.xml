@@ -136,7 +136,7 @@
                         android:layout_margin="2dp"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/btn_filter_by_dob"
+                    android:id="@+id/btn_filter_by_ear_tag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -147,7 +147,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="DOB"
+                        android:text="Ear Tag"
                         android:textAllCaps="true"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
@@ -166,7 +166,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sex"
+                        android:text="sex"
                         android:textAllCaps="true"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
