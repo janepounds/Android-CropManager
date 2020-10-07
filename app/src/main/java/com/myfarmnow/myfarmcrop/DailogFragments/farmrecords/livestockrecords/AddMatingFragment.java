@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -17,9 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -54,7 +51,6 @@ public class AddMatingFragment extends DialogFragment {
     private ImageView close,datePicker;
     private TextView matingTitle;
 
-    private SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -196,15 +192,15 @@ public class AddMatingFragment extends DialogFragment {
         });
 
         if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("cattle"))
-            deliveryAlert.setText("270");
+            gestationPeriod.setText("270");
         else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("rabbit"))
-            deliveryAlert.setText("28");
+            gestationPeriod.setText("28");
         else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("pig"))
-            deliveryAlert.setText("115");
+            gestationPeriod.setText("115");
         else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("goat") )
-            deliveryAlert.setText("150");
+            gestationPeriod.setText("150");
         else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("sheep") )
-            deliveryAlert.setText("152");
+            gestationPeriod.setText("152");
 
     }
 
@@ -224,12 +220,13 @@ public class AddMatingFragment extends DialogFragment {
 
     public void saveMating() {
 
+        SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
         mating = new Mating();
         mating.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         mating.setMatingDate(matingDate.getText().toString());
         mating.setFemaleName(femaleName.getText().toString());
         mating.setMaleName(maleName.getText().toString());
-        if(deliveryAlert.getText().toString()!=null)
+        if(!deliveryAlert.getText().toString().isEmpty())
             mating.setDeliveryAlertDaysBefore(Float.parseFloat(deliveryAlert.getText().toString()));
         else
             mating.setDeliveryAlertDaysBefore(Float.parseFloat("0"));
