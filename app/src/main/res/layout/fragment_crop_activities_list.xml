@@ -45,7 +45,7 @@
 
 
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -76,7 +76,7 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
 
 
@@ -85,7 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10dp"
-                        android:layout_marginEnd="@dimen/dimen_10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_marginBottom="@dimen/dimen_10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
