@@ -230,7 +230,9 @@ public class AddLittersFragment extends DialogFragment {
         litter.setWeaning(Integer.parseInt(weaning.getText().toString()));
         litter.setMotherDam(motherDam.getText().toString());
         litter.setFatherSire(fatherSire.getText().toString());
-        litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
+        if(!weaningAlert.getText().toString().isEmpty())
+            litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
+
         litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         dbHandler.insertLitter(litter);
     }
@@ -249,7 +251,10 @@ public class AddLittersFragment extends DialogFragment {
             litter.setWeaning(Integer.parseInt(weaning.getText().toString()));
             litter.setMotherDam(motherDam.getText().toString());
             litter.setFatherSire(fatherSire.getText().toString());
-            litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
+
+            if(!weaningAlert.getText().toString().isEmpty())
+                 litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
+
             litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateLitter(litter);
         }
@@ -263,9 +268,6 @@ public class AddLittersFragment extends DialogFragment {
         } else if (litterSize.getText().toString().isEmpty()) {
             message = getString(R.string.litter_size_not_entered);
             litterSize.requestFocus();
-        } else if (fatherSire.getText().toString().isEmpty()) {
-            message = getString(R.string.father_sire_not_selected);
-            fatherSire.requestFocus();
         } else if (motherDam.getText().toString().isEmpty()) {
             message = getString(R.string.mother_dam_not_selected);
             motherDam.requestFocus();
@@ -284,9 +286,6 @@ public class AddLittersFragment extends DialogFragment {
         } else if (weaning.getText().toString().isEmpty()) {
             message = getString(R.string.weaning_days_not_entered);
             weaning.requestFocus();
-        } else if (weaningAlert.getText().toString().isEmpty()) {
-            message = getString(R.string.weaning_alert_not_entered);
-            weaningAlert.requestFocus();
         }
 
         if (message != null) {
