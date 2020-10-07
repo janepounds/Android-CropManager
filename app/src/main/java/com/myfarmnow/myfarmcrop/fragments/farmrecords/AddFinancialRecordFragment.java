@@ -13,8 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,7 +38,6 @@ import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
-import com.myfarmnow.myfarmcrop.models.CropSupplier;
 
 import java.util.ArrayList;
 
@@ -259,21 +256,6 @@ public class AddFinancialRecordFragment extends Fragment {
 
         grossAmount.addTextChangedListener(watcher);
 
-        customersList = new ArrayList<>();
-        for (CropCustomer x : dbHandler.getCropCustomers(DashboardActivity.RETRIEVED_USER_ID)) {
-            customersList.add(x.getName());
-        }
-        suppliersList = new ArrayList<>();
-        for (CropSupplier x : dbHandler.getCropSuppliers(DashboardActivity.RETRIEVED_USER_ID)) {
-            suppliersList.add(x.getName());
-        }
-        customerSupplierAdapter = new ArrayAdapter<String>(context,
-                android.R.layout.simple_dropdown_item_1line, customersList);
-
-        Log.d("Supplier", suppliersList.toString());
-
-        customerSupplier.setAdapter(customerSupplierAdapter);
-        customerSupplier.setEnabled(false);
 
         fillViews();
     }

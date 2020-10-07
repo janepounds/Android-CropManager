@@ -40,8 +40,8 @@ public class CropActivitiesListFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     CropActivitiesListRecyclerAdapter activitiesListRecyclerAdapter;
     String cropId;
-    ArrayList<CropActivity> cropActivities = new ArrayList<>();
-    ArrayList<CropActivity> cropInventoryList = new ArrayList();
+    ArrayList<CropActivity> cropActivities = new ArrayList<>(), cropActivities_sorted = new ArrayList<>();
+
     ArrayList<CropActivity> cropListBackUp = new ArrayList();
     CropSpinnerAdapter cropSpinnerAdapter;
 
@@ -106,6 +106,18 @@ public class CropActivitiesListFragment extends Fragment {
 
         for (CropHarvest harvest : cropHarvests) {
             cropActivities.add(harvest);
+        }
+
+        //sorting
+        int n = cropActivities.size();
+        for (int j = 1; j < n; j++) {
+            CropActivity key = cropActivities.get(j);//array[j];
+            int i = j-1;
+            while ( (i > -1) && ( cropActivities.get(i).getDate().compareTo(key.getDate()) < 0 ) ) {
+                cropActivities.set(i+1, cropActivities.get(i));
+                i--;
+            }
+            cropActivities.set(i+1, key);
         }
 
         activitiesListRecyclerAdapter = new CropActivitiesListRecyclerAdapter(cropActivities, context);
