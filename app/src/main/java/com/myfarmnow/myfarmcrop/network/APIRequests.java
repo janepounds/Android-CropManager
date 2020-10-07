@@ -23,7 +23,6 @@ import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletPurchase;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 
-import org.checkerframework.checker.nullness.compatqual.PolyNullDecl;
 import org.json.JSONObject;
 
 import java.util.List;

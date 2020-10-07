@@ -57,7 +57,6 @@ android {
 dependencies {
     def material_design_version = "1.2.0"
     def nav_version = "2.3.0"
-    def room_version = "2.2.5"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -69,8 +68,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-    //implementation 'com.github.gcacace:signature-pad:1.2.1'
-    implementation 'com.facebook.stetho:stetho:1.5.1'
 
     //State Progress Bar
     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
@@ -80,7 +77,6 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor "com.github.bumptech.glide:compiler:4.8.0"
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     // (Recommended) Add Analytics
@@ -88,38 +84,23 @@ dependencies {
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.loopj.android:android-async-http:1.4.9'
-    // implementation 'com.android.support:multidex:1.0.2'
     implementation 'com.highsoft.highcharts:highcharts:7.0.1'
-    implementation('org.apache.httpcomponents:httpmime:4.5.9') {
-        exclude module: 'httpclient'
-    }
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.google.android.material:material:1.2.0-alpha02'
     //all newer versions i.e. alpha03-alpha09 have a bug
-    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
-    implementation 'pub.devrel:easypermissions:0.1.5'
-    implementation('com.google.api-client:google-api-client-android:1.30.2') {
-        exclude group: 'org.apache.httpcomponents'
-    }
+
     implementation 'com.greysonparrelli.permiso:permiso:0.3.0'
     implementation('com.google.apis:google-api-services-calendar:v3-rev99-1.19.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    // implementation 'org.greenrobot:greendao:3.2.2'
-    // add library
-    implementation 'org.apache.commons:commons-lang3:3.9'
 
-    implementation 'gun0912.ted:tedpermission:2.2.0'
-
-    implementation 'com.github.pwittchen:infinitescroll:0.0.2'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.nineoldandroids:library:2.4.0'
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
         transitive = true;
     }
@@ -153,14 +134,10 @@ dependencies {
     // Java Navigation Component
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
-
-    // Feature module Support
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-
-    // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
-
-
+//    // Testing Navigation
+//    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+//
     //No Internet available
     implementation 'am.appwise.components:NoInternetDialog:1.1.3'
 
