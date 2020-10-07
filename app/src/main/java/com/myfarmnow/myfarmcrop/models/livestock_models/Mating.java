@@ -84,7 +84,7 @@ public class Mating implements LivestockSpinnerItem, Serializable {
     }
 
     public String getNotes() {
-        return notes;
+        return this.notes;
     }
 
     public void setNotes(String notes) {
