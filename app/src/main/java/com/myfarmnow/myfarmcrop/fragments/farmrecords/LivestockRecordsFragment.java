@@ -56,16 +56,16 @@ public class LivestockRecordsFragment extends Fragment {
 
         switch (preferenceModel.getSelectedAnimal()) {
             case "Goat":
-                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_goat, context.getTheme())).into(animalImage);
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_goat_coloured, context.getTheme())).into(animalImage);
                 break;
             case "Rabbit":
-                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_rabbit, context.getTheme())).into(animalImage);
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_rabbit_coloured, context.getTheme())).into(animalImage);
                 break;
             case "Sheep":
-                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_sheep, context.getTheme())).into(animalImage);
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_sheep_coloured, context.getTheme())).into(animalImage);
                 break;
             case "Pig":
-                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_pig, context.getTheme())).into(animalImage);
+                Glide.with(context).load(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_default_pig_coloured, context.getTheme())).into(animalImage);
                 break;
         }
 

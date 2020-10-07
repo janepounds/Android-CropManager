@@ -91,6 +91,7 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
         holder.femaleNameTextView.setText(mating.getFemaleName());
         holder.maleNameTextView.setText(mating.getMaleName());
         holder.methodTextView.setText(mating.getMethod());
+        holder.dateTextView.setText(mating.getMatingDate());
 
         computeDeliveryDate(mating.getMatingDate(),mating.getGestationPeriod(),holder);
 
@@ -110,7 +111,7 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
 
     public class MatingViewHolder extends RecyclerView.ViewHolder{
 
-        TextView femaleNameTextView,maleNameTextView,statusTextView,expectedDeliveryTextView,methodTextView;
+        TextView femaleNameTextView,maleNameTextView,statusTextView,expectedDeliveryTextView,methodTextView,dateTextView;
         ImageView moreOptions;
 
         public MatingViewHolder(View itemView) {
@@ -118,6 +119,7 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
             femaleNameTextView = itemView.findViewById(R.id.mating_item_female);
             maleNameTextView = itemView.findViewById(R.id.mating_item_male);
             statusTextView = itemView.findViewById(R.id.mating_item_status);
+            dateTextView = itemView.findViewById(R.id.mating_item_date);
             expectedDeliveryTextView = itemView.findViewById(R.id.mating_item_expected_delivery_date);
             methodTextView = itemView.findViewById(R.id.mating_item_method);
             moreOptions = itemView.findViewById(R.id.mating_item_more);
