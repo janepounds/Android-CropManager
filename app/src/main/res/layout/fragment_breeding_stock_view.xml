@@ -49,8 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:background="@drawable/edittext_corner"
-                    android:gravity="center"
-                    android:padding="3.4dp">
+                    android:gravity="center">
 
 
 
@@ -60,13 +59,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_gravity="start"
+
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="@dimen/dimen_10dp"
                         android:src="@drawable/ic_search_menu24" />
                     <EditText
                         android:id="@+id/animal_section_filter"
                         android:layout_width="match_parent"
-                        android:layout_height="44dp"
+                        android:layout_height="match_parent"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:layout_centerVertical="true"
                         android:background="@color/transparent"
@@ -82,7 +82,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="@string/filter_by"
+           android:text="@string/sort_by"
            android:layout_margin="@dimen/dimen_10dp"/>
         <LinearLayout
             android:orientation="horizontal"

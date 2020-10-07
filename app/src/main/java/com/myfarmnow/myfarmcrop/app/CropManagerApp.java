@@ -18,7 +18,7 @@ import com.myfarmnow.myfarmcrop.models.device_model.AppSettingsDetails;
 import com.myfarmnow.myfarmcrop.models.pages_model.PagesDetails;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
 import com.myfarmnow.myfarmcrop.models.shipping_model.ShippingService;
-import com.google.common.io.BaseEncoding;
+//import com.google.common.io.BaseEncoding;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -69,7 +69,7 @@ public class CropManagerApp extends MultiDexApplication {
         BuyInputsDB_Manager.initializeInstance(db_handler);
         String pkg_name = context.getPackageName();
         ConstantValues.PKG_NAME = pkg_name;
-        ConstantValues.SHA1 = getSHA1(pkg_name);
+        //ConstantValues.SHA1 = getSHA1(pkg_name);
     
         if (ConstantValues.DEFAULT_NOTIFICATION.equalsIgnoreCase("onesignal")) {
             
@@ -179,7 +179,7 @@ public class CropManagerApp extends MultiDexApplication {
                 MessageDigest md;
                 md = MessageDigest.getInstance("SHA-1");
                 md.update(signature.toByteArray());
-                return BaseEncoding.base16().encode(md.digest());
+                //return BaseEncoding.base16().encode(md.digest());
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
