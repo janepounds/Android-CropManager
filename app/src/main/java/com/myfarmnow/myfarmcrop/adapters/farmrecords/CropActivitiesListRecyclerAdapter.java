@@ -204,7 +204,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_HARVESTING){
             final HarvestViewHolder harvestViewHolder = (HarvestViewHolder)holder;
             CropHarvest harvest = (CropHarvest)cropsList.get(position);
-            harvestViewHolder.harvestDateTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(harvest.getDate()));
+            harvestViewHolder.harvestDateTxt.setText(harvest.getDate());
             if(harvest.getDateSold()!=null)
                 harvestViewHolder.harvest_date_sold.setText(harvest.getDateSold());
             else

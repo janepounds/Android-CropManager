@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +39,9 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -48,7 +53,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
     CropFertilizerApplication fertilizerApplication;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner methodSp, fertilizerFormSp, fertilizerId,recurrenceSp,remindersSp;
+    Spinner methodSp, fertilizerFormSp,recurrenceSp,remindersSp;
+    AutoCompleteTextView fertilizerId;
     LinearLayout daysBeforeLayout, remindersLayout;
     boolean applicationMethodSet = false;//
     CropSpinnerAdapter applicationMethodAdapter,fertilizerAdapter;
@@ -238,12 +244,37 @@ public class FertilizerApplicationFragment extends DialogFragment {
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
-        ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
+        //set fertilizer name
+
+        ArrayList<String> fertlizersList = new ArrayList<>(), damnList = new ArrayList<>();
+
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+
         for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(DashboardActivity.RETRIEVED_USER_ID)){
-            fertlizersList.add(x);
+            fertlizersList.add(x.getName());
         }
-        fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",context);
+        ArrayAdapter<String> fertilizerAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, fertlizersList);
+        fertilizerId.setThreshold(1);
         fertilizerId.setAdapter(fertilizerAdapter);
+        fertilizerId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                fertilizerId.showDropDown();
+            }
+        });
+
+        //
+
 
 
 
@@ -256,7 +287,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setDate(dateTxt.getText().toString());
         fertilizerApplication.setCropId(cropId);
         fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
-        fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
+        fertilizerApplication.setFertilizerId(fertilizerId.getText().toString());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
         fertilizerApplication.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
@@ -271,7 +302,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
             fertilizerApplication.setDate(dateTxt.getText().toString());
             fertilizerApplication.setCropId(cropId);
             fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
-            fertilizerApplication.setFertilizerId(((CropSpinnerItem) fertilizerId.getSelectedItem()).getId());
+            fertilizerApplication.setFertilizerId(fertilizerId.getText().toString());
             fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
             fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
             fertilizerApplication.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
@@ -286,13 +317,11 @@ public class FertilizerApplicationFragment extends DialogFragment {
             DashboardActivity.selectSpinnerItemByValue(fertilizerFormSp, fertilizerApplication.getFertilizerForm());
             DashboardActivity.selectSpinnerItemByValue(recurrenceSp, fertilizerApplication.getRecurrence());
             DashboardActivity.selectSpinnerItemByValue(remindersSp, fertilizerApplication.getReminders());
-            DashboardActivity.selectSpinnerItemById(fertilizerId, fertilizerApplication.getFertilizerName());
-
+            fertilizerId.setText(fertilizerApplication.getFertilizerId());
             dateTxt.setText(fertilizerApplication.getDate());
             rateTxt.setText("0"+fertilizerApplication.getRate());
             daysBeforeTxt.setText(fertilizerApplication.getDaysBefore()+"");
 
-            DashboardActivity.selectSpinnerItemById(fertilizerId,fertilizerApplication.getFertilizerId());
         }
     }
 
@@ -304,7 +333,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         }
 
 
-        else if(fertilizerId.getSelectedItemPosition()==0){
+        else if(fertilizerId.getText().toString().isEmpty()){
             message = getString(R.string.fertilizer_name_not_entered);
             fertilizerId.requestFocus();
         }
