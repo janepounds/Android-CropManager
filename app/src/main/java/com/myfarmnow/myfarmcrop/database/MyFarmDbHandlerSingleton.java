@@ -9271,7 +9271,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(LIVESTOCK_RECORDS_MATING_METHOD, mating.getMethod());
         contentValues.put(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD, mating.getGestationPeriod());
         contentValues.put(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE, mating.getDeliveryAlertDaysBefore());
-        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES, "mating.getNotes()");
+        contentValues.put(LIVESTOCK_RECORDS_MATING_NOTES, mating.getNotes());
         contentValues.put(LIVESTOCK_RECORDS_MATING_SYNC_STATUS, mating.getSyncStatus());
         contentValues.put(LIVESTOCK_RECORDS_MATING_GLOBAL_ID, mating.getGlobalId());
         contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, mating.getAnimalType());
@@ -9340,6 +9340,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             mating.setGestationPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD))));
             mating.setDeliveryAlertDaysBefore(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE))));
             mating.setGlobalId(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_GLOBAL_ID)));
+            mating.setNotes(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_NOTES)));
             mating.setSyncStatus(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MATING_SYNC_STATUS)));
             array_list.add(mating);
             res.moveToNext();
