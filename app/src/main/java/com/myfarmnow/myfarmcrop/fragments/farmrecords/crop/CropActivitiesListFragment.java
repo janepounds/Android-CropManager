@@ -104,7 +104,7 @@ public class CropActivitiesListFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         binding.cropActivitiesRecycView.setLayoutManager(linearLayoutManager);
 
-        cropSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Activity",context);
+        cropSpinnerAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"All Activities",context);
         binding.selectActivitySpinner.setAdapter(cropSpinnerAdapter);
         cropSpinnerAdapter.add(new CropActivitySpinnerItem("Fertilizer Application",CropActivity.CROP_ACTIVITY_FERTILIZER_APPLICATION));
         cropSpinnerAdapter.add(new CropActivitySpinnerItem("Spraying",CropActivity.CROP_ACTIVITY_SPRAYING));
