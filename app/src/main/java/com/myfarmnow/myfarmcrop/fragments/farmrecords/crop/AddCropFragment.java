@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,8 +50,9 @@ public class AddCropFragment extends Fragment {
     private Toolbar toolbar;
     private EditText txtCropsDateSown, txtCropsVariety, txtCropsArea, txtCropsEstimatedRevenue, txtCropsEstimatedYield;
     private AutoCompleteTextView spCropCrop;
-    private Spinner spCropsField, spCropsSeason, spCropsHarvestUnits, sp_crops_harvest_units;
+    private Spinner spCropsField, spCropsSeason, spCropsHarvestUnits;
     private TextView cropsCurrencyB, txtCropsEstimatedRevenueUnits;
+    private ImageView datePickerImage;
     private Button btnSave;
 
     @Override
@@ -71,6 +73,7 @@ public class AddCropFragment extends Fragment {
         txtCropsArea = view.findViewById(R.id.txt_crops_area);
         txtCropsEstimatedRevenue = view.findViewById(R.id.txt_crops_estimated_revenue);
         txtCropsEstimatedYield = view.findViewById(R.id.txt_crops_estimated_yield);
+        datePickerImage = view.findViewById(R.id.date_picker_image);
         btnSave = view.findViewById(R.id.btn_save);
 
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
@@ -106,28 +109,23 @@ public class AddCropFragment extends Fragment {
 
     public void initializeForm() {
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
-        DashboardActivity.addDatePickerImageView(binding.datePickerImage,binding.txtCropsDateSown, context);
-        binding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateEntries()) {
-                    if (crop == null) {
-                        saveCrop();
-                    } else {
-                        updateCrop();
-                    }
-                    //go back to list
-                    navController.popBackStack();
+        DashboardActivity.addDatePicker(txtCropsDateSown, context);
+        DashboardActivity.addDatePickerImageView(datePickerImage, txtCropsDateSown, context);
+
+        btnSave.setOnClickListener(v -> {
+            if (validateEntries()) {
+                if (crop == null) {
+                    saveCrop();
                 } else {
                     updateCrop();
                 }
                 //go back to list
                 navController.popBackStack();
             } else {
-                Log.d("ERROR", "Testing");
+                updateCrop();
             }
-
+            //go back to list
+            navController.popBackStack();
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
