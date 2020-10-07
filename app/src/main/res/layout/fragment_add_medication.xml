@@ -359,7 +359,7 @@
                                 android:gravity="center"
                                 android:paddingStart="@dimen/margin_10"
                                 android:paddingEnd="@dimen/margin_10"
-                                android:text="Ml/Day"
+                                android:text="ml/day"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
 
@@ -409,7 +409,7 @@
                                 android:gravity="center"
                                 android:paddingStart="@dimen/margin_10"
                                 android:paddingEnd="@dimen/margin_10"
-                                android:text="Per Day"
+                                android:text="@string/days"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
 
