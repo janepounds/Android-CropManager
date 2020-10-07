@@ -95,29 +95,18 @@ public class FertilizerApplicationFragment extends DialogFragment {
     public void initializeForm(View view){
         dateTxt =view.findViewById(R.id.txt_crop_fertilizer_application_date);
         fertilizerId =view.findViewById(R.id.sp_crop_fertilizer_application_fertilizername);
-//        methodSp =view.findViewById(R.id.sp_crop_fertilizer_application_method);
         fertilizerFormSp =view.findViewById(R.id.sp_crop_fertilizer_application_fertilizer_form);
         remindersSp = view.findViewById(R.id.sp_crop_fertilizer_application_reminders);
         recurrenceSp = view.findViewById(R.id.sp_crop_fertilizer_application_recurrence);
         daysBeforeTxt = view.findViewById(R.id.txt_crop_fertilizer_application_days_before);
-//        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_fertilizer_application_weekly_reminder);
-//        weeksTxt = view.findViewById(R.id.txt_crop_fertilizer_application_weekly_weeks);
-//        currency = view.findViewById(R.id.txt_crop_fertilizer_application_currency);
-//        repeatUntilTxt = view.findViewById(R.id.txt_crop_fertilizer_application_repeat_until);
-//        operatorTxt =view.findViewById(R.id.txt_crop_fertilizer_application_operator);
-//        costTxt =view.findViewById(R.id.txt_crop_fertilizer_application_labour_cost);
         rateTxt =view.findViewById(R.id.txt_crop_fertilizer_qty);
-//        reasonTxt =view.findViewById(R.id.txt_crop_fertilizer_application_reason);
         daysBeforeLayout = view.findViewById(R.id.layout_crop_fertilizer_application_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_fertilizer_application_reminders);
 
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(),"Method",context);
-//        methodSp.setAdapter(applicationMethodAdapter);
-//        methodSp.setEnabled(false);
         btn_save = view.findViewById(R.id.btn_save);
         fertilizerApplicationClose= view.findViewById(R.id.crop_fertilizer_application);
         DashboardActivity.addDatePicker(dateTxt,context);
-//        DashboardActivity.addDatePicker(repeatUntilTxt,context);
 
         String liquidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_liquid);
         String solidApplicationMethods [] = getResources().getStringArray(R.array.crop_fertilizer_application_method_solid);
@@ -248,9 +237,6 @@ public class FertilizerApplicationFragment extends DialogFragment {
 
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-//        ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ((ArrayAdapter)fertilizerFormSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
         for(CropInventoryFertilizer x: dbHandler.getCropFertilizerInventorys(DashboardActivity.RETRIEVED_USER_ID)){
@@ -259,7 +245,6 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerAdapter  =new CropSpinnerAdapter(fertlizersList,"Fertilizer",context);
         fertilizerId.setAdapter(fertilizerAdapter);
 
-//        currency.setText(CropSettingsSingleton.getInstance().getCurrency());
 
 
         fillViews();
@@ -276,8 +261,6 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
         fertilizerApplication.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
         fertilizerApplication.setRate( Float.parseFloat("0"+rateTxt.getText().toString()) );
-//        fertilizerApplication.setReason(reasonTxt.getText().toString());
-//        fertilizerApplication.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
 
     }
@@ -333,10 +316,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
             message = getString(R.string.reminders_not_selected);
             remindersSp.requestFocus();
         }
-//        else if(weeklyRecurrenceLayout.getVisibility()==View.VISIBLE && repeatUntilTxt.getText().toString().isEmpty()){
-//            message = getString(R.string.repeat_until_not_selected);
-//            repeatUntilTxt.requestFocus();
-//        }
+
         if(message != null){
             Toast.makeText(context, getString(R.string.missing_fields_message)+message, Toast.LENGTH_LONG).show();
             return false;

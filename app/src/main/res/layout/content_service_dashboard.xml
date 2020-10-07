@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.services.ServicesDashboardActivity"
@@ -43,7 +43,6 @@
                         android:textSize="18dp" />
 
 
-
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
@@ -64,20 +63,20 @@
 
                 <LinearLayout
                     android:id="@+id/buttons"
-                    android:layout_alignParentTop="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
                     android:layout_marginTop="@dimen/margin_15"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:background="@drawable/background_round_white"
                         android:clipToPadding="false"
                         android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_marginTop="@dimen/margin_15"
-                        android:background="@drawable/background_round_white">
+                        android:paddingBottom="10dp">
 
                         <LinearLayout
                             android:id="@+id/layout_crop_dashboard_inventory"
@@ -93,9 +92,9 @@
                             <ImageView
                                 android:layout_width="160dp"
                                 android:layout_height="90dp"
+                                android:layout_gravity="center"
                                 android:padding="20dp"
-                                android:src="@drawable/ic_soil"
-                                android:layout_gravity="center"/>
+                                android:src="@drawable/ic_soil" />
 
                             <TextView
                                 android:id="@+id/tv_litar"
@@ -117,11 +116,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:background="@drawable/background_round_white"
                         android:clipToPadding="false"
                         android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_marginTop="@dimen/margin_15"
-                        android:background="@drawable/background_round_white">
+                        android:paddingBottom="10dp">
 
                         <LinearLayout
                             android:id="@+id/layout_dashboard_financial_records"
@@ -159,12 +158,8 @@
                 </LinearLayout>
 
 
-
-
             </RelativeLayout>
         </ScrollView>
-
-
 
 
         <FrameLayout
@@ -194,9 +189,7 @@
                     app:tabIndicatorColor="@color/green_mh"
                     app:tabIndicatorHeight="0dp"
                     app:tabSelectedTextColor="@color/black"
-                    app:tabTextColor="@color/black"
-
-                    ></com.google.android.material.tabs.TabLayout>
+                    app:tabTextColor="@color/black" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
@@ -208,7 +201,6 @@
 
 
         </FrameLayout>
-
 
 
     </RelativeLayout>

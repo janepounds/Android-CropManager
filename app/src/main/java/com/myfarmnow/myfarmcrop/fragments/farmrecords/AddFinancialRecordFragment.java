@@ -133,6 +133,7 @@ public class AddFinancialRecordFragment extends Fragment {
         ((ArrayAdapter) expensePaymentStatus.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) expenseTransaction.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) expenseCategory.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+        DashboardActivity.addDatePicker(expenseDate,context);
         DashboardActivity.addDatePickerImageView(imageDatePicker, expenseDate, context);
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override

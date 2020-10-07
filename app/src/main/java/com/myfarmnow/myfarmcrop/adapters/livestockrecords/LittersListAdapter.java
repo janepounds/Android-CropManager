@@ -22,7 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.LitterViewHolder> {
@@ -75,9 +80,15 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
         holder.damTextView.setText(litter.getMotherDam());
         holder.sireTextView.setText(litter.getFatherSire());
         holder.dobTextView.setText(litter.getDateOfBirth());
-//        holder.litterSizeTextView.setText(litter.getLitterSize());
-//        holder.maleTextView.setText(litter.getNoOfMale());
-//        holder.femalesTextView.setText(litter.getNoOfFemale());
+        holder.litterSizeTextView.setText(litter.getLitterSize() + "");
+        holder.maleTextView.setText(litter.getNoOfMale() + "");
+        holder.femalesTextView.setText(litter.getNoOfFemale() + "");
+
+        try {
+            computeAge(litter.getDateOfBirth(),holder);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -160,6 +171,67 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
         }
 
 
+    }
+    public void computeAge(String dob, LittersListAdapter.LitterViewHolder holder) throws ParseException {
+        if (!dob.isEmpty()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date convertedDate = new Date();
+            try {
+
+                convertedDate = dateFormat.parse(dob);
+                Calendar today = Calendar.getInstance();       // get calendar instance
+                today.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
+                today.set(Calendar.MINUTE, 0);                 // set minute in hour
+                today.set(Calendar.SECOND, 0);                 // set second in minute
+                today.set(Calendar.MILLISECOND, 0);
+
+                long daysBetween = daysBetween(convertedDate, today.getTime());
+                int years = (int) (daysBetween / 365);
+                int months = (int) ((daysBetween - years * 365) / 30);
+                int days = (int) (daysBetween % 30);
+                Log.d("DATES", dob + " " + convertedDate.toString() + " - " + today.getTime().toString() + " days = " + daysBetween);
+                String age = "";
+                if (years > 0) {
+                    age += years + "Y ";
+                }
+                if (months > 0)
+                    age += months + "M ";
+                age += days + "D";
+
+                holder.ageTextView.setText(age);
+
+
+            } catch (ParseException e) {
+                Log.d("DATe", dob);
+                e.printStackTrace();
+                String age = "--";
+                holder.ageTextView.setText(age);
+            }
+        }
+    }
+
+    public static long daysBetween(Date startDate, Date endDate) {
+        Calendar sDate = getDatePart(startDate);
+        Calendar eDate = getDatePart(endDate);
+
+        long daysBetween = 0;
+        while (sDate.before(eDate)) {
+            sDate.add(Calendar.DAY_OF_MONTH, 1);
+            //Log.d("Day "+daysBetween,sDate.getTime().toString());
+            daysBetween++;
+        }
+        return daysBetween;
+    }
+
+    public static Calendar getDatePart(Date date) {
+        Calendar cal = Calendar.getInstance();       // get calendar instance
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
+        cal.set(Calendar.MINUTE, 0);                 // set minute in hour
+        cal.set(Calendar.SECOND, 0);                 // set second in minute
+        cal.set(Calendar.MILLISECOND, 0);            // set millisecond in second
+
+        return cal;                                  // return the date part
     }
 
 

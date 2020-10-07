@@ -97,6 +97,7 @@ public class AddLittersFragment extends DialogFragment {
         submit = view.findViewById(R.id.btn_save);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePickerImageView(datePicker, litterDob, context);
+        DashboardActivity.addDatePicker(litterDob, context);
 
 
         ArrayList<String> sireList = new ArrayList<>(), damnList = new ArrayList<>();

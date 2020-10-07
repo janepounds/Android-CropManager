@@ -88,7 +88,7 @@ public class AddCropFragment extends Fragment {
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePicker(binding.txtCropsDateSown, context);
-
+        DashboardActivity.addDatePickerImageView(binding.datePickerImage,binding.txtCropsDateSown, context);
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,8 +1,10 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.liveStockRecords.BreedingStockViewFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,7 +23,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -45,7 +47,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp">
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -92,7 +93,7 @@
                             android:layout_margin="2dp"/>
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/btn_filter_by_dob"
+                        android:id="@+id/btn_filter_by_ear_tag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -103,7 +104,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="DOB"
+                            android:text="Ear Tag"
                             android:textAllCaps="true"
                             android:gravity="center_horizontal"
                             android:textColor="@color/white"
@@ -122,7 +123,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Sex"
+                            android:text="sex"
                             android:textAllCaps="true"
                             android:gravity="center_horizontal"
                             android:textColor="@color/white"
@@ -131,6 +132,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
 
 
             </LinearLayout>
@@ -182,14 +184,19 @@
         </LinearLayout>
 
 
+
+
+
+        </LinearLayout>
+
         </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/breeding_stock_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
-    </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

@@ -63,9 +63,9 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.cropNameTxtView.setText(curCrop.getName());
         holder.cropFieldTextView.setText(curCrop.getFieldName());
         holder.cropVarietyTextView.setText(""+""+"(" + curCrop.getVariety() + ")");
-        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()));
+        holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()) );
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
-
+        holder.cropAgeTextView.setText(" ("+curCrop.computeAge()+")");
         Log.d(TAG, "onBindViewHolder: "+curCrop.getId());
 
     }
@@ -99,7 +99,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         ImageView  moreButton;
         TextView cropNameTxtView, cropVarietyTextView,  cropAge, croppingYearTxt, seasonTxt;
 
-        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, harvestUnitsTxt, cropFieldTextView;
+        TextView datePlantedTxt,plantingMethodTxt,estimatedRevenueTxt, cropAgeTextView, cropFieldTextView;
 
         LinearLayout activitiesBtn, notesBtn,galleryBtn;
 
@@ -117,7 +117,7 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
             activitiesBtn = itemView.findViewById(R.id.btn_crop_activities);
             notesBtn = itemView.findViewById(R.id.btn_crop_notes);
             galleryBtn = itemView.findViewById(R.id.btn_crop_gallery);
-
+            cropAgeTextView = itemView.findViewById(R.id.txt_crop_card_age);
             galleryBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
