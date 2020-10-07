@@ -2291,7 +2291,9 @@
     <string name="image_preview">Image Preview</string>
     <string name="title_livestock_records">Livestock Records</string>
     <string name="filter_by">Filter By :</string>
+
     <string name="sort_by">Sort By :</string>
+    <string name="actionAddCrop">Add Crop</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

@@ -54,12 +54,12 @@ public class AddCropFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_crop, container, false);
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Crops");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAddCrop));
         if (getArguments()!=null) {
             crop = (Crop) getArguments().getSerializable("crop");
-            binding.cropActionTxt.setText(getString(R.string.actionEditCrop));
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionEditCrop));
             binding.btnSave.setText(getString(R.string.update));
         }
         initializeForm();

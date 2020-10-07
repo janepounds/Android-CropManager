@@ -443,7 +443,8 @@
                                 android:background="@drawable/edittext_corner"
                                 android:ems="10"
                                 android:paddingStart="@dimen/dimen_10dp"
-                                android:textSize="14sp" />
+                                android:textSize="14sp" >
+                            </AutoCompleteTextView>
 
                         </LinearLayout>
 

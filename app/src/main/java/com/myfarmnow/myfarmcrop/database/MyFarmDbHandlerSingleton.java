@@ -2226,12 +2226,14 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             expensesList.add(expenseRecord);
             res.moveToNext();
         }
-        res = db.rawQuery("select * from " + CROP_HARVEST_TABLE_NAME + " where " + CROP_HARVEST_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') ", null);
+        res = db.rawQuery("select "+CROP_HARVEST_TABLE_NAME+".*, "+CROP_CROP_TABLE_NAME+"."+CROP_CROP_NAME+" from " + CROP_HARVEST_TABLE_NAME + " LEFT JOIN " + CROP_CROP_TABLE_NAME + " ON " + CROP_HARVEST_TABLE_NAME + "." + CROP_HARVEST_CROP_ID + " = " + CROP_CROP_TABLE_NAME + "." + CROP_CROP_ID +
+                " where " + CROP_HARVEST_TABLE_NAME+"."+CROP_HARVEST_DATE + " BETWEEN date('" + startDate + "') AND date('" + endDate + "') ", null);
+
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
             GraphRecord expenseRecord = new GraphRecord(res.getString(res.getColumnIndex(CROP_HARVEST_DATE)),
-                    "Crop Harvest",
+                    res.getString(res.getColumnIndex(CROP_CROP_NAME))+" Harvest",
                     res.getFloat(res.getColumnIndex(CROP_HARVEST_QUANTITY_SOLD)) * res.getFloat(res.getColumnIndex(CROP_HARVEST_PRICE)));
             expensesList.add(expenseRecord);
             res.moveToNext();
