@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,24 +13,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MarketPriceItemAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.databinding.FragmentMarketPriceBinding;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceItem;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceSubItem;
-import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 
 import java.util.ArrayList;
 
-
 public class MarketPriceFragment extends Fragment {
     private static final String TAG = "MarketPriceFragment";
-    private FragmentMarketPriceBinding binding;
     private Context context;
 
     private ArrayList<MarketPrice> marketPriceArrayList = new ArrayList<>();
@@ -40,18 +35,24 @@ public class MarketPriceFragment extends Fragment {
 
     private MyFarmDbHandlerSingleton dbHandler;
 
+    private RecyclerView recyclerView;
+    private Spinner spinner;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_market_price, container, false);
+        View view = inflater.inflate(R.layout.fragment_market_price, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView_market_price_fragment);
+        spinner = view.findViewById(R.id.spinner_market_price_fragment);
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         MarketPriceItemAdapter adapter = new MarketPriceItemAdapter(context, marketPriceItemArrayList);
-        binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
 //        dbHandler.insertMarketPrice(new MarketPrice("Ginger", "Tororo", "1,000", "600"));
 //        dbHandler.insertMarketPrice(new MarketPrice("Millet", "Mbarara", "1,800", "1,500"));
@@ -60,7 +61,7 @@ public class MarketPriceFragment extends Fragment {
 //        marketPriceArrayList.clear();
 //        marketPriceArrayList = dbHandler.getAllMarketPrices();
 
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 marketPriceArrayList.clear();
@@ -151,7 +152,7 @@ public class MarketPriceFragment extends Fragment {
 //        binding.recyclerView.setLayoutManager(linearLayoutManager);
 //        adapter.notifyDataSetChanged();
 
-        return binding.getRoot();
+        return view;
     }
 
     @Override

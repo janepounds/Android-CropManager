@@ -209,7 +209,6 @@ public class AddCropFragment extends Fragment {
                 } else if (selection.toLowerCase().equals("bunches")) {
                     txtCropsEstimatedRevenueUnits.setText("/ Bunch");
                 }
-
             }
 
             @Override
