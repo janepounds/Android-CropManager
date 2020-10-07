@@ -1,703 +1,703 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.agronomy.CropsFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_crops_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        <com.google.android.material.appbar.AppBarLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <RelativeLayout
+                android:id="@+id/relative_container"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <RelativeLayout
-                    android:id="@+id/relative_container"
+                <LinearLayout
+                    android:id="@+id/buttons"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/broke2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/layout_crop_dashboard_fields"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+
+                                android:padding="10dp"
+                                android:src="@drawable/maize" />
+
+                            <TextView
+                                android:id="@+id/tv_dashboard_fields"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Maize"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:id="@+id/brddedercount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginTop="5dp"
+                                android:gravity="top"
+                                android:text="0"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_crop_dashboard_crops"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+
+                                android:padding="10dp"
+                                android:src="@drawable/beans" />
+
+                            <TextView
+                                android:id="@+id/tv_matings"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+
+                                android:paddingBottom="5dp"
+                                android:text="Beans"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:id="@+id/matingcount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginTop="5dp"
+                                android:gravity="top"
+                                android:text="0"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_crop_dashboard_inventory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+
+                                android:padding="10dp"
+                                android:src="@drawable/cabbage" />
+
+                            <TextView
+                                android:id="@+id/tv_litar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+
+                                android:paddingBottom="5dp"
+                                android:text="Cabbage"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                            <TextView
+                                android:id="@+id/littercount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginTop="5dp"
+                                android:gravity="top"
+                                android:text="0"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/buttons"
+
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:id="@+id/broke2"
+                            android:id="@+id/layout_crop_dashboard_machines"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
 
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_fields"
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+
+                                android:padding="10dp"
+                                android:src="@drawable/carrot" />
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
+                                android:layout_gravity="top"
                                 android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:gravity="center"
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
+                                android:paddingBottom="5dp"
+                                android:text="Carrots"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
 
-                                    android:padding="10dp"
-                                    android:src="@drawable/maize" />
-
-                                <TextView
-                                    android:id="@+id/tv_dashboard_fields"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Maize"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                                <TextView
-                                    android:id="@+id/brddedercount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_crops"
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/incomeexpensecount"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:layout_gravity="top"
+                                android:layout_marginTop="5dp"
+                                android:gravity="top"
+                                android:text="0"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
-                                    android:src="@drawable/beans" />
-
-                                <TextView
-                                    android:id="@+id/tv_matings"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-
-                                    android:paddingBottom="5dp"
-                                    android:text="Beans"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                                <TextView
-                                    android:id="@+id/matingcount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_inventory"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
-                                    android:src="@drawable/cabbage" />
-
-                                <TextView
-                                    android:id="@+id/tv_litar"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-
-                                    android:paddingBottom="5dp"
-                                    android:text="Cabbage"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                                <TextView
-                                    android:id="@+id/littercount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
-                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
-
+                            android:id="@+id/medication_count1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
 
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_machines"
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+
+                                android:padding="10dp"
+                                android:src="@drawable/egg_plant" />
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
+                                android:layout_gravity="top"
                                 android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Egg Plants"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
-                                    android:src="@drawable/carrot" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-
-                                    android:paddingBottom="5dp"
-                                    android:text="Carrots"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                                <TextView
-                                    android:id="@+id/incomeexpensecount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/medicationcount1"
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/medicationcount"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:layout_gravity="top"
+                                android:layout_marginTop="5dp"
+                                android:gravity="top"
+                                android:text="0"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-
-                                    android:padding="10dp"
-                                    android:src="@drawable/egg_plant" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Egg Plants"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                                <TextView
-                                    android:id="@+id/medicationcount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="top"
-                                    android:text="0"
-                                    android:textSize="18dp"
-                                    android:textStyle="bold"
-                                    android:visibility="gone" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_tasks"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-
-                                android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/ground_nuts" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Ground Nuts"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
-
+                            android:id="@+id/layout_crop_dashboard_tasks"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
 
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_onions"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/ground_nuts" />
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-
+                                android:layout_gravity="top"
                                 android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Ground Nuts"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/onion" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Onion"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_passion"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:background="@color/whiteColor"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/passion" />
-
-                                <TextView
-
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Passion Fruits"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000"
-                                    android:textSize="13sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layut_dashboard_pineapple"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:background="@color/whiteColor"
-                                    android:padding="10dp"
-                                    android:src="@drawable/pineapple" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Pineapple"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-                            </LinearLayout>
                         </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <LinearLayout
-
+                            android:id="@+id/layout_dashboard_onions"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
 
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_income_expense"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/onion" />
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-
+                                android:layout_gravity="top"
                                 android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Onion"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/pumpkin" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Pumpkin"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_crop_dashboard_weather_forecast"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:background="@color/whiteColor"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/soya_bean" />
-
-                                <TextView
-                                    android:id="@+id/meat_Produced_txt"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Soya Bean"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000"
-                                    android:textSize="13sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashoard_tomato"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:background="@color/whiteColor"
-                                    android:padding="10dp"
-                                    android:src="@drawable/tomatoes" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Tomatoes"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-                            </LinearLayout>
                         </LinearLayout>
+
                         <LinearLayout
-
+                            android:id="@+id/layout_dashboard_passion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
 
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_watermelon"
+
+                            <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
+                                android:layout_height="70dp"
                                 android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:padding="10dp"
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
+                                android:src="@drawable/passion" />
 
-                                    android:src="@drawable/water_melon" />
+                            <TextView
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Water Melon"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_garlic"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Passion Fruits"
+                                android:textAllCaps="true"
+                                android:textColor="#000000"
+                                android:textSize="13sp" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/garlic" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Garlic"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_sorghum"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/sorghum" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Sorghum"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-                            </LinearLayout>
                         </LinearLayout>
+
                         <LinearLayout
-
+                            android:id="@+id/layout_dashboard_pineapple"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
 
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_coffee"
+                            <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
+                                android:layout_height="70dp"
                                 android:background="@color/whiteColor"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:padding="10dp"
+                                android:src="@drawable/pineapple" />
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/coffee" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Coffee"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_rice"
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Pineapple"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </LinearLayout>
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
+                    <LinearLayout
 
-                                    android:src="@drawable/rice" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Rice"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
+                        <LinearLayout
+                            android:id="@+id/layout_crop_dashboard_income_expense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
 
-                            </LinearLayout>
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
 
-                            <LinearLayout
-                                android:id="@+id/layout_dashboard_banana"
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/pumpkin" />
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Pumpkin"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
 
-                                android:orientation="vertical"
-                                android:paddingBottom="5dp">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="70dp"
-                                    android:padding="10dp"
-
-                                    android:src="@drawable/banana" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="top"
-                                    android:background="@color/whiteColor"
-                                    android:gravity="center"
-                                    android:paddingBottom="5dp"
-                                    android:text="Banana"
-                                    android:textAllCaps="true"
-                                    android:textColor="#000000" />
-                            </LinearLayout>
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/layout_crop_dashboard_weather_forecast"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
 
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:background="@color/whiteColor"
+                                android:padding="10dp"
+
+                                android:src="@drawable/soya_bean" />
+
+                            <TextView
+                                android:id="@+id/meat_Produced_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Soya Bean"
+                                android:textAllCaps="true"
+                                android:textColor="#000000"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_tomato"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:background="@color/whiteColor"
+                                android:padding="10dp"
+                                android:src="@drawable/tomatoes" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Tomatoes"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_watermelon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/water_melon" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Water Melon"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_garlic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/garlic" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Garlic"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_sorghum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/sorghum" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Sorghum"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_coffee"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/whiteColor"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/coffee" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Coffee"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_rice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/rice" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Rice"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_dashboard_banana"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+
+                            android:orientation="vertical"
+                            android:paddingBottom="5dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:padding="10dp"
+
+                                android:src="@drawable/banana" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:background="@color/whiteColor"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:text="Banana"
+                                android:textAllCaps="true"
+                                android:textColor="#000000" />
+                        </LinearLayout>
                     </LinearLayout>
 
 
-                </RelativeLayout>
-            </ScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+            </RelativeLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
