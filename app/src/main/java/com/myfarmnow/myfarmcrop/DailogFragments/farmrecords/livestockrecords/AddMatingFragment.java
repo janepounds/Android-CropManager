@@ -51,7 +51,7 @@ public class AddMatingFragment extends DialogFragment {
     AutoCompleteTextView  femaleName, maleName;
     private Button submit;
     private Spinner method;
-    private ImageView close;
+    private ImageView close,datePicker;
     private TextView matingTitle;
 
     private SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
@@ -94,7 +94,10 @@ public class AddMatingFragment extends DialogFragment {
         deliveryAlert = view.findViewById(R.id.add_mating_delivery_alert);
         note = view.findViewById(R.id.add_mating_note);
         submit = view.findViewById(R.id.add_mating_submit);
+        datePicker = view.findViewById(R.id.image_date_picker);
         DashboardActivity.addDatePicker(matingDate, context);
+        DashboardActivity.addDatePickerImageView(datePicker,matingDate, context);
+
 
         close.setOnClickListener(view1 -> dismiss());
         ((ArrayAdapter) method.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

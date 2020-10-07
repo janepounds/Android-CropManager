@@ -472,8 +472,8 @@
                             android:background="@drawable/edittext_corner"
                             android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/txt_crops_estimated_revenue"
+                            <TextView
+                                android:id="@+id/add_animal_photo_text_view"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
                                 android:layout_margin="0dp"
