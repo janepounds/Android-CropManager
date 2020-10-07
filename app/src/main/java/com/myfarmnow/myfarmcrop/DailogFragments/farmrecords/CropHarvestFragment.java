@@ -51,7 +51,7 @@ public class CropHarvestFragment extends DialogFragment {
 
     TextView quantityStoredUnitsTxt,pricePerUnitTxt,quantitySoldUnitsTxt,incomeGeneratedTxt,currency2Txt,harvestunitTxt,daysBeforeTxt;
     Spinner harvestUnitsSpinner,statusSpinner,recurrenceSp,remindersSp;
-    ImageView harvestClose,datePicker;
+    ImageView harvestClose,datePicker,dateStoredDatePicker,dateSoldDatePicker;
 
     LinearLayout harvestSoldLayout,harvestStoredLayout,remindersLayout,harvestDaysBeforeLayout;
 
@@ -122,17 +122,15 @@ public class CropHarvestFragment extends DialogFragment {
         harvestDaysBeforeLayout = view.findViewById(R.id.layout_crop_harvest_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_harvest_reminders);
         priceTxt = view.findViewById(R.id.txt_crops_estimated_revenue);
-//        operatorSpinner = view.findViewById(R.id.sp_crop_harvest_operator);
-//        costTxt = view.findViewById(R.id.txt_crop_harvest_cost);
-//        currencyTxt = view.findViewById(R.id.txt_crop_harvest_currency);
-//        harvestMethodTxt = view.findViewById(R.id.txt_crop_harvest_method);
-//        weeksTxt = view.findViewById(R.id.txt_crop_harvest_weekly_weeks);
-//        repeatUntilTxt = view.findViewById(R.id.txt_crop_harvest_repeat_until);
-//        weeklyRecurrenceLayout = view.findViewById(R.id.layout_crop_harvest_weekly_reminder);
-//        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
-//        currency2Txt.setText(CropSettingsSingleton.getInstance().getCurrency());
+        dateSoldDatePicker = view.findViewById(R.id.harvest_date_sold_date_picker);
+        dateStoredDatePicker = view.findViewById(R.id.date_stored_date_picker);
         harvestClose.setOnClickListener(view1 -> dismiss());
         DashboardActivity.addDatePicker(harvestDateTxt,context);
+        DashboardActivity.addDatePickerImageView(datePicker,harvestDateTxt,context);
+        DashboardActivity.addDatePicker(dateSoldTxt,context);
+        DashboardActivity.addDatePickerImageView(dateSoldDatePicker,dateSoldTxt,context);
+        DashboardActivity.addDatePicker(storageDateTxt,context);
+        DashboardActivity.addDatePickerImageView(dateStoredDatePicker,storageDateTxt,context);
 
         datePicker.setOnClickListener(v ->   DashboardActivity.addDatePicker(harvestDateTxt,context));
 

@@ -76,7 +76,7 @@ public class LittersListAdapter extends RecyclerView.Adapter<LittersListAdapter.
     public void onBindViewHolder(@NonNull final LittersListAdapter.LitterViewHolder holder, int position) {
 
         Litter litter = litters.get(position);
-        holder.litterTextView.setText(litter.getId());
+        holder.litterTextView.setText("00" +litter.getId());
         holder.damTextView.setText(litter.getMotherDam());
         holder.sireTextView.setText(litter.getFatherSire());
         holder.dobTextView.setText(litter.getDateOfBirth());

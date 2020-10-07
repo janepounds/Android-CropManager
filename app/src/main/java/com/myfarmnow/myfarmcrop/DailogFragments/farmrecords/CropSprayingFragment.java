@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,10 +37,12 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropInventoryFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropInventorySpray;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -49,7 +54,8 @@ public class CropSprayingFragment extends DialogFragment {
     LinearLayout daysBeforeLayout,remindersLayout;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner sprayIdSp,recurrenceSp,remindersSp;
+    Spinner recurrenceSp,remindersSp;
+    AutoCompleteTextView sprayIdSp;
     ImageView datePicker,sprayClose;
 //    Spinner windDirectionSp,waterConditionSp;
     TextView rateUnitsTextView,currencyTxt;
@@ -96,29 +102,15 @@ public class CropSprayingFragment extends DialogFragment {
         dateTxt =view.findViewById(R.id.txt_crop_spraying_treatment_date);
         datePicker = view.findViewById(R.id.image_date_picker);
         sprayClose = view.findViewById(R.id.crop_spraying_close);
-//        endTimeTxt =view.findViewById(R.id.txt_crop_spraying_end_time);
-//        operatorTxt =view.findViewById(R.id.txt_crop_spraying_performed_by);
-//        waterVolumeTxt =view.findViewById(R.id.txt_crop_spraying_water_volume);
-//        costTxt =view.findViewById(R.id.txt_crop_spraying_labour_cost);
         rateTxt =view.findViewById(R.id.txt_crop_spraying_rate);
         reasonTxt =view.findViewById(R.id.txt_crop_spraying_treatment_reason);
-//        equipmentUsedTxt =view.findViewById(R.id.txt_crop_spraying_equipment_used);
         rateUnitsTextView =view.findViewById(R.id.txt_crop_spraying_rate_units);
-//        currencyTxt =view.findViewById(R.id.txt_crop_spraying_currency);
         sprayIdSp =view.findViewById(R.id.sp_crop_spraying_name);
-//        windDirectionSp =view.findViewById(R.id.sp_crop_spraying_wind_direction);
-//        waterConditionSp =view.findViewById(R.id.sp_crop_spraying_weather_condition);
         remindersSp = view.findViewById(R.id.sp_crop_spraying_reminders);
-
         recurrenceSp = view.findViewById(R.id.sp_crop_spraying_recurrence);
-//        weeksTxt = view.findViewById(R.id.txt_crop_spraying_weekly_weeks);
-//        repeatUntilTxt = view.findViewById(R.id.txt_crop_spraying_repeat_until);
         daysBeforeTxt = view.findViewById(R.id.txt_crop_fertilizer_application_days_before);
-//        remainderLayout = view.findViewById(R.id.layout_crop_spraying_weekly_reminder);
         daysBeforeLayout = view.findViewById(R.id.layout_crop_spraying_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_spraying_reminders);
-
-//        currencyTxt.setText(CropSettingsSingleton.getInstance().getCurrency());
         sprayClose.setOnClickListener(v -> getDialog().dismiss());
 
         DashboardActivity.addDatePicker(dateTxt,context);
@@ -201,12 +193,6 @@ public class CropSprayingFragment extends DialogFragment {
 
 
         btn_save = view.findViewById(R.id.btn_save);
-//        DashboardActivity.addDatePicker(dateTxt,context);
-//        DashboardActivity.addTimePicker(startTimeTxt,context);
-//        DashboardActivity.addTimePicker(endTimeTxt,context);
-//        DashboardActivity.addDatePicker(repeatUntilTxt,context);
-//        ((ArrayAdapter)windDirectionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ((ArrayAdapter)waterConditionSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         if(cropSpraying!=null)
             btn_save.setText(getString(R.string.update));
@@ -236,8 +222,6 @@ public class CropSprayingFragment extends DialogFragment {
 
             }
         };
-//        windDirectionSp.setOnItemSelectedListener(onItemSelectedListener);
-//        waterConditionSp.setOnItemSelectedListener(onItemSelectedListener);
 
 
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -264,13 +248,37 @@ public class CropSprayingFragment extends DialogFragment {
         ((ArrayAdapter)recurrenceSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 //        ((ArrayAdapter)remindersSp.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
 
-        ArrayList<CropSpinnerItem> spraysList = new ArrayList<>();
-        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.RETRIEVED_USER_ID)){
-            spraysList.add(x);
-        }
 
-        CropSpinnerAdapter sprayAdapter  =new CropSpinnerAdapter(spraysList,"Spray",context);
+        //load spray name from autocomplete
+
+        ArrayList<String> spraysList = new ArrayList<>();
+
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
+
+        for(CropInventorySpray x: dbHandler.getCropSpray(DashboardActivity.RETRIEVED_USER_ID)){
+            spraysList.add(x.getName());
+        }
+        ArrayAdapter<String> sprayAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, spraysList);
+        sprayIdSp.setThreshold(1);
         sprayIdSp.setAdapter(sprayAdapter);
+        sprayIdSp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                sprayIdSp.showDropDown();
+            }
+        });
+
+        //
 
         sprayIdSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -278,7 +286,7 @@ public class CropSprayingFragment extends DialogFragment {
                 if(position==0){
                     return;
                 }
-                CropInventorySpray inventorySpray = (CropInventorySpray) ((CropSpinnerItem) sprayIdSp.getSelectedItem());
+                CropInventorySpray inventorySpray = (CropInventorySpray) (sprayIdSp.getText());
                 if(inventorySpray.getUsageUnits() != null){
                     rateUnitsTextView.setText(inventorySpray.getUsageUnits()+"/ha");
                     sprayType=inventorySpray.getType();
@@ -302,23 +310,13 @@ public class CropSprayingFragment extends DialogFragment {
         cropSpraying.setCost(Float.parseFloat("0.00"));
         cropSpraying.setDate(dateTxt.getText().toString());
         cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
-        cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
+        cropSpraying.setSprayId(sprayIdSp.getText().toString());
         cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropSpraying.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
         cropSpraying.setOperator(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,getContext()));
         cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
         cropSpraying.setSprayType(sprayType);
-//        cropSpraying.setFrequency(Float.parseFloat(weeksTxt.getText().toString()));
-//        cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
-//        cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
-//        cropSpraying.setStartTime(startTimeTxt.getText().toString());
-//        cropSpraying.setEndTime(endTimeTxt.getText().toString());
-//        if(waterConditionSp.getSelectedItemPosition()!=0){
-//            cropSpraying.setWaterCondition(waterConditionSp.getSelectedItem().toString());
-//        }
-//        if(windDirectionSp.getSelectedItemPosition()!=0){
-//            cropSpraying.setWindDirection(windDirectionSp.getSelectedItem().toString());
-//        }
+
 
         dbHandler.insertCropSpraying(cropSpraying);
 
@@ -332,17 +330,12 @@ public class CropSprayingFragment extends DialogFragment {
             cropSpraying.setCost(Float.parseFloat("0.00"));
             cropSpraying.setDate(dateTxt.getText().toString());
             cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
-            cropSpraying.setSprayId(((CropSpinnerItem)sprayIdSp.getSelectedItem()).getId());
+            cropSpraying.setSprayId(sprayIdSp.getText().toString());
             cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropSpraying.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
             cropSpraying.setOperator(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,getContext()));
             cropSpraying.setReminders(remindersSp.getSelectedItem().toString());
             cropSpraying.setSprayType(sprayType);
-//            cropSpraying.setEquipmentUsed(equipmentUsedTxt.getText().toString());
-//            cropSpraying.setWaterVolume(Float.parseFloat(waterVolumeTxt.getText().toString()));
-//            cropSpraying.setStartTime(startTimeTxt.getText().toString());
-//            cropSpraying.setEndTime(endTimeTxt.getText().toString());
-//            cropSpraying.setOperator(operatorTxt.getText().toString());
 
             dbHandler.updateCropSpraying(cropSpraying);
         }
@@ -352,20 +345,13 @@ public class CropSprayingFragment extends DialogFragment {
         if(cropSpraying != null){
             DashboardActivity.selectSpinnerItemByValue(recurrenceSp, cropSpraying.getRecurrence());
             DashboardActivity.selectSpinnerItemByValue(remindersSp, cropSpraying.getReminders());
-            DashboardActivity.selectSpinnerItemById(sprayIdSp, cropSpraying.getSprayName());
-
+            sprayIdSp.setText(cropSpraying.getSprayId());
             rateTxt.setText(cropSpraying.getRate()+"");
             dateTxt.setText(cropSpraying.getDate());
             reasonTxt.setText(cropSpraying.getTreatmentReason());
             rateTxt.setText(cropSpraying.getRate()+"");
             daysBeforeTxt.setText(cropSpraying.getDaysBefore()+"");
-//
-//            equipmentUsedTxt.setText(cropSpraying.getEquipmentUsed());
-//            costTxt.setText(cropSpraying.getCost()+"");
-//            waterVolumeTxt.setText(cropSpraying.getWaterVolume()+"");
-//            startTimeTxt.setText(cropSpraying.getStartTime()+"");
-//            endTimeTxt.setText(cropSpraying.getEndTime()+"");
-//            operatorTxt.setText(cropSpraying.getOperator());
+
 
 
         }
@@ -381,11 +367,8 @@ public class CropSprayingFragment extends DialogFragment {
             message = getString(R.string.rate_not_entered);
             rateTxt.requestFocus();
         }
-//        else if(equipmentUsedTxt.getText().toString().isEmpty()){
-//            message = getString(R.string.equipment_not_entered);
-//            equipmentUsedTxt.requestFocus();
-//        }
-        else if(sprayIdSp.getSelectedItemPosition()==0){
+
+        else if(sprayIdSp.getText().toString().isEmpty()){
             message = getString(R.string.spray_name_not_entered);
             sprayIdSp.requestFocus();
         }
@@ -393,10 +376,7 @@ public class CropSprayingFragment extends DialogFragment {
             message = getString(R.string.recurrence_not_selected);
             recurrenceSp.requestFocus();
         }
-//        else if(remindersSp.getSelectedItemPosition()==0){
-//            message = getString(R.string.reminders_not_selected);
-//            remindersSp.requestFocus();
-//        }
+
 
 
 

@@ -102,7 +102,7 @@
                 android:gravity="center|start"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="@string/litter"
+                android:text= "@string/litter"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline31"
