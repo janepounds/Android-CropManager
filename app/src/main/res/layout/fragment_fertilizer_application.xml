@@ -196,14 +196,67 @@
                 </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_20dp">
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:layout_marginEnd="@dimen/dimen_10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/units"
+                    android:layout_marginBottom="4dp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/edittext_corner"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinner_crop_fertilizer_application_usage_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:entries="@array/crop_fertilizers_usage_units"
+                        android:spinnerMode="dropdown"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/dimen_20dp"
-            android:layout_marginEnd="@dimen/dimen_20dp"
-            android:layout_marginBottom="15dp">
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/dimen_10dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -222,7 +275,7 @@
                     android:id="@+id/txt_crop_fertilizer_qty"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:paddingStart="@dimen/dimen_10dp"
                     android:background="@android:color/transparent"
                     android:inputType="number"/>
@@ -236,9 +289,10 @@
                     android:text="Kg"
                     android:textSize="14sp"
                     android:gravity="center"
-                    android:layout_weight="0.2" />
+                    android:layout_weight="0.4" />
 
             </LinearLayout>
+        </LinearLayout>
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
