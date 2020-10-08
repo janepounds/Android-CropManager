@@ -94,6 +94,7 @@ public class AddFinancialRecordFragment extends Fragment {
             }
         });
 
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.label_add_financial_records));
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
         if (getArguments() != null) {

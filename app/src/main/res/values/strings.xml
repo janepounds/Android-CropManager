@@ -1598,7 +1598,7 @@
     <string name="label_livestockrecords">Livestock Records</string>
     <string name="label_store">Store</string>
     <string name="label_financial_records">Financial Records</string>
-    <string name="label_add_financial_records">Add Financial Record</string>
+    <string name="label_add_financial_records">Add Entry</string>
     <string name="label_livestock">Livestock</string>
     <string name="label_ask_agronomist">Ask Agronomist</string>
     <string name="title_farm_records">Farm Records</string>
@@ -2270,7 +2270,7 @@
     <string name="animal_not_selected">animal not selected</string>
     <string name="medication_type_not_selected">medication type not selected</string>
     <string name="medication_date_not_entered">medication date not entered</string>
-    <string name="update_financial_record">Edit Financial Record</string>
+    <string name="update_financial_record">Edit Entry</string>
     <string name="update_animal">Edit Animal</string>
     <string name="reason">Reason</string>
     <string name="label_harvesting">HARVESTING</string>
