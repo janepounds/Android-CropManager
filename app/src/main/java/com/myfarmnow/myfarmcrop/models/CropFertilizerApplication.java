@@ -20,6 +20,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
     String cropId;
     String recurrence;
     String reminders;
+    String units;
     private float frequency=1;
     private String repeatUntil;
     private float daysBefore=0;
@@ -184,6 +185,14 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         return globalId;
     }
 
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
+
     public JSONObject toJSON(){
 
         JSONObject object = new JSONObject();
@@ -208,6 +217,8 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
             object.put("frequency",frequency);
             object.put("repeatUntil",repeatUntil);
             object.put("daysBefore",daysBefore);
+            object.put("units",units);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -223,7 +234,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         setReason(object.getString("reason"));
         setFertilizerForm(object.getString("fertilizerForm"));
         setFertilizerId(object.getString("fertilizerId"));
-     //   setFertilizerName(object.getString("fertilizerName"));
+        setFertilizerName(object.getString("fertilizerName"));
         setRate(Float.parseFloat(object.getString("rate")));
         setCost(Float.parseFloat(object.getString("cost")));
         setUserId(object.getString("userId"));
@@ -233,6 +244,7 @@ public class CropFertilizerApplication implements Serializable,CropActivity {
         setFrequency(Float.parseFloat(object.getString("frequency")));
         setRepeatUntil(object.getString("repeatUntil"));
         setDaysBefore(Float.parseFloat(object.getString("daysBefore")));
+        setUnits(object.getString("units"));
         setSyncStatus("yes");
 
     }

@@ -166,6 +166,23 @@ public class AddBreedingStockFragment extends DialogFragment {
                 chooseImage();
             }
         });
+        photoTextView.setOnClickListener(v -> {
+            //check runtime permission
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    //permission denied
+                    String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, PERMISSION_CODE);
+                } else {
+                    //permission granted
+                    chooseImage();
+                }
+            } else {
+                //version is less than marshmallow
+                chooseImage();
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

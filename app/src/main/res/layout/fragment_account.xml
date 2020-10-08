@@ -31,12 +31,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="@dimen/dimen_10dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="@dimen/dimen_10dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,8 +154,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                app:cardElevation="@dimen/dimen_10dp">
+                android:layout_marginTop="@dimen/dimen_10dp">
 
                 <LinearLayout
                     android:id="@+id/layout_statement_card"
@@ -330,8 +329,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                app:cardElevation="@dimen/dimen_10dp">
+                android:layout_marginTop="@dimen/dimen_10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -504,8 +502,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_10dp"
-                app:cardElevation="@dimen/dimen_10dp">
+                android:layout_marginBottom="@dimen/dimen_10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

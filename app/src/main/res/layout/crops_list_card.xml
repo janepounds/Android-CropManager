@@ -214,7 +214,7 @@
                                             android:id="@+id/txt_crop_card_actual_date_planted"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1"
+                                            android:layout_weight="0.7"
                                             android:text="25/12/2020"
                                             android:textColor="#000"
                                             android:textSize="15sp" />
@@ -243,7 +243,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_weight="1"
-                                            android:text="Harvest Date "
+                                            android:text="Season "
                                             android:textColor="@color/colorPrimary"
 
                                             android:textSize="15sp" />
