@@ -63,12 +63,12 @@ public class FertilizerApplicationFragment extends DialogFragment {
     ArrayList<CropSpinnerItem> solidMethodsArrayList = new ArrayList<CropSpinnerItem>();
     ArrayList<CropSpinnerItem> liquidMethodsArrayList = new ArrayList<CropSpinnerItem>();
     private NavController navController;
-    ImageView fertilizerApplicationClose;
+    ImageView fertilizerApplicationClose,datePicker;
     private Context context;
-    private TextView fertilizerId;
     private String pickedId = null;
     private String pickedName;
     private ArrayList<CropSpinnerItem> fertlizersList = new ArrayList<>();
+
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -113,11 +113,14 @@ public class FertilizerApplicationFragment extends DialogFragment {
         rateTxt = view.findViewById(R.id.txt_crop_fertilizer_qty);
         daysBeforeLayout = view.findViewById(R.id.layout_crop_fertilizer_application_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_fertilizer_application_reminders);
+        datePicker = view.findViewById(R.id.image_date_picker);
+
 
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(), "Method", context);
         btn_save = view.findViewById(R.id.btn_save);
         fertilizerApplicationClose = view.findViewById(R.id.crop_fertilizer_application);
         DashboardActivity.addDatePicker(dateTxt, context);
+        DashboardActivity.addDatePickerImageView(datePicker,dateTxt,context);
         String liquidApplicationMethods[] = getResources().getStringArray(R.array.crop_fertilizer_application_method_liquid);
         String solidApplicationMethods[] = getResources().getStringArray(R.array.crop_fertilizer_application_method_solid);
 

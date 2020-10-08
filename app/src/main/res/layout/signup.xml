@@ -167,23 +167,283 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:fontFamily="@font/josefin_sans"
-                            android:text="@string/phone_number" />
+                            android:layout_marginTop="15dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            android:background="@drawable/rounded_corners_edittext_white"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/user_mobile"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/edittext_corner"
-                            android:fontFamily="@font/josefin_sans"
-                            android:inputType="phone"
-                            android:paddingStart="@dimen/dimen_10dp"
-                            android:tag="+256 "
-                            android:textAlignment="viewStart"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@android:color/black"
-                            android:visibility="visible" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="@dimen/dimen_10dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:layout_marginBottom="4dp"
+                                        android:text="@string/first_name" />
+
+                                    <EditText
+                                        android:id="@+id/user_firstname"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/edittext_corner"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:gravity="start|center_vertical"
+                                        android:inputType="text"
+                                        android:padding="10dp"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@android:color/black"
+                                        android:textColorHint="@android:color/black" />
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/dimen_10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="4dp"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:text="@string/last_name" />
+
+                                    <EditText
+                                        android:id="@+id/user_lastname"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/edittext_corner"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:inputType="text"
+                                        android:paddingStart="10dp"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@android:color/black"
+                                        android:textColorHint="@android:color/black" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="@dimen/dimen_10dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:layout_marginBottom="4dp"
+                                        android:text="@string/phone_number"/>
+
+                                    <EditText
+                                        android:id="@+id/user_mobile"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/edittext_corner"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:inputType="phone"
+                                        android:paddingStart="@dimen/dimen_10dp"
+                                        android:tag="+256 "
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@android:color/black"
+                                        android:textColorHint="@android:color/black"
+                                        android:visibility="visible" />
+
+                                </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginStart="10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/district"
+                                    android:layout_marginBottom="4dp" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/edittext_corner"
+                                    android:padding="6dp">
+                                    <Spinner
+                                        android:id="@+id/district_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"/>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginEnd="@dimen/dimen_10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/sub_county"
+                                    android:layout_marginBottom="4dp"
+                                    />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/edittext_corner"
+                                    android:padding="6dp">
+                                    <Spinner
+                                        android:id="@+id/sub_county_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center" />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginStart="10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/village"
+                                    android:layout_marginBottom="4dp"
+                                    />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/edittext_corner"
+                                    android:padding="6dp">
+                                    <Spinner
+                                        android:id="@+id/village_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center" />
+                                </LinearLayout>
+                            </LinearLayout>
+                            </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginBottom="15dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:layout_marginBottom="4dp"
+                                        android:text="@string/email_address"/>
+
+                                    <EditText
+                                        android:id="@+id/user_email"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:inputType="textEmailAddress|textNoSuggestions"
+                                        android:paddingStart="10dp"
+                                        android:background="@drawable/edittext_corner"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@android:color/black"
+                                        android:textColorHint="@android:color/black" />
+
+                                </LinearLayout>
+
+
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_marginBottom="15dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:text="@string/password"
+                                        android:layout_margin="4dp"/>
+
+                                    <EditText
+                                        android:id="@+id/user_password"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:gravity="start|center_vertical"
+                                        android:inputType="textPassword"
+                                        android:paddingStart="10dp"
+                                        android:background="@drawable/edittext_corner"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@android:color/black"
+                                        android:textColorHint="@android:color/black" />
+
+                                </LinearLayout>
+
+
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="15dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:layout_marginBottom="4dp"
+                                        android:text="@string/confirm_password"/>
+
+                                    <EditText
+                                        android:id="@+id/user_confirm_password"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:fontFamily="@font/josefin_sans"
+                                        android:inputType="textPassword"
+                                        android:paddingStart="10dp"
+                                        android:background="@drawable/edittext_corner"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@android:color/black"
+                                        android:textColorHint="@android:color/black" />
+
+                                </LinearLayout>
 
                     </LinearLayout>
 
