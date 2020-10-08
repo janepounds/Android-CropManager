@@ -11,7 +11,7 @@
     <ImageView
         android:alpha=".7"
         android:scaleType="centerCrop"
-        android:src="@drawable/newsplash"
+        android:src="@drawable/ic_splash"
         android:layout_width="match_parent"
         android:paddingBottom="@dimen/dimen_20dp"
         android:layout_height="match_parent" />
