@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.fragments;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,7 +19,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,14 +28,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.customs.CircularImageView;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.database.User_Info_BuyInputsDB;
-import com.myfarmnow.myfarmcrop.databinding.FragmentUpdateAccountBinding;
 import com.myfarmnow.myfarmcrop.models.uploadimage.UploadImageModel;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
@@ -62,10 +62,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class UpdateAccountFragment extends Fragment {
     private static final String TAG = "UpdateAccountFragment";
-    private FragmentUpdateAccountBinding binding;
     private String image;
 
     private Context context;
@@ -82,11 +80,25 @@ public class UpdateAccountFragment extends Fragment {
     private UserDetails userInfo;
     private User_Info_BuyInputsDB userInfoDB = new User_Info_BuyInputsDB();
 
+    private EditText dob, firstName, lastName, email, contact;
+    private FloatingActionButton userPhotoEditFab;
+    private Button updateInfoBtn;
+    private CircularImageView userPhoto;
+
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_update_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_update_account, container, false);
+
+        dob = view.findViewById(R.id.dob_fragment_update_account);
+        firstName = view.findViewById(R.id.first_name_update_account_fragment);
+        lastName = view.findViewById(R.id.last_name_update_account_fragment);
+        email = view.findViewById(R.id.email_update_account_fragment);
+        contact = view.findViewById(R.id.contact_update_account_fragment);
+        userPhotoEditFab = view.findViewById(R.id.update_account_user_photo_edit_fab);
+        updateInfoBtn = view.findViewById(R.id.update_account_info_btn);
+        userPhoto = view.findViewById(R.id.update_account_user_photo);
 
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         // MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -100,7 +112,7 @@ public class UpdateAccountFragment extends Fragment {
         Log.d(TAG, "onCreateView: Customer ID = " + customers_id);
 
         // Set KeyListener of some View to null
-        binding.dob.setKeyListener(null);
+        dob.setKeyListener(null);
 
         dialogLoader = new DialogLoader(getContext());
 
@@ -114,14 +126,14 @@ public class UpdateAccountFragment extends Fragment {
         Log.d(TAG, "onCreateView: Date of Birth = " + userInfo.getDob());
 
         // Set User's Info to Form Inputs
-        binding.firstName.setText(userInfo.getFirstName());
-        binding.lastName.setText(userInfo.getLastName());
-        binding.email.setText(userInfo.getEmail());
-        binding.contact.setText(userInfo.getPhone());
+        firstName.setText(userInfo.getFirstName());
+        lastName.setText(userInfo.getLastName());
+        email.setText(userInfo.getEmail());
+        contact.setText(userInfo.getPhone());
 
         // Set User's Date of Birth
         if (userInfo.getDob() == null || userInfo.getDob().equalsIgnoreCase("0000-00-00 00:00:00")) {
-            binding.dob.setText("");
+            dob.setText("");
         } else {
             // Get the String of Date from userInfo
             String dateString = userInfo.getDob();
@@ -136,7 +148,7 @@ public class UpdateAccountFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            binding.dob.setText(dateFormat.format(convertedDate));
+            dob.setText(dateFormat.format(convertedDate));
         }
 
         // Set User's Photo
@@ -158,14 +170,14 @@ public class UpdateAccountFragment extends Fragment {
 //                .into(user_photo);
 
         // Handle Touch event of input_dob EditText
-        binding.dob.setOnTouchListener((v, event) -> {
+        dob.setOnTouchListener((v, event) -> {
 
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 // Get Calendar instance
                 final Calendar calendar = Calendar.getInstance();
 
                 // Initialize DateSetListener of DatePickerDialog
-                DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+                DatePickerDialog.OnDateSetListener date = (v11, year, monthOfYear, dayOfMonth) -> {
 
                     // Set the selected Date Info to Calendar instance
                     calendar.set(Calendar.YEAR, year);
@@ -176,7 +188,7 @@ public class UpdateAccountFragment extends Fragment {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
                     // Set Date in input_dob EditText
-                    binding.dob.setText(dateFormat.format(calendar.getTime()));
+                    dob.setText(dateFormat.format(calendar.getTime()));
                 };
 
 
@@ -199,7 +211,7 @@ public class UpdateAccountFragment extends Fragment {
         });
 
         // Handle Click event of user_photo_edit_fab FAB
-        binding.userPhotoEditFab.setOnClickListener(view -> {
+        userPhotoEditFab.setOnClickListener(v -> {
 
             if (!CheckPermissions.is_CAMERA_PermissionGranted() && !CheckPermissions.is_STORAGE_PermissionGranted()) {
                 requestPermissions
@@ -214,7 +226,7 @@ public class UpdateAccountFragment extends Fragment {
         });
 
         // Handle Click event of updateInfoBtn Button
-        binding.updateInfoBtn.setOnClickListener(v -> {
+        updateInfoBtn.setOnClickListener(v -> {
             // Validate User's Info Form Inputs
             boolean isValidData = validateInfoForm();
 
@@ -233,7 +245,7 @@ public class UpdateAccountFragment extends Fragment {
             }
         });
 
-        return binding.getRoot();
+        return view;
     }
 
     //*********** Picks User Profile Image from Gallery or Camera ********//
@@ -256,7 +268,7 @@ public class UpdateAccountFragment extends Fragment {
                 Bitmap bitmap = ImagePicker.getImageFromResult(context, resultCode, data);
 
                 // Upload the Bitmap to ImageView
-                binding.userPhoto.setImageBitmap(bitmap);
+                userPhoto.setImageBitmap(bitmap);
 
                 // Get the converted Bitmap as Base64ImageString from the static method of Helper class
                 //profileImageChanged = Utilities.getBase64ImageStringFromBitmap(bitmap);
@@ -383,11 +395,11 @@ public class UpdateAccountFragment extends Fragment {
         Call<UserData> call = BuyInputsAPIClient.getInstance()
                 .updateCustomerInfo
                         (customers_id,
-                                binding.firstName.getText().toString().trim(),
-                                binding.lastName.getText().toString().trim(),
+                                firstName.getText().toString().trim(),
+                                lastName.getText().toString().trim(),
                                 "1",
-                                binding.contact.getText().toString().trim(),
-                                binding.dob.getText().toString().trim(),
+                                contact.getText().toString().trim(),
+                                dob.getText().toString().trim(),
                                 imageID);
 
         call.enqueue(new Callback<UserData>() {
@@ -415,15 +427,16 @@ public class UpdateAccountFragment extends Fragment {
                         editor.apply();
 
 
-                        Snackbar.make(binding.getRoot(), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(requireActivity().findViewById(android.R.id.content), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Unable to Update User's Info.
-                        Snackbar.make(binding.getRoot(), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(requireActivity().findViewById(android.R.id.content), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
                     } else if (response.body().getSuccess().equalsIgnoreCase("2")) {
                         // Unable to Update User's Info.
-                        Snackbar.make(binding.getRoot(), response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(requireActivity().findViewById(android.R.id.content)
+                                , response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
                     } else {
                         // Unable to get Success status
                         Toast.makeText(getContext(), getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
@@ -444,11 +457,11 @@ public class UpdateAccountFragment extends Fragment {
 
     //*********** Validate User Info Form Inputs ********//
     private boolean validateInfoForm() {
-        if (!ValidateInputs.isValidName(binding.firstName.getText().toString().trim())) {
-            binding.firstName.setError(getString(R.string.invalid_first_name));
+        if (!ValidateInputs.isValidName(firstName.getText().toString().trim())) {
+            firstName.setError(getString(R.string.invalid_first_name));
             return false;
-        } else if (!ValidateInputs.isValidName(binding.lastName.getText().toString().trim())) {
-            binding.lastName.setError(getString(R.string.invalid_last_name));
+        } else if (!ValidateInputs.isValidName(lastName.getText().toString().trim())) {
+            lastName.setError(getString(R.string.invalid_last_name));
             return false;
         } else {
             return true;

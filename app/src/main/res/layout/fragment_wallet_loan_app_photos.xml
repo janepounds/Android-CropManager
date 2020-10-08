@@ -1,161 +1,154 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppPhotosFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_wallet_loan_app_photos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccentLight"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/layout_statement_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccentLight"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="-9dp">
 
-            <LinearLayout
-                android:id="@+id/layout_statement_card"
+            <TextView
+                android:id="@+id/text_view_loan_photos_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dimen_10dp"
-                android:layout_marginRight="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_10dp"
-                android:background="@color/white"
-                android:clickable="true"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="-9dp">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/josefin_sans"
+                android:gravity="left"
+                android:text="Add Photos"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <com.kofigyan.stateprogressbar.StateProgressBar
+                android:id="@+id/loan_app_photos_progress_bar_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:spb_animateToCurrentProgressState="true"
+                app:spb_checkStateCompleted="true"
+                app:spb_currentStateDescriptionColor="@color/colorPrimary"
+                app:spb_currentStateNumber="three"
+                app:spb_maxStateNumber="three"
+                app:spb_stateBackgroundColor="#BDBDBD"
+                app:spb_stateDescriptionColor="#808080"
+                app:spb_stateForegroundColor="@color/colorPrimary"
+                app:spb_stateNumberBackgroundColor="#808080"
+                app:spb_stateNumberForegroundColor="#eeeeee" />
 
-                <TextView
-                    android:id="@+id/text_view_loan_photos_title"
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/josefin_sans"
-                    android:gravity="left"
-                    android:text="Add Photos"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
 
-
-                <com.kofigyan.stateprogressbar.StateProgressBar
-                    android:id="@+id/loan_progress_bar_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:spb_animateToCurrentProgressState="true"
-                    app:spb_checkStateCompleted="true"
-                    app:spb_currentStateDescriptionColor="@color/colorPrimary"
-                    app:spb_currentStateNumber="three"
-                    app:spb_maxStateNumber="three"
-                    app:spb_stateBackgroundColor="#BDBDBD"
-                    app:spb_stateDescriptionColor="#808080"
-                    app:spb_stateForegroundColor="@color/colorPrimary"
-                    app:spb_stateNumberBackgroundColor="#808080"
-                    app:spb_stateNumberForegroundColor="#eeeeee" />
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/josefin_sans"
+                        android:gravity="center_horizontal"
+                        android:text="Add the front picture of your National ID"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/image_view_loan_photos_nid_front"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/add_default_image" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/josefin_sans"
+                        android:gravity="center_horizontal"
+                        android:text="Add the back picture of your National ID"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/image_view_loan_photos_nid_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/add_default_image" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/josefin_sans"
+                        android:gravity="center_horizontal"
+                        android:text="Add your selfie with a national ID placed on your chest"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/image_view_loan_photos_selfie"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/add_default_image" />
+
+                    <TextView
+                        android:id="@+id/text_view_error_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Insufficient Funds!"
+                        android:textColor="@color/device_problem"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_loan_app_photos_next_step"
+                        style="@style/Button_DW"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
                         android:layout_marginTop="8dp"
-                        android:orientation="vertical">
+                        android:background="@drawable/rectangular_green_solid"
+                        android:fontFamily="@font/josefin_sans"
+                        android:gravity="center"
+                        android:text="@string/submit"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </ScrollView>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/josefin_sans"
-                            android:gravity="center_horizontal"
-                            android:text="Add the front picture of your National ID"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <ImageView
-                            android:id="@+id/image_view_loan_photos_nid_front"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:src="@drawable/add_default_image" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/josefin_sans"
-                            android:gravity="center_horizontal"
-                            android:text="Add the back picture of your National ID"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:id="@+id/image_view_loan_photos_nid_back"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:src="@drawable/add_default_image" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/josefin_sans"
-                            android:gravity="center_horizontal"
-                            android:text="Add your selfie with a national ID placed on your chest"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-
-                        <ImageView
-                            android:id="@+id/image_view_loan_photos_selfie"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:src="@drawable/add_default_image" />
-
-                        <TextView
-                            android:id="@+id/text_view_error_message"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Insufficient Funds!"
-                            android:textColor="@color/device_problem"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
-
-
-                        <Button
-                            android:id="@+id/btn_loan_next_step"
-                            style="@style/Button_DW"
-                            android:layout_width="150dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/rectangular_green_solid"
-                            android:fontFamily="@font/josefin_sans"
-                            android:gravity="center"
-                            android:text="@string/submit"
-                            android:textColor="@color/white"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                </ScrollView>
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

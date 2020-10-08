@@ -227,7 +227,8 @@ public class AddLittersFragment extends DialogFragment {
         litter.setBornDead(Integer.parseInt(bornDead.getText().toString()));
         litter.setNoOfFemale(Integer.parseInt(noOfFemale.getText().toString()));
         litter.setNoOfMale(Integer.parseInt(noOfMale.getText().toString()));
-        litter.setWeaning(Integer.parseInt(weaning.getText().toString()));
+        if(!weaning.getText().toString().isEmpty())
+            litter.setWeaning(Integer.parseInt(weaning.getText().toString()));
         litter.setMotherDam(motherDam.getText().toString());
         litter.setFatherSire(fatherSire.getText().toString());
         if(!weaningAlert.getText().toString().isEmpty())
@@ -283,9 +284,6 @@ public class AddLittersFragment extends DialogFragment {
         } else if (noOfFemale.getText().toString().isEmpty()) {
             message = getString(R.string.no_of_female_not_entered);
             noOfFemale.requestFocus();
-        } else if (weaning.getText().toString().isEmpty()) {
-            message = getString(R.string.weaning_days_not_entered);
-            weaning.requestFocus();
         }
 
         if (message != null) {

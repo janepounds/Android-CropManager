@@ -82,7 +82,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(fertilizerApplication.getCost())); //TODO replace currency
             fertilizerApplicationHolder.dateTextView.setText(fertilizerApplication.getDate());
 
-            fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerId());
+            fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerName());
             fertilizerApplicationHolder.recurrenceTxt.setText(fertilizerApplication.getRecurrence());
             fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" kg");
             final ViewTreeObserver observer = fertilizerApplicationHolder.operationTextView.getViewTreeObserver();
@@ -107,7 +107,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             final SprayingViewHolder sprayingViewHolder = (SprayingViewHolder)holder;
             CropSpraying field = (CropSpraying)cropsList.get(position);
             sprayingViewHolder.dateTextView.setText(field.getDate());
-            sprayingViewHolder.sprayNameTextView.setText(field.getSprayId());
+            sprayingViewHolder.sprayNameTextView.setText(field.getSprayName());
             sprayingViewHolder.sprayType.setText(field.getSprayType());
             sprayingViewHolder.recurrenceTextView.setText(field.getRecurrence());
             sprayingViewHolder.rateTextView.setText(field.getRate()+" lt");

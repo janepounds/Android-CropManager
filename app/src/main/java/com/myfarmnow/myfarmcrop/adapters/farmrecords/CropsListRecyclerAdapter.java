@@ -29,6 +29,7 @@ import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecyclerAdapter.CropCardViewHolder> {
@@ -66,6 +67,11 @@ public class CropsListRecyclerAdapter extends RecyclerView.Adapter<CropsListRecy
         holder.datePlantedTxt.setText(CropSettingsSingleton.getInstance().convertToUserFormat(curCrop.getDateSown()) );
         holder.estimatedRevenueTxt.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(curCrop.computeEstimatedRevenueC()));
         holder.cropAgeTextView.setText(" ("+curCrop.computeAge()+")");
+        try {
+            holder.croppingYearTxt.setText(curCrop.getYear() + "");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Log.d(TAG, "onBindViewHolder: "+curCrop.getId());
 
     }
