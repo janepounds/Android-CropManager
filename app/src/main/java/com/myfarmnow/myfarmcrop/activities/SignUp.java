@@ -112,7 +112,6 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        toolbar = findViewById(R.id.toolbar_sign_up_activity);
 
         //MobileAds.initialize(this, ConstantValues.ADMOBE_ID);
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(SignUp.this).build();
