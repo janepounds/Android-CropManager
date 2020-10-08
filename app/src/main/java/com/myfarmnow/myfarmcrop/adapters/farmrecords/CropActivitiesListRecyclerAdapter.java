@@ -2,7 +2,6 @@ package com.myfarmnow.myfarmcrop.adapters.farmrecords;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -29,7 +28,6 @@ import com.myfarmnow.myfarmcrop.R;
 
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.CropActivity;
-import com.myfarmnow.myfarmcrop.models.CropCultivation;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
 import com.myfarmnow.myfarmcrop.models.CropHarvest;
 import com.myfarmnow.myfarmcrop.models.CropSpraying;
@@ -59,11 +57,6 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             FertilizerApplicationViewHolder holder = new FertilizerApplicationViewHolder(view);
             return holder;
         }
-        else if(viewType==CropActivity.CROP_ACTIVITY_CULTIVATE){
-            View view = mInflater.inflate(R.layout.crop_cultivation_list_card,parent,false);
-            CultivationViewHolder holder = new CultivationViewHolder(view);
-            return holder;
-        }
         else if(viewType==CropActivity.CROP_ACTIVITY_SPRAYING){
             View view = mInflater.inflate(R.layout.crop_spraying_list_card,parent,false);
 
@@ -89,7 +82,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             fertilizerApplicationHolder.costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(fertilizerApplication.getCost())); //TODO replace currency
             fertilizerApplicationHolder.dateTextView.setText(fertilizerApplication.getDate());
 
-            fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerId());
+            fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerName());
             fertilizerApplicationHolder.recurrenceTxt.setText(fertilizerApplication.getRecurrence());
             fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" kg");
             final ViewTreeObserver observer = fertilizerApplicationHolder.operationTextView.getViewTreeObserver();
@@ -109,65 +102,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
                 }
             });
         }
-        else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_CULTIVATE){
-            CropCultivation field = (CropCultivation)cropsList.get(position);
-            ((CultivationViewHolder)holder).operatorTextView.setText(field.getOperator());
-            ((CultivationViewHolder)holder).costTextView.setText(CropSettingsSingleton.getInstance().getCurrency()+" "+ NumberFormat.getInstance().format(field.getCost()));
-            ((CultivationViewHolder)holder).operationTextView.setText(field.getOperation());
-            //((CultivationViewHolder)holder).notesTextView.setText(field.getNotes());
-            ((CultivationViewHolder)holder).recurrenceTxt.setText(field.getRecurrence());
-            ((CultivationViewHolder)holder).dateTextView.setText(CropSettingsSingleton.getInstance().convertToUserFormat(field.getDate()));
 
-
-            TextView notesTextView = new TextView(mContext);
-            notesTextView.setText("Notes : "+field.getNotes());
-            View view = new View(mContext);
-            view.setMinimumHeight(20);
-            ((CultivationViewHolder) holder).expandContentLayout.removeAllViews();
-            ((CultivationViewHolder) holder).expandContentLayout.addView(notesTextView);
-
-            ((CultivationViewHolder)holder).expandContentLayout.addView(view);
-            ((CultivationViewHolder)holder).hideShowLayout.setVisibility(View.VISIBLE);
-
-
-
-            ((CultivationViewHolder)holder).hideShowLayout.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onClick(View v) {
-                    if (((CultivationViewHolder)holder).expandContentLayout.getVisibility()==View.VISIBLE){
-                        ((CultivationViewHolder)holder).expandContentLayout.setVisibility(View.GONE);
-                        ((CultivationViewHolder)holder).showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_down));
-
-                    }else{
-                        ((CultivationViewHolder)holder).expandContentLayout.setVisibility(View.VISIBLE);
-                        ((CultivationViewHolder)holder).showHideRemarksButton.setImageDrawable(mContext.getDrawable(R.drawable.arrow_drop_up));
-
-                    }
-                }
-            });
-
-
-            final ViewTreeObserver observer =  ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver();
-            observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    } else {
-                        ((CultivationViewHolder)holder).notesTextView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-
-                    int containerHeight =  (32+((CultivationViewHolder)holder).operationTextView.getHeight())*7+((CultivationViewHolder)holder).notesTextView.getHeight();
-                    ViewGroup.LayoutParams params =  ((CultivationViewHolder)holder).verticalLineView.getLayoutParams();
-                    params.height = containerHeight;
-
-                    ((CultivationViewHolder)holder).verticalLineView.requestLayout();
-
-
-                }
-            });
-        }
         else if(cropsList.get(position).getType()==CropActivity.CROP_ACTIVITY_SPRAYING){
             final SprayingViewHolder sprayingViewHolder = (SprayingViewHolder)holder;
             CropSpraying field = (CropSpraying)cropsList.get(position);
@@ -417,81 +352,6 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
         }
 
     }
-
-    public class CultivationViewHolder extends RecyclerView.ViewHolder{
-
-        TextView dateTextView, notesTextView, operationTextView, operatorTextView, costTextView,recurrenceTxt;
-        ImageView  moreButton,showHideRemarksButton;
-        LinearLayout hideShowLayout,expandContentLayout;
-        View verticalLineView;
-        public CultivationViewHolder(View itemView) {
-            super(itemView);
-            notesTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_notes);
-            operationTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_operation);
-            dateTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_date);
-            verticalLineView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_line);
-            recurrenceTxt = itemView.findViewById(R.id.txt_view_crop_cultivation_card_recurrence);
-
-            operatorTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_operator);
-            costTextView = itemView.findViewById(R.id.txt_view_crop_cultivation_card_cost);
-
-            hideShowLayout = itemView.findViewById(R.id.layout_crop_scouting_card_show_hide);
-            expandContentLayout = itemView.findViewById(R.id.layout_crop_scouting_expand);
-            showHideRemarksButton = itemView.findViewById(R.id.img_crop_scouting_card_show_crops);
-            moreButton = itemView.findViewById(R.id.img_crop_cultivation_card_more);
-
-            moreButton.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    final Context wrapper = new ContextThemeWrapper(mContext, R.style.MyPopupMenu);
-                    PopupMenu popup = new PopupMenu(wrapper, v);
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-
-                            if (item.getTitle().toString().equals(mContext.getString(R.string.label_delete))) {
-                                final CropCultivation cropCultivation = (CropCultivation)cropsList.get(getAdapterPosition());
-                                new AlertDialog.Builder(mContext)
-                                        .setTitle("Confirm")
-                                        .setMessage("Do you really want to delete " + cropCultivation.getOperation() + " operation?")
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                                            public void onClick(DialogInterface dialog, int whichButton) {
-
-                                                MyFarmDbHandlerSingleton.getHandlerInstance(mContext).deleteCropCultivate(cropCultivation.getId());
-                                                cropsList.remove(getAdapterPosition());
-                                                notifyItemRemoved(getAdapterPosition());
-
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, null).show();
-                            } else if (item.getTitle().toString().equals(mContext.getString(R.string.label_edit))) {
-//                                CropCultivation cropCultivation = (CropCultivation)cropsList.get(getAdapterPosition());
-//                                Intent editCropCultivation = new Intent(mContext, CropCultivationManagerActivity.class);
-//                                editCropCultivation.putExtra("cropCultivation", cropCultivation);
-//                                editCropCultivation.putExtra("cropId",cropCultivation.getCropId());
-//
-//                                mContext.startActivity(editCropCultivation);
-
-                            }
-
-                            return true;
-                        }
-                    });
-
-
-                    popup.getMenu().add(R.string.label_edit);
-                    popup.getMenu().add(R.string.label_delete);
-                    popup.show();
-
-                }
-            });
-
-        }
-
-    }
-
 
     public class SprayingViewHolder extends RecyclerView.ViewHolder{
 

@@ -10,4 +10,5 @@ public interface CropActivity {
     int CROP_ACTIVITY_IRRIGATION =6;
     int CROP_ACTIVITY_TRANSPLANTING =7;
     int getType();
+    String getDate();
 }

@@ -137,7 +137,7 @@
                 android:gravity="center|start"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="Female"
+                android:text="Male"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/guideline33"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -153,7 +153,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/margin_10"
                 android:paddingEnd="@dimen/margin_10"
-                android:text="Male"
+                android:text="Female"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/guideline32"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -188,7 +188,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline60" />
 
             <TextView
-                android:id="@+id/mating_item_female"
+                android:id="@+id/mating_item_male"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"
@@ -205,7 +205,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
             <TextView
-                android:id="@+id/mating_item_male"
+                android:id="@+id/mating_item_female"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:ellipsize="end"

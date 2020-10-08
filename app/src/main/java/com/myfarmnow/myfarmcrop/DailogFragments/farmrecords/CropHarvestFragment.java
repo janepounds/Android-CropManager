@@ -20,10 +20,8 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,10 +33,8 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
-import com.myfarmnow.myfarmcrop.models.CropContact;
 import com.myfarmnow.myfarmcrop.models.CropEmployee;
 import com.myfarmnow.myfarmcrop.models.CropHarvest;
-import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
 import java.util.ArrayList;
 
@@ -290,17 +286,6 @@ public class CropHarvestFragment extends DialogFragment {
         DashboardActivity.addDatePicker(storageDateTxt,context);
 //        DashboardActivity.addDatePicker(repeatUntilTxt,context);
 
-
-        ArrayList<String> employeesItems = new ArrayList<>();
-        for(CropEmployee x: dbHandler.getCropEmployees(DashboardActivity.RETRIEVED_USER_ID)){
-            employeesItems.add(x.getFullName());
-        }
-        for(CropContact x: dbHandler.getCropContacts(DashboardActivity.RETRIEVED_USER_ID)){
-            employeesItems.add(x.getName());
-        }
-        employeesSpinnerAdapter = new ArrayAdapter<String>(context,
-                android.R.layout.simple_dropdown_item_1line, employeesItems);;
-//        operatorSpinner.setAdapter(employeesSpinnerAdapter);
 
         ((ArrayAdapter) harvestUnitsSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         //   ((ArrayAdapter)operatorSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);

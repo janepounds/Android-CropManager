@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
+import com.myfarmnow.myfarmcrop.models.CropInventorySeeds;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -130,8 +131,8 @@ public class AddCropFragment extends Fragment {
 
         ArrayList<String> cropsList = new ArrayList<>();
         cropsList.add("Select Crop");
-        for (CropItem cropItem : dbHandler.getCropItems()) {
-            cropsList.add(cropItem.getName());
+        for (CropInventorySeeds seed : dbHandler.getCropSeeds(DashboardActivity.RETRIEVED_USER_ID)) {
+            cropsList.add(seed.getName());
         }
 
         spCropCrop.setAdapter(new ArrayAdapter<String>(context,
@@ -173,6 +174,7 @@ public class AddCropFragment extends Fragment {
 
             }
         };
+        spCropCrop.setThreshold(1);
         spCropCrop.setOnItemSelectedListener(onItemSelectedListener);
 
         spCropsSeason.setOnItemSelectedListener(onItemSelectedListener);
