@@ -3,7 +3,6 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,7 +14,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -42,13 +41,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.databinding.FragmentWalletLoanAppPhotosBinding;
 import com.myfarmnow.myfarmcrop.helpers.ImageUtils;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletLoanAddPicResponse;
-import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
@@ -60,14 +56,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Objects;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,7 +65,6 @@ public class WalletLoanAppPhotosFragment extends Fragment {
     private static final String TAG = "WalletLoanAppPhotosFragment";
     private Context context;
 
-    private FragmentWalletLoanAppPhotosBinding binding;
     NavController navController;
     AppBarConfiguration appBarConfiguration;
 
@@ -98,11 +86,27 @@ public class WalletLoanAppPhotosFragment extends Fragment {
     String loanApplicationId;
     LoanApplication loanApplication;
 
+    private Toolbar toolbar;
+    private StateProgressBar loanProgressBarId;
+    private Button btnLoanNextStep;
+
+    private ImageView imageViewLoanPhotosNidFront, imageViewLoanPhotosNidBack, imageViewLoanPhotosSelfie;
+    private TextView textViewLoanPhotosTitle, textViewErrorMessage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_loan_app_photos, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet_loan_app_photos, container, false);
+
+        toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_photos);
+        loanProgressBarId = view.findViewById(R.id.loan_app_photos_progress_bar_id);
+        btnLoanNextStep = view.findViewById(R.id.btn_loan_app_photos_next_step);
+        imageViewLoanPhotosNidFront = view.findViewById(R.id.image_view_loan_photos_nid_front);
+        imageViewLoanPhotosNidBack = view.findViewById(R.id.image_view_loan_photos_nid_back);
+        imageViewLoanPhotosSelfie = view.findViewById(R.id.image_view_loan_photos_selfie);
+        textViewLoanPhotosTitle = view.findViewById(R.id.text_view_loan_photos_title);
+        textViewErrorMessage = view.findViewById(R.id.text_view_error_message);
 
         assert getArguments() != null;
         if (getArguments().getString("loanApplicationId") != null) {
@@ -117,15 +121,15 @@ public class WalletLoanAppPhotosFragment extends Fragment {
 
         initializeActivity();
 
-        return binding.getRoot();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
     }
 
     @Override
@@ -140,18 +144,18 @@ public class WalletLoanAppPhotosFragment extends Fragment {
         dialog.setMessage("Please Wait..");
         dialog.setCancelable(true);
 
-        binding.loanProgressBarId.setStateDescriptionData(descriptionData);
+        loanProgressBarId.setStateDescriptionData(descriptionData);
 
-        binding.btnLoanNextStep.setOnClickListener(v -> submitPhotos());
+        btnLoanNextStep.setOnClickListener(v -> submitPhotos());
 
-        binding.imageViewLoanPhotosNidFront.setOnClickListener(v -> showPictureDialog(REQUESTED_NID_FRONT));
+        imageViewLoanPhotosNidFront.setOnClickListener(v -> showPictureDialog(REQUESTED_NID_FRONT));
 
-        binding.imageViewLoanPhotosNidBack.setOnClickListener(v -> showPictureDialog(REQUESTED_NID_BACK));
+        imageViewLoanPhotosNidBack.setOnClickListener(v -> showPictureDialog(REQUESTED_NID_BACK));
 
-        binding.imageViewLoanPhotosSelfie.setOnClickListener(v -> showPictureDialog(REQUESTED_SELFIE));
+        imageViewLoanPhotosSelfie.setOnClickListener(v -> showPictureDialog(REQUESTED_SELFIE));
 
         if (loanApplication != null) {
-            binding.loanProgressBarId.setVisibility(View.GONE);
+            loanProgressBarId.setVisibility(View.GONE);
 
             RequestOptions options = new RequestOptions()
                     .centerCrop()
@@ -178,7 +182,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
                             return false;
                         }
                     })
-                    .into(binding.imageViewLoanPhotosNidBack);
+                    .into(imageViewLoanPhotosNidBack);
 
             Glide.with(this)
                     .setDefaultRequestOptions(options)
@@ -198,7 +202,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
                             return false;
                         }
                     })
-                    .into(binding.imageViewLoanPhotosNidFront);
+                    .into(imageViewLoanPhotosNidFront);
 
             Glide.with(this)
                     .setDefaultRequestOptions(options)
@@ -218,10 +222,10 @@ public class WalletLoanAppPhotosFragment extends Fragment {
                             return false;
                         }
                     })
-                    .into(binding.imageViewLoanPhotosSelfie);
+                    .into(imageViewLoanPhotosSelfie);
 
-            binding.btnLoanNextStep.setText("Update");
-            binding.textViewLoanPhotosTitle.setText("Update Photos");
+            btnLoanNextStep.setText("Update");
+            textViewLoanPhotosTitle.setText("Update Photos");
         }
     }
 
@@ -240,65 +244,63 @@ public class WalletLoanAppPhotosFragment extends Fragment {
                 requestObject.put("loanApplicationId", loanApplicationId);
 
                 if (isNidFrontAdded) {
-                    requestObject.put("nationalIdPicBack", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) binding.imageViewLoanPhotosNidBack.getDrawable()).getBitmap()), Base64.DEFAULT));
+                    requestObject.put("nationalIdPicBack", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) imageViewLoanPhotosNidBack.getDrawable()).getBitmap()), Base64.DEFAULT));
                 }
 
                 if (isSelfieAdded) {
-                    requestObject.put("nationalIdPicFront", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) binding.imageViewLoanPhotosNidFront.getDrawable()).getBitmap()), Base64.DEFAULT));
+                    requestObject.put("nationalIdPicFront", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) imageViewLoanPhotosNidFront.getDrawable()).getBitmap()), Base64.DEFAULT));
                 }
                 if (isSelfieAdded) {
-                    requestObject.put("userPhoto", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) binding.imageViewLoanPhotosSelfie.getDrawable()).getBitmap()), Base64.DEFAULT));
+                    requestObject.put("userPhoto", Base64.encodeToString(getBitmapAsByteArray(((BitmapDrawable) imageViewLoanPhotosSelfie.getDrawable()).getBitmap()), Base64.DEFAULT));
                 }
 
 
-
-            /*******************RETROFIT IMPLEMENTATION****************************/
+                /*******************RETROFIT IMPLEMENTATION****************************/
                 APIRequests apiRequests = APIClient.getWalletInstance();
-                Call<WalletLoanAddPicResponse> call = apiRequests.addLoanPhotos(access_token,requestObject);
+                Call<WalletLoanAddPicResponse> call = apiRequests.addLoanPhotos(access_token, requestObject);
                 call.enqueue(new Callback<WalletLoanAddPicResponse>() {
                     @Override
                     public void onResponse(Call<WalletLoanAddPicResponse> call, Response<WalletLoanAddPicResponse> response) {
-                        if(response.code()== 200){
+                        if (response.code() == 200) {
                             Bundle bundle = new Bundle();
                             assert getArguments() != null;
                             bundle.putString("loanApplicationId", loanApplicationId);
                             bundle.putInt("refereeNumber", 1);
                             navController.navigate(R.id.action_walletLoanAppPhotosFragment_to_walletLoansListFragment, bundle);
-                        }else if(response.code()==401){
+                        } else if (response.code() == 401) {
                             WalletAuthActivity.startAuth(context, true);
                         } else if (response.code() == 500) {
-                            binding.textViewErrorMessage.setText("Error Occurred Try again later");
+                            textViewErrorMessage.setText("Error Occurred Try again later");
                             Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                         } else if (response.code() == 400) {
-                            binding.textViewErrorMessage.setText(response.errorBody().toString());
+                            textViewErrorMessage.setText(response.errorBody().toString());
                             Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                         } else if (response.code() == 406) {
-                            binding.textViewErrorMessage.setText(response.errorBody().toString());
+                            textViewErrorMessage.setText(response.errorBody().toString());
                             Log.e("info 406", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                         } else {
-                            binding.textViewErrorMessage.setText("Error Occurred Try again later");
+                            textViewErrorMessage.setText("Error Occurred Try again later");
                             if (response.errorBody() != null) {
                                 Log.e("info", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                             } else {
                                 Log.e("info", "Something got very wrong, code: " + response.code());
                             }
                         }
-                        binding.textViewErrorMessage.setVisibility(View.VISIBLE);
+                        textViewErrorMessage.setVisibility(View.VISIBLE);
                         dialog.dismiss();
                     }
 
                     @Override
                     public void onFailure(Call<WalletLoanAddPicResponse> call, Throwable t) {
 
-                            Log.e("info 1A: " , new String(String.valueOf(t.getMessage())));
+                        Log.e("info 1A: ", new String(String.valueOf(t.getMessage())));
 
-                            Log.e("info 1A: ", "Something got very very wrong");
+                        Log.e("info 1A: ", "Something got very very wrong");
 
 
                         dialog.dismiss();
                     }
                 });
-
 
 
             } catch (JSONException e) {
@@ -380,18 +382,16 @@ public class WalletLoanAppPhotosFragment extends Fragment {
             os.flush();
             os.close();
             photoImageView.setImageBitmap(bitmap);
-            if (photoImageView == binding.imageViewLoanPhotosNidFront) {
+            if (photoImageView == imageViewLoanPhotosNidFront) {
                 isNidFrontAdded = true;
-            } else if (photoImageView == binding.imageViewLoanPhotosNidBack) {
+            } else if (photoImageView == imageViewLoanPhotosNidBack) {
                 isNidbackAdded = true;
-            } else if (photoImageView == binding.imageViewLoanPhotosSelfie) {
+            } else if (photoImageView == imageViewLoanPhotosSelfie) {
                 isSelfieAdded = true;
             }
         } catch (Exception e) {
             Log.e("Error:", "Error writing bitmap", e);
         }
-
-
         return imageFile;
     }
 
@@ -405,23 +405,23 @@ public class WalletLoanAppPhotosFragment extends Fragment {
         switch (requestCode) {
             case GALLERY_REQUESTED_NID_BACK:
                 bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
-                persistImage(bitmap, "photo", binding.imageViewLoanPhotosNidBack);
+                persistImage(bitmap, "photo", imageViewLoanPhotosNidBack);
                 break;
             case GALLERY_REQUESTED_NID_FRONT:
                 bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
-                persistImage(bitmap, "photo", binding.imageViewLoanPhotosNidFront);
+                persistImage(bitmap, "photo", imageViewLoanPhotosNidFront);
                 break;
             case GALLERY_REQUESTED_SELFIE:
                 bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
-                persistImage(bitmap, "photo", binding.imageViewLoanPhotosSelfie);
+                persistImage(bitmap, "photo", imageViewLoanPhotosSelfie);
             case CAMERA_REQUESTED_SELFIE:
-                buildImageFromCamera(data, binding.imageViewLoanPhotosSelfie);
+                buildImageFromCamera(data, imageViewLoanPhotosSelfie);
                 break;
             case CAMERA_REQUESTED_NID_BACK:
-                buildImageFromCamera(data, binding.imageViewLoanPhotosNidBack);
+                buildImageFromCamera(data, imageViewLoanPhotosNidBack);
                 break;
             case CAMERA_REQUESTED_NID_FRONT:
-                buildImageFromCamera(data, binding.imageViewLoanPhotosNidFront);
+                buildImageFromCamera(data, imageViewLoanPhotosNidFront);
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);

@@ -2,7 +2,7 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,7 +15,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -25,7 +26,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.myfarmnow.myfarmcrop.databinding.WalletLoanstatusPreviewBinding;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 
@@ -36,34 +36,52 @@ public class WalletLoanStatusPreview extends Fragment {
     private static final String TAG = "WalletLoanStatusPreview";
     private Context context;
     private AppBarConfiguration appBarConfiguration;
-    private WalletLoanstatusPreviewBinding binding;
 
     private View mContentView;
     private View mControlsView;
     LoanApplication loanApplication;
+
+    private Toolbar toolbar;
+    private TextView textViewLoanStatusPreviewDueDate, textViewLoanStatusPreviewDuration, textViewLoanStatusPreviewStatus, textViewLoanStatusPreviewAmount,
+            textViewLoanStatusEditPhotos, textViewLoanStatusPreviewInterestRate, textViewLoanStatusPreviewDueAmount, textViewLoanStatusPreviewPayments,
+            textViewLoanStatusPreviewFines;
+    private ImageView imageViewLoanStatusPreviewNidBack, imageViewLoanStatusPreviewNidFront, imageViewLoanStatusPreviewUserPhoto;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.wallet_loanstatus_preview, container, false);
+        View view = inflater.inflate(R.layout.wallet_loanstatus_preview, container, false);
+
+        toolbar = view.findViewById(R.id.toolbar_wallet_loan_status_preview);
+        textViewLoanStatusPreviewDueDate = view.findViewById(R.id.text_view_loan_status_preview_due_date);
+        textViewLoanStatusPreviewDuration = view.findViewById(R.id.text_view_loan_status_preview_duration);
+        textViewLoanStatusPreviewStatus = view.findViewById(R.id.text_view_loan_status_preview_status);
+        textViewLoanStatusPreviewAmount = view.findViewById(R.id.text_view_loan_status_preview_amount);
+        textViewLoanStatusEditPhotos = view.findViewById(R.id.text_view_loan_status_edit_photos);
+        textViewLoanStatusPreviewInterestRate = view.findViewById(R.id.text_view_loan_status_preview_interest_rate);
+        textViewLoanStatusPreviewDueAmount = view.findViewById(R.id.text_view_loan_status_preview_due_amount);
+        textViewLoanStatusPreviewPayments = view.findViewById(R.id.text_view_loan_status_preview_payments);
+        textViewLoanStatusPreviewFines = view.findViewById(R.id.text_view_loan_status_preview_fines);
+        imageViewLoanStatusPreviewNidBack = view.findViewById(R.id.image_view_loan_status_preview_nid_back);
+        imageViewLoanStatusPreviewNidFront = view.findViewById(R.id.image_view_loan_status_preview_nid_front);
+        imageViewLoanStatusPreviewUserPhoto = view.findViewById(R.id.image_view_loan_status_preview_user_photo);
 
 //        assert getArguments() != null;
 //        loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
 
 //        initializeActivity();
 
-
-        return binding.getRoot();
+        return view;
     }
 
     public void initializeActivity() {
-        binding.textViewLoanStatusPreviewDuration.setText(loanApplication.getDuration() + " " + loanApplication.getDurationLabel());
+        textViewLoanStatusPreviewDuration.setText(loanApplication.getDuration() + " " + loanApplication.getDurationLabel());
         //referee1ImageView, referee2ImageView
-        binding.textViewLoanStatusPreviewDueDate.setText(loanApplication.getDueDate());
-        binding.textViewLoanStatusPreviewStatus.setText(loanApplication.getStatus());
-        binding.textViewLoanStatusPreviewAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmount()));
+        textViewLoanStatusPreviewDueDate.setText(loanApplication.getDueDate());
+        textViewLoanStatusPreviewStatus.setText(loanApplication.getStatus());
+        textViewLoanStatusPreviewAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmount()));
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -90,7 +108,7 @@ public class WalletLoanStatusPreview extends Fragment {
                         return false;
                     }
                 })
-                .into(binding.imageViewLoanStatusPreviewNidBack);
+                .into(imageViewLoanStatusPreviewNidBack);
 
         Glide.with(this)
                 .setDefaultRequestOptions(options)
@@ -110,7 +128,7 @@ public class WalletLoanStatusPreview extends Fragment {
                         return false;
                     }
                 })
-                .into(binding.imageViewLoanStatusPreviewNidFront);
+                .into(imageViewLoanStatusPreviewNidFront);
 
         Glide.with(this)
                 .setDefaultRequestOptions(options)
@@ -130,26 +148,22 @@ public class WalletLoanStatusPreview extends Fragment {
                         return false;
                     }
                 })
-                .into(binding.imageViewLoanStatusPreviewUserPhoto);
+                .into(imageViewLoanStatusPreviewUserPhoto);
 
-        binding.textViewLoanStatusEditPhotos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        textViewLoanStatusEditPhotos.setOnClickListener(v -> {
 //                Intent startNext = new Intent(LoanStatusPreviewActivity.this,WalletLoanAppPhotos.class);
 //                startNext.putExtra("loanApplication",loanApplication);
 //                startNext.putExtra("isEdit",true);
 //                startActivity(startNext);
-            }
         });
 
-
-        binding.textViewLoanStatusPreviewInterestRate.setText(loanApplication.getInterestRate() + "%");
-        binding.textViewLoanStatusPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getDueAmount()));
-        binding.textViewLoanStatusPreviewPayments.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmountPaid()));
-        binding.textViewLoanStatusPreviewFines.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getTotalFines()));
+        textViewLoanStatusPreviewInterestRate.setText(loanApplication.getInterestRate() + "%");
+        textViewLoanStatusPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getDueAmount()));
+        textViewLoanStatusPreviewPayments.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmountPaid()));
+        textViewLoanStatusPreviewFines.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getTotalFines()));
 
         if (!loanApplication.isEditable()) {
-            binding.textViewLoanStatusEditPhotos.setVisibility(View.GONE);
+            textViewLoanStatusEditPhotos.setVisibility(View.GONE);
         }
     }
 
@@ -159,7 +173,7 @@ public class WalletLoanStatusPreview extends Fragment {
 
         NavController navController = Navigation.findNavController(view);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         // Set up the user interaction to manually show or hide the system UI.
 

@@ -27,10 +27,6 @@ android {
         resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
     }
 
-    buildFeatures {
-        dataBinding true
-    }
-
     buildTypes {
         release {
             minifyEnabled true
@@ -83,9 +79,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.0.1'
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-    implementation 'com.loopj.android:android-async-http:1.4.9'
-    implementation 'com.highsoft.highcharts:highcharts:7.0.1'
 
+    // Remove
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+
+    implementation 'com.highsoft.highcharts:highcharts:7.0.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -104,6 +102,7 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
         transitive = true;
     }
+
     /*Add QR Library Here */
     //    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     //implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
@@ -119,10 +118,12 @@ dependencies {
     implementation 'com.github.Flutterwave.rave-android:rave_presentation:2.1.8'
     implementation 'com.github.Flutterwave.rave-android:rave_utils:2.1.8'
 
+    //Remove
     implementation 'com.venmo.android.pin:library:0.2@aar'
     configurations {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
+
     //REFROFIT depenencies for http client
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
