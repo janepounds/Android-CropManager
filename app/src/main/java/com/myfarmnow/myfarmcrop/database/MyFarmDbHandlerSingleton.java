@@ -197,6 +197,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_FERTILIZER_APPLICATION_DAYS_BEFORE = "daysBefore";
     public static final String CROP_FERTILIZER_APPLICATION_RECURRENCE = "recurrence";
     public static final String CROP_FERTILIZER_APPLICATION_REMINDERS = "reminders";
+    public static final String CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME = "fertilizerName";
+    public static final String CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS = "units";
 
 
     public static final String CROP_SPRAYING_ID = "id";
@@ -802,8 +804,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_fertilizer_application_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ( " + CROP_FERTILIZER_APPLICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_FERTILIZER_APPLICATION_USER_ID + " TEXT," + CROP_FERTILIZER_APPLICATION_CROP_ID + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_DATE + " TEXT NOT NULL," + CROP_FERTILIZER_APPLICATION_OPERATOR + " TEXT," +
-                CROP_FERTILIZER_APPLICATION_METHOD + " TEXT," + CROP_FERTILIZER_APPLICATION_REASON + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_ID + " TEXT NOT NULL," +
-                CROP_FERTILIZER_APPLICATION_RATE + " REAL ," + CROP_FERTILIZER_APPLICATION_COST + " REAL, " + CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " + CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_FERTILIZER_APPLICATION_METHOD + " TEXT," + CROP_FERTILIZER_APPLICATION_REASON + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_ID + " TEXT," +
+                CROP_FERTILIZER_APPLICATION_RATE + " REAL ," + CROP_FERTILIZER_APPLICATION_COST + " REAL, " + CROP_FERTILIZER_APPLICATION_REPEAT_UNTIL + " TEXT, " + CROP_FERTILIZER_APPLICATION_DAYS_BEFORE + " REAL DEFAULT 0, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME + " TEXT, " + CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS + " TEXT," +
                 CROP_FERTILIZER_APPLICATION_RECURRENCE + " TEXT NOT NULL, " + CROP_FERTILIZER_APPLICATION_FREQUENCY + " REAL DEFAULT 1, " + CROP_FERTILIZER_APPLICATION_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
 
@@ -1056,6 +1058,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
+        db.execSQL("ALTER TABLE "+ CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME + " TEXT ");
+        db.execSQL("ALTER TABLE "+ CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS + " TEXT ");
 
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
@@ -1147,6 +1151,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_CONTACT_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_CONTACT_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
+
+
 
         //delete all settings items except the first one
         db.delete(CROP_SETTINGS_TABLE_NAME, CROP_SETTINGS_ID + " > 1", null);
@@ -2697,6 +2703,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_REASON, fertilizerApplication.getReason());
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM, fertilizerApplication.getFertilizerForm());
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID, fertilizerApplication.getFertilizerId());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME, fertilizerApplication.getFertilizerName());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS, fertilizerApplication.getUnits());
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR, fertilizerApplication.getOperator());
         contentValues.put(CROP_FERTILIZER_APPLICATION_COST, fertilizerApplication.getCost());
         contentValues.put(CROP_FERTILIZER_APPLICATION_RATE, fertilizerApplication.getRate());
@@ -2735,6 +2743,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_FERTILIZER_APPLICATION_REASON, fertilizerApplication.getReason());
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM, fertilizerApplication.getFertilizerForm());
         contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID, fertilizerApplication.getFertilizerId());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME, fertilizerApplication.getFertilizerName());
+        contentValues.put(CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS, fertilizerApplication.getUnits());
         contentValues.put(CROP_FERTILIZER_APPLICATION_OPERATOR, fertilizerApplication.getOperator());
         contentValues.put(CROP_FERTILIZER_APPLICATION_COST, fertilizerApplication.getCost());
         contentValues.put(CROP_FERTILIZER_APPLICATION_RATE, fertilizerApplication.getRate());
@@ -2788,8 +2798,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setReason(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REASON)));
             crop.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
             crop.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
+            crop.setUnits(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS)));
             crop.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
-            crop.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+            crop.setFertilizerName(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME)));
             crop.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             crop.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             crop.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
@@ -2818,15 +2829,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_NAME, crop.getName());
         contentValues.put(CROP_CROP_AREA, crop.getArea());
         contentValues.put(CROP_CROP_FIELD_ID, crop.getFieldId());
-//        contentValues.put(CROP_CROP_COST, crop.getCost());
-//        contentValues.put(CROP_CROP_YEAR, crop.getCroppingYear());
-//        contentValues.put(CROP_CROP_OPERATOR, crop.getOperator());
-//        contentValues.put(CROP_CROP_GROWING_CYCLE, crop.getGrowingCycle());
         contentValues.put(CROP_CROP_SEASON, crop.getSeason());
-//        contentValues.put(CROP_CROP_COST, crop.getCost());
-//        contentValues.put(CROP_CROP_SEED_ID, crop.getSeedId());
-//        contentValues.put(CROP_CROP_RATE, crop.getRate());
-//        contentValues.put(CROP_CROP_PLANTING_METHOD, crop.getPlantingMethod());
         contentValues.put(CROP_CROP_HARVEST_UNITS, crop.getHarvestUnits());
         contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimatedRevenue());
         contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimatedYield());
@@ -2845,15 +2848,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_CROP_NAME, crop.getName());
         contentValues.put(CROP_CROP_AREA, crop.getArea());
         contentValues.put(CROP_CROP_FIELD_ID, crop.getFieldId());
-//        contentValues.put(CROP_CROP_COST, crop.getCost());
-//        contentValues.put(CROP_CROP_YEAR, crop.getCroppingYear());
-//        contentValues.put(CROP_CROP_OPERATOR, crop.getOperator());
-//        contentValues.put(CROP_CROP_GROWING_CYCLE, crop.getGrowingCycle());
         contentValues.put(CROP_CROP_SEASON, crop.getSeason());
-//        contentValues.put(CROP_CROP_COST, crop.getCost());
-//        contentValues.put(CROP_CROP_SEED_ID, crop.getSeedId());
-//        contentValues.put(CROP_CROP_RATE, crop.getRate());
-//        contentValues.put(CROP_CROP_PLANTING_METHOD, crop.getPlantingMethod());
         contentValues.put(CROP_CROP_HARVEST_UNITS, crop.getHarvestUnits());
         contentValues.put(CROP_CROP_ESTIMATED_REVENUE, crop.getEstimatedRevenue());
         contentValues.put(CROP_CROP_ESTIMATED_YIELD, crop.getEstimatedYield());
@@ -2891,17 +2886,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             crop.setDateSown(res.getString(res.getColumnIndex(CROP_CROP_DATE_SOWN)));
             crop.setVariety(res.getString(res.getColumnIndex(CROP_CROP_VARIETY)));
             crop.setArea(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_AREA))));
-//            crop.setCost(res.getFloat(res.getColumnIndex(CROP_CROP_COST)));
-//            crop.setCroppingYear(res.getInt(res.getColumnIndex(CROP_CROP_YEAR)));
-//            crop.setOperator(res.getString(res.getColumnIndex(CROP_CROP_OPERATOR)));
-//            crop.setSeedId(res.getString(res.getColumnIndex(CROP_CROP_SEED_ID)));
-//            crop.setGrowingCycle(res.getString(res.getColumnIndex(CROP_CROP_GROWING_CYCLE)));
-//            crop.setRate(res.getFloat(res.getColumnIndex(CROP_CROP_RATE)));
-//            crop.setPlantingMethod(res.getString(res.getColumnIndex(CROP_CROP_PLANTING_METHOD)));
             crop.setFieldId(res.getString(res.getColumnIndex(CROP_CROP_FIELD_ID)));
-//            crop.setFieldName(res.getString(res.getColumnIndex(CROP_FIELD_NAME)));
             crop.setName(res.getString(res.getColumnIndex(CROP_CROP_NAME)));
-//            crop.setSeres.getString(res.getColumnIndex(CROP_CROP_SEASON)));
             crop.setHarvestUnits(res.getString(res.getColumnIndex(CROP_CROP_HARVEST_UNITS)));
             crop.setEstimatedRevenue(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_REVENUE))));
             crop.setEstimatedYield(Float.parseFloat(res.getString(res.getColumnIndex(CROP_CROP_ESTIMATED_YIELD))));
@@ -4166,7 +4152,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizerApplication.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
             fertilizerApplication.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
             fertilizerApplication.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
-//            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME)));
+            fertilizerApplication.setUnits(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS)));
             fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
@@ -4292,7 +4279,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             fertilizerApplication.setFertilizerForm(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_FORM)));
             fertilizerApplication.setFertilizerId(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_ID)));
             fertilizerApplication.setRate(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RATE)));
-//            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_INVENTORY_FERTILIZER_NAME)));
+            fertilizerApplication.setFertilizerName(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME)));
+            fertilizerApplication.setUnits(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS)));
             fertilizerApplication.setFrequency(res.getFloat(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_FREQUENCY)));
             fertilizerApplication.setRecurrence(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_RECURRENCE)));
             fertilizerApplication.setReminders(res.getString(res.getColumnIndex(CROP_FERTILIZER_APPLICATION_REMINDERS)));
