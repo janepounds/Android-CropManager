@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +39,6 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MyProduceListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
-import com.myfarmnow.myfarmcrop.databinding.FragmentMyProduceBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,7 +51,6 @@ import java.util.Date;
 
 public class MyProduceFragment extends Fragment {
     private static final String TAG = "MyProduceFragment";
-    private FragmentMyProduceBinding binding;
     private Context context;
 
     private ArrayList<MyProduce> produceList = new ArrayList<>();
@@ -76,19 +73,25 @@ public class MyProduceFragment extends Fragment {
 
     private MyFarmDbHandlerSingleton dbHandler;
 
+    private RecyclerView recyclerView;
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_produce, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_produce, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView_my_produce_fragment);
+        Button addProduce = view.findViewById(R.id.btn_add_my_produce);
+
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 
         getAllProduce();
         Log.d(TAG, "onCreateView: " + produceList);
 
-        binding.addProduce.setOnClickListener(view -> addProduce());
+        addProduce.setOnClickListener(v -> addProduce());
 
-        return binding.getRoot();
+        return view;
     }
 
     private void getAllProduce() {
@@ -116,8 +119,6 @@ public class MyProduceFragment extends Fragment {
         CardView cardView = addProduceDialog.findViewById(R.id.image_view_holder);
         ImageView image = addProduceDialog.findViewById(R.id.produce_image);
         Button submit = addProduceDialog.findViewById(R.id.produce_submit_button);
-
-        // addPhoto.setOnClickListener(view -> cardView.setVisibility(View.GONE));
 
         close.setOnClickListener(view -> dialog.dismiss());
 
@@ -255,12 +256,12 @@ public class MyProduceFragment extends Fragment {
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
                 fragmentReference.get().requireActivity().runOnUiThread(() -> {
-                    fragmentReference.get().binding.recyclerView.setHasFixedSize(true);
+                    fragmentReference.get().recyclerView.setHasFixedSize(true);
                     fragmentReference.get().layoutManager = new LinearLayoutManager(context);
                     fragmentReference.get().adapter = new MyProduceListAdapter(context, fragmentReference.get().produceList);
 
-                    fragmentReference.get().binding.recyclerView.setLayoutManager(fragmentReference.get().layoutManager);
-                    fragmentReference.get().binding.recyclerView.setAdapter(fragmentReference.get().adapter);
+                    fragmentReference.get().recyclerView.setLayoutManager(fragmentReference.get().layoutManager);
+                    fragmentReference.get().recyclerView.setAdapter(fragmentReference.get().adapter);
                 });
                 Log.d(TAG, "onPostExecute: Complete");
             }

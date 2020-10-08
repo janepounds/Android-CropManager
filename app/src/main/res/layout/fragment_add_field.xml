@@ -1,276 +1,276 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.myfarmnow.myfarmcrop.fragments.farmrecords.crop.AddFieldFragment">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_add_field_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay" >
-
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" >
-
-
-
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:padding="@dimen/dimen_10dp">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dimen_10dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/field_name"
-                        android:layout_marginBottom="4dp"
-                        android:textSize="@dimen/dimen_16sp"/>
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/field_name"
+                    android:textSize="@dimen/dimen_16sp" />
 
-                    <com.myfarmnow.myfarmcrop.utils.layout.OtpEdittext
-                        android:id="@+id/txt_crop_field_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/edittext_corner"
-                        android:gravity="start|center_vertical"
-                        android:inputType="text"
-                        android:paddingLeft="@dimen/dimen_15sp"
-                        android:tag=" "
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/textColor" />
+                <EditText
+                    android:id="@+id/txt_crop_field_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_corner"
+                    android:gravity="start|center_vertical"
+                    android:inputType="text"
+                    android:paddingLeft="@dimen/dimen_15sp"
+                    android:tag=" "
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/textColor" />
 
-                </LinearLayout>
+            </LinearLayout>
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_10dp">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dimen_10dp">
-                    <TextView
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/field_type"
+                    android:textSize="@dimen/dimen_16sp" />
+
+                <RelativeLayout
+                    android:id="@+id/spinnerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="3dp"
+                    android:background="@drawable/edittext_corner"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_crop_field_type"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/field_type"
-                        android:layout_marginBottom="4dp"
-                        android:textSize="@dimen/dimen_16sp"/>
-                    <RelativeLayout
-                        android:id="@+id/spinnerLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="3dp"
+                        android:layout_height="55dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:background="@android:color/transparent"
+                        android:entries="@array/crop_field_type"
                         android:gravity="center"
+                        android:hint="Enter.."
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/status"
+                        android:textSize="@dimen/dimen_16sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="3.4dp">
 
                         <Spinner
-                            android:id="@+id/sp_crop_field_type"
+                            android:id="@+id/sp_crop_field_status"
                             android:layout_width="match_parent"
-                            android:layout_height="55dp"
+                            android:layout_height="50dp"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
+                            android:entries="@array/crop_field_status"
                             android:gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:hint="Enter.."
-                            android:entries="@array/crop_field_type"
-                            android:spinnerMode="dropdown"/>
+                            android:spinnerMode="dropdown" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
                     </RelativeLayout>
+
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dimen_10dp">
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:layout_marginRight="12dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/status"
-                            android:layout_marginBottom="4dp"
-                            android:textSize="@dimen/dimen_16sp"/>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="3.4dp"
-                            android:gravity="center"
-                            android:layout_alignParentTop="true"
-                            android:background="@drawable/edittext_corner"
-                            android:orientation="horizontal">
-
-                            <Spinner
-                                android:id="@+id/sp_crop_field_status"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:gravity="center"
-                                android:entries="@array/crop_field_status"
-                                android:spinnerMode="dropdown"/>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:layout_marginStart="12dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/select_unit"
-                            android:layout_marginBottom="4dp"
-                            android:textSize="@dimen/dimen_16sp"/>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="3.4dp"
-                            android:gravity="center"
-                            android:layout_alignParentTop="true"
-                            android:background="@drawable/edittext_corner"
-                            android:orientation="horizontal">
-
-                            <Spinner
-                                android:id="@+id/sp_crop_field_units"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:gravity="center"
-                                android:entries="@array/crop_field_units"
-                                android:spinnerMode="dropdown"/>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dimen_10dp">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/field_size"
                         android:layout_marginBottom="4dp"
-                        android:textSize="@dimen/dimen_16sp"/>
-                    <LinearLayout
+                        android:text="@string/select_unit"
+                        android:textSize="@dimen/dimen_16sp" />
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:background="@drawable/edittext_corner"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="3.4dp">
 
-                        <EditText
-                            android:id="@+id/txt_crop_field_total_area"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.7"
-                            android:paddingLeft="@dimen/dimen_10dp"
+                        <Spinner
+                            android:id="@+id/sp_crop_field_units"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:inputType="numberDecimal" />
-
-                        <TextView
-                            android:id="@+id/txt_crops_estimated_revenue_units"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_right_corners_green"
-                            android:textColor="@color/white"
-                            android:text="Units"
-                            android:textSize="14sp"
+                            android:entries="@array/crop_field_units"
                             android:gravity="center"
-                            android:layout_weight="0.2" />
+                            android:spinnerMode="dropdown" />
 
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                    </RelativeLayout>
+
+
                 </LinearLayout>
+            </LinearLayout>
 
-                <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="@dimen/dimen_10dp"
                 android:padding="@dimen/dimen_10dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/croppable_area"
                     android:layout_marginBottom="4dp"
-                    android:textSize="@dimen/dimen_16sp"/>
+                    android:text="@string/field_size"
+                    android:textSize="@dimen/dimen_16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/edittext_corner"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txt_crop_field_total_area"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@android:color/transparent"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="@dimen/dimen_10dp" />
+
+                    <TextView
+                        android:id="@+id/txt_crops_estimated_revenue_units"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/edittext_right_corners_green"
+                        android:gravity="center"
+                        android:text="Units"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/croppable_area"
+                    android:textSize="@dimen/dimen_16sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
@@ -283,62 +283,55 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
-                        android:paddingLeft="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="numberDecimal"/>
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="@dimen/dimen_10dp" />
 
                     <TextView
                         android:id="@+id/txt_crops_croppable_area_units"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="0.2"
                         android:background="@drawable/edittext_right_corners_green"
-                        android:textColor="@color/white"
-                        android:text="Units"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_weight="0.2" />
+                        android:text="Units"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </LinearLayout>
 
 
-                <FrameLayout
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10dp"
+                android:background="@drawable/rounded_corners_button">
+
+                <Button
+                    android:id="@+id/btn_save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_10dp"
-                    android:background="@drawable/rounded_corners_button">
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:text="save"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btn_save"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:text="save"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/button_text_size" />
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/ic_right_arrow" />
+            </FrameLayout>
 
-                    <ImageView
-                        android:layout_width="30dip"
-                        android:layout_height="30dip"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_margin="10dip"
-                        android:src="@drawable/ic_right_arrow">
-                    </ImageView>
-                </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
-
-
-
-
-
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
