@@ -288,7 +288,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline30"
                 app:layout_constraintStart_toStartOf="@+id/guideline37"
                 app:layout_constraintTop_toTopOf="@+id/guideline34" />
-            <com.myfarmnow.myfarmcrop.customs.CircularImageView
+            <ImageView
                 android:id="@+id/litter_item_male_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -302,7 +302,7 @@
 
 
 
-            <com.myfarmnow.myfarmcrop.customs.CircularImageView
+            <ImageView
                 android:id="@+id/litter_item_female_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
