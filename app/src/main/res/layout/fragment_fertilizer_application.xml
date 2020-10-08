@@ -83,6 +83,7 @@
                         android:textSize="14sp"/>
 
                     <ImageView
+                        android:id="@+id/image_date_picker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -91,7 +92,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_calendar" />
+                        android:src="@drawable/ic_calendar_add" />
 
                 </RelativeLayout>
 

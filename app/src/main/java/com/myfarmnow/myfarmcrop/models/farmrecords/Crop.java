@@ -198,6 +198,17 @@ public class Crop implements Serializable, CropSpinnerItem {
         return cal;                                  // return the date part
     }
 
+    public int getYear() throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        date = dateFormat.parse(getDateSown());
+        int year= date.getYear();
+        int  currentYear = year + 1900;
+        return currentYear;
+
+
+    }
+
 
     @Override
     public String toString() {
