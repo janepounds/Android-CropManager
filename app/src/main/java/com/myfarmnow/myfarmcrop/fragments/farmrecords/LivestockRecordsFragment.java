@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.Objects;
@@ -69,6 +70,7 @@ public class LivestockRecordsFragment extends Fragment {
                 break;
         }
 
+        Log.d(TAG, "onCreateView: userID = " + DashboardActivity.RETRIEVED_USER_ID);
         Log.d(TAG, "onCreateView: SharedPreference = " + preferenceModel.getSelectedAnimal());
 
         return view;
