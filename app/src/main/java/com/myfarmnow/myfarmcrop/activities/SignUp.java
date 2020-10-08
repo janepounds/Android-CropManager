@@ -75,7 +75,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
 /**
  * SignUp activity handles User's Registration
  **/
@@ -86,7 +85,6 @@ public class SignUp extends AppCompatActivity {
     private File profileImage;
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
 
-    Toolbar toolbar;
     ActionBar actionBar;
     DialogLoader dialogLoader;
 
@@ -107,11 +105,14 @@ public class SignUp extends AppCompatActivity {
     //firebase auth object
     private FirebaseAuth mAuth;
 
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+
+        toolbar = findViewById(R.id.toolbar_sign_up_activity);
 
         //MobileAds.initialize(this, ConstantValues.ADMOBE_ID);
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(SignUp.this).build();
@@ -120,8 +121,7 @@ public class SignUp extends AppCompatActivity {
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
         // setting Toolbar
-        toolbar = (Toolbar) findViewById(R.id.myToolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
         //actionBar.setTitle(getString(R.string.signup));
