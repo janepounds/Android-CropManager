@@ -287,6 +287,12 @@ public class CropInventoryFertilizer implements CropInventory,Serializable,CropS
     public String toString() {
         return fertilizerName;
     }
+
+    @Override
+    public String getUnits() {
+        return usageUnits;
+    }
+
     private String syncStatus="no";
     private String globalId;
     public void setSyncStatus(String syncStatus) {

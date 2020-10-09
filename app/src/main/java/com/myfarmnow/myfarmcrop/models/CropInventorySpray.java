@@ -177,6 +177,12 @@ public class CropInventorySpray implements CropInventory, Serializable,CropSpinn
     public String toString() {
         return getName();
     }
+
+    @Override
+    public String getUnits() {
+        return usageUnits;
+    }
+
     private String syncStatus="no";
     private String globalId;
     public void setSyncStatus(String syncStatus) {

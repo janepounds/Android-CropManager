@@ -50,12 +50,12 @@ import java.util.ArrayList;
 public class FertilizerApplicationFragment extends DialogFragment {
     private static final String TAG = "FertilizerApplication";
     EditText dateTxt, operatorTxt, costTxt, rateTxt, reasonTxt, weeksTxt, repeatUntilTxt, daysBeforeTxt;
-    TextView currency;
+    TextView rateUnitsTextView;
     Button btn_save;
     CropFertilizerApplication fertilizerApplication;
     String cropId;
     MyFarmDbHandlerSingleton dbHandler;
-    Spinner methodSp, fertilizerFormSp, recurrenceSp, remindersSp;
+    Spinner unitsSp, fertilizerFormSp, recurrenceSp, remindersSp;
     AutoCompleteTextView fertilizerName;
     LinearLayout daysBeforeLayout, remindersLayout;
     boolean applicationMethodSet = false;//
@@ -114,8 +114,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
         daysBeforeLayout = view.findViewById(R.id.layout_crop_fertilizer_application_days_before);
         remindersLayout = view.findViewById(R.id.layout_crop_fertilizer_application_reminders);
         datePicker = view.findViewById(R.id.image_date_picker);
-
-
+        unitsSp= view.findViewById(R.id.spinner_crop_fertilizer_application_usage_unit);
+        rateUnitsTextView= view.findViewById(R.id.txt_crop_fertilizer_unit);
         applicationMethodAdapter = new CropSpinnerAdapter(new ArrayList<CropSpinnerItem>(), "Method", context);
         btn_save = view.findViewById(R.id.btn_save);
         fertilizerApplicationClose = view.findViewById(R.id.crop_fertilizer_application);
@@ -264,7 +264,10 @@ public class FertilizerApplicationFragment extends DialogFragment {
                 public String toString() {
                     return x.getName();
                 }
-
+                @Override
+                public String getUnits(){
+                    return x.getUsageUnits();
+                }
             });
         }
 
@@ -290,7 +293,19 @@ public class FertilizerApplicationFragment extends DialogFragment {
             }
         });
 
-        //
+        fertilizerName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(fertlizersList.get(position).getUnits()!= null){
+
+                    DashboardActivity.selectSpinnerItemByValue(unitsSp, fertlizersList.get(position).getUnits());
+                    rateUnitsTextView.setText(fertlizersList.get(position).getUnits()+"");
+                    //sprayType=inventorySpray.getType();
+                }
+            }
+        });
+
         fillViews();
     }
 
@@ -319,6 +334,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
         fertilizerApplication.setDaysBefore(Float.parseFloat("0" + daysBeforeTxt.getText().toString()));
         fertilizerApplication.setRate(Float.parseFloat("0" + rateTxt.getText().toString()));
+        fertilizerApplication.setUnits(unitsSp.getSelectedItem().toString());
         dbHandler.insertCropFertilizerApplication(fertilizerApplication);
 
     }
@@ -346,6 +362,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
             fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
             fertilizerApplication.setDaysBefore(Float.parseFloat("0" + daysBeforeTxt.getText().toString()));
             fertilizerApplication.setRate(Float.parseFloat("0" + rateTxt.getText().toString()));
+            fertilizerApplication.setUnits(unitsSp.getSelectedItem().toString());
             dbHandler.updateCropFertilizerApplication(fertilizerApplication);
 
         }
@@ -379,6 +396,10 @@ public class FertilizerApplicationFragment extends DialogFragment {
             message = getString(R.string.reminders_not_selected);
             remindersSp.requestFocus();
         }
+        else if (unitsSp.getSelectedItemPosition() == 0) {
+            message = getString(R.string.usage_units_not_selected);
+            unitsSp.requestFocus();
+        }
 
         if (message != null) {
             Toast.makeText(context, getString(R.string.missing_fields_message) + message, Toast.LENGTH_LONG).show();
@@ -404,6 +425,10 @@ public class FertilizerApplicationFragment extends DialogFragment {
         @Override
         public String getId() {
             return value;
+        }
+        @Override
+        public String getUnits(){
+            return  null;
         }
     }
 

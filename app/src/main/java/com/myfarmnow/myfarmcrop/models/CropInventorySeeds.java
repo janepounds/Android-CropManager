@@ -177,6 +177,11 @@ public class CropInventorySeeds implements CropInventory,Serializable,CropSpinne
         return getName();
     }
 
+    @Override
+    public String getUnits() {
+        return usageUnits;
+    }
+
     private String syncStatus="no";
     private String globalId;
     public void setSyncStatus(String syncStatus) {

@@ -122,11 +122,8 @@ public class AddCropFragment extends Fragment {
                 }
                 //go back to list
                 navController.popBackStack();
-            } else {
-                updateCrop();
             }
-            //go back to list
-            navController.popBackStack();
+
         });
 
         ArrayList<String> cropsList = new ArrayList<>();

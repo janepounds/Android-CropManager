@@ -25,6 +25,7 @@ public class CropSpraying implements Serializable,CropActivity {
     String sprayName;
     String recurrence;
     String reminders;
+    String usageUnits;
     private float frequency = 1;
     private String repeatUntil;
     private float daysBefore=0;
@@ -288,5 +289,13 @@ public class CropSpraying implements Serializable,CropActivity {
 
     public CropSpraying(){
 
+    }
+
+    public String setUnits(String units) {
+       return this.usageUnits;
+    }
+
+    public String getUsageUnits() {
+        return usageUnits;
     }
 }

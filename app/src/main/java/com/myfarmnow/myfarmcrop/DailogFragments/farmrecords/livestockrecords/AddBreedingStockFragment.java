@@ -366,7 +366,7 @@ public class AddBreedingStockFragment extends DialogFragment {
             breedingStock.setWeight(Float.parseFloat(weight.getText().toString()));
             breedingStock.setFather(father.getText().toString());
             breedingStock.setMotherDam(mother.getText().toString());
-            breedingStock.setPhoto(photo.getText().toString());
+            breedingStock.setPhoto(encodedImage);
             breedingStock.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateBreedingStock(breedingStock);
         }

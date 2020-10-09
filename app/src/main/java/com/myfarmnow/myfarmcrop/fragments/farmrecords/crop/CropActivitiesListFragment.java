@@ -193,5 +193,10 @@ public class CropActivitiesListFragment extends Fragment {
         public String toString() {
             return label;
         }
+
+        @Override
+        public String getUnits() {
+            return null;
+        }
     }
 }

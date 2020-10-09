@@ -119,12 +119,11 @@ public class SignUp extends AppCompatActivity {
 
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
-        // setting Toolbar
-//        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
 
         //actionBar.setTitle(getString(R.string.signup));
-        actionBar.setDisplayHomeAsUpEnabled(false);
+//        actionBar.setDisplayHomeAsUpEnabled(false);  // setting Toolbar
+////        setSupportActionBar(toolbar);
+//        actionBar = getSupportActionBar();
 
         // Binding Layout Views
         user_photo = (CircularImageView) findViewById(R.id.user_photo);
