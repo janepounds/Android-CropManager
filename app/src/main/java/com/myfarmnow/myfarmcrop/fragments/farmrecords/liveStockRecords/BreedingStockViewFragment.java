@@ -201,7 +201,7 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setAdapter(breedingStockListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
+        toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_breedingStockViewFragment_to_livestockRecordsFragment));
         loadBreedingStock();
 
     }

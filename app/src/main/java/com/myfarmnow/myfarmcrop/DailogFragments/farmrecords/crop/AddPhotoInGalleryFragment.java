@@ -195,7 +195,7 @@ public class AddPhotoInGalleryFragment extends DialogFragment {
                     File f = new File(path);
                     String imageName = f.getName();
                     photo.setText(imageName);
-                fetchedPhoto = encodedImage;
+                    fetchedPhoto = encodedImage;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -240,7 +240,9 @@ public class AddPhotoInGalleryFragment extends DialogFragment {
         }
     }
 
-//    public boolean validateEntries(){
+
+
+    //    public boolean validateEntries(){
 ////        String message = null;
 ////        if(photo.getText().toString().isEmpty()){
 ////            message = getString(R.string.photo_not_selected_message);

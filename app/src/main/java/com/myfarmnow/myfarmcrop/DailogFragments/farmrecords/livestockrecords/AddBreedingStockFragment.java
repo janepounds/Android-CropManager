@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -32,19 +33,23 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class AddBreedingStockFragment extends DialogFragment {
@@ -63,13 +68,15 @@ public class AddBreedingStockFragment extends DialogFragment {
     private Uri produceImageUri = null;
     private Bitmap produceImageBitmap = null;
     private String encodedImage;
-    private ImageView close, datePicker;
+    private ImageView close, datePicker,imagePreview;
     private Button submit;
     private EditText name, earTag, colour, breed, weight, dateOfBirth;
     AutoCompleteTextView father, mother;
     private Spinner sex, source;
     private TextView photo, breeder_form_title,photoTextView;
     private MyFarmDbHandlerSingleton dbHandler;
+    private LinearLayout galleryLayout;
+    private String fetchedPhoto;
 
 
     @Override
@@ -121,6 +128,8 @@ public class AddBreedingStockFragment extends DialogFragment {
         submit = view.findViewById(R.id.add_animal_submit);
         datePicker = view.findViewById(R.id.image_dob);
         photoTextView = view.findViewById(R.id.add_animal_photo_text_view);
+        imagePreview = view.findViewById(R.id.image_preview);
+        galleryLayout = view.findViewById(R.id.gallery_layout);
         ((ArrayAdapter) sex.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         ((ArrayAdapter) source.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
         DashboardActivity.addDatePickerImageView(datePicker, dateOfBirth, context);
@@ -302,6 +311,7 @@ public class AddBreedingStockFragment extends DialogFragment {
                     File f = new File(path);
                     String imageName = f.getName();
                     photoTextView.setText(imageName);
+                    fetchedPhoto  = encodedImage;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -312,6 +322,10 @@ public class AddBreedingStockFragment extends DialogFragment {
 
     public void fillViews() {
         if (breedingStock != null) {
+            galleryLayout.setVisibility(View.VISIBLE);
+            fetchedPhoto = breedingStock.getPhoto();
+            //pick photo
+            Glide.with(context).load(Base64.decode(fetchedPhoto, Base64.DEFAULT)).into(imagePreview);
             submit.setText(getString(R.string.update));
             breeder_form_title.setText(getString(R.string.update_animal));
 
@@ -323,7 +337,6 @@ public class AddBreedingStockFragment extends DialogFragment {
             weight.setText(breedingStock.getWeight() + "");
             father.setText(breedingStock.getFather());
             mother.setText(breedingStock.getMotherDam());
-            photo.setText(breedingStock.getPhoto());
             DashboardActivity.selectSpinnerItemByValue(sex, breedingStock.getSex());
             DashboardActivity.selectSpinnerItemByValue(source, breedingStock.getSource());
         }
@@ -346,7 +359,7 @@ public class AddBreedingStockFragment extends DialogFragment {
         breedingStock.setWeight(Float.parseFloat("0" + weight.getText().toString()));
         breedingStock.setFather(father.getText().toString());
         breedingStock.setMotherDam(mother.getText().toString());
-        breedingStock.setPhoto(encodedImage);
+        breedingStock.setPhoto(fetchedPhoto);
         breedingStock.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
         dbHandler.insertBreedingStock(breedingStock);
     }
@@ -366,10 +379,16 @@ public class AddBreedingStockFragment extends DialogFragment {
             breedingStock.setWeight(Float.parseFloat(weight.getText().toString()));
             breedingStock.setFather(father.getText().toString());
             breedingStock.setMotherDam(mother.getText().toString());
-            breedingStock.setPhoto(encodedImage);
+            breedingStock.setPhoto(fetchedPhoto);
             breedingStock.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateBreedingStock(breedingStock);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
     }
 
     public boolean validateEntries() {

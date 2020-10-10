@@ -77,7 +77,7 @@ public class LittersViewFragment extends Fragment {
         recyclerView.setAdapter(littersListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setNavigationOnClickListener(view1->navController.popBackStack());
+        toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_littersViewFragment_to_livestockRecordsFragment));
         loadLitter();
     }
 
