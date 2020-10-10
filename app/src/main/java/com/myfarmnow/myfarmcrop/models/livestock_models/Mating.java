@@ -12,8 +12,8 @@ public class Mating implements LivestockSpinnerItem, Serializable {
     private String maleName;
     private String femaleName;
     private String method;
-    private float gestationPeriod = 0;
-    private float deliveryAlertDaysBefore = 0;
+    private int gestationPeriod = 0;
+    private int deliveryAlertDaysBefore = 0;
     private String notes;
     private String syncStatus = "no";
     private String globalId;
@@ -67,19 +67,19 @@ public class Mating implements LivestockSpinnerItem, Serializable {
         this.method = method;
     }
 
-    public float getGestationPeriod() {
+    public int getGestationPeriod() {
         return gestationPeriod;
     }
 
-    public void setGestationPeriod(float gestationPeriod) {
+    public void setGestationPeriod(int gestationPeriod) {
         this.gestationPeriod = gestationPeriod;
     }
 
-    public float getDeliveryAlertDaysBefore() {
+    public int getDeliveryAlertDaysBefore() {
         return deliveryAlertDaysBefore;
     }
 
-    public void setDeliveryAlertDaysBefore(float deliveryAlertDaysBefore) {
+    public void setDeliveryAlertDaysBefore(int deliveryAlertDaysBefore) {
         this.deliveryAlertDaysBefore = deliveryAlertDaysBefore;
     }
 
@@ -126,8 +126,8 @@ public class Mating implements LivestockSpinnerItem, Serializable {
         setMaleName(object.getString("maleName"));
         setFemaleName(object.getString("femaleName"));
         setMethod(object.getString("method"));
-        setGestationPeriod((float) object.getDouble("gestationPeriod"));
-        setDeliveryAlertDaysBefore((float) object.getDouble("deliveryAlertDaysBefore"));
+        setGestationPeriod((int) object.getInt("gestationPeriod"));
+        setDeliveryAlertDaysBefore((int) object.getInt("deliveryAlertDaysBefore"));
         setNotes(object.getString("notes"));
         setAnimalType(object.getString("animalType"));
         setSyncStatus("yes");
