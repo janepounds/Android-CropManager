@@ -4947,6 +4947,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
         return true;
     }
+
     //return litters
     public ArrayList<Litter> getLittersInBreeds(String breedingId) {
         openDB();
@@ -5116,7 +5117,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             medication.setMedicationsName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME)));
             medication.setManufacturer(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER)));
             medication.setDosage(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE))));
-            medication.setTreatmentPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD))));
+            medication.setTreatmentPeriod(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD))));
             medication.setNote(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_NOTES)));
             medication.setAnimal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL)));
             medication.setTechnicalPersonal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL)));
@@ -5211,7 +5212,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             medication.setMedicationsName(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MEDICATION_NAME)));
             medication.setManufacturer(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_MANUFACTURER)));
             medication.setDosage(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_DOSAGE))));
-            medication.setTreatmentPeriod(Float.parseFloat(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD))));
+            medication.setTreatmentPeriod(Integer.parseInt(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TREATMENT_PERIOD))));
             medication.setNote(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_NOTES)));
             medication.setAnimal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL)));
             medication.setTechnicalPersonal(res.getString(res.getColumnIndex(LIVESTOCK_RECORDS_MEDICATIONS_TECHNICAL_PERSONAL)));
@@ -5318,7 +5319,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("Gallery ", array_list.size() + "");
         return array_list;
     }
-
 
 
 }

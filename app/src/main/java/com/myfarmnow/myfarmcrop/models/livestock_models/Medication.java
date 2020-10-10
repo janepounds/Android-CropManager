@@ -17,7 +17,7 @@ public class Medication implements LivestockSpinnerItem, Serializable {
     private String medicationsName;
     private String manufacturer;
     private float dosage;
-    private float treatmentPeriod;
+    private int treatmentPeriod;
     private String note;
     private String animal;
     private String technicalPersonal;
@@ -105,11 +105,11 @@ public class Medication implements LivestockSpinnerItem, Serializable {
         this.dosage = dosage;
     }
 
-    public float getTreatmentPeriod() {
+    public int getTreatmentPeriod() {
         return treatmentPeriod;
     }
 
-    public void setTreatmentPeriod(float treatmentPeriod) {
+    public void setTreatmentPeriod(int treatmentPeriod) {
         this.treatmentPeriod = treatmentPeriod;
     }
 
@@ -195,7 +195,7 @@ public class Medication implements LivestockSpinnerItem, Serializable {
         setMedicationsName(object.getString("medicationsName"));
         setManufacturer(object.getString("manufacturer"));
         setDosage((float) object.getDouble("dosage"));
-        setTreatmentPeriod((float) object.getDouble("treatmentPeriod"));
+        setTreatmentPeriod((int) object.getInt("treatmentPeriod"));
         setNote(object.getString("note"));
         setAnimal(object.getString("animal"));
         setTechnicalPersonal(object.getString("technicalPersonal"));

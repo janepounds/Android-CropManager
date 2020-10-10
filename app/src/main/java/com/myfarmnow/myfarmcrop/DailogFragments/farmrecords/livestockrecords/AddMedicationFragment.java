@@ -101,12 +101,12 @@ public class AddMedicationFragment extends DialogFragment {
         submit = view.findViewById(R.id.btn_save);
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         DashboardActivity.addDatePickerImageView(datePicker, medicationDate, context);
-        DashboardActivity.addDatePicker(medicationDate,context);
+        DashboardActivity.addDatePicker(medicationDate, context);
 
 
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
         ArrayList<LivestockSpinnerItem> Animals = new ArrayList<>();
-        for (BreedingStock x : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal())) {
+        for (BreedingStock x : dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID, preferenceModel.getSelectedAnimal())) {
             Animals.add(new LivestockSpinnerItem() {
                 @Override
                 public String getId() {
@@ -227,7 +227,7 @@ public class AddMedicationFragment extends DialogFragment {
 //            medication.setBreedingId(((com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock)Animal.getSelectedItem()).getId());
             medication.setManufacturer(manufacturer.getText().toString());
             medication.setDosage(Float.parseFloat(dosage.getText().toString()));
-            medication.setTreatmentPeriod(Float.parseFloat(treatmentPeriod.getText().toString()));
+            medication.setTreatmentPeriod(Integer.parseInt(treatmentPeriod.getText().toString()));
             medication.setNote(notes.getText().toString());
             medication.setTechnicalPersonal(technicalPersonnel.getText().toString());
             medication.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());

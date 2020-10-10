@@ -71,7 +71,7 @@ public class AddBreedingStockFragment extends DialogFragment {
     private ImageView close, datePicker,imagePreview;
     private Button submit;
     private EditText name, earTag, colour, breed, weight, dateOfBirth;
-    AutoCompleteTextView father, mother;
+    private AutoCompleteTextView father, mother;
     private Spinner sex, source;
     private TextView photo, breeder_form_title,photoTextView;
     private MyFarmDbHandlerSingleton dbHandler;
@@ -157,7 +157,6 @@ public class AddBreedingStockFragment extends DialogFragment {
             }
         };
 
-
         photo.setOnClickListener(v -> {
             //check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -175,6 +174,7 @@ public class AddBreedingStockFragment extends DialogFragment {
                 chooseImage();
             }
         });
+
         photoTextView.setOnClickListener(v -> {
             //check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -192,28 +192,25 @@ public class AddBreedingStockFragment extends DialogFragment {
                 chooseImage();
             }
         });
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (validateEntries()) {
-                    if (breedingStock == null) {
-                        saveBreedingStock();
-                    } else {
-                        updateBreedingStock();
-                    }
-                    //dismiss dialog and refresh fragment
+        submit.setOnClickListener(v -> {
 
-                    navController = Navigation.findNavController(getParentFragment().getView());
-                    navController.navigate(R.id.action_addBreedingStockFragment_to_breedingStockViewFragment);
-
-
+            if (validateEntries()) {
+                if (breedingStock == null) {
+                    saveBreedingStock();
                 } else {
-                    Log.d("ERROR", "Testing");
+                    updateBreedingStock();
                 }
+                //dismiss dialog and refresh fragment
+
+                navController = Navigation.findNavController(getParentFragment().getView());
+                navController.navigate(R.id.action_addBreedingStockFragment_to_breedingStockViewFragment);
+
+
+            } else {
+                Log.d("ERROR", "Testing");
             }
         });
-
 
         ArrayList<String> sireList = new ArrayList<>(), damnList = new ArrayList<>();
 
@@ -222,9 +219,11 @@ public class AddBreedingStockFragment extends DialogFragment {
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
             sireList.add(x.getName());
         }
+
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
             damnList.add(x.getName());
         }
+
         ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
         father.setThreshold(1);
         father.setAdapter(animalListAdapter);
@@ -266,9 +265,6 @@ public class AddBreedingStockFragment extends DialogFragment {
                 mother.showDropDown();
             }
         });
-
-
-
     }
 
     private void chooseImage() {
