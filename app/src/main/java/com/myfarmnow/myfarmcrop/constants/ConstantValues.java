@@ -29,6 +29,8 @@ public class ConstantValues {
 
     public static final String NAVIGATION_STYLE = "side";                             // "bottom" for bottom navigation. "side" for side navigation.
 
+    public static final Boolean CUSTOMER_HAS_WALLET = false;
+
     public static String APP_HEADER;
 
     public static String MAINTENANCE_MODE;
