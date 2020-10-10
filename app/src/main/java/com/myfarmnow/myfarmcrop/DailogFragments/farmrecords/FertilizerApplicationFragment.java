@@ -59,7 +59,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
     AutoCompleteTextView fertilizerName;
     LinearLayout daysBeforeLayout, remindersLayout;
     boolean applicationMethodSet = false;//
-    CropSpinnerAdapter applicationMethodAdapter, fertilizerAdapter;
+    CropSpinnerAdapter applicationMethodAdapter;
     ArrayList<CropSpinnerItem> solidMethodsArrayList = new ArrayList<CropSpinnerItem>();
     ArrayList<CropSpinnerItem> liquidMethodsArrayList = new ArrayList<CropSpinnerItem>();
     private NavController navController;
@@ -276,6 +276,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
         fertilizerName.setThreshold(1);
         fertilizerName.setAdapter(fertilizerAdapter);
         Log.d(TAG, String.valueOf(fertlizersList.size()));
+
         fertilizerName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -297,6 +298,7 @@ public class FertilizerApplicationFragment extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 if(fertlizersList.get(position).getUnits()!= null){
 
                     DashboardActivity.selectSpinnerItemByValue(unitsSp, fertlizersList.get(position).getUnits());
@@ -305,9 +307,38 @@ public class FertilizerApplicationFragment extends DialogFragment {
                 }
             }
         });
+        unitsSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try {
+                    if (position == 0) {
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+                    } else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String selection = parent.getItemAtPosition(position).toString();
+
+                    rateUnitsTextView.setText(selection);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         fillViews();
     }
+
 
 
     public void saveFertilizerApplication() {
@@ -320,16 +351,16 @@ public class FertilizerApplicationFragment extends DialogFragment {
                 pickedId = null;
 
             }
-            pickedName = fertilizerName.getText().toString();
+
+
         }
-        Log.d(TAG,String.valueOf(fertlizersList.size()));
         fertilizerApplication = new CropFertilizerApplication();
         fertilizerApplication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
         fertilizerApplication.setDate(dateTxt.getText().toString());
         fertilizerApplication.setCropId(cropId);
         fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
         fertilizerApplication.setFertilizerId(pickedId);
-        fertilizerApplication.setFertilizerName(pickedName);
+        fertilizerApplication.setFertilizerName(fertilizerName.getText().toString());
         fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
         fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
         fertilizerApplication.setDaysBefore(Float.parseFloat("0" + daysBeforeTxt.getText().toString()));
@@ -350,14 +381,14 @@ public class FertilizerApplicationFragment extends DialogFragment {
                     pickedId = null;
 
                 }
-                pickedName = fertilizerName.getText().toString();
+
             }
             fertilizerApplication.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             fertilizerApplication.setDate(dateTxt.getText().toString());
             fertilizerApplication.setCropId(cropId);
             fertilizerApplication.setFertilizerForm(fertilizerFormSp.getSelectedItem().toString());
             fertilizerApplication.setFertilizerId(pickedId);
-            fertilizerApplication.setFertilizerName(pickedName);
+            fertilizerApplication.setFertilizerName(fertilizerName.getText().toString());
             fertilizerApplication.setRecurrence(recurrenceSp.getSelectedItem().toString());
             fertilizerApplication.setReminders(remindersSp.getSelectedItem().toString());
             fertilizerApplication.setDaysBefore(Float.parseFloat("0" + daysBeforeTxt.getText().toString()));
