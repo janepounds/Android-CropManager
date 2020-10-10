@@ -84,7 +84,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
 
             fertilizerApplicationHolder.operationTextView.setText(fertilizerApplication.getFertilizerName());
             fertilizerApplicationHolder.recurrenceTxt.setText(fertilizerApplication.getRecurrence());
-            fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" kg");
+            fertilizerApplicationHolder.rateTextView.setText(fertilizerApplication.getRate()+" "+fertilizerApplication.getUnits());
             final ViewTreeObserver observer = fertilizerApplicationHolder.operationTextView.getViewTreeObserver();
             observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -110,7 +110,7 @@ public class CropActivitiesListRecyclerAdapter extends RecyclerView.Adapter< Rec
             sprayingViewHolder.sprayNameTextView.setText(field.getSprayName());
             sprayingViewHolder.sprayType.setText(field.getSprayType());
             sprayingViewHolder.recurrenceTextView.setText(field.getRecurrence());
-            sprayingViewHolder.rateTextView.setText(field.getRate()+" lt");
+            sprayingViewHolder.rateTextView.setText(field.getRate()+" "+field.getUsageUnits());
             sprayingViewHolder.treatmentReasonTextView.setText(field.getTreatmentReason());
 
 
