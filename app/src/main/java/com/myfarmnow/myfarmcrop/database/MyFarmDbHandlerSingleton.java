@@ -4947,7 +4947,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         }
         return true;
     }
-
+    //return litters
     public ArrayList<Litter> getLittersInBreeds(String breedingId) {
         openDB();
         ArrayList<Litter> array_list = new ArrayList();
@@ -5322,6 +5322,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("Gallery ", array_list.size() + "");
         return array_list;
     }
+
 
 
 }
