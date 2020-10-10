@@ -54,13 +54,10 @@ public class AddFinancialRecordFragment extends Fragment {
 
     private Spinner expenseTransaction, expenseCategory, expensePaymentMode, expensePaymentStatus,department;
     private EditText expenseDate, item, grossAmount;
-    private AutoCompleteTextView customerSupplier;
+    private EditText customerSupplier;
     private Button btnSave;
 
-    private ArrayList<String> customersList = new ArrayList<>();
-    private ArrayList<String> suppliersList = new ArrayList<>();
     private CropSpinnerAdapter cropsSpinnerAdapter, categoryAdapter;
-    private ArrayAdapter<String> customerSupplierAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -185,14 +182,11 @@ public class AddFinancialRecordFragment extends Fragment {
                 if (selection.toLowerCase().equals("income")) {
                     expenseCategory.setEnabled(true);
                     categoryAdapter.changeItems(incomeArrayList);
-                    customerSupplier.setAdapter(new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, customersList));
-                    customerSupplier.setEnabled(true);
+
                 } else if (selection.toLowerCase().equals("expense")) {
                     expenseCategory.setEnabled(true);
                     categoryAdapter.changeItems(expensesArrayList);
-                    customerSupplier.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, suppliersList));
-                    customerSupplierAdapter.addAll(suppliersList);
-                    customerSupplier.setEnabled(true);
+
 
                 } else {
                     expenseCategory.setEnabled(false);

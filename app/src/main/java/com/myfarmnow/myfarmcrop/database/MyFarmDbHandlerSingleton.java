@@ -1040,14 +1040,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void upGradingTablesFromVersion3ToVersion4(SQLiteDatabase db) {
         database = db;
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SPRAYING_UNITS + " TEXT");
-
-        db.execSQL("ALTER TABLE "+ CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS + " TEXT ");
       }
 
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
         database = db;
 
+        db.execSQL("ALTER TABLE "+ CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS + " TEXT ");
         db.execSQL("DROP TABLE IF EXISTS " + CROP_NOTIFICATION_TABLE_NAME);
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
