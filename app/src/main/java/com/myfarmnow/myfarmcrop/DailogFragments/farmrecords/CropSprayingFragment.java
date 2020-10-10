@@ -280,6 +280,35 @@ public class CropSprayingFragment extends DialogFragment {
                 }
             }
         });
+
+        SprayUnits.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try {
+                    if (position == 0) {
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary));
+                    } else {
+                        ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimary)); //Change selected text color
+                    }
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);//Change selected text size
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String selection = parent.getItemAtPosition(position).toString();
+
+                rateUnitsTextView.setText(selection);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         fillViews();
     }
 
@@ -293,7 +322,7 @@ public class CropSprayingFragment extends DialogFragment {
                 pickedSprayId = null;
 
             }
-            pickedSprayName = sprayName.getText().toString();
+
         }
         cropSpraying = new CropSpraying();
         cropSpraying.setUserId(DashboardActivity.RETRIEVED_USER_ID);
@@ -303,6 +332,7 @@ public class CropSprayingFragment extends DialogFragment {
         cropSpraying.setDate(dateTxt.getText().toString());
         cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
         cropSpraying.setSprayId(pickedSprayId);
+        cropSpraying.setSprayName(sprayName.getText().toString());
         cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
         cropSpraying.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
         cropSpraying.setOperator(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,getContext()));
@@ -326,7 +356,7 @@ public class CropSprayingFragment extends DialogFragment {
                     pickedSprayId = null;
 
                 }
-                pickedSprayName = sprayName.getText().toString();
+
             }
             cropSpraying.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             cropSpraying.setRate(Float.parseFloat(rateTxt.getText().toString()));
@@ -335,6 +365,7 @@ public class CropSprayingFragment extends DialogFragment {
             cropSpraying.setDate(dateTxt.getText().toString());
             cropSpraying.setTreatmentReason(reasonTxt.getText().toString());
             cropSpraying.setSprayId(pickedSprayId);
+            cropSpraying.setSprayName(sprayName.getText().toString());
             cropSpraying.setRecurrence(recurrenceSp.getSelectedItem().toString());
             cropSpraying.setDaysBefore(Float.parseFloat("0"+daysBeforeTxt.getText().toString()));
             cropSpraying.setOperator(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,getContext()));

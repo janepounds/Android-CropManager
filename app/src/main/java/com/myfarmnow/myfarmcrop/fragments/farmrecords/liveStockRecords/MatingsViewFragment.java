@@ -79,7 +79,7 @@ public class MatingsViewFragment extends Fragment {
         recyclerView.setAdapter(matingListAdapter);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toolbar.setNavigationOnClickListener(view1 -> navController.popBackStack());
+        toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_matingsViewFragment_to_livestockRecordsFragment));
         loadMatings();
     }
 

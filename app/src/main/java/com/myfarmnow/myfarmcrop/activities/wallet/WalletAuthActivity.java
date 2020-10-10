@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.helpers.WalletLoginHelper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -58,12 +59,11 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
         context=WalletAuthActivity.this;
 
 
-        if (WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
+        if ( ConstantValues.CUSTOMER_HAS_WALLET && WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
 
             pinConfig =new PinFragmentConfiguration(this)
                     .validator(new Validator(){
                         public boolean isValid(String submission){
-
 
                             final  ProgressDialog dialog = new ProgressDialog(context);
                             dialog.setIndeterminate(true);
@@ -72,7 +72,8 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
                             if (submission.length() <= 0) {
                                 Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
-                            }else if( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this )==null && WALLET_ACCESS_TOKEN==null ) {
+                            }else if( ConstantValues.CUSTOMER_HAS_WALLET && WALLET_ACCESS_TOKEN==null ) {
+                                //login and get token
                                 Log.w("Wallet:","attempting user login "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
 
                                 if (sharedPreferences.getString("userEmail", null) != null) {
@@ -86,6 +87,28 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
                                 Log.w("Wallet:","getting login token "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
                                 WalletAuthActivity.getLoginToken(  submission,WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ), null,context);
+                            }
+                            return submission.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context)); // ...check against where you saved the pin
+
+                        }
+                    });
+
+            PinFragment toShow =  PinFragment.newInstanceForVerification(pinConfig);
+            getFragmentManager().beginTransaction()
+                    .replace( R.id.container, toShow)
+                    .commit();
+        }else if( !ConstantValues.CUSTOMER_HAS_WALLET){
+            pinConfig =new PinFragmentConfiguration(this)
+                    .validator(new Validator(){
+                        public boolean isValid(String submission){
+
+                            final  ProgressDialog dialog = new ProgressDialog(context);
+                            dialog.setIndeterminate(true);
+                            dialog.setMessage("Please Wait..");
+                            dialog.setCancelable(false);
+
+                            if (submission.length() <= 0) {
+                                Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
                             }else {
                                 Log.w("Wallet: ","attempting user registration "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this )+" : "+WalletHomeActivity.PREFERENCES_USER_EMAIL);
 
@@ -97,7 +120,7 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                         }
                     });
 
-            PinFragment toShow =  PinFragment.newInstanceForVerification(pinConfig);
+            PinFragment toShow =  PinFragment.newInstanceForCreation(pinConfig);
             getFragmentManager().beginTransaction()
                     .replace( R.id.container, toShow)
                     .commit();

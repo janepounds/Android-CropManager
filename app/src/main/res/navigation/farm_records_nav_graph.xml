@@ -281,6 +281,9 @@
         <action
             android:id="@+id/action_littersViewFragment_to_addLittersFragment"
             app:destination="@id/addLittersFragment" />
+        <action
+            android:id="@+id/action_littersViewFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
     </fragment>
     <fragment
         android:id="@+id/medicationsViewFragment"
@@ -328,6 +331,9 @@
         <action
             android:id="@+id/action_matingsViewFragment_to_addMatingFragment"
             app:destination="@id/addMatingFragment" />
+        <action
+            android:id="@+id/action_matingsViewFragment_to_livestockRecordsFragment"
+            app:destination="@id/livestockRecordsFragment" />
     </fragment>
     <dialog
         android:id="@+id/addMatingFragment"

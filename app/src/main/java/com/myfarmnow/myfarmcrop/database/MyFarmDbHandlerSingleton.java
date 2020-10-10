@@ -222,6 +222,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_SPRAYING_RECURRENCE = "recurrence";
     public static final String CROP_SPRAYING_REMINDERS = "reminders";
     public static final String CROP_SPRAYING_UNITS = "usageUnits";
+    public static final String CROP_SPRAYING_SPRAY_NAME = "sprayName";
 
 
     public static final String CROP_FIELD_ID = "id";
@@ -814,8 +815,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
                 CROP_SPRAYING_USER_ID + " TEXT," + CROP_SPRAYING_CROP_ID + " TEXT NOT NULL," + CROP_SPRAYING_DATE + " TEXT NOT NULL," + CROP_SPRAYING_START_TIME + " TEXT," +
                 CROP_SPRAYING_END_TIME + " TEXT," + CROP_SPRAYING_OPERATOR + " TEXT," +
                 CROP_SPRAYING_WATER_VOLUME + " REAL ," + CROP_SPRAYING_WATER_CONDITION + " TEXT," + CROP_SPRAYING_WIND_DIRECTION + " TEXT, " + CROP_SPRAYING_EQUIPMENT_USED + " TEXT ," + CROP_SPRAYING_UNITS + " TEXT ," +
-                CROP_SPRAYING_SPRAY_ID + " TEXT NOT NULL," + CROP_SPRAYING_RATE + " REAL NOT NULL ," + CROP_SPRAYING_TREATMENT_REASON + " TEXT ," + CROP_SPRAYING_COST + " REAL, " + CROP_SPRAYING_REPEAT_UNTIL + " TEXT, " + CROP_SPRAYING_DAYS_BEFORE + " REAL DEFAULT 0, " +
-                CROP_SPRAYING_RECURRENCE + " TEXT NOT NULL, " + CROP_SPRAYING_FREQUENCY + " REAL DEFAULT 1, " + CROP_SPRAYING_REMINDERS + " TEXT NOT NULL, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
+                CROP_SPRAYING_SPRAY_ID + " TEXT," + CROP_SPRAYING_RATE + " REAL NOT NULL ," + CROP_SPRAYING_TREATMENT_REASON + " TEXT ," + CROP_SPRAYING_COST + " REAL, " + CROP_SPRAYING_REPEAT_UNTIL + " TEXT, " + CROP_SPRAYING_DAYS_BEFORE + " REAL DEFAULT 0, " +
+                CROP_SPRAYING_RECURRENCE + " TEXT NOT NULL, " + CROP_SPRAYING_FREQUENCY + " REAL DEFAULT 1, " + CROP_SPRAYING_REMINDERS + " TEXT NOT NULL, " + CROP_SPRAYING_SPRAY_NAME + " TEXT, " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
         String crop_field_insert_query = "CREATE TABLE IF NOT EXISTS " + CROP_FIELDS_TABLE_NAME + " ( " + CROP_FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 CROP_FIELD_USER_ID + " TEXT," + CROP_FIELD_NAME + " TEXT NOT NULL," + CROP_FIELD_SOIL_CATEGORY + " TEXT," + CROP_FIELD_SOIL_TYPE + " TEXT," + CROP_FIELD_WATERCOURSE + " TEXT," +
@@ -1041,14 +1042,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void upGradingTablesFromVersion3ToVersion4(SQLiteDatabase db) {
         database = db;
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SPRAYING_UNITS + " TEXT");
+        db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SPRAYING_SPRAY_NAME + " TEXT");
 
-        db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS + " TEXT ");
-    }
+      }
 
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
         database = db;
 
+        db.execSQL("ALTER TABLE "+ CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_UNITS + " TEXT ");
         db.execSQL("DROP TABLE IF EXISTS " + CROP_NOTIFICATION_TABLE_NAME);
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_INVENTORY_FERTILIZER_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
@@ -2593,6 +2595,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_FREQUENCY, spraying.getFrequency());
         contentValues.put(CROP_SPRAYING_REPEAT_UNTIL, spraying.getRepeatUntil());
         contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
+        contentValues.put(CROP_SPRAYING_SPRAY_NAME, spraying.getSprayName());
         contentValues.put(CROP_SYNC_STATUS, spraying.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, spraying.getGlobalId());
         contentValues.put(CROP_SPRAYING_UNITS, spraying.getUsageUnits());
@@ -2634,6 +2637,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_FREQUENCY, spraying.getFrequency());
         contentValues.put(CROP_SPRAYING_REPEAT_UNTIL, spraying.getRepeatUntil());
         contentValues.put(CROP_SPRAYING_DAYS_BEFORE, spraying.getDaysBefore());
+        contentValues.put(CROP_SPRAYING_SPRAY_NAME, spraying.getSprayName());
         contentValues.put(CROP_SYNC_STATUS, spraying.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, spraying.getGlobalId());
         database.update(CROP_SPRAYING_TABLE_NAME, contentValues, CROP_SPRAYING_ID + " = ?", new String[]{spraying.getId()});
@@ -2689,6 +2693,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             spraying.setReminders(res.getString(res.getColumnIndex(CROP_SPRAYING_REMINDERS)));
             spraying.setDaysBefore(res.getFloat(res.getColumnIndex(CROP_SPRAYING_DAYS_BEFORE)));
             spraying.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
+            spraying.setSprayName(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_NAME)));
             spraying.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
             array_list.add(spraying);
             res.moveToNext();
