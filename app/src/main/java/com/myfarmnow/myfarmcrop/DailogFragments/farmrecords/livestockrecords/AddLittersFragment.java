@@ -54,7 +54,9 @@ public class AddLittersFragment extends DialogFragment {
     public LivestockSpinnerAdapter litterSpinnerAdapter;
     private TextView litterTitle;
     private  ArrayList<CropSpinnerItem>    damnList = new ArrayList<>();
-    private String pickedBreedingId;
+    private ArrayList<CropSpinnerItem> sireList = new ArrayList<>();
+    private String pickedDamId;
+    private String pickedSireId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -103,13 +105,28 @@ public class AddLittersFragment extends DialogFragment {
         DashboardActivity.addDatePicker(litterDob, context);
 
 
-        ArrayList<String> sireList = new ArrayList<>();
 
 
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
 
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
-            sireList.add(x.getName());
+
+            sireList.add(new CropSpinnerItem() {
+                @Override
+                public String getId() {
+                    return x.getId();
+                }
+
+                @Override
+                public String toString() {
+                    return x.getName();
+                }
+
+                @Override
+                public String getUnits() {
+                    return null;
+                }
+            });
         }
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
 
@@ -130,7 +147,7 @@ public class AddLittersFragment extends DialogFragment {
                 }
             });
         }
-        ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
+        ArrayAdapter<CropSpinnerItem> animalListAdapter = new ArrayAdapter<CropSpinnerItem>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
         fatherSire.setThreshold(1);
         fatherSire.setAdapter(animalListAdapter);
         fatherSire.addTextChangedListener(new TextWatcher() {
@@ -171,8 +188,6 @@ public class AddLittersFragment extends DialogFragment {
                 motherDam.showDropDown();
             }
         });
-
-
 
 
         close.setOnClickListener(view1 -> dismiss());
@@ -241,10 +256,22 @@ public class AddLittersFragment extends DialogFragment {
         for (int i = 0; i < damnList.size(); i++) {
 
             if (motherDam.getText().toString().equals(damnList.get(i).toString())) {
-                pickedBreedingId = damnList.get(i).getId();
+                pickedDamId = damnList.get(i).getId();
 
             } else {
-                pickedBreedingId = null;
+                pickedDamId = null;
+
+            }
+
+
+        }
+        for (int i = 0; i < sireList.size(); i++) {
+
+            if (fatherSire.getText().toString().equals(sireList.get(i).toString())) {
+                pickedSireId = sireList.get(i).getId();
+
+            } else {
+                pickedSireId = null;
 
             }
 
@@ -268,7 +295,8 @@ public class AddLittersFragment extends DialogFragment {
             litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
 
         litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
-        litter.setBreedingId(pickedBreedingId);
+        litter.setSireId(pickedSireId);
+        litter.setDamId(pickedDamId);
         dbHandler.insertLitter(litter);
     }
 
@@ -276,6 +304,28 @@ public class AddLittersFragment extends DialogFragment {
         SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
 
         if (litter != null) {
+            for (int i = 0; i < damnList.size(); i++) {
+
+                if (motherDam.getText().toString().equals(damnList.get(i).toString())) {
+                    pickedDamId = damnList.get(i).getId();
+
+                } else {
+                    pickedDamId = null;
+
+                }
+
+
+            }
+            for (int i = 0; i < sireList.size(); i++) {
+
+                if (fatherSire.getText().toString().equals(sireList.get(i).toString())) {
+                    pickedSireId = sireList.get(i).getId();
+
+                } else {
+                    pickedSireId = null;
+
+                }
+            }
             litter.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             litter.setDateOfBirth(litterDob.getText().toString());
             litter.setLitterSize(Integer.parseInt(litterSize.getText().toString()));
@@ -289,7 +339,8 @@ public class AddLittersFragment extends DialogFragment {
 
             if(!weaningAlert.getText().toString().isEmpty())
                  litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
-
+            litter.setSireId(pickedSireId);
+            litter.setDamId(pickedDamId);
             litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
             dbHandler.updateLitter(litter);
         }

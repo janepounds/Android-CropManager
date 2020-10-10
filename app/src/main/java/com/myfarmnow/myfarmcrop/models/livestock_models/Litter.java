@@ -22,6 +22,8 @@ public class Litter implements LivestockSpinnerItem, Serializable {
     private String syncStatus = "no";
     private String globalId;
     private String animalType;
+    private String sireId;
+    private String damId;
 
     public String getMotherDam() {
         return motherDam;
@@ -155,6 +157,22 @@ public class Litter implements LivestockSpinnerItem, Serializable {
         // Empty constructor required
     }
 
+    public String getSireId() {
+        return sireId;
+    }
+
+    public void setSireId(String sireId) {
+        this.sireId = sireId;
+    }
+
+    public String getDamId() {
+        return damId;
+    }
+
+    public void setDamId(String damId) {
+        this.damId = damId;
+    }
+
     public JSONObject toJSON() {
 
         JSONObject object = new JSONObject();
@@ -176,6 +194,9 @@ public class Litter implements LivestockSpinnerItem, Serializable {
             object.put("syncStatus", syncStatus);
             object.put("globalId", globalId);
             object.put("animalType", animalType);
+            object.put("sireId", sireId);
+            object.put("damId", damId);
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -198,6 +219,8 @@ public class Litter implements LivestockSpinnerItem, Serializable {
         setWeaning(Integer.parseInt(object.getString("weaning")));
         setWeaningAlert(Integer.parseInt(object.getString("weaningAlert")));
         setAnimalType(object.getString("animalType"));
+        setSireId(object.getString("sireId"));
+        setDamId(object.getString("damId"));
         setSyncStatus("yes");
     }
 }

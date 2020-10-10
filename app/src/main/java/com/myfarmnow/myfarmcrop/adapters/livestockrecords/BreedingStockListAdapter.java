@@ -104,12 +104,22 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
             holder.weightTextView.setText("--");
 
         //setting litters
-        ArrayList<Litter> litters = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getLittersInBreeds(String.valueOf(breedingStock.getId()) );
-        holder.littersTextView.setText(litters.size() + "");
-        for(Litter litter : litters){
-            holder.offSpringTextView.setText(litter.getLitterSize() + "");
+        String sex = breedingStock.getSex();
+        if(sex.equals("Female")){
+            ArrayList<Litter> litters = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getLittersInFemaleBreeds(String.valueOf(breedingStock.getId()));
+            holder.littersTextView.setText(litters.size() + "");
+            for(Litter litter : litters){
+                holder.offSpringTextView.setText(litter.getLitterSize() + "");
+            }
+        }else{
+            ArrayList<Litter> litters = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getLittersInMaleBreeds(String.valueOf(breedingStock.getId()) );
+            holder.littersTextView.setText(litters.size() + "");
+            for(Litter litter : litters){
+                holder.offSpringTextView.setText(litter.getLitterSize() + "");
+            }
+
         }
-       ;
+
 
         Log.d(TAG, "onBindViewHolder: Animal = " + breedingStock.getAnimalType());
 
