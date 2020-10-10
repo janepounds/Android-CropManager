@@ -112,20 +112,12 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        toolbar = findViewById(R.id.toolbar_sign_up_activity);
-
         //MobileAds.initialize(this, ConstantValues.ADMOBE_ID);
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(SignUp.this).build();
         //noInternetDialog.show();
 
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
-        // setting Toolbar
-//        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-
-        //actionBar.setTitle(getString(R.string.signup));
-        actionBar.setDisplayHomeAsUpEnabled(false);
 
         // Binding Layout Views
         user_photo = (CircularImageView) findViewById(R.id.user_photo);
@@ -135,7 +127,6 @@ public class SignUp extends AppCompatActivity {
         user_mobile = (EditText) findViewById(R.id.user_mobile);
         signupBtn = (Button) findViewById(R.id.signUpBtn);
 //        and_text = (TextView) findViewById(R.id.and_text);
-
         userPassword = (EditText) findViewById(R.id.user_password);
         userConfirmPassword = (EditText) findViewById(R.id.user_confirm_password);
         termsOfService = (TextView) findViewById(R.id.text_terms_of_service);
@@ -398,7 +389,6 @@ public class SignUp extends AppCompatActivity {
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
-
 
     /// Custom dialog for OTP
     public void showOTPDialog(Activity activity, String msg) {

@@ -7,8 +7,6 @@ import java.util.List;
 
 
 public class UserData {
-
-
     @SerializedName("success")
     @Expose
     private String success;
@@ -18,8 +16,6 @@ public class UserData {
     @SerializedName("message")
     @Expose
     private String message;
-
-
 
     public String getSuccess() {
         return success;
