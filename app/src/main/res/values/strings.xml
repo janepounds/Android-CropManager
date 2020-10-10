@@ -2309,4 +2309,24 @@
         <item>Embryo transfer</item>
     </string-array>
 
+    <!--    Arrays to test Sign Up with District, Sub-County and Village-->
+    <string-array name="spinner_district">
+        <item>District</item>
+        <item>Kampala</item>
+        <item>Wakiso</item>
+    </string-array>
+
+    <string-array name="spinner_sub_county">
+        <item>Sub County</item>
+        <item>Nakawa</item>
+        <item>Kololo</item>
+    </string-array>
+
+    <string-array name="spinner_village">
+        <item>Village</item>
+        <item>Village One</item>
+        <item>Village Two</item>
+    </string-array>
+    <!--    Sign Up Test Arrays end here-->
+
 </resources>

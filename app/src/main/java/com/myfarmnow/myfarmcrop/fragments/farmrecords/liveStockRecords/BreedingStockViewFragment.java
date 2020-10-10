@@ -98,8 +98,6 @@ public class BreedingStockViewFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         //
 
-
-
         //implementing search
         breedingSearch.setOnClickListener(new View.OnClickListener() {
 
@@ -120,59 +118,44 @@ public class BreedingStockViewFragment extends Fragment {
 
 
         //sort by name
-        nameSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
-                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                Collections.sort(breedingBackupList,BreedingStock.nameComparator);
-                breedingStockListAdapter.changeList(breedingBackupList);
-            }
+        nameSort.setOnClickListener(v -> {
+            nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+            breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            Collections.sort(breedingBackupList,BreedingStock.nameComparator);
+            breedingStockListAdapter.changeList(breedingBackupList);
         });
         //sort by breed
 
-        breedSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
-                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                Collections.sort(breedingBackupList,BreedingStock.breedComparator);
-                breedingStockListAdapter.changeList(breedingBackupList);
-            }
+        breedSort.setOnClickListener(v -> {
+            breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+            earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            Collections.sort(breedingBackupList,BreedingStock.breedComparator);
+            breedingStockListAdapter.changeList(breedingBackupList);
         });
+
         //sort by dob
-        earTagSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
-                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                Collections.sort(breedingBackupList,BreedingStock.earTagComparator);
-                breedingStockListAdapter.changeList(breedingBackupList);
-            }
+        earTagSort.setOnClickListener(v -> {
+            earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+            breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            Collections.sort(breedingBackupList,BreedingStock.earTagComparator);
+            breedingStockListAdapter.changeList(breedingBackupList);
         });
         //sort by sex
 
-        sexSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
-                breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
-                Collections.sort(breedingBackupList,BreedingStock.sexComparator);
-                breedingStockListAdapter.changeList(breedingBackupList);
-            }
+        sexSort.setOnClickListener(v -> {
+            sexSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_green));
+            breedSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            earTagSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            nameSort.setBackground(getResources().getDrawable(R.drawable.crop_card_button_black));
+            Collections.sort(breedingBackupList,BreedingStock.sexComparator);
+            breedingStockListAdapter.changeList(breedingBackupList);
         });
-
-
-
-
 
         return view;
     }
@@ -188,8 +171,8 @@ public class BreedingStockViewFragment extends Fragment {
             else if(x.getColor().toLowerCase().contains(searchtext)) {
                 filteredList.add(x);
             }
-
         }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -203,7 +186,6 @@ public class BreedingStockViewFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_breedingStockViewFragment_to_livestockRecordsFragment));
         loadBreedingStock();
-
     }
 
     @Override
@@ -236,7 +218,5 @@ public class BreedingStockViewFragment extends Fragment {
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
         breedingBackupList = dbHandler.getBreedingStocks(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal());
         breedingStockListAdapter.addList(breedingBackupList);
-
-
     }
 }

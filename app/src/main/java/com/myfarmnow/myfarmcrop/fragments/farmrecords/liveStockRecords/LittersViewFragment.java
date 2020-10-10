@@ -29,6 +29,7 @@ import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LittersListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -72,10 +73,10 @@ public class LittersViewFragment extends Fragment {
         navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         littersListAdapter = new LittersListAdapter(context, litterArrayList);
         recyclerView.setAdapter(littersListAdapter);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_littersViewFragment_to_livestockRecordsFragment));
         loadLitter();
@@ -87,11 +88,10 @@ public class LittersViewFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void loadLitter(){
+    private void loadLitter() {
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
         littersListAdapter.clearLitterList();
-
-        littersListAdapter.addList(dbHandler.getLitters(DashboardActivity.RETRIEVED_USER_ID));
-
+        littersListAdapter.addList(dbHandler.getLitters(DashboardActivity.RETRIEVED_USER_ID, preferenceModel.getSelectedAnimal()));
     }
 
     @Override
