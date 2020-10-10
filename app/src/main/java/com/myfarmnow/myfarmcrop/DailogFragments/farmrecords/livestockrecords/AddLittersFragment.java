@@ -34,6 +34,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.LivestockSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.LivestockSpinnerItem;
@@ -52,6 +53,8 @@ public class AddLittersFragment extends DialogFragment {
     private Button submit;
     public LivestockSpinnerAdapter litterSpinnerAdapter;
     private TextView litterTitle;
+    private  ArrayList<CropSpinnerItem>    damnList = new ArrayList<>();
+    private String pickedBreedingId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -100,14 +103,32 @@ public class AddLittersFragment extends DialogFragment {
         DashboardActivity.addDatePicker(litterDob, context);
 
 
-        ArrayList<String> sireList = new ArrayList<>(), damnList = new ArrayList<>();
+        ArrayList<String> sireList = new ArrayList<>();
+
+
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
 
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
             sireList.add(x.getName());
         }
         for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
-            damnList.add(x.getName());
+
+            damnList.add(new CropSpinnerItem() {
+                @Override
+                public String getId() {
+                return  x.getId();
+                }
+
+                @Override
+                public String toString() {
+                    return x.getName();
+                }
+
+                @Override
+                public String getUnits() {
+                    return null;
+                }
+            });
         }
         ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
         fatherSire.setThreshold(1);
@@ -130,7 +151,7 @@ public class AddLittersFragment extends DialogFragment {
         });
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, damnList);
+        ArrayAdapter<CropSpinnerItem> adapter = new ArrayAdapter<CropSpinnerItem>(context, android.R.layout.simple_dropdown_item_1line, damnList);
         motherDam.setThreshold(1);
         motherDam.setAdapter(adapter);
 
@@ -217,6 +238,18 @@ public class AddLittersFragment extends DialogFragment {
     }
 
     public void saveLitter() {
+        for (int i = 0; i < damnList.size(); i++) {
+
+            if (motherDam.getText().toString().equals(damnList.get(i).toString())) {
+                pickedBreedingId = damnList.get(i).getId();
+
+            } else {
+                pickedBreedingId = null;
+
+            }
+
+
+        }
         SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
 
         litter = new Litter();
@@ -235,6 +268,7 @@ public class AddLittersFragment extends DialogFragment {
             litter.setWeaningAlert(Integer.parseInt(weaningAlert.getText().toString()));
 
         litter.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
+        litter.setBreedingId(pickedBreedingId);
         dbHandler.insertLitter(litter);
     }
 
