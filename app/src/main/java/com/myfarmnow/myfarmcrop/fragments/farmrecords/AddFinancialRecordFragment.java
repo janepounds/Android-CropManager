@@ -35,7 +35,6 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
-import com.myfarmnow.myfarmcrop.models.CropCustomer;
 import com.myfarmnow.myfarmcrop.models.CropIncomeExpense;
 import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
@@ -94,6 +93,7 @@ public class AddFinancialRecordFragment extends Fragment {
             }
         });
 
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.label_add_financial_records));
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         //get arguments for edit
         if (getArguments() != null) {
@@ -235,6 +235,9 @@ public class AddFinancialRecordFragment extends Fragment {
 
             public String toString() {
                 return "All Crops";
+            }  @Override
+            public String getUnits(){
+                return  null;
             }
         });
 
@@ -374,6 +377,9 @@ public class AddFinancialRecordFragment extends Fragment {
         @Override
         public String getId() {
             return value;
+        }  @Override
+        public String getUnits(){
+            return  null;
         }
     }
 }

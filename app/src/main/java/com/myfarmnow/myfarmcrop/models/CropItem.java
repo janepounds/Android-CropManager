@@ -128,4 +128,9 @@ public class CropItem implements Serializable, CropSpinnerItem{
     public String toString(){
         return name;
     }
+
+    @Override
+    public String getUnits() {
+        return null;
+    }
 }

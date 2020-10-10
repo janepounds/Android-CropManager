@@ -215,6 +215,11 @@ public class Crop implements Serializable, CropSpinnerItem {
         return getName()+"( "+getSeason()+"  )";
     }
 
+    @Override
+    public String getUnits() {
+        return this.harvestUnits;
+    }
+
     public float getEstimatedYield() {
         return estimatedYield;
     }

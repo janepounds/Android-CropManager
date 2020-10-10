@@ -41,6 +41,11 @@ public class CropIncomeExpense implements CropSpinnerItem, Serializable {
         return id;
     }
 
+    @Override
+    public String getUnits() {
+        return null;
+    }
+
     public void setId(String id) {
         this.id = id;
     }

@@ -135,7 +135,8 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dimen_10dp"
                         android:spinnerMode="dropdown"/>
 
                     <ImageView
@@ -239,7 +240,8 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_right_corners_green"
                     android:textColor="@color/white"
-                    android:text="Ltrs"
+                    android:text="lt"
+                    android:textAllCaps="false"
                     android:textSize="14sp"
                     android:gravity="center"
                     android:layout_weight="0.4" />

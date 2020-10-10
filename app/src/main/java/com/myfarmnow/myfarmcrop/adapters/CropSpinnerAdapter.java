@@ -29,6 +29,9 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
             public String toString(){
                 return "Select "+fieldLabel;
             }
+            public String getUnits(){
+                return null;
+            }
         });
         values.addAll(items);
         this.context =context;
@@ -67,6 +70,9 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
             }
             public String toString(){
                 return "Select "+fieldLabel;
+            }
+            public String getUnits(){
+                return null;
             }
         });
         values.addAll(items);

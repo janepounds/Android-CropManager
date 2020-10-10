@@ -119,7 +119,7 @@
                                     android:layout_height="90dp"
                                     android:layout_gravity="center"
                                     android:padding="20dp"
-                                    android:src="@drawable/ic_livestock" />
+                                    android:src="@drawable/ic_default_livestock" />
 
                                 <TextView
                                     android:id="@+id/tv_litar"
