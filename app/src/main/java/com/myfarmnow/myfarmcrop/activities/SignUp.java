@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,21 +92,21 @@ public class SignUp extends AppCompatActivity {
     //AdView mAdView;
     Button signupBtn;
     FrameLayout banner_adView;
-  //  TextView signup_loginText;
+    //  TextView signup_loginText;
     TextView termsOfService, privacyPolicy, refund_policy, and_text;
     CircularImageView user_photo;
     //FloatingActionButton user_photo_edit_fab;
-    EditText user_firstname, user_lastname, user_email, user_password, user_mobile;
+    EditText firstName, lastName, phoneNumber, user_email;
+    private Spinner district, subCounty, village;
 
     //Custom Dialog Vies
     Dialog dialogOTP;
     EditText ed_otp, userPassword, userConfirmPassword;
-    //It is the verification id that will be sent to the user
-    private String mVerificationId;
-    //firebase auth object
-    private FirebaseAuth mAuth;
 
-    private Toolbar toolbar;
+    // Verification id that will be sent to the user
+    private String mVerificationId;
+    // Firebase auth object
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,28 +120,23 @@ public class SignUp extends AppCompatActivity {
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
 
-        //actionBar.setTitle(getString(R.string.signup));
-//        actionBar.setDisplayHomeAsUpEnabled(false);  // setting Toolbar
-////        setSupportActionBar(toolbar);
-//        actionBar = getSupportActionBar();
-
         // Binding Layout Views
+        firstName = (EditText) findViewById(R.id.user_firstname);
+        lastName = (EditText) findViewById(R.id.user_lastname);
+        phoneNumber = (EditText) findViewById(R.id.user_mobile);
+        district = findViewById(R.id.district_spinner);
+        subCounty = findViewById(R.id.sub_county_spinner);
+        village = findViewById(R.id.village_spinner);
+
         user_photo = (CircularImageView) findViewById(R.id.user_photo);
-        user_firstname = (EditText) findViewById(R.id.user_firstname);
-        user_lastname = (EditText) findViewById(R.id.user_lastname);
         user_email = (EditText) findViewById(R.id.user_email);
-        user_mobile = (EditText) findViewById(R.id.user_mobile);
         signupBtn = (Button) findViewById(R.id.signUpBtn);
-//        and_text = (TextView) findViewById(R.id.and_text);
         userPassword = (EditText) findViewById(R.id.user_password);
         userConfirmPassword = (EditText) findViewById(R.id.user_confirm_password);
         termsOfService = (TextView) findViewById(R.id.text_terms_of_service);
         privacyPolicy = (TextView) findViewById(R.id.text_privacy_policy);
         refund_policy = (TextView) findViewById(R.id.refund_policy);
-       // signup_loginText = (TextView) findViewById(R.id.signUp_loginText);
         banner_adView = (FrameLayout) findViewById(R.id.banner_adView);
-        //user_photo_edit_fab = (FloatingActionButton) findViewById(R.id.user_photo_edit_fab);
-
 /*
         if (ConstantValues.IS_ADMOBE_ENABLED) {
             // Initialize Admobe
@@ -166,10 +162,7 @@ public class SignUp extends AppCompatActivity {
         }
 */
 
-
         dialogLoader = new DialogLoader(SignUp.this);
-
-//        and_text.setText(" " + getString(R.string.and) + " ");
 
         privacyPolicy.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(SignUp.this, android.R.style.Theme_NoTitleBar);
@@ -300,11 +293,11 @@ public class SignUp extends AppCompatActivity {
         });
 
         // Handle Click event of signup_loginText TextView
-     //   signup_loginText.setOnClickListener(v -> {
-            // Finish SignUpActivity to goto the LoginActivity
-          //  finish();
-           // overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
-     //   });
+        //   signup_loginText.setOnClickListener(v -> {
+        // Finish SignUpActivity to goto the LoginActivity
+        //  finish();
+        // overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
+        //   });
 
         // Handle Click event of signupBtn Button
         signupBtn.setOnClickListener(v -> {
@@ -313,9 +306,7 @@ public class SignUp extends AppCompatActivity {
 
             if (isValidData) {
                 parentView = v;
-
                 // Proceed User Registration
-
                 processRegistration();
                 //sendVerificationCode(getResources().getString(R.string.indian_code)+user_mobile.getText().toString().trim());
             }
@@ -346,7 +337,6 @@ public class SignUp extends AppCompatActivity {
 
         // Start Activity with Image Picker Intent
         startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
-
     }
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
@@ -407,7 +397,7 @@ public class SignUp extends AppCompatActivity {
         btn_resend = dialogOTP.findViewById(R.id.btn_resend);
         btn_submit = dialogOTP.findViewById(R.id.btn_submit);
 
-        btn_resend.setOnClickListener(view -> sendVerificationCode(user_mobile.getText().toString().trim()));
+        btn_resend.setOnClickListener(view -> sendVerificationCode(phoneNumber.getText().toString().trim()));
 
         btn_submit.setOnClickListener(view -> {
             if (!ed_otp.getText().toString().trim().isEmpty()) {
@@ -553,17 +543,20 @@ public class SignUp extends AppCompatActivity {
 
         dialogLoader.showProgressDialog();
 
-        RequestBody fname = RequestBody.create(MediaType.parse("text/plain"), user_firstname.getText().toString().trim());
-        RequestBody lname = RequestBody.create(MediaType.parse("text/plain"), user_lastname.getText().toString().trim());
+        RequestBody fName = RequestBody.create(MediaType.parse("text/plain"), firstName.getText().toString().trim());
+        RequestBody lName = RequestBody.create(MediaType.parse("text/plain"), lastName.getText().toString().trim());
+        RequestBody customersTelephone = RequestBody.create(MediaType.parse("text/plain"), phoneNumber.getText().toString().trim());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user_email.getText().toString().trim());
-        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), user_password.getText().toString().trim());
-        RequestBody customers_telephone = RequestBody.create(MediaType.parse("text/plain"), user_mobile.getText().toString().trim());
-        RequestBody country_code = RequestBody.create(MediaType.parse("text/plain"), getResources().getString(R.string.ugandan_code));
+        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword.getText().toString().trim());
+        RequestBody countryCode = RequestBody.create(MediaType.parse("text/plain"), getResources().getString(R.string.ugandan_code));
+        RequestBody addressStreet = RequestBody.create(MediaType.parse("text/plain"), village.getSelectedItem().toString());
+        RequestBody addressCityOrTown = RequestBody.create(MediaType.parse("text/plain"), subCounty.getSelectedItem().toString());
+        RequestBody addressDistrict = RequestBody.create(MediaType.parse("text/plain"), district.getSelectedItem().toString());
 
         Call<UserData> call = BuyInputsAPIClient.getInstance()
                 .processRegistration
                         (
-                                fname, lname, email, password, country_code, customers_telephone
+                                fName, lName, email, password, countryCode, customersTelephone, addressStreet, addressCityOrTown, addressDistrict
                         );
 
         call.enqueue(new Callback<UserData>() {
@@ -611,11 +604,23 @@ public class SignUp extends AppCompatActivity {
     //*********** Validate SignUp Form Inputs ********//
 
     private boolean validateForm() {
-        if (!ValidateInputs.isValidName(user_firstname.getText().toString().trim())) {
-            user_firstname.setError(getString(R.string.invalid_first_name));
+        if (!ValidateInputs.isValidName(firstName.getText().toString().trim())) {
+            firstName.setError(getString(R.string.invalid_first_name));
             return false;
-        } else if (!ValidateInputs.isValidName(user_lastname.getText().toString().trim())) {
-            user_lastname.setError(getString(R.string.invalid_last_name));
+        } else if (!ValidateInputs.isValidName(lastName.getText().toString().trim())) {
+            lastName.setError(getString(R.string.invalid_last_name));
+            return false;
+        } else if (!ValidateInputs.isValidNumber(phoneNumber.getText().toString().trim())) {
+            phoneNumber.setError(getString(R.string.invalid_contact));
+            return false;
+        } else if (district.getSelectedItem().toString().equals("District")) {
+            Toast.makeText(this, "Please select District", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (subCounty.getSelectedItem().toString().equals("Sub County")) {
+            Toast.makeText(this, "Please select Sub County", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (village.getSelectedItem().toString().equals("Village")) {
+            Toast.makeText(this, "Please select Village", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!ValidateInputs.isValidEmail(user_email.getText().toString().trim())) {
             user_email.setError(getString(R.string.invalid_email));
@@ -630,10 +635,7 @@ public class SignUp extends AppCompatActivity {
             userPassword.setError("Password does not match");
             userConfirmPassword.setError("Password does not match");
             return false;
-        }   /*else if (!ValidateInputs.isValidNumber(user_mobile.getText().toString().trim())) {
-            user_mobile.setError(getString(R.string.invalid_contact));
-            return false;
-        }*/ else {
+        } else {
             return true;
         }
     }

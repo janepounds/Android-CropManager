@@ -70,12 +70,15 @@ public interface APIRequestsForBuyInputs {
     @Multipart
     @POST("processregistration")
     Call<UserData> processRegistration(
-            @Part("customers_firstname") RequestBody customers_firstname,
-            @Part("customers_lastname") RequestBody customers_lastname,
+            @Part("customers_firstname") RequestBody firstName,
+            @Part("customers_lastname") RequestBody lastName,
             @Part("email") RequestBody email,
             @Part("password") RequestBody password,
-            @Part("country_code") RequestBody country_code,
-            @Part("customers_telephone") RequestBody customers_picture);
+            @Part("country_code") RequestBody countryCode,
+            @Part("customers_telephone") RequestBody phoneNumber,
+            @Part("addressStreet") RequestBody addressStreet,
+            @Part("addressCityOrTown") RequestBody addressCityOrTown,
+            @Part("address_district") RequestBody addressDistrict);
 
     @FormUrlEncoded
     @POST("processlogin")

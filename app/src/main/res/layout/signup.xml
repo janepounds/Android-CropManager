@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#F5F6F8"
     android:orientation="vertical"
-    tools:context="com.myfarmnow.myfarmcrop.activities.SignUp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context="com.myfarmnow.myfarmcrop.activities.SignUp">
 
     <include
         android:id="@+id/myToolbar"
         layout="@layout/toolbar"
-        android:layout_height="100dp"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +28,6 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingBottom="@dimen/dimen_10dp">
-
 
 
             <RelativeLayout
@@ -54,9 +53,10 @@
                 android:id="@+id/layout_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:background="@drawable/background_custom_dialog"
                 android:gravity="center_horizontal"
-                android:background="@drawable/background_custom_dialog">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -77,17 +77,17 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/light_gray"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginLeft="6dp"
-                    android:layout_marginEnd="6dp"/>
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@color/light_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/rounded_corners_edittext_white"
                     android:gravity="center_horizontal"
@@ -102,15 +102,15 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/dimen_10dp"
                             android:layout_weight="1"
-                            android:layout_marginEnd="@dimen/dimen_10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/josefin_sans"
                                 android:layout_marginBottom="4dp"
+                                android:fontFamily="@font/josefin_sans"
                                 android:text="@string/first_name" />
 
                             <EditText
@@ -157,24 +157,26 @@
 
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginEnd="@dimen/dimen_10dp"
                             android:layout_weight="1"
-                            android:layout_marginEnd="@dimen/dimen_10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/josefin_sans"
                                 android:layout_marginBottom="4dp"
-                                android:text="@string/phone_number"/>
+                                android:fontFamily="@font/josefin_sans"
+                                android:text="@string/phone_number" />
 
                             <EditText
                                 android:id="@+id/user_mobile"
@@ -195,146 +197,162 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/district"
-                                android:layout_marginBottom="4dp" />
-                            <LinearLayout
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/district" />
+
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:background="@drawable/edittext_corner"
                                 android:padding="6dp">
+
                                 <Spinner
                                     android:id="@+id/district_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_gravity="center"/>
-                            </LinearLayout>
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:entries="@array/spinner_district"
+                                    android:gravity="center"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="8dp"
+                                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                            </RelativeLayout>
+
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_10dp"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginEnd="@dimen/dimen_10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/sub_county"
                                 android:layout_marginBottom="4dp"
-                                />
-                            <LinearLayout
+                                android:text="@string/sub_county" />
+
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:background="@drawable/edittext_corner"
                                 android:padding="6dp">
+
                                 <Spinner
                                     android:id="@+id/sub_county_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_gravity="center" />
-                            </LinearLayout>
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:entries="@array/spinner_sub_county"
+                                    android:gravity="center"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="8dp"
+                                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                            </RelativeLayout>
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/village"
                                 android:layout_marginBottom="4dp"
-                                />
-                            <LinearLayout
+                                android:text="@string/village" />
+
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:background="@drawable/edittext_corner"
                                 android:padding="6dp">
+
                                 <Spinner
                                     android:id="@+id/village_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_gravity="center" />
-                            </LinearLayout>
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:entries="@array/spinner_village"
+                                    android:gravity="center"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="8dp"
+                                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+
+                            </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="@dimen/margin_15">
+                        android:layout_marginBottom="@dimen/margin_15"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/josefin_sans"
                             android:layout_marginBottom="4dp"
-                            android:text="@string/email_address"/>
+                            android:fontFamily="@font/josefin_sans"
+                            android:text="@string/email_address" />
 
                         <EditText
                             android:id="@+id/user_email"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:background="@drawable/edittext_corner"
                             android:fontFamily="@font/josefin_sans"
                             android:inputType="textEmailAddress|textNoSuggestions"
                             android:paddingStart="10dp"
-                            android:background="@drawable/edittext_corner"
                             android:textAlignment="viewStart"
                             android:textColor="@android:color/black"
                             android:textColorHint="@android:color/black" />
 
                     </LinearLayout>
-
-
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="15dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/josefin_sans"
-                            android:text="@string/password"
-                            android:layout_margin="4dp"/>
-
-                        <EditText
-                            android:id="@+id/user_password"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:fontFamily="@font/josefin_sans"
-                            android:gravity="start|center_vertical"
-                            android:inputType="textPassword"
-                            android:paddingStart="10dp"
-                            android:background="@drawable/edittext_corner"
-                            android:textAlignment="viewStart"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@android:color/black" />
-
-                    </LinearLayout>
-
-
-
 
 
                     <LinearLayout
@@ -346,18 +364,47 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
                             android:fontFamily="@font/josefin_sans"
+                            android:text="@string/password" />
+
+                        <EditText
+                            android:id="@+id/user_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/edittext_corner"
+                            android:fontFamily="@font/josefin_sans"
+                            android:gravity="start|center_vertical"
+                            android:inputType="textPassword"
+                            android:paddingStart="10dp"
+                            android:textAlignment="viewStart"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
-                            android:text="@string/confirm_password"/>
+                            android:fontFamily="@font/josefin_sans"
+                            android:text="@string/confirm_password" />
 
                         <EditText
                             android:id="@+id/user_confirm_password"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:background="@drawable/edittext_corner"
                             android:fontFamily="@font/josefin_sans"
                             android:inputType="textPassword"
                             android:paddingStart="10dp"
-                            android:background="@drawable/edittext_corner"
                             android:textAlignment="viewStart"
                             android:textColor="@android:color/black"
                             android:textColorHint="@android:color/black" />
@@ -366,6 +413,7 @@
 
 
                 </LinearLayout>
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -401,15 +449,14 @@
             </LinearLayout>
 
 
-
             <TextView
                 android:id="@+id/app_terms_services"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/layout_form"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/josefin_sans"
                 android:gravity="center_horizontal"
-                android:layout_below="@id/layout_form"
                 android:text="@string/app_terms_services"
                 android:textAlignment="center"
                 android:textSize="16sp"
@@ -418,10 +465,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/app_terms_services"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/margin_15"
-                android:layout_below="@id/app_terms_services">
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/text_terms_of_service"
