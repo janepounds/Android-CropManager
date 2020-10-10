@@ -27,6 +27,7 @@ import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.livestockrecords.MatingListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
@@ -73,10 +74,10 @@ public class MatingsViewFragment extends Fragment {
         navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-        dbHandler= MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         matingListAdapter = new MatingListAdapter(context, matingArrayList);
         recyclerView.setAdapter(matingListAdapter);
-        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         toolbar.setNavigationOnClickListener(view1->navController.navigate(R.id.action_matingsViewFragment_to_livestockRecordsFragment));
         loadMatings();
@@ -88,10 +89,10 @@ public class MatingsViewFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void loadMatings(){
+    private void loadMatings() {
+        SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
         matingListAdapter.clearMatingList();
-        matingListAdapter.addList(dbHandler.getMatings(DashboardActivity.RETRIEVED_USER_ID));
-
+        matingListAdapter.addList(dbHandler.getMatings(DashboardActivity.RETRIEVED_USER_ID, preferenceModel.getSelectedAnimal()));
     }
 
     @Override
@@ -106,4 +107,4 @@ public class MatingsViewFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-    }
+}

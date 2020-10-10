@@ -32,6 +32,7 @@ import com.myfarmnow.myfarmcrop.models.CropInventory;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -102,6 +103,24 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
         else
             holder.weightTextView.setText("--");
 
+        //setting litters
+        String sex = breedingStock.getSex();
+        if(sex.equals("Female")){
+            ArrayList<Litter> litters = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getLittersInFemaleBreeds(String.valueOf(breedingStock.getId()));
+            holder.littersTextView.setText(litters.size() + "");
+            for(Litter litter : litters){
+                holder.offSpringTextView.setText(litter.getLitterSize() + "");
+            }
+        }else{
+            ArrayList<Litter> litters = MyFarmDbHandlerSingleton.getHandlerInstance(mContext).getLittersInMaleBreeds(String.valueOf(breedingStock.getId()) );
+            holder.littersTextView.setText(litters.size() + "");
+            for(Litter litter : litters){
+                holder.offSpringTextView.setText(litter.getLitterSize() + "");
+            }
+
+        }
+
+
         Log.d(TAG, "onBindViewHolder: Animal = " + breedingStock.getAnimalType());
 
         //set image
@@ -141,7 +160,7 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
 
     public class BreedingStockViewHolder extends RecyclerView.ViewHolder {
 
-        TextView breedingStockNameTextView, earTagtextView, colorTextView, breedTextView, dobTextView, weightTextView, ageTextView;
+        TextView breedingStockNameTextView, earTagtextView, colorTextView, breedTextView, dobTextView, weightTextView, ageTextView,littersTextView,offSpringTextView;
         ImageView pictureImageView, moreOpertions;
 
         public BreedingStockViewHolder(View itemView) {
@@ -155,7 +174,8 @@ public class BreedingStockListAdapter extends RecyclerView.Adapter<BreedingStock
             weightTextView = itemView.findViewById(R.id.breeding_stock_item_weight);
             ageTextView = itemView.findViewById(R.id.breeding_stock_item_age);
             moreOpertions = itemView.findViewById(R.id.breeding_stock_item_more);
-
+            littersTextView = itemView.findViewById(R.id.breeding_stock_item_litter);
+            offSpringTextView = itemView.findViewById(R.id.breeding_stock_item_offSprings);
             moreOpertions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -38,19 +38,16 @@ import java.util.ArrayList;
 
 
 public class AddMatingFragment extends DialogFragment {
-
-
     private Context context;
     private Mating mating;
     private MyFarmDbHandlerSingleton dbHandler;
-    NavController navController;
+    private NavController navController;
     private EditText matingDate, deliveryAlert, note, gestationPeriod;
-    AutoCompleteTextView  femaleName, maleName;
+    private AutoCompleteTextView femaleName, maleName;
     private Button submit;
     private Spinner method;
-    private ImageView close,datePicker;
+    private ImageView close, datePicker;
     private TextView matingTitle;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -92,7 +89,7 @@ public class AddMatingFragment extends DialogFragment {
         submit = view.findViewById(R.id.add_mating_submit);
         datePicker = view.findViewById(R.id.image_date_picker);
         DashboardActivity.addDatePicker(matingDate, context);
-        DashboardActivity.addDatePickerImageView(datePicker,matingDate, context);
+        DashboardActivity.addDatePickerImageView(datePicker, matingDate, context);
 
 
         close.setOnClickListener(view1 -> dismiss());
@@ -143,13 +140,13 @@ public class AddMatingFragment extends DialogFragment {
 
         SharedPreferenceHelper preferenceModel = new SharedPreferenceHelper(context);
 
-        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Male")) {
+        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID, preferenceModel.getSelectedAnimal(), "Male")) {
             sireList.add(x.getName());
         }
-        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID,preferenceModel.getSelectedAnimal(),"Female")) {
+        for (BreedingStock x : dbHandler.getBreedingStockBySex(DashboardActivity.RETRIEVED_USER_ID, preferenceModel.getSelectedAnimal(), "Female")) {
             damnList.add(x.getName());
         }
-        ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context,  android.R.layout.simple_dropdown_item_1line, sireList);
+        ArrayAdapter<String> animalListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, sireList);
         maleName.setThreshold(1);
         maleName.setAdapter(animalListAdapter);
         maleName.addTextChangedListener(new TextWatcher() {
@@ -191,15 +188,15 @@ public class AddMatingFragment extends DialogFragment {
             }
         });
 
-        if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("cattle"))
+        if (preferenceModel.getSelectedAnimal().equalsIgnoreCase("cattle"))
             gestationPeriod.setText("270");
-        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("rabbit"))
+        else if (preferenceModel.getSelectedAnimal().equalsIgnoreCase("rabbit"))
             gestationPeriod.setText("28");
-        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("pig"))
+        else if (preferenceModel.getSelectedAnimal().equalsIgnoreCase("pig"))
             gestationPeriod.setText("115");
-        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("goat") )
+        else if (preferenceModel.getSelectedAnimal().equalsIgnoreCase("goat"))
             gestationPeriod.setText("150");
-        else if(preferenceModel.getSelectedAnimal().equalsIgnoreCase("sheep") )
+        else if (preferenceModel.getSelectedAnimal().equalsIgnoreCase("sheep"))
             gestationPeriod.setText("152");
 
     }
@@ -211,9 +208,9 @@ public class AddMatingFragment extends DialogFragment {
             matingDate.setText(mating.getMatingDate());
             femaleName.setText(mating.getFemaleName());
             maleName.setText(mating.getMaleName());
-            deliveryAlert.setText(mating.getDeliveryAlertDaysBefore() + "");
+            deliveryAlert.setText(String.valueOf(mating.getDeliveryAlertDaysBefore()));
             note.setText(mating.getNotes());
-            gestationPeriod.setText(mating.getGestationPeriod() + "");
+            gestationPeriod.setText(String.valueOf(mating.getGestationPeriod()));
             DashboardActivity.selectSpinnerItemByValue(method, mating.getMethod());
         }
     }
@@ -226,13 +223,12 @@ public class AddMatingFragment extends DialogFragment {
         mating.setMatingDate(matingDate.getText().toString());
         mating.setFemaleName(femaleName.getText().toString());
         mating.setMaleName(maleName.getText().toString());
-        if(!deliveryAlert.getText().toString().isEmpty())
-            mating.setDeliveryAlertDaysBefore(Float.parseFloat(deliveryAlert.getText().toString()));
+        if (!deliveryAlert.getText().toString().isEmpty())
+            mating.setDeliveryAlertDaysBefore(Integer.parseInt(deliveryAlert.getText().toString()));
         else
-            mating.setDeliveryAlertDaysBefore(Float.parseFloat("0"));
+            mating.setDeliveryAlertDaysBefore(Integer.parseInt("0"));
 
-
-        mating.setGestationPeriod(Float.parseFloat(gestationPeriod.getText().toString()));
+        mating.setGestationPeriod(Integer.parseInt(gestationPeriod.getText().toString()));
         mating.setNotes(note.getText().toString());
         mating.setMethod(method.getSelectedItem().toString());
         mating.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());
@@ -247,8 +243,8 @@ public class AddMatingFragment extends DialogFragment {
             mating.setMatingDate(matingDate.getText().toString());
             mating.setFemaleName(femaleName.getText().toString());
             mating.setMaleName(maleName.getText().toString());
-            mating.setDeliveryAlertDaysBefore(Float.parseFloat(deliveryAlert.getText().toString()));
-            mating.setGestationPeriod(Float.parseFloat(gestationPeriod.getText().toString()));
+            mating.setDeliveryAlertDaysBefore(Integer.parseInt(deliveryAlert.getText().toString()));
+            mating.setGestationPeriod(Integer.parseInt(gestationPeriod.getText().toString()));
             mating.setNotes(note.getText().toString());
             mating.setMethod(method.getSelectedItem().toString());
             mating.setAnimalType(sharedPreferenceHelper.getSelectedAnimal());

@@ -364,7 +364,7 @@
 
 
             <TextView
-                android:id="@+id/breeding_stock_item_litters"
+                android:id="@+id/breeding_stock_item_litter"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:fontFamily="@font/josefin_sans"
