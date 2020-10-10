@@ -152,8 +152,6 @@ public class AddLittersFragment extends DialogFragment {
         });
 
 
-
-
         close.setOnClickListener(view1 -> dismiss());
 
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {

@@ -49,7 +49,7 @@ import java.util.ArrayList;
 
 public class FertilizerApplicationFragment extends DialogFragment {
     private static final String TAG = "FertilizerApplication";
-    EditText dateTxt, operatorTxt, costTxt, rateTxt, reasonTxt, weeksTxt, repeatUntilTxt, daysBeforeTxt;
+    EditText dateTxt, rateTxt, daysBeforeTxt;
     TextView rateUnitsTextView;
     Button btn_save;
     CropFertilizerApplication fertilizerApplication;
@@ -302,6 +302,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
                 if(fertlizersList.get(position).getUnits()!= null){
 
                     DashboardActivity.selectSpinnerItemByValue(unitsSp, fertlizersList.get(position).getUnits());
+
+                    if(!fertlizersList.get(position).getUnits().equalsIgnoreCase("Select Unit"))
                     rateUnitsTextView.setText(fertlizersList.get(position).getUnits()+"");
                     //sprayType=inventorySpray.getType();
                 }
@@ -324,8 +326,8 @@ public class FertilizerApplicationFragment extends DialogFragment {
                     e.printStackTrace();
                 }
                 String selection = parent.getItemAtPosition(position).toString();
-
-                    rateUnitsTextView.setText(selection);
+                    if(!selection.equalsIgnoreCase("Select Unit"))
+                        rateUnitsTextView.setText(selection);
 
             }
 
