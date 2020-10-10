@@ -1017,18 +1017,17 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
         if (oldVersion == 1 && newVersion == 2) {
             upGradingTablesFromVersion1ToVersion2(db);
-
         } else if (oldVersion == 1 && newVersion == 3) {
-
             upGradingTablesFromVersion1ToVersion2(db);
             upGradingTablesFromVersion2ToVersion3(db);
         } else if (oldVersion == 2 && newVersion == 3) {
             upGradingTablesFromVersion2ToVersion3(db);
         } else if (oldVersion == 3 && newVersion == 4) {
             upGradingTablesFromVersion3ToVersion4(db);
+        } else if (oldVersion == 4 && newVersion == 5) {
+            upGradingTablesFromVersion4ToVersion5(db);
         }
         onCreate(db);
 
@@ -1036,7 +1035,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     public void upGradingTablesFromVersion2ToVersion3(SQLiteDatabase db) {
         database = db;
-
         db.execSQL("ALTER TABLE " + CROP_INCOME_EXPENSE_TABLE_NAME + " ADD COLUMN " + CROP_INCOME_EXPENSE_DEPARTMENT + " TEXT");
         db.execSQL(" ALTER TABLE " + LIVESTOCK_RECORDS_MEDICATIONS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_MEDICATIONS_ANIMAL + " TEXT NOT NULL");
     }
@@ -1044,9 +1042,19 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void upGradingTablesFromVersion3ToVersion4(SQLiteDatabase db) {
         database = db;
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SPRAYING_UNITS + " TEXT");
+        db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME + " TEXT ");
+    }
+
+    public void upGradingTablesFromVersion4ToVersion5(SQLiteDatabase db) {
+        database = db;
+        db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_SIRE_ID + " TEXT ");
+        db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_DAM_ID + " TEXT ");
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SPRAYING_SPRAY_NAME + " TEXT");
 
+
+
     }
+
 
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
@@ -1072,7 +1080,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
-        db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME + " TEXT ");
 
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
@@ -1164,10 +1171,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         db.execSQL("ALTER TABLE " + CROP_CONTACT_TABLE_NAME + " ADD COLUMN " + CROP_GLOBAL_ID + " TEXT DEFAULT NULL ");
         db.execSQL("ALTER TABLE " + CROP_CONTACT_TABLE_NAME + " ADD COLUMN " + CROP_SYNC_STATUS + " TEXT DEFAULT 'no'");
-
-        db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_SIRE_ID + " TEXT ");
-        db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_DAM_ID + " TEXT ");
-
 
         //delete all settings items except the first one
         db.delete(CROP_SETTINGS_TABLE_NAME, CROP_SETTINGS_ID + " > 1", null);
