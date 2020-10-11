@@ -41,6 +41,7 @@ public class StoreAddSeedFragment extends DialogFragment {
     private MyFarmDbHandlerSingleton dbHandler;
     private NavController navController;
     EditText purchaseDatTxt, seedNameTxt, varietyTxt, quantityTxt, costTxt, batchTxt, manufacturerTxt, supplierTxt;
+    TextView rateUnitsTextView;
     ImageView close,purchaseDatePicker;
     Spinner usageUnitSpinner, typeSp;
     Button saveBtn;
@@ -105,6 +106,7 @@ public class StoreAddSeedFragment extends DialogFragment {
         DashboardActivity.addDatePicker(purchaseDatTxt, context);
         purchaseDatePicker= view .findViewById(R.id.image_date_picker);
         DashboardActivity.addDatePickerImageView(purchaseDatePicker,purchaseDatTxt,context);
+        rateUnitsTextView = view.findViewById(R.id.txt_crop_spray_units);
         close.setOnClickListener(view1 -> getDialog().dismiss());
 
         ((ArrayAdapter) usageUnitSpinner.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -121,6 +123,11 @@ public class StoreAddSeedFragment extends DialogFragment {
                 }catch (Exception e) {
 
                 }
+                String selection = parent.getItemAtPosition(position).toString();
+                if(selection.equalsIgnoreCase("Unit"))
+                    rateUnitsTextView.setText("Kg");
+                else
+                     rateUnitsTextView.setText(selection);
             }
 
             @Override
@@ -129,7 +136,25 @@ public class StoreAddSeedFragment extends DialogFragment {
             }
         };
         usageUnitSpinner.setOnItemSelectedListener(onItemSelectedListener);
-        typeSp.setOnItemSelectedListener(onItemSelectedListener);
+
+        typeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    if (position == 0) {
+                        // Set the hint text color gray
+                        ((TextView) view).setTextColor(Color.GRAY);
+                    }
+                }catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         fillViews();
 
@@ -168,7 +193,6 @@ public class StoreAddSeedFragment extends DialogFragment {
             manufacturerTxt.setText(seedsInventoryToEdit.getManufacturer() + "");
 
 
-
         }
     }
 
@@ -186,14 +210,11 @@ public class StoreAddSeedFragment extends DialogFragment {
         seedsInventoryToEdit.setType(typeSp.getSelectedItem().toString());
         seedsInventoryToEdit.setManufacturer(manufacturerTxt.getText().toString());
         dbHandler.insertCropSeeds(seedsInventoryToEdit);
-
-
     }
 
     public void updateSeeds() {
 
         if (seedsInventoryToEdit != null) {
-
             seedsInventoryToEdit.setUserId(DashboardActivity.RETRIEVED_USER_ID);
             seedsInventoryToEdit.setUsageUnits(usageUnitSpinner.getSelectedItem().toString());
             seedsInventoryToEdit.setPurchaseDate(purchaseDatTxt.getText().toString());

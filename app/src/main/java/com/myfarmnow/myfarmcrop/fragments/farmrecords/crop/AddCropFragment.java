@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -50,7 +52,7 @@ public class AddCropFragment extends Fragment {
 
     private Toolbar toolbar;
     private EditText txtCropsDateSown, txtCropsVariety, txtCropsArea, txtCropsEstimatedRevenue, txtCropsEstimatedYield;
-    private AutoCompleteTextView spCropCrop;
+    private AutoCompleteTextView autocompleteCropName;
     private Spinner spCropsField, spCropsSeason, spCropsHarvestUnits;
     private TextView cropsCurrencyB, txtCropsEstimatedRevenueUnits;
     private ImageView datePickerImage;
@@ -64,7 +66,7 @@ public class AddCropFragment extends Fragment {
 
         toolbar = view.findViewById(R.id.toolbar_add_crop_fragment);
         txtCropsDateSown = view.findViewById(R.id.txt_crops_date_sown);
-        spCropCrop = view.findViewById(R.id.sp_crop_crop);
+        autocompleteCropName = view.findViewById(R.id.autoComplete_crop_crop);
         spCropsField = view.findViewById(R.id.sp_crops_field);
         spCropsSeason = view.findViewById(R.id.sp_crops_season);
         spCropsHarvestUnits = view.findViewById(R.id.sp_crops_harvest_units);
@@ -127,13 +129,37 @@ public class AddCropFragment extends Fragment {
         });
 
         ArrayList<String> cropsList = new ArrayList<>();
-        cropsList.add("Select Crop");
-        for (CropInventorySeeds seed : dbHandler.getCropSeeds(DashboardActivity.RETRIEVED_USER_ID)) {
+        ArrayList<CropInventorySeeds> seedsList=  dbHandler.getCropSeeds(DashboardActivity.RETRIEVED_USER_ID);
+        for (CropInventorySeeds seed :  seedsList) {
             cropsList.add(seed.getName());
         }
 
-        spCropCrop.setAdapter(new ArrayAdapter<String>(context,
+        autocompleteCropName.setThreshold(1);
+        autocompleteCropName.setAdapter(new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_item, cropsList));
+        autocompleteCropName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                autocompleteCropName.showDropDown();
+            }
+        });
+
+        autocompleteCropName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                txtCropsVariety.setText( seedsList.get(position).getVariety()+"");
+            }
+        });
 
         ArrayList<CropSpinnerItem> fieldsItems = new ArrayList<>();
         for (CropField x : dbHandler.getCropFields(DashboardActivity.RETRIEVED_USER_ID)) {
@@ -171,8 +197,8 @@ public class AddCropFragment extends Fragment {
 
             }
         };
-        spCropCrop.setThreshold(1);
-        spCropCrop.setOnItemSelectedListener(onItemSelectedListener);
+
+
 
         spCropsSeason.setOnItemSelectedListener(onItemSelectedListener);
 
@@ -222,7 +248,7 @@ public class AddCropFragment extends Fragment {
     public void saveCrop() {
         crop = new Crop();
         crop.setUserId(DashboardActivity.RETRIEVED_USER_ID);
-        crop.setName(spCropCrop.getText().toString());
+        crop.setName(autocompleteCropName.getText().toString());
         crop.setVariety(txtCropsVariety.getText().toString());
         crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) spCropsField.getSelectedItem()).getId());
         crop.setSeason(spCropsSeason.getSelectedItem().toString());
@@ -238,7 +264,7 @@ public class AddCropFragment extends Fragment {
 
     public void updateCrop() {
         if (crop != null) {
-            crop.setName(spCropCrop.getText().toString());
+            crop.setName(autocompleteCropName.getText().toString());
             crop.setVariety(txtCropsVariety.getText().toString());
             crop.setFieldId(((com.myfarmnow.myfarmcrop.models.farmrecords.CropField) spCropsField.getSelectedItem()).getId());
             crop.setSeason(spCropsSeason.getSelectedItem().toString());
@@ -257,7 +283,7 @@ public class AddCropFragment extends Fragment {
         if (crop != null) {
             // DashboardActivity.selectSpinnerItemByValue(cropSP,crop.getName());
             txtCropsVariety.setText(crop.getVariety());
-            spCropCrop.setText(crop.getName());
+            autocompleteCropName.setText(crop.getName());
             DashboardActivity.selectSpinnerItemByValue(spCropsSeason, crop.getSeason());
             DashboardActivity.selectSpinnerItemByValue(spCropsHarvestUnits, crop.getHarvestUnits());
             txtCropsDateSown.setText(crop.getDateSown());
@@ -276,9 +302,9 @@ public class AddCropFragment extends Fragment {
         } else if (txtCropsArea.getText().toString().isEmpty()) {
             message = getString(R.string.area_not_entered);
             txtCropsArea.requestFocus();
-        } else if (spCropCrop.getText().toString().isEmpty()) {
+        } else if (autocompleteCropName.getText().toString().isEmpty()) {
             message = "Crop must be entered";
-            spCropCrop.requestFocus();
+            autocompleteCropName.requestFocus();
         } else if (spCropsField.getSelectedItemPosition() == 0) {
             message = getString(R.string.field_not_selected);
             spCropsField.requestFocus();

@@ -48,7 +48,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     private static final String TAG = "MyFarmDbHandler";
 
     public static final String DATABASE_NAME = "myFarm.db";
-    private static int database_version = 4;
+    private static int database_version = 6;
 
     public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME = "crop_inventory_fertilizer";
     public static final String CROP_INVENTORY_SEEDS_TABLE_NAME = "crop_inventory_seeds";
@@ -691,8 +691,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT = "weaningAlert";
     public static final String LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM = "motherDam";
     public static final String LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE = "fatherSire";
-    public static final String LIVESTOCK_RECORDS_LITTERS_SIRE_ID = "sireId";
-    public static final String LIVESTOCK_RECORDS_LITTERS_DAM_ID = "damId";
+    public static final String LIVESTOCK_RECORDS_LITTERS_SIRE_ID = "sire_id";
+    public static final String LIVESTOCK_RECORDS_LITTERS_DAM_ID = "dam_id";
     public static final String LIVESTOCK_RECORDS_LITTERS_SYNC_STATUS = "syncStatus";
     public static final String LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID = "globalId";
 
@@ -1026,8 +1026,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             upGradingTablesFromVersion2ToVersion3(db);
         } else if (oldVersion == 3 && newVersion == 4) {
             upGradingTablesFromVersion3ToVersion4(db);
-        } else if (oldVersion == 4 && newVersion == 5) {
-            upGradingTablesFromVersion4ToVersion5(db);
+        } else if (oldVersion == 5 && newVersion == 6) {
+            upGradingTablesFromVersion5ToVersion6(db);
         }
         onCreate(db);
 
@@ -1045,7 +1045,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE " + CROP_FERTILIZER_APPLICATION_TABLE_NAME + " ADD COLUMN " + CROP_FERTILIZER_APPLICATION_FERTILIZER_NAME + " TEXT ");
     }
 
-    public void upGradingTablesFromVersion4ToVersion5(SQLiteDatabase db) {
+    public void upGradingTablesFromVersion5ToVersion6(SQLiteDatabase db) {
         database = db;
         db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_SIRE_ID + " TEXT ");
         db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_DAM_ID + " TEXT ");
@@ -2648,6 +2648,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(CROP_SPRAYING_SPRAY_NAME, spraying.getSprayName());
         contentValues.put(CROP_SYNC_STATUS, spraying.getSyncStatus());
         contentValues.put(CROP_GLOBAL_ID, spraying.getGlobalId());
+        contentValues.put(CROP_SPRAYING_UNITS, spraying.getUsageUnits());
         database.update(CROP_SPRAYING_TABLE_NAME, contentValues, CROP_SPRAYING_ID + " = ?", new String[]{spraying.getId()});
         deleteCropNotification(spraying.getId(), context.getString(R.string.notification_type_spraying));
         generateNotifications(context.getString(R.string.notification_type_spraying), spraying.getId());
@@ -2703,6 +2704,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             spraying.setRepeatUntil(res.getString(res.getColumnIndex(CROP_SPRAYING_REPEAT_UNTIL)));
             spraying.setSprayName(res.getString(res.getColumnIndex(CROP_SPRAYING_SPRAY_NAME)));
             spraying.setGlobalId(res.getString(res.getColumnIndex(CROP_GLOBAL_ID)));
+            spraying.setUnits(res.getString(res.getColumnIndex(CROP_SPRAYING_UNITS)));
             array_list.add(spraying);
             res.moveToNext();
         }

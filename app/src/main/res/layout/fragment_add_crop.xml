@@ -54,7 +54,7 @@
                         android:textSize="@dimen/dimen_16sp" />
 
                     <AutoCompleteTextView
-                        android:id="@+id/sp_crop_crop"
+                        android:id="@+id/autoComplete_crop_crop"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@drawable/edittext_corner"
