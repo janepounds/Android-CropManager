@@ -133,7 +133,7 @@
                             android:background="@drawable/edittext_corner"
                             android:ems="10"
                             android:textSize="14sp"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingStart="@dimen/dimen_10dp"/>
 
                     </LinearLayout>
@@ -271,7 +271,7 @@
                             android:background="@drawable/edittext_corner"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:textSize="14sp"
-                            android:inputType="number"/>
+                            android:inputType="numberDecimal"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -297,7 +297,7 @@
                             android:background="@drawable/edittext_corner"
                             android:ems="10"
                             android:textSize="14sp"
-                            android:inputType="number"/>
+                            android:inputType="numberDecimal"/>
 
                     </LinearLayout>
 
@@ -330,7 +330,7 @@
                             android:background="@drawable/edittext_corner"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:textSize="14sp"
-                            android:inputType="number"/>
+                            android:inputType="numberDecimal"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -356,7 +356,7 @@
                             android:background="@drawable/edittext_corner"
                             android:ems="10"
                             android:textSize="14sp"
-                            android:inputType="number"/>
+                            android:inputType="numberDecimal"/>
 
                     </LinearLayout>
 
@@ -397,7 +397,7 @@
                                 android:layout_margin="0dp"
                                 android:layout_weight="0.8"
                                 android:background="@android:color/transparent"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:paddingStart="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
@@ -447,7 +447,7 @@
                                 android:layout_margin="0dp"
                                 android:layout_weight="0.8"
                                 android:background="@android:color/transparent"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:paddingStart="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 

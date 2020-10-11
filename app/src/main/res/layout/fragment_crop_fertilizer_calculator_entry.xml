@@ -101,7 +101,7 @@
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
                             android:hint="@string/area"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingLeft="@dimen/dimen_10dp"
                             android:textSize="14sp" />
 
@@ -368,7 +368,7 @@
                                 android:layout_weight="0.7"
                                 android:background="@android:color/transparent"
                                 android:hint="@string/unit_price"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:paddingLeft="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
@@ -474,7 +474,7 @@
                                 android:layout_weight="0.7"
                                 android:background="@android:color/transparent"
                                 android:hint="@string/unit_price"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:paddingLeft="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 
@@ -579,7 +579,7 @@
                                 android:layout_weight="0.7"
                                 android:background="@android:color/transparent"
                                 android:hint="@string/unit_price"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:paddingLeft="@dimen/dimen_10dp"
                                 android:textSize="14sp" />
 

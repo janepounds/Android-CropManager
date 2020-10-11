@@ -117,7 +117,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingRight="@dimen/dimen_10dp"
                             android:textAlignment="textEnd"
                             android:textSize="14sp" />
@@ -172,7 +172,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingRight="@dimen/dimen_10dp"
                             android:textAlignment="textEnd"
                             android:textSize="14sp" />
@@ -230,7 +230,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingRight="@dimen/dimen_10dp"
                             android:textAlignment="textEnd"
                             android:textSize="14sp" />
@@ -285,7 +285,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingRight="@dimen/dimen_10dp"
                             android:textAlignment="textEnd"
                             android:textSize="14sp" />
@@ -342,7 +342,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:paddingRight="@dimen/dimen_10dp"
                             android:textAlignment="textEnd"
                             android:textSize="14sp" />

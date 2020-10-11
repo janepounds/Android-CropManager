@@ -315,7 +315,7 @@
                             android:layout_weight="0.8"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="14sp" />
 
                         <TextView
@@ -395,7 +395,7 @@
                             android:layout_weight="0.7"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="14sp" />
 
                         <TextView

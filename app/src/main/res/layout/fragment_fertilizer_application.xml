@@ -428,7 +428,7 @@
                     android:layout_weight="0.7"
                     android:paddingStart="@dimen/dimen_10dp"
                     android:background="@android:color/transparent"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
 
                 <TextView
                     android:id="@+id/txt_crop_fertilizer_application_days_beforee"

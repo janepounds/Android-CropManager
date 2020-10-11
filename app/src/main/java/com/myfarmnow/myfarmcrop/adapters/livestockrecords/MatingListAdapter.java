@@ -59,12 +59,6 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
         return holder;
     }
 
-
-
-    public void addMating(Mating mating){
-        this.matings.add(mating);
-        notifyItemChanged(getItemCount());
-    }
     public void changeList(ArrayList<Mating> matings){
 
         this.matings.clear();
@@ -94,10 +88,6 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
         holder.dateTextView.setText(mating.getMatingDate());
 
         computeDeliveryDate(mating.getMatingDate(),mating.getGestationPeriod(),holder);
-
-
-
-
 
     }
 
@@ -187,7 +177,9 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
 
             convertedDate = dateFormat.parse(matingDate);
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.DAY_OF_MONTH,((int)gestationPeriod));
+            c.setTime(convertedDate);
+            c.add(Calendar.DATE,((int)gestationPeriod));
+
             String newDate = dateFormat.format(c.getTime());
             holder.expectedDeliveryTextView.setText(newDate);
         } catch (ParseException e) {
@@ -197,7 +189,6 @@ public class MatingListAdapter extends  RecyclerView.Adapter<MatingListAdapter.M
 
 
     }
-
 
 
 }

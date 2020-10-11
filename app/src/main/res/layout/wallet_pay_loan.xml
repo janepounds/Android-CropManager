@@ -75,7 +75,7 @@
                             android:ems="3"
                             android:hint="Enter.."
 
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="14sp"
 
                             />
@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Enter.."
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingLeft="2dp"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -156,7 +156,7 @@
                         android:background="@drawable/edittext_corner"
                         android:textSize="14dp"
                         android:layout_marginTop="@dimen/margin_10"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingLeft="@dimen/dimen_15sp"
                         />
                 </LinearLayout>

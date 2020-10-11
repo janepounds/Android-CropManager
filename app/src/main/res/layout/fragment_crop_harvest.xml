@@ -174,7 +174,7 @@
                     android:layout_weight="0.7"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:background="@android:color/transparent"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
                 <TextView
                     android:id="@+id/txt_crop_harvest_unit"
@@ -216,7 +216,7 @@
                     android:layout_weight="0.7"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:background="@android:color/transparent"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="14sp"
                     android:entries="@array/sp_crop_harvest_status"
                     android:hint="Quantity" />
@@ -358,7 +358,7 @@
                             android:layout_margin="0dp"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:layout_weight="0.8"
                             />
                         <TextView
@@ -404,7 +404,7 @@
                         android:layout_weight="0.7"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="number"/>
+                        android:inputType="numberDecimal"/>
 
                     <TextView
                         android:id="@+id/txt_crop_harvest_sold_unit"
@@ -503,7 +503,7 @@
                         android:layout_weight="0.7"
                         android:paddingStart="@dimen/dimen_10dp"
                         android:background="@android:color/transparent"
-                        android:inputType="number"/>
+                        android:inputType="numberDecimal"/>
 
                     <TextView
                         android:id="@+id/txt_crop_harvest_stored_unit"
@@ -547,7 +547,7 @@
                     android:layout_weight="0.7"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:background="@android:color/transparent"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="14sp"
                     android:entries="@array/sp_crop_task_recurrence"
                     android:hint="Quantity" />
@@ -597,7 +597,7 @@
                             android:layout_weight="0.7"
                             android:paddingLeft="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="14sp"
                             android:entries="@array/sp_crop_task_reminders"
                             android:hint="Reminders"
@@ -643,7 +643,7 @@
                             android:layout_weight="0.4"
                             android:paddingLeft="@dimen/dimen_10dp"
                             android:background="@android:color/transparent"
-                            android:inputType="number" />
+                            android:inputType="numberDecimal" />
 
                         <TextView
                             android:layout_width="0dp"
