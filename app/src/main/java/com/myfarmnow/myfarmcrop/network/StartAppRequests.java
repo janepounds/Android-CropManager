@@ -120,14 +120,7 @@ public class StartAppRequests {
                     });
                 }
             });
-
-        
-        
-
-        
     }
-
-
 
     //*********** API Request Method to Fetch App Banners ********//
 
@@ -189,15 +182,11 @@ public class StartAppRequests {
         
     }
 
-
-
     //*********** Request App Settings from the Server ********//
     
     private void RequestAppSetting() {
-    
         Call<AppSettingsData> call = BuyInputsAPIClient.getInstance()
                 .getAppSetting();
-    
         try {
             Response<AppSettingsData> response = call.execute();
         
@@ -211,10 +200,8 @@ public class StartAppRequests {
 
                 if (!TextUtils.isEmpty(appSettingsData.getSuccess()))
                     cropManagerApp.setAppSettingsDetails(appSettingsData.getAppDetails());
-
             }
            else {
-               
                Log.e("Appsettings","Response is not successful");
             }
         
@@ -222,9 +209,7 @@ public class StartAppRequests {
             e.printStackTrace();
         }
     }
-    
-    
-    
+
     //*********** Request Static Pages Data from the Server ********//
     
     private void RequestStaticPagesData() {
@@ -234,8 +219,7 @@ public class StartAppRequests {
         ConstantValues.PRIVACY_POLICY = cropManagerApp.getString(R.string.lorem_ipsum);
         ConstantValues.REFUND_POLICY = cropManagerApp.getString(R.string.lorem_ipsum);
         ConstantValues.A_Z = cropManagerApp.getString(R.string.lorem_ipsum);
-    
-    
+
         Call<PagesData> call = BuyInputsAPIClient.getInstance()
                 .getStaticPages
                         (

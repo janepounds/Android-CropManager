@@ -117,17 +117,16 @@ public class Utilities {
         return false;
     }
 
-
     public static boolean hasActiveInternetConnection(Context context) {
 
         if (isNetworkAvailable(context)) {
             try {
-                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
-                urlc.setRequestProperty("User-Agent", "Test");
-                urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(10000);
-                urlc.connect();
-                return (urlc.getResponseCode() == 200);
+                HttpURLConnection connection = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
+                connection.setRequestProperty("User-Agent", "Test");
+                connection.setRequestProperty("Connection", "close");
+                connection.setConnectTimeout(10000);
+                connection.connect();
+                return (connection.getResponseCode() == 200);
             } catch (IOException e) {
                 Log.e("Net_Available", "Error checking internet connection", e);
             }
