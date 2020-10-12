@@ -307,8 +307,9 @@ public class SignUp extends AppCompatActivity {
             if (isValidData) {
                 parentView = v;
                 // Proceed User Registration
-                processRegistration();
-                //sendVerificationCode(getResources().getString(R.string.indian_code)+user_mobile.getText().toString().trim());
+
+                sendVerificationCode(getResources().getString(R.string.ugandan_code)+phoneNumber.getText().toString().trim());
+
             }
         });
 
@@ -439,6 +440,7 @@ public class SignUp extends AppCompatActivity {
                 ed_otp.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);
+                processRegistration();
             }
         }
 
