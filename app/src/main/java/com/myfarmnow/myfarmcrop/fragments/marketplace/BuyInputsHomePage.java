@@ -15,6 +15,7 @@
  import android.view.ViewGroup;
  import android.view.animation.Animation;
  import android.view.animation.AnimationUtils;
+ import android.widget.TextView;
  import android.widget.Toast;
 
  import androidx.annotation.Nullable;
@@ -38,12 +39,14 @@
  import com.myfarmnow.myfarmcrop.constants.ConstantValues;
  import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
  import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+ import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
  import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
  import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
  import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
  import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BannerStyle1;
  import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Categories_3;
  import com.myfarmnow.myfarmcrop.models.banner_model.BannerDetails;
+ import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
  import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
  import com.myfarmnow.myfarmcrop.models.user_model.UserData;
  import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
@@ -209,6 +212,13 @@
          currencyItem.setVisible(false);
          searchItem.setVisible(true);
          cartItem.setVisible(true);
+
+        //set badge value
+         User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
+         List<CartProduct> cartItemsList = new ArrayList<>();
+         cartItemsList = user_cart_BuyInputs_db.getCartItems();
+       TextView badge  =(TextView) cartItem.getActionView().findViewById(R.id.cart_badge);
+       badge.setText(String.valueOf(cartItemsList.size()));
 
      }
 

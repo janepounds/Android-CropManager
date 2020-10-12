@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -117,6 +118,12 @@ public class My_Cart extends Fragment {
         // Change the Visibility of cart_view and cart_view_empty LinearLayout based on CartItemsList's Size
         if (cartItemsList.size() != 0) {
             cart_view.setVisibility(View.VISIBLE);
+
+
+
+//            ((AppCompatActivity) getActivity()).getSupportActionBar().getV
+
+
             cart_view_empty.setVisibility(View.GONE);
         } else {
             cart_view.setVisibility(View.GONE);
@@ -374,6 +381,8 @@ public class My_Cart extends Fragment {
         profileItem.setVisible(false);
         cartItem.setVisible(false);
         searchItem.setVisible(true);
+
+
     }
 
     private class MyTask extends AsyncTask<String, Void, String> {

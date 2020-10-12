@@ -148,7 +148,7 @@
                     android:paddingStart="@dimen/dimen_10dp"
                     android:background="@drawable/edittext_corner"
                     android:hint="Enter.."
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:paddingLeft="2dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -206,7 +206,7 @@
                         android:paddingStart="@dimen/dimen_10dp"
                         android:background="@drawable/edittext_corner"
                         android:hint="Enter.."
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingLeft="2dp"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -232,7 +232,7 @@
                     android:paddingStart="@dimen/dimen_10dp"
                     android:background="@drawable/edittext_corner"
                     android:hint="Enter.."
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:paddingLeft="2dp"
                     android:textSize="12sp" />
             </LinearLayout>

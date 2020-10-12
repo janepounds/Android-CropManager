@@ -291,8 +291,8 @@ public class CropSpraying implements Serializable,CropActivity {
 
     }
 
-    public String setUnits(String units) {
-       return this.usageUnits;
+    public void setUnits(String units) {
+       this.usageUnits=units;
     }
 
     public String getUsageUnits() {

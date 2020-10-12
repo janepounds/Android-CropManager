@@ -418,7 +418,7 @@
                             android:ems="3"
                             android:hint="Enter.."
 
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="12sp"
 
                             />
@@ -492,7 +492,7 @@
                             android:background="@drawable/input_shapes"
                          
                             android:hint="Enter.."
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="12sp"
 
                             />

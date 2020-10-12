@@ -40,7 +40,7 @@
         android:hint="OTP Code"
         android:textColorHint="@color/textColorPrimaryDark"
         android:background="@drawable/outline_primary"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

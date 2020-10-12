@@ -187,6 +187,7 @@
                                 android:inputType="phone"
                                 android:paddingStart="@dimen/dimen_10dp"
                                 android:tag="+256 "
+                                android:maxLength="9"
                                 android:textAlignment="viewStart"
                                 android:textColor="@android:color/black"
                                 android:textColorHint="@android:color/black"

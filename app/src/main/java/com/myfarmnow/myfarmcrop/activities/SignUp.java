@@ -307,8 +307,9 @@ public class SignUp extends AppCompatActivity {
             if (isValidData) {
                 parentView = v;
                 // Proceed User Registration
-                processRegistration();
-                //sendVerificationCode(getResources().getString(R.string.indian_code)+user_mobile.getText().toString().trim());
+
+                sendVerificationCode(getResources().getString(R.string.ugandan_code)+phoneNumber.getText().toString().trim());
+
             }
         });
 
@@ -439,6 +440,7 @@ public class SignUp extends AppCompatActivity {
                 ed_otp.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);
+                processRegistration();
             }
         }
 
@@ -484,7 +486,7 @@ public class SignUp extends AppCompatActivity {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";
                             }
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.credential_container), message, Snackbar.LENGTH_LONG);
                             snackbar.setAction("Dismiss", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -545,7 +547,7 @@ public class SignUp extends AppCompatActivity {
 
         RequestBody fName = RequestBody.create(MediaType.parse("text/plain"), firstName.getText().toString().trim());
         RequestBody lName = RequestBody.create(MediaType.parse("text/plain"), lastName.getText().toString().trim());
-        RequestBody customersTelephone = RequestBody.create(MediaType.parse("text/plain"), phoneNumber.getText().toString().trim());
+        RequestBody customersTelephone = RequestBody.create(MediaType.parse("text/plain"),  getResources().getString(R.string.ugandan_code)+phoneNumber.getText().toString().trim());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user_email.getText().toString().trim());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword.getText().toString().trim());
         RequestBody countryCode = RequestBody.create(MediaType.parse("text/plain"), getResources().getString(R.string.ugandan_code));

@@ -321,7 +321,9 @@ public class AddBreedingStockFragment extends DialogFragment {
             galleryLayout.setVisibility(View.VISIBLE);
             fetchedPhoto = breedingStock.getPhoto();
             //pick photo
+            if(fetchedPhoto!=null)
             Glide.with(context).load(Base64.decode(fetchedPhoto, Base64.DEFAULT)).into(imagePreview);
+
             submit.setText(getString(R.string.update));
             breeder_form_title.setText(getString(R.string.update_animal));
 
