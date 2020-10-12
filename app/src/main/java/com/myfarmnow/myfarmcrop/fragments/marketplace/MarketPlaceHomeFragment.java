@@ -75,17 +75,14 @@ public class MarketPlaceHomeFragment extends Fragment {
 
         buyInputs.setOnClickListener((View.OnClickListener) v -> {
             Fragment buyinputshome = new BuyInputsHomePage();
-            if (currentFragment == null)
-                fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, buyinputshome)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
-            else
-                fragmentManager.beginTransaction()
-                        .hide(currentFragment)
-                        .add(R.id.main_fragment_container, buyinputshome)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
+
+            currentFragment = MarketPlaceHomeFragment.this;
+            fragmentManager.beginTransaction()
+                    //.hide(currentFragment)
+                    .add(R.id.main_fragment_container, buyinputshome)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack(getString(R.string.actionHome)).commit();
+
 
             currentFragment = buyinputshome;
         });
