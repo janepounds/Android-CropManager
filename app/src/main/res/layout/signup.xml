@@ -177,22 +177,38 @@
                                 android:layout_marginBottom="4dp"
                                 android:fontFamily="@font/josefin_sans"
                                 android:text="@string/phone_number" />
-
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/edittext_corner"
+                                android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txt_crops_estimated_revenue_units"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:background="@drawable/edittext_left_corners_green"
+                                android:gravity="center"
+                                android:text="+256"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
                             <EditText
                                 android:id="@+id/user_mobile"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@drawable/edittext_corner"
+                                android:layout_height="match_parent"
                                 android:fontFamily="@font/josefin_sans"
                                 android:inputType="phone"
                                 android:paddingStart="@dimen/dimen_10dp"
                                 android:tag="+256 "
                                 android:maxLength="9"
+                                android:layout_weight="0.3"
                                 android:textAlignment="viewStart"
                                 android:textColor="@android:color/black"
                                 android:textColorHint="@android:color/black"
                                 android:visibility="visible" />
-
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
