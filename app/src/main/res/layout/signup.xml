@@ -188,7 +188,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
-                                android:background="@drawable/edittext_left_corners_green"
+                                android:background="@drawable/edittext_left_corners_white"
                                 android:gravity="center"
                                 android:text="+256"
                                 android:textStyle="bold"
