@@ -51,6 +51,7 @@ public class ConstantValues {
     public static boolean IS_GOOGLE_LOGIN_ENABLED;
     public static boolean IS_FACEBOOK_LOGIN_ENABLED;
     public static boolean IS_ADD_TO_CART_BUTTON_ENABLED;
+    public static boolean IS_PRODUCT_CHECKED;
 
     public static boolean IS_ADMOBE_ENABLED;
     public static String ADMOBE_ID;
