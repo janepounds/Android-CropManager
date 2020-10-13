@@ -36,7 +36,7 @@
  import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
  import com.myfarmnow.myfarmcrop.app.CropManagerApp;
  import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ViewPagerCustomAdapter;
- import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+ import com.myfarmnow.myfarmcrop.constants.ConstantValues; import com.myfarmnow.myfarmcrop.customs.DialogLoader;
  import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
  import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
  import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
@@ -164,9 +164,11 @@
 
      private class MyTask extends AsyncTask<String, Void, String> {
 
+         DialogLoader dialogLoader = new DialogLoader(getContext());
          @Override
          protected void onPreExecute() {
              super.onPreExecute();
+             dialogLoader.showProgressDialog();
          }
 
          @Override
@@ -192,6 +194,7 @@
 
              if (result.equalsIgnoreCase("1")) {
                  continueSetup();
+                 dialogLoader.hideProgressDialog();
              }
          }
 
@@ -240,7 +243,6 @@
          getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
          return true;
      };
-
 
  }
 
