@@ -324,7 +324,7 @@ public class AccountFragment extends Fragment {
 
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(context);
-        myAppPrefsManager.setUserLoggedIn(false);
+        myAppPrefsManager.logOutUser();
 
         // Set isLogged_in of ConstantValues
         ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();

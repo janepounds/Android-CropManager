@@ -85,13 +85,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     SharedPreferences sharedPreferences;
 
 //    private CallbackManager callbackManager;
-
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions mGoogleSignInOptions;
 
     private static final int RC_SIGN_IN = 100;
-
-
 
     private UserDetails userDetails;
     private Dialog dialogOTP;
@@ -118,10 +115,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 .requestEmail()
                 .build();
 
-
         setContentView(R.layout.login);
-
-
 
         // setting Toolbar
         //toolbar = findViewById(R.id.myToolbar);
@@ -130,7 +124,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
       //  actionBar.setTitle("");
      //   actionBar.setDisplayShowHomeEnabled(false);
        // actionBar.setDisplayHomeAsUpEnabled(false);
-
 
         // Binding Layout Views
         user_email = findViewById(R.id.user_email);
@@ -142,7 +135,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         forgotPasswordText = findViewById(R.id.forgot_password_text);
 
         parentView = signupText;
-
 
         if (ConstantValues.IS_GOOGLE_LOGIN_ENABLED) {
             googleLoginBtn.setVisibility(View.VISIBLE);
@@ -156,15 +148,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             facebookLoginBtn.setVisibility(View.GONE);
         }
 
-
         dialogLoader = new DialogLoader(Login.this);
 
         userInfoDB = new User_Info_BuyInputsDB();
         sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
 
-
         user_email.setText(sharedPreferences.getString("userEmail", null));
-
 
         // Register Callback for Facebook LoginManager
 //        callbackManager = CallbackManager.Factory.create();
@@ -188,91 +177,60 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 //            }
 //        });
 
-
-
         // Initializing Google API Client
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(Login.this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, mGoogleSignInOptions)
                 .build();
 
-
-
         // Handle on Forgot Password Click
-        forgotPasswordText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
+        forgotPasswordText.setOnClickListener(view -> {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this, R.style.DialogFullscreen);
+            View dialogView = getLayoutInflater().inflate(R.layout.buy_inputs_dialog_input, null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(true);
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this, R.style.DialogFullscreen);
-                View dialogView = getLayoutInflater().inflate(R.layout.buy_inputs_dialog_input, null);
-                dialog.setView(dialogView);
-                dialog.setCancelable(true);
+            final Button dialog_button = dialogView.findViewById(R.id.dialog_button);
+            final TextView dialog_forgottext = dialogView.findViewById(R.id.forgot_password_text);
+            final EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
+           // final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+            final ImageView dismiss_button = dialogView.findViewById(R.id.dismissButton);
+            dialog_forgottext.setVisibility(View.VISIBLE);
+            dialog_button.setText(getString(R.string.sendemail));
+          //  dialog_title.setText(getString(R.string.forgot_your_password));
 
-                final Button dialog_button = dialogView.findViewById(R.id.dialog_button);
-                final TextView dialog_forgottext = dialogView.findViewById(R.id.forgot_password_text);
-                final EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
-               // final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
-                final ImageView dismiss_button = dialogView.findViewById(R.id.dismissButton);
-                dialog_forgottext.setVisibility(View.VISIBLE);
-                dialog_button.setText(getString(R.string.sendemail));
-              //  dialog_title.setText(getString(R.string.forgot_your_password));
+            final AlertDialog alertDialog = dialog.create();
+            alertDialog.show();
 
+            dismiss_button.setOnClickListener(v -> alertDialog.dismiss());
 
-
-                final AlertDialog alertDialog = dialog.create();
-                alertDialog.show();
-
-                dismiss_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                dialog_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (ValidateInputs.isValidEmail(dialog_input.getText().toString().trim())) {
-                            // Request for Password Reset
-                            processForgotPassword(dialog_input.getText().toString());
-
-                        }
-                        else {
-                            Snackbar.make(parentView, getString(R.string.invalid_email), Snackbar.LENGTH_LONG).show();
-                        }
-
-                        alertDialog.dismiss();
-                    }
-                });
-            }
-        });
-
-
-
-        signupText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to SignUp Activity
-                startActivity(new Intent(Login.this, SignUp.class));
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-            }
-        });
-
-
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Validate Login Form Inputs
-                boolean isValidData = validateLogin();
-
-                if (isValidData) {
-
-                    // Proceed User Login
-                    processLogin();
+            dialog_button.setOnClickListener(v -> {
+                if (ValidateInputs.isValidEmail(dialog_input.getText().toString().trim())) {
+                    // Request for Password Reset
+                    processForgotPassword(dialog_input.getText().toString());
                 }
-            }
+                else {
+                    Snackbar.make(parentView, getString(R.string.invalid_email), Snackbar.LENGTH_LONG).show();
+                }
+                alertDialog.dismiss();
+            });
         });
 
+        signupText.setOnClickListener(v -> {
+            // Navigate to SignUp Activity
+            startActivity(new Intent(Login.this, SignUp.class));
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+        });
+
+        loginBtn.setOnClickListener(v -> {
+            // Validate Login Form Inputs
+            boolean isValidData = validateLogin();
+
+            if (isValidData) {
+                // Proceed User Login
+                processLogin();
+            }
+        });
 
         // Handle Facebook Login Button click
 //        facebookLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -288,22 +246,18 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 //            }
 //        });
 
-
         // Handle Google Login Button click
-        googleLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Logout the User if already Logged-in
-                if (mGoogleApiClient.isConnected()){
-                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                }
-
-                // Get the Google SignIn Intent
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-
-                // Start Activity with Google SignIn Intent
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+        googleLoginBtn.setOnClickListener(v -> {
+            // Logout the User if already Logged-in
+            if (mGoogleApiClient.isConnected()){
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             }
+
+            // Get the Google SignIn Intent
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+
+            // Start Activity with Google SignIn Intent
+            startActivityForResult(signInIntent, RC_SIGN_IN);
         });
 
     }
@@ -314,7 +268,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // If Connection fails for GoogleApiClient
     }
-
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
 
@@ -327,9 +280,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleGoogleSignInResult(result);
         }
-
 //        callbackManager.onActivityResult(requestCode, resultCode, data);
-
     }
 
 
@@ -350,12 +301,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
     }
 
-
-
     //*********** Proceed Login with User Email and Password ********//
 
     private void processLogin() {
-
         dialogLoader.showProgressDialog();
 
         Call<UserData> call = BuyInputsAPIClient.getInstance()
@@ -549,13 +497,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor.putString(DashboardActivity.PREFERENCES_LAST_NAME, userDetails.getLastName());
         editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, user_current_phone_number);
         editor.putString(DashboardActivity.USER_DEFAULT_ADDRESS_PREFERENCES_ID, userDetails.getDefaultAddressId());
-
         editor.putBoolean("isLogged_in", true);
-        editor.commit();
+        editor.apply();
 
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
-        myAppPrefsManager.setUserLoggedIn(true);
+        myAppPrefsManager.logInUser();
 
         // Set isLogged_in of ConstantValues
         ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
@@ -589,7 +536,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
-        myAppPrefsManager.setUserLoggedIn(true);
+        myAppPrefsManager.logInUser();
 
         ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
 
@@ -623,7 +570,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor.commit();
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
-        myAppPrefsManager.setUserLoggedIn(true);
+        myAppPrefsManager.logInUser();
 
         // Set isLogged_in of ConstantValues
         ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
@@ -673,8 +620,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             }
         });
     }
-
-
 
     //*********** Proceed Facebook Registration Request ********//
 
@@ -727,7 +672,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         });
     }
 
-
     //*********** Proceed Google Registration Request ********//
 
     private void processGoogleRegistration(GoogleSignInAccount account) {
@@ -752,7 +696,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 account.getEmail(),
                                 photoURL
                         );
-
 
         call.enqueue(new Callback<UserData>() {
             @Override
@@ -794,7 +737,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         });
     }
 
-
     //*********** Validate Login Form Inputs ********//
 
     private boolean validateLogin() {
@@ -811,7 +753,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
     }
 
-
     //*********** Set the Base Context for the ContextWrapper ********//
 
     @Override
@@ -824,12 +765,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }
 
-
     //*********** Called when the Activity has detected the User pressed the Back key ********//
 
     @Override
     public void onBackPressed() {
-
         // Navigate back to MainActivity
         //startActivity(new Intent(Login.this, DashboardActivity.class));
         finish();

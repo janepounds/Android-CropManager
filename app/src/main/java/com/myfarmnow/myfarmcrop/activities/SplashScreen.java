@@ -32,6 +32,7 @@ import am.appwise.components.ni.NoInternetDialog;
  **/
 
 public class SplashScreen extends AppCompatActivity {
+    private static final String TAG = "SplashScreen";
 
     View rootView;
     ProgressBar progressBar;
@@ -46,6 +47,9 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash);
+
+        MyAppPrefsManager prefsManager = new MyAppPrefsManager(this);
+        Log.d(TAG, "onCreate: Login Status = " + prefsManager.isUserLoggedIn());
 
         Log.i("VC_Shop", "emaisha_Version = " + ConstantValues.CODE_VERSION);
 
@@ -179,16 +183,16 @@ public class SplashScreen extends AppCompatActivity {
 
             setAppConfig();
 
-            if (myAppPrefsManager.isFirstTimeLaunch()) {
-                // Navigate to IntroScreen
-//                    startActivity(new Intent(getBaseContext(), IntroScreen.class));
+            MyAppPrefsManager prefsManager = new MyAppPrefsManager(getApplicationContext());
+            Log.d(TAG, "onCreate: Login Status = " + prefsManager.isUserLoggedIn());
+
+            if (!prefsManager.isUserLoggedIn()) {
                 startActivity(new Intent(getBaseContext(), Login.class));
-                finish();
             } else {
-                // Navigate to MainActivity
                 startActivity(new Intent(getBaseContext(), DashboardActivity.class));
-                finish();
             }
+
+            finish();
         }
     }
 }
