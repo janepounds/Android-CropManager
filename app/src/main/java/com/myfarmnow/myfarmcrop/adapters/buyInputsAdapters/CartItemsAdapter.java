@@ -58,6 +58,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
 
         user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
         recents_db = new User_Recents_BuyInputsDB();
+        notifyDataSetChanged();
     }
 
 
@@ -103,6 +104,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
                     fragmentManager.beginTransaction()
                             .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .detach(fragment)
+                            .attach(fragment)
                             .addToBackStack(context.getString(R.string.actionCart)).commit();
                 }
             });

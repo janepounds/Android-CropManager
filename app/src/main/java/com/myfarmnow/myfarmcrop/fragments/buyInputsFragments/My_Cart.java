@@ -161,6 +161,8 @@ public class My_Cart extends Fragment {
                 fragmentManager.beginTransaction()
                         .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .detach(fragment)
+                        .attach(fragment)
                         .addToBackStack(getString(R.string.actionCart)).commit();
 
             }
@@ -557,5 +559,16 @@ public class My_Cart extends Fragment {
         }
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        cartItemsAdapter = new CartItemsAdapter(getContext(), finalCartItemsList, My_Cart.this);
+//
+//        // Set the Adapter and LayoutManager to the RecyclerView
+//        cart_items_recycler.setAdapter(cartItemsAdapter);
+//        cart_items_recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+//
+//
+//    }
 }
 

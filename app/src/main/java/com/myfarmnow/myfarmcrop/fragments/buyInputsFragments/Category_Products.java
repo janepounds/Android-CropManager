@@ -48,13 +48,13 @@ import retrofit2.Callback;
 public class Category_Products extends Fragment {
 
     View rootView;
-    
+
     int pageNo = 0;
     double maxPrice = 0;
     boolean isVisible;
     boolean isGridView;
     boolean isFilterApplied;
-    
+
     int categoryID;
     String customerID;
     String sortBy = "Newest";
@@ -69,7 +69,7 @@ public class Category_Products extends Fragment {
     ProgressBar progressBar, mainProgress;
 
     RecyclerView category_products_recycler;
-    
+
     LoadMoreTask loadMoreTask;
     FilterDialog filterDialog;
     PostFilterData filters = null;
@@ -83,17 +83,16 @@ public class Category_Products extends Fragment {
 
     Call<FilterData> filterCAll;
     Call<ProductData> productsCall;
-    
-    
+
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-    
+
         isVisible = isVisibleToUser;
     }
-    
-    
-    
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -110,7 +109,7 @@ public class Category_Products extends Fragment {
         if (getArguments().containsKey("sortBy")) {
             sortBy = getArguments().getString("sortBy");
         }
-        
+
 
         // Get the Customer's ID from SharedPreferences
         customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
@@ -121,7 +120,7 @@ public class Category_Products extends Fragment {
         sortList = rootView.findViewById(R.id.sort_list);
         sortListText = rootView.findViewById(R.id.sort_text);
         emptyRecord = rootView.findViewById(R.id.empty_record);
-        progressBar =  rootView.findViewById(R.id.loading_bar);
+        progressBar = rootView.findViewById(R.id.loading_bar);
         resetFiltersBtn = rootView.findViewById(R.id.resetFiltersBtn);
         layout_filter = rootView.findViewById(R.id.filter_layout);
         category_products_recycler = rootView.findViewById(R.id.products_recycler);
@@ -131,13 +130,13 @@ public class Category_Products extends Fragment {
         progressBar.setVisibility(View.GONE);
         emptyRecord.setVisibility(View.GONE);
         resetFiltersBtn.setVisibility(View.GONE);
-        
-        
+
+
         isGridView = false;
         isFilterApplied = false;
 //        layout_filter.setChecked(isFilterApplied);
-    
-    
+
+
         // Set sortListText text
         if (sortBy.equalsIgnoreCase("top seller")) {
             sortListText.setText(getString(R.string.top_seller));
@@ -152,11 +151,11 @@ public class Category_Products extends Fragment {
 
         // Initialize CategoryProductsList
         categoryProductsList = new ArrayList<>();
-    
-    
+
+
         // Request for Products of given OrderProductCategory based on PageNo.
         RequestCategoryProducts(pageNo, sortBy);
-    
+
         // Request for Filters of given OrderProductCategory
         RequestFilters(categoryID);
 
@@ -164,22 +163,21 @@ public class Category_Products extends Fragment {
         // Initialize GridLayoutManager and LinearLayoutManager
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         linearLayoutManager = new LinearLayoutManager(getContext());
-        if(categoryProductsList.size()<3)
+        if (categoryProductsList.size() < 3)
             bottomBar.setVisibility(View.INVISIBLE);
         // Initialize the ProductAdapter for RecyclerView
-        productAdapter = new ProductAdapter(getActivity(), getActivity().getSupportFragmentManager(),categoryProductsList, false,false);
+        productAdapter = new ProductAdapter(getActivity(), getActivity().getSupportFragmentManager(), categoryProductsList, false, false);
 
-        
+
         setRecyclerViewLayoutManager(isGridView);
         category_products_recycler.setAdapter(productAdapter);
-
 
 
         // Handle the Scroll event of Product's RecyclerView
         category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
             @Override
             public void onLoadMore(final int current_page) {
-                
+
                 progressBar.setVisibility(View.VISIBLE);
 
                 if (isFilterApplied) {
@@ -196,9 +194,6 @@ public class Category_Products extends Fragment {
         });
 
         productAdapter.notifyDataSetChanged();
-    
-    
-
 
 
         // Initialize FilterDialog and Override its abstract methods
@@ -261,7 +256,6 @@ public class Category_Products extends Fragment {
         });
 
 
-
         sortList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,48 +264,40 @@ public class Category_Products extends Fragment {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setCancelable(true);
-                
+
                 dialog.setItems(sortArray, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        
+
                         String selectedText = sortArray[which];
                         sortListText.setText(selectedText);
-    
-                        
+
+
                         if (selectedText.equalsIgnoreCase(sortArray[0])) {
                             sortBy = "Newest";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[1])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[1])) {
                             sortBy = "a to z";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[2])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[2])) {
                             sortBy = "z to a";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[3])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[3])) {
                             sortBy = "high to low";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[4])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[4])) {
                             sortBy = "low to high";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[5])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[5])) {
                             sortBy = "top seller";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[6])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[6])) {
                             sortBy = "special";
-                        }
-                        else if (selectedText.equalsIgnoreCase(sortArray[7])) {
+                        } else if (selectedText.equalsIgnoreCase(sortArray[7])) {
                             sortBy = "most liked";
-                        }
-                        else {
+                        } else {
                             sortBy = "Newest";
                         }
-                        
+
 
                         categoryProductsList.clear();
-                        if(isFilterApplied){
+                        if (isFilterApplied) {
                             // Initialize LoadMoreTask to Load More Products from Server against some Filters
                             RequestFilteredProducts(pageNo, sortBy, filters);
-                        }else {
+                        } else {
                             // Initialize LoadMoreTask to Load More Products from Server without Filters
                             RequestCategoryProducts(pageNo, sortBy);
                         }
@@ -322,13 +308,13 @@ public class Category_Products extends Fragment {
                         category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
                             @Override
                             public void onLoadMore(final int current_page) {
-                                
+
                                 progressBar.setVisibility(View.VISIBLE);
 
-                                if(isFilterApplied){
+                                if (isFilterApplied) {
                                     // Initialize LoadMoreTask to Load More Products from Server against some Filters
                                     loadMoreTask = new LoadMoreTask(current_page, filters);
-                                }else {
+                                } else {
                                     // Initialize LoadMoreTask to Load More Products from Server without Filters
                                     loadMoreTask = new LoadMoreTask(current_page, filters);
                                 }
@@ -359,27 +345,25 @@ public class Category_Products extends Fragment {
 
         return rootView;
     }
-    
-    
-    
+
+
     //*********** Switch RecyclerView's LayoutManager ********//
-    
+
     public void setRecyclerViewLayoutManager(Boolean isGridView) {
         int scrollPosition = 0;
-        
+
         // If a LayoutManager has already been set, get current Scroll Position
         if (category_products_recycler.getLayoutManager() != null) {
             scrollPosition = ((LinearLayoutManager) category_products_recycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         }
-    
+
         productAdapter.toggleLayout(isGridView);
-        
+
         category_products_recycler.setLayoutManager(isGridView ? gridLayoutManager : linearLayoutManager);
         category_products_recycler.setAdapter(productAdapter);
-        
+
         category_products_recycler.scrollToPosition(scrollPosition);
     }
-
 
 
     //*********** Adds Products returned from the Server to the CategoryProductsList ********//
@@ -406,11 +390,10 @@ public class Category_Products extends Fragment {
             emptyRecord.setVisibility(View.GONE);
             resetFiltersBtn.setVisibility(View.GONE);
         }
-        if(productAdapter.getItemCount() >= 3){
+        if (productAdapter.getItemCount() >= 3) {
             bottomBar.setVisibility(View.VISIBLE);
         }
     }
-
 
 
     //*********** Request Products of given OrderProductCategory from the Server based on PageNo. ********//
@@ -435,24 +418,22 @@ public class Category_Products extends Fragment {
         productsCall.enqueue(new Callback<ProductData>() {
             @Override
             public void onResponse(Call<ProductData> call, retrofit2.Response<ProductData> response) {
-                
+
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
                         // Products have been returned. Add Products to the ProductsList
                         addCategoryProducts(response.body());
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Products haven't been returned. Call the method to process some implementations
                         addCategoryProducts(response.body());
-                        
+
                         // Show the Message to the User
                         if (isVisible)
                             Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                    }
-                    else {
+                    } else {
                         // Unable to get Success status
                         if (isVisible)
                             Toast.makeText(getContext(), getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
@@ -461,12 +442,11 @@ public class Category_Products extends Fragment {
                     // Hide the ProgressBar
                     progressBar.setVisibility(View.GONE);
                     mainProgress.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     if (isVisible)
-                        Toast.makeText(CropManagerApp.getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CropManagerApp.getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
                 }
-                
+
             }
 
             @Override
@@ -480,7 +460,6 @@ public class Category_Products extends Fragment {
     }
 
 
-
     //*********** Request Products of given OrderProductCategory from the Server based on PageNo. against some Filters ********//
 
     public void RequestFilteredProducts(int pageNumber, String sortBy, PostFilterData postFilterData) {
@@ -490,7 +469,7 @@ public class Category_Products extends Fragment {
         getAllProducts.setPageNumber(pageNumber);
         getAllProducts.setLanguageId(ConstantValues.LANGUAGE_ID);
         getAllProducts.setCustomersId(customerID);
-        getAllProducts.setCategoriesId(categoryID+"");
+        getAllProducts.setCategoriesId(categoryID + "");
         getAllProducts.setType(sortBy);
         getAllProducts.setPrice(postFilterData.getPrice());
         getAllProducts.setFilters(postFilterData.getFilters());
@@ -512,40 +491,36 @@ public class Category_Products extends Fragment {
 
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
-                        
+
                         // Products have been returned. Add Products to the ProductsList
                         addCategoryProducts(response.body());
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Products haven't been returned. Call the method to process some implementations
                         addCategoryProducts(response.body());
-                        
+
                         // Show the Message to the User
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
-                    }
-                    else {
+                    } else {
                         // Unable to get Success status
                         Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
 
                     // Hide the ProgressBar
                     progressBar.setVisibility(View.GONE);
-                    
-                }
-                else {
-                    Toast.makeText(CropManagerApp.getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(CropManagerApp.getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
 
     //*********** Request Filters of the given OrderProductCategory ********//
@@ -569,19 +544,16 @@ public class Category_Products extends Fragment {
                         filtersList = response.body().getFilters();
                         maxPrice = Double.parseDouble((response.body().getMaxPrice().isEmpty()) ? "0.0" : response.body().getMaxPrice());
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         if (isVisible)
                             Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         if (isVisible)
                             Toast.makeText(getActivity(), getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     if (isVisible)
-                        Toast.makeText(getActivity(), ""+response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -592,7 +564,6 @@ public class Category_Products extends Fragment {
             }
         });
     }
-
 
 
     /*********** LoadMoreTask Used to Load more Products from the Server in the Background Thread using AsyncTask ********/
@@ -626,8 +597,7 @@ public class Category_Products extends Fragment {
             if (isFilterApplied) {
                 // Request for Products against specified Filters, based on PageNo.
                 RequestFilteredProducts(page_number, sortBy, postFilters);
-            }
-            else {
+            } else {
                 // Request for Products of given OrderProductCategory, based on PageNo.
                 RequestCategoryProducts(page_number, sortBy);
             }
@@ -653,17 +623,4 @@ public class Category_Products extends Fragment {
             filterCAll.cancel();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        categoryProductsList.clear();
-//        if(isFilterApplied){
-//             Initialize LoadMoreTask to Load More Products from Server against some Filters
-//            RequestFilteredProducts(pageNo, sortBy, filters);
-//        }else {
-//             Initialize LoadMoreTask to Load More Products from Server without Filters
-//            RequestCategoryProducts(pageNo, sortBy);
-//        }
-//        productAdapter.notifyDataSetChanged();
-    }
 }

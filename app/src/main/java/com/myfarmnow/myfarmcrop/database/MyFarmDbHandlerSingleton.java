@@ -34,6 +34,7 @@ import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
+import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceSubItem;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
@@ -4575,6 +4576,30 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return marketPriceArrayList;
     }
 
+
+    public ArrayList<MarketPriceSubItem> filterMarketPriceSubItem(String crop) {
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + MARKET_PRICE_TABLE_NAME + " WHERE " + MARKET_PRICE_CROP + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{crop});
+
+        ArrayList<MarketPriceSubItem> marketPriceArrayList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                MarketPriceSubItem model = new MarketPriceSubItem();
+
+                model.setMarket(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_TABLE_MARKET)));
+                model.setRetail(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_RETAIL)));
+                model.setWholesale(cursor.getString(cursor.getColumnIndex(MARKET_PRICE_WHOLESALE)));
+
+                marketPriceArrayList.add(model);
+
+            } while (cursor.moveToNext());
+        }
+
+        return marketPriceArrayList;
+    }
     /********CRUD OPERATIONS FOR LIVESTOCK RECORDS***************/
 
     public BreedingStock getBreedingStock(String id, boolean isGlobal) {

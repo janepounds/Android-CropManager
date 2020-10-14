@@ -105,10 +105,9 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/market_price_recyclerView"
+            android:id="@+id/market_price_recyc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

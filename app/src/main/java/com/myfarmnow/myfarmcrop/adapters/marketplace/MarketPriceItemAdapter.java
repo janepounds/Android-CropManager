@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.models.CropInventory;
+import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceItem;
 
 import java.util.ArrayList;
@@ -27,7 +29,8 @@ public class MarketPriceItemAdapter extends RecyclerView.Adapter<MarketPriceItem
         public MarketPriceItemViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.market_name);
-            recyclerView = itemView.findViewById(R.id.market_price_recyclerView);
+            recyclerView = itemView.findViewById(R.id.market_price_recyc);
+
         }
     }
 
@@ -42,6 +45,25 @@ public class MarketPriceItemAdapter extends RecyclerView.Adapter<MarketPriceItem
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.market_price_list_item, parent, false);
 
         return new MarketPriceItemViewHolder(v);
+    }
+
+    //add market price item
+    public void addMarketPriceItem(MarketPriceItem marketPriceItem){
+        this.marketPriceItemArrayList.add(marketPriceItem);
+        notifyItemChanged(getItemCount());
+    }
+
+    //get list
+    public ArrayList<MarketPriceItem> getMarketPriceItemArrayList(){
+
+        return marketPriceItemArrayList;
+    }
+
+    //change list
+    public void changeList(ArrayList<MarketPriceItem> filteredList) {
+        this.marketPriceItemArrayList.clear();
+        this.marketPriceItemArrayList.addAll(filteredList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -69,4 +91,7 @@ public class MarketPriceItemAdapter extends RecyclerView.Adapter<MarketPriceItem
     public int getItemCount() {
         return marketPriceItemArrayList.size();
     }
+
+
+
 }

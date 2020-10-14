@@ -34,4 +34,7 @@ public class MarketPriceSubItem {
     public void setWholesale(String wholesale) {
         this.wholesale = wholesale;
     }
+
+    public MarketPriceSubItem() {
+    }
 }

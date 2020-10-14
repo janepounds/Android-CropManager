@@ -112,6 +112,8 @@ public class Products extends Fragment {
         if (!isSubFragment) {
 
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop));
+
+
         }
 
 
@@ -194,7 +196,6 @@ public class Products extends Fragment {
         searchItem.setVisible(false);
         cartItem.setVisible(true);
     }
-
 
 
 }
