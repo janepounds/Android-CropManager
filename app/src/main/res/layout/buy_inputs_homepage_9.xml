@@ -6,60 +6,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:background="@color/windowBackground"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_behavior="com.myfarmnow.myfarmcrop.customs.AppBarFlingScrollBehavior"
+        app:elevation="0dp"
+        app:layout_behavior="com.myfarmnow.myfarmcrop.customs.AppBarFlingScrollBehavior">
 
-        app:elevation="0dp" >
-
-
-        <FrameLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
+            android:layout_height="match_parent"
+            app:cardCornerRadius="5dp">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-
-                    <FrameLayout
-                        android:id="@+id/bannerFrameHome9"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                </RelativeLayout>
+                        <FrameLayout
+                            android:id="@+id/bannerFrameHome9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
+                    </RelativeLayout>
 
+                </LinearLayout>
 
-            </LinearLayout>
+            </FrameLayout>
 
-        </FrameLayout>
-
-
+        </androidx.cardview.widget.CardView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <FrameLayout
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:id="@+id/home9_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/windowBackground" />
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:background="@color/windowBackground"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

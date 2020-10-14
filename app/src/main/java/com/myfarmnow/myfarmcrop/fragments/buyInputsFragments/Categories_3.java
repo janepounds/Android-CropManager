@@ -114,7 +114,7 @@ public class Categories_3 extends Fragment {
 
         // Set the Adapter and LayoutManager to the RecyclerView
         category_recycler.setAdapter(categoryListAdapter);
-        category_recycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        category_recycler.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         categoryListAdapter.notifyDataSetChanged();
 

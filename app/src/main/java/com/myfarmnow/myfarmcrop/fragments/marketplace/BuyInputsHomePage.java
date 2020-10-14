@@ -1,248 +1,208 @@
- package com.myfarmnow.myfarmcrop.fragments.marketplace;
+package com.myfarmnow.myfarmcrop.fragments.marketplace;
 
- import android.annotation.SuppressLint;
- import android.content.Context;
- import android.content.DialogInterface;
- import android.graphics.drawable.Drawable;
- import android.graphics.drawable.LayerDrawable;
- import android.os.AsyncTask;
- import android.os.Bundle;
- import android.view.LayoutInflater;
- import android.view.Menu;
- import android.view.MenuInflater;
- import android.view.MenuItem;
- import android.view.View;
- import android.view.ViewGroup;
- import android.view.animation.Animation;
- import android.view.animation.AnimationUtils;
- import android.widget.TextView;
- import android.widget.Toast;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
- import androidx.annotation.Nullable;
- import androidx.appcompat.app.ActionBar;
- import androidx.appcompat.app.AlertDialog;
- import androidx.appcompat.app.AppCompatActivity;
- import androidx.appcompat.graphics.drawable.DrawableWrapper;
- import androidx.appcompat.widget.Toolbar;
- import androidx.core.graphics.drawable.WrappedDrawable;
- import androidx.fragment.app.Fragment;
- import androidx.fragment.app.FragmentManager;
- import androidx.fragment.app.FragmentTransaction;
- import androidx.viewpager.widget.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
- import com.google.android.material.bottomnavigation.BottomNavigationView;
- import com.google.android.material.snackbar.Snackbar;
- import com.myfarmnow.myfarmcrop.R;
- import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
- import com.myfarmnow.myfarmcrop.app.CropManagerApp;
- import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ViewPagerCustomAdapter;
- import com.myfarmnow.myfarmcrop.constants.ConstantValues; import com.myfarmnow.myfarmcrop.customs.DialogLoader;
- import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
- import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
- import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
- import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
- import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
- import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
- import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BannerStyle1;
- import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Categories_3;
- import com.myfarmnow.myfarmcrop.models.banner_model.BannerDetails;
- import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
- import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
- import com.myfarmnow.myfarmcrop.models.user_model.UserData;
- import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
- import com.myfarmnow.myfarmcrop.network.StartAppRequests;
- import com.myfarmnow.myfarmcrop.utils.Utilities;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.app.CropManagerApp;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.customs.DialogLoader;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
+import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
+import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
+import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.BannerStyle1;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Categories_3;
+import com.myfarmnow.myfarmcrop.models.banner_model.BannerDetails;
+import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
+import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
+import com.myfarmnow.myfarmcrop.network.StartAppRequests;
+import com.myfarmnow.myfarmcrop.utils.Utilities;
 
- import java.util.ArrayList;
- import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
- import am.appwise.components.ni.NoInternetDialog;
- import retrofit2.Call;
- import retrofit2.Callback;
- import retrofit2.Response;
+import am.appwise.components.ni.NoInternetDialog;
 
+public class BuyInputsHomePage extends Fragment {
+    private static final String TAG = "BuyInputsHomePage";
+    StartAppRequests startAppRequests;
 
- public class BuyInputsHomePage extends Fragment {
-     View rootView;
+    List<BannerDetails> bannerImages = new ArrayList<>();
+    List<CategoryDetails> allCategoriesList = new ArrayList<>();
+    FragmentManager fragmentManager;
+    private Context context;
+    private Toolbar toolbar;
 
-     ViewPager viewPager;
-     StartAppRequests startAppRequests;
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.buy_inputs_home, container, false);
 
-     List<BannerDetails> bannerImages = new ArrayList<>();
-     List<CategoryDetails> allCategoriesList = new ArrayList<>();
-     FragmentManager fragmentManager;
-     private Context context;
-     private ActionBar actionBar;
-     Toolbar toolbar;
+        setHasOptionsMenu(true);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(getString(R.string.app_name));
 
-     @Override
-     public void onCreate(@Nullable Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-     }
+        toolbar = view.findViewById(R.id.buy_inputs_home_toolbar);
 
-     @Override
-     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.btm_navigation);
+        bottomNavigationView.setItemIconTintList(null);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-         rootView = inflater.inflate(R.layout.buy_inputs_home, container, false);
-         context=getContext();
+        NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
+        //noInternetDialog.show();
+        startAppRequests = new StartAppRequests(requireContext());
 
-         setHasOptionsMenu(true);
-         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+        // Get BannersList from ApplicationContext
+        bannerImages = ((CropManagerApp) requireContext().getApplicationContext()).getBannersList();
+        allCategoriesList = ((CropManagerApp) requireContext().getApplicationContext()).getCategoriesList();
 
-         toolbar = rootView.findViewById(R.id.main_Toolbar);
+        // Binding Layout View
 
+        if (bannerImages.isEmpty() || allCategoriesList.isEmpty())
+            new MyTask().execute();
+        else
+            continueSetup();
 
+        return view;
+    }
 
-         BottomNavigationView bottomNavigationView = rootView.findViewById(R.id.btm_navigation);
-         bottomNavigationView.setItemIconTintList(null);
-         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
-         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
-         //noInternetDialog.show();
+    public void continueSetup() {
+        bannerImages = ((CropManagerApp) getContext().getApplicationContext()).getBannersList();
+        allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
+        // Setup BannerSlider
+        setupBannerSlider(bannerImages);
 
-         startAppRequests = new StartAppRequests(getContext());
+        // Add corresponding ViewPagers to TabLayouts
+        fragmentManager = getFragmentManager();
 
-         // Get BannersList from ApplicationContext
-         bannerImages = ((CropManagerApp) getContext().getApplicationContext()).getBannersList();
-         allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
+        Bundle categoryBundle = new Bundle();
+        categoryBundle.putBoolean("isHeaderVisible", false);
+        categoryBundle.putBoolean("isMenuItem", false);
+        categoryBundle.putBoolean("home_9", true);
+        Fragment categories = new Categories_3();
+        categories.setArguments(categoryBundle);
+        fragmentManager.beginTransaction().replace(R.id.home9_categories, categories).commit();
 
-         // Binding Layout View
+        Bundle bundleInfo = new Bundle();
+        bundleInfo.putString("sortBy", "Newest");
+    }
 
-         if (bannerImages.isEmpty() || allCategoriesList.isEmpty())
-             new MyTask().execute();
-         else
-             continueSetup();
+    //*********** Setup the BannerSlider with the given List of BannerImages ********//
 
-         return rootView;
+    private void setupBannerSlider(final List<BannerDetails> bannerImages) {
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment bannerStyle = null;
 
-     }
+        switch (ConstantValues.DEFAULT_BANNER_STYLE) {
+            case 0:
+            case 1:
+                bannerStyle = new BannerStyle1(bannerImages, allCategoriesList);
+                break;
+        }
 
+        if (bannerStyle != null) {
+            assert fragmentManager != null;
+            fragmentManager.beginTransaction().replace(R.id.bannerFrameHome9, bannerStyle).commit();
+        }
+    }
 
-     public void continueSetup() {
+    private class MyTask extends AsyncTask<String, Void, String> {
 
-         bannerImages = ((CropManagerApp) getContext().getApplicationContext()).getBannersList();
-         allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
-         // Setup BannerSlider
-         setupBannerSlider(bannerImages);
+        DialogLoader dialogLoader = new DialogLoader(getContext());
 
-         // Add corresponding ViewPagers to TabLayouts
-         fragmentManager = getFragmentManager();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialogLoader.showProgressDialog();
+        }
 
-         Bundle categoryBundle = new Bundle();
-         categoryBundle.putBoolean("isHeaderVisible", false);
-         categoryBundle.putBoolean("isMenuItem", false);
-         categoryBundle.putBoolean("home_9", true);
-         Fragment categories = new Categories_3();
-         categories.setArguments(categoryBundle);
-         fragmentManager.beginTransaction().replace(R.id.home9_categories, categories).commit();
+        @Override
+        protected String doInBackground(String... params) {
+            // Check for Internet Connection from the static method of Helper class
+            if (Utilities.hasActiveInternetConnection(getContext())) {
+                // Call the method of StartAppRequests class to process App Startup Requests
+                startAppRequests.RequestBanners();
+                startAppRequests.RequestAllCategories();
+                return "1";
+            } else {
+                return "0";
+            }
+        }
 
-         Bundle bundleInfo = new Bundle();
-         bundleInfo.putString("sortBy", "Newest");
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result.equalsIgnoreCase("1")) {
+                continueSetup();
+                dialogLoader.hideProgressDialog();
+            }
+        }
+    }
 
-     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Bind Menu Items
+        MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
+        MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
+        MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
-
-     //*********** Setup the BannerSlider with the given List of BannerImages ********//
-     private void setupBannerSlider(final List<BannerDetails> bannerImages) {
-         FragmentManager fragmentManager = getFragmentManager();
-         Fragment bannerStyle = null;
-
-         switch (ConstantValues.DEFAULT_BANNER_STYLE) {
-             case 0:
-                 bannerStyle = new BannerStyle1(bannerImages, allCategoriesList);
-                 break;
-             case 1:
-                 bannerStyle = new BannerStyle1(bannerImages, allCategoriesList);
-                 break;
-
-         }
-
-         if (bannerStyle != null)
-             fragmentManager.beginTransaction().replace(R.id.bannerFrameHome9, bannerStyle).commit();
-     }
-
-
-     private class MyTask extends AsyncTask<String, Void, String> {
-
-         DialogLoader dialogLoader = new DialogLoader(getContext());
-         @Override
-         protected void onPreExecute() {
-             super.onPreExecute();
-             dialogLoader.showProgressDialog();
-         }
-
-         @Override
-         protected String doInBackground(String... params) {
-
-             // Check for Internet Connection from the static method of Helper class
-             if (Utilities.hasActiveInternetConnection(getContext())) {
-
-                 // Call the method of StartAppRequests class to process App Startup Requests
-                 startAppRequests.RequestBanners();
-                 startAppRequests.RequestAllCategories();
-
-                 return "1";
-             } else {
-
-                 return "0";
-             }
-         }
-
-         @Override
-         protected void onPostExecute(String result) {
-             super.onPostExecute(result);
-
-             if (result.equalsIgnoreCase("1")) {
-                 continueSetup();
-                 dialogLoader.hideProgressDialog();
-             }
-         }
-
-     }
-
-
-     @Override
-     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-         // Bind Menu Items
-         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
-         MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
-         MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
-         MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
-         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
-
-         profileItem.setVisible(false);
-         languageItem.setVisible(false);
-         currencyItem.setVisible(false);
-         searchItem.setVisible(true);
-         cartItem.setVisible(true);
+        profileItem.setVisible(false);
+        languageItem.setVisible(false);
+        currencyItem.setVisible(false);
+        searchItem.setVisible(true);
+        cartItem.setVisible(true);
 
         //set badge value
-         User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
-         List<CartProduct> cartItemsList = new ArrayList<>();
-         cartItemsList = user_cart_BuyInputs_db.getCartItems();
-       TextView badge  =(TextView) cartItem.getActionView().findViewById(R.id.cart_badge);
-       badge.setText(String.valueOf(cartItemsList.size()));
+        User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
+        List<CartProduct> cartItemsList;
+        cartItemsList = user_cart_BuyInputs_db.getCartItems();
+        TextView badge = (TextView) cartItem.getActionView().findViewById(R.id.cart_badge);
+        badge.setText(String.valueOf(cartItemsList.size()));
+    }
 
-     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
+        Fragment selectedFragment = null;
 
-     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
-         Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.page_1:
+                selectedFragment = new HomeFragment(context, requireActivity().getSupportFragmentManager(), MyFarmDbHandlerSingleton.getHandlerInstance(context));
+                break;
+            case R.id.page_2:
+                selectedFragment = new OffersFragment();
+                break;
+            case R.id.page_3:
+                selectedFragment = new AccountFragment();
+                break;
+        }
 
-         switch (item.getItemId()) {
-             case R.id.page_1:
-                 selectedFragment = new HomeFragment( context, getActivity().getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(context));
-                 break;
-             case R.id.page_2:
-                 selectedFragment = new OffersFragment();
-                 break;
-             case R.id.page_3:
-                 selectedFragment = new AccountFragment();
-                 break;
-         }
-
-         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
-         return true;
-     };
-
- }
+        assert selectedFragment != null;
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
+        return true;
+    };
+}
 

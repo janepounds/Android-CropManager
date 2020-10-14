@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -48,7 +49,6 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
     }
 
 
-
     //********** Called to Inflate a Layout from XML and then return the Holder *********//
 
     @Override
@@ -58,7 +58,6 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
 
         return new MyViewHolder(itemView);
     }
-
 
 
     //********** Called by RecyclerView to display the Data at the specified Position *********//
@@ -77,14 +76,13 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
         // Set OrderProductCategory Image on ImageView with Glide Library
         Glide.with(context)
                 .setDefaultRequestOptions(options)
-                .load(ConstantValues.ECOMMERCE_URL+categoryDetails.getImage())
+                .load(ConstantValues.ECOMMERCE_URL + categoryDetails.getImage())
                 .into(holder.category_icon);
 
 
         holder.category_title.setText(categoryDetails.getName());
-        holder.category_products.setText("("+categoryDetails.getTotalProducts() + ")");
+        holder.category_products.setText("(" + categoryDetails.getTotalProducts() + ")");
     }
-
 
 
     //********** Returns the total number of items in the data set *********//
@@ -95,12 +93,11 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
     }
 
 
-
     /********** Custom ViewHolder provides a direct reference to each of the Views within a Data_Item *********/
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    
-        LinearLayout category_card;
+
+        CardView category_card;
         ImageView category_icon;
         TextView category_title, category_products;
 

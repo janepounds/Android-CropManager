@@ -4,7 +4,7 @@
     android:id="@+id/scroll_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowBackground">
+    android:background="#FBFBFB">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,21 +14,19 @@
             android:id="@+id/categories_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/categories"
-            android:textSize="18sp"
             android:drawableStart="@drawable/ic_categories"
-            android:drawableTint="@color/iconsLight"
+            android:drawableLeft="@drawable/ic_categories"
             android:drawablePadding="12dp"
+            android:drawableTint="@color/iconsLight"
+            android:text="@string/categories"
             android:textColor="@color/textColorSecondary"
-            android:drawableLeft="@drawable/ic_categories" />
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:layout_below="@+id/categories_header"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_below="@+id/categories_header" />
 
         <TextView
             android:id="@+id/empty_record_text"
