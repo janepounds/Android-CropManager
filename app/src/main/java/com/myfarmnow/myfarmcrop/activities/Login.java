@@ -2,18 +2,23 @@ package com.myfarmnow.myfarmcrop.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +52,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import am.appwise.components.ni.NoInternetDialog;
+
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
@@ -56,6 +62,7 @@ import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
 import com.myfarmnow.myfarmcrop.utils.LocaleHelper;
 import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,7 +91,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
 
-//    private CallbackManager callbackManager;
+    //    private CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions mGoogleSignInOptions;
 
@@ -96,6 +103,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     EditText ed_otp;
     private int TEMP_USER_TYPE;
     private static String user_current_phone_number;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,11 +127,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         // setting Toolbar
         //toolbar = findViewById(R.id.myToolbar);
-       // setSupportActionBar(toolbar);
-       // actionBar = getSupportActionBar();
-      //  actionBar.setTitle("");
-     //   actionBar.setDisplayShowHomeEnabled(false);
-       // actionBar.setDisplayHomeAsUpEnabled(false);
+        // setSupportActionBar(toolbar);
+        // actionBar = getSupportActionBar();
+        //  actionBar.setTitle("");
+        //   actionBar.setDisplayShowHomeEnabled(false);
+        // actionBar.setDisplayHomeAsUpEnabled(false);
 
         // Binding Layout Views
         user_email = findViewById(R.id.user_email);
@@ -193,11 +201,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             final Button dialog_button = dialogView.findViewById(R.id.dialog_button);
             final TextView dialog_forgottext = dialogView.findViewById(R.id.forgot_password_text);
             final EditText dialog_input = dialogView.findViewById(R.id.dialog_input);
-           // final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+            // final TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
             final ImageView dismiss_button = dialogView.findViewById(R.id.dismissButton);
             dialog_forgottext.setVisibility(View.VISIBLE);
             dialog_button.setText(getString(R.string.sendemail));
-          //  dialog_title.setText(getString(R.string.forgot_your_password));
+            //  dialog_title.setText(getString(R.string.forgot_your_password));
 
             final AlertDialog alertDialog = dialog.create();
             alertDialog.show();
@@ -208,8 +216,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 if (ValidateInputs.isValidEmail(dialog_input.getText().toString().trim())) {
                     // Request for Password Reset
                     processForgotPassword(dialog_input.getText().toString());
-                }
-                else {
+                } else {
                     Snackbar.make(parentView, getString(R.string.invalid_email), Snackbar.LENGTH_LONG).show();
                 }
                 alertDialog.dismiss();
@@ -249,7 +256,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         // Handle Google Login Button click
         googleLoginBtn.setOnClickListener(v -> {
             // Logout the User if already Logged-in
-            if (mGoogleApiClient.isConnected()){
+            if (mGoogleApiClient.isConnected()) {
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             }
 
@@ -297,7 +304,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         } else {
             // If Login Fails
-            Toast.makeText(this, "Login Failed  "+result, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Login Failed  " + result, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -321,21 +328,17 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
                 if (response.isSuccessful()) {
 
-                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2"))
-                    {
+                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2")) {
                         // Get the User Details from Response
                         userDetails = response.body().getData().get(0);
                         TEMP_USER_TYPE = 0; // 0 for Simple Login.
                         //showPhoneDialog();
                         loginUser(userDetails);
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0"))
-                    {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Get the Error Message from Response
                         String message = response.body().getMessage();
                         Snackbar.make(parentView, message, Snackbar.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(Login.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
                     }
 
@@ -348,7 +351,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -360,7 +363,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         dialog.setCancelable(true);
         final Button okayButton = dialogView.findViewById(R.id.dialog_button);
         final EditText phoneEditText = dialogView.findViewById(R.id.dialog_input);
-        if(!phoneEditText.getText().toString().isEmpty()) {
+        if (!phoneEditText.getText().toString().isEmpty()) {
             phoneEditText.setText(phoneEditText.getText().toString());
         }
         final AlertDialog alertDialog = dialog.create();
@@ -372,10 +375,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
                     // Request for OTP
-                    sendOTP(getResources().getString(R.string.ugandan_code)+phoneEditText.getText().toString().trim());
-                    user_current_phone_number = getResources().getString(R.string.ugandan_code)+phoneEditText.getText().toString().trim();
+                    sendOTP(getResources().getString(R.string.ugandan_code) + phoneEditText.getText().toString().trim());
+                    user_current_phone_number = getResources().getString(R.string.ugandan_code) + phoneEditText.getText().toString().trim();
+                } else {
+                    Snackbar.make(parentView, getString(R.string.invalid_contact), Snackbar.LENGTH_LONG).show();
                 }
-                else {Snackbar.make(parentView, getString(R.string.invalid_contact), Snackbar.LENGTH_LONG).show(); }
                 alertDialog.dismiss();
             }
         });
@@ -398,17 +402,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         dialogOTP.setContentView(R.layout.dialog_otp);
 
         ed_otp = dialogOTP.findViewById(R.id.ed_otp);
-        AppCompatButton btn_resend,btn_submit;
+        AppCompatButton btn_resend, btn_submit;
         btn_resend = dialogOTP.findViewById(R.id.btn_resend);
         btn_submit = dialogOTP.findViewById(R.id.btn_submit);
 
         btn_resend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { sendOTP(phoneNumber); }
+            public void onClick(View view) {
+                sendOTP(phoneNumber);
+            }
         });
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { verifyVerificationCode(ed_otp.getText().toString().trim()); }
+            public void onClick(View view) {
+                verifyVerificationCode(ed_otp.getText().toString().trim());
+            }
         });
         dialogOTP.show();
     }
@@ -427,8 +435,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 signInWithPhoneAuthCredential(phoneAuthCredential);
             }
         }
+
         @Override
-        public void onVerificationFailed(FirebaseException e) {Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_LONG).show(); }
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
@@ -438,7 +450,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     };
 
     private void verifyVerificationCode(String code) {
-        if (code.isEmpty()){
+        if (code.isEmpty()) {
             Toast.makeText(this, "Invalid code.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -455,7 +467,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             //verification successful we will start the profile activity
                             dialogOTP.dismiss();
                             //Final Proceed to login
-                            switch (TEMP_USER_TYPE){
+                            switch (TEMP_USER_TYPE) {
                                 case 0: // simple Login
                                     loginUser(userDetails);
                                     break;
@@ -479,7 +491,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 });
     }
 
-    private void loginUser(UserDetails userDetails){
+    private void loginUser(UserDetails userDetails) {
         // Save User Data to Local Databases
         if (userInfoDB.getUserData(userDetails.getId()) != null) {
             // User already exists
@@ -488,7 +500,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             // Insert Details of New User
             userInfoDB.insertUserData(userDetails);
         }
-        Log.e("USERID",userDetails.getId());
+        Log.e("USERID", userDetails.getId());
         // Save necessary details in SharedPrefs
         editor = sharedPreferences.edit();
         editor.putString(DashboardActivity.PREFERENCES_USER_ID, userDetails.getId());
@@ -514,7 +526,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
 
-    private void loginGmailUser(UserDetails userDetails){
+    private void loginGmailUser(UserDetails userDetails) {
         // Save User Data to Local Databases
         if (userInfoDB.getUserData(userDetails.getId()) != null) {
             // User already exists
@@ -528,11 +540,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor = sharedPreferences.edit();
         editor.putString("userID", userDetails.getId());
         editor.putString("userEmail", userDetails.getEmail());
-        editor.putString("userName", userDetails.getFirstName()+" "+userDetails.getLastName());
+        editor.putString("userName", userDetails.getFirstName() + " " + userDetails.getLastName());
         editor.putString("userTelephone", user_current_phone_number);
         editor.putString("userDefaultAddressID", userDetails.getDefaultAddressId());
         editor.putBoolean("isLogged_in", true);
-        editor.commit();
+        editor.apply();
 
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
@@ -549,7 +561,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
 
-    private void loginFacebookUser(UserDetails userDetails){
+    private void loginFacebookUser(UserDetails userDetails) {
         // Save User Data to Local Databases
         if (userInfoDB.getUserData(userDetails.getId()) != null) {
             // User already exists
@@ -563,11 +575,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor = sharedPreferences.edit();
         editor.putString("userID", userDetails.getId());
         editor.putString("userEmail", userDetails.getEmail());
-        editor.putString("userName", userDetails.getFirstName()+" "+userDetails.getLastName());
+        editor.putString("userName", userDetails.getFirstName() + " " + userDetails.getLastName());
         editor.putString("userTelephone", user_current_phone_number);
         editor.putString("userDefaultAddressID", userDetails.getDefaultAddressId());
         editor.putBoolean("isLogged_in", true);
-        editor.commit();
+        editor.apply();
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
         myAppPrefsManager.logInUser();
@@ -586,7 +598,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     //*********** Proceed Forgot Password Request ********//
 
-    private  void processForgotPassword(String email) {
+    private void processForgotPassword(String email) {
 
         dialogLoader.showProgressDialog();
 
@@ -616,7 +628,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -626,7 +638,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private void processFacebookRegistration(String access_token) {
 
         dialogLoader.showProgressDialog();
-        Log.i("VC_Shop", "[FacebookRegistration] > access_token"+access_token);
+        Log.i("VC_Shop", "[FacebookRegistration] > access_token" + access_token);
 
 
         Call<UserData> call = BuyInputsAPIClient.getInstance()
@@ -642,20 +654,17 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 dialogLoader.hideProgressDialog();
 
                 if (response.isSuccessful()) {
-                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2"))
-                    {
+                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2")) {
                         // Get the User Details from Response
                         userDetails = response.body().getData().get(0);
                         TEMP_USER_TYPE = 2; // 2 for Facebook Login.
                         //showPhoneDialog();
                         loginFacebookUser(userDetails);
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Get the Error Message from Response
                         String message = response.body().getMessage();
                         Snackbar.make(parentView, message, Snackbar.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(Login.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -667,7 +676,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -678,11 +687,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         dialogLoader.showProgressDialog();
 
-        String accountStr =  account.getIdToken();
+        String accountStr = account.getIdToken();
         String accountID = account.getId();
         String name = account.getGivenName();
         String familyName = account.getFamilyName();
-        String email =  account.getEmail();
+        String email = account.getEmail();
 
         String photoURL = account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "";
 
@@ -713,17 +722,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         TEMP_USER_TYPE = 1; // 1 for Gmail login.
                         //showPhoneDialog();
                         loginGmailUser(userDetails);
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(parentView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
-                    }
-                    else {
+                    } else {
                         Toast.makeText(Login.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else {
+                } else {
                     // Show the Error Message
                     Toast.makeText(Login.this, response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -732,7 +738,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -743,12 +749,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (!ValidateInputs.isValidEmail(user_email.getText().toString().trim())) {
             user_email.setError(getString(R.string.invalid_email));
             return false;
-        }
-        else if (!ValidateInputs.isValidPassword(user_password.getText().toString().trim())) {
+        } else if (!ValidateInputs.isValidPassword(user_password.getText().toString().trim())) {
             user_password.setError(getString(R.string.invalid_password));
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -774,12 +778,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         finish();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
-
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 //startActivity(new Intent(Login.this, DashboardActivity.class));
                 finish();
