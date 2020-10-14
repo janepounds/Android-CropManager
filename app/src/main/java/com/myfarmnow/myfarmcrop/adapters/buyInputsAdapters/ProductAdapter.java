@@ -64,7 +64,7 @@ import java.util.Locale;
  **/
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
-    
+
     private Activity context;
     private String customerID;
     private Boolean isGridView;
@@ -133,8 +133,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             // Check if the Product is already in the Cart
             if (My_Cart.checkCartHasProduct(product.getProductsId())) {
                 holder.product_checked.setVisibility(View.VISIBLE);
+                holder.product_add_cart_btn.setVisibility(View.GONE);
             } else {
                 holder.product_checked.setVisibility(View.GONE);
+                holder.product_add_cart_btn.setVisibility(View.VISIBLE);
             }
 
             RequestOptions options = new RequestOptions()
@@ -356,13 +358,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 }
             });
             
-            
-            
+
+
             // Check the Button's Visibility
-            if (ConstantValues.IS_ADD_TO_CART_BUTTON_ENABLED) {
-                
-                holder.product_add_cart_btn.setVisibility(View.VISIBLE);
-                holder.product_add_cart_btn.setOnClickListener(null);
+            if (!ConstantValues.IS_PRODUCT_CHECKED) {
+
+//                holder.product_add_cart_btn.setVisibility(View.VISIBLE);
+//                holder.product_add_cart_btn.setOnClickListener(null);
                 
                 if (product.getProductsType() != 0) {
                     holder.product_add_cart_btn.setText(context.getString(R.string.view_product));
@@ -466,6 +468,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                     addProductToCart(product);
                                     
                                     holder.product_checked.setVisibility(View.VISIBLE);
+                                    //disable add to cart button
+                                    holder.product_add_cart_btn.setVisibility(View.GONE);
                                     
                                     Snackbar.make(view, context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
                                     
@@ -483,7 +487,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                     addProductToCart(product);
     
                                     holder.product_checked.setVisibility(View.VISIBLE);
-    
+                                    //set add to cart button disabled
+                                    holder.product_add_cart_btn.setVisibility(View.GONE);
                                     Snackbar.make(view, context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
                                 }
                                 
@@ -491,68 +496,71 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                         }
                     }
                 });
-                holder.product_checked.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (product.getProductsType() != 0) {
-
-                            // Get Product Info
-                            Bundle itemInfo = new Bundle();
-                            itemInfo.putParcelable("productDetails", product);
-
-                            // Navigate to Product_Description of selected Product
-                            Fragment fragment = new Product_Description(holder.product_checked);
-                            fragment.setArguments(itemInfo);
-                            //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .hide(((DashboardActivity)context).currentFragment)
-                                    .add(R.id.main_fragment_container, fragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                    .addToBackStack(null).commit();
-
-                            // Add the Product to User's Recently Viewed Products
-                            if (!recents_db.getUserRecents().contains(product.getProductsId())) {
-                                recents_db.insertRecentItem(product.getProductsId());
-                            }
-                        }
-                        else {
-
-                            if (isFlash) {
-                                if (start > server) {
-                                    Snackbar.make(v, context.getString(R.string.cannot_add_upcoming), Snackbar.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
-                                    // Add Product to User's Cart
-                                    addProductToCart(product);
-
-                                    holder.product_checked.setVisibility(View.VISIBLE);
-
-                                    Snackbar.make(v, context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
-
-                                }
-                            }
-                            else {
-
-                                if(product.getProductsDefaultStock()<1){
-
-                                    Snackbar.make(v, context.getString(R.string.outOfStock), Snackbar.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
-                                    // Add Product to User's Cart
-                                    addProductToCart(product);
-
-                                    holder.product_checked.setVisibility(View.VISIBLE);
-
-                                    Snackbar.make(v, context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        }
-                    }
-                });
+//                holder.product_checked.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (product.getProductsType() != 0) {
+//
+//                            // Get Product Info
+//                            Bundle itemInfo = new Bundle();
+//                            itemInfo.putParcelable("productDetails", product);
+//
+//                            // Navigate to Product_Description of selected Product
+//                            Fragment fragment = new Product_Description(holder.product_checked);
+//                            fragment.setArguments(itemInfo);
+//                            //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+//                            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
+//                            fragmentManager.beginTransaction()
+//                                    .hide(((DashboardActivity)context).currentFragment)
+//                                    .add(R.id.main_fragment_container, fragment)
+//                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                                    .addToBackStack(null).commit();
+//
+//                            // Add the Product to User's Recently Viewed Products
+//                            if (!recents_db.getUserRecents().contains(product.getProductsId())) {
+//                                recents_db.insertRecentItem(product.getProductsId());
+//                            }
+//                        }
+//                        else {
+//
+//                            if (isFlash) {
+//                                if (start > server) {
+//                                    Snackbar.make(v, context.getString(R.string.cannot_add_upcoming), Snackbar.LENGTH_SHORT).show();
+//                                }
+//                                else {
+//                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
+//                                    // Add Product to User's Cart
+//                                    addProductToCart(product);
+//
+//                                    holder.product_checked.setVisibility(View.VISIBLE);
+//                                    //disable add to cart button
+//                                    holder.product_add_cart_btn.setVisibility(View.GONE);
+//
+//                                    Snackbar.make(v, context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+//
+//                                }
+//                            }
+//                            else {
+//
+//                                if(product.getProductsDefaultStock()<1){
+//
+//                                    Snackbar.make(v, context.getString(R.string.outOfStock), Snackbar.LENGTH_SHORT).show();
+//                                }
+//                                else {
+//                                    Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
+//                                    // Add Product to User's Cart
+//                                    addProductToCart(product);
+//
+//                                    holder.product_checked.setVisibility(View.VISIBLE);
+//                                    holder.product_add_cart_btn.setVisibility(View.GONE);
+//
+//                                    Snackbar.make(v, context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+//                                }
+//
+//                            }
+//                        }
+//                    }
+//                });
                 
             }
             else {
@@ -727,6 +735,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         
         // Recreate the OptionsMenu
         ((DashboardActivity) context).invalidateOptionsMenu();
+
+
         
     }
 

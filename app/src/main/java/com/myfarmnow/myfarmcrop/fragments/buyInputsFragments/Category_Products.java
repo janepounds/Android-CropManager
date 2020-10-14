@@ -653,5 +653,17 @@ public class Category_Products extends Fragment {
             filterCAll.cancel();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+//        categoryProductsList.clear();
+//        if(isFilterApplied){
+//             Initialize LoadMoreTask to Load More Products from Server against some Filters
+//            RequestFilteredProducts(pageNo, sortBy, filters);
+//        }else {
+//             Initialize LoadMoreTask to Load More Products from Server without Filters
+//            RequestCategoryProducts(pageNo, sortBy);
+//        }
+//        productAdapter.notifyDataSetChanged();
+    }
 }
