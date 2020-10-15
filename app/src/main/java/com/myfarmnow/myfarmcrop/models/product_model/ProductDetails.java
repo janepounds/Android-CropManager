@@ -44,10 +44,10 @@ public class ProductDetails implements Parcelable {
     private String productsDateAvailable;
     @SerializedName("products_weight")
     @Expose
-    private String productsWeight;
+    private List<Integer> productsWeight;
     @SerializedName("products_weight_unit")
     @Expose
-    private String productsWeightUnit;
+    private List<String> productsWeightUnit;
     @SerializedName("products_status")
     @Expose
     private int productsStatus;
@@ -199,6 +199,8 @@ public class ProductDetails implements Parcelable {
     @SerializedName("vendors_id")
     @Expose
     private int vendors_id;
+
+    private  String seletedProductsWeightUnits,seletedProductsWeight;
 
     public int getVendors_id() {
         return vendors_id;
@@ -359,19 +361,33 @@ public class ProductDetails implements Parcelable {
         this.productsDateAvailable = productsDateAvailable;
     }
 
-    public String getProductsWeight() {
+    public List<Integer> getProductsWeight() {
         return productsWeight;
     }
+    public String getSelectedProductsWeight() {
+        return seletedProductsWeight;
+    }
 
-    public void setProductsWeight(String productsWeight) {
+    public void setProductsWeight(List<Integer> productsWeight) {
         this.productsWeight = productsWeight;
     }
 
-    public String getProductsWeightUnit() {
+    public List<String> getProductsWeightUnit() {
         return productsWeightUnit;
     }
+    public String getSelectedProductsWeightUnit() {
+        return seletedProductsWeightUnits;
+    }
 
-    public void setProductsWeightUnit(String productsWeightUnit) {
+    public void setSelectedProductsWeightUnit(String seletedProductsWeightUnits) {
+        this.seletedProductsWeightUnits=seletedProductsWeightUnits;
+    }
+
+    public void setSelectedProductsWeight(String seletedProductsWeight) {
+        this.seletedProductsWeight=seletedProductsWeight;
+    }
+
+    public void setProductsWeightUnit(List<String> productsWeightUnit) {
         this.productsWeightUnit = productsWeightUnit;
     }
 
@@ -730,8 +746,8 @@ public class ProductDetails implements Parcelable {
         parcel_out.writeString(productsName);
         parcel_out.writeString(productsModel);
         parcel_out.writeString(productsImage);
-        parcel_out.writeString(productsWeight);
-        parcel_out.writeString(productsWeightUnit);
+        parcel_out.writeList(productsWeight);
+        parcel_out.writeList(productsWeightUnit);
         parcel_out.writeString(productsUrl);
         parcel_out.writeString(productsDescription);
         parcel_out.writeString(productsPrice);
@@ -804,8 +820,6 @@ public class ProductDetails implements Parcelable {
         this.productsName = parcel_in.readString();
         this.productsModel = parcel_in.readString();
         this.productsImage = parcel_in.readString();
-        this.productsWeight = parcel_in.readString();
-        this.productsWeightUnit = parcel_in.readString();
         this.productsUrl = parcel_in.readString();
         this.productsDescription = parcel_in.readString();
         this.productsPrice = parcel_in.readString();
@@ -842,6 +856,14 @@ public class ProductDetails implements Parcelable {
 
         this.ratingDataLists = new ArrayList<>();
         parcel_in.readList(ratingDataLists,RatingDataList.class.getClassLoader());
+
+        this.productsWeight = new ArrayList<>();
+        parcel_in.readList(productsWeight,Integer.class.getClassLoader());
+
+        this.productsWeightUnit = new ArrayList<>();
+        parcel_in.readList(productsWeightUnit,String.class.getClassLoader());
+
     }
+
 
 }

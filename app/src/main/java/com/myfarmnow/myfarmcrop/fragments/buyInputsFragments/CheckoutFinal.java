@@ -1056,8 +1056,8 @@ public class CheckoutFinal extends Fragment {
             orderProduct.setProductsName(checkoutItemsList.get(i).getCustomersBasketProduct().getProductsName());
             orderProduct.setModel(checkoutItemsList.get(i).getCustomersBasketProduct().getProductsModel());
             orderProduct.setImage(checkoutItemsList.get(i).getCustomersBasketProduct().getProductsImage());
-            orderProduct.setWeight(checkoutItemsList.get(i).getCustomersBasketProduct().getProductsWeight());
-            orderProduct.setUnit(checkoutItemsList.get(i).getCustomersBasketProduct().getProductsWeightUnit());
+            orderProduct.setWeight(checkoutItemsList.get(i).getCustomersBasketProduct().getSelectedProductsWeight());
+            orderProduct.setUnit(checkoutItemsList.get(i).getCustomersBasketProduct().getSelectedProductsWeightUnit());
             orderProduct.setManufacture(checkoutItemsList.get(i).getCustomersBasketProduct().getManufacturersName());
             orderProduct.setCategoriesId(checkoutItemsList.get(i).getCustomersBasketProduct().getCategoryIDs());
             orderProduct.setCategoriesName(checkoutItemsList.get(i).getCustomersBasketProduct().getCategoryNames());

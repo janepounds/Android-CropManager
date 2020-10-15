@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -109,7 +111,7 @@ public class Category_Products extends Fragment {
         if (getArguments().containsKey("sortBy")) {
             sortBy = getArguments().getString("sortBy");
         }
-
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop));
 
         // Get the Customer's ID from SharedPreferences
         customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
@@ -407,7 +409,6 @@ public class Category_Products extends Fragment {
         getAllProducts.setCategoriesId(String.valueOf(categoryID));
         getAllProducts.setCurrencyCode(ConstantValues.CURRENCY_CODE);
         getAllProducts.setType(sortBy);
-        getAllProducts.setCurrencyCode(ConstantValues.CURRENCY_CODE);
 
         productsCall = BuyInputsAPIClient.getInstance()
                 .getAllProducts

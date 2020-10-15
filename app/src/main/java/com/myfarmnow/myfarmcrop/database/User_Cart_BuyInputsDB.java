@@ -170,8 +170,8 @@ public class User_Cart_BuyInputsDB {
         productValues.put(CART_PRODUCT_IMAGE,                   cart.getCustomersBasketProduct().getProductsImage());
         productValues.put(CART_PRODUCT_URL,                     cart.getCustomersBasketProduct().getProductsUrl());
         productValues.put(CART_PRODUCT_MODEL,                   cart.getCustomersBasketProduct().getProductsModel());
-        productValues.put(CART_PRODUCT_WEIGHT,                  cart.getCustomersBasketProduct().getProductsWeight());
-        productValues.put(CART_PRODUCT_WEIGHT_UNIT,             cart.getCustomersBasketProduct().getProductsWeightUnit());
+        productValues.put(CART_PRODUCT_WEIGHT,                  cart.getCustomersBasketProduct().getSelectedProductsWeight());
+        productValues.put(CART_PRODUCT_WEIGHT_UNIT,             cart.getCustomersBasketProduct().getSelectedProductsWeightUnit());
         productValues.put(CART_PRODUCT_STOCK,                   cart.getCustomersBasketProduct().getProductsQuantity());
         productValues.put(CART_PRODUCT_QUANTITY,                cart.getCustomersBasketProduct().getCustomersBasketQuantity());
         productValues.put(CART_PRODUCT_PRICE,                   cart.getCustomersBasketProduct().getProductsPrice());
@@ -242,8 +242,8 @@ public class User_Cart_BuyInputsDB {
                 product.setProductsImage(cursor.getString(3));
                 product.setProductsUrl(cursor.getString(4));
                 product.setProductsModel(cursor.getString(5));
-                product.setProductsWeight(cursor.getString(6));
-                product.setProductsWeightUnit(cursor.getString(7));
+                product.setSelectedProductsWeight(cursor.getString(6));
+                product.setSelectedProductsWeightUnit(cursor.getString(7));
                 product.setProductsQuantity(cursor.getInt(8));
                 product.setCustomersBasketQuantity(cursor.getInt(9));
                 product.setProductsPrice(cursor.getString(10));
@@ -338,8 +338,8 @@ public class User_Cart_BuyInputsDB {
             product.setProductsImage(cursor.getString(3));
             product.setProductsUrl(cursor.getString(4));
             product.setProductsModel(cursor.getString(5));
-            product.setProductsWeight(cursor.getString(6));
-            product.setProductsWeightUnit(cursor.getString(7));
+            product.setSelectedProductsWeight(cursor.getString(6));
+            product.setSelectedProductsWeightUnit(cursor.getString(7));
             product.setProductsQuantity(cursor.getInt(8));
             product.setCustomersBasketQuantity(cursor.getInt(9));
             product.setProductsPrice(cursor.getString(10));
@@ -451,8 +451,8 @@ public class User_Cart_BuyInputsDB {
         productValues.put(CART_PRODUCT_IMAGE,                   cart.getCustomersBasketProduct().getProductsImage());
         productValues.put(CART_PRODUCT_URL,                     cart.getCustomersBasketProduct().getProductsUrl());
         productValues.put(CART_PRODUCT_MODEL,                   cart.getCustomersBasketProduct().getProductsModel());
-        productValues.put(CART_PRODUCT_WEIGHT,                  cart.getCustomersBasketProduct().getProductsWeight());
-        productValues.put(CART_PRODUCT_WEIGHT_UNIT,             cart.getCustomersBasketProduct().getProductsWeightUnit());
+        productValues.put(CART_PRODUCT_WEIGHT,                  cart.getCustomersBasketProduct().getSelectedProductsWeight());
+        productValues.put(CART_PRODUCT_WEIGHT_UNIT,             cart.getCustomersBasketProduct().getSelectedProductsWeightUnit());
         productValues.put(CART_PRODUCT_STOCK,                   cart.getCustomersBasketProduct().getProductsQuantity());
         productValues.put(CART_PRODUCT_QUANTITY,                cart.getCustomersBasketProduct().getCustomersBasketQuantity());
         productValues.put(CART_PRODUCT_PRICE,                   cart.getCustomersBasketProduct().getProductsPrice());

@@ -1,23 +1,17 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
-import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.graphics.drawable.DrawableWrapper;
-import androidx.core.graphics.drawable.WrappedDrawable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,9 +21,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ViewPagerCustomAdapter;
-import com.myfarmnow.myfarmcrop.customs.NotificationBadger;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +37,6 @@ public class Products extends Fragment {
     int selectedTabIndex = 0;
     String selectedTabText = "";
 
-    TabLayout product_tabs;
     ViewPager product_viewpager;
     TextView category_title;
 
@@ -117,29 +108,17 @@ public class Products extends Fragment {
         }
 
 
-        // Binding Layout Views
-        product_tabs = rootView.findViewById(R.id.product_tabs);
+//        // Binding Layout Views
         product_viewpager = rootView.findViewById(R.id.product_viewpager);
 
 
-        // Setup ViewPagerAdapter
+//         Setup ViewPagerAdapter
         setupViewPagerAdapter();
 
-
+//
         product_viewpager.setOffscreenPageLimit(0);
         product_viewpager.setAdapter(viewPagerCustomAdapter);
 
-        // Add corresponding ViewPagers to TabLayouts
-        product_tabs.setupWithViewPager(product_viewpager);
-
-        
-        try {
-            product_tabs.getTabAt(selectedTabIndex).select();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        
 
         return rootView;
 
@@ -163,19 +142,20 @@ public class Products extends Fragment {
 
         for (int i=0;  i < finalCategoriesList.size();  i++) {
 
-            // Initialize Category_Products Fragment with specified arguments
-            Fragment categoryProducts = new Category_Products();
-            Bundle categoryInfo = new Bundle();
-            categoryInfo.putString("sortBy", sortBy);
-            categoryInfo.putInt("CategoryID", Integer.parseInt(finalCategoriesList.get(i).getId()));
-            categoryProducts.setArguments(categoryInfo);
-
-            // Add the Fragments to the ViewPagerAdapter with TabHeader
-            viewPagerCustomAdapter.addFragment(categoryProducts, finalCategoriesList.get(i).getName());
-
-
             if (selectedTabText.equalsIgnoreCase(finalCategoriesList.get(i).getName())) {
                 selectedTabIndex = i + 1;
+
+                Log.e("CategoryID","------------------------>"+finalCategoriesList.get(i).getId());
+
+                // Initialize Category_Products Fragment with specified arguments
+                Fragment categoryProducts = new Category_Products();
+                Bundle categoryInfo = new Bundle();
+                categoryInfo.putString("sortBy", sortBy);
+                categoryInfo.putInt("CategoryID", Integer.parseInt(finalCategoriesList.get(i).getId()));
+                categoryProducts.setArguments(categoryInfo);
+
+                // Add the Fragments to the ViewPagerAdapter with TabHeader
+                viewPagerCustomAdapter.addFragment(categoryProducts, finalCategoriesList.get(i).getName());
             }
         }
 

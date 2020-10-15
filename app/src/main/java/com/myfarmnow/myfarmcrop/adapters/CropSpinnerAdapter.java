@@ -21,18 +21,19 @@ public class CropSpinnerAdapter extends ArrayAdapter<CropSpinnerItem> {
     public CropSpinnerAdapter(ArrayList<CropSpinnerItem> items,final String fieldLabel, Context context) {
         super(context,  android.R.layout.simple_spinner_item);
         this.fieldLabel =fieldLabel;
-        values.add(new CropSpinnerItem() {
-            @Override
-            public String getId() {
-                return null;
-            }
-            public String toString(){
-                return "Select "+fieldLabel;
-            }
-            public String getUnits(){
-                return null;
-            }
-        });
+        if(fieldLabel!=null)
+            values.add(new CropSpinnerItem() {
+                @Override
+                public String getId() {
+                    return null;
+                }
+                public String toString(){
+                    return "Select "+fieldLabel;
+                }
+                public String getUnits(){
+                    return null;
+                }
+            });
         values.addAll(items);
         this.context =context;
     }

@@ -48,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:background="@color/windowBackgroundDark"
         android:clickable="true"
         android:gravity="center_vertical"
