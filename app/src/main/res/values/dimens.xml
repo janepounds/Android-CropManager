@@ -86,6 +86,7 @@
         <dimen name="fragment_title_padding_10">10dp</dimen>
         <dimen name="dimen_7dp">7dp</dimen>
     <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_40dp">40dp</dimen>
 
 
 </resources>

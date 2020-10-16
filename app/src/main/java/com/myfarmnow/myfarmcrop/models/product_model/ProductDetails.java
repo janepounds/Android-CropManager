@@ -42,12 +42,9 @@ public class ProductDetails implements Parcelable {
     @SerializedName("products_date_available")
     @Expose
     private String productsDateAvailable;
-    @SerializedName("products_weight")
+    @SerializedName("productsMeasure")
     @Expose
-    private List<Integer> productsWeight;
-    @SerializedName("products_weight_unit")
-    @Expose
-    private List<String> productsWeightUnit;
+    private List<ProductMeasure> productsMeasure;
     @SerializedName("products_status")
     @Expose
     private int productsStatus;
@@ -361,20 +358,10 @@ public class ProductDetails implements Parcelable {
         this.productsDateAvailable = productsDateAvailable;
     }
 
-    public List<Integer> getProductsWeight() {
-        return productsWeight;
-    }
     public String getSelectedProductsWeight() {
         return seletedProductsWeight;
     }
 
-    public void setProductsWeight(List<Integer> productsWeight) {
-        this.productsWeight = productsWeight;
-    }
-
-    public List<String> getProductsWeightUnit() {
-        return productsWeightUnit;
-    }
     public String getSelectedProductsWeightUnit() {
         return seletedProductsWeightUnits;
     }
@@ -387,8 +374,12 @@ public class ProductDetails implements Parcelable {
         this.seletedProductsWeight=seletedProductsWeight;
     }
 
-    public void setProductsWeightUnit(List<String> productsWeightUnit) {
-        this.productsWeightUnit = productsWeightUnit;
+    public void setProductsMeasure(List<ProductMeasure> productsMeasure) {
+        this.productsMeasure = productsMeasure;
+    }
+
+    public List<ProductMeasure> getProductsMeasure() {
+        return productsMeasure;
     }
 
     public int getProductsStatus() {
@@ -746,8 +737,6 @@ public class ProductDetails implements Parcelable {
         parcel_out.writeString(productsName);
         parcel_out.writeString(productsModel);
         parcel_out.writeString(productsImage);
-        parcel_out.writeList(productsWeight);
-        parcel_out.writeList(productsWeightUnit);
         parcel_out.writeString(productsUrl);
         parcel_out.writeString(productsDescription);
         parcel_out.writeString(productsPrice);
@@ -774,6 +763,7 @@ public class ProductDetails implements Parcelable {
         parcel_out.writeList(categories);
         parcel_out.writeList(attributes);
         parcel_out.writeList(ratingDataLists);
+        parcel_out.writeList(productsMeasure);
         parcel_out.writeFloat(rating);
         parcel_out.writeInt(total_user_rated);
     }
@@ -857,11 +847,8 @@ public class ProductDetails implements Parcelable {
         this.ratingDataLists = new ArrayList<>();
         parcel_in.readList(ratingDataLists,RatingDataList.class.getClassLoader());
 
-        this.productsWeight = new ArrayList<>();
-        parcel_in.readList(productsWeight,Integer.class.getClassLoader());
-
-        this.productsWeightUnit = new ArrayList<>();
-        parcel_in.readList(productsWeightUnit,String.class.getClassLoader());
+        this.productsMeasure = new ArrayList<ProductMeasure>();
+        parcel_in.readList(productsMeasure,ProductMeasure.class.getClassLoader());
 
     }
 
