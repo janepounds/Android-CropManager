@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ import com.myfarmnow.myfarmcrop.models.cart_model.CartProductAttributes;
 import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.product_model.Option;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
+import com.myfarmnow.myfarmcrop.models.product_model.ProductMeasure;
 import com.myfarmnow.myfarmcrop.models.product_model.Value;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -77,7 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private Boolean isFlash;
     public Fragment currentFragment;
    private FragmentManager fragmentManager;
-   private List<String> productweights;
+   private List<ProductMeasure> productweights;
     
     private User_Recents_BuyInputsDB recents_db;
     private List<ProductDetails> productList;
@@ -179,39 +181,59 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
             holder.product_title.setText(product.getProductsName().toUpperCase().substring(0, 1) + product.getProductsName().toLowerCase().substring(1));
 
-            ArrayList<CropSpinnerItem> weightItems = new ArrayList<>();
-            int k=0;
-            for (int x : product.getProductsWeight()) {
+//            ArrayList<CropSpinnerItem> weightItems = new ArrayList<>();
+//            int k=0;
+//            for (ProductMeasure x :product.getProductsMeasure()) {
+//
+//                int finalI = k;
+//                weightItems.add(new CropSpinnerItem() {
+//                    @Override
+//                    public String getId() {
+//                        return  x+"";
+//                    }
+//
+//                    @Override
+//                    public String toString() {
+//                        return  x.getProducts_weight();
+//                    }
+//
+//                    @Override
+//                    public String getUnits() {
+//                        return x.getProducts_weight_unit();
+//                    }
+//                });
+//                k++;
+//            }
+//            CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
+//            holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
 
-                int finalI = k;
-                weightItems.add(new CropSpinnerItem() {
-                    @Override
-                    public String getId() {
-                        return  x+"";
-                    }
 
-                    @Override
-                    public String toString() {
-                        return  x+" "+product.getProductsWeightUnit().get(finalI);
-                    }
-
-                    @Override
-                    public String getUnits() {
-                        return product.getProductsWeightUnit().get(finalI);
-                    }
-                });
-                k++;
-            }
-            CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
-            holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
-
+            ((ArrayAdapter) holder.product_weight_spn.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
             //set on item selected on weight spinner
            holder.product_weight_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                @Override
                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                    String selection = parent.getItemAtPosition(position).toString();
-                   productweights.add(selection);
+
+                   //separate weight and units
+                    String[] splitStr = selection.split("\\s+");
+                    String weight = splitStr[0];
+                    String weightUnits = splitStr[1];
+
+
+
+                   ProductMeasure productMeasure = new ProductMeasure();
+                   productMeasure.setProduct_id(String.valueOf(product.getProductsId()));
+                   productMeasure.setProducts_price(product.getProductsPrice());
+                   productMeasure.setProducts_weight_unit(weightUnits);
+                   productMeasure.setProducts_weight(weight);
+
 //                   product.setProductsWeight(productweights);
+                   String weightt = productMeasure.getProducts_weight() + " " + productMeasure.getProducts_weight_unit();
+                   if(selection.equals(weightt)){
+                       product.setSelectedProductsWeight(weight);
+                       product.setSelectedProductsWeightUnit(weightUnits);
+                   }
                }
 
                @Override
@@ -743,8 +765,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         product.setAttributesPrice(String.valueOf(attributesPrice));
         product.setProductsFinalPrice(String.valueOf(productFinalPrice));
         //set selected measure/weight
-        product.setSelectedProductsWeight(product.getProductsWeight().get(0)+"");
-        product.setSelectedProductsWeightUnit(product.getProductsWeightUnit().get(0));
+//
+//        product.setSelectedProductsWeight(we);
+//        product.setSelectedProductsWeightUnit(product.getProductsWeightUnit().get(0));
 
         product.setProductsQuantity(product.getProductsDefaultStock());
         

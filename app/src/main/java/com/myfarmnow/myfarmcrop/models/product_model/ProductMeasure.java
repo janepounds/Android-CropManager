@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 
 
 public class ProductMeasure implements Parcelable {
@@ -24,6 +25,10 @@ public class ProductMeasure implements Parcelable {
     @SerializedName("products_price")
     @Expose
     private String products_price;
+
+    public ProductMeasure() {
+
+    }
 
 
     //********** Describes the kinds of Special Objects contained in this Parcelable Instance's marshaled representation *********//
@@ -67,7 +72,7 @@ public class ProductMeasure implements Parcelable {
 
     //********** Retrieves the values from the Parcel *********//
 
-    protected ProductMeasure(Parcel parcel_in) {
+    public ProductMeasure(Parcel parcel_in) {
         this.product_id = parcel_in.readString();
         this.products_weight_unit = parcel_in.readString();
         this.products_weight = parcel_in.readString();
