@@ -113,7 +113,6 @@ public class MarketPriceFragment extends Fragment {
                             }
 
                             MarketPriceItem marketPriceItem = new MarketPriceItem(x.getTitle(), marketPriceSubItemArrayList);
-
                             filteredList.add(marketPriceItem);
                         }
 
