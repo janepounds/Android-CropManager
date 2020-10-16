@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -76,6 +77,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private Boolean isFlash;
     public Fragment currentFragment;
    private FragmentManager fragmentManager;
+   private List<String> productweights;
     
     private User_Recents_BuyInputsDB recents_db;
     private List<ProductDetails> productList;
@@ -202,6 +204,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             }
             CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
             holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
+
+            //set on item selected on weight spinner
+           holder.product_weight_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+               @Override
+               public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                   String selection = parent.getItemAtPosition(position).toString();
+                   productweights.add(selection);
+//                   product.setProductsWeight(productweights);
+               }
+
+               @Override
+               public void onNothingSelected(AdapterView<?> parent) {
+
+               }
+           });
 
             if(product.getProductsModel()!=null)
                 holder.product_ingredient.setText(product.getProductsModel());
