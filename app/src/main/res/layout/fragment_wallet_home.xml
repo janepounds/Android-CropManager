@@ -444,7 +444,7 @@
                                 android:layout_marginTop="5dp"
                                 android:backgroundTint="@color/white"
                                 android:gravity="center"
-                                android:src="@drawable/coupon" />
+                                app:srcCompat="@drawable/coupon" />
 
                             <TextView
                                 android:layout_width="match_parent"

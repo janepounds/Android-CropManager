@@ -1,13 +1,19 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -18,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CategoryListAdapter_3;
+import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
 
 import java.util.ArrayList;
@@ -27,7 +34,7 @@ import am.appwise.components.ni.NoInternetDialog;
 
 
 public class Categories_3 extends Fragment {
-    
+    private Context context;
     Boolean isMenuItem = true;
     Boolean isHeaderVisible = false;
 
@@ -39,6 +46,7 @@ public class Categories_3 extends Fragment {
     List<CategoryDetails> allCategoriesList;
     List<CategoryDetails> mainCategoriesList;
 
+    private EditText searchView;
 
     @Nullable
     @Override
@@ -52,17 +60,17 @@ public class Categories_3 extends Fragment {
             if (getArguments().containsKey("isHeaderVisible")) {
                 isHeaderVisible = getArguments().getBoolean("isHeaderVisible");
             }
-        
+
             if (getArguments().containsKey("isMenuItem")) {
                 isMenuItem = getArguments().getBoolean("isMenuItem", true);
             }
         }
-    
-    
+
+
         if (isMenuItem) {
             // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
             //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.categories));
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.categories));
         }
 
 
@@ -70,8 +78,8 @@ public class Categories_3 extends Fragment {
 
         // Get CategoriesList from ApplicationContext
         allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
-        
-        
+
+
         // Binding Layout Views
         emptyText = rootView.findViewById(R.id.empty_record_text);
         headerText = rootView.findViewById(R.id.categories_header);
@@ -80,7 +88,6 @@ public class Categories_3 extends Fragment {
         scroll_container.setNestedScrollingEnabled(true);
         category_recycler.setNestedScrollingEnabled(false);
 
-        
 
         // Hide some of the Views
         emptyText.setVisibility(View.GONE);
@@ -99,10 +106,9 @@ public class Categories_3 extends Fragment {
         }
 
 
+        mainCategoriesList = new ArrayList<>();
 
-        mainCategoriesList= new ArrayList<>();
-
-        for (int i=0;  i<allCategoriesList.size();  i++) {
+        for (int i = 0; i < allCategoriesList.size(); i++) {
             if (allCategoriesList.get(i).getParentId().equalsIgnoreCase("0")) {
                 mainCategoriesList.add(allCategoriesList.get(i));
             }
@@ -118,9 +124,31 @@ public class Categories_3 extends Fragment {
 
         categoryListAdapter.notifyDataSetChanged();
 
+        BuyInputsHomePage.searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Filter text
+                categoryListAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         return rootView;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 }
 
