@@ -13,11 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -39,15 +42,19 @@ import com.bumptech.glide.request.target.Target;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
+import com.myfarmnow.myfarmcrop.adapters.CropSpinnerAdapter;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.User_Recents_BuyInputsDB;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
+import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProductAttributes;
+import com.myfarmnow.myfarmcrop.models.farmrecords.CropField;
 import com.myfarmnow.myfarmcrop.models.product_model.Option;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
+import com.myfarmnow.myfarmcrop.models.product_model.ProductMeasure;
 import com.myfarmnow.myfarmcrop.models.product_model.Value;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -72,6 +79,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private Boolean isFlash;
     public Fragment currentFragment;
    private FragmentManager fragmentManager;
+   private List<ProductMeasure> productweights;
     
     private User_Recents_BuyInputsDB recents_db;
     private List<ProductDetails> productList;
@@ -172,6 +180,67 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             }
 
             holder.product_title.setText(product.getProductsName().toUpperCase().substring(0, 1) + product.getProductsName().toLowerCase().substring(1));
+
+//            ArrayList<CropSpinnerItem> weightItems = new ArrayList<>();
+//            int k=0;
+//            for (ProductMeasure x :product.getProductsMeasure()) {
+//
+//                int finalI = k;
+//                weightItems.add(new CropSpinnerItem() {
+//                    @Override
+//                    public String getId() {
+//                        return  x+"";
+//                    }
+//
+//                    @Override
+//                    public String toString() {
+//                        return  x.getProducts_weight();
+//                    }
+//
+//                    @Override
+//                    public String getUnits() {
+//                        return x.getProducts_weight_unit();
+//                    }
+//                });
+//                k++;
+//            }
+//            CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
+//            holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
+
+
+            ((ArrayAdapter) holder.product_weight_spn.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
+            //set on item selected on weight spinner
+           holder.product_weight_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+               @Override
+               public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                   String selection = parent.getItemAtPosition(position).toString();
+
+                   //separate weight and units
+                    String[] splitStr = selection.split("\\s+");
+                    String weight = splitStr[0];
+                    String weightUnits = splitStr[1];
+
+
+
+                   ProductMeasure productMeasure = new ProductMeasure();
+                   productMeasure.setProduct_id(String.valueOf(product.getProductsId()));
+                   productMeasure.setProducts_price(product.getProductsPrice());
+                   productMeasure.setProducts_weight_unit(weightUnits);
+                   productMeasure.setProducts_weight(weight);
+
+//                   product.setProductsWeight(productweights);
+                   String weightt = productMeasure.getProducts_weight() + " " + productMeasure.getProducts_weight_unit();
+                   if(selection.equals(weightt)){
+                       product.setSelectedProductsWeight(weight);
+                       product.setSelectedProductsWeightUnit(weightUnits);
+                   }
+               }
+
+               @Override
+               public void onNothingSelected(AdapterView<?> parent) {
+
+               }
+           });
 
             if(product.getProductsModel()!=null)
                 holder.product_ingredient.setText(product.getProductsModel());
@@ -603,11 +672,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         ImageView product_thumbnail, product_tag_new;
         TextView product_title, product_ingredient, product_price_old, product_price_new, product_tag_discount_text;
         LinearLayout layoutSale;
+        Spinner product_weight_spn;
         ShimmerFrameLayout shimmerProgress;
         
         public MyViewHolder(final View itemView) {
             super(itemView);
 
+            product_weight_spn = itemView.findViewById(R.id.spinner_produce_quantity);
             product_checked = itemView.findViewById(R.id.product_checked);
             product_ingredient = itemView.findViewById(R.id.active_ingredient);
 
@@ -693,8 +764,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         product.setProductsPrice(String.valueOf(productBasePrice));
         product.setAttributesPrice(String.valueOf(attributesPrice));
         product.setProductsFinalPrice(String.valueOf(productFinalPrice));
-        
-        int quantity = product.getProductsDefaultStock();
+        //set selected measure/weight
+//
+//        product.setSelectedProductsWeight(we);
+//        product.setSelectedProductsWeightUnit(product.getProductsWeightUnit().get(0));
+
         product.setProductsQuantity(product.getProductsDefaultStock());
         
         // Set Product's OrderProductCategory Info

@@ -368,7 +368,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Tint Menu Icons with the help of static method of Utilities class
         Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
-//        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
+        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
         Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
 
         return true;

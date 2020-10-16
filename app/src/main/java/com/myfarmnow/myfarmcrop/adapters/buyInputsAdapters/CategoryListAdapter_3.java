@@ -25,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Products;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SubCategories_3;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
@@ -154,12 +155,16 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
             Bundle categoryInfo = new Bundle();
             categoryInfo.putInt("CategoryID", Integer.parseInt(categoriesList.get(getAdapterPosition()).getId()));
             categoryInfo.putString("CategoryName", categoriesList.get(getAdapterPosition()).getName());
-
+            String sortBy = "Newest";
+            categoryInfo.putString("sortBy", sortBy);
             Fragment fragment;
 
             if (!isSubCategory) {
                 // Navigate to Products Fragment
-                fragment = new Products();
+                //fragment = new Products();
+                // Initialize Category_Products Fragment with specified arguments
+                fragment = new Category_Products();
+
             } else {
                 // Navigate to SubCategories Fragment
                 fragment = new SubCategories_3();
