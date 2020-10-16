@@ -1,15 +1,20 @@
 package com.myfarmnow.myfarmcrop.fragments.marketplace;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +25,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CategoryListAdapter_3;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
@@ -51,6 +57,8 @@ public class BuyInputsHomePage extends Fragment {
     FragmentManager fragmentManager;
     private Context context;
     private Toolbar toolbar;
+    @SuppressLint("StaticFieldLeak")
+    public static EditText searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,8 +66,10 @@ public class BuyInputsHomePage extends Fragment {
 
         setHasOptionsMenu(true);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(getString(R.string.app_name));
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setElevation(0.5f);
 
         toolbar = view.findViewById(R.id.buy_inputs_home_toolbar);
+        searchView = view.findViewById(R.id.buy_inputs_search_view);
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
@@ -108,6 +118,16 @@ public class BuyInputsHomePage extends Fragment {
 
         Bundle bundleInfo = new Bundle();
         bundleInfo.putString("sortBy", "Newest");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.toolbar_ic_search:
+                Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //*********** Setup the BannerSlider with the given List of BannerImages ********//

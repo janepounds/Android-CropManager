@@ -116,12 +116,10 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String TASK_BACKUP_DATA_TAG = "SYNC_SERVICE";
     public static final String TASK_SEND_NOTIFICATIONS_TAG = "SEND_NOTIFICATIONS";
 
-
     SharedPreferences sharedPreferences;
     MyAppPrefsManager myAppPrefsManager;
     Toolbar toolbar;
     Fragment defaultHomeFragment;
-
 
     public static String mSelectedItem;
     private static final String SELECTED_ITEM_ID = "selected";
@@ -130,23 +128,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
     public static String paymentNonceToken;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (myAppPrefsManager.isFirstTimeLaunch()) {
-            NotificationScheduler.setReminder(DashboardActivity.this, AlarmReceiver.class);
-
-            if (ConstantValues.DEFAULT_NOTIFICATION.equalsIgnoreCase("fcm")) {
-                StartAppRequests.RegisterDeviceForFCM(DashboardActivity.this);
-            }
-
-        }
-
-        myAppPrefsManager.setFirstTimeLaunch(false);
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,7 +247,6 @@ public class DashboardActivity extends AppCompatActivity {
         defaultHomeFragment=new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) );
         getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, defaultHomeFragment, getString(R.string.homeStyle9)).commit();
         currentFragment = defaultHomeFragment;
-
     }
 
     //*********** Called by the System when the Device's Configuration changes while Activity is Running ********//
@@ -276,7 +256,6 @@ public class DashboardActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Configure ActionBarDrawerToggle with new Configuration
     }
-
 
     //*********** Invoked to Save the Instance's State when the Activity may be Temporarily Destroyed ********//
 
@@ -293,7 +272,6 @@ public class DashboardActivity extends AppCompatActivity {
         outState.putString(SELECTED_ITEM_ID, mSelectedItem);
     }
 
-
     //*********** Set the Base Context for the ContextWrapper ********//
 
     @Override
@@ -305,7 +283,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }
-
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
 
@@ -319,7 +296,19 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        if (myAppPrefsManager.isFirstTimeLaunch()) {
+            NotificationScheduler.setReminder(DashboardActivity.this, AlarmReceiver.class);
+
+            if (ConstantValues.DEFAULT_NOTIFICATION.equalsIgnoreCase("fcm")) {
+                StartAppRequests.RegisterDeviceForFCM(DashboardActivity.this);
+            }
+        }
+        myAppPrefsManager.setFirstTimeLaunch(false);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -446,9 +435,6 @@ public class DashboardActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -478,15 +464,15 @@ public class DashboardActivity extends AppCompatActivity {
                     showHomePage();
 
                 break;
-            case R.id.toolbar_ic_search:
-
-                // Navigate to SearchFragment Fragment
-                fragment = new SearchFragment();
-                fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
-                break;
+//            case R.id.toolbar_ic_search:
+//
+//                // Navigate to SearchFragment Fragment
+//                fragment = new SearchFragment();
+//                fragmentManager.beginTransaction()
+//                        .add(R.id.main_fragment_container, fragment)
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                        .addToBackStack(getString(R.string.actionHome)).commit();
+//                break;
 
             case R.id.toolbar_ic_cart:
 
@@ -526,7 +512,6 @@ public class DashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onBackPressed() {
         // Get FragmentManager
@@ -553,7 +538,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         }
     }
-
 
     private void showHomePage() {
 //        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(defaultHomeFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();

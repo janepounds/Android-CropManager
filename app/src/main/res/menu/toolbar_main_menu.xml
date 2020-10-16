@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/toolbar_ic_cart"
         android:actionLayout="@layout/buy_inputs_animated_ic_cart"
@@ -12,9 +11,9 @@
 
     <item
         android:id="@+id/toolbar_edit_profile"
-        app:actionLayout="@layout/layout_animated_ic_cart"
         android:icon="@drawable/ic_edit_profile"
         android:title="Edit Profile"
+        app:actionLayout="@layout/layout_animated_ic_cart"
         app:showAsAction="always" />
 
     <item
@@ -27,12 +26,15 @@
         android:icon="@drawable/ic_action_currency"
         android:title="@string/label_currency"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/toolbar_ic_search"
         android:icon="@drawable/ic_search_menu24"
         android:title="@string/actionSearch"
         app:showAsAction="ifRoom" />
-    <!--app:actionViewClass="android.widget.SearchView"-->
+    <!--        app:actionViewClass="androidx.appcompat.widget.SearchView"-->
+    <!--        app:showAsAction="ifRoom|collapseActionView" />-->
+
 
     <item
         android:id="@+id/toolbar_ic_favorite"

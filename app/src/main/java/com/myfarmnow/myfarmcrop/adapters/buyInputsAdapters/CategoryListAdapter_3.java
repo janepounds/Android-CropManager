@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Products;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SubCategories_3;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,18 +38,18 @@ import java.util.List;
  * CategoryListAdapter is the adapter class of RecyclerView holding List of Categories in MainCategories
  **/
 
-public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdapter_3.MyViewHolder> {
-
+public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdapter_3.MyViewHolder> implements Filterable {
     boolean isSubCategory;
-
     Activity context;
     List<CategoryDetails> categoriesList;
+    List<CategoryDetails> categoriesListFull;
 
 
     public CategoryListAdapter_3(Activity context, List<CategoryDetails> categoriesList, boolean isSubCategory) {
         this.context = context;
         this.isSubCategory = isSubCategory;
         this.categoriesList = categoriesList;
+        categoriesListFull = new ArrayList<>(categoriesList);
     }
 
 
@@ -93,15 +96,47 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
         return categoriesList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<CategoryDetails> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList = categoriesListFull;
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (CategoryDetails detail : categoriesListFull) {
+                    if (detail.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(detail);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            categoriesList.clear();
+            categoriesList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     /********** Custom ViewHolder provides a direct reference to each of the Views within a Data_Item *********/
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         CardView category_card;
         ImageView category_icon;
         TextView category_title, category_products;
-
 
         public MyViewHolder(final View itemView) {
             super(itemView);
@@ -112,7 +147,6 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
 
             category_card.setOnClickListener(this);
         }
-
 
         // Handle Click Listener on OrderProductCategory item
         @Override
@@ -145,6 +179,5 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
                     .addToBackStack(null).commit();
         }
     }
-
 }
 
