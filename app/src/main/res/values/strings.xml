@@ -1744,7 +1744,7 @@
     <string name="actionHome"> HOME </string>
     <string name="actionCategory"> CATEGORY </string>
     <string name="actionCategories"> CATEGORIES </string>
-    <string name="actionShop"> SHOP </string>
+    <string name="actionShop"> Shop </string>
     <string name="actionCart"> MY CART </string>
     <string name="actionOrders"> MY ORDERS </string>
     <string name="actionAccount"> MY ACCOUNT </string>

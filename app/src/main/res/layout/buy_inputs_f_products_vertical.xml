@@ -6,49 +6,12 @@
     android:background="@color/windowBackgroundDark">
 
 
-    <!--<LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:background="@color/layoutBackground"
-        android:gravity="center_vertical"
-        android:layout_alignParentTop="true" >
-
-        <TextView
-            android:id="@+id/products_list_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Products : 0"
-            android:textSize="16sp"
-            android:textColor="@color/textColorSecondary"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/filterBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:src="@drawable/ic_filter"
-            android:tint="@color/white"
-            android:background="@color/colorAccent"
-            android:scaleType="fitCenter"
-            android:padding="10dp" />
-
-    </LinearLayout>-->
-
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:background="@color/windowBackgroundDark"
         android:clickable="true"
         android:gravity="center_vertical"
@@ -141,7 +104,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topBar"
-        android:padding="10dp" />
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10" />
 
     <TextView
         android:id="@+id/empty_record"

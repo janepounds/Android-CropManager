@@ -58,10 +58,10 @@ public class Category_Products extends Fragment {
     boolean isFilterApplied;
 
     int categoryID;
-    String customerID;
+    String customerID,CategoryName;
     String sortBy = "Newest";
 
-    LinearLayout bottomBar;
+    LinearLayout TopBar;
     LinearLayout layout_filter;
     LinearLayout sortList;
     Button resetFiltersBtn;
@@ -106,19 +106,19 @@ public class Category_Products extends Fragment {
 
         // Get CategoryID from bundle arguments
         categoryID = getArguments().getInt("CategoryID");
-
+        CategoryName = getArguments().getString("CategoryName");
         // Get sortBy from bundle arguments
         if (getArguments().containsKey("sortBy")) {
             sortBy = getArguments().getString("sortBy");
         }
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop)+" "+CategoryName);
 
         // Get the Customer's ID from SharedPreferences
         customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
 
 
         // Binding Layout Views
-        bottomBar = rootView.findViewById(R.id.topBar);
+        TopBar = rootView.findViewById(R.id.topBar);
         sortList = rootView.findViewById(R.id.sort_list);
         sortListText = rootView.findViewById(R.id.sort_text);
         emptyRecord = rootView.findViewById(R.id.empty_record);
@@ -136,9 +136,6 @@ public class Category_Products extends Fragment {
 
         isGridView = false;
         isFilterApplied = false;
-//        layout_filter.setChecked(isFilterApplied);
-
-
         // Set sortListText text
         if (sortBy.equalsIgnoreCase("top seller")) {
             sortListText.setText(getString(R.string.top_seller));
@@ -166,7 +163,9 @@ public class Category_Products extends Fragment {
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         linearLayoutManager = new LinearLayoutManager(getContext());
         if (categoryProductsList.size() < 3)
-            bottomBar.setVisibility(View.INVISIBLE);
+            TopBar.setVisibility(View.INVISIBLE);
+        else
+            TopBar.setVisibility(View.VISIBLE);
         // Initialize the ProductAdapter for RecyclerView
         productAdapter = new ProductAdapter(getActivity(), getActivity().getSupportFragmentManager(), categoryProductsList, false, false);
 
@@ -393,7 +392,7 @@ public class Category_Products extends Fragment {
             resetFiltersBtn.setVisibility(View.GONE);
         }
         if (productAdapter.getItemCount() >= 3) {
-            bottomBar.setVisibility(View.VISIBLE);
+            TopBar.setVisibility(View.VISIBLE);
         }
     }
 
