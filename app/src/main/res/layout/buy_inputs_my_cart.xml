@@ -228,7 +228,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/topcornerscurved"
             android:orientation="vertical"
-            android:elevation="@dimen/dimen_10dp">
+            android:elevation="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
