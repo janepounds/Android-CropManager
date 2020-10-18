@@ -19,11 +19,13 @@ import android.widget.ToggleButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -114,6 +116,7 @@ public class Category_Products extends Fragment {
         }
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop)+" "+CategoryName);
 
+        DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
         // Get the Customer's ID from SharedPreferences
         customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
 

@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CategoryListAdapter_3;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -71,10 +72,7 @@ public class BuyInputsHomePage extends Fragment {
         toolbar = view.findViewById(R.id.buy_inputs_home_toolbar);
         searchView = view.findViewById(R.id.buy_inputs_search_view);
 
-        BottomNavigationView bottomNavigationView = view.findViewById(R.id.btm_navigation);
-        bottomNavigationView.setItemIconTintList(null);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
+        
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
         startAppRequests = new StartAppRequests(requireContext());
@@ -205,24 +203,6 @@ public class BuyInputsHomePage extends Fragment {
         badge.setText(String.valueOf(cartItemsList.size()));
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
-        Fragment selectedFragment = null;
 
-        switch (item.getItemId()) {
-            case R.id.page_1:
-                selectedFragment = new HomeFragment(context, requireActivity().getSupportFragmentManager(), MyFarmDbHandlerSingleton.getHandlerInstance(context));
-                break;
-            case R.id.page_2:
-                selectedFragment = new OffersFragment();
-                break;
-            case R.id.page_3:
-                selectedFragment = new AccountFragment();
-                break;
-        }
-
-        assert selectedFragment != null;
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
-        return true;
-    };
 }
 
