@@ -181,31 +181,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
             holder.product_title.setText(product.getProductsName().toUpperCase().substring(0, 1) + product.getProductsName().toLowerCase().substring(1));
 
-//            ArrayList<CropSpinnerItem> weightItems = new ArrayList<>();
-//            int k=0;
-//            for (ProductMeasure x :product.getProductsMeasure()) {
-//
-//                int finalI = k;
-//                weightItems.add(new CropSpinnerItem() {
-//                    @Override
-//                    public String getId() {
-//                        return  x+"";
-//                    }
-//
-//                    @Override
-//                    public String toString() {
-//                        return  x.getProducts_weight();
-//                    }
-//
-//                    @Override
-//                    public String getUnits() {
-//                        return x.getProducts_weight_unit();
-//                    }
-//                });
-//                k++;
-//            }
-//            CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
-//            holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
+            ArrayList<CropSpinnerItem> weightItems = new ArrayList<>();
+            int k=0;
+            for (ProductMeasure x :product.getProductsMeasure()) {
+
+                int finalI = k;
+                weightItems.add(new CropSpinnerItem() {
+                    @Override
+                    public String getId() {
+                        return  x+"";
+                    }
+
+                    @Override
+                    public String toString() {
+                        return  x.getProducts_weight()+" "+x.getProducts_weight_unit();
+                    }
+
+                    @Override
+                    public String getUnits() {
+                        return x.getProducts_weight_unit();
+                    }
+                });
+                k++;
+            }
+            CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
+            holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
 
 
             ((ArrayAdapter) holder.product_weight_spn.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -215,25 +215,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                    String selection = parent.getItemAtPosition(position).toString();
 
-                   //separate weight and units
-                    String[] splitStr = selection.split("\\s+");
-                    String weight = splitStr[0];
-                    String weightUnits = splitStr[1];
+                    int k=0;
+                   for (ProductMeasure x :product.getProductsMeasure()) {
+                        if(selection.equalsIgnoreCase(x.getProducts_weight()+" "+x.getProducts_weight_unit())){
 
+                            product.setSelectedProductsWeight(x.getProducts_weight());
+                            product.setSelectedProductsWeightUnit(x.getProducts_weight_unit());
+                            product.setProductsPrice(x.getProducts_price());
+                            holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL +" "+ new DecimalFormat("#0.00").format(Double.valueOf(x.getProducts_price())));
 
-
-                   ProductMeasure productMeasure = new ProductMeasure();
-                   productMeasure.setProduct_id(String.valueOf(product.getProductsId()));
-                   productMeasure.setProducts_price(product.getProductsPrice());
-                   productMeasure.setProducts_weight_unit(weightUnits);
-                   productMeasure.setProducts_weight(weight);
-
-//                   product.setProductsWeight(productweights);
-                   String weightt = productMeasure.getProducts_weight() + " " + productMeasure.getProducts_weight_unit();
-                   if(selection.equals(weightt)){
-                       product.setSelectedProductsWeight(weight);
-                       product.setSelectedProductsWeightUnit(weightUnits);
+                        }
+                       k++;
                    }
+
                }
 
                @Override
@@ -489,8 +483,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                         }.start();
                     }
                     else {
-                        holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL +""+ new DecimalFormat("#0.00").format(Double.valueOf(product.getFlashPrice())));
-                        holder.product_price_old.setText(ConstantValues.CURRENCY_SYMBOL +""+ new DecimalFormat("#0.00").format(Double.valueOf(product.getProductsPrice())));
+                        holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL +" "+ new DecimalFormat("#0.00").format(Double.valueOf(product.getFlashPrice())));
+                        if(product.getProductsMeasure().size()>0)
+                        holder.product_price_old.setText(ConstantValues.CURRENCY_SYMBOL +" "+ new DecimalFormat("#0.00").format(Double.valueOf(product.getProductsMeasure().get(0).getProducts_price())));
+
                         holder.product_add_cart_btn.setText(context.getResources().getString(R.string.upcoming));
                         holder.product_add_cart_btn.setBackgroundResource(R.drawable.rounded_corners_button_red);
                     }
