@@ -276,6 +276,34 @@
                 </RelativeLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_10dp">
+
+
+
+                        <TextView
+                            android:id="@+id/selected_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:fontFamily="@font/josefin_sans"
+                            android:text="10kg"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -320,12 +348,13 @@
 
     <ImageView
         android:id="@+id/product_checked"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:alpha="0.5"
         android:clickable="true"
         android:paddingBottom="20dp"
         android:scaleType="center"
-        android:src="@drawable/checked" />
+        android:src="@drawable/checked"
+        android:layout_gravity="center"/>
 
 </androidx.cardview.widget.CardView>

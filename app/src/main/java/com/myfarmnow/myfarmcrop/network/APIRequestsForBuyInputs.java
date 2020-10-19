@@ -202,7 +202,6 @@ public interface APIRequestsForBuyInputs {
                                    @Field("language_id") int language_id,
                                    @Field("currency_code") String currency_code);
 
-
     //******************** Order Data ********************//
 
     @POST("addtoorder")

@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -14,6 +15,8 @@ import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProductAttributes;
 import com.myfarmnow.myfarmcrop.models.device_model.AppSettingsDetails;
+import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 import com.myfarmnow.myfarmcrop.models.product_model.Option;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
 import com.myfarmnow.myfarmcrop.models.product_model.Value;
@@ -31,7 +34,7 @@ import java.util.Map;
 
 
 public class User_Cart_BuyInputsDB {
-    
+    private static final String TAG = "User_Cart_BuyInputsDB";
     SQLiteDatabase db;
     
     // Table Name
@@ -436,6 +439,60 @@ public class User_Cart_BuyInputsDB {
         return cartIDs;
     }
 
+
+    public CartProduct checkCartHasProductAndMeasure(int product_id,String weight) {
+        // get and open SQLiteDatabase Instance from static method of DB_Manager class
+        db = BuyInputsDB_Manager.getInstance().openDatabase();
+
+        Cursor cursor = db.rawQuery("select * from " + TABLE_CART + " where " + CART_PRODUCT_ID + " = " + product_id + " AND " + CART_PRODUCT_WEIGHT + " = '" + weight + "'", null);
+        CartProduct cartProduct = new CartProduct();
+        cursor.moveToFirst();
+        ProductDetails product =null;
+        if (!cursor.isAfterLast()) {
+            try {
+              product = new ProductDetails();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            product.setProductsId(cursor.getInt(1));
+            product.setProductsName(cursor.getString(2));
+            product.setProductsImage(cursor.getString(3));
+            product.setProductsUrl(cursor.getString(4));
+            product.setProductsModel(cursor.getString(5));
+            product.setSelectedProductsWeight(cursor.getString(6));
+            product.setSelectedProductsWeightUnit(cursor.getString(7));
+            product.setProductsQuantity(cursor.getInt(8));
+            product.setCustomersBasketQuantity(cursor.getInt(9));
+            product.setProductsPrice(cursor.getString(10));
+            product.setAttributesPrice(cursor.getString(11));
+            product.setProductsFinalPrice(cursor.getString(12));
+            product.setTotalPrice(cursor.getString(13));
+            product.setProductsDescription(cursor.getString(14));
+            product.setCategoryIDs(cursor.getString(15));
+            product.setCategoryNames(cursor.getString(16));
+            product.setManufacturersId(cursor.getInt(17));
+            product.setManufacturersName(cursor.getString(18));
+            product.setTaxClassId(cursor.getInt(19));
+            product.setTaxDescription(cursor.getString(20));
+            product.setTaxClassTitle(cursor.getString(21));
+            product.setTaxClassDescription(cursor.getString(22));
+            product.setIsSaleProduct(cursor.getString(23));
+
+
+            cartProduct.setCustomersBasketId(cursor.getInt(0));
+            cartProduct.setCustomersBasketDateAdded(cursor.getString(24));
+
+            cartProduct.setCustomersBasketProduct(product);
+            
+    }
+            // close cursor and DB
+            cursor.close();
+            BuyInputsDB_Manager.getInstance().closeDatabase();
+        Log.d(TAG, "checkCartHasProductAndMeasure: "+ cartProduct);
+            
+            return cartProduct;
+
+    }
 
     
     

@@ -2294,6 +2294,7 @@
 
     <string name="sort_by">Sort By :</string>
     <string name="actionAddCrop">Add Crop</string>
+    <string name="measure">Measure</string>
 
     <string-array name="buy_produce_quantity">
         <item>750 ml - Bottle</item>

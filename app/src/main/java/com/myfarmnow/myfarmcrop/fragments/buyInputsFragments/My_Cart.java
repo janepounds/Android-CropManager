@@ -55,7 +55,7 @@ import retrofit2.Response;
 
 
 public class My_Cart extends Fragment {
-
+    private static final String TAG = "My_Cart";
     String customerID;
     RecyclerView cart_items_recycler;
     LinearLayout cart_view, cart_view_empty;
@@ -373,9 +373,19 @@ public class My_Cart extends Fragment {
         return user_cart_BuyInputs_db.getCartItemsIDs().contains(cart_item_id);
     }
 
-    public static boolean checkCartHasProductAndMeasure(int cart_item_id,String measure) {
-        User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
-        return user_cart_BuyInputs_db.getCartItemsIDs().contains(cart_item_id);
+    public static boolean checkCartHasProductAndMeasure(int cart_item_id,String weight) {
+
+        CartProduct user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id,weight);
+        Log.d(TAG, "checkCartHasProductAndMeasure: " + user_cart_BuyInputs_db.getCustomersBasketProduct());
+
+        if(user_cart_BuyInputs_db.getCustomersBasketProduct().getSelectedProductsWeight().equals(weight)){
+            return true;
+        }else {
+            return false;
+        }
+
+
+
     }
 
     @Override
@@ -387,8 +397,6 @@ public class My_Cart extends Fragment {
         profileItem.setVisible(false);
         cartItem.setVisible(false);
         searchItem.setVisible(true);
-
-
     }
 
     private class MyTask extends AsyncTask<String, Void, String> {

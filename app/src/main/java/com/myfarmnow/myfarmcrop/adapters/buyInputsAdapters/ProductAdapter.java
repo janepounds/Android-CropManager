@@ -71,7 +71,7 @@ import java.util.Locale;
  **/
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
-
+    private static final String TAG = "ProductAdapter";
     private Activity context;
     private String customerID;
     private Boolean isGridView;
@@ -89,8 +89,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     long server;
     CountDownTimer mCountDownTimer;
 
-    
-    
     public ProductAdapter(Activity context, FragmentManager fragmentManager,List<ProductDetails> productList, Boolean isHorizontal, Boolean isFlash) {
         this.context = context;
         this.productList = productList;
@@ -99,9 +97,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         recents_db = new User_Recents_BuyInputsDB();
         this.fragmentManager=fragmentManager;
         customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-
     }
-
 
     public ProductAdapter(Activity context, List<ProductDetails> productList, Boolean isHorizontal ) {
         this.context = context;
@@ -109,11 +105,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.isHorizontal = isHorizontal;
         recents_db = new User_Recents_BuyInputsDB();
         customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-
     }
-    
-    
-    
+
     //********** Called to Inflate a Layout from XML and then return the Holder *********//
     
     @Override
@@ -125,9 +118,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         // Return a new holder instance
         return new MyViewHolder(itemView);
     }
-    
-    
-    
+
     //********** Called by RecyclerView to display the Data at the specified Position *********//
     
     @Override
@@ -138,11 +129,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             // Get the data model based on Position
             final ProductDetails product = productList.get(position);
             
-            // Check if the Product is already in the Cart
-            if (My_Cart.checkCartHasProduct(product.getProductsId())) {
-                holder.product_checked.setVisibility(View.VISIBLE);
-                holder.product_add_cart_btn.setVisibility(View.GONE);
-            } else {
+            // Check if the Product is already in the Cart with its measure
+
+                String[] splited = holder.product_weight_spn.getSelectedItem().toString().split("\\s+");
+                String weight = splited[0];
+              if(My_Cart.checkCartHasProductAndMeasure(product.getProductsId(),weight)){
+                  holder.product_checked.setVisibility(View.VISIBLE);
+                  holder.product_add_cart_btn.setVisibility(View.GONE);
+            }
+            else {
                 holder.product_checked.setVisibility(View.GONE);
                 holder.product_add_cart_btn.setVisibility(View.VISIBLE);
             }
@@ -207,7 +202,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
             holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
 
-
             ((ArrayAdapter) holder.product_weight_spn.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
             //set on item selected on weight spinner
            holder.product_weight_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -224,6 +218,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                             product.setProductsPrice(x.getProducts_price());
                             holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL +" "+ new DecimalFormat("#0.00").format(Double.valueOf(x.getProducts_price())));
 
+                            //set selected weight
+                            holder.selected_weight.setText(selection);
+
+                        }
+                        else if(holder.product_checked.getVisibility() == View.VISIBLE && (!holder.product_weight_spn.getSelectedItem().equals(holder.selected_weight))){
+                            holder.product_add_cart_btn.setVisibility(View.VISIBLE);
+                            Log.d(TAG, "onBindViewHolder: spinner changed");
                         }
                        k++;
                    }
@@ -235,6 +236,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
                }
            });
+
+           //
 
             if(product.getProductsModel()!=null)
                 holder.product_ingredient.setText(product.getProductsModel());
@@ -308,8 +311,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 //            } else {
 //                holder.product_like_layout.setChecked(false);
 //            }
-            
-            
+
             // Handle the Click event of product_like_layout ToggleButton
             holder.product_like_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -420,8 +422,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     }
                 }
             });
-            
-
 
             // Check the Button's Visibility
             if (!ConstantValues.IS_PRODUCT_CHECKED) {
@@ -439,12 +439,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     } else {
                         holder.product_add_cart_btn.setText(context.getString(R.string.addToCart));
                         holder.product_add_cart_btn.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_corners_button_green));
-                        
-                        
                     }
                 }
-                
-                
+
                 if (isFlash) {
                     start = Long.parseLong(product.getFlashStartDate())*1000L;
                     end = Long.parseLong(product.getFlashExpireDate())*1000L;
@@ -471,14 +468,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                 String minutesLeft = String.format("%d", ((serverUptimeSeconds % 86400) % 3600) / 60);
                                 String secondsLeft = String.format("%d", ((serverUptimeSeconds % 86400) % 3600) % 60);
                                 holder.product_add_cart_btn.setText(daysLeft+"D:"+hoursLeft+"H:"+minutesLeft+"M:"+secondsLeft+"S");
-                                
                             }
                             
                             @Override
                             public void onFinish() {
                                 holder.product_add_cart_btn.setText(context.getResources().getString(R.string.upcoming));
                                 holder.product_add_cart_btn.setBackgroundResource(R.drawable.rounded_corners_button_red);
-                                
                             }
                         }.start();
                     }
@@ -628,9 +623,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 //                });
                 
             }
+
             else {
                 // Make the Button Invisible
                 holder.product_add_cart_btn.setVisibility(View.GONE);
+
             }
             
         }
@@ -666,7 +663,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         ImageButton product_card_img_btn;
         RelativeLayout product_like_layout;
         ImageView product_thumbnail, product_tag_new;
-        TextView product_title, product_ingredient, product_price_old, product_price_new, product_tag_discount_text;
+        TextView product_title, product_ingredient, product_price_old, product_price_new, product_tag_discount_text,selected_weight;
         LinearLayout layoutSale;
         Spinner product_weight_spn;
         ShimmerFrameLayout shimmerProgress;
@@ -690,6 +687,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             product_tag_discount_text = itemView.findViewById(R.id.productItemTagOff);
             layoutSale = itemView.findViewById(R.id.saleLayout);
             shimmerProgress = itemView.findViewById(R.id.shimmerFrame);
+            selected_weight = itemView.findViewById(R.id.selected_weight);
         }
         
     }
