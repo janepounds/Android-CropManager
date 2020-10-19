@@ -3,6 +3,7 @@ package com.myfarmnow.myfarmcrop.network;
 
 import com.myfarmnow.myfarmcrop.models.address_model.AddressData;
 import com.myfarmnow.myfarmcrop.models.address_model.Countries;
+import com.myfarmnow.myfarmcrop.models.address_model.Regions;
 import com.myfarmnow.myfarmcrop.models.address_model.Zones;
 import com.myfarmnow.myfarmcrop.models.banner_model.BannerData;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryData;
@@ -123,6 +124,10 @@ public interface APIRequestsForBuyInputs {
     @FormUrlEncoded
     @POST("getalladdress")
     Call<AddressData> getAllAddress(@Field("customers_id") String customers_id);
+
+
+    @POST("getregions")
+    Call<Regions> getAllRegions();
 
     @FormUrlEncoded
     @POST("addshippingaddress")

@@ -79,6 +79,7 @@ public class SplashScreen extends AppCompatActivity {
         AppSettingsDetails appSettingsDetails = ((CropManagerApp) getApplicationContext()).getAppSettingsDetails();
 
         if (appSettingsDetails != null) {
+
             //Log.e("Settings Error: ",appSettingsDetails.getMaintenance_text()+" ");
             ConstantValues.DEFAULT_HOME_STYLE = getString(R.string.actionHome) + " " + appSettingsDetails.getHomeStyle();
             ConstantValues.DEFAULT_CATEGORY_STYLE = getString(R.string.actionCategory) + " " + appSettingsDetails.getCategoryStyle();
@@ -89,12 +90,8 @@ public class SplashScreen extends AppCompatActivity {
             ConstantValues.CURRENCY_CODE = myAppPrefsManager.getCurrencyCode();
             ConstantValues.CURRENCY_SYMBOL = Utilities.getCurrencySymbol(ConstantValues.CURRENCY_CODE).replace("US", "");
 
-            if (appSettingsDetails.getAppName() != null && !TextUtils.isEmpty(appSettingsDetails.getAppName())) {
-//                ConstantValues.APP_HEADER = appSettingsDetails.getAppName();
-                ConstantValues.APP_HEADER = getString(R.string.app_name);
-            } else {
-                ConstantValues.APP_HEADER = getString(R.string.app_name);
-            }
+            //if (appSettingsDetails.getAppName() != null && !TextUtils.isEmpty(appSettingsDetails.getAppName())) \
+            ConstantValues.APP_HEADER = getString(R.string.app_name);
 
             if (appSettingsDetails.getMaintenance_text() != null && !TextUtils.isEmpty(appSettingsDetails.getMaintenance_text())) {
 

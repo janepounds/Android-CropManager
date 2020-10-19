@@ -25,7 +25,7 @@
             android:id="@+id/category_icon"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:background="@color/palebrown"
+            android:background="@color/white"
             android:scaleType="centerCrop" />
 
         <LinearLayout
