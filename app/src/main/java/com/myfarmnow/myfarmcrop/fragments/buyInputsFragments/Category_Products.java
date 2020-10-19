@@ -19,11 +19,13 @@ import android.widget.ToggleButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -56,7 +58,7 @@ public class Category_Products extends Fragment {
     boolean isFilterApplied;
 
     int categoryID;
-    String customerID,CategoryName;
+    String customerID,CategoryName,TotalProducts="0";
     String sortBy = "Newest";
 
     LinearLayout TopBar;
@@ -102,26 +104,29 @@ public class Category_Products extends Fragment {
         // Get CategoryID from bundle arguments
         categoryID = getArguments().getInt("CategoryID");
         CategoryName = getArguments().getString("CategoryName");
+        TotalProducts= getArguments().getString("TotalProducts");
         // Get sortBy from bundle arguments
         if (getArguments().containsKey("sortBy")) {
             sortBy = getArguments().getString("sortBy");
         }
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop)+" "+CategoryName);
 
+        DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
         // Get the Customer's ID from SharedPreferences
         customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
 
         // Binding Layout Views
         TopBar = rootView.findViewById(R.id.topBar);
         sortList = rootView.findViewById(R.id.sort_list);
-        sortListText = rootView.findViewById(R.id.sort_text);
+        sortListText = rootView.findViewById(R.id.sort_text);;
         emptyRecord = rootView.findViewById(R.id.empty_record);
         progressBar = rootView.findViewById(R.id.loading_bar);
         resetFiltersBtn = rootView.findViewById(R.id.resetFiltersBtn);
         layout_filter = rootView.findViewById(R.id.filter_layout);
         category_products_recycler = rootView.findViewById(R.id.products_recycler);
         mainProgress = rootView.findViewById(R.id.progressBar);
-
+        TextView txt_category_no= rootView.findViewById(R.id.txt_category_no);
+        txt_category_no.setText(TotalProducts+" Items");
         // Hide some of the Views
         progressBar.setVisibility(View.GONE);
         emptyRecord.setVisibility(View.GONE);

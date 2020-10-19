@@ -155,6 +155,7 @@ public class CategoryListAdapter_3 extends RecyclerView.Adapter<CategoryListAdap
             Bundle categoryInfo = new Bundle();
             categoryInfo.putInt("CategoryID", Integer.parseInt(categoriesList.get(getAdapterPosition()).getId()));
             categoryInfo.putString("CategoryName", categoriesList.get(getAdapterPosition()).getName());
+            categoryInfo.putString("TotalProducts", categoriesList.get(getAdapterPosition()).getTotalProducts());
             String sortBy = "Newest";
             categoryInfo.putString("sortBy", sortBy);
             Fragment fragment;

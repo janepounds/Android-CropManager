@@ -62,6 +62,7 @@ import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
@@ -125,6 +126,7 @@ public class DashboardActivity extends AppCompatActivity {
     private static final String SELECTED_ITEM_ID = "selected";
     public static ActionBar actionBar;
     public Fragment currentFragment;
+    public  static BottomNavigationView bottomNavigationView;
 
     // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
     public static String paymentNonceToken;
@@ -150,7 +152,7 @@ public class DashboardActivity extends AppCompatActivity {
         mSelectedItem = savedInstanceState == null ? ConstantValues.DEFAULT_HOME_STYLE : savedInstanceState.getString(SELECTED_ITEM_ID);
         setupDefaultHomePage(mSelectedItem);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.btm_navigation);
+        bottomNavigationView = findViewById(R.id.btm_navigation);
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         toolbar = findViewById(R.id.main_Toolbar);
@@ -211,10 +213,14 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.actionAccount));
         } else if (curruntFrag instanceof MarketPlaceHomeFragment) {
             actionBar.setTitle(getString(R.string.actionMarketPlace));
-        } else if (curruntFrag instanceof BuyInputsHomePage) {
+            DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+        }else if (curruntFrag instanceof BuyInputsHomePage) {
             actionBar.setTitle(getString(R.string.app_name));
-        } else if (curruntFrag instanceof SellProduceFragment) {
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
+        }else if (curruntFrag instanceof SellProduceFragment) {
             actionBar.setTitle(getString(R.string.actionproducemarket));
+        }else if (curruntFrag instanceof Category_Products) {
+            DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
         }
 
     }

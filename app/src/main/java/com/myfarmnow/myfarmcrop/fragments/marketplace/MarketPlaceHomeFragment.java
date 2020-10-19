@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 
 public class MarketPlaceHomeFragment extends Fragment {
     private static final String TAG = "MarketPlaceHomeFragment";
@@ -42,6 +44,8 @@ public class MarketPlaceHomeFragment extends Fragment {
 
         setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionMarketPlace));
+
+
 
         return view;
     }

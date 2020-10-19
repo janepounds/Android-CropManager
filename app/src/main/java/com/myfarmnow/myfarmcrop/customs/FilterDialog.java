@@ -95,8 +95,8 @@ public abstract class FilterDialog extends Dialog {
             filter_max_price.setText(String.valueOf(maxPrice));
             filter_price_slider.setMaxValue(Float.parseFloat(String.valueOf(maxPrice)));
         } else {
-            filter_max_price.setText(String.valueOf(1000));
-            filter_price_slider.setMaxValue(Float.parseFloat(String.valueOf(1000)));
+            filter_max_price.setText(String.valueOf(100000));
+            filter_price_slider.setMaxValue(Float.parseFloat(String.valueOf(100000)));
         }
 
         // Get the Price RangeBar Values

@@ -74,10 +74,7 @@ public class BuyInputsHomePage extends Fragment {
         searchView = view.findViewById(R.id.buy_inputs_search_view);
         searchIcon = view.findViewById(R.id.buy_inputs_search_icon);
 
-        BottomNavigationView bottomNavigationView = view.findViewById(R.id.btm_navigation);
-        bottomNavigationView.setItemIconTintList(null);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
+        
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
         startAppRequests = new StartAppRequests(requireContext());
@@ -208,24 +205,6 @@ public class BuyInputsHomePage extends Fragment {
         badge.setText(String.valueOf(cartItemsList.size()));
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
-        Fragment selectedFragment = null;
 
-        switch (item.getItemId()) {
-            case R.id.page_1:
-                selectedFragment = new HomeFragment(context, requireActivity().getSupportFragmentManager(), MyFarmDbHandlerSingleton.getHandlerInstance(context));
-                break;
-            case R.id.page_2:
-                selectedFragment = new OffersFragment();
-                break;
-            case R.id.page_3:
-                selectedFragment = new AccountFragment();
-                break;
-        }
-
-        assert selectedFragment != null;
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
-        return true;
-    };
 }
 
