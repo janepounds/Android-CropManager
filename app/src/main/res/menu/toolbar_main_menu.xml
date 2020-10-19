@@ -32,9 +32,6 @@
         android:icon="@drawable/ic_search_menu24"
         android:title="@string/actionSearch"
         app:showAsAction="ifRoom" />
-    <!--        app:actionViewClass="androidx.appcompat.widget.SearchView"-->
-    <!--        app:showAsAction="ifRoom|collapseActionView" />-->
-
 
     <item
         android:id="@+id/toolbar_ic_favorite"

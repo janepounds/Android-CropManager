@@ -123,7 +123,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     public static String mSelectedItem;
     private static final String SELECTED_ITEM_ID = "selected";
-    public  static ActionBar actionBar;
+    public static ActionBar actionBar;
     public Fragment currentFragment;
 
     // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
@@ -163,23 +163,20 @@ public class DashboardActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         // Handle ToolbarNavigationClickListener with OnBackStackChangedListener
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
 
-                // Check BackStackEntryCount of FragmentManager
-                if (getSupportFragmentManager().getBackStackEntryCount() <= 0)  {
-                    // Set DrawerToggle Indicator and default ToolbarNavigationClickListener
-                    actionBar.setTitle(ConstantValues.APP_HEADER);
-                    actionBar.setHomeButtonEnabled(false);
-                    actionBar.setDisplayHomeAsUpEnabled(false);
-
-                }
-                actionBar.setHomeButtonEnabled(true);
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                setupTitle();
+            // Check BackStackEntryCount of FragmentManager
+            if (getSupportFragmentManager().getBackStackEntryCount() <= 0) {
+                // Set DrawerToggle Indicator and default ToolbarNavigationClickListener
+                actionBar.setTitle(ConstantValues.APP_HEADER);
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setDisplayHomeAsUpEnabled(false);
 
             }
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            setupTitle();
+
         });
 
         if (!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, DashboardActivity.this).equals("yes")) {
@@ -210,13 +207,13 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.actionFavourites));
         } else if (curruntFrag instanceof SettingsFragment) {
             actionBar.setTitle(getString(R.string.actionSettings));
-        }else if (curruntFrag instanceof AccountFragment) {
+        } else if (curruntFrag instanceof AccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
         } else if (curruntFrag instanceof MarketPlaceHomeFragment) {
             actionBar.setTitle(getString(R.string.actionMarketPlace));
-        }else if (curruntFrag instanceof BuyInputsHomePage) {
+        } else if (curruntFrag instanceof BuyInputsHomePage) {
             actionBar.setTitle(getString(R.string.app_name));
-        }else if (curruntFrag instanceof SellProduceFragment) {
+        } else if (curruntFrag instanceof SellProduceFragment) {
             actionBar.setTitle(getString(R.string.actionproducemarket));
         }
 
@@ -228,7 +225,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.page_1:
-                selectedFragment = new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this));
+                selectedFragment = new HomeFragment(DashboardActivity.this, getSupportFragmentManager(), MyFarmDbHandlerSingleton.getHandlerInstance(this));
                 break;
             case R.id.page_2:
                 selectedFragment = new OffersFragment();
@@ -244,7 +241,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private void setupDefaultHomePage(String defaultHome) {
-        defaultHomeFragment=new HomeFragment(DashboardActivity.this, getSupportFragmentManager(),  MyFarmDbHandlerSingleton.getHandlerInstance(this) );
+        defaultHomeFragment = new HomeFragment(DashboardActivity.this, getSupportFragmentManager(), MyFarmDbHandlerSingleton.getHandlerInstance(this));
         getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, defaultHomeFragment, getString(R.string.homeStyle9)).commit();
         currentFragment = defaultHomeFragment;
     }
@@ -262,7 +259,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (Shipping_Address.map != null) {
-            outState.putParcelable(Shipping_Address.KEY_CAMERA_POSITION,Shipping_Address.map.getCameraPosition());
+            outState.putParcelable(Shipping_Address.KEY_CAMERA_POSITION, Shipping_Address.map.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, Shipping_Address.lastKnownLocation);
         }
         super.onSaveInstanceState(outState);
@@ -278,7 +275,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
 
         String languageCode = ConstantValues.LANGUAGE_CODE;
-        if ("".equalsIgnoreCase(languageCode) || languageCode == null )
+        if ("".equalsIgnoreCase(languageCode) || languageCode == null)
             languageCode = ConstantValues.LANGUAGE_CODE = "en";
 
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
@@ -319,11 +316,11 @@ public class DashboardActivity extends AppCompatActivity {
         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
         MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
         MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
-        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+//        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
 
-        currentFragment=this.getSupportFragmentManager().getPrimaryNavigationFragment();
+        currentFragment = this.getSupportFragmentManager().getPrimaryNavigationFragment();
 
         profileItem.getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -331,27 +328,7 @@ public class DashboardActivity extends AppCompatActivity {
                 // Navigate to My_Cart Fragment
                 Fragment fragment = new UpdateAccountFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                if(currentFragment==null)
-                    fragmentManager.beginTransaction()
-                            .add(R.id.main_fragment_container, fragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .addToBackStack(getString(R.string.actionHome)).commit();
-                else
-                    fragmentManager.beginTransaction()
-                            .hide(currentFragment)
-                            .add(R.id.main_fragment_container, fragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .addToBackStack(getString(R.string.actionHome)).commit();
-            }
-        });
-        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
-        cartItem.getActionView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to My_Cart Fragment
-                Fragment fragment = new My_Cart();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                if(currentFragment==null)
+                if (currentFragment == null)
                     fragmentManager.beginTransaction()
                             .add(R.id.main_fragment_container, fragment)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -365,10 +342,28 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
+
+        cartItem.getActionView().setOnClickListener(v -> {
+            // Navigate to My_Cart Fragment
+            Fragment fragment = new My_Cart();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (currentFragment == null)
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+            else
+                fragmentManager.beginTransaction()
+                        .hide(currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+        });
 
         // Tint Menu Icons with the help of static method of Utilities class
         Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
-        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
+//        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
         Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
 
         return true;
@@ -431,7 +426,6 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
 
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -459,21 +453,10 @@ public class DashboardActivity extends AppCompatActivity {
                 else if (fragmentManager.getBackStackEntryCount() > 0) {
                     // Pop previous Fragment
                     fragmentManager.popBackStack();
-                }
-                else
+                } else
                     showHomePage();
 
                 break;
-//            case R.id.toolbar_ic_search:
-//
-//                // Navigate to SearchFragment Fragment
-//                fragment = new SearchFragment();
-//                fragmentManager.beginTransaction()
-//                        .add(R.id.main_fragment_container, fragment)
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                        .addToBackStack(getString(R.string.actionHome)).commit();
-//                break;
-
             case R.id.toolbar_ic_cart:
 
                 // Navigate to My_Cart Fragment
@@ -541,7 +524,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void showHomePage() {
 //        getSupportFragmentManager().beginTransaction().hide(currentFragment).show(defaultHomeFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment ).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, defaultHomeFragment).commit();
         currentFragment = defaultHomeFragment;
 
         actionBar.setTitle(getString(R.string.app_name));
@@ -725,7 +708,6 @@ public class DashboardActivity extends AppCompatActivity {
 //    }
 
 
-
     //method to get the right URL to use in the intent
     public String getFacebookPageURL(Context context) {
         PackageManager packageManager = context.getPackageManager();
@@ -746,7 +728,6 @@ public class DashboardActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME,
                 MODE_PRIVATE);
         return sharedPreferences.getString(key, "");
-
     }
 
     public static void selectSpinnerItemByValue(Spinner spnr, String value) {
@@ -758,7 +739,7 @@ public class DashboardActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) spnr.getAdapter();
         for (int position = 1; position < adapter.getCount(); position++) {
 
-            String item = spnr.getAdapter().getItem(position)+"";
+            String item = spnr.getAdapter().getItem(position) + "";
             if (item.toLowerCase().equals(value.toLowerCase())) {
                 spnr.setSelection(position);
                 return;
@@ -785,7 +766,6 @@ public class DashboardActivity extends AppCompatActivity {
                 spnr.setSelection(position);
                 return;
             }
-
         }
     }
 
@@ -797,9 +777,7 @@ public class DashboardActivity extends AppCompatActivity {
         editor.commit();
     }
 
-
     public void clearBackStackInclusive(String tag) {
         getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
-
 }

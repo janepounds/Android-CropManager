@@ -48,9 +48,7 @@ import retrofit2.Callback;
 
 
 public class Category_Products extends Fragment {
-
     View rootView;
-
     int pageNo = 0;
     double maxPrice = 0;
     boolean isVisible;
@@ -86,7 +84,6 @@ public class Category_Products extends Fragment {
     Call<FilterData> filterCAll;
     Call<ProductData> productsCall;
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -94,12 +91,10 @@ public class Category_Products extends Fragment {
         isVisible = isVisibleToUser;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.buy_inputs_f_products_vertical, container, false);
-
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
@@ -115,7 +110,6 @@ public class Category_Products extends Fragment {
 
         // Get the Customer's ID from SharedPreferences
         customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
-
 
         // Binding Layout Views
         TopBar = rootView.findViewById(R.id.topBar);
@@ -133,7 +127,6 @@ public class Category_Products extends Fragment {
         emptyRecord.setVisibility(View.GONE);
         resetFiltersBtn.setVisibility(View.GONE);
 
-
         isGridView = false;
         isFilterApplied = false;
         // Set sortListText text
@@ -147,17 +140,14 @@ public class Category_Products extends Fragment {
             sortListText.setText(getString(R.string.newest));
         }
 
-
         // Initialize CategoryProductsList
         categoryProductsList = new ArrayList<>();
-
 
         // Request for Products of given OrderProductCategory based on PageNo.
         RequestCategoryProducts(pageNo, sortBy);
 
         // Request for Filters of given OrderProductCategory
         RequestFilters(categoryID);
-
 
         // Initialize GridLayoutManager and LinearLayoutManager
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -169,10 +159,8 @@ public class Category_Products extends Fragment {
         // Initialize the ProductAdapter for RecyclerView
         productAdapter = new ProductAdapter(getActivity(), getActivity().getSupportFragmentManager(), categoryProductsList, false, false);
 
-
         setRecyclerViewLayoutManager(isGridView);
         category_products_recycler.setAdapter(productAdapter);
-
 
         // Handle the Scroll event of Product's RecyclerView
         category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
@@ -195,7 +183,6 @@ public class Category_Products extends Fragment {
         });
 
         productAdapter.notifyDataSetChanged();
-
 
         // Initialize FilterDialog and Override its abstract methods
         filterDialog = new FilterDialog(getContext(), categoryID, filtersList, maxPrice) {
@@ -220,133 +207,114 @@ public class Category_Products extends Fragment {
             }
         };
 
-
         // Handle the Click event of Filter Button
-        layout_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        layout_filter.setOnClickListener(view -> {
 
-                if (isFilterApplied) {
+            if (isFilterApplied) {
 //                    layout_filter.setChecked(true);
-                    filterDialog.show();
+                filterDialog.show();
 
-                } else {
+            } else {
 //                    layout_filter.setVisibility(View.INVISIBLE);
-                    filterDialog = new FilterDialog(getContext(), categoryID, filtersList, maxPrice) {
-                        @Override
-                        public void clearFilters() {
-                            isFilterApplied = false;
+                filterDialog = new FilterDialog(getContext(), categoryID, filtersList, maxPrice) {
+                    @Override
+                    public void clearFilters() {
+                        isFilterApplied = false;
 //                            layout_filter.setChecked(false);
-                            filters = null;
-                            categoryProductsList.clear();
-                            new LoadMoreTask(pageNo, filters).execute();
-                        }
+                        filters = null;
+                        categoryProductsList.clear();
+                        new LoadMoreTask(pageNo, filters).execute();
+                    }
 
-                        @Override
-                        public void applyFilters(PostFilterData postFilterData) {
-                            isFilterApplied = true;
+                    @Override
+                    public void applyFilters(PostFilterData postFilterData) {
+                        isFilterApplied = true;
 //                            layout_filter.setChecked(true);
-                            filters = postFilterData;
-                            categoryProductsList.clear();
-                            new LoadMoreTask(pageNo, filters).execute();
-                        }
-                    };
-                    filterDialog.show();
-                }
+                        filters = postFilterData;
+                        categoryProductsList.clear();
+                        new LoadMoreTask(pageNo, filters).execute();
+                    }
+                };
+                filterDialog.show();
             }
         });
 
+        sortList.setOnClickListener(v -> {
 
-        sortList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            final String[] sortArray = getResources().getStringArray(R.array.sortBy_array);
 
-                final String[] sortArray = getResources().getStringArray(R.array.sortBy_array);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setCancelable(true);
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setCancelable(true);
+            dialog.setItems(sortArray, (dialog1, which) -> {
 
-                dialog.setItems(sortArray, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                String selectedText = sortArray[which];
+                sortListText.setText(selectedText);
 
-                        String selectedText = sortArray[which];
-                        sortListText.setText(selectedText);
+                if (selectedText.equalsIgnoreCase(sortArray[0])) {
+                    sortBy = "Newest";
+                } else if (selectedText.equalsIgnoreCase(sortArray[1])) {
+                    sortBy = "a to z";
+                } else if (selectedText.equalsIgnoreCase(sortArray[2])) {
+                    sortBy = "z to a";
+                } else if (selectedText.equalsIgnoreCase(sortArray[3])) {
+                    sortBy = "high to low";
+                } else if (selectedText.equalsIgnoreCase(sortArray[4])) {
+                    sortBy = "low to high";
+                } else if (selectedText.equalsIgnoreCase(sortArray[5])) {
+                    sortBy = "top seller";
+                } else if (selectedText.equalsIgnoreCase(sortArray[6])) {
+                    sortBy = "special";
+                } else if (selectedText.equalsIgnoreCase(sortArray[7])) {
+                    sortBy = "most liked";
+                } else {
+                    sortBy = "Newest";
+                }
 
+                categoryProductsList.clear();
+                if (isFilterApplied) {
+                    // Initialize LoadMoreTask to Load More Products from Server against some Filters
+                    RequestFilteredProducts(pageNo, sortBy, filters);
+                } else {
+                    // Initialize LoadMoreTask to Load More Products from Server without Filters
+                    RequestCategoryProducts(pageNo, sortBy);
+                }
+                dialog1.dismiss();
 
-                        if (selectedText.equalsIgnoreCase(sortArray[0])) {
-                            sortBy = "Newest";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[1])) {
-                            sortBy = "a to z";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[2])) {
-                            sortBy = "z to a";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[3])) {
-                            sortBy = "high to low";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[4])) {
-                            sortBy = "low to high";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[5])) {
-                            sortBy = "top seller";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[6])) {
-                            sortBy = "special";
-                        } else if (selectedText.equalsIgnoreCase(sortArray[7])) {
-                            sortBy = "most liked";
-                        } else {
-                            sortBy = "Newest";
-                        }
+                // Handle the Scroll event of Product's RecyclerView
+                category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
+                    @Override
+                    public void onLoadMore(final int current_page) {
 
+                        progressBar.setVisibility(View.VISIBLE);
 
-                        categoryProductsList.clear();
                         if (isFilterApplied) {
                             // Initialize LoadMoreTask to Load More Products from Server against some Filters
-                            RequestFilteredProducts(pageNo, sortBy, filters);
+                            loadMoreTask = new LoadMoreTask(current_page, filters);
                         } else {
                             // Initialize LoadMoreTask to Load More Products from Server without Filters
-                            RequestCategoryProducts(pageNo, sortBy);
+                            loadMoreTask = new LoadMoreTask(current_page, filters);
                         }
-                        dialog.dismiss();
 
-
-                        // Handle the Scroll event of Product's RecyclerView
-                        category_products_recycler.addOnScrollListener(new EndlessRecyclerViewScroll() {
-                            @Override
-                            public void onLoadMore(final int current_page) {
-
-                                progressBar.setVisibility(View.VISIBLE);
-
-                                if (isFilterApplied) {
-                                    // Initialize LoadMoreTask to Load More Products from Server against some Filters
-                                    loadMoreTask = new LoadMoreTask(current_page, filters);
-                                } else {
-                                    // Initialize LoadMoreTask to Load More Products from Server without Filters
-                                    loadMoreTask = new LoadMoreTask(current_page, filters);
-                                }
-
-                                // Execute AsyncTask LoadMoreTask to Load More Products from Server
-                                loadMoreTask.execute();
-                            }
-                        });
-
+                        // Execute AsyncTask LoadMoreTask to Load More Products from Server
+                        loadMoreTask.execute();
                     }
                 });
-                dialog.show();
-            }
+
+            });
+            dialog.show();
         });
 
-
-        resetFiltersBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isFilterApplied = false;
+        resetFiltersBtn.setOnClickListener(v -> {
+            isFilterApplied = false;
 //                layout_filter.setChecked(false);
-                filters = null;
-                categoryProductsList.clear();
-                new LoadMoreTask(pageNo, filters).execute();
-            }
+            filters = null;
+            categoryProductsList.clear();
+            new LoadMoreTask(pageNo, filters).execute();
         });
-
 
         return rootView;
     }
-
 
     //*********** Switch RecyclerView's LayoutManager ********//
 
@@ -366,11 +334,9 @@ public class Category_Products extends Fragment {
         category_products_recycler.scrollToPosition(scrollPosition);
     }
 
-
     //*********** Adds Products returned from the Server to the CategoryProductsList ********//
 
     private void addCategoryProducts(ProductData productData) {
-
         // Add Products to CategoryProductsList from the List of ProductData
         for (int i = 0; i < productData.getProductData().size(); i++) {
             ProductDetails productDetails = productData.getProductData().get(i);
@@ -378,7 +344,6 @@ public class Category_Products extends Fragment {
         }
 
         productAdapter.notifyDataSetChanged();
-
 
         // Change the Visibility of emptyRecord Text based on CategoryProductsList's Size
         if (productAdapter.getItemCount() == 0) {
@@ -395,7 +360,6 @@ public class Category_Products extends Fragment {
             TopBar.setVisibility(View.VISIBLE);
         }
     }
-
 
     //*********** Request Products of given OrderProductCategory from the Server based on PageNo. ********//
 
@@ -459,11 +423,9 @@ public class Category_Products extends Fragment {
         });
     }
 
-
     //*********** Request Products of given OrderProductCategory from the Server based on PageNo. against some Filters ********//
 
     public void RequestFilteredProducts(int pageNumber, String sortBy, PostFilterData postFilterData) {
-
 
         GetAllProducts getAllProducts = new GetAllProducts();
         getAllProducts.setPageNumber(pageNumber);
@@ -522,7 +484,6 @@ public class Category_Products extends Fragment {
         });
     }
 
-
     //*********** Request Filters of the given OrderProductCategory ********//
 
     private void RequestFilters(int categories_id) {
@@ -564,7 +525,6 @@ public class Category_Products extends Fragment {
             }
         });
     }
-
 
     /*********** LoadMoreTask Used to Load more Products from the Server in the Background Thread using AsyncTask ********/
 
@@ -622,5 +582,4 @@ public class Category_Products extends Fragment {
         if (filterCAll.isExecuted())
             filterCAll.cancel();
     }
-
 }

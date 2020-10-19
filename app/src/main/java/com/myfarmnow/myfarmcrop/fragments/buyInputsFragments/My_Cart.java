@@ -387,8 +387,6 @@ public class My_Cart extends Fragment {
         profileItem.setVisible(false);
         cartItem.setVisible(false);
         searchItem.setVisible(true);
-
-
     }
 
     private class MyTask extends AsyncTask<String, Void, String> {
