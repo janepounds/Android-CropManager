@@ -187,6 +187,31 @@
                     android:textColor="@color/colorAccentGreen" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/measure"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColorSecondaryDark" />
+
+                <TextView
+                    android:id="@+id/cart_item_measure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10kg"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:textColor="@color/colorAccentGreen" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

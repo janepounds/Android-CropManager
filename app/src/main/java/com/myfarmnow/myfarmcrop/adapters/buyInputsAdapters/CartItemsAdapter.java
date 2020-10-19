@@ -123,7 +123,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
             holder.cart_item_quantity.setText("" + cartProduct.getCustomersBasketProduct().getCustomersBasketQuantity());
             holder.cart_item_base_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getProductsPrice())));
             holder.cart_item_sub_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getTotalPrice())));
-    
+
+            holder.cart_item_measure.setText(cartProduct.getCustomersBasketProduct().getSelectedProductsWeight() + " " + cartProduct.getCustomersBasketProduct().getSelectedProductsWeightUnit());
     
             List<Value> selectedAttributeValues= new ArrayList<>();
             List<CartProductAttributes> productAttributes= new ArrayList<>();
@@ -326,7 +327,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
         private RecyclerView attributes_recycler;
         private ImageButton cart_item_quantity_minusBtn, cart_item_quantity_plusBtn;
         private TextView cart_item_removeBtn;
-        private TextView cart_item_title, cart_item_category, cart_item_base_price, cart_item_sub_price, cart_item_quantity;
+        private TextView cart_item_title, cart_item_category, cart_item_base_price, cart_item_sub_price, cart_item_quantity,cart_item_measure;
 
 
         public MyViewHolder(final View itemView) {
@@ -344,6 +345,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
             cart_item_removeBtn = itemView.findViewById(R.id.cart_item_removeBtn);
             cart_item_quantity_plusBtn = itemView.findViewById(R.id.cart_item_quantity_plusBtn);
             cart_item_quantity_minusBtn = itemView.findViewById(R.id.cart_item_quantity_minusBtn);
+            cart_item_measure = itemView.findViewById(R.id.cart_item_measure);
             
             attributes_recycler = itemView.findViewById(R.id.cart_item_attributes_recycler);
         }
