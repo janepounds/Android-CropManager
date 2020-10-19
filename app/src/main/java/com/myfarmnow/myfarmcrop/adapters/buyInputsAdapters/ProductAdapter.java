@@ -89,8 +89,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     long server;
     CountDownTimer mCountDownTimer;
 
-    
-    
     public ProductAdapter(Activity context, FragmentManager fragmentManager,List<ProductDetails> productList, Boolean isHorizontal, Boolean isFlash) {
         this.context = context;
         this.productList = productList;
@@ -99,9 +97,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         recents_db = new User_Recents_BuyInputsDB();
         this.fragmentManager=fragmentManager;
         customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-
     }
-
 
     public ProductAdapter(Activity context, List<ProductDetails> productList, Boolean isHorizontal ) {
         this.context = context;
@@ -109,11 +105,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.isHorizontal = isHorizontal;
         recents_db = new User_Recents_BuyInputsDB();
         customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
-
     }
-    
-    
-    
+
     //********** Called to Inflate a Layout from XML and then return the Holder *********//
     
     @Override
@@ -125,9 +118,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         // Return a new holder instance
         return new MyViewHolder(itemView);
     }
-    
-    
-    
+
     //********** Called by RecyclerView to display the Data at the specified Position *********//
     
     @Override
@@ -210,7 +201,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             }
             CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
             holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
-
 
             ((ArrayAdapter) holder.product_weight_spn.getAdapter()).setDropDownViewResource(android.R.layout.simple_spinner_item);
             //set on item selected on weight spinner
@@ -321,8 +311,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 //            } else {
 //                holder.product_like_layout.setChecked(false);
 //            }
-            
-            
+
             // Handle the Click event of product_like_layout ToggleButton
             holder.product_like_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -433,8 +422,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     }
                 }
             });
-            
-
 
             // Check the Button's Visibility
             if (!ConstantValues.IS_PRODUCT_CHECKED) {
@@ -452,12 +439,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     } else {
                         holder.product_add_cart_btn.setText(context.getString(R.string.addToCart));
                         holder.product_add_cart_btn.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_corners_button_green));
-                        
-                        
                     }
                 }
-                
-                
+
                 if (isFlash) {
                     start = Long.parseLong(product.getFlashStartDate())*1000L;
                     end = Long.parseLong(product.getFlashExpireDate())*1000L;
@@ -484,14 +468,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                                 String minutesLeft = String.format("%d", ((serverUptimeSeconds % 86400) % 3600) / 60);
                                 String secondsLeft = String.format("%d", ((serverUptimeSeconds % 86400) % 3600) % 60);
                                 holder.product_add_cart_btn.setText(daysLeft+"D:"+hoursLeft+"H:"+minutesLeft+"M:"+secondsLeft+"S");
-                                
                             }
                             
                             @Override
                             public void onFinish() {
                                 holder.product_add_cart_btn.setText(context.getResources().getString(R.string.upcoming));
                                 holder.product_add_cart_btn.setBackgroundResource(R.drawable.rounded_corners_button_red);
-                                
                             }
                         }.start();
                     }

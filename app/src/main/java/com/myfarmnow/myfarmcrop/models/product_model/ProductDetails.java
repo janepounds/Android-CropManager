@@ -704,14 +704,12 @@ public class ProductDetails implements Parcelable {
         this.attributes = attributes;
     }
 
-
     //********** Describes the kinds of Special Objects contained in this Parcelable Instance's marshaled representation *********//
 
     @Override
     public int describeContents() {
         return 0;
     }
-
 
     //********** Writes the values to the Parcel *********//
 
@@ -768,7 +766,6 @@ public class ProductDetails implements Parcelable {
         parcel_out.writeInt(total_user_rated);
     }
 
-
     //********** Generates Instances of Parcelable class from a Parcel *********//
 
     public static final Creator<ProductDetails> CREATOR = new Creator<ProductDetails>() {
@@ -785,7 +782,6 @@ public class ProductDetails implements Parcelable {
             return new ProductDetails[size];
         }
     };
-
 
     //********** Retrieves the values from the Parcel *********//
 
@@ -849,8 +845,5 @@ public class ProductDetails implements Parcelable {
 
         this.productsMeasure = new ArrayList<ProductMeasure>();
         parcel_in.readList(productsMeasure,ProductMeasure.class.getClassLoader());
-
     }
-
-
 }

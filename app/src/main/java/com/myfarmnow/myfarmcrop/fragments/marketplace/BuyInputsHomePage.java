@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +24,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.myfarmnow.myfarmcrop.R;
-import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
-import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CategoryListAdapter_3;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
@@ -43,6 +40,8 @@ import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,16 +49,18 @@ import java.util.Objects;
 import am.appwise.components.ni.NoInternetDialog;
 
 public class BuyInputsHomePage extends Fragment {
+    private Context context;
     private static final String TAG = "BuyInputsHomePage";
     StartAppRequests startAppRequests;
 
     List<BannerDetails> bannerImages = new ArrayList<>();
     List<CategoryDetails> allCategoriesList = new ArrayList<>();
     FragmentManager fragmentManager;
-    private Context context;
+
     private Toolbar toolbar;
     @SuppressLint("StaticFieldLeak")
     public static EditText searchView;
+    public static ImageView searchIcon;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class BuyInputsHomePage extends Fragment {
 
         toolbar = view.findViewById(R.id.buy_inputs_home_toolbar);
         searchView = view.findViewById(R.id.buy_inputs_search_view);
+        searchIcon = view.findViewById(R.id.buy_inputs_search_icon);
 
         
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
@@ -120,11 +122,11 @@ public class BuyInputsHomePage extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toolbar_ic_search:
-                Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show();
-                break;
-        }
+//        switch (item.getItemId()) {
+//            case R.id.toolbar_ic_search:
+//                Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -181,7 +183,7 @@ public class BuyInputsHomePage extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NotNull MenuInflater inflater) {
         // Bind Menu Items
         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
         MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
@@ -192,7 +194,7 @@ public class BuyInputsHomePage extends Fragment {
         profileItem.setVisible(false);
         languageItem.setVisible(false);
         currencyItem.setVisible(false);
-        searchItem.setVisible(true);
+        searchItem.setVisible(false);
         cartItem.setVisible(true);
 
         //set badge value

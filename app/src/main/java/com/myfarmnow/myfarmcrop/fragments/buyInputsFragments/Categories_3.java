@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
-
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.appwise.components.ni.NoInternetDialog;
-
 
 public class Categories_3 extends Fragment {
     private Context context;
@@ -51,7 +51,7 @@ public class Categories_3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.buy_inputs_categories, container, false);
+        View view = inflater.inflate(R.layout.buy_inputs_categories, container, false);
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
@@ -66,28 +66,24 @@ public class Categories_3 extends Fragment {
             }
         }
 
-
         if (isMenuItem) {
             // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
             //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.categories));
         }
 
-
         allCategoriesList = new ArrayList<>();
 
         // Get CategoriesList from ApplicationContext
-        allCategoriesList = ((CropManagerApp) getContext().getApplicationContext()).getCategoriesList();
-
+        allCategoriesList = ((CropManagerApp) requireContext().getApplicationContext()).getCategoriesList();
 
         // Binding Layout Views
-        emptyText = rootView.findViewById(R.id.empty_record_text);
-        headerText = rootView.findViewById(R.id.categories_header);
-        category_recycler = rootView.findViewById(R.id.categories_recycler);
-        NestedScrollView scroll_container = rootView.findViewById(R.id.scroll_container);
+        emptyText = view.findViewById(R.id.empty_record_text);
+        headerText = view.findViewById(R.id.categories_header);
+        category_recycler = view.findViewById(R.id.categories_recycler);
+        NestedScrollView scroll_container = view.findViewById(R.id.scroll_container);
         scroll_container.setNestedScrollingEnabled(true);
         category_recycler.setNestedScrollingEnabled(false);
-
 
         // Hide some of the Views
         emptyText.setVisibility(View.GONE);
@@ -105,7 +101,6 @@ public class Categories_3 extends Fragment {
             }
         }
 
-
         mainCategoriesList = new ArrayList<>();
 
         for (int i = 0; i < allCategoriesList.size(); i++) {
@@ -113,7 +108,6 @@ public class Categories_3 extends Fragment {
                 mainCategoriesList.add(allCategoriesList.get(i));
             }
         }
-
 
         // Initialize the CategoryListAdapter for RecyclerView
         categoryListAdapter = new CategoryListAdapter_3(getActivity(), mainCategoriesList, false);
@@ -124,25 +118,42 @@ public class Categories_3 extends Fragment {
 
         categoryListAdapter.notifyDataSetChanged();
 
-        BuyInputsHomePage.searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Filter text
-                categoryListAdapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+        BuyInputsHomePage.searchIcon.setOnClickListener(v -> {
+            if ((BuyInputsHomePage.searchView.getText().toString().trim().isEmpty()) || (BuyInputsHomePage.searchView.getText().toString().trim() == null)) {
+                Toast.makeText(context, "Search Text is empty", Toast.LENGTH_SHORT).show();
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putString("searchKey", BuyInputsHomePage.searchView.getText().toString());
+                // Navigate to SearchFragment Fragment
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                Fragment searchFragment = new SearchFragment();
+                searchFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, searchFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
             }
         });
 
-        return rootView;
+//        BuyInputsHomePage.searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // TODO Filter text
+//                categoryListAdapter.getFilter().filter(s);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+
+        return view;
     }
 
     @Override
