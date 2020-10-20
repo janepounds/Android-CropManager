@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.models.address_model.RegionDetails;
 import com.myfarmnow.myfarmcrop.models.farmrecords.Crop;
 import com.myfarmnow.myfarmcrop.models.CropFertilizer;
 import com.myfarmnow.myfarmcrop.models.CropFertilizerApplication;
@@ -39,11 +40,14 @@ import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
 import com.myfarmnow.myfarmcrop.singletons.CropDatabaseInitializerSingleton;
 import com.myfarmnow.myfarmcrop.singletons.CropSettingsSingleton;
 
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     private static final String TAG = "MyFarmDbHandler";
@@ -725,6 +729,15 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_RECORDS_CROP_GALLERY_GLOBAL_ID = "globalId";
 
 
+    public static final String REGIONS_DETAILS_TABLE_NAME ="regionDetails";
+    public static final String REGIONS_DETAILS_TABLE_ID ="tableId";
+    public static final String REGIONS_DETAILS_ID ="id";
+    public static final String REGIONS_DETAILS_REGION_TYPE ="regionType";
+    public static final String REGIONS_DETAILS_REGION ="region";
+    public static final String REGIONS_DETAILS_BELONGS_TO ="belongs_to";
+
+
+
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
     SQLiteDatabase database;
     Context context;
@@ -968,6 +981,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         String crop_records_crop_gallery_insert_query = " CREATE TABLE IF NOT EXISTS " + CROP_RECORDS_CROP_GALLERY_TABLE_NAME + " ( " + CROP_RECORDS_CROP_GALLERY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + CROP_RECORDS_CROP_GALLERY_PARENT_ID + " TEXT NOT NULL, " + CROP_RECORDS_CROP_GALLERY_USER_ID + " TEXT NOT NULL, " + CROP_RECORDS_CROP_GALLERY_PHOTO + " TEXT NOT NULL, " + CROP_RECORDS_CROP_GALLERY_CAPTION + " TEXT, " + CROP_RECORDS_CROP_GALLERY_GLOBAL_ID + " TEXT DEFAULT NULL UNIQUE ," + CROP_RECORDS_CROP_GALLERY_SYNC_STATUS + " TEXT DEFAULT 'no' " + " ) ";
 
+        String regions_details_insert_query = " CREATE TABLE IF NOT EXISTS " + REGIONS_DETAILS_TABLE_NAME + " ( " + REGIONS_DETAILS_TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + REGIONS_DETAILS_ID + " INTEGER , " + REGIONS_DETAILS_REGION_TYPE + " TEXT, " + REGIONS_DETAILS_REGION + " TEXT, " + REGIONS_DETAILS_BELONGS_TO + " TEXT " + " ) ";
 
         database.execSQL(crop_inventory_fertilizer_insert_query);
         database.execSQL(crop_seeds_insert_query);
@@ -1013,6 +1027,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         database.execSQL(livestock_records_litter_insert_query);
         database.execSQL(livestock_records_medications_insert_query);
         database.execSQL(crop_records_crop_gallery_insert_query);
+        database.execSQL(regions_details_insert_query);
     }
 
     @Override
@@ -5403,6 +5418,96 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return array_list;
     }
 
+
+    //******INSERT REGIONS************//
+    public void insertRegionDetails(List<RegionDetails> regionDetails) {
+        openDB();
+        ContentValues contentValues = new ContentValues();
+        for(RegionDetails regionDetail : regionDetails) {
+            contentValues.put(REGIONS_DETAILS_ID, regionDetail.getId());
+            contentValues.put(REGIONS_DETAILS_REGION_TYPE, regionDetail.getRegionType());
+            contentValues.put(REGIONS_DETAILS_REGION, regionDetail.getRegion());
+            contentValues.put(REGIONS_DETAILS_BELONGS_TO, regionDetail.getBelongs_to());
+            database.insert(REGIONS_DETAILS_TABLE_NAME, null, contentValues);
+        }
+        closeDB();
+    }
+
+    //*********GET LATEST ID FROM REGIONS DETAILS*************//
+    public int getMaxRegionId() {
+          openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String getRegionId = "SELECT MAX("+ REGIONS_DETAILS_ID +") FROM " + REGIONS_DETAILS_TABLE_NAME;
+
+        Cursor cur = db.rawQuery(getRegionId, null);
+        cur.moveToFirst();
+
+        int regionId = cur.getInt(0);
+
+        // close cursor and DB
+        cur.close();
+        closeDB();
+
+        return regionId;
+
+    }
+
+    //******GET DISTRICTS*****//
+
+    public ArrayList<RegionDetails> getRegionDetails( String district) throws JSONException {
+        openDB();
+        ArrayList<RegionDetails> array_list = new ArrayList();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where "  + REGIONS_DETAILS_REGION_TYPE + " = '" + district + "'", null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            RegionDetails regionDetails = new RegionDetails();
+            regionDetails.setTableId(Integer.parseInt(res.getString(res.getColumnIndex(REGIONS_DETAILS_TABLE_ID))));
+            regionDetails.setId(Integer.parseInt(res.getString(res.getColumnIndex(REGIONS_DETAILS_ID))));
+            regionDetails.setRegionType(res.getString(res.getColumnIndex(REGIONS_DETAILS_REGION_TYPE)));
+            regionDetails.setRegion(res.getString(res.getColumnIndex(REGIONS_DETAILS_REGION)));
+            regionDetails.setBelongs_to(res.getString(res.getColumnIndex(REGIONS_DETAILS_BELONGS_TO)));
+            array_list.add(regionDetails);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        Log.d("RegionDetails ", array_list.size() + "");
+        return array_list;
+    }
+
+    //******GET SUB COUNTIES**********//
+    public ArrayList<RegionDetails> getSubcountyDetails(String belongs_to, String subcounty) throws JSONException {
+        openDB();
+        ArrayList<RegionDetails> array_list = new ArrayList();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_BELONGS_TO + " = '" + belongs_to + "'" + " AND " + REGIONS_DETAILS_REGION_TYPE + " = '" + subcounty + "'" , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            RegionDetails regionDetails = new RegionDetails();
+            regionDetails.setTableId(Integer.parseInt(res.getString(res.getColumnIndex(REGIONS_DETAILS_TABLE_ID))));
+            regionDetails.setId(Integer.parseInt(res.getString(res.getColumnIndex(REGIONS_DETAILS_ID))));
+            regionDetails.setRegionType(res.getString(res.getColumnIndex(REGIONS_DETAILS_REGION_TYPE)));
+            regionDetails.setRegion(res.getString(res.getColumnIndex(REGIONS_DETAILS_REGION)));
+            regionDetails.setBelongs_to(res.getString(res.getColumnIndex(REGIONS_DETAILS_BELONGS_TO)));
+            array_list.add(regionDetails);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        Log.d("RegionDetails ", array_list.size() + "");
+        return array_list;
+    }
+
+    //*********GET VILLAGES*************//
 
 }
 

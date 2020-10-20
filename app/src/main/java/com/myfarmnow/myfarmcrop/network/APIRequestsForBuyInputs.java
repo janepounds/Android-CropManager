@@ -125,9 +125,9 @@ public interface APIRequestsForBuyInputs {
     @POST("getalladdress")
     Call<AddressData> getAllAddress(@Field("customers_id") String customers_id);
 
-
+    @FormUrlEncoded
     @POST("getregions")
-    Call<Regions> getAllRegions();
+    Call<Regions> getAllRegions(@Field("latest_id") int latest_id);
 
     @FormUrlEncoded
     @POST("addshippingaddress")

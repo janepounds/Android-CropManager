@@ -28,12 +28,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -58,6 +63,10 @@ import com.myfarmnow.myfarmcrop.R;
 
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
+import com.myfarmnow.myfarmcrop.models.CropSpinnerItem;
+import com.myfarmnow.myfarmcrop.models.address_model.RegionDetails;
+import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 import com.myfarmnow.myfarmcrop.utils.CheckPermissions;
 import com.myfarmnow.myfarmcrop.utils.LocaleHelper;
@@ -66,8 +75,11 @@ import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.utils.ImagePicker;
 import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
 
+import org.json.JSONException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import am.appwise.components.ni.NoInternetDialog;
@@ -84,7 +96,10 @@ public class SignUp extends AppCompatActivity {
     private static final String TAG = "SignUp";
     private View parentView;
     private File profileImage;
-    private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
+    private static final int PICK_IMAGE_ID = 360;
+    private MyFarmDbHandlerSingleton dbHandler;
+    private Context context;
+    // the number doesn't matter
 
     ActionBar actionBar;
     DialogLoader dialogLoader;
@@ -97,7 +112,7 @@ public class SignUp extends AppCompatActivity {
     CircularImageView user_photo;
     //FloatingActionButton user_photo_edit_fab;
     EditText firstName, lastName, phoneNumber, user_email;
-    private Spinner district, subCounty, village;
+    private AutoCompleteTextView district, subCounty, village;
 
     //Custom Dialog Vies
     Dialog dialogOTP;
@@ -107,7 +122,12 @@ public class SignUp extends AppCompatActivity {
     private String mVerificationId;
     // Firebase auth object
     private FirebaseAuth mAuth;
-
+    private String pickedDistrictId;
+    public SignUp(Context context){
+        this.context = context;
+    }
+    public SignUp(){
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +180,106 @@ public class SignUp extends AppCompatActivity {
                 }
             });
         }
-*/
+        */
+         ArrayList<CropSpinnerItem> districtList = new ArrayList<>();
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        try {
+            for (RegionDetails x : dbHandler.getRegionDetails("district")) {
+                districtList.add(new CropSpinnerItem() {
+                    @Override
+                    public String getId() {
+                        return x.getBelongs_to();
+                    }
+
+                    @Override
+                    public String getUnits() {
+                        return null;
+                    }
+
+                    @NonNull
+                    @Override
+                    public String toString() {
+                        return x.getRegion();
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "onCreate: "+ districtList + districtList.size());
+        ArrayAdapter<CropSpinnerItem> districtListAdapter = new ArrayAdapter<CropSpinnerItem>(getApplicationContext(),  android.R.layout.simple_dropdown_item_1line, districtList);
+        district.setThreshold(1);
+        district.setAdapter(districtListAdapter);
+        district.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                district.showDropDown();
+            }
+        });
+
+        ArrayList<CropSpinnerItem> subcountyList = new ArrayList<>();
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        try {
+             for (int i = 0; i < districtList.size(); i++) {
+
+                 if (district.getText().toString().equals(districtList.get(i).toString())) {
+                     pickedDistrictId = districtList.get(i).getId();
+
+                 }
+             }
+            for (RegionDetails x : dbHandler.getSubcountyDetails(pickedDistrictId,"subcounty")) {
+                subcountyList.add(new CropSpinnerItem() {
+                    @Override
+                    public String getId() {
+                        return x.getBelongs_to();
+                    }
+
+                    @Override
+                    public String getUnits() {
+                        return null;
+                    }
+
+                    @NonNull
+                    @Override
+                    public String toString() {
+                        return x.getRegion();
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "onCreate: "+ subcountyList);
+
+        ArrayAdapter<CropSpinnerItem> subcountryListAdapter = new ArrayAdapter<CropSpinnerItem>(getApplicationContext(),  android.R.layout.simple_dropdown_item_1line, subcountyList);
+        subCounty.setThreshold(1);
+        subCounty.setAdapter(subcountryListAdapter);
+        subCounty.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                subCounty.showDropDown();
+            }
+        });
 
         dialogLoader = new DialogLoader(SignUp.this);
 
@@ -551,9 +670,9 @@ public class SignUp extends AppCompatActivity {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user_email.getText().toString().trim());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword.getText().toString().trim());
         RequestBody countryCode = RequestBody.create(MediaType.parse("text/plain"), getResources().getString(R.string.ugandan_code));
-        RequestBody addressStreet = RequestBody.create(MediaType.parse("text/plain"), village.getSelectedItem().toString());
-        RequestBody addressCityOrTown = RequestBody.create(MediaType.parse("text/plain"), subCounty.getSelectedItem().toString());
-        RequestBody addressDistrict = RequestBody.create(MediaType.parse("text/plain"), district.getSelectedItem().toString());
+        RequestBody addressStreet = RequestBody.create(MediaType.parse("text/plain"), village.getText().toString());
+        RequestBody addressCityOrTown = RequestBody.create(MediaType.parse("text/plain"), subCounty.getText().toString());
+        RequestBody addressDistrict = RequestBody.create(MediaType.parse("text/plain"), district.getText().toString());
 
         Call<UserData> call = BuyInputsAPIClient.getInstance()
                 .processRegistration
@@ -615,13 +734,13 @@ public class SignUp extends AppCompatActivity {
         } else if (!ValidateInputs.isValidNumber(phoneNumber.getText().toString().trim())) {
             phoneNumber.setError(getString(R.string.invalid_contact));
             return false;
-        } else if (district.getSelectedItem().toString().equals("District")) {
+        } else if (district.getText().toString().equals("District")) {
             Toast.makeText(this, "Please select District", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (subCounty.getSelectedItem().toString().equals("Sub County")) {
+        } else if (subCounty.getText().toString().equals("Sub County")) {
             Toast.makeText(this, "Please select Sub County", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (village.getSelectedItem().toString().equals("Village")) {
+        } else if (village.getText().toString().equals("Village")) {
             Toast.makeText(this, "Please select Village", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!ValidateInputs.isValidEmail(user_email.getText().toString().trim())) {
