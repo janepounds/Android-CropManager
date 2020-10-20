@@ -110,10 +110,10 @@ public class My_Cart extends Fragment {
         cart_view_empty = rootView.findViewById(R.id.cart_view_empty);
         continue_shopping_btn = rootView.findViewById(R.id.continue_shopping_btn);
         mainRvLayout = rootView.findViewById(R.id.mainRvLayout);
-        cart_item_subtotal_price = rootView.findViewById(R.id.cart_item_subtotal_price);
+//        cart_item_subtotal_price = rootView.findViewById(R.id.cart_item_subtotal_price);
         cart_item_total_price = rootView.findViewById(R.id.cart_item_total_price);
-        cart_item_discount_price = rootView.findViewById(R.id.cart_item_discount_price);
-        cart_pair_btn= rootView.findViewById(R.id.cart_pair_btn);
+//        cart_item_discount_price = rootView.findViewById(R.id.cart_item_discount_price);
+
 
         // Change the Visibility of cart_view and cart_view_empty LinearLayout based on CartItemsList's Size
         if (cartItemsList.size() != 0) {
@@ -201,47 +201,47 @@ public class My_Cart extends Fragment {
             }
         });
 
-        cart_pair_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                        Log.e("CheckoutWarning: ", "checkout  "+ConstantValues.MAINTENANCE_MODE);
-
-                        if (ConstantValues.MAINTENANCE_MODE != null) {
-                            if (ConstantValues.MAINTENANCE_MODE.equalsIgnoreCase("Maintenance"))
-                                showDialog(ConstantValues.MAINTENANCE_TEXT);
-                            else {
-                                // Check if cartItemsList isn't empty
-                                if (cartItemsList.size() != 0) {
-
-                                    // Check if User is Logged-In
-                                    if (ConstantValues.IS_USER_LOGGED_IN) {
-
-                                        //Log.e("VC_Shop", "checkout executes  ");
-                                        //new CheckStockTask().execute();
-
-                                        FragmentManager fm = My_Cart.this.getFragmentManager();
-                                        FragmentTransaction ft = fm.beginTransaction();
-                                        Fragment prev =fm.findFragmentByTag("dialog");
-                                        if (prev != null) {
-                                            ft.remove(prev);
-                                        }
-                                        ft.addToBackStack(null);
-                                        // Create and show the dialog.
-                                        DialogFragment searchMerchantDailog =new SearchMerchantForPairing(getActivity(),My_Cart.this);
-                                        searchMerchantDailog.show( ft, "dialog");
-                                    } else {
-                                        // Navigate to Login Activity
-                                        Intent i = new Intent(getContext(), Login.class);
-                                        getContext().startActivity(i);
-                                        ((DashboardActivity) getContext()).finish();
-                                        ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-                                    }
-                                }
-
-                            }
-                        }
-            }
-        });
+//        cart_pair_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                        Log.e("CheckoutWarning: ", "checkout  "+ConstantValues.MAINTENANCE_MODE);
+//
+//                        if (ConstantValues.MAINTENANCE_MODE != null) {
+//                            if (ConstantValues.MAINTENANCE_MODE.equalsIgnoreCase("Maintenance"))
+//                                showDialog(ConstantValues.MAINTENANCE_TEXT);
+//                            else {
+//                                // Check if cartItemsList isn't empty
+//                                if (cartItemsList.size() != 0) {
+//
+//                                    // Check if User is Logged-In
+//                                    if (ConstantValues.IS_USER_LOGGED_IN) {
+//
+//                                        //Log.e("VC_Shop", "checkout executes  ");
+//                                        //new CheckStockTask().execute();
+//
+//                                        FragmentManager fm = My_Cart.this.getFragmentManager();
+//                                        FragmentTransaction ft = fm.beginTransaction();
+//                                        Fragment prev =fm.findFragmentByTag("dialog");
+//                                        if (prev != null) {
+//                                            ft.remove(prev);
+//                                        }
+//                                        ft.addToBackStack(null);
+//                                        // Create and show the dialog.
+//                                        DialogFragment searchMerchantDailog =new SearchMerchantForPairing(getActivity(),My_Cart.this);
+//                                        searchMerchantDailog.show( ft, "dialog");
+//                                    } else {
+//                                        // Navigate to Login Activity
+//                                        Intent i = new Intent(getContext(), Login.class);
+//                                        getContext().startActivity(i);
+//                                        ((DashboardActivity) getContext()).finish();
+//                                        ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+//                                    }
+//                                }
+//
+//                            }
+//                        }
+//            }
+//        });
 
 
         return rootView;
@@ -375,17 +375,16 @@ public class My_Cart extends Fragment {
 
     public static boolean checkCartHasProductAndMeasure(int cart_item_id,String weight) {
 
-        CartProduct user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id,weight);
-        Log.d(TAG, "checkCartHasProductAndMeasure: " + user_cart_BuyInputs_db.getCustomersBasketProduct());
-
-        if(user_cart_BuyInputs_db.getCustomersBasketProduct().getSelectedProductsWeight().equals(weight)){
-            return true;
-        }else {
-            return false;
-        }
-
-
-
+        boolean result = false;
+      ArrayList<CartProduct>  user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id,weight);
+      for(CartProduct cartProduct : user_cart_BuyInputs_db){
+          if(cartProduct.getCustomersBasketProduct().getSelectedProductsWeight().equals(weight)){
+             result = true;
+          }else{
+              result =  false;
+          }
+      }
+     return result;
     }
 
     @Override

@@ -311,8 +311,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
         }
 
         cartFragment.cart_item_total_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(finalPrice));
-        cartFragment.cart_item_discount_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(0.0));
-        cartFragment.cart_item_subtotal_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(finalPrice));
+//        cartFragment.cart_item_discount_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(0.0));
+//        cartFragment.cart_item_subtotal_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(finalPrice));
     }
 
 

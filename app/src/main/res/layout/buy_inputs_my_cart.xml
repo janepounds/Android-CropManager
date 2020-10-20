@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_shopping_cart_18dp"
+            android:src="@drawable/ic_shopping_cart_18dp"
             app:tint="@color/grey_dark" />
 
         <TextView
@@ -57,8 +57,49 @@
         android:id="@+id/cart_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="?actionBarSize">
+        <LinearLayout
+            android:id="@+id/location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/round_rectangle_bg_light_gray"
+            android:padding="@dimen/dimen_10dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:src="@drawable/ic_pin"
+                android:layout_marginLeft="@dimen/dimen_10dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_20dp">
+                <TextView
+                    android:id="@+id/default_delivery_location1_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Deliver at : Home"
+                    android:textColor="#222"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/dimen_5dp"/>
+                <TextView
+                    android:id="@+id/default_delivery_location2_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Nakibinge Rd, Kampala, Uganda"
+                    android:textColor="#222"
+                    android:textSize="16sp"/>
+            </LinearLayout>
 
+
+        </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/mainRvLayout"
@@ -70,46 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:id="@+id/location_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/dimen_10dp"
-                    android:background="@drawable/round_rectangle_bg_light_gray"
-                    android:padding="@dimen/dimen_10dp">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10dp"
-                        app:srcCompat="@drawable/ic_pin"
-                        android:layout_marginLeft="@dimen/dimen_10dp" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="@dimen/dimen_20dp"
-                        android:layout_marginLeft="@dimen/dimen_20dp">
-                        <TextView
-                            android:id="@+id/default_delivery_location1_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Deliver at : Home"
-                            android:textColor="#222"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="@dimen/dimen_5dp"/>
-                        <TextView
-                            android:id="@+id/default_delivery_location2_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Nakibinge Rd, Kampala, Uganda"
-                            android:textColor="#222"
-                            android:textSize="16sp"/>
-                    </LinearLayout>
 
-
-                </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cart_items_recycler"
                     android:layout_width="match_parent"
@@ -170,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="15dp"
-                app:srcCompat="@drawable/ic_shipping_car" />
+                android:src="@drawable/ic_shipping_car" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

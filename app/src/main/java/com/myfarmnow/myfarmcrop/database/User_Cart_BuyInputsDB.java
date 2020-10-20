@@ -16,6 +16,7 @@ import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProductAttributes;
 import com.myfarmnow.myfarmcrop.models.device_model.AppSettingsDetails;
 import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
+import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
 import com.myfarmnow.myfarmcrop.models.product_model.Option;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
@@ -440,11 +441,14 @@ public class User_Cart_BuyInputsDB {
     }
 
 
-    public CartProduct checkCartHasProductAndMeasure(int product_id,String weight) {
+
+
+    public ArrayList<CartProduct> checkCartHasProductAndMeasure(int product_id,String weight) {
         // get and open SQLiteDatabase Instance from static method of DB_Manager class
         db = BuyInputsDB_Manager.getInstance().openDatabase();
 
         Cursor cursor = db.rawQuery("select * from " + TABLE_CART + " where " + CART_PRODUCT_ID + " = " + product_id + " AND " + CART_PRODUCT_WEIGHT + " = '" + weight + "'", null);
+        ArrayList<CartProduct> array_list = new ArrayList();
         CartProduct cartProduct = new CartProduct();
         cursor.moveToFirst();
         ProductDetails product =null;
@@ -483,14 +487,16 @@ public class User_Cart_BuyInputsDB {
             cartProduct.setCustomersBasketDateAdded(cursor.getString(24));
 
             cartProduct.setCustomersBasketProduct(product);
+            array_list.add(cartProduct);
+            cursor.moveToNext();
             
     }
             // close cursor and DB
             cursor.close();
             BuyInputsDB_Manager.getInstance().closeDatabase();
-        Log.d(TAG, "checkCartHasProductAndMeasure: "+ cartProduct);
+
             
-            return cartProduct;
+            return array_list;
 
     }
 
