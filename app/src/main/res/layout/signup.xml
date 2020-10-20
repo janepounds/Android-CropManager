@@ -230,13 +230,12 @@
                                 android:background="@drawable/edittext_corner"
                                 android:padding="6dp">
 
-                                <Spinner
+                                <AutoCompleteTextView
                                     android:id="@+id/district_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:background="@android:color/transparent"
-                                    android:entries="@array/spinner_district"
                                     android:gravity="center"
                                     android:spinnerMode="dropdown" />
 
@@ -280,13 +279,12 @@
                                 android:background="@drawable/edittext_corner"
                                 android:padding="6dp">
 
-                                <Spinner
+                                <AutoCompleteTextView
                                     android:id="@+id/sub_county_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:background="@android:color/transparent"
-                                    android:entries="@array/spinner_sub_county"
                                     android:gravity="center"
                                     android:spinnerMode="dropdown" />
 
@@ -321,13 +319,12 @@
                                 android:background="@drawable/edittext_corner"
                                 android:padding="6dp">
 
-                                <Spinner
+                                <AutoCompleteTextView
                                     android:id="@+id/village_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:background="@android:color/transparent"
-                                    android:entries="@array/spinner_village"
                                     android:gravity="center"
                                     android:spinnerMode="dropdown" />
 
