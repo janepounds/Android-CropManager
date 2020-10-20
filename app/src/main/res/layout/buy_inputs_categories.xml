@@ -26,6 +26,8 @@
             android:id="@+id/categories_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimen_10dp"
+            android:paddingRight="@dimen/dimen_10dp"
             android:layout_below="@+id/categories_header" />
 
         <TextView
