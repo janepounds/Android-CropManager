@@ -6,9 +6,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.models.address_model.AddressData;
+import com.myfarmnow.myfarmcrop.models.address_model.Regions;
 import com.myfarmnow.myfarmcrop.models.banner_model.BannerData;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryData;
 import com.myfarmnow.myfarmcrop.models.device_model.AppSettingsData;
@@ -51,14 +54,42 @@ public class StartAppRequests {
     public void StartRequests(){
 
         //RequestBanners();
-        //RequestAllCategories();
+        RequestAllRegions();
         RequestAppSetting();
         RequestStaticPagesData();
         
     }
-    
-    
-    
+
+    public void RequestAllRegions() {
+
+        Call<Regions> call = BuyInputsAPIClient.getInstance()
+                .getAllRegions();
+        try {
+            Response<Regions> response = call.execute();
+
+            if (response.isSuccessful()) {
+
+
+                Regions regionsData = null;
+                regionsData = response.body();
+                //Log.e("DataCheck0: ",appSettingsData.getAppDetails().getMaintenance_text());
+                String strJson = new Gson().toJson(regionsData);
+
+//                if (!TextUtils.isEmpty(regionsData.getSuccess()))
+//                    cropManagerApp.setAppSettingsDetails(regionsData.getData());
+            }
+            else {
+                Log.e("Regions","Response is not successful");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
     //*********** Register Device to Admin Panel with the Device's Info ********//
     
     public static void RegisterDeviceForFCM(final Context context) {
