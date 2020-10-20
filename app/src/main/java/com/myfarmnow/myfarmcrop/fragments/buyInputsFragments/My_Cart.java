@@ -395,7 +395,7 @@ public class My_Cart extends Fragment {
         MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
         profileItem.setVisible(false);
         cartItem.setVisible(false);
-        searchItem.setVisible(true);
+        searchItem.setVisible(false);
     }
 
     private class MyTask extends AsyncTask<String, Void, String> {

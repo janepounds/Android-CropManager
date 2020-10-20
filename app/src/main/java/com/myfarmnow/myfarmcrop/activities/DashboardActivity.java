@@ -195,6 +195,7 @@ public class DashboardActivity extends AppCompatActivity {
         Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         if (curruntFrag instanceof My_Cart) {
             actionBar.setTitle(getString(R.string.actionCart));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (curruntFrag instanceof Shipping_Address) {
             actionBar.setTitle(getString(R.string.shipping_address));
         } else if (curruntFrag instanceof Nearby_Merchants) {
@@ -322,7 +323,7 @@ public class DashboardActivity extends AppCompatActivity {
         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
         MenuItem currencyItem = menu.findItem(R.id.toolbar_ic_currency);
         MenuItem profileItem = menu.findItem(R.id.toolbar_edit_profile);
-//        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
+        MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
 
@@ -369,7 +370,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Tint Menu Icons with the help of static method of Utilities class
         Utilities.tintMenuIcon(DashboardActivity.this, languageItem, R.color.white);
-//        Utilities.tintMenuIcon(DashboardActivity.this, searchItem, R.color.white);
         Utilities.tintMenuIcon(DashboardActivity.this, cartItem, R.color.white);
 
         return true;
