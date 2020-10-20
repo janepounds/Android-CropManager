@@ -651,8 +651,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.isGridView = isGridView;
     }
     
-    
-    
+
     /********** Custom ViewHolder provides a direct reference to each of the Views within a Data_Item *********/
     
     public static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_shopping_cart_18dp"
+            app:srcCompat="@drawable/ic_shopping_cart_18dp"
             app:tint="@color/grey_dark" />
 
         <TextView
@@ -59,7 +59,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="?actionBarSize"
-        android:layout_marginBottom="10dp">
+        >
+
         <LinearLayout
             android:id="@+id/location_layout"
             android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"
-                android:src="@drawable/ic_pin"
+                app:srcCompat="@drawable/ic_pin"
                 android:layout_marginLeft="@dimen/dimen_10dp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,7 +110,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -119,99 +120,83 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1" />
 
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-
-
-
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_button_red"
-                android:text="clear cart"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/button_text_size"
-                android:padding="@dimen/dimen_8dp"
-                android:layout_margin="@dimen/dimen_10dp"
-                android:drawableEnd="@drawable/ic_right_arrow"/>
-
-
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dimen_5dp"
-            android:background="#222222"
-            android:layout_margin="@dimen/dimen_10dp">
-            <TextView
-                android:id="@+id/promo_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Add items worth UGX 550.00 \n \n more for FREE delivery"
-                android:layout_margin="8dp"
-                android:textColor="@color/white"
-                android:textSize="17sp"/>
-
-            <ImageView
-                android:id="@+id/promo_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="15dp"
-                android:src="@drawable/ic_shipping_car" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:elevation="@dimen/dimen_10dp"
-                android:background="@drawable/topcornerscurved">
-            <LinearLayout
-                android:id="@+id/layout_total_payment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="8dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total Payment"
-                android:textColor="#515C6F"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="@dimen/dimen_5dp"/>
-
-                <TextView
-                    android:id="@+id/cart_item_total_price"
+                <Button
+                    android:id="@+id/btn_save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="UGX 00.0"
+                    android:background="@drawable/round_button_red"
+                    android:text="clear cart"
                     android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorAccentGreen"/>
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size"
+                    android:padding="@dimen/dimen_8dp"
+                    android:layout_margin="@dimen/dimen_10dp"
+                    android:drawableEnd="@drawable/ic_right_arrow"/>
 
-            </LinearLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_5dp"
+                    android:background="#222222"
+                    android:layout_margin="@dimen/dimen_10dp">
+                    <TextView
+                        android:id="@+id/promo_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Add items worth UGX 550.00 \n \n more for FREE delivery"
+                        android:layout_margin="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"/>
+
+                    <ImageView
+                        android:id="@+id/promo_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="15dp"
+                        app:srcCompat="@drawable/ic_shipping_car" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:elevation="@dimen/dimen_10dp"
+                    android:background="@drawable/topcornerscurved">
+                    <LinearLayout
+                        android:id="@+id/layout_total_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total Payment"
+                            android:textColor="#515C6F"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginBottom="@dimen/dimen_5dp"/>
+
+                        <TextView
+                            android:id="@+id/cart_item_total_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="UGX 00.0"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="@color/colorAccentGreen"/>
+
+                    </LinearLayout>
 
                     <Button
                         android:id="@+id/cart_checkout_btn"
@@ -230,7 +215,18 @@
 
 
 
+                </LinearLayout>
+
             </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
 
             <!--<LinearLayout
                 android:layout_width="match_parent"

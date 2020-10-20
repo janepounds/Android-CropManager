@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -119,10 +120,10 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
             Glide.with(context).load(ConstantValues.ECOMMERCE_URL+ cartProduct.getCustomersBasketProduct().getProductsImage()).into(holder.cart_item_cover);
     
             holder.cart_item_title.setText(cartProduct.getCustomersBasketProduct().getProductsName());
-            holder.cart_item_category.setText(cartProduct.getCustomersBasketProduct().getCategoryNames());
+            //holder.cart_item_category.setText(cartProduct.getCustomersBasketProduct().getCategoryNames());
             holder.cart_item_quantity.setText("" + cartProduct.getCustomersBasketProduct().getCustomersBasketQuantity());
             holder.cart_item_base_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getProductsPrice())));
-            holder.cart_item_sub_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getTotalPrice())));
+            //holder.cart_item_sub_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getTotalPrice())));
 
             holder.cart_item_measure.setText(cartProduct.getCustomersBasketProduct().getSelectedProductsWeight() + " " + cartProduct.getCustomersBasketProduct().getSelectedProductsWeightUnit());
     
@@ -322,11 +323,11 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
     
         private Button custom_button;
-        private Button cart_item_viewBtn;
+        private LinearLayout cart_item_viewBtn;
         private ImageView cart_item_cover;
         private RecyclerView attributes_recycler;
         private ImageButton cart_item_quantity_minusBtn, cart_item_quantity_plusBtn;
-        private TextView cart_item_removeBtn;
+        private ImageView cart_item_removeBtn;
         private TextView cart_item_title, cart_item_category, cart_item_base_price, cart_item_sub_price, cart_item_quantity,cart_item_measure;
 
 
@@ -337,9 +338,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
             
             cart_item_title = itemView.findViewById(R.id.cart_item_title);
             cart_item_base_price = itemView.findViewById(R.id.cart_item_base_price);
-            cart_item_sub_price = itemView.findViewById(R.id.cart_item_sub_price);
+            //cart_item_sub_price = itemView.findViewById(R.id.cart_item_sub_price);
             cart_item_quantity = itemView.findViewById(R.id.cart_item_quantity);
-            cart_item_category = itemView.findViewById(R.id.cart_item_category);
             cart_item_cover = itemView.findViewById(R.id.cart_item_cover);
             cart_item_viewBtn = itemView.findViewById(R.id.cart_item_viewBtn);
             cart_item_removeBtn = itemView.findViewById(R.id.cart_item_removeBtn);
