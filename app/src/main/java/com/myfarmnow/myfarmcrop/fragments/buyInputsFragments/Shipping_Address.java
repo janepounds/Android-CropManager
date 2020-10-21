@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -69,6 +68,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import am.appwise.components.ni.NoInternetDialog;
 import retrofit2.Call;
@@ -76,7 +76,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-
 
 public class Shipping_Address extends Fragment implements GoogleApiClient.OnConnectionFailedListener , OnMapReadyCallback {
 
@@ -154,7 +153,6 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
         this.parentFrag = parentFrag;
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
@@ -182,11 +180,11 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
 
 
         // Set the Title of Toolbar
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.shipping_address));
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(getString(R.string.shipping_address));
 
         // Get the customersID and defaultAddressID from SharedPreferences
 
-        pref = getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE);
+        pref = requireContext().getSharedPreferences("UserInfo", requireContext().MODE_PRIVATE);
         customerID = pref.getString("userID", "0");
 
         defaultAddressID = pref.getString("userDefaultAddressID", "");
@@ -231,12 +229,9 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
             //input_phone.setEnabled(false);
         }
 
-
-
-
         // [START_EXCLUDE silent]
         // Construct a PlacesClient
-        Places.initialize(getContext(), getString(R.string.maps_api_key));
+        Places.initialize(getContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(getContext());
 
         // Construct a FusedLocationProviderClient.
@@ -258,7 +253,7 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
         autocompleteFragment.setCountries("UG");
         autocompleteFragment.setHint(getString(R.string.searchShippingAddress));
-       // ((Button)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_button)).setTextColor(getResources().getColor(R.color.colorWhite));
+        // ((Button)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_button)).setTextColor(getResources().getColor(R.color.colorWhite));
         ((EditText)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input)).setTextColor(getResources().getColor(R.color.colorWhite));
         ((EditText)autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input)).setTextSize(10.5f);
         ImageView searchIcon = (ImageView)((LinearLayout) autocompleteFragment.getView()).getChildAt(0);
@@ -287,70 +282,66 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
             }
         });
 
+        proceed_checkout_btn.setOnClickListener(v -> {
+            // Validate Address Form Inputs
+            boolean isValidData = validateAddressForm();
+            Geocoder geocoder;
+            List<Address> addresses = null;
+            geocoder = new Geocoder(getContext(), Locale.getDefault());
+            if(mCenterLatLong==null && map!=null){
+                mCenterLatLong=map.getCameraPosition().target;
+            }
 
-        proceed_checkout_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Validate Address Form Inputs
-                boolean isValidData = validateAddressForm();
-                Geocoder geocoder;
-                List<Address> addresses = null;
-                geocoder = new Geocoder(getContext(), Locale.getDefault());
-                if(mCenterLatLong==null && map!=null){
-                    mCenterLatLong=map.getCameraPosition().target;
-                }
-
-                try {
-                    if(mCenterLatLong!=null)
+            try {
+                if(mCenterLatLong!=null)
                     addresses = geocoder.getFromLocation(mCenterLatLong.latitude, mCenterLatLong.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e(TAG,e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(TAG,e.getMessage());
+            }
+
+
+            if (isValidData && addresses!=null ) {
+
+                final String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                final String city = addresses.get(0).getLocality();
+                //String state = addresses.get(0).getAdminArea();
+                //String country = addresses.get(0).getCountryName();
+                final String postalCode = "UG 102";
+                final String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+                //final String streetname = addresses.get(0).getThoroughfare()+", "+addresses.get(0).getSubThoroughfare();
+
+                // New Instance of AddressDetails
+                AddressDetails shippingAddress = new AddressDetails();
+                String[] names = input_name.getText().toString().trim().split(" ");
+
+                shippingAddress.setFirstname(names[0]);
+                shippingAddress.setLastname(JoinStrings(Arrays.copyOfRange(names, 1, names.length)));
+                shippingAddress.setCountryName("Uganda");
+                shippingAddress.setZoneName(knownName);
+                shippingAddress.setCity(city);
+                shippingAddress.setStreet(address);
+                shippingAddress.setPostcode(postalCode);
+                shippingAddress.setPhone(input_phone.getText().toString().trim());
+                shippingAddress.setZoneId(selectedZoneID);
+                shippingAddress.setCountriesId(selectedCountryID);
+                shippingAddress.setLatitude(mCenterLatLong.latitude);
+                shippingAddress.setLongitude(mCenterLatLong.longitude);
+                shippingAddress.setDelivery_cost(deliveryCost);
+                shippingAddress.setPacking_charge_tax("" + ConstantValues.PACKING_CHARGE);
+
+                // Save the AddressDetails
+                ((CropManagerApp) getContext().getApplicationContext()).setShippingAddress(shippingAddress);
+
+                // Check if an Address is being Edited
+                if (isUpdate) {
+                    // Navigate to CheckoutFinal Fragment
+                    updateUserAddress(ADDRESS_ID,shippingAddress);
+                    //((MainActivity) getContext()).getSupportFragmentManager().popBackStack();
                 }
+                else {
+                    addUserAddress(shippingAddress);
 
-
-                if (isValidData && addresses!=null ) {
-
-                    final String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                    final String city = addresses.get(0).getLocality();
-                    //String state = addresses.get(0).getAdminArea();
-                    //String country = addresses.get(0).getCountryName();
-                    final String postalCode = "UG 102";
-                    final String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-                    //final String streetname = addresses.get(0).getThoroughfare()+", "+addresses.get(0).getSubThoroughfare();
-
-                    // New Instance of AddressDetails
-                    AddressDetails shippingAddress = new AddressDetails();
-                    String[] names = input_name.getText().toString().trim().split(" ");
-
-                    shippingAddress.setFirstname(names[0]);
-                    shippingAddress.setLastname(JoinStrings(Arrays.copyOfRange(names, 1, names.length)));
-                    shippingAddress.setCountryName("Uganda");
-                    shippingAddress.setZoneName(knownName);
-                    shippingAddress.setCity(city);
-                    shippingAddress.setStreet(address);
-                    shippingAddress.setPostcode(postalCode);
-                    shippingAddress.setPhone(input_phone.getText().toString().trim());
-                    shippingAddress.setZoneId(selectedZoneID);
-                    shippingAddress.setCountriesId(selectedCountryID);
-                    shippingAddress.setLatitude(mCenterLatLong.latitude);
-                    shippingAddress.setLongitude(mCenterLatLong.longitude);
-                    shippingAddress.setDelivery_cost(deliveryCost);
-                    shippingAddress.setPacking_charge_tax("" + ConstantValues.PACKING_CHARGE);
-
-                    // Save the AddressDetails
-                    ((CropManagerApp) getContext().getApplicationContext()).setShippingAddress(shippingAddress);
-
-                    // Check if an Address is being Edited
-                    if (isUpdate) {
-                        // Navigate to CheckoutFinal Fragment
-                        updateUserAddress(ADDRESS_ID,shippingAddress);
-                        //((MainActivity) getContext()).getSupportFragmentManager().popBackStack();
-                    }
-                    else {
-                        addUserAddress(shippingAddress);
-
-                    }
                 }
             }
         });
@@ -412,13 +403,13 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
     @Override
     public void onStop() {
         super.onStop();
-     //   mGoogleApiClient.disconnect();
+        //   mGoogleApiClient.disconnect();
     }
 
     @Override
     public void onPause() {
-      //  mGoogleApiClient.stopAutoManage(getActivity());
-     //   mGoogleApiClient.disconnect();
+        //  mGoogleApiClient.stopAutoManage(getActivity());
+        //   mGoogleApiClient.disconnect();
 
         super.onPause();
     }
@@ -475,7 +466,7 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
                     new LatLng(mCenterLatLong.latitude,
                             mCenterLatLong.longitude), DEFAULT_ZOOM));
         else // Get the current location of the device and set the position of the map.
-        getDeviceLocation();
+            getDeviceLocation();
 
     }
     // [END maps_current_place_on_map_ready]
@@ -635,7 +626,7 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
                             fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                                     .addToBackStack(null).commit();
                         }else
-                        parentFrag.RequestAllAddresses();
+                            parentFrag.RequestAllAddresses();
                     }
                     else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
@@ -714,7 +705,4 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
             }
         });
     }
-
-
 }
-

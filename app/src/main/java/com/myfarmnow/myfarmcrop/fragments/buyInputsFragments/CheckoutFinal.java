@@ -217,7 +217,6 @@ public class CheckoutFinal extends Fragment {
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         //noInternetDialog.show();
 
-
         // Get selectedShippingMethod, billingAddress and shippingAddress from ApplicationContext
         tax = ((CropManagerApp) getContext().getApplicationContext()).getTax();
         shippingMethod = ((CropManagerApp) getContext().getApplicationContext()).getShippingService();
@@ -226,7 +225,6 @@ public class CheckoutFinal extends Fragment {
 
         // Get userInfo from Local Databases User_Info_DB
         userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", null));
-
 
         // Binding Layout Views
         shipping_method_cardview= rootView.findViewById(R.id.shipping_method_cardview);
@@ -276,15 +274,12 @@ public class CheckoutFinal extends Fragment {
         checkout_paypal_btn.setVisibility(View.GONE);
         payment_details_layout.setVisibility(View.GONE);
 
-
         checkout_items_recycler.setNestedScrollingEnabled(false);
         checkout_coupons_recycler.setNestedScrollingEnabled(false);
 
         checkout_card_expiry.setKeyListener(null);
 
-
         dialogLoader = new DialogLoader(getContext());
-
 
         couponsList = new ArrayList<>();
         checkoutItemsList = new ArrayList<>();
@@ -292,7 +287,6 @@ public class CheckoutFinal extends Fragment {
 
         // Get checkoutItems from Local Databases User_Cart_DB
         checkoutItemsList = this.user_cart_BuyInputs_db.getCartItems();
-
 
         //ProductsName Array intialize
         productsName = new ArrayList<>();
@@ -307,7 +301,6 @@ public class CheckoutFinal extends Fragment {
         // Request Payment Methods
         RequestPaymentMethods();
 
-
         // Initialize the CheckoutItemsAdapter for RecyclerView
         checkoutItemsAdapter = new CheckoutItemsAdapter(getContext(), this.checkoutItemsList);
 
@@ -315,7 +308,6 @@ public class CheckoutFinal extends Fragment {
         checkout_items_recycler.setAdapter(checkoutItemsAdapter);
         checkout_items_recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         checkout_items_recycler.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-
 
         // Initialize the CouponsAdapter for RecyclerView
         couponsAdapter = new CouponsAdapter(getContext(), couponsList, true, CheckoutFinal.this);
@@ -338,17 +330,13 @@ public class CheckoutFinal extends Fragment {
             shipping_method_cardview.setVisibility(View.GONE);
         }
 
-
         // Set Billing Details
         shipping_name.setText(shippingAddress.getFirstname() + " " + shippingAddress.getLastname());
         shipping_address.setText(shippingAddress.getZoneName() + ", " + shippingAddress.getCountryName());
         shipping_street.setText(shippingAddress.getStreet());
 
-
-
         // Set CheckoutFinal Total
         setCheckoutTotal();
-
 
         // Initialize ProgressDialog
         progressDialog = new ProgressDialog(getActivity());
@@ -356,137 +344,121 @@ public class CheckoutFinal extends Fragment {
         progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.setCancelable(false);
 
-
         // Handle the Click event of edit_payment_method_Btn
-        payment_method.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        payment_method.setOnClickListener(view -> {
 
-                final PaymentMethodAdapter paymentMethodAdapter = new PaymentMethodAdapter(getContext(), paymentMethodsList);
+            final PaymentMethodAdapter paymentMethodAdapter = new PaymentMethodAdapter(getContext(), paymentMethodsList);
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                View dialogView = getLayoutInflater().inflate(R.layout.buy_inputs_dialog_list, null);
-                dialog.setView(dialogView);
-                dialog.setCancelable(true);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+            View dialogView = getLayoutInflater().inflate(R.layout.buy_inputs_dialog_list, null);
+            dialog.setView(dialogView);
+            dialog.setCancelable(true);
 
-                Button dialog_button = dialogView.findViewById(R.id.dialog_button);
-                TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
-                ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
+            Button dialog_button = dialogView.findViewById(R.id.dialog_button);
+            TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+            ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
 
-                dialog_button.setVisibility(View.GONE);
+            dialog_button.setVisibility(View.GONE);
 
-                dialog_title.setText(getString(R.string.payment_method));
-                dialog_list.setAdapter(paymentMethodAdapter);
+            dialog_title.setText(getString(R.string.payment_method));
+            dialog_list.setAdapter(paymentMethodAdapter);
 
 
-                final AlertDialog alertDialog = dialog.create();
-                alertDialog.show();
+            final AlertDialog alertDialog = dialog.create();
+            alertDialog.show();
+
+            dialog_list.setOnItemClickListener((parent, view1, position, id) -> {
+
+                PaymentMethodsInfo userSelectedPaymentMethod = paymentMethodAdapter.getItem(position);
+
+                payment_method.setText(userSelectedPaymentMethod.getName());
+                selectedPaymentMethod = userSelectedPaymentMethod.getMethod();
+
+                checkout_order_btn.setEnabled(true);
+                checkout_order_btn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentGreen));
 
 
-                dialog_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Check the selected Payment Method
+                switch (userSelectedPaymentMethod.getMethod()) {
 
-                        PaymentMethodsInfo userSelectedPaymentMethod = paymentMethodAdapter.getItem(position);
+                    // Change the Visibility of some Views based on selected Payment Method
+                    case "cod":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.GONE);
+                        break;
 
-                        payment_method.setText(userSelectedPaymentMethod.getName());
-                        selectedPaymentMethod = userSelectedPaymentMethod.getMethod();
+                    case "paypal":
+                        checkout_paypal_btn.setVisibility(View.VISIBLE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.GONE);
+                        break;
 
-                        checkout_order_btn.setEnabled(true);
-                        checkout_order_btn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentGreen));
+                    case "instamojo":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.VISIBLE);
+                        FLAG_PAYMENT = 0;
+                        break;
 
+                    case "payumoney":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.VISIBLE);
+                        FLAG_PAYMENT = 1;
+                        break;
+                    case "razorpay":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.VISIBLE);
+                        FLAG_PAYMENT = 2;
+                        break;
 
-                        // Check the selected Payment Method
-                        switch (userSelectedPaymentMethod.getMethod()) {
+                    case "stripe":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.VISIBLE);
+                        payment_details_layout.setVisibility(View.GONE);
 
-                            // Change the Visibility of some Views based on selected Payment Method
-                            case "cod":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.GONE);
-                                break;
+                        checkout_card_number.setText("4242424242424242");
+                        checkout_card_cvv.setText("123");
+                        checkout_card_expiry.setText("12/2018");
+                        break;
 
-                            case "paypal":
-                                checkout_paypal_btn.setVisibility(View.VISIBLE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.GONE);
-                                break;
+                    case "braintree_card":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.VISIBLE);
+                        payment_details_layout.setVisibility(View.GONE);
 
-                            case "instamojo":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.VISIBLE);
-                                FLAG_PAYMENT = 0;
-                                break;
+                        checkout_card_number.setText("5555555555554444");
+                        checkout_card_cvv.setText("123");
+                        checkout_card_expiry.setText("12/2018");
+                        break;
 
-                            case "payumoney":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.VISIBLE);
-                                FLAG_PAYMENT = 1;
-                                break;
-                            case "razorpay":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.VISIBLE);
-                                FLAG_PAYMENT = 2;
-                                break;
+                    case "braintree_paypal":
+                        checkout_paypal_btn.setVisibility(View.VISIBLE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.GONE);
+                        break;
 
-                            case "stripe":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.VISIBLE);
-                                payment_details_layout.setVisibility(View.GONE);
+                    case "paytm":
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.GONE);
+                        break;
 
-                                checkout_card_number.setText("4242424242424242");
-                                checkout_card_cvv.setText("123");
-                                checkout_card_expiry.setText("12/2018");
-                                break;
+                    default:
+                        checkout_paypal_btn.setVisibility(View.GONE);
+                        card_details_layout.setVisibility(View.GONE);
+                        payment_details_layout.setVisibility(View.GONE);
+                        break;
+                }
+                scroll_container.post(() -> scroll_container.fullScroll(View.FOCUS_DOWN));
 
-                            case "braintree_card":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.VISIBLE);
-                                payment_details_layout.setVisibility(View.GONE);
+                alertDialog.dismiss();
 
-                                checkout_card_number.setText("5555555555554444");
-                                checkout_card_cvv.setText("123");
-                                checkout_card_expiry.setText("12/2018");
-                                break;
+            });
 
-                            case "braintree_paypal":
-                                checkout_paypal_btn.setVisibility(View.VISIBLE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.GONE);
-                                break;
-
-                            case "paytm":
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.GONE);
-                                break;
-
-                            default:
-                                checkout_paypal_btn.setVisibility(View.GONE);
-                                card_details_layout.setVisibility(View.GONE);
-                                payment_details_layout.setVisibility(View.GONE);
-                                break;
-                        }
-
-                        scroll_container.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                scroll_container.fullScroll(View.FOCUS_DOWN);
-                            }
-                        });
-
-
-                        alertDialog.dismiss();
-
-                    }
-                });
-
-            }
         });
-
 
         // Integrate SupportedCardTypes with TextChangedListener of checkout_card_number
         checkout_card_number.addTextChangedListener(new TextWatcher() {
@@ -517,50 +489,46 @@ public class CheckoutFinal extends Fragment {
             }
         });
 
-
         // Handle Touch event of input_dob EditText
-        checkout_card_expiry.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+        checkout_card_expiry.setOnTouchListener((v, event) -> {
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    // Get Calendar instance
-                    final Calendar calendar = Calendar.getInstance();
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Get Calendar instance
+                final Calendar calendar = Calendar.getInstance();
 
-                    // Initialize DateSetListener of DatePickerDialog
-                    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Initialize DateSetListener of DatePickerDialog
+                DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                            // Set the selected Date Info to Calendar instance
-                            calendar.set(Calendar.YEAR, year);
-                            calendar.set(Calendar.MONTH, monthOfYear);
+                        // Set the selected Date Info to Calendar instance
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
 
-                            // Set Date Format
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy", Locale.US);
+                        // Set Date Format
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy", Locale.US);
 
-                            // Set Date in input_dob EditText
-                            checkout_card_expiry.setText(dateFormat.format(calendar.getTime()));
-                        }
-                    };
+                        // Set Date in input_dob EditText
+                        checkout_card_expiry.setText(dateFormat.format(calendar.getTime()));
+                    }
+                };
 
 
-                    // Initialize DatePickerDialog
-                    DatePickerDialog datePicker = new DatePickerDialog
-                            (
-                                    getContext(),
-                                    date,
-                                    calendar.get(Calendar.YEAR),
-                                    calendar.get(Calendar.MONTH),
-                                    calendar.get(Calendar.DAY_OF_MONTH)
-                            );
+                // Initialize DatePickerDialog
+                DatePickerDialog datePicker = new DatePickerDialog
+                        (
+                                getContext(),
+                                date,
+                                calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH)
+                        );
 
-                    // Show datePicker Dialog
-                    datePicker.show();
-                }
-
-                return false;
+                // Show datePicker Dialog
+                datePicker.show();
             }
+
+            return false;
         });
 
 
@@ -615,23 +583,18 @@ public class CheckoutFinal extends Fragment {
             }
         });
 
-
-
         // Handle the Click event of edit_shipping_Btn Button
-        edit_shipping_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        edit_shipping_Btn.setOnClickListener(view -> {
 
-                // Navigate to Shipping_Address Fragment to Edit ShippingAddress
-                Fragment fragment = new Shipping_Address(my_cart,null);
-                Bundle args = new Bundle();
-                args.putBoolean("isUpdate", true);
-                fragment.setArguments(args);
+            // Navigate to Shipping_Address Fragment to Edit ShippingAddress
+            Fragment fragment = new Shipping_Address(my_cart,null);
+            Bundle args = new Bundle();
+            args.putBoolean("isUpdate", true);
+            fragment.setArguments(args);
 
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
-                        .addToBackStack(null).commit();
-            }
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
+                    .addToBackStack(null).commit();
         });
 
 
