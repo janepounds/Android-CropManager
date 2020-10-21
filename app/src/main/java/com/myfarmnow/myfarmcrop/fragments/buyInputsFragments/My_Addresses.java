@@ -101,10 +101,15 @@ public class My_Addresses extends Fragment {
                 fragment.setArguments(args);
 
                 FragmentManager fragmentManager = ((DashboardActivity) getContext()).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .hide(((DashboardActivity)getActivity()).currentFragment)
-                        .add(R.id.main_fragment_container, fragment)
-                        .addToBackStack(null).commit();
+                if(((DashboardActivity)getActivity()).currentFragment!=null)
+                    fragmentManager.beginTransaction()
+                            .hide(((DashboardActivity)getActivity()).currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
+                            .addToBackStack(null).commit();
+                else
+                    fragmentManager.beginTransaction()
+                            .add(R.id.main_fragment_container, fragment)
+                            .addToBackStack(null).commit();
             }
         });
 
