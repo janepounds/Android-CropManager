@@ -5484,6 +5484,34 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("RegionDetails ", array_list.size() + "");
         return array_list;
     }
+    //******GET DISTRICT ID****//
+    public int getDistrictId( String region) throws JSONException {
+        openDB();
+       int regionId = 0;
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select " + REGIONS_DETAILS_ID +" from " + REGIONS_DETAILS_TABLE_NAME + " where "  + REGIONS_DETAILS_REGION + " = '" + region + "'", null);
+        res.moveToFirst();
+
+
+        while(res.moveToNext())
+        {
+            if(res.isFirst())
+            {
+                //Your code goes here in your case
+                return res.getInt(res.getColumnIndex(REGIONS_DETAILS_ID));
+            }
+        }
+
+
+
+
+        res.close();
+        closeDB();
+        Log.d("RegionDetails ", String.valueOf(regionId));
+        return regionId;
+    }
 
     //******GET SUB COUNTIES**********//
     public ArrayList<RegionDetails> getSubcountyDetails(String belongs_to, String subcounty) throws JSONException {
@@ -5513,7 +5541,31 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     }
 
     //*********GET VILLAGES*************//
+    public ArrayList<RegionDetails> getVillageDetails(String belongs_to, String subcounty) throws JSONException {
+        openDB();
+        ArrayList<RegionDetails> array_list = new ArrayList();
 
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_BELONGS_TO + " = '" + belongs_to + "'" + " AND " + REGIONS_DETAILS_REGION_TYPE + " = '" + subcounty + "'" , null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            RegionDetails regionDetails = new RegionDetails();
+            regionDetails.setTableId(Integer.parseInt(res.getString(res.getColumnIndex(REGIONS_DETAILS_TABLE_ID))));
+            regionDetails.setId(Integer.parseInt(res.getString(res.getColumnIndex(REGIONS_DETAILS_ID))));
+            regionDetails.setRegionType(res.getString(res.getColumnIndex(REGIONS_DETAILS_REGION_TYPE)));
+            regionDetails.setRegion(res.getString(res.getColumnIndex(REGIONS_DETAILS_REGION)));
+            regionDetails.setBelongs_to(res.getString(res.getColumnIndex(REGIONS_DETAILS_BELONGS_TO)));
+            array_list.add(regionDetails);
+            res.moveToNext();
+        }
+
+        res.close();
+        closeDB();
+        Log.d("VillageDetails ", array_list.size() + "");
+        return array_list;
+    }
 }
 
 
