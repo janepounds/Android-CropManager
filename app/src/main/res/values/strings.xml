@@ -2171,7 +2171,7 @@
 
     <string name="searchShippingAddress" translatable="false">Search Delivery Address</string>
     <string name="QNShippingAddress" translatable="false">Where would do you like your goods be delivered?</string>
-    <string name="nearby_merchants" translatable="false">Select Merchant</string>
+    <string name="nearby_merchants" translatable="false">Nearby Merchants</string>
     <string name="Receivername" translatable="false">Receiver Name</string>
     <string name="Receivercontact_no" translatable="false">Receiver Phone Number</string>
     <string name="pair" translatable="false">Pair Shop</string>

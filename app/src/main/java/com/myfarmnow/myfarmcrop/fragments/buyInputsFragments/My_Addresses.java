@@ -108,7 +108,6 @@ public class My_Addresses extends Fragment {
 
         // Handle Click event of add_address_fab FAB
         add_address_fab.setOnClickListener(v -> {
-
             // Navigate to Add_Address Fragment with arguments
             Fragment fragment = new Shipping_Address(null, My_Addresses.this);
             Bundle args = new Bundle();
@@ -116,10 +115,15 @@ public class My_Addresses extends Fragment {
             fragment.setArguments(args);
 
             FragmentManager fragmentManager = ((DashboardActivity) getContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .hide(((DashboardActivity) getActivity()).currentFragment)
-                    .add(R.id.main_fragment_container, fragment)
-                    .addToBackStack(null).commit();
+            if (((DashboardActivity) getActivity()).currentFragment != null)
+                fragmentManager.beginTransaction()
+                        .hide(((DashboardActivity) getActivity()).currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .addToBackStack(null).commit();
+            else
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .addToBackStack(null).commit();
         });
 
         return rootView;
