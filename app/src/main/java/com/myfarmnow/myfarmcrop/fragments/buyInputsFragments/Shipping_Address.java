@@ -77,8 +77,6 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-//
-
 
 public class Shipping_Address extends Fragment implements GoogleApiClient.OnConnectionFailedListener , OnMapReadyCallback {
 
