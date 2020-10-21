@@ -53,7 +53,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     private static final String TAG = "MyFarmDbHandler";
 
     public static final String DATABASE_NAME = "myFarm.db";
-    private static int database_version = 6;
+    private static int database_version = 7;
 
     public static final String CROP_INVENTORY_FERTILIZER_TABLE_NAME = "crop_inventory_fertilizer";
     public static final String CROP_INVENTORY_SEEDS_TABLE_NAME = "crop_inventory_seeds";
@@ -1044,6 +1044,8 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             upGradingTablesFromVersion3ToVersion4(db);
         } else if (oldVersion == 5 && newVersion == 6) {
             upGradingTablesFromVersion5ToVersion6(db);
+        }else if(oldVersion == 6 && newVersion == 7){
+            upGradingTablesFromVersion6ToVersion7(db);
         }
         onCreate(db);
 
@@ -1067,10 +1069,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME + " ADD COLUMN " + LIVESTOCK_RECORDS_LITTERS_DAM_ID + " TEXT ");
         db.execSQL("ALTER TABLE " + CROP_SPRAYING_TABLE_NAME + " ADD COLUMN " + CROP_SPRAYING_SPRAY_NAME + " TEXT");
 
-
-
     }
 
+    public void upGradingTablesFromVersion6ToVersion7(SQLiteDatabase db) {
+        String regions_details_insert_query = " CREATE TABLE IF NOT EXISTS " + REGIONS_DETAILS_TABLE_NAME + " ( " + REGIONS_DETAILS_TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + REGIONS_DETAILS_ID + " INTEGER , " + REGIONS_DETAILS_REGION_TYPE + " TEXT, " + REGIONS_DETAILS_REGION + " TEXT, " + REGIONS_DETAILS_BELONGS_TO + " TEXT " + " ) ";
+        db.execSQL(regions_details_insert_query);
+
+    }
 
     public void upGradingTablesFromVersion1ToVersion2(SQLiteDatabase db) {
 
