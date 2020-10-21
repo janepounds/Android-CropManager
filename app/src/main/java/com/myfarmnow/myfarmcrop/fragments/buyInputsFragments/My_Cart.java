@@ -59,7 +59,7 @@ public class My_Cart extends Fragment {
     String customerID;
     RecyclerView cart_items_recycler;
     LinearLayout cart_view, cart_view_empty;
-    Button cart_checkout_btn, continue_shopping_btn,cart_pair_btn;
+    Button cart_checkout_btn, continue_shopping_btn,clear_cart;
     NestedScrollView mainRvLayout;
     public TextView cart_item_subtotal_price, cart_item_discount_price, cart_item_total_price;
 
@@ -112,6 +112,7 @@ public class My_Cart extends Fragment {
         mainRvLayout = rootView.findViewById(R.id.mainRvLayout);
 //        cart_item_subtotal_price = rootView.findViewById(R.id.cart_item_subtotal_price);
         cart_item_total_price = rootView.findViewById(R.id.cart_item_total_price);
+        clear_cart = rootView.findViewById(R.id.btn_clear_cart);
 //        cart_item_discount_price = rootView.findViewById(R.id.cart_item_discount_price);
 
 
@@ -145,7 +146,31 @@ public class My_Cart extends Fragment {
 
         cartItemsAdapter.notifyDataSetChanged();
 
+        clear_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+
+
+                // Delete CartItem from Local Database using static method of My_Cart
+                ClearCart();
+
+
+
+                // Calculate Cart's Total Price Again
+                cartItemsAdapter.setCartTotal();
+
+                // Remove CartItem from Cart List
+                cartItemsList.clear();
+
+                // Notify that item at position has been removed
+                cartItemsAdapter.notifyDataSetChanged();
+
+                // Update Cart View from Local Database using static method of My_Cart
+                updateCartView(cartItemsList.size());
+
+            }
+        });
         // Handle Click event of continue_shopping_btn Button
         continue_shopping_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,6 +365,7 @@ public class My_Cart extends Fragment {
                         cart_item_id
                 );
     }
+
 
 
     //*********** Static method to Clear User's Cart ********//
