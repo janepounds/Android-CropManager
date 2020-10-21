@@ -139,7 +139,7 @@ public class Product_Description extends Fragment {
        // noInternetDialog.show();
 
         // Get the CustomerID from SharedPreferences
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         
         
         // Binding Layout Views

@@ -319,7 +319,7 @@ public class AccountFragment extends Fragment {
         SharedPreferences sharedPreferences = context.getSharedPreferences(DashboardActivity.PREFERENCES_FILE_NAME,
                 MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("userID", "");
+        editor.putString(DashboardActivity.PREFERENCES_USER_ID, "");
         editor.apply();
 
         // Set UserLoggedIn in MyAppPrefsManager

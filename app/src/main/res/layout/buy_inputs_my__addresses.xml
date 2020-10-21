@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@drawable/ic_location"
+            app:srcCompat="@drawable/ic_location"
             android:layout_width="140dp"
             android:layout_height="140dp"
             app:tint="@color/grey" />
@@ -52,7 +52,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/addresses_recycler"
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabSize="normal"
-            android:src="@drawable/ic_add_location_24"
+            app:srcCompat="@drawable/ic_add_location_24"
             android:tint="@color/white"
             android:elevation="5dp"
             android:translationZ="3dp"

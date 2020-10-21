@@ -73,7 +73,7 @@ public class My_Addresses extends Fragment {
         // noInternetDialog.show();
 
         // Get the CustomerID and DefaultAddressID from SharedPreferences
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         defaultAddressID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userDefaultAddressID", "");
 
         // Binding Layout Views
@@ -85,7 +85,7 @@ public class My_Addresses extends Fragment {
         dialogLoader = new DialogLoader(getContext());
 
         // Request for User's Addresses
-        RequestAllAddresses();
+        RequestAllAddresses(rootView);
 
         addAddressButton.setOnClickListener(v -> {
             // Navigate to Add_Address Fragment with arguments
@@ -160,7 +160,7 @@ public class My_Addresses extends Fragment {
 
     //*********** Request User's all Addresses from the Server ********//
 
-    public void RequestAllAddresses() {
+    public void RequestAllAddresses(View rootView) {
 
         dialogLoader.showProgressDialog();
 
@@ -224,7 +224,7 @@ public class My_Addresses extends Fragment {
 
                         // Address has been Deleted. Show the Message to the User
                         Snackbar.make(view, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
-                        RequestAllAddresses();
+                        RequestAllAddresses(view);
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(view, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 

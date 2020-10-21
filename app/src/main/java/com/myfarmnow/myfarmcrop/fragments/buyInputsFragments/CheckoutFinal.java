@@ -224,7 +224,7 @@ public class CheckoutFinal extends Fragment {
         shippingAddress = ((CropManagerApp) getContext().getApplicationContext()).getShippingAddress();
 
         // Get userInfo from Local Databases User_Info_DB
-        userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", null));
+        userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));
 
         // Binding Layout Views
         shipping_method_cardview= rootView.findViewById(R.id.shipping_method_cardview);
