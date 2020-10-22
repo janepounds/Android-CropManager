@@ -58,9 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="?actionBarSize"
-        >
-
+        android:layout_marginTop="?actionBarSize">
         <LinearLayout
             android:id="@+id/location_layout"
             android:layout_width="match_parent"
@@ -132,7 +130,7 @@
                     android:textSize="@dimen/button_text_size"
                     android:padding="@dimen/dimen_8dp"
                     android:layout_margin="@dimen/dimen_10dp"
-                    android:drawableEnd="@drawable/ic_right_arrow"/>
+                    android:drawableEnd="@drawable/ic_right_chevron"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -205,7 +203,7 @@
                         android:layout_weight="1"
                         android:padding="8dp"
                         android:layout_margin="8dp"
-                        android:drawableEnd="@drawable/ic_right_arrow"
+                        android:drawableEnd="@drawable/ic_right_chevron"
                         android:background="@drawable/round_button_dark_green"
                         android:text="Checkout"
                         android:textAllCaps="true"
