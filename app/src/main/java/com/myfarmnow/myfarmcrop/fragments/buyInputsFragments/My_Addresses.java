@@ -73,7 +73,7 @@ public class My_Addresses extends Fragment {
         // noInternetDialog.show();
 
         // Get the CustomerID and DefaultAddressID from SharedPreferences
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         defaultAddressID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userDefaultAddressID", "");
 
         // Binding Layout Views
@@ -85,7 +85,7 @@ public class My_Addresses extends Fragment {
         dialogLoader = new DialogLoader(getContext());
 
         // Request for User's Addresses
-        RequestAllAddresses();
+        RequestAllAddresses(rootView);
 
         addAddressButton.setOnClickListener(v -> {
             // Navigate to Add_Address Fragment with arguments
@@ -108,7 +108,6 @@ public class My_Addresses extends Fragment {
 
         // Handle Click event of add_address_fab FAB
         add_address_fab.setOnClickListener(v -> {
-
             // Navigate to Add_Address Fragment with arguments
             Fragment fragment = new Shipping_Address(null, My_Addresses.this);
             Bundle args = new Bundle();
@@ -116,10 +115,15 @@ public class My_Addresses extends Fragment {
             fragment.setArguments(args);
 
             FragmentManager fragmentManager = ((DashboardActivity) getContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .hide(((DashboardActivity) getActivity()).currentFragment)
-                    .add(R.id.main_fragment_container, fragment)
-                    .addToBackStack(null).commit();
+            if (((DashboardActivity) getActivity()).currentFragment != null)
+                fragmentManager.beginTransaction()
+                        .hide(((DashboardActivity) getActivity()).currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .addToBackStack(null).commit();
+            else
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .addToBackStack(null).commit();
         });
 
         return rootView;
@@ -160,7 +164,7 @@ public class My_Addresses extends Fragment {
 
     //*********** Request User's all Addresses from the Server ********//
 
-    public void RequestAllAddresses() {
+    public void RequestAllAddresses(View rootView) {
 
         dialogLoader.showProgressDialog();
 
@@ -224,7 +228,7 @@ public class My_Addresses extends Fragment {
 
                         // Address has been Deleted. Show the Message to the User
                         Snackbar.make(view, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
-                        RequestAllAddresses();
+                        RequestAllAddresses(view);
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(view, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 

@@ -96,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.isFlash = isFlash;
         recents_db = new User_Recents_BuyInputsDB();
         this.fragmentManager=fragmentManager;
-        customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
+        customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
     }
 
     public ProductAdapter(Activity context, List<ProductDetails> productList, Boolean isHorizontal ) {
@@ -104,7 +104,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         this.productList = productList;
         this.isHorizontal = isHorizontal;
         recents_db = new User_Recents_BuyInputsDB();
-        customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
+        customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
     }
 
     //********** Called to Inflate a Layout from XML and then return the Holder *********//

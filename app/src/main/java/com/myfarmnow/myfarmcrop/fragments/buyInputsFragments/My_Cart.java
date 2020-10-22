@@ -94,7 +94,7 @@ public class My_Cart extends Fragment {
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         // Get the List of Cart Items from the Local Databases User_Cart_DB
         finalCartItemsList = cartItemsList = user_cart_BuyInputs_db.getCartItems();
 

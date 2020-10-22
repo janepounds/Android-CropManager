@@ -177,7 +177,7 @@ public class SettingsFragment extends Fragment {
                             dialogLoader.showProgressDialog();
                             Call<UserData> call = BuyInputsAPIClient.getInstance().updatePassword(oldPassword.getText().toString().trim(),
                                     newPassword.getText().toString().trim(),
-                                    getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "")
+                                    getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "")
                             );
 
                             call.enqueue(new Callback<UserData>() {
@@ -453,7 +453,7 @@ public class SettingsFragment extends Fragment {
                 if (ConstantValues.IS_USER_LOGGED_IN) {
                     // Edit UserID in SharedPreferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("userID", "");
+                    editor.putString(DashboardActivity.PREFERENCES_USER_ID, "");
                     editor.apply();
 
                     // Set UserLoggedIn in MyAppPrefsManager
@@ -487,11 +487,11 @@ public class SettingsFragment extends Fragment {
         // Check if the User is Authenticated
         if (ConstantValues.IS_USER_LOGGED_IN) {
             // Check User's Info from SharedPreferences
-            if (!"".equalsIgnoreCase(sharedPreferences.getString("userID", ""))) {
+            if (!"".equalsIgnoreCase(sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_ID, ""))) {
 
                 // Get User's Info from Local Database User_Info_DB
                 User_Info_BuyInputsDB userInfoDB = new User_Info_BuyInputsDB();
-                UserDetails userInfo = userInfoDB.getUserData(sharedPreferences.getString("userID", null));
+                UserDetails userInfo = userInfoDB.getUserData(sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_ID, null));
 
                 // Set User's Name, Email and Photo
                 profile_email.setText(userInfo.getEmail());

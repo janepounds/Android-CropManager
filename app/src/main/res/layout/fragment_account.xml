@@ -176,7 +176,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_pin" />
+                            android:src="@drawable/ic_pin_location" />
 
                         <TextView
                             android:layout_width="match_parent"
