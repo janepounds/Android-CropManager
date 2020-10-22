@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -176,7 +177,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        ImageButton edit_address, delete_address;
+        Button edit_address, delete_address;
         RadioButton makeDefault_rb;
         TextView address_title, address_details;
         CardView cardview_perant;
