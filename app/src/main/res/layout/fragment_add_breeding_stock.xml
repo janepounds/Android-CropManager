@@ -274,7 +274,7 @@
                                     android:gravity="center"
                                     android:paddingStart="@dimen/margin_10"
                                     android:paddingEnd="@dimen/margin_10"
-                                    android:src="@drawable/ic_calendar_add"
+                                    android:src="@drawable/ic_calendar"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
 
