@@ -122,7 +122,11 @@ public class SignUp extends AppCompatActivity {
     private String mVerificationId;
     // Firebase auth object
     private FirebaseAuth mAuth;
-    private String pickedDistrictId;
+    private int pickedDistrictId;
+    private int pickedSubcountyId;
+    private ArrayList<CropSpinnerItem> subcountyList = new ArrayList<>();
+    private ArrayList<String> villageList = new ArrayList<>();
+
     public SignUp(Context context){
         this.context = context;
     }
@@ -181,14 +185,14 @@ public class SignUp extends AppCompatActivity {
             });
         }
         */
-         ArrayList<CropSpinnerItem> districtList = new ArrayList<>();
+        ArrayList<CropSpinnerItem> districtList = new ArrayList<>();
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
         try {
             for (RegionDetails x : dbHandler.getRegionDetails("district")) {
                 districtList.add(new CropSpinnerItem() {
                     @Override
                     public String getId() {
-                        return x.getBelongs_to();
+                        return String.valueOf(x.getId());
                     }
 
                     @Override
@@ -202,6 +206,7 @@ public class SignUp extends AppCompatActivity {
                         return x.getRegion();
                     }
                 });
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -224,46 +229,53 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 district.showDropDown();
+                for (int i = 0; i < districtList.size(); i++) {
+
+                    if (districtList.get(i).toString().equals(district.getText().toString())) {
+                        pickedDistrictId =Integer.parseInt(districtList.get(i).getId());
+
+                        Log.d(TAG, "onCreate: "+ pickedDistrictId);
+
+                        subcountyList.clear();
+                        try {
+                            for (RegionDetails x : dbHandler.getSubcountyDetails(String.valueOf(pickedDistrictId),"subcounty")) {
+                                subcountyList.add(new CropSpinnerItem() {
+                                    @Override
+                                    public String getId() {
+                                        return String.valueOf(x.getId());
+                                    }
+
+                                    @Override
+                                    public String getUnits() {
+                                        return null;
+                                    }
+
+                                    @NonNull
+                                    @Override
+                                    public String toString() {
+                                        return x.getRegion();
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.d(TAG, "onCreate: "+ subcountyList);
+                        ArrayAdapter<CropSpinnerItem> subcountryListAdapter = new ArrayAdapter<CropSpinnerItem>(getApplicationContext(),  android.R.layout.simple_dropdown_item_1line, subcountyList);
+                        subCounty.setThreshold(1);
+                        subCounty.setAdapter(subcountryListAdapter);
+                    }
+
+
+                }
             }
         });
 
-        ArrayList<CropSpinnerItem> subcountyList = new ArrayList<>();
-        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
-        try {
-             for (int i = 0; i < districtList.size(); i++) {
 
-                 if (district.getText().toString().equals(districtList.get(i).toString())) {
-                     pickedDistrictId = districtList.get(i).getId();
 
-                 }
-             }
-            for (RegionDetails x : dbHandler.getSubcountyDetails(pickedDistrictId,"subcounty")) {
-                subcountyList.add(new CropSpinnerItem() {
-                    @Override
-                    public String getId() {
-                        return x.getBelongs_to();
-                    }
 
-                    @Override
-                    public String getUnits() {
-                        return null;
-                    }
 
-                    @NonNull
-                    @Override
-                    public String toString() {
-                        return x.getRegion();
-                    }
-                });
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d(TAG, "onCreate: "+ subcountyList);
 
-        ArrayAdapter<CropSpinnerItem> subcountryListAdapter = new ArrayAdapter<CropSpinnerItem>(getApplicationContext(),  android.R.layout.simple_dropdown_item_1line, subcountyList);
-        subCounty.setThreshold(1);
-        subCounty.setAdapter(subcountryListAdapter);
         subCounty.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -278,6 +290,47 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 subCounty.showDropDown();
+
+                for (int i = 0; i < subcountyList.size(); i++) {
+
+                    if (subcountyList.get(i).toString().equals(subCounty.getText().toString())) {
+                        pickedSubcountyId =Integer.parseInt(subcountyList.get(i).getId());
+
+                        Log.d(TAG, "onCreate: "+ pickedSubcountyId);
+
+                        villageList.clear();
+                        try {
+                            for (RegionDetails x : dbHandler.getVillageDetails(String.valueOf(pickedSubcountyId),"village")) {
+                                villageList.add(x.getRegion());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.d(TAG, "onCreate: "+ villageList);
+                        ArrayAdapter<String> villageListAdapter = new ArrayAdapter<String>(getApplicationContext(),  android.R.layout.simple_dropdown_item_1line, villageList);
+                        village.setThreshold(1);
+                        village.setAdapter(villageListAdapter);
+                    }
+
+
+                }
+            }
+        });
+
+        village.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

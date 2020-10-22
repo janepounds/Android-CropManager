@@ -136,10 +136,10 @@ public class CheckoutFinal extends Fragment {
     RecyclerView checkout_items_recycler;
     RecyclerView checkout_coupons_recycler;
     Button checkout_coupon_btn, checkout_order_btn, checkout_cancel_btn;
-    ImageButton edit_shipping_Btn, edit_shipping_method_Btn;
+    ImageButton edit_shipping_Btn;
     TextView checkout_subtotal, checkout_tax, checkout_shipping, checkout_discount, checkout_total,
             checkout_packing_charges, demo_coupons_text;
-    TextView  shipping_name, shipping_street, shipping_address, shipping_method, payment_method;
+    TextView  shipping_name, shipping_street, shipping_address, payment_method;
     EditText payment_name, payment_email, payment_phone, checkout_coupon_code, checkout_comments, checkout_card_number, checkout_card_cvv, checkout_card_expiry;
 
 
@@ -152,7 +152,6 @@ public class CheckoutFinal extends Fragment {
 
     AddressDetails shippingAddress;
     CouponsAdapter couponsAdapter;
-    ShippingService shippingMethod;
     CheckoutItemsAdapter checkoutItemsAdapter;
 
     final User_Cart_BuyInputsDB user_cart_BuyInputs_db;
@@ -182,7 +181,7 @@ public class CheckoutFinal extends Fragment {
 
     CardType cardType;
     SupportedCardTypesView braintreeSupportedCards;
-    CardView shipping_address_cardview,shipping_method_cardview;
+    CardView shipping_address_cardview;
 
     private static final CardType[] SUPPORTED_CARD_TYPES = {CardType.VISA, CardType.MASTERCARD, CardType.MAESTRO,
             CardType.UNIONPAY, CardType.AMEX};
@@ -219,7 +218,7 @@ public class CheckoutFinal extends Fragment {
 
         // Get selectedShippingMethod, billingAddress and shippingAddress from ApplicationContext
         tax = ((CropManagerApp) getContext().getApplicationContext()).getTax();
-        shippingMethod = ((CropManagerApp) getContext().getApplicationContext()).getShippingService();
+
         //billingAddress = ((App) getContext().getApplicationContext()).getBillingAddress();
         shippingAddress = ((CropManagerApp) getContext().getApplicationContext()).getShippingAddress();
 
@@ -227,14 +226,11 @@ public class CheckoutFinal extends Fragment {
         userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));
 
         // Binding Layout Views
-        shipping_method_cardview= rootView.findViewById(R.id.shipping_method_cardview);
         shipping_address_cardview= rootView.findViewById(R.id.shipping_address_cardview);
         checkout_order_btn = rootView.findViewById(R.id.checkout_order_btn);
         checkout_cancel_btn = rootView.findViewById(R.id.checkout_cancel_btn);
         checkout_coupon_btn = rootView.findViewById(R.id.checkout_coupon_btn);
         edit_shipping_Btn = rootView.findViewById(R.id.checkout_edit_shipping);
-        edit_shipping_method_Btn = rootView.findViewById(R.id.checkout_edit_shipping_method);
-        shipping_method = rootView.findViewById(R.id.shipping_method);
         payment_method = rootView.findViewById(R.id.payment_method);
         checkout_subtotal = rootView.findViewById(R.id.checkout_subtotal);
         checkout_tax = rootView.findViewById(R.id.checkout_tax);
@@ -321,14 +317,9 @@ public class CheckoutFinal extends Fragment {
         checkoutTax = Double.parseDouble(tax);
         packingCharges = Double.parseDouble("" + ConstantValues.PACKING_CHARGE);
 
-        shipping_method.setText(shippingMethod.getName());
-        checkoutShipping = checkoutShippingCost = Double.parseDouble(shippingMethod.getRate() == null || shippingMethod.getRate().isEmpty() ? "0.0" : shippingMethod.getRate())
-                + Double.parseDouble(shippingAddress.getDelivery_cost() == null || shippingAddress.getDelivery_cost().isEmpty() ? "0.0" : shippingAddress.getDelivery_cost());
 
-        if(shippingMethod.getRate().equalsIgnoreCase("0")){
-            shipping_address_cardview.setVisibility(View.GONE);
-            shipping_method_cardview.setVisibility(View.GONE);
-        }
+
+
 
         // Set Billing Details
         shipping_name.setText(shippingAddress.getFirstname() + " " + shippingAddress.getLastname());
@@ -598,22 +589,7 @@ public class CheckoutFinal extends Fragment {
         });
 
 
-        // Handle the Click event of edit_shipping_method_Btn Button
-        edit_shipping_method_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                // Navigate to Shipping_Methods Fragment to Edit ShippingMethod
-                Fragment fragment = new Nearby_Merchants(my_cart);
-                Bundle args = new Bundle();
-                args.putBoolean("isUpdate", true);
-                fragment.setArguments(args);
-
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
-                        .addToBackStack(null).commit();
-            }
-        });
 
 
         if (!ConstantValues.IS_CLIENT_ACTIVE) {
@@ -1103,7 +1079,7 @@ public class CheckoutFinal extends Fragment {
         orderDetails.setTaxZoneId(shippingAddress.getZoneId());
         orderDetails.setTotalTax(checkoutTax);
         orderDetails.setShippingCost(checkoutShipping);
-        orderDetails.setShippingMethod(shippingMethod.getName());
+   
 
         orderDetails.setComments(checkout_comments.getText().toString().trim());
 
