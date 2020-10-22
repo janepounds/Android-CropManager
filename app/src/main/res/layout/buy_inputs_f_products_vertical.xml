@@ -84,7 +84,7 @@
                 android:clickable="false"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/toggle_ic_filter"
+                app:srcCompat="@drawable/toggle_ic_filter"
                 android:tint="@color/black" />
 
             <TextView

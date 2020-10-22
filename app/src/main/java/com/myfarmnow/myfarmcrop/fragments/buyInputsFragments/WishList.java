@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductAdapterRemovable;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
@@ -86,7 +87,7 @@ public class WishList extends Fragment {
        // noInternetDialog.show();
 
         // Get the CustomerID from SharedPreferences
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
 
 
         // Binding Layout Views

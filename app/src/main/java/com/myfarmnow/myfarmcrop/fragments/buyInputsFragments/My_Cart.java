@@ -1,6 +1,5 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,12 +15,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,7 +31,6 @@ import com.myfarmnow.myfarmcrop.activities.Login;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.CartItemsAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
-import com.myfarmnow.myfarmcrop.dailogs.SearchMerchantForPairing;
 import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProductAttributes;
@@ -45,6 +41,8 @@ import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductStock;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +51,12 @@ import am.appwise.components.ni.NoInternetDialog;
 import retrofit2.Call;
 import retrofit2.Response;
 
-
 public class My_Cart extends Fragment {
     private static final String TAG = "My_Cart";
     String customerID;
     RecyclerView cart_items_recycler;
     LinearLayout cart_view, cart_view_empty;
-    Button cart_checkout_btn, continue_shopping_btn,cart_pair_btn;
+    Button cart_checkout_btn, continue_shopping_btn,clear_cart;
     NestedScrollView mainRvLayout;
     public TextView cart_item_subtotal_price, cart_item_discount_price, cart_item_total_price;
 
@@ -75,11 +72,12 @@ public class My_Cart extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+
         if (!hidden) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
         }
-    }
 
+    }
 
     @Nullable
     @Override
@@ -96,12 +94,9 @@ public class My_Cart extends Fragment {
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
-
-
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         // Get the List of Cart Items from the Local Databases User_Cart_DB
         finalCartItemsList = cartItemsList = user_cart_BuyInputs_db.getCartItems();
-
 
         // Binding Layout Views
         cart_view = rootView.findViewById(R.id.cart_view);
@@ -112,24 +107,18 @@ public class My_Cart extends Fragment {
         mainRvLayout = rootView.findViewById(R.id.mainRvLayout);
 //        cart_item_subtotal_price = rootView.findViewById(R.id.cart_item_subtotal_price);
         cart_item_total_price = rootView.findViewById(R.id.cart_item_total_price);
+        clear_cart = rootView.findViewById(R.id.btn_clear_cart);
 //        cart_item_discount_price = rootView.findViewById(R.id.cart_item_discount_price);
-
 
         // Change the Visibility of cart_view and cart_view_empty LinearLayout based on CartItemsList's Size
         if (cartItemsList.size() != 0) {
             cart_view.setVisibility(View.VISIBLE);
-
-
-
-//            ((AppCompatActivity) getActivity()).getSupportActionBar().getV
-
 
             cart_view_empty.setVisibility(View.GONE);
         } else {
             cart_view.setVisibility(View.GONE);
             cart_view_empty.setVisibility(View.VISIBLE);
         }
-
 
         // Initialize the AddressListAdapter for RecyclerView
         cartItemsAdapter = new CartItemsAdapter(getContext(), finalCartItemsList, My_Cart.this);
@@ -138,65 +127,77 @@ public class My_Cart extends Fragment {
         cart_items_recycler.setAdapter(cartItemsAdapter);
         cart_items_recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-
         // Show the Cart's Total Price with the help of static method of CartItemsAdapter
         cartItemsAdapter.setCartTotal();
 
-
         cartItemsAdapter.notifyDataSetChanged();
 
-
-        // Handle Click event of continue_shopping_btn Button
-        continue_shopping_btn.setOnClickListener(new View.OnClickListener() {
+        clear_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isSubFragment", false);
 
-                // Navigate to Products Fragment
-                Fragment fragment = new Products();
-                fragment.setArguments(bundle);
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .detach(fragment)
-                        .attach(fragment)
-                        .addToBackStack(getString(R.string.actionCart)).commit();
+
+                // Delete CartItem from Local Database using static method of My_Cart
+                ClearCart();
+
+
+
+                // Calculate Cart's Total Price Again
+                cartItemsAdapter.setCartTotal();
+
+                // Remove CartItem from Cart List
+                cartItemsList.clear();
+
+                // Notify that item at position has been removed
+                cartItemsAdapter.notifyDataSetChanged();
+
+                // Update Cart View from Local Database using static method of My_Cart
+                updateCartView(cartItemsList.size());
 
             }
         });
+        // Handle Click event of continue_shopping_btn Button
+        continue_shopping_btn.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isSubFragment", false);
 
+            // Navigate to Products Fragment
+            Fragment fragment = new Products();
+            fragment.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.main_fragment_container, fragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .detach(fragment)
+                    .attach(fragment)
+                    .addToBackStack(getString(R.string.actionCart)).commit();
+        });
 
         // Handle Click event of cart_checkout_btn Button
-        cart_checkout_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("CheckoutWarning: ", "checkout  "+ConstantValues.MAINTENANCE_MODE);
+        cart_checkout_btn.setOnClickListener(view -> {
+            Log.e("CheckoutWarning: ", "checkout  " + ConstantValues.MAINTENANCE_MODE);
 
-                if (ConstantValues.MAINTENANCE_MODE != null) {
-                    if (ConstantValues.MAINTENANCE_MODE.equalsIgnoreCase("Maintenance"))
-                        showDialog(ConstantValues.MAINTENANCE_TEXT);
-                    else {
-                        // Check if cartItemsList isn't empty
-                        if (cartItemsList.size() != 0) {
+            if (ConstantValues.MAINTENANCE_MODE != null) {
+                if (ConstantValues.MAINTENANCE_MODE.equalsIgnoreCase("Maintenance"))
+                    showDialog(ConstantValues.MAINTENANCE_TEXT);
+                else {
+                    // Check if cartItemsList isn't empty
+                    if (cartItemsList.size() != 0) {
 
-                            // Check if User is Logged-In
-                            if (ConstantValues.IS_USER_LOGGED_IN) {
-
-                                Log.e("VC_Shop", "checkout executes  ");
-                                new CheckStockTask().execute();
-                            } else {
-                                // Navigate to Login Activity
-                                Intent i = new Intent(getContext(), Login.class);
-                                getContext().startActivity(i);
-                                ((DashboardActivity) getContext()).finish();
-                                ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-                            }
+                        // Check if User is Logged-In
+                        if (ConstantValues.IS_USER_LOGGED_IN) {
+                            Log.e("VC_Shop", "checkout executes  ");
+                            new CheckStockTask().execute();
+                        } else {
+                            // Navigate to Login Activity
+                            Intent i = new Intent(getContext(), Login.class);
+                            getContext().startActivity(i);
+                            ((DashboardActivity) getContext()).finish();
+                            ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                         }
-
                     }
+
                 }
             }
         });
@@ -243,10 +244,8 @@ public class My_Cart extends Fragment {
 //            }
 //        });
 
-
         return rootView;
     }
-
 
     //*********** Change the Layout View of My_Cart Fragment based on Cart Items ********//
 
@@ -262,11 +261,9 @@ public class My_Cart extends Fragment {
         }
     }
 
-
     //*********** Used to Share the App with Others ********//
 
     private void showDialog(String str) {
-
         android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(getContext());
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.buy_inputs_dialog_maintenance, null);
@@ -281,15 +278,8 @@ public class My_Cart extends Fragment {
         final android.app.AlertDialog alertDialog = dialog.create();
         alertDialog.show();
 
-
-        dialog_button_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
+        dialog_button_positive.setOnClickListener(v -> alertDialog.dismiss());
     }
-
 
     //*********** Static method to Add the given Item to User's Cart ********//
 
@@ -301,17 +291,14 @@ public class My_Cart extends Fragment {
                 );
     }
 
-
     //*********** Static method to Get the Cart Product based on product_id ********//
 
     public static CartProduct GetCartProduct(int product_id) {
         User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
-
         CartProduct cartProduct = user_cart_BuyInputs_db.getCartProduct
                 (
                         product_id
                 );
-
         return cartProduct;
     }
 
@@ -330,7 +317,6 @@ public class My_Cart extends Fragment {
                 );
     }
 
-
     //*********** Static method to Delete the given Item from User's Cart ********//
 
     public static void DeleteCartItem(int cart_item_id) {
@@ -342,13 +328,13 @@ public class My_Cart extends Fragment {
     }
 
 
+
     //*********** Static method to Clear User's Cart ********//
 
     public static void ClearCart() {
         User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
         user_cart_BuyInputs_db.clearCart();
     }
-
 
     //*********** Static method to get total number of Items in User's Cart ********//
 
@@ -365,7 +351,6 @@ public class My_Cart extends Fragment {
         return cartSize;
     }
 
-
     //*********** Static method to check if the given Product is already in User's Cart ********//
 
     public static boolean checkCartHasProduct(int cart_item_id) {
@@ -373,22 +358,23 @@ public class My_Cart extends Fragment {
         return user_cart_BuyInputs_db.getCartItemsIDs().contains(cart_item_id);
     }
 
-    public static boolean checkCartHasProductAndMeasure(int cart_item_id,String weight) {
-
+    public static boolean checkCartHasProductAndMeasure(int cart_item_id, String weight) {
         boolean result = false;
-      ArrayList<CartProduct>  user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id,weight);
-      for(CartProduct cartProduct : user_cart_BuyInputs_db){
-          if(cartProduct.getCustomersBasketProduct().getSelectedProductsWeight().equals(weight)){
-             result = true;
-          }else{
-              result =  false;
-          }
-      }
-     return result;
+
+        ArrayList<CartProduct> user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id, weight);
+        for (CartProduct cartProduct : user_cart_BuyInputs_db) {
+            if (cartProduct.getCustomersBasketProduct().getSelectedProductsWeight().equals(weight)) {
+                result = true;
+            } else {
+                result = false;
+            }
+        }
+
+        return result;
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NotNull MenuInflater inflater) {
         // Hide Cart Icon in the Toolbar
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
         MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
@@ -558,6 +544,7 @@ public class My_Cart extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialogLoader.hideProgressDialog();
+
             if (isAllStockValid(stocks)) {
                 Fragment fragment = new My_Addresses(My_Cart.this);
                 FragmentManager fragmentManager = getFragmentManager();
@@ -567,6 +554,7 @@ public class My_Cart extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Your Product in the cart is out of stock.", Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 

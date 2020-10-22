@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.OrdersListAdapter;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
@@ -74,7 +75,7 @@ public class My_Orders extends Fragment {
         //noInternetDialog.show();
 
         // Get the CustomerID from SharedPreferences
-        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         
         Log.d("customerID",customerID+" "+ConstantValues.LANGUAGE_ID+" "+ConstantValues.CURRENCY_CODE);
 

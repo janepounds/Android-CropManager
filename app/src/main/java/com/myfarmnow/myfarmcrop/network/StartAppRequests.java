@@ -10,7 +10,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.address_model.AddressData;
+import com.myfarmnow.myfarmcrop.models.address_model.RegionDetails;
 import com.myfarmnow.myfarmcrop.models.address_model.Regions;
 import com.myfarmnow.myfarmcrop.models.banner_model.BannerData;
 import com.myfarmnow.myfarmcrop.models.category_model.CategoryData;
@@ -26,6 +28,8 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,12 +43,17 @@ import static android.content.Context.MODE_PRIVATE;
  **/
 
 public class StartAppRequests {
+    private static final String TAG = "StartAppRequests";
+    private List<Regions> dataList = new ArrayList<>();
+    private MyFarmDbHandlerSingleton dbHandler;
+    private Context context;
 
     private CropManagerApp cropManagerApp = new CropManagerApp();
 
 
     public StartAppRequests(Context context) {
         cropManagerApp = ((CropManagerApp) context.getApplicationContext());
+        this.context = context;
     }
 
 
@@ -61,9 +70,11 @@ public class StartAppRequests {
     }
 
     public void RequestAllRegions() {
-
+        dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
+        int regionId =dbHandler.getMaxRegionId();
+        Log.d(TAG, "RequestAllRegions: "+ regionId);
         Call<Regions> call = BuyInputsAPIClient.getInstance()
-                .getAllRegions();
+                .getAllRegions(regionId);
         try {
             Response<Regions> response = call.execute();
 
@@ -74,12 +85,16 @@ public class StartAppRequests {
                 regionsData = response.body();
                 //Log.e("DataCheck0: ",appSettingsData.getAppDetails().getMaintenance_text());
                 String strJson = new Gson().toJson(regionsData);
+                List<RegionDetails> regionDetails = regionsData.getData();
 
+                 dbHandler.insertRegionDetails(regionDetails);
 //                if (!TextUtils.isEmpty(regionsData.getSuccess()))
 //                    cropManagerApp.setAppSettingsDetails(regionsData.getData());
+                Log.d(TAG, "RequestAllRegions: " + regionDetails);
             }
             else {
-                Log.e("Regions","Response is not successful");
+                Log.e(TAG, "RequestAllRegions: Response is not successful");
+
             }
 
         } catch (IOException e) {

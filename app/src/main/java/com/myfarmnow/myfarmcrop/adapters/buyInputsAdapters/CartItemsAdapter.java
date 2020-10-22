@@ -120,10 +120,10 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
             Glide.with(context).load(ConstantValues.ECOMMERCE_URL+ cartProduct.getCustomersBasketProduct().getProductsImage()).into(holder.cart_item_cover);
     
             holder.cart_item_title.setText(cartProduct.getCustomersBasketProduct().getProductsName());
-            holder.cart_item_category.setText(cartProduct.getCustomersBasketProduct().getCategoryNames());
+            //holder.cart_item_category.setText(cartProduct.getCustomersBasketProduct().getCategoryNames());
             holder.cart_item_quantity.setText("" + cartProduct.getCustomersBasketProduct().getCustomersBasketQuantity());
             holder.cart_item_base_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getProductsPrice())));
-            holder.cart_item_sub_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getTotalPrice())));
+            //holder.cart_item_sub_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getTotalPrice())));
 
             holder.cart_item_measure.setText(cartProduct.getCustomersBasketProduct().getSelectedProductsWeight() + " " + cartProduct.getCustomersBasketProduct().getSelectedProductsWeightUnit());
     

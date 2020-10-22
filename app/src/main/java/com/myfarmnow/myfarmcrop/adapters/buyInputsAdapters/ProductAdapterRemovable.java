@@ -71,7 +71,7 @@ public class ProductAdapterRemovable extends RecyclerView.Adapter<ProductAdapter
         this.emptyText = emptyText;
 
         recents_db = new User_Recents_BuyInputsDB();
-        customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("userID", "");
+        customerID = this.context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         setupDefaultLayoutId();
     }
 

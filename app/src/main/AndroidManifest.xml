@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.myfarmnow.myfarmcrop">
 
+    <uses-permission android:name="com.google.android.providers.gsf.permission.
+   READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,11 +30,15 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-        <!--    Editted by saud. above meta data tag does not works with place picker api. -->
+        <!--Google MAP API key-->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/maps_api_key"/>
+            android:value="@string/google_maps_key" />
 
         <service
             android:name=".services.CropNotificationsFireService"
@@ -87,13 +93,12 @@
         <activity
             android:name=".activities.farmrecords.FarmRecordsDashboardActivity"
             android:label="@string/title_farm_records"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.agronomy.AgronomyDashboardActivity"
             android:label="@string/title_agronomy"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activities.predictiontools.PredictionToolsDashboardActivity"
@@ -107,7 +112,7 @@
             android:name=".activities.DashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -120,8 +125,8 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:theme="@style/MySplashScreen">
+            android:theme="@style/MySplashScreen"
+            tools:ignore="LockedOrientationActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -131,8 +136,7 @@
 
         <activity
             android:name=".activities.Login"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.SignUp"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -144,7 +148,7 @@
         <activity android:name=".activities.wallet.WalletPurchaseCardPreviewActivity" />
 
 
-        <activity android:name=".activities.wallet.WalletHomeActivity"/>
+        <activity android:name=".activities.wallet.WalletHomeActivity" />
         <activity
             android:name=".activities.wallet.WalletAuthActivity"
             android:label="Authentication" />
@@ -165,7 +169,8 @@
 
         <!-- Firebase Notifications -->
 
-        <service android:name=".services.MyFirebaseInstanceIdService"
+        <service
+            android:name=".services.MyFirebaseInstanceIdService"
             android:permission="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

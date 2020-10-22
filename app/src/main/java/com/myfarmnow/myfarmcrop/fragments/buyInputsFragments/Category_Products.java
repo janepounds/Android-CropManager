@@ -113,7 +113,7 @@ public class Category_Products extends Fragment {
 
         DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
         // Get the Customer's ID from SharedPreferences
-        customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
+        customerID = getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
 
         // Binding Layout Views
         TopBar = rootView.findViewById(R.id.topBar);

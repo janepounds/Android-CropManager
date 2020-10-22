@@ -48,8 +48,6 @@ public class Nearby_Merchants extends Fragment {
     List<CartProduct> checkoutItemsList;
 
     AddressDetails shippingAddress;
-    private ShippingService shippingService;
-    String tax;
 
     MerchantsListAdapter merchantsListAdapter;
 
