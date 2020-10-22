@@ -39,14 +39,13 @@ public class MerchantProductListAdapter  extends RecyclerView.Adapter<MerchantPr
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final String product = this.productNameList.get(position);
 
-       // Log.w("Product",product.toString()+" "+this.productList.get(product));
         int productprice=0;
         if(this.productList.get(product)!=null)
             productprice=Integer.parseInt(this.productList.get(product));
 
-        holder.productprice.setText( productprice>0? context.getString(R.string.defaultcurrency)+" "+productprice : "Not Available");
+        holder.productPrice.setText( productprice>0? context.getString(R.string.defaultcurrency)+" "+productprice : "Not Available");
 
-        holder.productname.setText(product);
+        holder.productName.setText(product);
     }
 
     @Override
@@ -56,13 +55,12 @@ public class MerchantProductListAdapter  extends RecyclerView.Adapter<MerchantPr
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView productname, productprice;
+        private TextView productName, productPrice;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-            productprice = itemView.findViewById(R.id.productprice);
-            productname = itemView.findViewById(R.id.prductname);
-
+            productName = itemView.findViewById(R.id.productName);
+            productPrice = itemView.findViewById(R.id.productPrice);
         }
     }
 }

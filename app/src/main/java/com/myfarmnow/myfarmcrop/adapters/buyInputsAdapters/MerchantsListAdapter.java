@@ -49,14 +49,12 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
     }
 
 
-
-    public MerchantsListAdapter(Context context, List<MerchantDetails> merchantsList,  My_Cart my_cart, FragmentManager fragmentManager) {
+    public MerchantsListAdapter(Context context, List<MerchantDetails> merchantsList, My_Cart my_cart, FragmentManager fragmentManager) {
         this.context = context;
         this.merchantsList = merchantsList;
         this.my_cart = my_cart;
-        this.fragmentManager=fragmentManager;
+        this.fragmentManager = fragmentManager;
     }
-
 
 
     //********** Called to Inflate a Layout from XML and then return the Holder *********//
@@ -64,11 +62,10 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
     @Override
     public MyViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         // Inflate the custom layout
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.buy_inputs_card_merchants, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.buy_inputs_card_merchants/*buy_inputs_card_merchants*/, parent, false);
 
         return new MyViewHolder(itemView);
     }
-
 
 
     //********** Called by RecyclerView to display the Data at the specified Position *********//
@@ -81,96 +78,83 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
 
         holder.merchants_businessName.setText(merchantsDetails.getBusinessName());
         holder.merchant_location.setText(merchantsDetails.getAddress());
-        int order_price=merchantsDetails.getTotalOrderPrice();
-        holder.order_price.setText( order_price>0? context.getString(R.string.defaultcurrency)+" "+order_price : "N/A");
+        int order_price = merchantsDetails.getTotalOrderPrice();
+        holder.order_price.setText(order_price > 0 ? context.getString(R.string.defaultcurrency) + " " + order_price : "N/A");
 
         //MerchantProductListAdapter
         // Initialize the merchantsListAdapter for RecyclerView
-        RecyclerView productsts_recycler=holder.order_products_list;
-        final Map<String, String> producttList = merchantsDetails.getProductPrices();
-        ArrayList<String> productNameList=new  ArrayList<String>();
+        RecyclerView productsRecyclerView = holder.order_products_list;
+        final Map<String, String> productList = merchantsDetails.getProductPrices();
+        ArrayList<String> productNameList = new ArrayList<String>();
 
-        for (Map.Entry<String,String> entry : producttList.entrySet())  {
+        for (Map.Entry<String, String> entry : productList.entrySet()) {
             productNameList.add(entry.getKey());
         }
 
-        MerchantProductListAdapter producttsListAdapter = new MerchantProductListAdapter(this.context, productNameList,producttList);
+        MerchantProductListAdapter productsListAdapter = new MerchantProductListAdapter(this.context, productNameList, productList);
         // Set the Adapter and LayoutManager to the RecyclerView
-        productsts_recycler.setAdapter(producttsListAdapter);
+        productsRecyclerView.setAdapter(productsListAdapter);
 
-        productsts_recycler.setHasFixedSize(true);
+        productsRecyclerView.setHasFixedSize(true);
 
-        productsts_recycler.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.VERTICAL, false));
-        if(productNameList.size()>7)
-            productsts_recycler.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150));
+        productsRecyclerView.setLayoutManager(new LinearLayoutManager(this.context, RecyclerView.VERTICAL, false));
+        if (productNameList.size() > 7)
+            productsRecyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150));
 
-        producttsListAdapter.notifyDataSetChanged();
+        productsListAdapter.notifyDataSetChanged();
 
 
         final AddressDetails shippingAddress = ((CropManagerApp) context.getApplicationContext()).getShippingAddress();
 
-        holder.select_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if( !holder.order_price.getText().toString().equalsIgnoreCase("N/A")) {
+        holder.select_btn.setOnClickListener(v -> {
+            if (!holder.order_price.getText().toString().equalsIgnoreCase("N/A")) {
 
-                    User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
-                    List<CartProduct> checkoutItemsList =  user_cart_BuyInputs_db.getCartItems();//get checkout items
+                User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
+                List<CartProduct> checkoutItemsList = user_cart_BuyInputs_db.getCartItems();//get checkout items
 
-                    for (int i = 0; i < checkoutItemsList.size(); i++) {//update Cart product Prices
+                for (int i = 0; i < checkoutItemsList.size(); i++) {
+                    //update Cart product Prices
+                    ProductDetails product_details = checkoutItemsList.get(i).getCustomersBasketProduct();
+                    CartProduct cart_product = checkoutItemsList.get(i);
 
-                        ProductDetails product_details=checkoutItemsList.get(i).getCustomersBasketProduct();
-                        CartProduct cart_product=checkoutItemsList.get(i);
+                    //NB:CONVENTION product price in the producttList is also null if product is out of stoke
+                    if (productList.get(product_details.getProductsName()) != null) {//Merchant sells the product
+                        product_details.setProductsPrice(productList.get(product_details.getProductsName()));
+                        product_details.setTotalPrice((product_details.getCustomersBasketQuantity() * Integer.parseInt(productList.get(product_details.getProductsName()))) + "");
+                        product_details.setProductsFinalPrice(product_details.getTotalPrice());
+                        Log.w("PdtCost", productList.get(product_details.getProductsName()) + " " + product_details.getCustomersBasketQuantity() + " " + product_details.getTotalPrice());
 
-                        //NB:CONVENTION product price in the producttList is also null if product is out of stoke
-                        if( producttList.get( product_details.getProductsName())!=null ){//Merchant sells the product
-                            product_details.setProductsPrice( producttList.get( product_details.getProductsName()) );
-                            product_details.setTotalPrice( (product_details.getCustomersBasketQuantity() * Integer.parseInt(producttList.get( product_details.getProductsName())) )+"" );
-                            product_details.setProductsFinalPrice(product_details.getTotalPrice());
-                            Log.w("PdtCost",producttList.get( product_details.getProductsName())+" "+product_details.getCustomersBasketQuantity()+" "+product_details.getTotalPrice());
+                        checkoutItemsList.get(i).setCustomersBasketProduct(product_details);
+                        user_cart_BuyInputs_db.updateCart(cart_product);
+                    } else {
 
-                            checkoutItemsList.get(i).setCustomersBasketProduct(product_details);
-                            user_cart_BuyInputs_db.updateCart( cart_product);
-                        }else {
-
-                            user_cart_BuyInputs_db.deleteCartItem(cart_product.getCustomersBasketId());
-                        }
-
-
-                    }//end Cart product update
-
-                    final String tax = "0";
-                    final ShippingService shippingService = new ShippingService();
-                    shippingService.setName(shippingAddress.getFirstname() + shippingAddress.getLastname() != null ? " " + shippingAddress.getLastname() : "");
-                    shippingService.setCurrencyCode(context.getString(R.string.defaultcurrency));
-                    if(merchantsDetails.getDistance()==null)
-                        shippingService.setRate("0");
-                    else
-                        shippingService.setRate("" + 2000*(Math.round(Float.parseFloat(merchantsDetails.getDistance())*10)/10) );
-
-                    // Save the AddressDetails
-                    ((CropManagerApp) context.getApplicationContext()).setTax(tax);
-                    ((CropManagerApp) context.getApplicationContext()).setShippingService(shippingService);
-
-                    // Navigate to CheckoutFinal Fragment
-                    Fragment fragment = new CheckoutFinal(my_cart, user_cart_BuyInputs_db,merchantsDetails.getMerchantId()+"");
-                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment, context.getString(R.string.checkout))
-                            .addToBackStack(null).commit();
+                        user_cart_BuyInputs_db.deleteCartItem(cart_product.getCustomersBasketId());
+                    }
                 }
+                //end Cart product update
 
+                final String tax = "0";
+                final ShippingService shippingService = new ShippingService();
+                shippingService.setName(shippingAddress.getFirstname() + shippingAddress.getLastname() != null ? " " + shippingAddress.getLastname() : "");
+                shippingService.setCurrencyCode(context.getString(R.string.defaultcurrency));
+                if (merchantsDetails.getDistance() == null)
+                    shippingService.setRate("0");
+                else
+                    shippingService.setRate("" + 2000 * (Math.round(Float.parseFloat(merchantsDetails.getDistance()) * 10) / 10));
+
+                // Save the AddressDetails
+                ((CropManagerApp) context.getApplicationContext()).setTax(tax);
+                ((CropManagerApp) context.getApplicationContext()).setShippingService(shippingService);
+
+                // Navigate to CheckoutFinal Fragment
+                Fragment fragment = new CheckoutFinal(my_cart, user_cart_BuyInputs_db, merchantsDetails.getMerchantId() + "");
+                fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment, context.getString(R.string.checkout))
+                        .addToBackStack(null).commit();
             }
         });
 
-        holder.ignore_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeItem(position);
-
-            }
-        });
-
+        holder.ignore_btn.setOnClickListener(v -> removeItem(position));
     }
-
 
     //********** Returns the total number of items in the data set *********//
 
@@ -179,8 +163,7 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
         return merchantsList.size();
     }
 
-    public void removeItem(int position)
-    {
+    public void removeItem(int position) {
         // Remove specified position
         merchantsList.remove(position);
         // Notify adapter to remove the position
@@ -195,7 +178,7 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView merchants_businessName, merchant_location,order_price;
+        private TextView merchants_businessName, merchant_location, order_price;
         private RecyclerView order_products_list;
         private Button select_btn, ignore_btn;
 
@@ -208,16 +191,11 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
             order_products_list = itemView.findViewById(R.id.product_order_list);
             select_btn = itemView.findViewById(R.id.select_btn);
             ignore_btn = itemView.findViewById(R.id.ignore_btn);
-
         }
     }
 
-
-    public void setOnClick(OnItemClicked onClick)
-    {
-        this.onClick=onClick;
+    public void setOnClick(OnItemClicked onClick) {
+        this.onClick = onClick;
     }
-
-
 }
 
