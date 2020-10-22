@@ -26,7 +26,6 @@ import com.myfarmnow.myfarmcrop.models.address_model.AddressDetails;
 
 import java.util.List;
 
-
 /**
  * AddressListAdapter is the adapter class of RecyclerView holding List of Addresses in My_Addresses
  **/
@@ -43,8 +42,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     // To keep track of Checked Radio Button
     private RadioButton lastChecked_RB = null;
     My_Addresses parentFrag;
-
-
 
     public AddressListAdapter(My_Addresses my_addresses, Context context, String customerID, int defaultAddressPosition, List<AddressDetails> addressList, My_Addresses parentFrag) {
         this.my_addresses = my_addresses;
@@ -66,8 +63,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
         return new MyViewHolder(itemView);
     }
-
-
 
     //********** Called by RecyclerView to display the Data at the specified Position *********//
 
@@ -91,41 +86,29 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         }
 
         // Check the Clicked RadioButton
-        View.OnClickListener onselctListener =new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        View.OnClickListener onSelectListener = view -> {
 
-                if (lastChecked_RB != null) {
-                    lastChecked_RB.setChecked(false);
-                }
+            if (lastChecked_RB != null) {
+                lastChecked_RB.setChecked(false);
+            }
 
+            if(parentFrag.my_cart!=null) {
+                lastChecked_RB.setChecked(true);
 
-
-                if(parentFrag.my_cart!=null) {
-                    lastChecked_RB.setChecked(true);
-
-                    ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
-                    Fragment fragment = new Nearby_Merchants(parentFrag.my_cart);
-                    FragmentManager fragmentManager = parentFrag.getFragmentManager();
-                    fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
-                            .addToBackStack(context.getString(R.string.select_merchants_fragment)).commit();
-                }else{
-                    // Request the Server to Change Default Address
-                    //buy_inputs_my__addresses.MakeAddressDefault(customerID, addressID, context, view);
-                }
-
-
+                ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
+                Fragment fragment = new Nearby_Merchants(parentFrag.my_cart);
+                FragmentManager fragmentManager = parentFrag.getFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
+                        .addToBackStack(context.getString(R.string.select_merchants_fragment)).commit();
+            }else{
+                // Request the Server to Change Default Address
+                //buy_inputs_my__addresses.MakeAddressDefault(customerID, addressID, context, view);
             }
         };
-        holder.cardview_perant.setOnClickListener(onselctListener);
-        holder.makeDefault_rb.setOnClickListener(onselctListener);
+        holder.cardview_perant.setOnClickListener(onSelectListener);
+        holder.makeDefault_rb.setOnClickListener(onSelectListener);
 
-        holder.delete_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                my_addresses.DeleteAddress(customerID, addressID, context, holder.delete_address);
-            }
-        });
+        holder.delete_address.setOnClickListener(v -> my_addresses.DeleteAddress(customerID, addressID, context, holder.delete_address));
 
         // Edit relevant Address
         holder.edit_address.setOnClickListener(new View.OnClickListener() {
