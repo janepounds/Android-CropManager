@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
 import com.myfarmnow.myfarmcrop.models.address_model.AddressDetails;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ import java.util.List;
  **/
 
 public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.MyViewHolder> {
+    private static final String TAG = "AddressListAdapter";
 
     Context context;
     String customerID;
@@ -40,7 +43,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     private int selectedPosition;
 
     // To keep track of Checked Radio Button
-    private RadioButton lastChecked_RB = null;
+    private RadioButton lastChecked_RB;
     My_Addresses parentFrag;
 
     public AddressListAdapter(My_Addresses my_addresses, Context context, String customerID, int defaultAddressPosition, List<AddressDetails> addressList, My_Addresses parentFrag) {
@@ -51,8 +54,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         this.selectedPosition = defaultAddressPosition;
         this.parentFrag = parentFrag;
     }
-
-
 
     //********** Called to Inflate a Layout from XML and then return the Holder *********//
 
@@ -73,79 +74,73 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
         final String addressID = String.valueOf(addressDetails.getAddressId());
 
-        holder.address_title.setText( addressDetails.getLastname()!=null? addressDetails.getFirstname() +" "+addressDetails.getLastname() : addressDetails.getFirstname() );
-        holder.address_details.setText(addressDetails.getStreet() +", "+ addressDetails.getCity() +", "+ addressDetails.getCountryName());
-        
+        holder.address_title.setText(addressDetails.getLastname() != null ? addressDetails.getFirstname() + " " + addressDetails.getLastname() : addressDetails.getFirstname());
+        holder.address_details.setText(addressDetails.getStreet() + ", " + addressDetails.getCity() + ", " + addressDetails.getCountryName());
 
-        // Toggle the Default Address RadioButton with Position
-        if (addressDetails.getDefaultAddress() == 1) {
-            holder.makeDefault_rb.setChecked(true);
-            lastChecked_RB = holder.makeDefault_rb;
-        } else {
-            holder.makeDefault_rb.setChecked(false);
+        SharedPreferenceHelper preferenceHelper = new SharedPreferenceHelper(context);
+        if ((preferenceHelper.getDefaultLatitude() != null) && (preferenceHelper.getDefaultLongitude() != null)) {
+            if ((preferenceHelper.getDefaultLatitude().equals(String.valueOf(addressDetails.getLatitude()))) && (preferenceHelper.getDefaultLongitude().equals(String.valueOf(addressDetails.getLongitude())))) {
+                holder.makeDefault_rb.setChecked(true);
+            }
         }
+
+        Log.d(TAG, "onBindViewHolder: Latitude = " + addressDetails.getLatitude());
+        Log.d(TAG, "onBindViewHolder: Longitude = " + addressDetails.getLongitude());
 
         // Check the Clicked RadioButton
         View.OnClickListener onSelectListener = view -> {
+            preferenceHelper.setDefaultAddress(String.valueOf(addressDetails.getLongitude()), String.valueOf(addressDetails.getLatitude()));
+            holder.makeDefault_rb.setChecked(true);
+            Log.d(TAG, "onBindViewHolder: DefaultLatitude = " + preferenceHelper.getDefaultLatitude());
+            Log.d(TAG, "onBindViewHolder: DefaultLongitude = " + preferenceHelper.getDefaultLongitude());
 
-            if (lastChecked_RB != null) {
-                lastChecked_RB.setChecked(false);
-            }
-
-            if(parentFrag.my_cart!=null) {
-                lastChecked_RB.setChecked(true);
-
+            if (parentFrag.my_cart != null) {
                 ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
                 Fragment fragment = new Nearby_Merchants(parentFrag.my_cart);
                 FragmentManager fragmentManager = parentFrag.getFragmentManager();
                 fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
                         .addToBackStack(context.getString(R.string.select_merchants_fragment)).commit();
-            }else{
+            } else {
                 // Request the Server to Change Default Address
                 //buy_inputs_my__addresses.MakeAddressDefault(customerID, addressID, context, view);
             }
         };
+
         holder.cardview_perant.setOnClickListener(onSelectListener);
         holder.makeDefault_rb.setOnClickListener(onSelectListener);
 
         holder.delete_address.setOnClickListener(v -> my_addresses.DeleteAddress(customerID, addressID, context, holder.delete_address));
 
         // Edit relevant Address
-        holder.edit_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Set the current Address Info to Bundle
-                Bundle addressInfo = new Bundle();
-                addressInfo.putBoolean("isUpdate", true);
-                addressInfo.putString("addressID", addressID);
-                addressInfo.putString("addressFirstname", addressDetails.getFirstname());
-                addressInfo.putString("addressLastname", addressDetails.getLastname());
-                addressInfo.putString("addressCountryName", addressDetails.getCountryName());
-                addressInfo.putString("addressCountryID", ""+addressDetails.getCountriesId());
-                addressInfo.putString("addressZoneName", addressDetails.getZoneName());
-                addressInfo.putString("addressZoneID", ""+addressDetails.getZoneId());
-                addressInfo.putString("addressState", addressDetails.getState());
-                addressInfo.putString("addressCity", addressDetails.getCity());
-                addressInfo.putString("addressStreet", addressDetails.getStreet());
-                addressInfo.putString("addressPostCode", addressDetails.getPostcode());
-                addressInfo.putString("addressPhone", addressDetails.getPhone());
-                addressInfo.putString("addressLocation", addressDetails.getLatitude()+", "+addressDetails.getLongitude());
-                // Navigate to Add_Address Fragment with arguments to Edit Address
+        holder.edit_address.setOnClickListener(view -> {
+            // Set the current Address Info to Bundle
+            Bundle addressInfo = new Bundle();
+            addressInfo.putBoolean("isUpdate", true);
+            addressInfo.putString("addressID", addressID);
+            addressInfo.putString("addressFirstname", addressDetails.getFirstname());
+            addressInfo.putString("addressLastname", addressDetails.getLastname());
+            addressInfo.putString("addressCountryName", addressDetails.getCountryName());
+            addressInfo.putString("addressCountryID", "" + addressDetails.getCountriesId());
+            addressInfo.putString("addressZoneName", addressDetails.getZoneName());
+            addressInfo.putString("addressZoneID", "" + addressDetails.getZoneId());
+            addressInfo.putString("addressState", addressDetails.getState());
+            addressInfo.putString("addressCity", addressDetails.getCity());
+            addressInfo.putString("addressStreet", addressDetails.getStreet());
+            addressInfo.putString("addressPostCode", addressDetails.getPostcode());
+            addressInfo.putString("addressPhone", addressDetails.getPhone());
+            addressInfo.putString("addressLocation", addressDetails.getLatitude() + ", " + addressDetails.getLongitude());
+            // Navigate to Add_Address Fragment with arguments to Edit Address
 
-                ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
-                Fragment fragment = new Shipping_Address(null,parentFrag);
-                fragment.setArguments(addressInfo);
-                FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(null).commit();
-            }
+            ((CropManagerApp) context.getApplicationContext()).setShippingAddress(addressDetails);
+            Fragment fragment = new Shipping_Address(null, parentFrag);
+            fragment.setArguments(addressInfo);
+            FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.main_fragment_container, fragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .addToBackStack(null).commit();
         });
-
     }
-
-
 
     //********** Returns the total number of items in the data set *********//
 
@@ -154,17 +149,13 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         return addressList.size();
     }
 
-
-
     /********** Custom ViewHolder provides a direct reference to each of the Views within a Data_Item *********/
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         Button edit_address, delete_address;
         RadioButton makeDefault_rb;
         TextView address_title, address_details;
         CardView cardview_perant;
-
 
         public MyViewHolder(final View itemView) {
             super(itemView);
