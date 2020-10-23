@@ -189,6 +189,12 @@ public class Nearby_Merchants extends Fragment {
         // Add merchants to merchantsList from the List of OrderData
         this.merchantList = merchantData.getData();
 
+        for (int position=0; position< this.merchantList.size(); position++) {
+            if(this.merchantList.get(position).getTotalOrderPrice()<=0){
+                this.merchantList.remove(position);
+            }
+        }
+
         // Initialize the merchantsListAdapter for RecyclerView
         this.merchantsListAdapter = new MerchantsListAdapter(getContext(), merchantList,this.my_cart, getFragmentManager());
         // Set the Adapter and LayoutManager to the RecyclerView

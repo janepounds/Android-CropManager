@@ -313,5 +313,12 @@ public class My_Addresses extends Fragment {
         searchItem.setVisible(false);
         cartItem.setVisible(false);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Request for User's Addresses
+        RequestAllAddresses(rootView);
+    }
 }
 

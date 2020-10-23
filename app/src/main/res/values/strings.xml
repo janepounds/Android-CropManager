@@ -1869,7 +1869,7 @@
     <string name="order_address"> Order Address </string>
     <string name="order_details"> Order Details </string>
     <string name="order_confirmed"> Order Confirmed </string>
-    <string name="order_notes"> Order Notes </string>
+    <string name="order_notes"> Order Instructions </string>
     <string name="order_comments"> Order Comments </string>
     <string name="no_of_products"> No. of Products </string>
 
