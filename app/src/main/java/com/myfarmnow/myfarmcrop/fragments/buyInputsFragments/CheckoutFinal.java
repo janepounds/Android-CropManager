@@ -39,6 +39,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -175,14 +176,13 @@ public class CheckoutFinal extends Fragment {
 
     private static PayPalConfiguration payPalConfiguration;
     private static final int SIMPLE_PAYPAL_REQUEST_CODE = 123;
-
     int FLAG_PAYMENT;
 
 
     CardType cardType;
     SupportedCardTypesView braintreeSupportedCards;
     CardView shipping_address_cardview;
-
+    private FragmentManager fragmentManager;
     private static final CardType[] SUPPORTED_CARD_TYPES = {CardType.VISA, CardType.MASTERCARD, CardType.MAESTRO,
             CardType.UNIONPAY, CardType.AMEX};
 
@@ -198,6 +198,7 @@ public class CheckoutFinal extends Fragment {
     //Add order id for payment methods
     String orderID,shop_id;
     My_Cart my_cart;
+
 
     public CheckoutFinal(My_Cart my_cart, User_Cart_BuyInputsDB user_cart_BuyInputs_db, String merchantId) {
         this.my_cart = my_cart;
@@ -260,6 +261,7 @@ public class CheckoutFinal extends Fragment {
         checkout_card_expiry = rootView.findViewById(R.id.checkout_card_expiry);
         scroll_container = rootView.findViewById(R.id.scroll_container);
         braintreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
+
 
         PAYMENT_CURRENCY = ConstantValues.CURRENCY_CODE;
 
@@ -336,120 +338,130 @@ public class CheckoutFinal extends Fragment {
         progressDialog.setCancelable(false);
 
         // Handle the Click event of edit_payment_method_Btn
-        payment_method.setOnClickListener(view -> {
+//        payment_method.setOnClickListener(view -> {
+//
+//            final PaymentMethodAdapter paymentMethodAdapter = new PaymentMethodAdapter(getContext(), paymentMethodsList);
+//
+//            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+//            View dialogView = getLayoutInflater().inflate(R.layout.buy_inputs_dialog_list, null);
+//            dialog.setView(dialogView);
+//            dialog.setCancelable(true);
+//
+//            Button dialog_button = dialogView.findViewById(R.id.dialog_button);
+//            TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
+//            ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
+//
+//            dialog_button.setVisibility(View.GONE);
+//
+//            dialog_title.setText(getString(R.string.payment_method));
+//            dialog_list.setAdapter(paymentMethodAdapter);
+//
+//
+//            final AlertDialog alertDialog = dialog.create();
+//            alertDialog.show();
+//
+//            dialog_list.setOnItemClickListener((parent, view1, position, id) -> {
+//
+//                PaymentMethodsInfo userSelectedPaymentMethod = paymentMethodAdapter.getItem(position);
+//
+//                payment_method.setText(userSelectedPaymentMethod.getName());
+//                selectedPaymentMethod = userSelectedPaymentMethod.getMethod();
+//
+//                checkout_order_btn.setEnabled(true);
+//                checkout_order_btn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentGreen));
+//
+//
+//                // Check the selected Payment Method
+//                switch (userSelectedPaymentMethod.getMethod()) {
+//
+//                    // Change the Visibility of some Views based on selected Payment Method
+//                    case "cod":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//                        break;
+//
+//                    case "paypal":
+//                        checkout_paypal_btn.setVisibility(View.VISIBLE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//                        break;
+//
+//                    case "instamojo":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.VISIBLE);
+//                        FLAG_PAYMENT = 0;
+//                        break;
+//
+//                    case "payumoney":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.VISIBLE);
+//                        FLAG_PAYMENT = 1;
+//                        break;
+//                    case "razorpay":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.VISIBLE);
+//                        FLAG_PAYMENT = 2;
+//                        break;
+//
+//                    case "stripe":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.VISIBLE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//
+//                        checkout_card_number.setText("4242424242424242");
+//                        checkout_card_cvv.setText("123");
+//                        checkout_card_expiry.setText("12/2018");
+//                        break;
+//
+//                    case "braintree_card":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.VISIBLE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//
+//                        checkout_card_number.setText("5555555555554444");
+//                        checkout_card_cvv.setText("123");
+//                        checkout_card_expiry.setText("12/2018");
+//                        break;
+//
+//                    case "braintree_paypal":
+//                        checkout_paypal_btn.setVisibility(View.VISIBLE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//                        break;
+//
+//                    case "paytm":
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//                        break;
+//
+//                    default:
+//                        checkout_paypal_btn.setVisibility(View.GONE);
+//                        card_details_layout.setVisibility(View.GONE);
+//                        payment_details_layout.setVisibility(View.GONE);
+//                        break;
+//                }
+//                scroll_container.post(() -> scroll_container.fullScroll(View.FOCUS_DOWN));
+//
+//                alertDialog.dismiss();
+//
+//            });
+//
+//        });
 
-            final PaymentMethodAdapter paymentMethodAdapter = new PaymentMethodAdapter(getContext(), paymentMethodsList);
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-            View dialogView = getLayoutInflater().inflate(R.layout.buy_inputs_dialog_list, null);
-            dialog.setView(dialogView);
-            dialog.setCancelable(true);
+        payment_method.setOnClickListener(v -> {
+            Fragment fragment = new PaymentMethodsFragment();
 
-            Button dialog_button = dialogView.findViewById(R.id.dialog_button);
-            TextView dialog_title = dialogView.findViewById(R.id.dialog_title);
-            ListView dialog_list = dialogView.findViewById(R.id.dialog_list);
-
-            dialog_button.setVisibility(View.GONE);
-
-            dialog_title.setText(getString(R.string.payment_method));
-            dialog_list.setAdapter(paymentMethodAdapter);
-
-
-            final AlertDialog alertDialog = dialog.create();
-            alertDialog.show();
-
-            dialog_list.setOnItemClickListener((parent, view1, position, id) -> {
-
-                PaymentMethodsInfo userSelectedPaymentMethod = paymentMethodAdapter.getItem(position);
-
-                payment_method.setText(userSelectedPaymentMethod.getName());
-                selectedPaymentMethod = userSelectedPaymentMethod.getMethod();
-
-                checkout_order_btn.setEnabled(true);
-                checkout_order_btn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentGreen));
-
-
-                // Check the selected Payment Method
-                switch (userSelectedPaymentMethod.getMethod()) {
-
-                    // Change the Visibility of some Views based on selected Payment Method
-                    case "cod":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.GONE);
-                        break;
-
-                    case "paypal":
-                        checkout_paypal_btn.setVisibility(View.VISIBLE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.GONE);
-                        break;
-
-                    case "instamojo":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.VISIBLE);
-                        FLAG_PAYMENT = 0;
-                        break;
-
-                    case "payumoney":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.VISIBLE);
-                        FLAG_PAYMENT = 1;
-                        break;
-                    case "razorpay":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.VISIBLE);
-                        FLAG_PAYMENT = 2;
-                        break;
-
-                    case "stripe":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.VISIBLE);
-                        payment_details_layout.setVisibility(View.GONE);
-
-                        checkout_card_number.setText("4242424242424242");
-                        checkout_card_cvv.setText("123");
-                        checkout_card_expiry.setText("12/2018");
-                        break;
-
-                    case "braintree_card":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.VISIBLE);
-                        payment_details_layout.setVisibility(View.GONE);
-
-                        checkout_card_number.setText("5555555555554444");
-                        checkout_card_cvv.setText("123");
-                        checkout_card_expiry.setText("12/2018");
-                        break;
-
-                    case "braintree_paypal":
-                        checkout_paypal_btn.setVisibility(View.VISIBLE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.GONE);
-                        break;
-
-                    case "paytm":
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.GONE);
-                        break;
-
-                    default:
-                        checkout_paypal_btn.setVisibility(View.GONE);
-                        card_details_layout.setVisibility(View.GONE);
-                        payment_details_layout.setVisibility(View.GONE);
-                        break;
-                }
-                scroll_container.post(() -> scroll_container.fullScroll(View.FOCUS_DOWN));
-
-                alertDialog.dismiss();
-
-            });
-
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
+                    .addToBackStack(getString(R.string.checkout)).commit();
         });
+
 
         // Integrate SupportedCardTypes with TextChangedListener of checkout_card_number
         checkout_card_number.addTextChangedListener(new TextWatcher() {

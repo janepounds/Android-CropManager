@@ -2334,4 +2334,5 @@
     <string name="mobile_money">Mobile Money</string>
     <string name="emaisha_card">eMaisha Card</string>
     <string name="btn_continue_payment">Continue Payment</string>
+    <string name="payment_methods">Payment Methods</string>
 </resources>
