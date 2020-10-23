@@ -96,9 +96,6 @@ public class AddressDetails {
     public void setPacking_charge_tax(String packing_charge_tax) {
         this.packing_charge_tax = packing_charge_tax;
     }
-    
-   
-    
 
     /**
      * 

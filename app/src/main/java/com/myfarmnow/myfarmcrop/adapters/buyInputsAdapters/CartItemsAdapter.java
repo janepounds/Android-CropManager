@@ -118,8 +118,9 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
     
             // Set Product Image on ImageView with Glide Library
             Glide.with(context).load(ConstantValues.ECOMMERCE_URL+ cartProduct.getCustomersBasketProduct().getProductsImage()).into(holder.cart_item_cover);
-    
-            holder.cart_item_title.setText(cartProduct.getCustomersBasketProduct().getProductsName());
+
+            String cart_title = cartProduct.getCustomersBasketProduct().getProductsName();
+            holder.cart_item_title.setText(cart_title.substring(0, 1).toUpperCase() + cart_title.substring(1).toLowerCase());
             //holder.cart_item_category.setText(cartProduct.getCustomersBasketProduct().getCategoryNames());
             holder.cart_item_quantity.setText("" + cartProduct.getCustomersBasketProduct().getCustomersBasketQuantity());
             holder.cart_item_base_price.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(cartProduct.getCustomersBasketProduct().getProductsPrice())));
