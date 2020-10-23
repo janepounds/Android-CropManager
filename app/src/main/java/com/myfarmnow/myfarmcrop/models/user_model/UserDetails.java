@@ -15,10 +15,10 @@ public class UserDetails {
     @SerializedName("user_name")
     @Expose
     private String userName;
-    @SerializedName("first_name")
+    @SerializedName("firstname")
     @Expose
     private String firstName;
-    @SerializedName("last_name")
+    @SerializedName("lastname")
     @Expose
     private String lastName;
     @SerializedName("gender")

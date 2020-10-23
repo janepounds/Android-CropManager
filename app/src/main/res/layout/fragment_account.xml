@@ -31,8 +31,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/dimen_10dp">
+            android:layout_margin="@dimen/dimen_10dp"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                             android:layout_height="58.1dp"
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user" />
+                            app:srcCompat="@drawable/ic_user" />
 
                     </LinearLayout>
 
@@ -68,6 +68,7 @@
                         android:padding="5dp">
 
                         <TextView
+                            android:id="@+id/text_username_account_fragment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -77,13 +78,14 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Sserubiri Joseph"
                             android:textColor="#737373"
                             android:textSize="@dimen/dimen_20sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            app:srcCompat="@drawable/ic_user" />
 
                         <TextView
+                            android:id="@+id/text_email_account_fragment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -93,11 +95,11 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="+25698765432"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </LinearLayout>
 
@@ -114,12 +116,12 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:padding="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_location"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="w,1:1"
                             app:layout_constraintEnd_toStartOf="@+id/guideline28"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_location" />
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline28"
@@ -176,7 +178,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_pin_location" />
+                            app:srcCompat="@drawable/ic_pin_account" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -188,9 +190,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Delivery Addresses"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -208,7 +210,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_about" />
+                            app:srcCompat="@drawable/ic_about" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -220,9 +222,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="My Orders"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -253,9 +255,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="My Cart"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -273,7 +275,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_favorite" />
+                            app:srcCompat="@drawable/ic_favorite" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -285,9 +287,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="My Favourites"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -304,7 +306,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_rate" />
+                            app:srcCompat="@drawable/ic_rate" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -316,9 +318,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="My Rating &amp; Reviews"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -350,7 +352,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_surface" />
+                            app:srcCompat="@drawable/ic_surface" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -362,9 +364,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Change Password"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -381,7 +383,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_support" />
+                            app:srcCompat="@drawable/ic_support" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -393,9 +395,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Customer Support"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -412,7 +414,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_internet" />
+                            app:srcCompat="@drawable/ic_internet" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -424,9 +426,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Official Website"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -444,7 +446,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_contract" />
+                            app:srcCompat="@drawable/ic_contract" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -456,9 +458,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Privacy Policy"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -476,7 +478,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_group" />
+                            app:srcCompat="@drawable/ic_group" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -488,9 +490,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="@string/refund_policy"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -524,7 +526,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_share" />
+                            app:srcCompat="@drawable/ic_share" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -536,9 +538,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Share App"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -558,7 +560,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_news" />
+                            app:srcCompat="@drawable/ic_news" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -570,9 +572,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="News"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -590,7 +592,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_rate" />
+                            app:srcCompat="@drawable/ic_rate" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -602,9 +604,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Rate App"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 
@@ -622,7 +624,7 @@
                             android:layout_height="20.27dp"
                             android:layout_gravity="center|start"
                             android:layout_margin="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_logout" />
+                            app:srcCompat="@drawable/ic_logout" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -634,9 +636,9 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/dimen_10dp"
                             android:paddingEnd="@dimen/dimen_10dp"
-                            android:src="@drawable/ic_user"
                             android:text="Logout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:srcCompat="@drawable/ic_user" />
 
                     </RelativeLayout>
 

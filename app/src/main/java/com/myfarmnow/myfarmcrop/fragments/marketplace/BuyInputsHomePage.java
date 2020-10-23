@@ -204,7 +204,5 @@ public class BuyInputsHomePage extends Fragment {
         TextView badge = (TextView) cartItem.getActionView().findViewById(R.id.cart_badge);
         badge.setText(String.valueOf(cartItemsList.size()));
     }
-
-
 }
 

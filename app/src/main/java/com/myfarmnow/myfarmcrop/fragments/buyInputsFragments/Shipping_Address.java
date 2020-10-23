@@ -233,7 +233,7 @@ public class Shipping_Address extends Fragment implements GoogleApiClient.OnConn
 
         // [START_EXCLUDE silent]
         // Construct a PlacesClient
-        Places.initialize(getContext(), getString(R.string.google_maps_key));
+        Places.initialize(getContext(), getString(R.string.maps_api_key));
         placesClient = Places.createClient(getContext());
 
         // Construct a FusedLocationProviderClient.
