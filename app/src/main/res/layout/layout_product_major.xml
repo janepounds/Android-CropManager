@@ -116,7 +116,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/ic_star_rate" />
+                                app:srcCompat="@drawable/ic_star_rate" />
 
                             <ImageView
                                 android:id="@+id/second_star"
@@ -124,7 +124,7 @@
                                 android:layout_height="20dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/first_star"
-                                android:src="@drawable/ic_star_rate" />
+                                app:srcCompat="@drawable/ic_star_rate" />
 
 
                             <ImageView
@@ -133,7 +133,7 @@
                                 android:layout_height="20dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/second_star"
-                                android:src="@drawable/ic_star_rate" />
+                                app:srcCompat="@drawable/ic_star_rate" />
 
                             <ImageView
                                 android:id="@+id/fourth_star"
@@ -141,7 +141,7 @@
                                 android:layout_height="20dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/third_star"
-                                android:src="@drawable/ic_star_rate" />
+                                app:srcCompat="@drawable/ic_star_rate" />
 
                             <ImageView
                                 android:id="@+id/fifth_star"
@@ -149,7 +149,7 @@
                                 android:layout_height="20dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/fourth_star"
-                                android:src="@drawable/ic_star_border" />
+                                app:srcCompat="@drawable/ic_star_border" />
 
                             <TextView
                                 android:id="@+id/produce_overall_rating"
@@ -212,7 +212,7 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                        app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24" />
 
                 </RelativeLayout>
 
@@ -354,7 +354,7 @@
         android:clickable="true"
         android:paddingBottom="20dp"
         android:scaleType="center"
-        android:src="@drawable/checked"
+        app:srcCompat="@drawable/checked"
         android:layout_gravity="center"/>
 
 </androidx.cardview.widget.CardView>
