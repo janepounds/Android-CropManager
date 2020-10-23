@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -199,6 +200,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 });
                 k++;
             }
+            weightItems.add(0,new CropSpinnerItem() {
+                @Override
+                public String getId() {
+                    return null;
+                }
+
+                @Override
+                public String getUnits() {
+                    return null;
+                }
+
+                @NonNull
+                @Override
+                public String toString() {
+                    return " ";
+                }
+            });
             CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
             holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
 
@@ -207,6 +225,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
            holder.product_weight_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                @Override
                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                    String selection = parent.getItemAtPosition(position).toString();
 
                     int k=0;
