@@ -2331,4 +2331,5 @@
     <!--    Sign Up Test Arrays end here-->
 
     <string name="google_maps_key">AIzaSyDxat_pXoS20ri8X2XgfQoBt9XLTRPAbcc</string>
+    <string name="default_shipping_method">Boda Boda</string>
 </resources>

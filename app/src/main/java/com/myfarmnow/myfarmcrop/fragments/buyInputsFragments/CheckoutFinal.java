@@ -1078,6 +1078,7 @@ public class CheckoutFinal extends Fragment {
 
         orderDetails.setTaxZoneId(shippingAddress.getZoneId());
         orderDetails.setTotalTax(checkoutTax);
+        orderDetails.setShippingMethod(getString(R.string.default_shipping_method));
         orderDetails.setShippingCost(checkoutShipping);
    
 
