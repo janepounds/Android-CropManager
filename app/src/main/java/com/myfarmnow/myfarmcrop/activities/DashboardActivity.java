@@ -63,6 +63,7 @@ import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.PaymentMethodsFragment;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Languages;
@@ -222,6 +223,9 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.actionproducemarket));
         }else if (curruntFrag instanceof Category_Products) {
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+        }
+        else if(curruntFrag instanceof PaymentMethodsFragment){
+            actionBar.setTitle(getString(R.string.payment_methods));
         }
 
     }

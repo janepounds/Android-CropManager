@@ -2328,5 +2328,11 @@
         <item>Village One</item>
         <item>Village Two</item>
     </string-array>
-    <!--    Sign Up Test Arrays end here-->
+    <string name="default_shipping_method">Boda Boda</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="visa_card">Visa / Master Card</string>
+    <string name="mobile_money">Mobile Money</string>
+    <string name="emaisha_card">eMaisha Card</string>
+    <string name="btn_continue_payment">Continue Payment</string>
+    <string name="payment_methods">Payment Methods</string>
 </resources>

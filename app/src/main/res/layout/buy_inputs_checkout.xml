@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,6 +10,7 @@
     android:clickable="true"
     android:focusable="true"
     android:background="@color/layoutBackgroundLight">
+
 
 
     <androidx.core.widget.NestedScrollView
@@ -61,7 +63,7 @@
                             android:id="@+id/checkout_edit_shipping"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/ic_edit_profile"
+                            app:srcCompat="@drawable/ic_edit_profile"
                             android:tint="@color/colorAccent"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="5dp"
@@ -855,6 +857,7 @@
             android:gravity="center_horizontal" />
 
     </LinearLayout>
+
 
 </LinearLayout>
 
