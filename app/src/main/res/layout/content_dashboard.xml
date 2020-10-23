@@ -434,7 +434,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/ic_wallet" />
+                                        android:src="@drawable/ic_wallet_solid" />
 
                                     <TextView
                                         android:id="@+id/tv_litar"
