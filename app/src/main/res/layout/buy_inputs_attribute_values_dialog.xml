@@ -24,6 +24,7 @@
         android:textSize="15sp"
         android:text="prefix"
         android:textColor="@color/textColorSecondary"
+        android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/attribute_value_price"
         android:layout_toLeftOf="@+id/attribute_value_price" />
 
@@ -36,9 +37,14 @@
         android:textColor="@color/textColorSecondary"
         android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginLeft="5dp"
-        android:layout_alignParentRight="true" />
+        android:layout_toStartOf="@id/attribute_value_radio_button"/>
+    <RadioButton
+        android:id="@+id/attribute_value_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_alignParentEnd="true"/>
 
 
 </RelativeLayout>
