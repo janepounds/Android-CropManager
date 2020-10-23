@@ -84,7 +84,6 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
         }
         else{
             holder.order_price.setText("N/A");
-            holder.itemView.setVisibility(View.GONE);
         }
 
         //MerchantProductListAdapter
