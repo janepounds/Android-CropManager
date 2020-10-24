@@ -75,6 +75,7 @@ import com.myfarmnow.myfarmcrop.database.User_Info_BuyInputsDB;
 
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+    private static final String TAG = "Login";
 
     View parentView;
     Toolbar toolbar;
@@ -331,6 +332,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2")) {
                         // Get the User Details from Response
                         userDetails = response.body().getData().get(0);
+
+                        Log.d(TAG, "onResponse: Email = " + userDetails.getEmail());
+                        Log.d(TAG, "onResponse: First Name = " + userDetails.getFirstName());
+                        Log.d(TAG, "onResponse: Last Name = " + userDetails.getLastName());
+                        Log.d(TAG, "onResponse: Username = " + userDetails.getUserName());
+
                         TEMP_USER_TYPE = 0; // 0 for Simple Login.
                         //showPhoneDialog();
                         loginUser(userDetails);
@@ -481,7 +488,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
                         } else {
                             //verification unsuccessful.. display an error message
-                            String message = "Somthing is wrong, we will fix it soon...";
+                            String message = "Something is wrong, we will fix it soon...";
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";
                             }
@@ -778,7 +785,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         finish();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

@@ -23,7 +23,6 @@ import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 public class MarketPlaceHomeFragment extends Fragment {
     private static final String TAG = "MarketPlaceHomeFragment";
     private Context context;
-    private ActionBar actionBar;
 
     FragmentManager fragmentManager;
     Fragment currentFragment;
@@ -39,13 +38,11 @@ public class MarketPlaceHomeFragment extends Fragment {
         buyInputs = view.findViewById(R.id.buy_inputs_marketplace_home_fragment);
         sellProduce = view.findViewById(R.id.sell_produce_marketplace_home_fragment);
 
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = requireActivity().getSupportFragmentManager();
         currentFragment = fragmentManager.getPrimaryNavigationFragment();
 
         setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionMarketPlace));
-
-
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.actionMarketPlace));
 
         return view;
     }
@@ -60,7 +57,7 @@ public class MarketPlaceHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sellProduce.setOnClickListener((View.OnClickListener) v -> {
+        sellProduce.setOnClickListener(v -> {
             Fragment sellproducefragment = new SellProduceFragment();
             if (currentFragment == null)
                 fragmentManager.beginTransaction()
@@ -77,7 +74,7 @@ public class MarketPlaceHomeFragment extends Fragment {
             currentFragment = sellproducefragment;
         });
 
-        buyInputs.setOnClickListener((View.OnClickListener) v -> {
+        buyInputs.setOnClickListener(v -> {
             Fragment buyinputshome = new BuyInputsHomePage();
 
             currentFragment = MarketPlaceHomeFragment.this;

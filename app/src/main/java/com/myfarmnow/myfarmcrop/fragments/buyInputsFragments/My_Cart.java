@@ -56,7 +56,7 @@ public class My_Cart extends Fragment {
     String customerID;
     RecyclerView cart_items_recycler;
     LinearLayout cart_view, cart_view_empty;
-    Button cart_checkout_btn, continue_shopping_btn,clear_cart;
+    Button cart_checkout_btn, continue_shopping_btn, clear_cart;
     NestedScrollView mainRvLayout;
     public TextView cart_item_subtotal_price, cart_item_discount_price, cart_item_total_price;
 
@@ -74,9 +74,8 @@ public class My_Cart extends Fragment {
         super.onHiddenChanged(hidden);
 
         if (!hidden) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
+            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
         }
-
     }
 
     @Nullable
@@ -93,7 +92,7 @@ public class My_Cart extends Fragment {
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
         // Get the List of Cart Items from the Local Databases User_Cart_DB
         finalCartItemsList = cartItemsList = user_cart_BuyInputs_db.getCartItems();
@@ -132,46 +131,29 @@ public class My_Cart extends Fragment {
 
         cartItemsAdapter.notifyDataSetChanged();
 
-        clear_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        clear_cart.setOnClickListener(view -> {
+            // Delete CartItem from Local Database using static method of My_Cart
+            ClearCart();
 
 
+            // Calculate Cart's Total Price Again
+            cartItemsAdapter.setCartTotal();
 
-                // Delete CartItem from Local Database using static method of My_Cart
-                ClearCart();
+            // Remove CartItem from Cart List
+            cartItemsList.clear();
 
+            // Notify that item at position has been removed
+            cartItemsAdapter.notifyDataSetChanged();
 
+            // Update Cart View from Local Database using static method of My_Cart
+            updateCartView(cartItemsList.size());
 
-                // Calculate Cart's Total Price Again
-                cartItemsAdapter.setCartTotal();
-
-                // Remove CartItem from Cart List
-                cartItemsList.clear();
-
-                // Notify that item at position has been removed
-                cartItemsAdapter.notifyDataSetChanged();
-
-                // Update Cart View from Local Database using static method of My_Cart
-                updateCartView(cartItemsList.size());
-
-            }
         });
+
         // Handle Click event of continue_shopping_btn Button
         continue_shopping_btn.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("isSubFragment", false);
-
-            // Navigate to Products Fragment
-            Fragment fragment = new Products();
-            fragment.setArguments(bundle);
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment_container, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .detach(fragment)
-                    .attach(fragment)
-                    .addToBackStack(getString(R.string.actionCart)).commit();
+            // Go back to previous fragment
+            requireActivity().onBackPressed();
         });
 
         // Handle Click event of cart_checkout_btn Button
@@ -250,7 +232,6 @@ public class My_Cart extends Fragment {
     //*********** Change the Layout View of My_Cart Fragment based on Cart Items ********//
 
     public void updateCartView(int cartListSize) {
-
         // Check if Cart has some Items
         if (cartListSize != 0) {
             cart_view.setVisibility(View.VISIBLE);
@@ -326,8 +307,6 @@ public class My_Cart extends Fragment {
                         cart_item_id
                 );
     }
-
-
 
     //*********** Static method to Clear User's Cart ********//
 
@@ -423,7 +402,6 @@ public class My_Cart extends Fragment {
         }
     }
 
-
     public void RequestProductDetails(final int position, final int products_id) throws IOException {
 
         GetAllProducts getAllProducts = new GetAllProducts();
@@ -456,7 +434,6 @@ public class My_Cart extends Fragment {
         }
 
     }
-
 
     private void requestProductStock2(int productID, List<String> attributes, int position) {
         GetStock getStockParams = new GetStock();
@@ -521,7 +498,6 @@ public class My_Cart extends Fragment {
             }
         }
     }
-
 
     public class pairingTask extends AsyncTask<Void, Void, Void> {
 

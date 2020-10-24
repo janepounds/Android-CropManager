@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +46,7 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
+import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
 
@@ -94,6 +96,19 @@ public class AccountFragment extends Fragment {
         RelativeLayout layoutRefundPolicy = view.findViewById(R.id.layout_refund_policy);
         RelativeLayout layoutLogout = view.findViewById(R.id.layout_logout);
         RelativeLayout layoutChangePassword = view.findViewById(R.id.layout_change_password);
+        TextView accountUsername = view.findViewById(R.id.text_username_account_fragment);
+        TextView accountUserEmail = view.findViewById(R.id.text_email_account_fragment);
+
+        // Edit UserID in SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserInfo", MODE_PRIVATE);
+
+        Log.d(TAG, "onCreateView: First Name = " + sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_EMAIL, null));
+        Log.d(TAG, "onCreateView: First Name = " + sharedPreferences.getString(DashboardActivity.PREFERENCES_FIRST_NAME, ""));
+        Log.d(TAG, "onCreateView: Last Name = " + sharedPreferences.getString(DashboardActivity.PREFERENCES_LAST_NAME, ""));
+
+        String name = sharedPreferences.getString(DashboardActivity.PREFERENCES_FIRST_NAME, "") + " " + sharedPreferences.getString(DashboardActivity.PREFERENCES_LAST_NAME, "");
+        accountUsername.setText(name);
+        accountUserEmail.setText(sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_EMAIL, null));
 
         fragmentManager = requireActivity().getSupportFragmentManager();
         currentFragment = fragmentManager.getPrimaryNavigationFragment();
