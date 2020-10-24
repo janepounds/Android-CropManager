@@ -9,7 +9,6 @@
     android:focusable="true"
     android:background="@color/layoutBackgroundLight">
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -20,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -166,7 +164,6 @@
 
                         </RelativeLayout>-->
 
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -245,7 +242,6 @@
                                 android:layout_below="@+id/text"/>
 
                         </RelativeLayout>
-
 
                     </LinearLayout>
 
@@ -787,8 +783,6 @@
                         android:textAlignment="viewStart"
                         android:textColor="@color/textColorSecondary"
                         android:layout_gravity="start" />
-
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

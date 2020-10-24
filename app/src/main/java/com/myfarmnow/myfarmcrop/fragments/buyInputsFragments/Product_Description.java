@@ -77,7 +77,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class Product_Description extends Fragment {
     
     View rootView;
@@ -124,8 +123,7 @@ public class Product_Description extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.buy_inputs_product_description, container, false);
-        
-        
+
         // Set the Title of Toolbar
       //  MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
