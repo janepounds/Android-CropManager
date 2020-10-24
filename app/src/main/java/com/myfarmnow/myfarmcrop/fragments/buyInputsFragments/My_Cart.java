@@ -337,12 +337,12 @@ public class My_Cart extends Fragment {
         return user_cart_BuyInputs_db.getCartItemsIDs().contains(cart_item_id);
     }
 
-    public static boolean checkCartHasProductAndMeasure(int cart_item_id, String weight) {
+    public static boolean checkCartHasProductAndMeasure(int cart_item_id) {
         boolean result = false;
 
-        ArrayList<CartProduct> user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id, weight);
+        ArrayList<CartProduct> user_cart_BuyInputs_db = new User_Cart_BuyInputsDB().checkCartHasProductAndMeasure(cart_item_id);
         for (CartProduct cartProduct : user_cart_BuyInputs_db) {
-            if (cartProduct.getCustomersBasketProduct().getSelectedProductsWeight().equals(weight)) {
+            if (cartProduct.getCustomersBasketProduct().getProductsId()==cart_item_id) {
                 result = true;
             } else {
                 result = false;

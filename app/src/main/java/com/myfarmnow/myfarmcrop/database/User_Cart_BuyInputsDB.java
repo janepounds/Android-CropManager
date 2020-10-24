@@ -443,11 +443,11 @@ public class User_Cart_BuyInputsDB {
 
 
 
-    public ArrayList<CartProduct> checkCartHasProductAndMeasure(int product_id,String weight) {
+    public ArrayList<CartProduct> checkCartHasProductAndMeasure(int product_id) {
         // get and open SQLiteDatabase Instance from static method of DB_Manager class
         db = BuyInputsDB_Manager.getInstance().openDatabase();
 
-        Cursor cursor = db.rawQuery("select * from " + TABLE_CART + " where " + CART_PRODUCT_ID + " = " + product_id + " AND " + CART_PRODUCT_WEIGHT + " = '" + weight + "'", null);
+        Cursor cursor = db.rawQuery("select * from " + TABLE_CART + " where " + CART_PRODUCT_ID + " = " + product_id, null);
         ArrayList<CartProduct> array_list = new ArrayList();
         CartProduct cartProduct = new CartProduct();
         cursor.moveToFirst();

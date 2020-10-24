@@ -25,7 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:src="@drawable/check_clipboard"
-            android:tint="@color/colorAccentGreen" />
+            app:tint="@color/colorAccentGreen" />
 
         <TextView
             android:layout_width="wrap_content"

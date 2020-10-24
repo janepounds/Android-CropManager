@@ -139,7 +139,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 }
 
 
-                if(My_Cart.checkCartHasProductAndMeasure(product.getProductsId(),weight)){
+                if(My_Cart.checkCartHasProductAndMeasure(product.getProductsId())){
                     holder.product_checked.setVisibility(View.VISIBLE);
                     holder.product_add_cart_btn.setVisibility(View.GONE);
                 }
