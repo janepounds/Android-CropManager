@@ -2335,4 +2335,6 @@
     <string name="emaisha_card">eMaisha Card</string>
     <string name="btn_continue_payment">Continue Payment</string>
     <string name="payment_methods">Payment Methods</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="promo_code">Promo Code</string>
 </resources>
