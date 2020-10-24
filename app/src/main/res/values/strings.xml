@@ -1658,7 +1658,7 @@
     <string name="day">Wednesday</string>
     <string name="temp_max">32.6&#xb0;C Max</string>
     <string name="temp_min">16.8&#xb0;C Min</string>
-    <string name="title_predictiontools">Prediction Tools</string>
+    <string name="title_predictiontools">Farm Projections</string>
     <string name="label_revenueestimation">Revenue Estimation</string>
     <string name="label_yeild_estimation">Yeild Estimation</string>
     <string name="label_nutrient_loss">Nutrient Loss</string>
@@ -2335,4 +2335,6 @@
     <string name="emaisha_card">eMaisha Card</string>
     <string name="btn_continue_payment">Continue Payment</string>
     <string name="payment_methods">Payment Methods</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="promo_code">Promo Code</string>
 </resources>

@@ -187,6 +187,9 @@ public class Nearby_Merchants extends Fragment {
 
     public void addMerchantsToList(MerchantData merchantData) {
         // Add merchants to merchantsList from the List of OrderData
+        if(merchantData==null)
+            return;
+
         this.merchantList = merchantData.getData();
 
         for (int position=0; position< this.merchantList.size(); position++) {

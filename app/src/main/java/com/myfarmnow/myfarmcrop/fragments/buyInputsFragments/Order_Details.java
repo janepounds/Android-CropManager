@@ -30,7 +30,6 @@ import java.util.List;
 
 import am.appwise.components.ni.NoInternetDialog;
 
-
 public class Order_Details extends Fragment {
 
     View rootView;

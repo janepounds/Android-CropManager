@@ -129,19 +129,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             
             // Get the data model based on Position
             final ProductDetails product = productList.get(position);
-            
-            // Check if the Product is already in the Cart with its measure
 
-                String[] splited = holder.product_weight_spn.getSelectedItem().toString().split("\\s+");
-                String weight = splited[0];
-              if(My_Cart.checkCartHasProductAndMeasure(product.getProductsId(),weight)){
-                  holder.product_checked.setVisibility(View.VISIBLE);
-                  holder.product_add_cart_btn.setVisibility(View.GONE);
+            if(product.getProductsMeasure().size()>0){
+                // Check if the Product is already in the Cart with its measure
+                String weight=product.getProductsMeasure().get(0).getProducts_weight();
+                if(!holder.product_weight_spn.getSelectedItem().toString().equalsIgnoreCase(" ")){
+                    String[] splited = holder.product_weight_spn.getSelectedItem().toString().split("\\s+");
+                    weight = splited[0];
+                }
+
+
+                if(My_Cart.checkCartHasProductAndMeasure(product.getProductsId())){
+                    holder.product_checked.setVisibility(View.VISIBLE);
+                    holder.product_add_cart_btn.setVisibility(View.GONE);
+                }
+                else {
+                    holder.product_checked.setVisibility(View.GONE);
+                    holder.product_add_cart_btn.setVisibility(View.VISIBLE);
+                }
             }
-            else {
-                holder.product_checked.setVisibility(View.GONE);
-                holder.product_add_cart_btn.setVisibility(View.VISIBLE);
-            }
+
 
             RequestOptions options = new RequestOptions()
                     .centerCrop()
@@ -181,7 +188,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             int k=0;
             for (ProductMeasure x :product.getProductsMeasure()) {
 
-                int finalI = k;
+                if(k==0)
+                    weightItems.add(0,new CropSpinnerItem() {
+                        @Override
+                        public String getId() {
+                            return  x+"";
+                        }
+
+                        @Override
+                        public String getUnits() {
+                            return x.getProducts_weight_unit();
+                        }
+
+                        @NonNull
+                        @Override
+                        public String toString() {
+                            return " ";
+                        }
+                    });
+
                 weightItems.add(new CropSpinnerItem() {
                     @Override
                     public String getId() {
@@ -200,23 +225,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 });
                 k++;
             }
-            weightItems.add(0,new CropSpinnerItem() {
-                @Override
-                public String getId() {
-                    return null;
-                }
 
-                @Override
-                public String getUnits() {
-                    return null;
-                }
-
-                @NonNull
-                @Override
-                public String toString() {
-                    return " ";
-                }
-            });
             CropSpinnerAdapter weightSpinnerAdapter = new CropSpinnerAdapter(weightItems, null, context);
             holder.product_weight_spn.setAdapter(weightSpinnerAdapter);
 
@@ -239,6 +248,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
                             //set selected weight
                             holder.selected_weight.setText(selection);
+
+                        }
+                        else if(selection.equalsIgnoreCase(" ")){
+
+                            product.setSelectedProductsWeight(product.getProductsMeasure().get(0).getProducts_weight());
+                            product.setSelectedProductsWeightUnit(product.getProductsMeasure().get(0).getProducts_weight_unit());
+                            product.setProductsPrice(product.getProductsMeasure().get(0).getProducts_price());
+                            holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL +" "+ new DecimalFormat("#0.00").format(Double.valueOf(product.getProductsMeasure().get(0).getProducts_price())));
+
+                            //set selected weight
+                            holder.selected_weight.setText(product.getProductsMeasure().get(0).getProducts_weight()+" "+product.getProductsMeasure().get(0).getProducts_weight_unit());
 
                         }
                         else if(holder.product_checked.getVisibility() == View.VISIBLE && (!holder.product_weight_spn.getSelectedItem().equals(holder.selected_weight))){

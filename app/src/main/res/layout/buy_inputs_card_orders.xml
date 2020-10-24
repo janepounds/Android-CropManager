@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_margin="3dp"
-    card_view:cardElevation="0dp"
+    android:background="@color/white"
     card_view:cardCornerRadius="2dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardPreventCornerOverlap="false" >
+    card_view:cardElevation="0dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,75 +19,79 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:gravity="center_vertical"
-            android:background="@color/windowBackgroundLight">
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/order_id"
-                android:textSize="16sp"
-                android:textColor="@color/textColorSecondaryDark" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/order_id"
-                android:textSize="16sp"
-                android:textColor="@color/colorAccent"
-                android:layout_marginEnd="5dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentRight="true" />
+                android:layout_marginEnd="5dp"
+                android:text="1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp" >
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="2dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="2dp" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:text="@string/no_of_products"
-                    android:textSize="14sp"
-                    android:textColor="@color/textColorSecondary" />
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/order_products_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="@string/no_of_products"
-                    android:textSize="14sp"
-                    android:textColor="@color/textColorSecondary"
-                    android:textAlignment="textEnd"
-                    android:gravity="end"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="2"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="2dp" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/abc"
@@ -95,83 +99,87 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:text="@string/checkout_price"
-                    android:textSize="14sp"
-                    android:textColor="@color/textColorSecondary" />
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/order_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="$00.0"
-                    android:textSize="14sp"
-                    android:textColor="@color/textColorSecondary"
-                    android:textAlignment="textEnd"
-                    android:gravity="end"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="UGX 29,000"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="2dp" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:text="@string/order_date"
-                    android:textSize="14sp"
-                    android:textColor="@color/textColorSecondary" />
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="@string/order_date"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorAccentBlue"
-                    android:textAlignment="textEnd"
-                    android:gravity="end"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentRight="true"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="Aug 09, 2020 - 10:11:35"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/order_status_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_margin="5dp"
-            android:padding="4dp"
-            android:background="?attr/colorPrimary">
+            android:background="@drawable/order_status_cancelled_background"
+            android:gravity="center_vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:gravity="center_vertical"
                 android:text="Order Status"
-                android:textSize="16sp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/order_status"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:gravity="center_vertical"
                 android:text="Processing"
-                android:textSize="16sp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </LinearLayout>
