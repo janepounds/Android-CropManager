@@ -465,7 +465,8 @@ public class CheckoutFinal extends Fragment {
 
 
         payment_method.setOnClickListener(v -> {
-            Fragment fragment = new PaymentMethodsFragment();
+            Fragment fragment = new PaymentMethodsFragment(my_cart,  user_cart_BuyInputs_db,  shop_id,checkout_shipping.getText().toString(),checkoutTax,checkoutShipping,
+                    checkoutDiscount,couponsList,checkoutSubtotal,checkoutTotal,orderProductList,orderID);
 
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
