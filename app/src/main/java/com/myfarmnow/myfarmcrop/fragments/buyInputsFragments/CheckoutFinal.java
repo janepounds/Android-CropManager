@@ -1400,6 +1400,7 @@ public class CheckoutFinal extends Fragment {
 
 
                         // Navigate to Thank_You Fragment
+                        String ordernumber =response.body().getData().get(0).getOrdersId()+"";
                         Fragment fragment = new Thank_You(my_cart);
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.popBackStack(getString(R.string.actionHome), FragmentManager.POP_BACK_STACK_INCLUSIVE);
