@@ -125,7 +125,7 @@ public class Nearby_Merchants extends Fragment {
     public void RequestMyNearbyMerchants(AddressDetails shippingAddress,List<CartProduct> checkoutItemsList) {
         ArrayList <String> product_names = new ArrayList <String>();
         for (CartProduct product:checkoutItemsList) {
-            product_names.add(product.getCustomersBasketProduct().getProductsId()+"::"+product.getCustomersBasketProduct().getProductsName()+"::"+product.getCustomersBasketProduct().getCustomersBasketQuantity());
+            product_names.add(product.getCustomersBasketProduct().getProductsId()+"::"+product.getCustomersBasketProduct().getProductsName()+"//"+product.getCustomersBasketProduct().getSelectedProductsWeightUnit()+"::"+product.getCustomersBasketProduct().getCustomersBasketQuantity());
         }
         dialogLoader.showProgressDialog();
         Log.w( "Coordinates",shippingAddress.getLatitude()+" "+shippingAddress.getLongitude());
