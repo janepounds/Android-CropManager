@@ -1,17 +1,22 @@
 package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +32,7 @@ import com.braintreepayments.api.BraintreeFragment;
 import com.braintreepayments.api.Card;
 import com.braintreepayments.api.exceptions.BraintreeError;
 import com.braintreepayments.api.exceptions.ErrorWithResponse;
+import com.braintreepayments.api.exceptions.InvalidArgumentException;
 import com.braintreepayments.api.interfaces.BraintreeCancelListener;
 import com.braintreepayments.api.interfaces.BraintreeErrorListener;
 import com.braintreepayments.api.interfaces.ConfigurationListener;
@@ -36,11 +42,31 @@ import com.braintreepayments.api.models.Configuration;
 import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.app.CropManagerApp;
+import com.myfarmnow.myfarmcrop.constants.ConstantValues;
+import com.myfarmnow.myfarmcrop.customs.DialogLoader;
+import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
+import com.myfarmnow.myfarmcrop.database.User_Info_BuyInputsDB;
+import com.myfarmnow.myfarmcrop.models.address_model.AddressDetails;
+import com.myfarmnow.myfarmcrop.models.order_model.OrderData;
+import com.myfarmnow.myfarmcrop.models.order_model.PostOrder;
+import com.myfarmnow.myfarmcrop.models.payment_model.GetBrainTreeToken;
+import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
+import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
+import com.myfarmnow.myfarmcrop.utils.NotificationHelper;
+import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class PaymentMethodsFragment extends Fragment {
@@ -54,15 +80,41 @@ public class PaymentMethodsFragment extends Fragment {
     CardType cardType;
     private BraintreeFragment braintreeFragment;
     SupportedCardTypesView braintreeSupportedCards;
-    private  String selectedPaymentMethod;
+    private  String selectedPaymentMethod,shop_id,shipping,orderId;
     private  CardBuilder braintreeCard;
+    private List couponList,productList;
+    private Double subtotal,total,tax,shipping_cost,discount;
     private String paymentNonceToken = "";
+    private ProgressDialog progressDialog;
+    private UserDetails userInfo;
+    private  My_Cart my_cart;
+    final User_Cart_BuyInputsDB user_cart_BuyInputs_db;
+    private  String braintreeToken;
+    private DialogLoader dialogLoader;
+
+    private AddressDetails shippingAddress;
+    User_Info_BuyInputsDB user_info_BuyInputs_db = new User_Info_BuyInputsDB();
 
 
-
-    public PaymentMethodsFragment() {
+    public PaymentMethodsFragment(My_Cart my_cart, User_Cart_BuyInputsDB user_cart_BuyInputs_db, String merchantId, String shipping, Double tax, Double shipping_cost,
+                                  Double discount, List couponList, Double subtotal, Double total, List productList, String orderId) {
         // Required empty public constructor
+        this.my_cart = my_cart;
+        this.user_cart_BuyInputs_db = user_cart_BuyInputs_db;
+        this.shop_id=merchantId;
+        this.shipping = shipping;
+        this.tax = tax;
+        this.shipping_cost = shipping_cost;
+        this.discount = discount;
+        this.couponList = couponList;
+        this.subtotal = subtotal;
+        this.total = total;
+        this.productList = productList;
+        this.orderId = orderId;
+
+
     }
+ 
 
 
 
@@ -71,8 +123,9 @@ public class PaymentMethodsFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_payment_methods, container, false);
         // Inflate the layout for this fragment
-
-
+        shippingAddress = ((CropManagerApp) getContext().getApplicationContext()).getShippingAddress();
+        userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));
+        dialogLoader = new DialogLoader(getContext());
         cashOnDelivery = rootView.findViewById(R.id.radio_btn_cash_on_delivery);
         eMaishaWallet = rootView.findViewById(R.id.radio_btn_emaisha_wallet);
         eMaishaCard = rootView.findViewById(R.id.radio_btn_merchant_card);
@@ -209,17 +262,23 @@ public class PaymentMethodsFragment extends Fragment {
 
             return false;
         });
-
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle(getString(R.string.processing));
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
 
             continuePayment.setOnClickListener(v->{
           if(cashOnDelivery.isChecked()){
               //navigate to thank you
-              selectedPaymentMethod = "cash On Delivery";
+              selectedPaymentMethod = "cod";
+              proceedOrder();
+              progressDialog.show();
 
 
           }else if(eMaishaWallet.isChecked()){
               //
             selectedPaymentMethod = "eMaisha Wallet";
+              GenerateBrainTreeToken();
           }
           else if(eMaishaCard.isChecked()){
               //
@@ -228,7 +287,25 @@ public class PaymentMethodsFragment extends Fragment {
             }else if(Visa.isChecked()){
               //save card info
               selectedPaymentMethod = "Visa";
-              validateSelectedPaymentMethod();
+              if (validatePaymentCard()) {
+                  // Setup Payment Method
+                  validateSelectedPaymentMethod();
+                  progressDialog.show();
+
+                  // Delay of 2 seconds
+                  new Handler().postDelayed(new Runnable() {
+                      @Override
+                      public void run() {
+                          if (!"".equalsIgnoreCase(paymentNonceToken)) {
+                              // Proceed Order
+                              proceedOrder();
+                          } else {
+                              progressDialog.dismiss();
+                              Snackbar.make(v, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+                          }
+                      }
+                  }, 2000);
+              }
 
           }else if(MobileMoney.isChecked()){
               selectedPaymentMethod = "Mobile Money";
@@ -331,5 +408,196 @@ public class PaymentMethodsFragment extends Fragment {
             return;
         }
 
+    }
+
+    private void proceedOrder() {
+       
+    
+        PostOrder orderDetails = new PostOrder();
+
+        // Set Customer Info
+        orderDetails.setCustomersId(Integer.parseInt(userInfo.getId()));
+        orderDetails.setCustomersName(userInfo.getFirstName());
+        orderDetails.setCustomersTelephone(shippingAddress.getPhone());
+        orderDetails.setEmail(userInfo.getEmail());
+        orderDetails.setShopId(shop_id);
+
+        // Set Shipping  Info
+        orderDetails.setDeliveryFirstname(shippingAddress.getFirstname());
+        orderDetails.setDeliveryLastname(shippingAddress.getLastname());
+        orderDetails.setDeliveryStreetAddress(shippingAddress.getStreet());
+        orderDetails.setDeliveryPostcode(shippingAddress.getPostcode());
+        orderDetails.setDeliveryPhone(shippingAddress.getPhone());
+        orderDetails.setDeliverySuburb(shippingAddress.getSuburb());
+        orderDetails.setDeliveryCity(shippingAddress.getCity());
+        orderDetails.setDeliveryZone(shippingAddress.getZoneName());
+        orderDetails.setDeliveryState(shippingAddress.getZoneName());
+        orderDetails.setDeliverySuburb(shippingAddress.getZoneName());
+        orderDetails.setDeliveryCountry(shippingAddress.getCountryName());
+        orderDetails.setDeliveryZoneId(String.valueOf(shippingAddress.getZoneId()));
+        orderDetails.setDeliveryCountryId(String.valueOf(shippingAddress.getCountriesId()));
+        orderDetails.setDeliveryTime("" + shippingAddress.getDelivery_time());
+        orderDetails.setDeliveryCost("" + shipping);
+        orderDetails.setPackingChargeTax(ConstantValues.PACKING_CHARGE);
+
+
+        // LatLang
+        orderDetails.setLatitude(String.valueOf(shippingAddress.getLatitude()) );
+        orderDetails.setLongitude( String.valueOf(shippingAddress.getLongitude()) );
+
+
+        orderDetails.setLanguageId(ConstantValues.LANGUAGE_ID);
+
+        orderDetails.setTaxZoneId(shippingAddress.getZoneId());
+        orderDetails.setTotalTax(tax);
+        orderDetails.setShippingMethod(getString(R.string.default_shipping_method));
+        orderDetails.setShippingCost(shipping_cost);
+
+
+//        orderDetails.setComments(comments);
+
+        if (couponList.size() > 0) {
+            orderDetails.setIsCouponApplied(1);
+        } else {
+            orderDetails.setIsCouponApplied(0);
+        }
+        orderDetails.setCouponAmount(discount);
+        orderDetails.setCoupons(couponList);
+
+        // Set PaymentNonceToken and PaymentMethod
+        orderDetails.setNonce(paymentNonceToken);
+        orderDetails.setPaymentMethod(selectedPaymentMethod);
+
+        // Set CheckoutFinal Price and Products
+        orderDetails.setProductsTotal(subtotal);
+        orderDetails.setTotalPrice(total);
+        orderDetails.setProducts(productList);
+        orderDetails.setOrder_payment_id(orderId);
+
+
+        orderDetails.setCurrency("UGX");
+
+        PlaceOrderNow(orderDetails);
+
+    }
+    private void PlaceOrderNow(PostOrder postOrder) {
+
+        String str = new Gson().toJson(postOrder);
+
+        Call<OrderData> call = BuyInputsAPIClient.getInstance()
+                .addToOrder
+                        (
+                                postOrder
+                        );
+
+        call.enqueue(new Callback<OrderData>() {
+            @Override
+            public void onResponse(Call<OrderData> call, retrofit2.Response<OrderData> response) {
+
+                progressDialog.dismiss();
+
+                // Check if the Response is successful
+                if (response.isSuccessful()) {
+                    if (response.body().getSuccess().equalsIgnoreCase("1")) {
+
+                        Intent notificationIntent = new Intent(getContext(), DashboardActivity.class);
+                        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        // Order has been placed Successfully
+                        NotificationHelper.showNewNotification(getContext(), notificationIntent, getString(R.string.thank_you), response.body().getMessage(), null);
+
+                        // Clear User's Cart
+                        My_Cart.ClearCart();
+
+                        // Clear User's Shipping and Billing info from AppContext
+                        ((CropManagerApp) getContext().getApplicationContext()).setShippingAddress(new AddressDetails());
+                        ((CropManagerApp) getContext().getApplicationContext()).setBillingAddress(new AddressDetails());
+
+
+                        // Navigate to Thank_You Fragment
+                        Fragment fragment = new Thank_You(my_cart);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.popBackStack(getString(R.string.actionHome), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        fragmentManager.beginTransaction()
+                                .add(R.id.main_fragment_container, fragment)
+                                .addToBackStack(null)
+                                .commit();
+
+
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
+
+                    } else {
+                        // Unable to get Success status
+                        Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e("Error:", response.message() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderData> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private boolean validatePaymentCard() {
+        if (!ValidateInputs.isValidNumber(cardNumber.getText().toString().trim())) {
+            cardNumber.setError(getString(R.string.invalid_credit_card));
+            return false;
+        } else if (!ValidateInputs.isValidNumber(cvv.getText().toString().trim())) {
+            cvv.setError(getString(R.string.invalid_card_cvv));
+            return false;
+        } else if (TextUtils.isEmpty(cardExpiry.getText().toString().trim())) {
+            cardExpiry.setError(getString(R.string.select_card_expiry));
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void GenerateBrainTreeToken() {
+
+        Call<GetBrainTreeToken> call = BuyInputsAPIClient.getInstance()
+                .generateBraintreeToken();
+
+
+        call.enqueue(new Callback<GetBrainTreeToken>() {
+            @Override
+            public void onResponse(Call<GetBrainTreeToken> call, retrofit2.Response<GetBrainTreeToken> response) {
+
+                dialogLoader.hideProgressDialog();
+
+                // Check if the Response is successful
+                if (response.isSuccessful()) {
+                    if (response.body().getSuccess().equalsIgnoreCase("1")) {
+
+                        braintreeToken = response.body().getToken();
+
+                        // Initialize BraintreeFragment with BraintreeToken
+                        try {
+                            braintreeFragment = BraintreeFragment.newInstance(getActivity(), braintreeToken);
+                        } catch (InvalidArgumentException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        Snackbar.make(rootView, getString(R.string.cannot_initialize_braintree), Snackbar.LENGTH_LONG).show();
+                    }
+                } else {
+                    Log.d("BRAINTREE TOKEN CALL", "onFailure: \"NetworkCallFailure : \"" + R.string.cannot_initialize_braintree);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetBrainTreeToken> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
+                Log.d("BRAINTREE TOKEN CALL", "onFailure: \"NetworkCallFailure : \"+t");
+            }
+        });
     }
 }
