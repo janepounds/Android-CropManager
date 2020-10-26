@@ -349,6 +349,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="@dimen/dimen_10dp">
+                    <com.braintreepayments.cardform.view.SupportedCardTypesView
+                        android:id="@+id/supported_card_types"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -387,7 +393,7 @@
                         android:textSize="@dimen/dimen_16sp" />
 
                     <EditText
-                        android:id="@+id/txt_visa_card_name"
+                        android:id="@+id/txt_visa_card_number"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@drawable/edittext_corner"
@@ -423,7 +429,7 @@
                             android:textColor="#515C6F"
                             android:textSize="@dimen/dimen_16sp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/visa_card_expiry"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"

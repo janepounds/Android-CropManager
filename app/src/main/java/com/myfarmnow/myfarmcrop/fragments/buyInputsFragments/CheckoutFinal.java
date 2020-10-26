@@ -4,11 +4,13 @@ package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -166,6 +169,7 @@ public class CheckoutFinal extends Fragment {
     private String PAYMENT_ENVIRONMENT = "Test";
     private String STRIPE_PUBLISHABLE_KEY = "";
     private String PAYPAL_PUBLISHABLE_KEY = "";
+    private Context context;
 
     //PayTM Credentials
     public String PAYTM_M_ID = ""; //Paytm Merchand Id we got it in paytm credentials
@@ -181,7 +185,7 @@ public class CheckoutFinal extends Fragment {
 
     CardType cardType;
     SupportedCardTypesView braintreeSupportedCards;
-    CardView shipping_address_cardview;
+    LinearLayout shipping_address_cardview;
     private FragmentManager fragmentManager;
     private static final CardType[] SUPPORTED_CARD_TYPES = {CardType.VISA, CardType.MASTERCARD, CardType.MAESTRO,
             CardType.UNIONPAY, CardType.AMEX};
@@ -204,6 +208,12 @@ public class CheckoutFinal extends Fragment {
         this.my_cart = my_cart;
         this.user_cart_BuyInputs_db = user_cart_BuyInputs_db;
         this.shop_id=merchantId;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Nullable
@@ -243,39 +253,39 @@ public class CheckoutFinal extends Fragment {
         shipping_street = rootView.findViewById(R.id.shipping_street);
         shipping_address = rootView.findViewById(R.id.shipping_address);
 
-        demo_coupons_text = rootView.findViewById(R.id.demo_coupons_text);
-        checkout_coupon_code = rootView.findViewById(R.id.checkout_coupon_code);
-        checkout_comments = rootView.findViewById(R.id.checkout_comments);
+//        demo_coupons_text = rootView.findViewById(R.id.demo_coupons_text);
+//        checkout_coupon_code = rootView.findViewById(R.id.checkout_coupon_code);
+//        checkout_comments = rootView.findViewById(R.id.checkout_comments);
         checkout_items_recycler = rootView.findViewById(R.id.checkout_items_recycler);
         checkout_coupons_recycler = rootView.findViewById(R.id.checkout_coupons_recycler);
-
-        card_details_layout = rootView.findViewById(R.id.card_details_layout);
-        payment_details_layout = rootView.findViewById(R.id.payment_details_layout);
-        checkout_paypal_btn = rootView.findViewById(R.id.checkout_paypal_btn);
-        checkout_payment_btn = rootView.findViewById(R.id.checkout_payment_btn);
-        payment_name = rootView.findViewById(R.id.payment_name);
-        payment_email = rootView.findViewById(R.id.payment_email);
-        payment_phone = rootView.findViewById(R.id.payment_phone);
-        checkout_card_number = rootView.findViewById(R.id.checkout_card_number);
-        checkout_card_cvv = rootView.findViewById(R.id.checkout_card_cvv);
-        checkout_card_expiry = rootView.findViewById(R.id.checkout_card_expiry);
-        scroll_container = rootView.findViewById(R.id.scroll_container);
-        braintreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
+//
+//        card_details_layout = rootView.findViewById(R.id.card_details_layout);
+//        payment_details_layout = rootView.findViewById(R.id.payment_details_layout);
+//        checkout_paypal_btn = rootView.findViewById(R.id.checkout_paypal_btn);
+//        checkout_payment_btn = rootView.findViewById(R.id.checkout_payment_btn);
+//        payment_name = rootView.findViewById(R.id.payment_name);
+//        payment_email = rootView.findViewById(R.id.payment_email);
+//        payment_phone = rootView.findViewById(R.id.payment_phone);
+//        checkout_card_number = rootView.findViewById(R.id.checkout_card_number);
+//        checkout_card_cvv = rootView.findViewById(R.id.checkout_card_cvv);
+//        checkout_card_expiry = rootView.findViewById(R.id.checkout_card_expiry);
+//        scroll_container = rootView.findViewById(R.id.scroll_container);
+//        braintreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
 
 
         PAYMENT_CURRENCY = ConstantValues.CURRENCY_CODE;
 
-        braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+//        braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         checkout_order_btn.setEnabled(false);
-        card_details_layout.setVisibility(View.GONE);
-        checkout_paypal_btn.setVisibility(View.GONE);
-        payment_details_layout.setVisibility(View.GONE);
+//        card_details_layout.setVisibility(View.GONE);
+//        checkout_paypal_btn.setVisibility(View.GONE);
+//        payment_details_layout.setVisibility(View.GONE);
 
         checkout_items_recycler.setNestedScrollingEnabled(false);
-        checkout_coupons_recycler.setNestedScrollingEnabled(false);
+//        checkout_coupons_recycler.setNestedScrollingEnabled(false);
 
-        checkout_card_expiry.setKeyListener(null);
+//        checkout_card_expiry.setKeyListener(null);
 
         dialogLoader = new DialogLoader(getContext());
 
@@ -300,7 +310,7 @@ public class CheckoutFinal extends Fragment {
         RequestPaymentMethods();
 
         // Initialize the CheckoutItemsAdapter for RecyclerView
-        checkoutItemsAdapter = new CheckoutItemsAdapter(getContext(), this.checkoutItemsList);
+        checkoutItemsAdapter = new CheckoutItemsAdapter(context, checkoutItemsList);
 
         // Set the Adapter, LayoutManager and ItemDecoration to the RecyclerView
         checkout_items_recycler.setAdapter(checkoutItemsAdapter);
@@ -329,7 +339,7 @@ public class CheckoutFinal extends Fragment {
         shipping_street.setText(shippingAddress.getStreet());
 
         // Set CheckoutFinal Total
-        setCheckoutTotal();
+//        setCheckoutTotal();
 
         // Initialize ProgressDialog
         progressDialog = new ProgressDialog(getActivity());
@@ -464,75 +474,75 @@ public class CheckoutFinal extends Fragment {
 
 
         // Integrate SupportedCardTypes with TextChangedListener of checkout_card_number
-        checkout_card_number.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(checkout_card_number.getText().toString().trim())) {
-                    CardType type = CardType.forCardNumber(checkout_card_number.getText().toString());
-                    if (cardType != type) {
-                        cardType = type;
-
-                        InputFilter[] filters = {new InputFilter.LengthFilter(cardType.getMaxCardLength())};
-                        checkout_card_number.setFilters(filters);
-                        checkout_card_number.invalidate();
-
-                        braintreeSupportedCards.setSelected(cardType);
-                    }
-                } else {
-                    braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+//        checkout_card_number.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (!TextUtils.isEmpty(checkout_card_number.getText().toString().trim())) {
+//                    CardType type = CardType.forCardNumber(checkout_card_number.getText().toString());
+//                    if (cardType != type) {
+//                        cardType = type;
+//
+//                        InputFilter[] filters = {new InputFilter.LengthFilter(cardType.getMaxCardLength())};
+//                        checkout_card_number.setFilters(filters);
+//                        checkout_card_number.invalidate();
+//
+////                        braintreeSupportedCards.setSelected(cardType);
+//                    }
+//                } else {
+////                    braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        });
 
         // Handle Touch event of input_dob EditText
-        checkout_card_expiry.setOnTouchListener((v, event) -> {
-
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                // Get Calendar instance
-                final Calendar calendar = Calendar.getInstance();
-
-                // Initialize DateSetListener of DatePickerDialog
-                DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                        // Set the selected Date Info to Calendar instance
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, monthOfYear);
-
-                        // Set Date Format
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy", Locale.US);
-
-                        // Set Date in input_dob EditText
-                        checkout_card_expiry.setText(dateFormat.format(calendar.getTime()));
-                    }
-                };
-
-
-                // Initialize DatePickerDialog
-                DatePickerDialog datePicker = new DatePickerDialog
-                        (
-                                getContext(),
-                                date,
-                                calendar.get(Calendar.YEAR),
-                                calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DAY_OF_MONTH)
-                        );
-
-                // Show datePicker Dialog
-                datePicker.show();
-            }
-
-            return false;
-        });
+//        checkout_card_expiry.setOnTouchListener((v, event) -> {
+//
+//            if (event.getAction() == MotionEvent.ACTION_UP) {
+//                // Get Calendar instance
+//                final Calendar calendar = Calendar.getInstance();
+//
+//                // Initialize DateSetListener of DatePickerDialog
+//                DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//
+//                        // Set the selected Date Info to Calendar instance
+//                        calendar.set(Calendar.YEAR, year);
+//                        calendar.set(Calendar.MONTH, monthOfYear);
+//
+//                        // Set Date Format
+//                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy", Locale.US);
+//
+//                        // Set Date in input_dob EditText
+//                        checkout_card_expiry.setText(dateFormat.format(calendar.getTime()));
+//                    }
+//                };
+//
+//
+//                // Initialize DatePickerDialog
+//                DatePickerDialog datePicker = new DatePickerDialog
+//                        (
+//                                getContext(),
+//                                date,
+//                                calendar.get(Calendar.YEAR),
+//                                calendar.get(Calendar.MONTH),
+//                                calendar.get(Calendar.DAY_OF_MONTH)
+//                        );
+//
+//                // Show datePicker Dialog
+//                datePicker.show();
+//            }
+//
+//            return false;
+//        });
 
 
         // Handle the Click event of checkout_paypal_btn Button
@@ -566,25 +576,25 @@ public class CheckoutFinal extends Fragment {
 
 
         // Handle the Click event of checkout_instamojo_btn Button
-        checkout_payment_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (validatePaymentInfo()) {
-
-                    if (FLAG_PAYMENT == 0) {
-                        //startPaymentInstaMojo();
-
-                    } else if (FLAG_PAYMENT == 1) {
-                        // PayUMoney Function
-                        //launchPayUMoneyFlow();
-
-                    } else if (FLAG_PAYMENT == 2) {
-                        //startPaymentRazorPay();
-                    }
-                }
-            }
-        });
+//        checkout_payment_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (validatePaymentInfo()) {
+//
+//                    if (FLAG_PAYMENT == 0) {
+//                        //startPaymentInstaMojo();
+//
+//                    } else if (FLAG_PAYMENT == 1) {
+//                        // PayUMoney Function
+//                        //launchPayUMoneyFlow();
+//
+//                    } else if (FLAG_PAYMENT == 2) {
+//                        //startPaymentRazorPay();
+//                    }
+//                }
+//            }
+//        });
 
         // Handle the Click event of edit_shipping_Btn Button
         edit_shipping_Btn.setOnClickListener(view -> {
@@ -607,7 +617,7 @@ public class CheckoutFinal extends Fragment {
         if (!ConstantValues.IS_CLIENT_ACTIVE) {
             setupDemoCoupons();
         } else {
-            demo_coupons_text.setVisibility(View.GONE);
+//            demo_coupons_text.setVisibility(View.GONE);
         }
 
 
