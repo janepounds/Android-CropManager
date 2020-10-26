@@ -78,9 +78,10 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
 
         holder.merchants_businessName.setText(merchantsDetails.getBusinessName());
         holder.merchant_location.setText(merchantsDetails.getAddress());
+
         int order_price = merchantsDetails.getTotalOrderPrice();
         if(order_price > 0){
-            holder.order_price.setText(context.getString(R.string.defaultcurrency) + " " + order_price);
+            holder.order_price.setText(context.getString(R.string.defaultcurrency) +" " + order_price);
         }
         else{
             holder.order_price.setText("N/A");
