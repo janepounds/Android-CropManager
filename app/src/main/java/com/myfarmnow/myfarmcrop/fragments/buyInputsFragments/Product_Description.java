@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -95,8 +97,8 @@ public class Product_Description extends Fragment {
     LinearLayout product_attributes;
     RecyclerView attribute_recycler;
     WebView product_description_webView;
-    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,
-            product_ratings_count;
+    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,product_ratings_count, weight1,weight2,
+             weight3,weight4,weight5;
     LinearLayout product_reviews_ratings;
     
     DialogLoader dialogLoader;
@@ -107,7 +109,7 @@ public class Product_Description extends Fragment {
     List<Attribute> attributesList = new ArrayList<>();
     List<CartProductAttributes> selectedAttributesList;
     public List<ProductReviews> productReviews;
-    ColorRatingBar product_rating_bar;
+    RatingBar product_rating_bar;
 
     ImageView checkImageView;
 
@@ -141,6 +143,12 @@ public class Product_Description extends Fragment {
         
         
         // Binding Layout Views
+        weight1 =rootView.findViewById(R.id.weight1);
+        weight2 =rootView.findViewById(R.id.weight2);
+        weight3 =rootView.findViewById(R.id.weight3);
+        weight4 =rootView.findViewById(R.id.weight4);
+        weight5 =rootView.findViewById(R.id.weight5);
+
         title = rootView.findViewById(R.id.product_title);
         category = rootView.findViewById(R.id.product_category);
         price_old = rootView.findViewById(R.id.product_price_old);
@@ -205,6 +213,87 @@ public class Product_Description extends Fragment {
         });
         //product_reviews_ratings.setVisibility(View.GONE);
 
+        //Handling weights layout style
+        weight1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+               weight1.setTextColor(Color.parseColor("#ffffff"));
+                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight2.setTextColor(Color.parseColor("#6E7989"));
+                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight3.setTextColor(Color.parseColor("#6E7989"));
+                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight4.setTextColor(Color.parseColor("#6E7989"));
+                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight5.setTextColor(Color.parseColor("#6E7989"));
+
+            }
+        });
+        weight2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+                weight2.setTextColor(Color.parseColor("#ffffff"));
+                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight1.setTextColor(Color.parseColor("#6E7989"));
+                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight3.setTextColor(Color.parseColor("#6E7989"));
+                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight4.setTextColor(Color.parseColor("#6E7989"));
+                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight5.setTextColor(Color.parseColor("#6E7989"));
+
+            }
+        });
+        weight3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+                weight3.setTextColor(Color.parseColor("#ffffff"));
+                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight2.setTextColor(Color.parseColor("#6E7989"));
+                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight1.setTextColor(Color.parseColor("#6E7989"));
+                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight4.setTextColor(Color.parseColor("#6E7989"));
+                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight5.setTextColor(Color.parseColor("#6E7989"));
+
+            }
+        });
+        weight4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+                weight4.setTextColor(Color.parseColor("#ffffff"));
+                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight2.setTextColor(Color.parseColor("#6E7989"));
+                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight3.setTextColor(Color.parseColor("#6E7989"));
+                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight1.setTextColor(Color.parseColor("#6E7989"));
+                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight5.setTextColor(Color.parseColor("#6E7989"));
+
+            }
+        });
+        weight5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+                weight5.setTextColor(Color.parseColor("#ffffff"));
+                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight2.setTextColor(Color.parseColor("#6E7989"));
+                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight3.setTextColor(Color.parseColor("#6E7989"));
+                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight4.setTextColor(Color.parseColor("#6E7989"));
+                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+                weight1.setTextColor(Color.parseColor("#6E7989"));
+
+            }
+        });
         return rootView;
         
     }
@@ -285,8 +374,8 @@ public class Product_Description extends Fragment {
             RequestProductStock(productDetails.getProductsId(), null);
 
         if (productDetails.getProductsType() == 2) {
-            productCartBtn.setText(getString(R.string.view_product));
-            productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_green));
+           // productCartBtn.setText(getString(R.string.view_product));
+           // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_green));
         }
 
         // Check if the Product is Newly Added with the help of static method of Helper class
@@ -550,15 +639,15 @@ public class Product_Description extends Fragment {
         if (stock.equalsIgnoreCase("0")) {
             product_stock.setText(getString(R.string.outOfStock));
             productCartBtn.setText(getString(R.string.outOfStock));
-            product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
-            productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
+           // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
+           // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
             
         }
         else {
             product_stock.setText(getString(R.string.in_stock));
             productCartBtn.setText(getString(R.string.addToCart));
-            product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
-            productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
+          //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
+         //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
         }
         
         // Check if product from flash sale
@@ -572,7 +661,7 @@ public class Product_Description extends Fragment {
                 productFinalPrice = productBasePrice + attributesPrice;
                 if (startDate > serverTime) {
                     productCartBtn.setEnabled(false);
-                    productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
+                   // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
                     
                 }
             }
