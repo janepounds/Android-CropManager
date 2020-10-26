@@ -2337,4 +2337,5 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="order_summary">Order Summary</string>
     <string name="promo_code">Promo Code</string>
+    <string name="default_old_price"><strike>UGX 45.00</strike></string>
 </resources>
