@@ -339,7 +339,7 @@ public class CheckoutFinal extends Fragment {
         shipping_street.setText(shippingAddress.getStreet());
 
         // Set CheckoutFinal Total
-//        setCheckoutTotal();
+        setCheckoutTotal();
 
         // Initialize ProgressDialog
         progressDialog = new ProgressDialog(getActivity());
@@ -996,7 +996,7 @@ public class CheckoutFinal extends Fragment {
         checkoutTotal = checkoutSubtotal + checkoutTax + packingCharges + checkoutShipping - checkoutDiscount;
 
         // Set CheckoutFinal Details
-        checkout_tax.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutTax));
+//        checkout_tax.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutTax));
         checkout_shipping.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutShipping));
         checkout_discount.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutDiscount));
 

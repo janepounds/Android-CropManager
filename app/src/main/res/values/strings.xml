@@ -1874,7 +1874,7 @@
     <string name="no_of_products"> No. of Products </string>
 
     <string name="tax"> Tax </string>
-    <string name="shipping"> Delivery </string>
+    <string name="shipping"> Exp.Delivery Charge</string>
     <string name="discount"> Discount </string>
     <string name="subtotal"> Subtotal </string>
     <string name="total"> Total </string>
