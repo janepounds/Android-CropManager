@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/layoutBackgroundLight"
+    android:background="@color/windowBackgroundDark"
     android:orientation="vertical">
 
 
@@ -11,7 +11,9 @@
         android:id="@+id/orders_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="?actionBarSize"/>
 
     <LinearLayout
         android:gravity="center"
@@ -25,7 +27,8 @@
             android:tint="@color/dark_gray"
             android:src="@drawable/ic_cart_empty"
             android:layout_width="80dp"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"
+            tools:ignore="UseAppTint" />
 
         <TextView
             android:layout_width="wrap_content"
