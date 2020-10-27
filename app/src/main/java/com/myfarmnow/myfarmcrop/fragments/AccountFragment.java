@@ -46,7 +46,6 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
-import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
 import com.myfarmnow.myfarmcrop.utils.ValidateInputs;
 
