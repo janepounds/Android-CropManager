@@ -120,6 +120,7 @@ import retrofit2.Call;
 
 
 public class CheckoutFinal extends Fragment {
+    private static final String TAG = "CheckoutFinal";
 
     View rootView;
     AlertDialog demoCouponsDialog;
@@ -242,7 +243,7 @@ public class CheckoutFinal extends Fragment {
         paymentMethodsList = new ArrayList<>();
 
         // Get checkoutItems from Local Databases User_Cart_DB
-        checkoutItemsList = this.user_cart_BuyInputs_db.getCartItems();
+        checkoutItemsList = user_cart_BuyInputs_db.getCartItems();
 
         //ProductsName Array intialize
         productsName = new ArrayList<>();
@@ -255,8 +256,9 @@ public class CheckoutFinal extends Fragment {
         }
 
         // Request Payment Methods
-        RequestPaymentMethods();
+//        RequestPaymentMethods();
 
+        Log.d(TAG, "onCreateView: "+checkoutItemsList);
         // Initialize the CheckoutItemsAdapter for RecyclerView
         checkoutItemsAdapter = new CheckoutItemsAdapter(context, checkoutItemsList);
 
@@ -1020,86 +1022,86 @@ public class CheckoutFinal extends Fragment {
 
     //*********** Request the Server to Generate BrainTreeToken ********//
 
-    private void RequestPaymentMethods() {
-
-        dialogLoader.showProgressDialog();
-
-        Call<PaymentMethodsData> call = BuyInputsAPIClient.getInstance()
-                .getPaymentMethods
-                        (
-                                ConstantValues.LANGUAGE_ID
-                        );
-
-
-        call.enqueue(new Callback<PaymentMethodsData>() {
-            @Override
-            public void onResponse(Call<PaymentMethodsData> call, retrofit2.Response<PaymentMethodsData> response) {
-
-                if (response.isSuccessful()) {
-                    if (response.body().getSuccess().equalsIgnoreCase("1")) {
-
-                        String strGson = new Gson().toJson(response.body());
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-
-                            PaymentMethodsInfo paymentMethodsInfo = response.body().getData().get(i);
-
-                            if (paymentMethodsInfo.getMethod().equalsIgnoreCase("cod")
-                                    && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) {
-                                paymentMethodsList.add(paymentMethodsInfo);
-                            }
-
-//                            if (paymentMethodsInfo.getMethod().equalsIgnoreCase("paypal")   && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) {
+//    private void RequestPaymentMethods() {
+//
+//        dialogLoader.showProgressDialog();
+//
+//        Call<PaymentMethodsData> call = BuyInputsAPIClient.getInstance()
+//                .getPaymentMethods
+//                        (
+//                                ConstantValues.LANGUAGE_ID
+//                        );
+//
+//
+//        call.enqueue(new Callback<PaymentMethodsData>() {
+//            @Override
+//            public void onResponse(Call<PaymentMethodsData> call, retrofit2.Response<PaymentMethodsData> response) {
+//
+//                if (response.isSuccessful()) {
+//                    if (response.body().getSuccess().equalsIgnoreCase("1")) {
+//
+//                        String strGson = new Gson().toJson(response.body());
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//
+//                            PaymentMethodsInfo paymentMethodsInfo = response.body().getData().get(i);
+//
+//                            if (paymentMethodsInfo.getMethod().equalsIgnoreCase("cod")
+//                                    && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) {
 //                                paymentMethodsList.add(paymentMethodsInfo);
-//
-//                                PAYMENT_ENVIRONMENT = paymentMethodsInfo.getEnvironment();
-////                                PAYMENT_CURRENCY = paymentMethodsInfo.getPaymentCurrency();
-//                                PAYPAL_PUBLISHABLE_KEY = paymentMethodsInfo.getPublicKey();
-//
-//                                payPalConfiguration = new PayPalConfiguration()
-//                                        // sandbox (ENVIRONMENT_SANDBOX)
-//                                        // or live (ENVIRONMENT_PRODUCTION)
-//                                        .environment((PAYMENT_ENVIRONMENT.equalsIgnoreCase("Test") ? ENVIRONMENT_SANDBOX : ENVIRONMENT_PRODUCTION))
-//                                        .clientId(PAYPAL_PUBLISHABLE_KEY);
-//
-//                                Intent intent = new Intent(getContext(), PayPalService.class);
-//                                intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
-//
-//                                getContext().startService(intent);
 //                            }
-
-
-
-                            if ((paymentMethodsInfo.getMethod().equalsIgnoreCase("emaisha_wallet") && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) ) {
-                                paymentMethodsList.add(paymentMethodsInfo);
-                                GenerateBrainTreeToken();
-                            } else {
-                                dialogLoader.hideProgressDialog();
-                            }
-
-                            PAYMENT_CURRENCY = getString(R.string.defaultcurrency);
-                        }
-
-
-
-                    } else {
-                        // Unexpected Response from Server
-                        dialogLoader.hideProgressDialog();
-                        Snackbar.make(rootView, getString(R.string.cannot_get_payment_methods), Snackbar.LENGTH_LONG).show();
-                        Toast.makeText(getContext(), getString(R.string.cannot_get_payment_methods), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    dialogLoader.hideProgressDialog();
-                    Toast.makeText(getContext(), getString(R.string.cannot_get_payment_methods), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PaymentMethodsData> call, Throwable t) {
-                dialogLoader.hideProgressDialog();
-                Toast.makeText(getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+//
+////                            if (paymentMethodsInfo.getMethod().equalsIgnoreCase("paypal")   && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) {
+////                                paymentMethodsList.add(paymentMethodsInfo);
+////
+////                                PAYMENT_ENVIRONMENT = paymentMethodsInfo.getEnvironment();
+//////                                PAYMENT_CURRENCY = paymentMethodsInfo.getPaymentCurrency();
+////                                PAYPAL_PUBLISHABLE_KEY = paymentMethodsInfo.getPublicKey();
+////
+////                                payPalConfiguration = new PayPalConfiguration()
+////                                        // sandbox (ENVIRONMENT_SANDBOX)
+////                                        // or live (ENVIRONMENT_PRODUCTION)
+////                                        .environment((PAYMENT_ENVIRONMENT.equalsIgnoreCase("Test") ? ENVIRONMENT_SANDBOX : ENVIRONMENT_PRODUCTION))
+////                                        .clientId(PAYPAL_PUBLISHABLE_KEY);
+////
+////                                Intent intent = new Intent(getContext(), PayPalService.class);
+////                                intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
+////
+////                                getContext().startService(intent);
+////                            }
+//
+//
+//
+//                            if ((paymentMethodsInfo.getMethod().equalsIgnoreCase("emaisha_wallet") && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) ) {
+//                                paymentMethodsList.add(paymentMethodsInfo);
+//                                GenerateBrainTreeToken();
+//                            } else {
+//                                dialogLoader.hideProgressDialog();
+//                            }
+//
+//                            PAYMENT_CURRENCY = getString(R.string.defaultcurrency);
+//                        }
+//
+//
+//
+//                    } else {
+//                        // Unexpected Response from Server
+//                        dialogLoader.hideProgressDialog();
+//                        Snackbar.make(rootView, getString(R.string.cannot_get_payment_methods), Snackbar.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), getString(R.string.cannot_get_payment_methods), Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    dialogLoader.hideProgressDialog();
+//                    Toast.makeText(getContext(), getString(R.string.cannot_get_payment_methods), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PaymentMethodsData> call, Throwable t) {
+//                dialogLoader.hideProgressDialog();
+//                Toast.makeText(getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
 
     //*********** Request the Server to Generate BrainTreeToken ********//

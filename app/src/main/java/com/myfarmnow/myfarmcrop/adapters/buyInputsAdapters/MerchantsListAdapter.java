@@ -136,6 +136,7 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
 
                         user_cart_BuyInputs_db.deleteCartItem(cart_product.getCustomersBasketId());
                     }
+
                 }
                 //end Cart product update
 

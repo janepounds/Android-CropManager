@@ -131,6 +131,8 @@ public class My_Cart extends Fragment {
 
         cartItemsAdapter.notifyDataSetChanged();
 
+        Log.d(TAG, "onCreateView: "+finalCartItemsList);
+
         clear_cart.setOnClickListener(view -> {
             // Delete CartItem from Local Database using static method of My_Cart
             ClearCart();
