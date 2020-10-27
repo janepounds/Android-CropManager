@@ -26,12 +26,20 @@ public class ProductMeasure implements Parcelable {
     @Expose
     private String products_price;
 
+    private boolean checked;
+
     public ProductMeasure() {
 
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
 
-    //********** Describes the kinds of Special Objects contained in this Parcelable Instance's marshaled representation *********//
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+//********** Describes the kinds of Special Objects contained in this Parcelable Instance's marshaled representation *********//
 
     @Override
     public int describeContents() {

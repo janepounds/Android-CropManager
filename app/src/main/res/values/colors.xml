@@ -105,5 +105,6 @@
     <color name="progressOrange">#ffb234</color>
     <color name="progressRed">#ff8b5a</color>
     <color name="palebrown">#F6F4ED</color>
+    <color name="mild_gray">#6E7989</color>
 
 </resources>
