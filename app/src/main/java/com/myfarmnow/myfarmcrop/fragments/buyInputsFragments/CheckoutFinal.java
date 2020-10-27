@@ -158,7 +158,7 @@ public class CheckoutFinal extends Fragment {
     CouponsAdapter couponsAdapter;
     CheckoutItemsAdapter checkoutItemsAdapter;
 
-    final User_Cart_BuyInputsDB user_cart_BuyInputs_db;
+    User_Cart_BuyInputsDB user_cart_BuyInputs_db;
     User_Info_BuyInputsDB user_info_BuyInputs_db = new User_Info_BuyInputsDB();
 
 
@@ -166,35 +166,9 @@ public class CheckoutFinal extends Fragment {
     BraintreeFragment braintreeFragment;
 
     private String PAYMENT_CURRENCY = "USD";
-    private String PAYMENT_ENVIRONMENT = "Test";
-    private String STRIPE_PUBLISHABLE_KEY = "";
-    private String PAYPAL_PUBLISHABLE_KEY = "";
     private Context context;
 
-    //PayTM Credentials
-    public String PAYTM_M_ID = ""; //Paytm Merchand Id we got it in paytm credentials
-    public String CHANNEL_ID = "WEB"; //Paytm Channel Id, got it in paytm credentials
-    public String INDUSTRY_TYPE_ID = "Retail"; //Paytm industry type got it in paytm credential
-    public String WEBSITE = "Ecommerce";
-    public String CALLBACK_URL = "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp";
-
-    private static PayPalConfiguration payPalConfiguration;
-    private static final int SIMPLE_PAYPAL_REQUEST_CODE = 123;
-    int FLAG_PAYMENT;
-
-
-    CardType cardType;
-    SupportedCardTypesView braintreeSupportedCards;
     LinearLayout shipping_address_cardview;
-    private FragmentManager fragmentManager;
-    private static final CardType[] SUPPORTED_CARD_TYPES = {CardType.VISA, CardType.MASTERCARD, CardType.MAESTRO,
-            CardType.UNIONPAY, CardType.AMEX};
-
-
-    private boolean isDisableExitConfirmation = false;
-    //private PayUmoneySdkInitializer.PaymentParam mPaymentParams;
-
-
     List<PostProducts> orderProductList;
     //Add order products name to String array
     List<String> productsName;
@@ -253,39 +227,13 @@ public class CheckoutFinal extends Fragment {
         shipping_street = rootView.findViewById(R.id.shipping_street);
         shipping_address = rootView.findViewById(R.id.shipping_address);
 
-//        demo_coupons_text = rootView.findViewById(R.id.demo_coupons_text);
-//        checkout_coupon_code = rootView.findViewById(R.id.checkout_coupon_code);
-//        checkout_comments = rootView.findViewById(R.id.checkout_comments);
         checkout_items_recycler = rootView.findViewById(R.id.checkout_items_recycler);
         checkout_coupons_recycler = rootView.findViewById(R.id.checkout_coupons_recycler);
-//
-//        card_details_layout = rootView.findViewById(R.id.card_details_layout);
-//        payment_details_layout = rootView.findViewById(R.id.payment_details_layout);
-//        checkout_paypal_btn = rootView.findViewById(R.id.checkout_paypal_btn);
-//        checkout_payment_btn = rootView.findViewById(R.id.checkout_payment_btn);
-//        payment_name = rootView.findViewById(R.id.payment_name);
-//        payment_email = rootView.findViewById(R.id.payment_email);
-//        payment_phone = rootView.findViewById(R.id.payment_phone);
-//        checkout_card_number = rootView.findViewById(R.id.checkout_card_number);
-//        checkout_card_cvv = rootView.findViewById(R.id.checkout_card_cvv);
-//        checkout_card_expiry = rootView.findViewById(R.id.checkout_card_expiry);
-//        scroll_container = rootView.findViewById(R.id.scroll_container);
-//        braintreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
 
 
         PAYMENT_CURRENCY = ConstantValues.CURRENCY_CODE;
-
-//        braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
-
         checkout_order_btn.setEnabled(false);
-//        card_details_layout.setVisibility(View.GONE);
-//        checkout_paypal_btn.setVisibility(View.GONE);
-//        payment_details_layout.setVisibility(View.GONE);
-
         checkout_items_recycler.setNestedScrollingEnabled(false);
-//        checkout_coupons_recycler.setNestedScrollingEnabled(false);
-
-//        checkout_card_expiry.setKeyListener(null);
 
         dialogLoader = new DialogLoader(getContext());
 
@@ -545,58 +493,6 @@ public class CheckoutFinal extends Fragment {
 //            return false;
 //        });
 
-
-        // Handle the Click event of checkout_paypal_btn Button
-//        checkout_paypal_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                if (selectedPaymentMethod.equalsIgnoreCase("braintree_paypal")) {
-//                    // Process Payment using Braintree PayPal
-//                    PayPal.authorizeAccount(braintreeFragment);
-//                } else if (selectedPaymentMethod.equalsIgnoreCase("paypal")) {
-//                    // Process Payment using PayPal
-//                    PayPalPayment payment = new PayPalPayment
-//                            (
-//                                    new BigDecimal(String.valueOf(checkoutTotal)),
-//                                    PAYMENT_CURRENCY,
-//                                    ConstantValues.APP_HEADER,
-//                                    PayPalPayment.PAYMENT_INTENT_SALE
-//                            );
-//
-//                    Intent intent = new Intent(getContext(), PaymentActivity.class);
-//
-//                    // send the same configuration for restart resiliency
-//                    intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
-//                    intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-//
-//                    startActivityForResult(intent, SIMPLE_PAYPAL_REQUEST_CODE);
-//                }
-//            }
-//        });
-
-
-        // Handle the Click event of checkout_instamojo_btn Button
-//        checkout_payment_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (validatePaymentInfo()) {
-//
-//                    if (FLAG_PAYMENT == 0) {
-//                        //startPaymentInstaMojo();
-//
-//                    } else if (FLAG_PAYMENT == 1) {
-//                        // PayUMoney Function
-//                        //launchPayUMoneyFlow();
-//
-//                    } else if (FLAG_PAYMENT == 2) {
-//                        //startPaymentRazorPay();
-//                    }
-//                }
-//            }
-//        });
-
         // Handle the Click event of edit_shipping_Btn Button
         edit_shipping_Btn.setOnClickListener(view -> {
 
@@ -828,24 +724,15 @@ public class CheckoutFinal extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
 
-            // Result Code is -1 send from Payumoney activity
             Log.d("MainActivity", "request code " + requestCode + " resultcode " + resultCode);
             if (requestCode == BraintreeRequestCodes.PAYPAL) {
                 DropInResult result = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
-
                 // use the result to update your UI and send the payment method nonce to your server
                 if (!TextUtils.isEmpty(result.getPaymentMethodNonce().getNonce())) {
                     selectedPaymentMethod = "braintree_paypal";
                     paymentNonceToken = result.getPaymentMethodNonce().getNonce();
                 }
 
-            } else if (requestCode == SIMPLE_PAYPAL_REQUEST_CODE) {
-//                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-//
-//                if (confirm != null) {
-//                    selectedPaymentMethod = "paypal";
-//                    paymentNonceToken = confirm.getProofOfPayment().getPaymentId();
-//                }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
             Log.i("VC_Shop", "[paypal] > The user canceled.");
@@ -989,7 +876,6 @@ public class CheckoutFinal extends Fragment {
     //*********** Set CheckoutFinal's Subtotal, Tax, ShippingCost, Discount and Total Prices ********//
 
     private void setCheckoutTotal() {
-
         // Get Cart Total
         checkoutSubtotal = getProductsSubTotal();
         // Calculate CheckoutFinal Total
@@ -1185,31 +1071,15 @@ public class CheckoutFinal extends Fragment {
 
                             if ((paymentMethodsInfo.getMethod().equalsIgnoreCase("emaisha_wallet") && paymentMethodsInfo.getActive().equalsIgnoreCase("1")) ) {
                                 paymentMethodsList.add(paymentMethodsInfo);
-
-                                PAYMENT_ENVIRONMENT = paymentMethodsInfo.getEnvironment();
-
                                 GenerateBrainTreeToken();
                             } else {
                                 dialogLoader.hideProgressDialog();
-                            }
-                            if (paymentMethodsInfo.getMethod().equalsIgnoreCase("paytm") && paymentMethodsInfo.getActive().equalsIgnoreCase("1") ) {
-                                paymentMethodsList.add(paymentMethodsInfo);
-
-                                PAYMENT_ENVIRONMENT = paymentMethodsInfo.getEnvironment();
-                                PAYTM_M_ID = paymentMethodsInfo.getPublicKey();
                             }
 
                             PAYMENT_CURRENCY = getString(R.string.defaultcurrency);
                         }
 
-/*
-                        PaymentMethodsInfo paytmInfo = new PaymentMethodsInfo();
-                        paytmInfo.setName("paytm");
-                        paytmInfo.setMethod("paytm");
-                        paytmInfo.setActive("1");
-                        paytmInfo.setEnvironment("Test");
-                        paymentMethodsList.add(paytmInfo);
-*/
+
 
                     } else {
                         // Unexpected Response from Server

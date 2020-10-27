@@ -90,10 +90,10 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
         //MerchantProductListAdapter
         // Initialize the merchantsListAdapter for RecyclerView
         RecyclerView productsRecyclerView = holder.order_products_list;
-        final Map<String, String> productList = merchantsDetails.getProductPrices();
+        final Map<String, String[]> productList = merchantsDetails.getProductPrices();
         ArrayList<String> productNameList = new ArrayList<String>();
 
-        for (Map.Entry<String, String> entry : productList.entrySet()) {
+        for (Map.Entry<String, String[]> entry : productList.entrySet()) {
             productNameList.add(entry.getKey());
         }
 
@@ -125,8 +125,8 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
 
                     //NB:CONVENTION product price in the producttList is also null if product is out of stoke
                     if (productList.get(product_details.getProductsName()) != null) {//Merchant sells the product
-                        product_details.setProductsPrice(productList.get(product_details.getProductsName()));
-                        product_details.setTotalPrice((product_details.getCustomersBasketQuantity() * Integer.parseInt(productList.get(product_details.getProductsName()))) + "");
+                        product_details.setProductsPrice(productList.get(product_details.getProductsName())[0]);
+                        product_details.setTotalPrice((product_details.getCustomersBasketQuantity() * Integer.parseInt(productList.get(product_details.getProductsName())[0])) + "");
                         product_details.setProductsFinalPrice(product_details.getTotalPrice());
                         Log.w("PdtCost", productList.get(product_details.getProductsName()) + " " + product_details.getCustomersBasketQuantity() + " " + product_details.getTotalPrice());
 

@@ -545,7 +545,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                             //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
                             FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                             fragmentManager.beginTransaction()
-                                    .hide(((DashboardActivity)context).currentFragment)
                                     .add(R.id.main_fragment_container, fragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .addToBackStack(null).commit();

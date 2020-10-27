@@ -45,7 +45,7 @@ public class MerchantDetails {
     private String distance;
     @SerializedName("productPrices")
     @Expose
-    private Map<String, String> productPrices;
+    private Map<String, String[]> productPrices;
 
     public final static Parcelable.Creator<MerchantDetails> CREATOR = new Parcelable.Creator<MerchantDetails>() {
 
@@ -122,15 +122,15 @@ public class MerchantDetails {
         return distance;
     }
 
-    public Map<String, String> getProductPrices() {
+    public Map<String, String[]> getProductPrices() {
         return productPrices;
     }
 
     public int getTotalOrderPrice() {
         int total=0;
-        for (Map.Entry<String,String> entry : this.productPrices.entrySet())  {
+        for (Map.Entry<String,String[]> entry : this.productPrices.entrySet())  {
             if(entry.getValue()!=null)
-                total+= ( Integer.parseInt(entry.getValue()) );
+                total+= ( Integer.parseInt(entry.getValue()[0])*Integer.parseInt(entry.getValue()[1]) );
         }
         return total;
     }

@@ -16,11 +16,11 @@ import java.util.Map;
 
 public class MerchantProductListAdapter  extends RecyclerView.Adapter<MerchantProductListAdapter.MyViewHolder> {
 
-    private final Map<String, String> productList;
+    private final Map<String, String[]> productList;
     private  final ArrayList<String> productNameList;
     private final Context context;
 
-    public MerchantProductListAdapter(Context context, ArrayList<String> productNameList, Map<String, String> productList) {
+    public MerchantProductListAdapter(Context context, ArrayList<String> productNameList, Map<String, String[]> productList) {
         this.context = context;
         this.productList = productList;
         this.productNameList = productNameList;
@@ -39,11 +39,13 @@ public class MerchantProductListAdapter  extends RecyclerView.Adapter<MerchantPr
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final String product = this.productNameList.get(position);
 
-        int productprice=0;
-        if(this.productList.get(product)!=null)
-            productprice=Integer.parseInt(this.productList.get(product));
+        int productprice=0, productqty=1;
+        if(this.productList.get(product)!=null){
+            productprice=Integer.parseInt(this.productList.get(product)[0]);
+            productqty=Integer.parseInt(this.productList.get(product)[1]);
+        }
 
-        holder.productPrice.setText( productprice>0? context.getString(R.string.defaultcurrency)+" "+productprice : "Not Available");
+        holder.productPrice.setText( productprice>0? context.getString(R.string.defaultcurrency)+" "+productprice+" X "+productqty : "Not Available");
 
         holder.productName.setText(product);
     }
