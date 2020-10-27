@@ -46,148 +46,24 @@
                     android:paddingBottom="20dp"
                     app:selected_color="@color/colorPrimary"
                     app:unselected_color="@color/layoutBackground" />
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/layout_weights"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
                     android:layout_below="@+id/product_slider_indicator">
 
-                    <TextView
-                        android:id="@+id/weight1"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/measure_recyclerview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="1Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/weight2"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                      />
 
-                    <TextView
-                        android:id="@+id/weight2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="2Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/weight3"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/weight1"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/weight3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="3Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/weight4"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/weight2"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/weight4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="4Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/weight5"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/weight3"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/weight5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="5Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView23"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/weight4"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="6Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/textView24"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/weight5"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone"/>
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="2dp"
-                        android:background="@drawable/rounded_rectangle_mild_gray_background"
-                        android:text="7Kg"
-                        android:textAllCaps="true"
-                        android:textColor="#6E7989"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/textView23"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
                 <TextView
                     android:id="@+id/product_title"
                     android:layout_width="match_parent"
