@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -37,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.Login;
+import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductMeasureAdapter;
 import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductAttributesAdapter;
 import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductReviewsAdapter;
@@ -52,6 +55,7 @@ import com.myfarmnow.myfarmcrop.models.product_model.Image;
 import com.myfarmnow.myfarmcrop.models.product_model.Option;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductData;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
+import com.myfarmnow.myfarmcrop.models.product_model.ProductMeasure;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductStock;
 import com.myfarmnow.myfarmcrop.models.product_model.Value;
 import com.myfarmnow.myfarmcrop.models.ratings.GetRatings;
@@ -80,7 +84,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Product_Description extends Fragment {
-    
+    private static final String TAG = "Product_Description";
     View rootView;
     int productID;
     String customerID;
@@ -110,6 +114,11 @@ public class Product_Description extends Fragment {
     List<CartProductAttributes> selectedAttributesList;
     public List<ProductReviews> productReviews;
     RatingBar product_rating_bar;
+    private RecyclerView recyclerView;
+    private ProductMeasureAdapter productMeasureAdapter;
+    private List<ProductMeasure>productMeasures;
+    private Context context;
+
 
     ImageView checkImageView;
 
@@ -119,6 +128,13 @@ public class Product_Description extends Fragment {
 
     public Product_Description() {
         this.checkImageView = null;
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Nullable
@@ -144,10 +160,10 @@ public class Product_Description extends Fragment {
         
         // Binding Layout Views
         weight1 =rootView.findViewById(R.id.weight1);
-        weight2 =rootView.findViewById(R.id.weight2);
-        weight3 =rootView.findViewById(R.id.weight3);
-        weight4 =rootView.findViewById(R.id.weight4);
-        weight5 =rootView.findViewById(R.id.weight5);
+//        weight2 =rootView.findViewById(R.id.weight2);
+//        weight3 =rootView.findViewById(R.id.weight3);
+//        weight4 =rootView.findViewById(R.id.weight4);
+//        weight5 =rootView.findViewById(R.id.weight5);
 
         title = rootView.findViewById(R.id.product_title);
         category = rootView.findViewById(R.id.product_category);
@@ -173,6 +189,7 @@ public class Product_Description extends Fragment {
         product_tag_new.setVisibility(View.GONE);
         product_tag_discount.setVisibility(View.GONE);
         product_attributes.setVisibility(View.VISIBLE);
+        recyclerView = rootView.findViewById(R.id.measure_recyclerview);
         
         attribute_recycler.setNestedScrollingEnabled(false);
         
@@ -213,87 +230,89 @@ public class Product_Description extends Fragment {
         });
         //product_reviews_ratings.setVisibility(View.GONE);
 
+
+
         //Handling weights layout style
-        weight1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
-               weight1.setTextColor(Color.parseColor("#ffffff"));
-                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight2.setTextColor(Color.parseColor("#6E7989"));
-                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight3.setTextColor(Color.parseColor("#6E7989"));
-                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight4.setTextColor(Color.parseColor("#6E7989"));
-                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight5.setTextColor(Color.parseColor("#6E7989"));
-
-            }
-        });
-        weight2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
-                weight2.setTextColor(Color.parseColor("#ffffff"));
-                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight1.setTextColor(Color.parseColor("#6E7989"));
-                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight3.setTextColor(Color.parseColor("#6E7989"));
-                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight4.setTextColor(Color.parseColor("#6E7989"));
-                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight5.setTextColor(Color.parseColor("#6E7989"));
-
-            }
-        });
-        weight3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
-                weight3.setTextColor(Color.parseColor("#ffffff"));
-                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight2.setTextColor(Color.parseColor("#6E7989"));
-                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight1.setTextColor(Color.parseColor("#6E7989"));
-                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight4.setTextColor(Color.parseColor("#6E7989"));
-                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight5.setTextColor(Color.parseColor("#6E7989"));
-
-            }
-        });
-        weight4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
-                weight4.setTextColor(Color.parseColor("#ffffff"));
-                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight2.setTextColor(Color.parseColor("#6E7989"));
-                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight3.setTextColor(Color.parseColor("#6E7989"));
-                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight1.setTextColor(Color.parseColor("#6E7989"));
-                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight5.setTextColor(Color.parseColor("#6E7989"));
-
-            }
-        });
-        weight5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
-                weight5.setTextColor(Color.parseColor("#ffffff"));
-                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight2.setTextColor(Color.parseColor("#6E7989"));
-                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight3.setTextColor(Color.parseColor("#6E7989"));
-                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight4.setTextColor(Color.parseColor("#6E7989"));
-                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
-                weight1.setTextColor(Color.parseColor("#6E7989"));
-
-            }
-        });
+//        weight1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+//               weight1.setTextColor(Color.parseColor("#ffffff"));
+//                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight2.setTextColor(Color.parseColor("#6E7989"));
+//                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight3.setTextColor(Color.parseColor("#6E7989"));
+//                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight4.setTextColor(Color.parseColor("#6E7989"));
+//                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight5.setTextColor(Color.parseColor("#6E7989"));
+//
+//            }
+//        });
+//        weight2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+//                weight2.setTextColor(Color.parseColor("#ffffff"));
+//                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight1.setTextColor(Color.parseColor("#6E7989"));
+//                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight3.setTextColor(Color.parseColor("#6E7989"));
+//                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight4.setTextColor(Color.parseColor("#6E7989"));
+//                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight5.setTextColor(Color.parseColor("#6E7989"));
+//
+//            }
+//        });
+//        weight3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+//                weight3.setTextColor(Color.parseColor("#ffffff"));
+//                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight2.setTextColor(Color.parseColor("#6E7989"));
+//                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight1.setTextColor(Color.parseColor("#6E7989"));
+//                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight4.setTextColor(Color.parseColor("#6E7989"));
+//                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight5.setTextColor(Color.parseColor("#6E7989"));
+//
+//            }
+//        });
+//        weight4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+//                weight4.setTextColor(Color.parseColor("#ffffff"));
+//                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight2.setTextColor(Color.parseColor("#6E7989"));
+//                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight3.setTextColor(Color.parseColor("#6E7989"));
+//                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight1.setTextColor(Color.parseColor("#6E7989"));
+//                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight5.setTextColor(Color.parseColor("#6E7989"));
+//
+//            }
+//        });
+//        weight5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                weight5.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_green_background));
+//                weight5.setTextColor(Color.parseColor("#ffffff"));
+//                weight2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight2.setTextColor(Color.parseColor("#6E7989"));
+//                weight3.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight3.setTextColor(Color.parseColor("#6E7989"));
+//                weight4.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight4.setTextColor(Color.parseColor("#6E7989"));
+//                weight1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_rectangle_mild_gray_background));
+//                weight1.setTextColor(Color.parseColor("#6E7989"));
+//
+//            }
+//        });
         return rootView;
         
     }
@@ -316,6 +335,13 @@ public class Product_Description extends Fragment {
 
         product_rating_bar.setRating(productDetails.getRating());
         product_ratings_count.setText(""+productDetails.getTotal_user_rated());
+
+      //  set product weights
+        productMeasures = productDetails.getProductsMeasure();
+        Log.d(TAG, "onCreateView: "+productMeasures);
+        productMeasureAdapter = new ProductMeasureAdapter(context,productMeasures);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        recyclerView.setAdapter(productMeasureAdapter);
         
         // Set Product's OrderProductCategory Info
         String[] categoryIDs = new String[productDetails.getCategories().size()];
