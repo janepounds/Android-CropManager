@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_height="match_parent"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -382,7 +384,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="50dp"
-                app:srcCompat="@drawable/ic_remove_circle" />
+                app:srcCompat="@drawable/ic_minuse_black_24dp"
+                android:scaleType="centerInside"
+                android:tint="@color/white"
+                android:background="@drawable/rounded_cornor_bg"
+                tools:ignore="UseAppTint" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -402,7 +408,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dimen_20dp"
-                app:srcCompat="@drawable/ic_add_circle" />
+                app:srcCompat="@drawable/ic_add_white_24dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/round_button_dark_green"
+                app:tint="@color/white" />
 
         </LinearLayout>
 

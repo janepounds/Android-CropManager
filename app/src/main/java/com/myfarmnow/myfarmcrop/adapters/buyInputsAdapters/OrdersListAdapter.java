@@ -78,13 +78,13 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
         }
 
         switch (orderDetails.getOrdersStatus()) {
-            case "cancelled":
+            case "Cancel":
                 holder.orderStatusBackground.setBackgroundResource(R.drawable.order_status_cancelled_background);
                 break;
-            case "completed":
+            case "Completed":
                 holder.orderStatusBackground.setBackgroundResource(R.drawable.order_status_completed_background);
                 break;
-            case "pending":
+            case "Pending":
                 holder.orderStatusBackground.setBackgroundResource(R.drawable.order_status_pending_background);
                 break;
         }

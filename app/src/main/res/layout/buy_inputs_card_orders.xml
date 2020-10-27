@@ -3,10 +3,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/tools"
     android:layout_margin="3dp"
     android:background="@color/white"
-    card_view:cardCornerRadius="2dp"
+    card_view:cardCornerRadius="4dp"
     card_view:cardElevation="0dp"
     card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true">
@@ -20,7 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="5dp">
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
                 android:text="1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
@@ -45,14 +45,17 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@android:color/black" />
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/gray_mh" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -153,11 +156,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@drawable/order_status_cancelled_background"
+            android:background="@drawable/order_status_pending_background"
             android:gravity="center_vertical"
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/text_view_order_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_10"
@@ -175,7 +179,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/margin_10"
                 android:gravity="center_vertical"
-                android:text="Processing"
+                android:text="Pending"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp"

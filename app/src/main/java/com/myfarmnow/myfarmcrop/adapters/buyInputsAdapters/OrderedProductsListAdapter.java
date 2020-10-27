@@ -78,8 +78,9 @@ public class OrderedProductsListAdapter extends RecyclerView.Adapter<OrderedProd
         holder.checkout_item_quantity.setText(String.valueOf(product.getProductsQuantity()));
         holder.checkout_item_price.setText(ConstantValues.CURRENCY_SYMBOL + product.getProductsPrice());
         holder.checkout_item_price_final.setText(ConstantValues.CURRENCY_SYMBOL + product.getFinalPrice());
-        holder.checkout_item_category.setText(product.getCategories().get(0).getCategoriesName());
-    
+        if(product.getCategories()!=null) {
+            holder.checkout_item_category.setText(product.getCategories().get(0).getCategoriesName());
+        }
     
         List<Value> selectedAttributeValues= new ArrayList<>();
         List<PostProductsAttributes> productAttributes = new ArrayList<>();

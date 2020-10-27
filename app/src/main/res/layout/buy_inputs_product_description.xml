@@ -336,7 +336,10 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="50dp"
-                            app:srcCompat="@drawable/ic_remove_circle" />
+                            app:srcCompat="@drawable/ic_minuse_black_24dp"
+                            android:scaleType="centerInside"
+                            android:background="@drawable/rounded_cornor_bg"
+                            app:tint="@color/white" />
 
                         <TextView
                             android:id="@+id/product_quantity"
@@ -358,7 +361,10 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/dimen_20dp"
-                            app:srcCompat="@drawable/ic_add_circle" />
+                            app:srcCompat="@drawable/ic_add_white_24dp"
+                            android:scaleType="centerInside"
+                            android:background="@drawable/round_button_dark_green"
+                            app:tint="@color/white"  />
 
                     </LinearLayout>
 
