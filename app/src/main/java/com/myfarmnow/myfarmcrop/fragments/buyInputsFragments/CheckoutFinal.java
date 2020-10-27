@@ -202,6 +202,7 @@ public class CheckoutFinal extends Fragment {
         tax = ((CropManagerApp) getContext().getApplicationContext()).getTax();
 
         shippingAddress = ((CropManagerApp) getContext().getApplicationContext()).getShippingAddress();
+        ((CropManagerApp) context.getApplicationContext()).getShippingService();
 
         // Get userInfo from Local Databases User_Info_DB
         userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));

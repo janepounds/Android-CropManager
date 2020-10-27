@@ -39,6 +39,7 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
     List<MerchantDetails> merchantsList;
     My_Cart my_cart;
     FragmentManager fragmentManager;
+    String deliverycharge="0";
 
     //declare interface
     private OnItemClicked onClick;
@@ -148,11 +149,10 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
                 final ShippingService shippingService = new ShippingService();
                 shippingService.setName(shippingAddress.getFirstname() + shippingAddress.getLastname() != null ? " " + shippingAddress.getLastname() : "");
                 shippingService.setCurrencyCode(context.getString(R.string.defaultcurrency));
-                if (merchantsDetails.getDistance() == null)
-                    shippingService.setRate("0");
-                else
-                    shippingService.setRate("" + 2000 * (Math.round(Float.parseFloat(merchantsDetails.getDistance()) * 10) / 10));
+                if (merchantsDetails.getDistance() != null)
+                    deliverycharge="" + 2000 * (Math.round(Float.parseFloat(merchantsDetails.getDistance()) * 10) / 10);
 
+                shippingService.setRate(deliverycharge);
                 // Save the AddressDetails
                 ((CropManagerApp) context.getApplicationContext()).setTax(tax);
                 ((CropManagerApp) context.getApplicationContext()).setShippingService(shippingService);
