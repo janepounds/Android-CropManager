@@ -98,6 +98,7 @@ public class AccountFragment extends Fragment {
         RelativeLayout layoutChangePassword = view.findViewById(R.id.layout_change_password);
         TextView accountUsername = view.findViewById(R.id.text_username_account_fragment);
         TextView accountUserEmail = view.findViewById(R.id.text_email_account_fragment);
+        TextView userAddress = view.findViewById(R.id.txt_user_address);
 
         // Edit UserID in SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserInfo", MODE_PRIVATE);
@@ -106,9 +107,17 @@ public class AccountFragment extends Fragment {
         Log.d(TAG, "onCreateView: First Name = " + sharedPreferences.getString(DashboardActivity.PREFERENCES_FIRST_NAME, ""));
         Log.d(TAG, "onCreateView: Last Name = " + sharedPreferences.getString(DashboardActivity.PREFERENCES_LAST_NAME, ""));
 
+        Log.d(TAG, "onCreateView: addressStreet = " + sharedPreferences.getString("addressStreet", ""));
+        Log.d(TAG, "onCreateView: addressCityOrTown = " + sharedPreferences.getString("addressCityOrTown", ""));
+        Log.d(TAG, "onCreateView: address_district = " + sharedPreferences.getString("address_district", ""));
+        Log.d(TAG, "onCreateView: addressCountry = " + sharedPreferences.getString("addressCountry", ""));
+
         String name = sharedPreferences.getString(DashboardActivity.PREFERENCES_FIRST_NAME, "") + " " + sharedPreferences.getString(DashboardActivity.PREFERENCES_LAST_NAME, "");
         accountUsername.setText(name);
         accountUserEmail.setText(sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_EMAIL, null));
+
+        String address = sharedPreferences.getString("addressStreet", "") + ", " + sharedPreferences.getString("addressCityOrTown", "") + ", " + sharedPreferences.getString("addressCountry", "");
+        userAddress.setText(address);
 
         fragmentManager = requireActivity().getSupportFragmentManager();
         currentFragment = fragmentManager.getPrimaryNavigationFragment();

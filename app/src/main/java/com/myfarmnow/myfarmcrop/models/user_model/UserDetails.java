@@ -66,6 +66,18 @@ public class UserDetails {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("addressStreet")
+    @Expose
+    private String addressStreet;
+    @SerializedName("addressCityOrTown")
+    @Expose
+    private String addressCityOrTown;
+    @SerializedName("address_district")
+    @Expose
+    private String address_district;
+    @SerializedName("addressCountry")
+    @Expose
+    private String addressCountry;
 
     public String getId() {
         return id;
@@ -227,4 +239,35 @@ public class UserDetails {
         this.updatedAt = updatedAt;
     }
 
+    public String getAddressStreet() {
+        return addressStreet;
+    }
+
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
+    }
+
+    public String getAddressCityOrTown() {
+        return addressCityOrTown;
+    }
+
+    public void setAddressCityOrTown(String addressCityOrTown) {
+        this.addressCityOrTown = addressCityOrTown;
+    }
+
+    public String getAddress_district() {
+        return address_district;
+    }
+
+    public void setAddress_district(String address_district) {
+        this.address_district = address_district;
+    }
+
+    public String getAddressCountry() {
+        return addressCountry;
+    }
+
+    public void setAddressCountry(String addressCountry) {
+        this.addressCountry = addressCountry;
+    }
 }
