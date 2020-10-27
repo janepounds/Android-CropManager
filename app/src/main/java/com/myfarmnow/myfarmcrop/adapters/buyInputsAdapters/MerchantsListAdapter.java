@@ -39,6 +39,7 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
     List<MerchantDetails> merchantsList;
     My_Cart my_cart;
     FragmentManager fragmentManager;
+    String deliverycharge="0";
 
     //declare interface
     private OnItemClicked onClick;
@@ -124,14 +125,13 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
                     ProductDetails product_details = checkoutItemsList.get(i).getCustomersBasketProduct();
                     CartProduct cart_product = checkoutItemsList.get(i);
                     Log.d(TAG, "onBindViewHoldername: "+product_details.getProductsName());
-                    Log.d(TAG, "onBindViewHolderprodlist: "+productList.get(product_details.getProductsName()+" " + product_details.getSelectedProductsWeight() + "" + product_details.getSelectedProductsWeightUnit())[0]);
+                    String[] productpricedetails=productList.get(product_details.getProductsName()+" " + product_details.getSelectedProductsWeight() + "" + product_details.getSelectedProductsWeightUnit());
 
                     //NB:CONVENTION product price in the producttList is also null if product is out of stoke
-                    if (product_details.getProductsName()!=null){//Merchant sells the product
-                        product_details.setProductsPrice(productList.get(product_details.getProductsName()+" " + product_details.getSelectedProductsWeight() + "" + product_details.getSelectedProductsWeightUnit())[0]);
-                        product_details.setTotalPrice((product_details.getCustomersBasketQuantity() * Integer.parseInt(productList.get(product_details.getProductsName()+" " + product_details.getSelectedProductsWeight() + "" + product_details.getSelectedProductsWeightUnit())[0]) + ""));
+                    if ( productpricedetails!=null ){//Merchant sells the product
+                        product_details.setProductsPrice(productpricedetails[0]);
+                        product_details.setTotalPrice((product_details.getCustomersBasketQuantity() * Integer.parseInt(productpricedetails[0]) + ""));
                         product_details.setProductsFinalPrice(product_details.getTotalPrice());
-                        Log.w("PdtCost", productList.get(product_details.getProductsName()) + " " + product_details.getCustomersBasketQuantity() + " " + product_details.getTotalPrice());
 
                         checkoutItemsList.get(i).setCustomersBasketProduct(product_details);
                         user_cart_BuyInputs_db.updateCart(cart_product);
@@ -149,11 +149,10 @@ public class MerchantsListAdapter extends RecyclerView.Adapter<MerchantsListAdap
                 final ShippingService shippingService = new ShippingService();
                 shippingService.setName(shippingAddress.getFirstname() + shippingAddress.getLastname() != null ? " " + shippingAddress.getLastname() : "");
                 shippingService.setCurrencyCode(context.getString(R.string.defaultcurrency));
-                if (merchantsDetails.getDistance() == null)
-                    shippingService.setRate("0");
-                else
-                    shippingService.setRate("" + 2000 * (Math.round(Float.parseFloat(merchantsDetails.getDistance()) * 10) / 10));
+                if (merchantsDetails.getDistance() != null)
+                    deliverycharge="" + 2000 * (Math.round(Float.parseFloat(merchantsDetails.getDistance()) * 10) / 10);
 
+                shippingService.setRate(deliverycharge);
                 // Save the AddressDetails
                 ((CropManagerApp) context.getApplicationContext()).setTax(tax);
                 ((CropManagerApp) context.getApplicationContext()).setShippingService(shippingService);

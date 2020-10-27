@@ -132,10 +132,6 @@ public class CheckoutFinal extends Fragment {
     String paymentNonceToken = "";
     double checkoutSubtotal, checkoutTax, packingCharges, checkoutShipping, checkoutShippingCost, checkoutDiscount, checkoutTotal = 0;
 
-    Button checkout_paypal_btn;
-    Button checkout_payment_btn;
-    CardView card_details_layout;
-    CardView payment_details_layout;
     ProgressDialog progressDialog;
     NestedScrollView scroll_container;
     RecyclerView checkout_items_recycler;
@@ -205,8 +201,8 @@ public class CheckoutFinal extends Fragment {
         // Get selectedShippingMethod, billingAddress and shippingAddress from ApplicationContext
         tax = ((CropManagerApp) getContext().getApplicationContext()).getTax();
 
-        //billingAddress = ((App) getContext().getApplicationContext()).getBillingAddress();
         shippingAddress = ((CropManagerApp) getContext().getApplicationContext()).getShippingAddress();
+        ((CropManagerApp) context.getApplicationContext()).getShippingService();
 
         // Get userInfo from Local Databases User_Info_DB
         userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));
@@ -221,7 +217,7 @@ public class CheckoutFinal extends Fragment {
         checkout_subtotal = rootView.findViewById(R.id.checkout_subtotal);
         checkout_tax = rootView.findViewById(R.id.checkout_tax);
         checkout_packing_charges = rootView.findViewById(R.id.checkout_packing_charges);
-        checkout_shipping = rootView.findViewById(R.id.checkout_shipping);
+        checkout_shipping = rootView.findViewById(R.id.checkout_shipping_charge);
         checkout_discount = rootView.findViewById(R.id.checkout_discount);
         checkout_total = rootView.findViewById(R.id.checkout_total);
         shipping_name = rootView.findViewById(R.id.shipping_name);
@@ -881,7 +877,7 @@ public class CheckoutFinal extends Fragment {
 
         // Set CheckoutFinal Details
 //        checkout_tax.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutTax));
-        checkout_shipping.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutShipping));
+        checkout_shipping.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutShippingCost));
         checkout_discount.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(checkoutDiscount));
 
         checkout_packing_charges.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(packingCharges));
