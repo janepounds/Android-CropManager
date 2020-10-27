@@ -507,10 +507,6 @@ public class CheckoutFinal extends Fragment {
                     .addToBackStack(null).commit();
         });
 
-
-
-
-
         if (!ConstantValues.IS_CLIENT_ACTIVE) {
             setupDemoCoupons();
         } else {

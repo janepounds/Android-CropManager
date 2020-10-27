@@ -337,6 +337,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         Log.d(TAG, "onResponse: First Name = " + userDetails.getFirstName());
                         Log.d(TAG, "onResponse: Last Name = " + userDetails.getLastName());
                         Log.d(TAG, "onResponse: Username = " + userDetails.getUserName());
+                        Log.d(TAG, "onResponse: addressStreet = " + userDetails.getAddressStreet());
+                        Log.d(TAG, "onResponse: addressCityOrTown = " + userDetails.getAddressCityOrTown());
+                        Log.d(TAG, "onResponse: address_district = " + userDetails.getAddress_district());
+                        Log.d(TAG, "onResponse: addressCountry = " + userDetails.getAddressCountry());
 
                         TEMP_USER_TYPE = 0; // 0 for Simple Login.
                         //showPhoneDialog();
@@ -373,22 +377,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (!phoneEditText.getText().toString().isEmpty()) {
             phoneEditText.setText(phoneEditText.getText().toString());
         }
+
         final AlertDialog alertDialog = dialog.create();
         alertDialog.show();
-        okayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ValidateInputs.isValidPhoneNo(phoneEditText.getText().toString().trim())) {
+
+        okayButton.setOnClickListener(v -> {
+            if (ValidateInputs.isValidPhoneNo(phoneEditText.getText().toString().trim())) {
 
 
-                    // Request for OTP
-                    sendOTP(getResources().getString(R.string.ugandan_code) + phoneEditText.getText().toString().trim());
-                    user_current_phone_number = getResources().getString(R.string.ugandan_code) + phoneEditText.getText().toString().trim();
-                } else {
-                    Snackbar.make(parentView, getString(R.string.invalid_contact), Snackbar.LENGTH_LONG).show();
-                }
-                alertDialog.dismiss();
+                // Request for OTP
+                sendOTP(getResources().getString(R.string.ugandan_code) + phoneEditText.getText().toString().trim());
+                user_current_phone_number = getResources().getString(R.string.ugandan_code) + phoneEditText.getText().toString().trim();
+            } else {
+                Snackbar.make(parentView, getString(R.string.invalid_contact), Snackbar.LENGTH_LONG).show();
             }
+            alertDialog.dismiss();
         });
     }
 
@@ -413,18 +416,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         btn_resend = dialogOTP.findViewById(R.id.btn_resend);
         btn_submit = dialogOTP.findViewById(R.id.btn_submit);
 
-        btn_resend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendOTP(phoneNumber);
-            }
-        });
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                verifyVerificationCode(ed_otp.getText().toString().trim());
-            }
-        });
+        btn_resend.setOnClickListener(view -> sendOTP(phoneNumber));
+        btn_submit.setOnClickListener(view -> verifyVerificationCode(ed_otp.getText().toString().trim()));
         dialogOTP.show();
     }
 
@@ -467,33 +460,30 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //verification successful we will start the profile activity
-                            dialogOTP.dismiss();
-                            //Final Proceed to login
-                            switch (TEMP_USER_TYPE) {
-                                case 0: // simple Login
-                                    loginUser(userDetails);
-                                    break;
-                                case 1: // Gmail Login
-                                    loginGmailUser(userDetails);
-                                    break;
-                                case 2: // Facebook Login
-                                    loginFacebookUser(userDetails);
-                                    break;
-                            }
-
-                        } else {
-                            //verification unsuccessful.. display an error message
-                            String message = "Something is wrong, we will fix it soon...";
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered...";
-                            }
-                            Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
+                .addOnCompleteListener(Login.this, task -> {
+                    if (task.isSuccessful()) {
+                        //verification successful we will start the profile activity
+                        dialogOTP.dismiss();
+                        //Final Proceed to login
+                        switch (TEMP_USER_TYPE) {
+                            case 0: // simple Login
+                                loginUser(userDetails);
+                                break;
+                            case 1: // Gmail Login
+                                loginGmailUser(userDetails);
+                                break;
+                            case 2: // Facebook Login
+                                loginFacebookUser(userDetails);
+                                break;
                         }
+
+                    } else {
+                        //verification unsuccessful.. display an error message
+                        String message = "Something is wrong, we will fix it soon...";
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            message = "Invalid code entered...";
+                        }
+                        Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -516,6 +506,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor.putString(DashboardActivity.PREFERENCES_LAST_NAME, userDetails.getLastName());
         editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, user_current_phone_number);
         editor.putString(DashboardActivity.USER_DEFAULT_ADDRESS_PREFERENCES_ID, userDetails.getDefaultAddressId());
+
+        editor.putString("addressStreet", userDetails.getAddressStreet());
+        editor.putString("addressCityOrTown", userDetails.getAddressCityOrTown());
+        editor.putString("address_district", userDetails.getAddress_district());
+        editor.putString("addressCountry", userDetails.getAddressCountry());
+
         editor.putBoolean("isLogged_in", true);
         editor.apply();
 
