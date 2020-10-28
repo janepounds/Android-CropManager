@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -68,40 +69,41 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
 public class PaymentMethodsFragment extends Fragment {
+    private static final String TAG = "PaymentMethodsFragment";
     private View rootView;
-    private RadioButton cashOnDelivery,eMaishaWallet,eMaishaCard,Visa,MobileMoney;
-    private LinearLayout merchantCard,VisaCard,MobileM;
-    private EditText cardNumber,cardExpiry,cvv;
+    private RadioButton cashOnDelivery, eMaishaWallet, eMaishaCard, Visa, MobileMoney;
+    private LinearLayout merchantCard, VisaCard, MobileM;
+    private EditText cardNumber, cardExpiry, cvv;
     Button continuePayment;
     private static final CardType[] SUPPORTED_CARD_TYPES = {CardType.VISA, CardType.MASTERCARD, CardType.MAESTRO,
             CardType.UNIONPAY, CardType.AMEX};
     CardType cardType;
     private BraintreeFragment braintreeFragment;
     SupportedCardTypesView braintreeSupportedCards;
-    private  String selectedPaymentMethod,shop_id,shipping,orderId;
-    private  CardBuilder braintreeCard;
-    private List couponList,productList;
-    private Double subtotal,total,tax,shipping_cost,discount;
+    private String selectedPaymentMethod, shop_id, shipping, orderId;
+    private CardBuilder braintreeCard;
+    private List couponList, productList;
+    private Double subtotal, total, tax, shipping_cost, discount;
     private String paymentNonceToken = "";
     private ProgressDialog progressDialog;
     private UserDetails userInfo;
-    private  My_Cart my_cart;
+    private My_Cart my_cart;
     final User_Cart_BuyInputsDB user_cart_BuyInputs_db;
-    private  String braintreeToken;
+    private String braintreeToken;
     private DialogLoader dialogLoader;
 
     private AddressDetails shippingAddress;
     User_Info_BuyInputsDB user_info_BuyInputs_db = new User_Info_BuyInputsDB();
 
+    private PaymentMethodsResultListener listener;
 
     public PaymentMethodsFragment(My_Cart my_cart, User_Cart_BuyInputsDB user_cart_BuyInputs_db, String merchantId, String shipping, Double tax, Double shipping_cost,
                                   Double discount, List couponList, Double subtotal, Double total, List productList, String orderId) {
         // Required empty public constructor
         this.my_cart = my_cart;
         this.user_cart_BuyInputs_db = user_cart_BuyInputs_db;
-        this.shop_id=merchantId;
+        this.shop_id = merchantId;
         this.shipping = shipping;
         this.tax = tax;
         this.shipping_cost = shipping_cost;
@@ -112,9 +114,10 @@ public class PaymentMethodsFragment extends Fragment {
         this.productList = productList;
         this.orderId = orderId;
     }
- 
 
-
+    public interface PaymentMethodsResultListener {
+        void paymentMethodResult(PostOrder order);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -138,8 +141,6 @@ public class PaymentMethodsFragment extends Fragment {
         cvv = rootView.findViewById(R.id.visa_card_cvv);
         braintreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
 
-
-
         cashOnDelivery.setOnClickListener(v -> {
             MobileMoney.setChecked(false);
             eMaishaWallet.setChecked(false);
@@ -148,8 +149,8 @@ public class PaymentMethodsFragment extends Fragment {
             MobileM.setVisibility(v.GONE);
             VisaCard.setVisibility(v.GONE);
             merchantCard.setVisibility(v.GONE);
-
         });
+
         eMaishaWallet.setOnClickListener(v -> {
             cashOnDelivery.setChecked(false);
             MobileMoney.setChecked(false);
@@ -160,7 +161,7 @@ public class PaymentMethodsFragment extends Fragment {
             merchantCard.setVisibility(v.GONE);
         });
 
-        eMaishaCard.setOnClickListener(v ->{
+        eMaishaCard.setOnClickListener(v -> {
             merchantCard.setVisibility(v.VISIBLE);
             cashOnDelivery.setChecked(false);
             eMaishaWallet.setChecked(false);
@@ -168,10 +169,9 @@ public class PaymentMethodsFragment extends Fragment {
             Visa.setChecked(false);
             MobileM.setVisibility(v.GONE);
             VisaCard.setVisibility(v.GONE);
-
         });
 
-        Visa.setOnClickListener(v ->{
+        Visa.setOnClickListener(v -> {
             VisaCard.setVisibility(v.VISIBLE);
             cashOnDelivery.setChecked(false);
             eMaishaWallet.setChecked(false);
@@ -181,7 +181,7 @@ public class PaymentMethodsFragment extends Fragment {
             merchantCard.setVisibility(v.GONE);
         });
 
-        MobileMoney.setOnClickListener(v->{
+        MobileMoney.setOnClickListener(v -> {
             MobileM.setVisibility(v.VISIBLE);
             cashOnDelivery.setChecked(false);
             eMaishaWallet.setChecked(false);
@@ -192,7 +192,9 @@ public class PaymentMethodsFragment extends Fragment {
         });
 
         braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+
         cardExpiry.setKeyListener(null);
+
         cardNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -220,6 +222,7 @@ public class PaymentMethodsFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
+
         cardExpiry.setOnTouchListener((v, event) -> {
 
             if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -260,62 +263,50 @@ public class PaymentMethodsFragment extends Fragment {
 
             return false;
         });
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle(getString(R.string.processing));
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
 
-            continuePayment.setOnClickListener(v->{
-          if(cashOnDelivery.isChecked()){
-              //navigate to thank you
-              selectedPaymentMethod = "cod";
-              proceedOrder();
-              progressDialog.show();
+//        progressDialog = new ProgressDialog(getActivity());
+//        progressDialog.setTitle(getString(R.string.processing));
+//        progressDialog.setMessage(getString(R.string.please_wait));
+//        progressDialog.setCancelable(false);
 
+        continuePayment.setOnClickListener(v -> {
+            if (cashOnDelivery.isChecked()) {
+                //navigate to thank you
+                selectedPaymentMethod = "cod";
+                proceedOrder();
 
-          }else if(eMaishaWallet.isChecked()){
-              //
-            selectedPaymentMethod = "eMaisha Wallet";
-              GenerateBrainTreeToken();
-          }
-          else if(eMaishaCard.isChecked()){
-              //
-              selectedPaymentMethod = "eMaisha Card";
-              validateSelectedPaymentMethod();
-            }else if(Visa.isChecked()){
-              //save card info
-              selectedPaymentMethod = "Visa";
-              if (validatePaymentCard()) {
-                  // Setup Payment Method
-                  validateSelectedPaymentMethod();
-                  progressDialog.show();
+            } else if (eMaishaWallet.isChecked()) {
+                //
+                selectedPaymentMethod = "eMaisha Wallet";
+                GenerateBrainTreeToken();
+            } else if (eMaishaCard.isChecked()) {
+                //
+                selectedPaymentMethod = "eMaisha Card";
+                validateSelectedPaymentMethod();
+            } else if (Visa.isChecked()) {
+                //save card info
+                selectedPaymentMethod = "Visa";
+                if (validatePaymentCard()) {
+                    // Setup Payment Method
+                    validateSelectedPaymentMethod();
 
-                  // Delay of 2 seconds
-                  new Handler().postDelayed(new Runnable() {
-                      @Override
-                      public void run() {
-                          if (!"".equalsIgnoreCase(paymentNonceToken)) {
-                              // Proceed Order
-                              proceedOrder();
-                          } else {
-                              progressDialog.dismiss();
-                              Snackbar.make(v, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                          }
-                      }
-                  }, 2000);
-              }
+                    // Delay of 2 seconds
+                    new Handler().postDelayed(() -> {
+                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
+                            // Proceed Order
+                            proceedOrder();
+                        } else {
+                            Snackbar.make(v, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }, 2000);
+                }
 
-          }else if(MobileMoney.isChecked()){
-              selectedPaymentMethod = "Mobile Money";
-          }
+            } else if (MobileMoney.isChecked()) {
+                selectedPaymentMethod = "Mobile Money";
+            }
         });
 
-
-
-
         return rootView;
-
-
     }
 
     @Override
@@ -326,76 +317,56 @@ public class PaymentMethodsFragment extends Fragment {
     private void validateSelectedPaymentMethod() {
 
         if (selectedPaymentMethod.equalsIgnoreCase("Visa")) {
-
-            // Initialize BraintreeCard
+            // Initialize BrainTreeCard
             braintreeCard = new CardBuilder()
                     .cardNumber(cardNumber.getText().toString().trim())
                     .expirationDate(cardExpiry.getText().toString().trim())
                     .cvv(cvv.getText().toString().trim());
 
-            // Tokenize BraintreeCard
+            // Tokenize BrainTreeCard
             Card.tokenize(braintreeFragment, braintreeCard);
 
-
-            // Add PaymentMethodNonceCreatedListener to BraintreeFragment
-            braintreeFragment.addListener(new PaymentMethodNonceCreatedListener() {
-                @Override
-                public void onPaymentMethodNonceCreated(PaymentMethodNonce paymentMethodNonce) {
-
-                    // Get Payment Nonce
-                    paymentNonceToken = paymentMethodNonce.getNonce();
-                }
+            // Add PaymentMethodNonceCreatedListener to BrainTreeFragment
+            braintreeFragment.addListener((PaymentMethodNonceCreatedListener) paymentMethodNonce -> {
+                // Get Payment Nonce
+                paymentNonceToken = paymentMethodNonce.getNonce();
             });
 
+            // Add BrainTreeErrorListener to BrainTreeFragment
+            braintreeFragment.addListener((BraintreeErrorListener) error -> {
+                // Check if there was a Validation Error of provided Data
+                if (error instanceof ErrorWithResponse) {
+                    ErrorWithResponse errorWithResponse = (ErrorWithResponse) error;
 
-            // Add BraintreeErrorListener to BraintreeFragment
-            braintreeFragment.addListener(new BraintreeErrorListener() {
-                @Override
-                public void onError(Exception error) {
+                    BraintreeError cardNumberError = errorWithResponse.errorFor("number");
+                    BraintreeError cardCVVErrors = errorWithResponse.errorFor("creditCard");
+                    BraintreeError expirationMonthError = errorWithResponse.errorFor("expirationMonth");
+                    BraintreeError expirationYearError = errorWithResponse.errorFor("expirationYear");
 
-                    // Check if there was a Validation Error of provided Data
-                    if (error instanceof ErrorWithResponse) {
-                        ErrorWithResponse errorWithResponse = (ErrorWithResponse) error;
-
-                        BraintreeError cardNumberError = errorWithResponse.errorFor("number");
-                        BraintreeError cardCVVErrors = errorWithResponse.errorFor("creditCard");
-                        BraintreeError expirationMonthError = errorWithResponse.errorFor("expirationMonth");
-                        BraintreeError expirationYearError = errorWithResponse.errorFor("expirationYear");
-
-                        // Check if there is an Issue with the Credit Card
-                        if (cardNumberError != null) {
-                            cardNumber.setError(cardNumberError.getMessage());
-                        } else if (expirationMonthError != null) {
-                            cardExpiry.setError(expirationMonthError.getMessage());
-                        } else if (expirationYearError != null) {
-                            cardExpiry.setError(expirationYearError.getMessage());
-                        } else if (cardCVVErrors != null) {
-                            cvv.setError(cardCVVErrors.getMessage());
-                        } else {
-                            Toast.makeText(getContext(), errorWithResponse.toString(), Toast.LENGTH_SHORT).show();
-                        }
+                    // Check if there is an Issue with the Credit Card
+                    if (cardNumberError != null) {
+                        cardNumber.setError(cardNumberError.getMessage());
+                    } else if (expirationMonthError != null) {
+                        cardExpiry.setError(expirationMonthError.getMessage());
+                    } else if (expirationYearError != null) {
+                        cardExpiry.setError(expirationYearError.getMessage());
+                    } else if (cardCVVErrors != null) {
+                        cvv.setError(cardCVVErrors.getMessage());
+                    } else {
+                        Toast.makeText(getContext(), errorWithResponse.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
 
-
-            // Add ConfigurationListener to BraintreeFragment
-            braintreeFragment.addListener(new ConfigurationListener() {
-                @Override
-                public void onConfigurationFetched(Configuration configuration) {
-                }
+            // Add ConfigurationListener to BrainTreeFragment
+            braintreeFragment.addListener((ConfigurationListener) configuration -> {
             });
 
-            // Add BraintreeCancelListener to BraintreeFragment
-            braintreeFragment.addListener(new BraintreeCancelListener() {
-                @Override
-                public void onCancel(int requestCode) {
-                }
+            // Add BrainTreeCancelListener to BrainTreeFragment
+            braintreeFragment.addListener((BraintreeCancelListener) requestCode -> {
             });
 
-
-        }
-         else if (selectedPaymentMethod.equalsIgnoreCase("paypal")) {
+        } else if (selectedPaymentMethod.equalsIgnoreCase("payPal")) {
             return;
 
         } else if (selectedPaymentMethod.equalsIgnoreCase("instamojo")) {
@@ -404,7 +375,6 @@ public class PaymentMethodsFragment extends Fragment {
         } else {
             return;
         }
-
     }
 
     private void proceedOrder() {
@@ -435,11 +405,9 @@ public class PaymentMethodsFragment extends Fragment {
         orderDetails.setDeliveryCost("" + shipping);
         orderDetails.setPackingChargeTax(ConstantValues.PACKING_CHARGE);
 
-
         // LatLang
-        orderDetails.setLatitude(String.valueOf(shippingAddress.getLatitude()) );
-        orderDetails.setLongitude( String.valueOf(shippingAddress.getLongitude()) );
-
+        orderDetails.setLatitude(String.valueOf(shippingAddress.getLatitude()));
+        orderDetails.setLongitude(String.valueOf(shippingAddress.getLongitude()));
 
         orderDetails.setLanguageId(ConstantValues.LANGUAGE_ID);
 
@@ -469,11 +437,11 @@ public class PaymentMethodsFragment extends Fragment {
         orderDetails.setProducts(productList);
         orderDetails.setOrder_payment_id(orderId);
 
-
         orderDetails.setCurrency("UGX");
 
-        PlaceOrderNow(orderDetails);
-
+//        PlaceOrderNow(orderDetails);
+        listener.paymentMethodResult(orderDetails);
+        requireActivity().onBackPressed();
     }
 
     private void PlaceOrderNow(PostOrder postOrder) {
@@ -490,7 +458,7 @@ public class PaymentMethodsFragment extends Fragment {
             @Override
             public void onResponse(Call<OrderData> call, retrofit2.Response<OrderData> response) {
 
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
@@ -529,7 +497,7 @@ public class PaymentMethodsFragment extends Fragment {
                     }
                 } else {
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
-                    Log.e("Error:", response.message() );
+                    Log.e("Error:", response.message());
                 }
             }
 
@@ -557,10 +525,8 @@ public class PaymentMethodsFragment extends Fragment {
     }
 
     private void GenerateBrainTreeToken() {
-
         Call<GetBrainTreeToken> call = BuyInputsAPIClient.getInstance()
                 .generateBraintreeToken();
-
 
         call.enqueue(new Callback<GetBrainTreeToken>() {
             @Override
@@ -574,7 +540,7 @@ public class PaymentMethodsFragment extends Fragment {
 
                         braintreeToken = response.body().getToken();
 
-                        // Initialize BraintreeFragment with BraintreeToken
+                        // Initialize BrainTreeFragment with BrainTreeToken
                         try {
                             braintreeFragment = BraintreeFragment.newInstance(getActivity(), braintreeToken);
                         } catch (InvalidArgumentException e) {
@@ -595,5 +561,21 @@ public class PaymentMethodsFragment extends Fragment {
                 Log.d("BRAINTREE TOKEN CALL", "onFailure: \"NetworkCallFailure : \"+t");
             }
         });
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof PaymentMethodsResultListener) {
+            listener = (PaymentMethodsResultListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement PaymentMethodsResultListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }
