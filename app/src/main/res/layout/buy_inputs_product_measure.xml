@@ -16,7 +16,7 @@
         android:paddingBottom="2dp"
         android:text="1Kg"
         android:textAllCaps="true"
-        android:textColor="#6E7989"
+        android:textColor="@color/mild_gray"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
