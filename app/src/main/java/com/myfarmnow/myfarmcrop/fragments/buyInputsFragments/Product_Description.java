@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -104,6 +105,7 @@ public class Product_Description extends Fragment {
     TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,product_ratings_count,pdtQty;
     LinearLayout product_reviews_ratings;
     AppCompatButton addToCart;
+    FrameLayout addCart;
     
     DialogLoader dialogLoader;
     static ProductDetails productDetails;
@@ -197,6 +199,7 @@ public class Product_Description extends Fragment {
         reduceQty = rootView.findViewById(R.id.reduce_quantity);
         pdtQty = rootView.findViewById(R.id.product_quantity);
         addToCart = rootView.findViewById(R.id.product_cart_btn);
+        addCart = rootView.findViewById(R.id.frameLayout);
         recyclerView = rootView.findViewById(R.id.measure_recyclerview);
         
         attribute_recycler.setNestedScrollingEnabled(false);
@@ -508,7 +511,7 @@ public class Product_Description extends Fragment {
         
         
         // Handle Click event of productCartBtn Button
-        addToCart.setOnClickListener(new View.OnClickListener() {
+        addCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 
@@ -516,7 +519,7 @@ public class Product_Description extends Fragment {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
                 }
                 else {
-                    if (productDetails.getProductsQuantity() > 0) {
+                    if (Integer.parseInt(pdtQty.getText().toString()) > 0) {
                         
                         CartProduct cartProduct = new CartProduct();
                         
