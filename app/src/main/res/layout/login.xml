@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="20dp"
-                android:src="@drawable/ic_logo" />
+                app:srcCompat="@drawable/ic_logo" />
 
             <LinearLayout
                 android:id="@+id/login_form_layout"
