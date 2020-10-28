@@ -4,17 +4,16 @@
     xmlns:custom="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="?actionBarSize"
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical">
 
 
-    <androidx.core.widget.NestedScrollView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +27,7 @@
                 <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/product_cover_slider"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="300dp"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/white"
@@ -141,6 +140,7 @@
 
                 </RelativeLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ratings_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_10dp"
@@ -154,10 +154,33 @@
                         android:scaleX=".7"
                         android:scaleY=".7"
                         android:theme="@style/RatingBar"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/ratings_reviews_layout"
                         app:layout_constraintEnd_toStartOf="@+id/guideline57"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
+                    <LinearLayout
+                        android:id="@+id/ratings_reviews_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:clickable="true"
+                        app:layout_constraintTop_toBottomOf="@id/product_rating_bar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:focusable="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/reviews_ratings"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="4dp"
+                            app:srcCompat="@drawable/ic_arrow_next"
+                            app:tint="@color/hintColor" />
+
+                    </LinearLayout>
                     <LinearLayout
                         android:id="@+id/linearLayout"
                         android:layout_width="0dp"
@@ -211,7 +234,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="50dp"
+                            android:layout_marginStart="45dp"
                             app:srcCompat="@drawable/ic_minuse_black_24dp"
                             android:scaleType="centerInside"
                             android:background="@drawable/rounded_cornor_bg"
@@ -252,6 +275,19 @@
                         app:layout_constraintGuide_percent="0.5" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reviews_ratings"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/product_category"
@@ -315,7 +351,6 @@
                         android:layout_marginLeft="5dp"
                         android:text="@string/reviews_ratings"
                         android:textColor="@color/colorAccentBlue"
-                        android:textDirection="locale"
                         android:textSize="14sp"
                         android:visibility="gone"/>
                 </LinearLayout>
@@ -441,11 +476,16 @@
                         android:textStyle="bold"
                         android:textColor="#515C6F" />
 
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <WebView
                         android:id="@+id/product_description_webView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp" />
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:isScrollContainer="true"/>
+                    </androidx.core.widget.NestedScrollView>
 
                 </LinearLayout>
 
@@ -480,9 +520,9 @@
 
             </LinearLayout>
 
-        </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -525,6 +565,7 @@
         android:layout_marginTop="@dimen/dimen_5dp"
         android:layout_marginStart="@dimen/dimen_10dp"
         android:layout_marginEnd="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
         android:background="@drawable/round_corners_button_darkgray"
         android:maxHeight="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -554,5 +595,6 @@
             app:srcCompat="@drawable/ic_chevron_right"
             app:tint="#535353" />
     </FrameLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

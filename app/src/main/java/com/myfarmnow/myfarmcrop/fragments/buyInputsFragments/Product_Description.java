@@ -372,8 +372,8 @@ public class Product_Description extends Fragment {
         }
         
         String description = productDetails.getProductsDescription();
-        String styleSheet = "<style> " +
-                "body{background:#ffffff; margin:0; padding:0} " +
+        String styleSheet = "<style> " + "@font-face {font-family: 'JosefinSans-Regular'; src: url('file:///android_asset/fonts/JosefinSans-Regular.ttf');} " +
+                "body{background:#ffffff; margin:0; padding:0;font-family: 'JosefinSans-Regular';} " +
                 "p{color:#757575;} " +
                 "img{display:inline; height:auto; max-width:100%;}" +
                 "</style>";
