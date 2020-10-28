@@ -94,7 +94,7 @@ public class Product_Description extends Fragment {
     double productBasePrice;
     double productFinalPrice;
 
-    ImageView sliderImageView,increaseQty,reduceQty;
+    ImageView sliderImageView, increaseQty, reduceQty;
     SliderLayout sliderLayout;
     PagerIndicator pagerIndicator;
     ImageButton product_share_btn;
@@ -102,11 +102,11 @@ public class Product_Description extends Fragment {
     LinearLayout product_attributes;
     RecyclerView attribute_recycler;
     WebView product_description_webView;
-    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,product_ratings_count,pdtQty;
+    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount, product_ratings_count, pdtQty;
     LinearLayout product_reviews_ratings;
     AppCompatButton addToCart;
     FrameLayout addCart;
-    
+
     DialogLoader dialogLoader;
     static ProductDetails productDetails;
     ProductAttributesAdapter attributesAdapter;
@@ -121,8 +121,6 @@ public class Product_Description extends Fragment {
     private List<ProductMeasure> productMeasures;
     private Context context;
     private String selected_measure;
-
-
 
     ImageView checkImageView;
 
@@ -163,13 +161,6 @@ public class Product_Description extends Fragment {
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
-        
-        
-
-//        weight2 =rootView.findViewById(R.id.weight2);
-//        weight3 =rootView.findViewById(R.id.weight3);
-//        weight4 =rootView.findViewById(R.id.weight4);
-//        weight5 =rootView.findViewById(R.id.weight5);
 
         title = rootView.findViewById(R.id.product_title);
         category = rootView.findViewById(R.id.product_category);
@@ -231,44 +222,32 @@ public class Product_Description extends Fragment {
         }
 
         // Handle Click event of product_reviews_ratings Button
-        product_reviews_ratings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showRatingsAndReviewsOfProduct();
-            }
-        });
-        //product_reviews_ratings.setVisibility(View.GONE);
+        product_reviews_ratings.setOnClickListener(v -> showRatingsAndReviewsOfProduct());
 
+        increaseQty.setOnClickListener(view -> {
+            // Get the text on the text view and change to an Integer
+            int num = Integer.parseInt(pdtQty.getText().toString());
 
-        //implement increase qty
-        final int[] number = {1};
-        number[0] = Integer.parseInt(pdtQty.getText().toString());
+            // increment it by one
+            num += 1;
 
-        increaseQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Check if the Quantity is less than the maximum or stock Quantity
-                    // Increase Quantity by 1
-                    number[0] = number[0] + 1;
-                    pdtQty.setText(""+ number[0]);
-
-            }
+            // set back the incremented value
+            pdtQty.setText(String.valueOf(num));
         });
 
         //implement reduce qty
-        reduceQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Check if the Quantity is less than the maximum or stock Quantity
-                    // reduce Quantity by 1
-                    number[0] = number[0] - 1;
-                    pdtQty.setText(""+ number[0]);
+        reduceQty.setOnClickListener(view -> {
+            // Get the text on the text view and change to an Integer
+            int num = Integer.parseInt(pdtQty.getText().toString());
 
+            if (num > 1) {
+                // Decrement it by one
+                num -= 1;
 
+                // set back the decremented value
+                pdtQty.setText(String.valueOf(num));
             }
         });
-
-
 
         return rootView;
     }
@@ -486,43 +465,12 @@ public class Product_Description extends Fragment {
         });
 
         // Handle Click event of productCartBtn Button
-        addCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-                if (productDetails.getProductsType() == 2) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
-                }
-                else {
-                    if (Integer.parseInt(pdtQty.getText().toString()) > 0) {
-                        
-                        CartProduct cartProduct = new CartProduct();
-                        
-                        // Set Product's Price, Quantity and selected Attributes Info
-                        double finalPrice = productFinalPrice;
-                        productDetails.setCustomersBasketQuantity(1);
-                        productDetails.setProductsPrice(String.valueOf(productBasePrice));
-                        productDetails.setAttributesPrice(String.valueOf(attributesPrice));
-                        productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
-                        productDetails.setTotalPrice(String.valueOf(productFinalPrice));
-                        cartProduct.setCustomersBasketProduct(productDetails);
-                        cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
-                        
-                        
-                        // Add the Product to User's Cart with the help of static method of My_Cart class
-                        My_Cart.AddCartItem
-                                (
-                                        cartProduct
-                                );
-                        
-                        
-                        // Recreate the OptionsMenu
-                        ((DashboardActivity) getContext()).invalidateOptionsMenu();
-                        
-                        Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
-                        checkImageView.setVisibility(View.VISIBLE);
-                    }
-                }
+        addCart.setOnClickListener(view -> {
+
+            if (productDetails.getProductsType() == 2) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
+            } else {
+                if (Integer.parseInt(pdtQty.getText().toString()) > 0) {
 
                     CartProduct cartProduct = new CartProduct();
 
@@ -551,6 +499,31 @@ public class Product_Description extends Fragment {
                     checkImageView.setVisibility(View.VISIBLE);
                 }
             }
+
+            CartProduct cartProduct = new CartProduct();
+
+            // Set Product's Price, Quantity and selected Attributes Info
+            double finalPrice = productFinalPrice;
+            productDetails.setCustomersBasketQuantity(1);
+            productDetails.setProductsPrice(String.valueOf(productBasePrice));
+            productDetails.setAttributesPrice(String.valueOf(attributesPrice));
+            productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
+            productDetails.setTotalPrice(String.valueOf(productFinalPrice));
+            cartProduct.setCustomersBasketProduct(productDetails);
+            cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
+
+
+            // Add the Product to User's Cart with the help of static method of My_Cart class
+            My_Cart.AddCartItem
+                    (
+                            cartProduct
+                    );
+
+            // Recreate the OptionsMenu
+            ((DashboardActivity) getContext()).invalidateOptionsMenu();
+
+            Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+            checkImageView.setVisibility(View.VISIBLE);
 
             /*if (productDetails.getProductsQuantity() > 0) {
 
@@ -630,15 +603,14 @@ public class Product_Description extends Fragment {
         if (stock.equalsIgnoreCase("0")) {
             product_stock.setText(getString(R.string.outOfStock));
             addToCart.setText(getString(R.string.outOfStock));
-           // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
-           // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
-            
-        }
-        else {
+            // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
+            // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
+
+        } else {
             product_stock.setText(getString(R.string.in_stock));
             addToCart.setText(getString(R.string.addToCart));
-          //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
-         //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
+            //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
+            //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
         }
 
         // Check if product from flash sale
@@ -652,8 +624,8 @@ public class Product_Description extends Fragment {
                 productFinalPrice = productBasePrice + attributesPrice;
                 if (startDate > serverTime) {
                     addToCart.setEnabled(false);
-                   // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
-                    
+                    // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
+
                 }
             }
 
