@@ -118,6 +118,7 @@ public class Product_Description extends Fragment {
     private ProductMeasureAdapter productMeasureAdapter;
     private List<ProductMeasure>productMeasures;
     private Context context;
+    private String selected_measure;
 
 
     ImageView checkImageView;
@@ -128,6 +129,10 @@ public class Product_Description extends Fragment {
 
     public Product_Description() {
         this.checkImageView = null;
+    }
+
+    public Product_Description(String selcted_measure) {
+        this.selected_measure = selcted_measure;
     }
 
 
@@ -338,8 +343,8 @@ public class Product_Description extends Fragment {
 
       //  set product weights
         productMeasures = productDetails.getProductsMeasure();
-        Log.d(TAG, "onCreateView: "+productMeasures);
-        productMeasureAdapter = new ProductMeasureAdapter(context,productMeasures);
+
+        productMeasureAdapter = new ProductMeasureAdapter(context,productMeasures,selected_measure,price_new);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         recyclerView.setAdapter(productMeasureAdapter);
         

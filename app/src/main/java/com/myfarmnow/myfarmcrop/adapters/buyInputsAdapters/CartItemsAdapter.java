@@ -228,7 +228,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
                     itemInfo.putInt("itemID", cartProduct.getCustomersBasketProduct().getProductsId());
             
                     // Navigate to Product_Description of selected Product
-                    Fragment fragment = new Product_Description();
+                    Fragment fragment = new Product_Description(holder.cart_item_measure.getText().toString());
                     fragment.setArguments(itemInfo);
                     FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
