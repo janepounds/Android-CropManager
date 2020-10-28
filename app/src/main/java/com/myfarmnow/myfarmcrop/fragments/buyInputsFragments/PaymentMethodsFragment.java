@@ -111,8 +111,6 @@ public class PaymentMethodsFragment extends Fragment {
         this.total = total;
         this.productList = productList;
         this.orderId = orderId;
-
-
     }
  
 
@@ -325,7 +323,6 @@ public class PaymentMethodsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-
     private void validateSelectedPaymentMethod() {
 
         if (selectedPaymentMethod.equalsIgnoreCase("Visa")) {
@@ -411,8 +408,6 @@ public class PaymentMethodsFragment extends Fragment {
     }
 
     private void proceedOrder() {
-       
-    
         PostOrder orderDetails = new PostOrder();
 
         // Set Customer Info
@@ -480,6 +475,7 @@ public class PaymentMethodsFragment extends Fragment {
         PlaceOrderNow(orderDetails);
 
     }
+
     private void PlaceOrderNow(PostOrder postOrder) {
 
         String str = new Gson().toJson(postOrder);
