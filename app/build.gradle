@@ -27,12 +27,25 @@ android {
         resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
 
         vectorDrawables.useSupportLibrary = true
+
+        // strip other than english resources
+        resConfigs "en"
     }
 
     buildTypes {
         release {
+            shrinkResources true
             minifyEnabled true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //Other parameters
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            // signingConfig playStoreConfig //Add your own signing config
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
         }
     }
 
@@ -53,8 +66,8 @@ android {
 }
 
 dependencies {
-    def material_design_version = "1.2.0"
-    def nav_version = "2.3.0"
+    def material_version = "1.2.1"
+    def nav_version = "2.3.1"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -69,12 +82,10 @@ dependencies {
 
     //State Progress Bar
     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     // (Recommended) Add Analytics
@@ -87,10 +98,8 @@ dependencies {
 
     implementation 'com.highsoft.highcharts:highcharts:7.0.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
 
-    implementation 'com.google.android.material:material:1.2.0-alpha02'
     //all newer versions i.e. alpha03-alpha09 have a bug
     implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
 
@@ -123,12 +132,12 @@ dependencies {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
 
-    //REFROFIT depenencies for http client
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //Retrofit dependencies for http client
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     // Material Design
-    implementation "com.google.android.material:material:$material_design_version"
+    implementation "com.google.android.material:material:$material_version"
 
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     // Java Navigation Component

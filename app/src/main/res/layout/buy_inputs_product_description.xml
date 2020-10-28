@@ -251,9 +251,7 @@
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.5" />
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <TextView
                     android:id="@+id/product_category"
@@ -390,7 +388,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
-
                         android:background="@drawable/ic_favorite"
                         android:textOff=""
                         android:textOn="" />
@@ -416,11 +413,7 @@
                     android:textSize="15sp"
                     android:visibility="gone"/>
 
-
             </RelativeLayout>
-
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -454,16 +447,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp" />
 
-                    <!--<TextView
-                        android:id="@+id/product_description_body"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/description"
-                        android:textSize="14sp"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/textColorSecondaryLight"
-                        android:layout_marginTop="5dp" />-->
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -471,8 +454,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-
 
                     <TextView
                         android:id="@+id/product_attribute_title"
