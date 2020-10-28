@@ -83,7 +83,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
                     android:paddingTop="@dimen/dimen_10dp"
                     android:paddingLeft="@dimen/dimen_20dp"
                     android:paddingRight="@dimen/dimen_20dp"
@@ -117,7 +116,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3.5"
                                     android:gravity="center"
-                                    android:src="@drawable/ic_rain"/>
+                                    app:srcCompat="@drawable/ic_rain"/>
 
 
                                 <TextView

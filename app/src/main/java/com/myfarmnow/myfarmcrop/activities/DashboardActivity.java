@@ -65,6 +65,7 @@ import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CheckoutFinal;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.PaymentMethodsFragment;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Thank_You;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.BuyInputsHomePage;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CurrencyFrag;
@@ -228,6 +229,11 @@ public class DashboardActivity extends AppCompatActivity implements PaymentMetho
             actionBar.setTitle(getString(R.string.order_confirmed));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         }
+        else if(curruntFrag instanceof Product_Description){
+            actionBar.setTitle(getString(R.string.product_description));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
+        }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {

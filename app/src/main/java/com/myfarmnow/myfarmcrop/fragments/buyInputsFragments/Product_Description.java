@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -92,8 +94,7 @@ public class Product_Description extends Fragment {
     double productBasePrice;
     double productFinalPrice;
 
-    Button productCartBtn;
-    ImageView sliderImageView;
+    ImageView sliderImageView,increaseQty,reduceQty;
     SliderLayout sliderLayout;
     PagerIndicator pagerIndicator;
     ImageButton product_share_btn;
@@ -101,9 +102,11 @@ public class Product_Description extends Fragment {
     LinearLayout product_attributes;
     RecyclerView attribute_recycler;
     WebView product_description_webView;
-    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount, product_ratings_count, weight1;
+    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,product_ratings_count,pdtQty;
     LinearLayout product_reviews_ratings;
-
+    AppCompatButton addToCart;
+    FrameLayout addCart;
+    
     DialogLoader dialogLoader;
     static ProductDetails productDetails;
     ProductAttributesAdapter attributesAdapter;
@@ -118,6 +121,8 @@ public class Product_Description extends Fragment {
     private List<ProductMeasure> productMeasures;
     private Context context;
     private String selected_measure;
+
+
 
     ImageView checkImageView;
 
@@ -158,9 +163,9 @@ public class Product_Description extends Fragment {
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
+        
+        
 
-        // Binding Layout Views
-        weight1 = rootView.findViewById(R.id.weight1);
 //        weight2 =rootView.findViewById(R.id.weight2);
 //        weight3 =rootView.findViewById(R.id.weight3);
 //        weight4 =rootView.findViewById(R.id.weight4);
@@ -181,7 +186,6 @@ public class Product_Description extends Fragment {
         product_share_btn = rootView.findViewById(R.id.product_share_btn);
         product_attributes = rootView.findViewById(R.id.product_attributes);
         attribute_recycler = rootView.findViewById(R.id.product_attributes_recycler);
-        productCartBtn = rootView.findViewById(R.id.product_cart_btn);
         product_reviews_ratings = rootView.findViewById(R.id.product_reviews_ratings);
 
         product_rating_bar = rootView.findViewById(R.id.product_rating_bar);
@@ -190,6 +194,11 @@ public class Product_Description extends Fragment {
         product_tag_new.setVisibility(View.GONE);
         product_tag_discount.setVisibility(View.GONE);
         product_attributes.setVisibility(View.VISIBLE);
+        increaseQty = rootView.findViewById(R.id.increase_quantity);
+        reduceQty = rootView.findViewById(R.id.reduce_quantity);
+        pdtQty = rootView.findViewById(R.id.product_quantity);
+        addToCart = rootView.findViewById(R.id.product_cart_btn);
+        addCart = rootView.findViewById(R.id.frameLayout);
         recyclerView = rootView.findViewById(R.id.measure_recyclerview);
 
         attribute_recycler.setNestedScrollingEnabled(false);
@@ -228,6 +237,38 @@ public class Product_Description extends Fragment {
                 showRatingsAndReviewsOfProduct();
             }
         });
+        //product_reviews_ratings.setVisibility(View.GONE);
+
+
+        //implement increase qty
+        final int[] number = {1};
+        number[0] = Integer.parseInt(pdtQty.getText().toString());
+
+        increaseQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if the Quantity is less than the maximum or stock Quantity
+                    // Increase Quantity by 1
+                    number[0] = number[0] + 1;
+                    pdtQty.setText(""+ number[0]);
+
+            }
+        });
+
+        //implement reduce qty
+        reduceQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if the Quantity is less than the maximum or stock Quantity
+                    // reduce Quantity by 1
+                    number[0] = number[0] - 1;
+                    pdtQty.setText(""+ number[0]);
+
+
+            }
+        });
+
+
 
         return rootView;
     }
@@ -320,8 +361,8 @@ public class Product_Description extends Fragment {
         }
 
         String description = productDetails.getProductsDescription();
-        String styleSheet = "<style> " +
-                "body{background:#ffffff; margin:0; padding:0} " +
+        String styleSheet = "<style> " + "@font-face {font-family: 'JosefinSans-Regular'; src: url('file:///android_asset/fonts/JosefinSans-Regular.ttf');} " +
+                "body{background:#ffffff; margin:0; padding:0;font-family: 'JosefinSans-Regular';} " +
                 "p{color:#757575;} " +
                 "img{display:inline; height:auto; max-width:100%;}" +
                 "</style>";
@@ -445,12 +486,43 @@ public class Product_Description extends Fragment {
         });
 
         // Handle Click event of productCartBtn Button
-        productCartBtn.setOnClickListener(view -> {
-
-            if (productDetails.getProductsType() == 2) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
-            } else {
-                if (productDetails.getProductsQuantity() > 0) {
+        addCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                if (productDetails.getProductsType() == 2) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
+                }
+                else {
+                    if (Integer.parseInt(pdtQty.getText().toString()) > 0) {
+                        
+                        CartProduct cartProduct = new CartProduct();
+                        
+                        // Set Product's Price, Quantity and selected Attributes Info
+                        double finalPrice = productFinalPrice;
+                        productDetails.setCustomersBasketQuantity(1);
+                        productDetails.setProductsPrice(String.valueOf(productBasePrice));
+                        productDetails.setAttributesPrice(String.valueOf(attributesPrice));
+                        productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
+                        productDetails.setTotalPrice(String.valueOf(productFinalPrice));
+                        cartProduct.setCustomersBasketProduct(productDetails);
+                        cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
+                        
+                        
+                        // Add the Product to User's Cart with the help of static method of My_Cart class
+                        My_Cart.AddCartItem
+                                (
+                                        cartProduct
+                                );
+                        
+                        
+                        // Recreate the OptionsMenu
+                        ((DashboardActivity) getContext()).invalidateOptionsMenu();
+                        
+                        Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+                        checkImageView.setVisibility(View.VISIBLE);
+                    }
+                }
 
                     CartProduct cartProduct = new CartProduct();
 
@@ -557,15 +629,16 @@ public class Product_Description extends Fragment {
         // Check if the Product is Out of Stock
         if (stock.equalsIgnoreCase("0")) {
             product_stock.setText(getString(R.string.outOfStock));
-            productCartBtn.setText(getString(R.string.outOfStock));
-            // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
-            // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
-
-        } else {
+            addToCart.setText(getString(R.string.outOfStock));
+           // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
+           // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
+            
+        }
+        else {
             product_stock.setText(getString(R.string.in_stock));
-            productCartBtn.setText(getString(R.string.addToCart));
-            //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
-            //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
+            addToCart.setText(getString(R.string.addToCart));
+          //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
+         //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
         }
 
         // Check if product from flash sale
@@ -578,9 +651,9 @@ public class Product_Description extends Fragment {
                 productBasePrice = Double.parseDouble(productDetails.getFlashPrice());
                 productFinalPrice = productBasePrice + attributesPrice;
                 if (startDate > serverTime) {
-                    productCartBtn.setEnabled(false);
-                    // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
-
+                    addToCart.setEnabled(false);
+                   // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
+                    
                 }
             }
 
@@ -1059,5 +1132,122 @@ public class Product_Description extends Fragment {
             }
         });
     }
+
+    //********** Adds the Product to User's Cart *********//
+
+//    private void addProductToCart(ProductDetails product) {
+//
+//        CartProduct cartProduct = new CartProduct();
+//
+//        double productBasePrice, productFinalPrice=0.0, attributesPrice = 0;
+//        List<CartProductAttributes> selectedAttributesList = new ArrayList<>();
+//
+//
+//        // Check Discount on Product with the help of static method of Helper class
+//        final String discount = Utilities.checkDiscount(product.getProductsPrice(), product.getDiscountPrice());
+//
+//        // Get Product's Price based on Discount
+//        if (discount != null) {
+//            product.setIsSaleProduct("1");
+//            productBasePrice = Double.parseDouble(product.getDiscountPrice());
+//        } else {
+//            product.setIsSaleProduct("0");
+//            productBasePrice = Double.parseDouble(product.getProductsPrice());
+//        }
+//
+//
+//        // Get Default Attributes from AttributesList
+//        for (int i=0;  i<product.getAttributes().size();  i++) {
+//
+//            CartProductAttributes productAttribute = new CartProductAttributes();
+//
+//            // Get Name and First Value of current Attribute
+//            Option option = product.getAttributes().get(i).getOption();
+//            Value value = product.getAttributes().get(i).getValues().get(0);
+//
+//
+//            // Add the Attribute's Value Price to the attributePrices
+//            String attrPrice = value.getPricePrefix() + value.getPrice();
+//            attributesPrice += Double.parseDouble(attrPrice);
+//
+//
+//            // Add Value to new List
+//            List<Value> valuesList = new ArrayList<>();
+//            valuesList.add(value);
+//
+//
+//            // Set the Name and Value of Attribute
+//            productAttribute.setOption(option);
+//            productAttribute.setValues(valuesList);
+//
+//
+//            // Add current Attribute to selectedAttributesList
+//            selectedAttributesList.add(i, productAttribute);
+//        }
+//
+//        if(isFlash){
+//            productFinalPrice = Double.parseDouble(product.getFlashPrice()) + attributesPrice;
+//        }
+//        else {
+//            // Add Attributes Price to Product's Final Price
+//            productFinalPrice = productBasePrice + attributesPrice;
+//        }
+//
+//
+//        // Set Product's Price and Quantity
+//        product.setCustomersBasketQuantity(1);
+//        product.setProductsPrice(String.valueOf(productBasePrice));
+//        product.setAttributesPrice(String.valueOf(attributesPrice));
+//        product.setProductsFinalPrice(String.valueOf(productFinalPrice));
+//        //set selected measure/weight
+////
+////        product.setSelectedProductsWeight(we);
+////        product.setSelectedProductsWeightUnit(product.getProductsWeightUnit().get(0));
+//
+//        product.setProductsQuantity(product.getProductsDefaultStock());
+//
+//        // Set Product's OrderProductCategory Info
+//        String[] categoryIDs = new String[product.getCategories().size()];
+//        String[] categoryNames = new String[product.getCategories().size()];
+//        if (product.getCategories().size() > 0) {
+//
+//            for (int i=0;  i<product.getCategories().size();  i++) {
+//                categoryIDs[i] = String.valueOf(product.getCategories().get(i).getCategoriesId());
+//                categoryNames[i] = product.getCategories().get(i).getCategoriesName();
+//            }
+//
+//            product.setCategoryIDs(TextUtils.join(",", categoryIDs));
+//            product.setCategoryNames(TextUtils.join(",", categoryNames));
+//        }
+//        else {
+//            product.setCategoryIDs("");
+//            product.setCategoryNames("");
+//        }
+//        // product.setCategoryNames(product.getCategoryNames());
+//
+//        product.setTotalPrice(String.valueOf(productFinalPrice));
+//
+//
+//
+//        // Set Customer's Basket Product and selected Attributes Info
+//        cartProduct.setCustomersBasketProduct(product);
+//        cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
+//
+//
+//
+//        // Add the Product to User's Cart with the help of static method of My_Cart class
+//        My_Cart.AddCartItem
+//                (
+//                        cartProduct
+//                );
+//
+//
+//        // Recreate the OptionsMenu
+//        ((DashboardActivity) context).invalidateOptionsMenu();
+//
+//
+//
+//    }
+
 }
 
