@@ -156,8 +156,7 @@ public class Product_Description extends Fragment {
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
-        
-        
+
         // Binding Layout Views
         weight1 =rootView.findViewById(R.id.weight1);
 //        weight2 =rootView.findViewById(R.id.weight2);
