@@ -385,9 +385,10 @@ public class CheckoutFinal extends Fragment {
         // Handle the Click event of checkout_cancel_btn Button
         checkout_cancel_btn.setOnClickListener(view -> {
             // Cancel the Order and Navigate back to My_Cart Fragment
-            if (getFragmentManager().getBackStackEntryCount() > 0) {
-                getFragmentManager().popBackStack(getString(R.string.actionCart), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
+            requireActivity().getSupportFragmentManager().popBackStack();
+//            if (getFragmentManager().getBackStackEntryCount() > 0) {
+//                getFragmentManager().popBackStack(getString(R.string.actionCart), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            }
         });
 
         // Handle the Click event of checkout_order_btn Button

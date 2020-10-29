@@ -2,17 +2,14 @@ package com.myfarmnow.myfarmcrop.fragments.buyInputsFragments;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -39,8 +36,6 @@ import com.braintreepayments.api.interfaces.BraintreeErrorListener;
 import com.braintreepayments.api.interfaces.ConfigurationListener;
 import com.braintreepayments.api.interfaces.PaymentMethodNonceCreatedListener;
 import com.braintreepayments.api.models.CardBuilder;
-import com.braintreepayments.api.models.Configuration;
-import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
 import com.google.android.material.snackbar.Snackbar;
@@ -80,9 +75,9 @@ public class PaymentMethodsFragment extends Fragment {
             CardType.UNIONPAY, CardType.AMEX};
     CardType cardType;
     private BraintreeFragment braintreeFragment;
-    SupportedCardTypesView braintreeSupportedCards;
+    SupportedCardTypesView brainTreeSupportedCards;
     private String selectedPaymentMethod, shop_id, shipping, orderId;
-    private CardBuilder braintreeCard;
+    private CardBuilder brainTreeCard;
     private List couponList, productList;
     private Double subtotal, total, tax, shipping_cost, discount;
     private String paymentNonceToken = "";
@@ -133,7 +128,7 @@ public class PaymentMethodsFragment extends Fragment {
         cardExpiry = rootView.findViewById(R.id.visa_card_expiry);
         cardNumber = rootView.findViewById(R.id.txt_visa_card_number);
         cvv = rootView.findViewById(R.id.visa_card_cvv);
-        braintreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
+        brainTreeSupportedCards = rootView.findViewById(R.id.supported_card_types);
 
         cashOnDelivery.setOnClickListener(v -> {
             MobileMoney.setChecked(false);
@@ -185,7 +180,7 @@ public class PaymentMethodsFragment extends Fragment {
             merchantCard.setVisibility(v.GONE);
         });
 
-        braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+        brainTreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         cardExpiry.setKeyListener(null);
 
@@ -205,10 +200,10 @@ public class PaymentMethodsFragment extends Fragment {
                         cardNumber.setFilters(filters);
                         cardNumber.invalidate();
 
-                        braintreeSupportedCards.setSelected(cardType);
+                        brainTreeSupportedCards.setSelected(cardType);
                     }
                 } else {
-                    braintreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+                    brainTreeSupportedCards.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
                 }
             }
 
@@ -312,17 +307,17 @@ public class PaymentMethodsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void validateSelectedPaymentMethod() {
 
+    private void validateSelectedPaymentMethod() {
         if (selectedPaymentMethod.equalsIgnoreCase("Visa")) {
             // Initialize BrainTreeCard
-            braintreeCard = new CardBuilder()
+            brainTreeCard = new CardBuilder()
                     .cardNumber(cardNumber.getText().toString().trim())
                     .expirationDate(cardExpiry.getText().toString().trim())
                     .cvv(cvv.getText().toString().trim());
 
             // Tokenize BrainTreeCard
-            Card.tokenize(braintreeFragment, braintreeCard);
+            Card.tokenize(braintreeFragment, brainTreeCard);
 
             // Add PaymentMethodNonceCreatedListener to BrainTreeFragment
             braintreeFragment.addListener((PaymentMethodNonceCreatedListener) paymentMethodNonce -> {

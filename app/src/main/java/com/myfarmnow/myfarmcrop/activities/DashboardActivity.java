@@ -63,7 +63,6 @@ import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CheckoutFinal;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.PaymentMethodsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Thank_You;
@@ -74,7 +73,6 @@ import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Addresses;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Cart;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.My_Orders;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Nearby_Merchants;
-import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SearchFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.SettingsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Shipping_Address;
 import com.myfarmnow.myfarmcrop.fragments.UpdateAccountFragment;
@@ -223,6 +221,7 @@ public class DashboardActivity extends AppCompatActivity {
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (curruntFrag instanceof SellProduceFragment) {
             actionBar.setTitle(getString(R.string.actionproducemarket));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (curruntFrag instanceof Category_Products) {
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
         } else if (curruntFrag instanceof PaymentMethodsFragment) {
