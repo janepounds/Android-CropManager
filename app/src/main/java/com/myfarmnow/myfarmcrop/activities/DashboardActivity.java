@@ -63,6 +63,7 @@ import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CheckoutFinal;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.PaymentMethodsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Thank_You;
@@ -80,6 +81,7 @@ import com.myfarmnow.myfarmcrop.fragments.UpdateAccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.WishList;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.MarketPlaceHomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.marketplace.SellProduceFragment;
+import com.myfarmnow.myfarmcrop.models.order_model.PostOrder;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.receivers.AlarmReceiver;
 import com.myfarmnow.myfarmcrop.services.BackupWorker;
@@ -100,7 +102,6 @@ public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
 
     public static final String PREFERENCES_FILE_NAME = "UserInfo";
-
     public static final String FARM_NAME_PREFERENCES_ID = "farmname";
     public static final String STREET_PREFERENCES_ID = "addressStreet";
     public static final String CITY_PREFERENCES_ID = "addressCityOrTown";
@@ -120,6 +121,8 @@ public class DashboardActivity extends AppCompatActivity {
     public static final String TASK_BACKUP_DATA_TAG = "SYNC_SERVICE";
     public static final String TASK_SEND_NOTIFICATIONS_TAG = "SEND_NOTIFICATIONS";
 
+    public static PostOrder postOrder = new PostOrder();
+
     SharedPreferences sharedPreferences;
     MyAppPrefsManager myAppPrefsManager;
     Toolbar toolbar;
@@ -129,7 +132,7 @@ public class DashboardActivity extends AppCompatActivity {
     private static final String SELECTED_ITEM_ID = "selected";
     public static ActionBar actionBar;
     public Fragment currentFragment;
-    public  static BottomNavigationView bottomNavigationView;
+    public static BottomNavigationView bottomNavigationView;
 
     // Razor Pay callback is not for the fragment so we need to paas static data from main activity to sub fragmnet
     public static String paymentNonceToken;
@@ -176,12 +179,11 @@ public class DashboardActivity extends AppCompatActivity {
                 actionBar.setTitle(ConstantValues.APP_HEADER);
                 actionBar.setHomeButtonEnabled(false);
                 actionBar.setDisplayHomeAsUpEnabled(false);
-
             }
+
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             setupTitle();
-
         });
 
         if (!getPreferences(PREFERENCES_FIREBASE_TOKEN_SUBMITTED, DashboardActivity.this).equals("yes")) {
@@ -192,9 +194,7 @@ public class DashboardActivity extends AppCompatActivity {
         scheduleBackgroundWork();
     }
 
-
     private void setupTitle() {
-
         Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         if (curruntFrag instanceof My_Cart) {
             actionBar.setTitle(getString(R.string.actionCart));
@@ -218,28 +218,24 @@ public class DashboardActivity extends AppCompatActivity {
         } else if (curruntFrag instanceof MarketPlaceHomeFragment) {
             actionBar.setTitle(getString(R.string.actionMarketPlace));
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
-        }else if (curruntFrag instanceof BuyInputsHomePage) {
+        } else if (curruntFrag instanceof BuyInputsHomePage) {
             actionBar.setTitle(getString(R.string.app_name));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        }else if (curruntFrag instanceof SellProduceFragment) {
+        } else if (curruntFrag instanceof SellProduceFragment) {
             actionBar.setTitle(getString(R.string.actionproducemarket));
-        }else if (curruntFrag instanceof Category_Products) {
+        } else if (curruntFrag instanceof Category_Products) {
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
-        }
-        else if(curruntFrag instanceof PaymentMethodsFragment){
+        } else if (curruntFrag instanceof PaymentMethodsFragment) {
             actionBar.setTitle(getString(R.string.payment_methods));
-        }
-        else if(curruntFrag instanceof Thank_You){
+        } else if (curruntFrag instanceof Thank_You) {
             actionBar.setTitle(getString(R.string.order_confirmed));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        }
-        else if(curruntFrag instanceof Product_Description){
+        } else if (curruntFrag instanceof Product_Description) {
             actionBar.setTitle(getString(R.string.product_description));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         }
 
     }
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
         Fragment selectedFragment = null;
@@ -259,7 +255,6 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, selectedFragment).commit();
         return true;
     };
-
 
     private void setupDefaultHomePage(String defaultHome) {
         defaultHomeFragment = new HomeFragment(DashboardActivity.this, getSupportFragmentManager(), MyFarmDbHandlerSingleton.getHandlerInstance(this));
@@ -586,8 +581,6 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         WorkManager.getInstance().enqueueUniquePeriodicWork(TASK_SEND_NOTIFICATIONS_TAG, ExistingPeriodicWorkPolicy.KEEP, sendNotifications);
-
-
     }
 
     public static boolean isGooglePlayServicesAvailable(Context context) {
@@ -595,7 +588,6 @@ public class DashboardActivity extends AppCompatActivity {
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
         return resultCode == ConnectionResult.SUCCESS;
     }
-
 
     public static void addDatePicker(final EditText ed_, final Context context) {
         ed_.setOnClickListener(new View.OnClickListener() {
@@ -726,7 +718,6 @@ public class DashboardActivity extends AppCompatActivity {
 //        mainHandler.post(myRunnable);
 //
 //    }
-
 
     //method to get the right URL to use in the intent
     public String getFacebookPageURL(Context context) {

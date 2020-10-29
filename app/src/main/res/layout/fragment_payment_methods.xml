@@ -14,7 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/windowBackground"
         android:isScrollContainer="true"
         android:padding="@dimen/dimen_10dp">
@@ -442,7 +442,6 @@
 
                     </LinearLayout>
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -481,7 +480,6 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:background="@color/grey_light"
                 app:layout_constraintTop_toBottomOf="@id/layout_visa_card_details" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

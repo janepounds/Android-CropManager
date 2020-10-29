@@ -96,7 +96,7 @@ public class Product_Description extends Fragment {
     double productBasePrice;
     double productFinalPrice;
 
-    ImageView sliderImageView,increaseQty,reduceQty;
+    ImageView sliderImageView, increaseQty, reduceQty;
     SliderLayout sliderLayout;
     PagerIndicator pagerIndicator;
     ImageButton product_share_btn;
@@ -104,15 +104,15 @@ public class Product_Description extends Fragment {
     LinearLayout product_attributes, product_reviews_ratings_new;
     RecyclerView attribute_recycler;
     WebView product_description_webView;
-    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,product_ratings_count,pdtQty;
+    TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount, product_ratings_count, pdtQty;
     LinearLayout product_reviews_ratings;
     AppCompatButton addToCart;
     FrameLayout addCart;
-    
+
     DialogLoader dialogLoader;
     static ProductDetails productDetails;
     ProductAttributesAdapter attributesAdapter;
-    
+
     List<Image> itemImages = new ArrayList<>();
     List<Attribute> attributesList = new ArrayList<>();
     List<CartProductAttributes> selectedAttributesList;
@@ -120,11 +120,9 @@ public class Product_Description extends Fragment {
     RatingBar product_rating_bar;
     private RecyclerView recyclerView;
     private ProductMeasureAdapter productMeasureAdapter;
-    private List<ProductMeasure>productMeasures;
+    private List<ProductMeasure> productMeasures;
     private Context context;
     private String selected_measure;
-
-
 
     ImageView checkImageView;
 
@@ -140,7 +138,6 @@ public class Product_Description extends Fragment {
         this.selected_measure = selcted_measure;
     }
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -153,26 +150,19 @@ public class Product_Description extends Fragment {
         rootView = inflater.inflate(R.layout.buy_inputs_product_description, container, false);
 
         // Set the Title of Toolbar
-      //  MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        //  MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.product_description));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.product_description));
 
-        ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
-       // noInternetDialog.show();
+        // noInternetDialog.show();
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
-        
-        
-
-//        weight2 =rootView.findViewById(R.id.weight2);
-//        weight3 =rootView.findViewById(R.id.weight3);
-//        weight4 =rootView.findViewById(R.id.weight4);
-//        weight5 =rootView.findViewById(R.id.weight5);
 
         product_reviews_ratings_new = rootView.findViewById(R.id.ratings_reviews_layout);
         product_reviews_ratings_new.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +194,7 @@ public class Product_Description extends Fragment {
 
         product_rating_bar = rootView.findViewById(R.id.product_rating_bar);
         product_ratings_count = rootView.findViewById(R.id.product_ratings_count);
-        
+
         product_tag_new.setVisibility(View.GONE);
         product_tag_discount.setVisibility(View.GONE);
         product_attributes.setVisibility(View.VISIBLE);
@@ -214,31 +204,30 @@ public class Product_Description extends Fragment {
         addToCart = rootView.findViewById(R.id.product_cart_btn);
         addCart = rootView.findViewById(R.id.frameLayout);
         recyclerView = rootView.findViewById(R.id.measure_recyclerview);
-        
+
         attribute_recycler.setNestedScrollingEnabled(false);
-        
+
         // Set Paint flag on price_old TextView that applies a strike-through decoration to price_old Text
-        price_old.setPaintFlags(price_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-        
-        
+        price_old.setPaintFlags(price_old.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+
         dialogLoader = new DialogLoader(getContext());
-        
-        
+
+
         selectedAttributesList = new ArrayList<>();
-        
+
         // Get product Info from bundle arguments
         if (getArguments() != null) {
-            
+
             if (getArguments().containsKey("itemID")) {
                 productID = getArguments().getInt("itemID");
-                
+
                 productDetails = ((CropManagerApp) getContext().getApplicationContext()).getProductDetails();
                 //  productDetails = getArguments().getParcelable("itemID");
                 // Request Product Details
                 RequestProductDetail(productID);
-                
-            }
-            else if (getArguments().containsKey("productDetails")) {
+
+            } else if (getArguments().containsKey("productDetails")) {
                 productDetails = getArguments().getParcelable("productDetails");
                 // Set Product Details
                 setProductDetails(productDetails);
@@ -246,55 +235,40 @@ public class Product_Description extends Fragment {
         }
 
         // Handle Click event of product_reviews_ratings Button
-        product_reviews_ratings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showRatingsAndReviewsOfProduct();
-            }
-        });
-        //product_reviews_ratings.setVisibility(View.GONE);
+        product_reviews_ratings.setOnClickListener(v -> showRatingsAndReviewsOfProduct());
 
+        increaseQty.setOnClickListener(view -> {
+            // Get the text on the text view and change to an Integer
+            int num = Integer.parseInt(pdtQty.getText().toString());
 
-        //implement increase qty
-        final int[] number = {1};
-        number[0] = Integer.parseInt(pdtQty.getText().toString());
+            // increment it by one
+            num += 1;
 
-        increaseQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Check if the Quantity is less than the maximum or stock Quantity
-                    // Increase Quantity by 1
-                    number[0] = number[0] + 1;
-                    pdtQty.setText(""+ number[0]);
-
-            }
+            // set back the incremented value
+            pdtQty.setText(String.valueOf(num));
         });
 
         //implement reduce qty
-        reduceQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Check if the Quantity is less than the maximum or stock Quantity
-                    // reduce Quantity by 1
-                    number[0] = number[0] - 1;
-                    pdtQty.setText(""+ number[0]);
+        reduceQty.setOnClickListener(view -> {
+            // Get the text on the text view and change to an Integer
+            int num = Integer.parseInt(pdtQty.getText().toString());
 
+            if (num > 1) {
+                // Decrement it by one
+                num -= 1;
 
+                // set back the decremented value
+                pdtQty.setText(String.valueOf(num));
             }
         });
 
-
-
         return rootView;
-        
     }
-    
-    
-    
+
     //*********** Adds Product's Details to the Views ********//
-    
+
     private void setProductDetails(final ProductDetails productDetails) {
-        
+
         // Get Product Images and Attributes
         itemImages = productDetails.getImages();
         attributesList = productDetails.getAttributes();
@@ -306,62 +280,57 @@ public class Product_Description extends Fragment {
         title.setText(productDetails.getProductsName());
 
         product_rating_bar.setRating(productDetails.getRating());
-        product_ratings_count.setText(""+productDetails.getTotal_user_rated());
+        product_ratings_count.setText("" + productDetails.getTotal_user_rated());
 
-      //  set product weights
+        //  set product weights
         productMeasures = productDetails.getProductsMeasure();
 
-        productMeasureAdapter = new ProductMeasureAdapter(context,productMeasures,selected_measure,price_new);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        recyclerView.setAdapter(productMeasureAdapter);
-        
+        showMeasuresRecyclerView();
+
         // Set Product's OrderProductCategory Info
         String[] categoryIDs = new String[productDetails.getCategories().size()];
         String[] categoryNames = new String[productDetails.getCategories().size()];
         if (productDetails.getCategories().size() > 0) {
-            
-            for (int i=0;  i<productDetails.getCategories().size();  i++) {
+
+            for (int i = 0; i < productDetails.getCategories().size(); i++) {
                 categoryIDs[i] = String.valueOf(productDetails.getCategories().get(i).getCategoriesId());
                 categoryNames[i] = productDetails.getCategories().get(i).getCategoriesName();
             }
-            
+
             productDetails.setCategoryIDs(TextUtils.join(",", categoryIDs));
             productDetails.setCategoryNames(TextUtils.join(",", categoryNames));
-        }
-        else {
+        } else {
             productDetails.setCategoryIDs("");
             productDetails.setCategoryNames("");
         }
-        
+
         category.setText(productDetails.getCategoryNames());
-        
-        
+
+
         if (productDetails.getProductsLiked() > 0) {
-            product_likes.setText(getString(R.string.likes) + " (" + productDetails.getProductsLiked() +")");
-        }
-        else {
+            product_likes.setText(getString(R.string.likes) + " (" + productDetails.getProductsLiked() + ")");
+        } else {
             product_likes.setText(getString(R.string.likes) + " (0)");
         }
-        
-        
+
+
         // Check Discount on Product with the help of static method of Helper class
         String discount = Utilities.checkDiscount(productDetails.getProductsPrice(), productDetails.getDiscountPrice());
-        
+
         if (discount != null) {
             productDetails.setIsSaleProduct("1");
-            
+
             // Set Discount Tag
             product_tag_discount.setVisibility(View.VISIBLE);
             product_tag_discount.setText(discount + " " + getString(R.string.OFF));
             // Set Price info based on Discount
             price_old.setVisibility(View.VISIBLE);
             price_old.setText(ConstantValues.CURRENCY_SYMBOL + productDetails.getProductsPrice());
-            productBasePrice = Double.parseDouble(productDetails.getDiscountPrice().replace(",",""));
-            
-        }
-        else {
+            productBasePrice = Double.parseDouble(productDetails.getDiscountPrice().replace(",", ""));
+
+        } else {
             productDetails.setIsSaleProduct("0");
-            
+
             price_old.setVisibility(View.GONE);
             product_tag_discount.setVisibility(View.GONE);
             productBasePrice = Double.parseDouble(productDetails.getProductsPrice());
@@ -372,18 +341,17 @@ public class Product_Description extends Fragment {
             RequestProductStock(productDetails.getProductsId(), null);
 
         if (productDetails.getProductsType() == 2) {
-           // productCartBtn.setText(getString(R.string.view_product));
-           // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_green));
+            // productCartBtn.setText(getString(R.string.view_product));
+            // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_green));
         }
 
         // Check if the Product is Newly Added with the help of static method of Helper class
         if (Utilities.checkNewProduct(productDetails.getProductsDateAdded())) {
             product_tag_new.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             product_tag_new.setVisibility(View.GONE);
         }
-        
+
         String description = productDetails.getProductsDescription();
         String styleSheet = "<style> " + "@font-face {font-family: 'JosefinSans-Regular'; src: url('file:///android_asset/fonts/JosefinSans-Regular.ttf');} " +
                 "body{background:#ffffff; margin:0; padding:0;font-family: 'JosefinSans-Regular';} " +
@@ -391,182 +359,136 @@ public class Product_Description extends Fragment {
                 "img{display:inline; height:auto; max-width:100%;}" +
                 "</style>";
         description = description.replace("\\", "");
-        
+
         product_description_webView.setHorizontalScrollBarEnabled(false);
         product_description_webView.getSettings().setJavaScriptEnabled(true);
-        product_description_webView.loadDataWithBaseURL(null, styleSheet+description, "text/html", "utf-8", null);
-        
-        
-        
+        product_description_webView.loadDataWithBaseURL(null, styleSheet + description, "text/html", "utf-8", null);
+
+
         // Set Product's Prices
         attributesPrice = 0;
-        
-        
+
+
         if (productDetails.getProductsType() == 1) {
             if (attributesList.size() > 0) {
                 product_attributes.setVisibility(View.VISIBLE);
-                
-                for (int i=0;  i<attributesList.size();  i++) {
-                    
+
+                for (int i = 0; i < attributesList.size(); i++) {
+
                     CartProductAttributes productAttribute = new CartProductAttributes();
-                    
+
                     // Get Name and First Value of current Attribute
                     Option option = attributesList.get(i).getOption();
                     Value value = attributesList.get(i).getValues().get(0);
-                    
-                    
+
+
                     // Add the Attribute's Value Price to the attributePrices
                     String attrPrice = value.getPricePrefix() + value.getPrice();
                     attributesPrice += Double.parseDouble(attrPrice);
-                    
-                    
+
+
                     // Add Value to new List
                     List<Value> valuesList = new ArrayList<>();
                     valuesList.add(value);
-                    
-                    
+
+
                     // Set the Name and Value of Attribute
                     productAttribute.setOption(option);
                     productAttribute.setValues(valuesList);
-                    
-                    
+
+
                     // Add current Attribute to selectedAttributesList
                     selectedAttributesList.add(i, productAttribute);
                 }
-                
-                
+
+
                 // Initialize the ProductAttributesAdapter for RecyclerView
                 attributesAdapter = new ProductAttributesAdapter(getContext(), Product_Description.this, attributesList, selectedAttributesList);
-                
+
                 // Set the Adapter and LayoutManager to the RecyclerView
                 attribute_recycler.setAdapter(attributesAdapter);
                 attribute_recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                 attributesAdapter.notifyDataSetChanged();
-                
-                
+
+
                 RequestProductStock(productDetails.getProductsId(), attributesAdapter.getAttributeIDs());
-                
-            }
-            else {
+
+            } else {
                 product_attributes.setVisibility(View.GONE);
             }
-        }
-        else {
+        } else {
             product_attributes.setVisibility(View.GONE);
         }
-        
-        
+
         productFinalPrice = productBasePrice + attributesPrice;
         price_new.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(productFinalPrice));
-        
+
         // Check if the User has Liked the Product
         if (productDetails.getIsLiked().equalsIgnoreCase("1")) {
             product_like_btn.setChecked(true);
         } else {
             product_like_btn.setChecked(false);
         }
-        
-        
+
         // Handle Click event of product_share_btn Button
-        product_share_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-                // Share Product with the help of static method of Helper class
-                Utilities.shareProduct
-                        (
-                                getContext(),
-                                productDetails.getProductsName(),
-                                sliderImageView,
-                                productDetails.getProductsUrl()
-                        );
-            }
+        product_share_btn.setOnClickListener(view -> {
+
+            // Share Product with the help of static method of Helper class
+            Utilities.shareProduct
+                    (
+                            getContext(),
+                            productDetails.getProductsName(),
+                            sliderImageView,
+                            productDetails.getProductsUrl()
+                    );
         });
-        
-        
+
         // Handle Click event of product_like_btn Button
-        product_like_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-                // Check if the User is Authenticated
-                if (ConstantValues.IS_USER_LOGGED_IN) {
-                    
-                    // Check if the User has Checked the Like Button
-                    if(product_like_btn.isChecked()) {
-                        productDetails.setIsLiked("1");
-                        product_like_btn.setChecked(true);
-                        
-                        // Request the Server to Like the Product for the User
-                        LikeProduct(productDetails.getProductsId(), customerID, getContext(), view);
-                        
-                    } else {
-                        productDetails.setIsLiked("0");
-                        product_like_btn.setChecked(false);
-                        
-                        // Request the Server to Unlike the Product for the User
-                        UnlikeProduct(productDetails.getProductsId(), customerID, getContext(), view);
-                    }
-                    
+        product_like_btn.setOnClickListener(view -> {
+
+            // Check if the User is Authenticated
+            if (ConstantValues.IS_USER_LOGGED_IN) {
+
+                // Check if the User has Checked the Like Button
+                if (product_like_btn.isChecked()) {
+                    productDetails.setIsLiked("1");
+                    product_like_btn.setChecked(true);
+
+                    // Request the Server to Like the Product for the User
+                    LikeProduct(productDetails.getProductsId(), customerID, getContext(), view);
+
                 } else {
-                    // Keep the Like Button Unchecked
+                    productDetails.setIsLiked("0");
                     product_like_btn.setChecked(false);
-                    
-                    // Navigate to Login Activity
-                    Intent i = new Intent(getContext(), Login.class);
-                    getContext().startActivity(i);
-                    ((DashboardActivity) getContext()).finish();
-                    ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-                }
-            }
-        });
-        
-        
-        
-        // Handle Click event of productCartBtn Button
-        addCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-                if (productDetails.getProductsType() == 2) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
-                }
-                else {
-                    if (Integer.parseInt(pdtQty.getText().toString()) > 0) {
-                        
-                        CartProduct cartProduct = new CartProduct();
-                        
-                        // Set Product's Price, Quantity and selected Attributes Info
-                        double finalPrice = productFinalPrice;
-                        productDetails.setCustomersBasketQuantity(1);
-                        productDetails.setProductsPrice(String.valueOf(productBasePrice));
-                        productDetails.setAttributesPrice(String.valueOf(attributesPrice));
-                        productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
-                        productDetails.setTotalPrice(String.valueOf(productFinalPrice));
-                        cartProduct.setCustomersBasketProduct(productDetails);
-                        cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
-                        
-                        
-                        // Add the Product to User's Cart with the help of static method of My_Cart class
-                        My_Cart.AddCartItem
-                                (
-                                        cartProduct
-                                );
-                        
-                        
-                        // Recreate the OptionsMenu
-                        ((DashboardActivity) getContext()).invalidateOptionsMenu();
-                        
-                        Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
-                        checkImageView.setVisibility(View.VISIBLE);
-                    }
+
+                    // Request the Server to Unlike the Product for the User
+                    UnlikeProduct(productDetails.getProductsId(), customerID, getContext(), view);
                 }
 
-                /*if (productDetails.getProductsQuantity() > 0) {
-                    
+            } else {
+                // Keep the Like Button Unchecked
+                product_like_btn.setChecked(false);
+
+                // Navigate to Login Activity
+                Intent i = new Intent(getContext(), Login.class);
+                getContext().startActivity(i);
+                ((DashboardActivity) getContext()).finish();
+                ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+            }
+        });
+
+        // Handle Click event of productCartBtn Button
+        addCart.setOnClickListener(view -> {
+
+            if (productDetails.getProductsType() == 2) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(productDetails.getProductsUrl())));
+            } else {
+                if (Integer.parseInt(pdtQty.getText().toString()) > 0) {
+
                     CartProduct cartProduct = new CartProduct();
-    
+
                     // Set Product's Price, Quantity and selected Attributes Info
+                    double finalPrice = productFinalPrice;
                     productDetails.setCustomersBasketQuantity(1);
                     productDetails.setProductsPrice(String.valueOf(productBasePrice));
                     productDetails.setAttributesPrice(String.valueOf(attributesPrice));
@@ -574,84 +496,140 @@ public class Product_Description extends Fragment {
                     productDetails.setTotalPrice(String.valueOf(productFinalPrice));
                     cartProduct.setCustomersBasketProduct(productDetails);
                     cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
-    
-    
+
+
                     // Add the Product to User's Cart with the help of static method of My_Cart class
                     My_Cart.AddCartItem
                             (
                                     cartProduct
                             );
-    
-    
+
+
                     // Recreate the OptionsMenu
-                    ((MainActivity) getContext()).invalidateOptionsMenu();
-    
+                    ((DashboardActivity) getContext()).invalidateOptionsMenu();
+
                     Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
-                }*/
-                
+                    checkImageView.setVisibility(View.VISIBLE);
+                }
             }
+
+            CartProduct cartProduct = new CartProduct();
+
+            // Set Product's Price, Quantity and selected Attributes Info
+            double finalPrice = productFinalPrice;
+            productDetails.setCustomersBasketQuantity(1);
+            productDetails.setProductsPrice(String.valueOf(productBasePrice));
+            productDetails.setAttributesPrice(String.valueOf(attributesPrice));
+            productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
+            productDetails.setTotalPrice(String.valueOf(productFinalPrice));
+            cartProduct.setCustomersBasketProduct(productDetails);
+            cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
+
+
+            // Add the Product to User's Cart with the help of static method of My_Cart class
+            My_Cart.AddCartItem
+                    (
+                            cartProduct
+                    );
+
+            // Recreate the OptionsMenu
+            ((DashboardActivity) getContext()).invalidateOptionsMenu();
+
+            Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+            checkImageView.setVisibility(View.VISIBLE);
+
+            /*if (productDetails.getProductsQuantity() > 0) {
+
+                CartProduct cartProduct = new CartProduct();
+
+                // Set Product's Price, Quantity and selected Attributes Info
+                productDetails.setCustomersBasketQuantity(1);
+                productDetails.setProductsPrice(String.valueOf(productBasePrice));
+                productDetails.setAttributesPrice(String.valueOf(attributesPrice));
+                productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
+                productDetails.setTotalPrice(String.valueOf(productFinalPrice));
+                cartProduct.setCustomersBasketProduct(productDetails);
+                cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
+
+
+                // Add the Product to User's Cart with the help of static method of My_Cart class
+                My_Cart.AddCartItem
+                        (
+                                cartProduct
+                        );
+
+
+                // Recreate the OptionsMenu
+                ((MainActivity) getContext()).invalidateOptionsMenu();
+
+                Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+            }*/
+
         });
     }
-    
-    
+
+    public void showMeasuresRecyclerView() {
+        productMeasureAdapter = new ProductMeasureAdapter(context, productMeasures, selected_measure, price_new, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        recyclerView.setAdapter(productMeasureAdapter);
+    }
+
     //*********** Update Product's final Price based on selected Attributes ********//
-    
+
     public void updateProductPrice() {
-        
+
         RequestProductStock(productDetails.getProductsId(), attributesAdapter.getAttributeIDs());
-        
+
         attributesPrice = 0;
-        
+
         // Get Attribute's Prices List from ProductAttributesAdapter
         String[] attributePrices = attributesAdapter.getAttributePrices();
-        
+
         double attributesTotalPrice = 0.0;
-        
-        for (int i=0;  i<attributePrices.length;  i++) {
+
+        for (int i = 0; i < attributePrices.length; i++) {
             // Get the Price of Attribute at given Position in attributePrices array
             double price = Double.parseDouble(attributePrices[i]);
-            
+
             attributesTotalPrice += price;
         }
-        
+
         attributesPrice = attributesTotalPrice;
-        
-        
+
+
         // Check if product from flash sale
         // Calculate and Set Product's total Price
         productFinalPrice = productBasePrice + attributesPrice;
         price_new.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(productFinalPrice));
-        
+
     }
-    
-    
-    
+
+
     //*********** Update Product's Stock ********//
-    
+
     public void updateProductStock(String stock) {
-        
+
         productDetails.setProductsQuantity(Integer.parseInt(stock));
         productDetails.setProductsDefaultStock(Integer.parseInt(stock));
-        
+
         // Check if the Product is Out of Stock
         if (stock.equalsIgnoreCase("0")) {
             product_stock.setText(getString(R.string.outOfStock));
             addToCart.setText(getString(R.string.outOfStock));
-           // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
-           // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
-            
-        }
-        else {
+            // product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
+            // productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
+
+        } else {
             product_stock.setText(getString(R.string.in_stock));
             addToCart.setText(getString(R.string.addToCart));
-          //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
-         //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
+            //  product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
+            //   productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
         }
-        
+
         // Check if product from flash sale
-        
-        if(productDetails.getFlashPrice()!=null){
-            if(!productDetails.getFlashPrice().isEmpty()) {
+
+        if (productDetails.getFlashPrice() != null) {
+            if (!productDetails.getFlashPrice().isEmpty()) {
                 price_new.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(Double.parseDouble(productDetails.getFlashPrice())));
                 long serverTime = Long.parseLong(productDetails.getServerTime()) * 1000L;
                 long startDate = Long.parseLong(productDetails.getFlashStartDate()) * 1000L;
@@ -659,84 +637,83 @@ public class Product_Description extends Fragment {
                 productFinalPrice = productBasePrice + attributesPrice;
                 if (startDate > serverTime) {
                     addToCart.setEnabled(false);
-                   // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
-                    
+                    // productCartBtn.setBackgroundResource(R.drawable.rounded_corners_button_red);
+
                 }
             }
-            
+
         }
     }
-    
-    
-    
+
+
     //*********** Setup the ImageSlider with the given List of Product Images ********//
-    
+
     private void ImageSlider(String itemThumbnail, List<Image> itemImages) {
-        
+
         // Initialize new HashMap<ImageName, ImagePath>
         final HashMap<String, String> slider_covers = new HashMap<>();
         // Initialize new Array for Image's URL
         final String[] images = new String[itemImages.size()];
-        
-        
+
+
         if (itemImages.size() > 0) {
-            for (int i=0;  i< itemImages.size();  i++) {
+            for (int i = 0; i < itemImages.size(); i++) {
                 // Get Image's URL at given Position from itemImages List
                 images[i] = itemImages.get(i).getImage();
             }
         }
-        
-        
+
+
         // Put Image's Name and URL to the HashMap slider_covers
         if (itemThumbnail.equalsIgnoreCase("")) {
-            slider_covers.put("a", ""+R.drawable.placeholder);
-            
+            slider_covers.put("a", "" + R.drawable.placeholder);
+
         } else if (images.length == 0) {
-            slider_covers.put("a", ConstantValues.ECOMMERCE_URL+itemThumbnail);
-            
+            slider_covers.put("a", ConstantValues.ECOMMERCE_URL + itemThumbnail);
+
         } else {
-            slider_covers.put("a", ConstantValues.ECOMMERCE_URL+itemThumbnail);
-            
-            for (int i=0;  i<images.length;  i++) {
-                slider_covers.put("b"+i, ConstantValues.ECOMMERCE_URL+images[i]);
+            slider_covers.put("a", ConstantValues.ECOMMERCE_URL + itemThumbnail);
+
+            for (int i = 0; i < images.length; i++) {
+                slider_covers.put("b" + i, ConstantValues.ECOMMERCE_URL + images[i]);
             }
         }
-        
-        
-        for(String name : slider_covers.keySet()) {
-            
+
+
+        for (String name : slider_covers.keySet()) {
+
             // Initialize DefaultSliderView
             DefaultSliderView defaultSliderView = new DefaultSliderView(getContext()) {
                 @Override
                 public View getView() {
-                    View v = LayoutInflater.from(getContext()).inflate(com.daimajia.slider.library.R.layout.render_type_default,null);
-                    
+                    View v = LayoutInflater.from(getContext()).inflate(com.daimajia.slider.library.R.layout.render_type_default, null);
+
                     // Get daimajia_slider_image ImageView of DefaultSliderView
                     sliderImageView = v.findViewById(com.daimajia.slider.library.R.id.daimajia_slider_image);
-                    
+
                     // Set ScaleType of ImageView
                     sliderImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     bindEventAndShow(v, sliderImageView);
-                    
+
                     return v;
                 }
             };
-            
+
             // Set Attributes(Name, Placeholder, Image, Type etc) to DefaultSliderView
             defaultSliderView
                     .description(name)
                     .empty(R.drawable.placeholder)
                     .image(slider_covers.get(name))
                     .setScaleType(DefaultSliderView.ScaleType.FitCenterCrop);
-            
+
             // Add DefaultSliderView to the SliderLayout
             sliderLayout.addSlider(defaultSliderView);
         }
-        
+
         // Set PresetTransformer type of the SliderLayout
         sliderLayout.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        
-        
+
+
         // Check if the size of Images in the Slider is less than 2
         if (slider_covers.size() < 2) {
             // Disable PagerTransformer
@@ -745,41 +722,39 @@ public class Product_Description extends Fragment {
                 protected void onTransform(View view, float v) {
                 }
             });
-            
+
             // Hide Slider PagerIndicator
             sliderLayout.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-            
-        }
-        else {
+
+        } else {
             // Set custom PagerIndicator to the SliderLayout
             sliderLayout.setCustomIndicator(pagerIndicator);
             // Make PagerIndicator Visible
             sliderLayout.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Visible);
         }
     }
-    
-    
-    
+
+
     //*********** Request Product Details from the Server based on productID ********//
-    
+
     public void RequestProductDetail(final int productID) {
-        
+
         dialogLoader.showProgressDialog();
-        
-        
+
+
         GetAllProducts getAllProducts = new GetAllProducts();
         getAllProducts.setPageNumber(0);
         getAllProducts.setLanguageId(ConstantValues.LANGUAGE_ID);
         getAllProducts.setCustomersId(customerID);
         getAllProducts.setProductsId(String.valueOf(productID));
         getAllProducts.setCurrencyCode(ConstantValues.CURRENCY_CODE);
-        
+
         Call<ProductData> call = BuyInputsAPIClient.getInstance()
                 .getAllProducts
                         (
                                 getAllProducts
                         );
-        
+
         call.enqueue(new Callback<ProductData>() {
             @Override
             public void onResponse(Call<ProductData> call, Response<ProductData> response) {
@@ -793,28 +768,24 @@ public class Product_Description extends Fragment {
                         // Product's Details has been returned
                         setProductDetails(response.body().getProductData().get(0));
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
-                    }
-                    else {
+                    } else {
                         // Unable to get Success status
                         Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(CropManagerApp.getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
 
     //*********** Request Product's Stock from the Server based on productID and Attributes ********//
@@ -846,28 +817,24 @@ public class Product_Description extends Fragment {
 
                         updateProductStock(response.body().getStock());
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
-                    }
-                    else {
+                    } else {
                         // Unable to get Success status
                         Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(CropManagerApp.getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProductStock> call, Throwable t) {
-                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
 
     //*********** Request the Server to Like the Product based on productID and customerID ********//
@@ -893,28 +860,24 @@ public class Product_Description extends Fragment {
                         // Product has been Liked. Show the message to User
                         Snackbar.make(view, context.getString(R.string.added_to_favourites), Snackbar.LENGTH_SHORT).show();
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(view, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
-                    }
-                    else {
+                    } else {
                         // Unable to get Success status
                         Snackbar.make(view, context.getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Toast.makeText(context, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
 
     //*********** Request the Server to Unlike the Product based on productID and customerID ********//
@@ -940,24 +903,21 @@ public class Product_Description extends Fragment {
                         // Product has been Disliked. Show the message to User
                         Snackbar.make(view, context.getString(R.string.removed_from_favourites), Snackbar.LENGTH_SHORT).show();
 
-                    }
-                    else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(view, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
 
-                    }
-                    else {
+                    } else {
                         // Unable to get Success status
                         Snackbar.make(view, context.getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Toast.makeText(context, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -993,29 +953,8 @@ public class Product_Description extends Fragment {
         reviews_list_recycler.setNestedScrollingEnabled(false);
         ViewCompat.setNestedScrollingEnabled(reviews_list_recycler, false);
 
-        average_rating.setText(""+productDetails.getRating());
+        average_rating.setText("" + productDetails.getRating());
         total_rating_count.setText(String.valueOf(productDetails.getTotal_user_rated()));
-
-        /*rate_product_button.setVisibility(productDetails.isReviewsAllowed()? View.VISIBLE : View.GONE);
-
-        rating_progress_1.setMax(productDetails.getRatingCount());
-        rating_progress_2.setMax(productDetails.getRatingCount());
-        rating_progress_3.setMax(productDetails.getRatingCount());
-        rating_progress_4.setMax(productDetails.getRatingCount());
-        rating_progress_5.setMax(productDetails.getRatingCount());
-
-        for (int i=0;  i<productReviews.size();  i++) {
-            if (productReviews.get(i).getRating() == 1)
-                rating_1_count += 1;
-            else if (productReviews.get(i).getRating() == 2)
-                rating_2_count += 1;
-            else if (productReviews.get(i).getRating() == 3)
-                rating_3_count += 1;
-            else if (productReviews.get(i).getRating() == 4)
-                rating_4_count += 1;
-            else if (productReviews.get(i).getRating() == 5)
-                rating_5_count += 1;
-        }*/
 
         rating_progress_1.setProgress(rating_1_count);
         rating_progress_2.setProgress(rating_2_count);
@@ -1023,7 +962,7 @@ public class Product_Description extends Fragment {
         rating_progress_4.setProgress(rating_4_count);
         rating_progress_5.setProgress(rating_5_count);
 
-        dialogLoader= new DialogLoader(getContext());
+        dialogLoader = new DialogLoader(getContext());
         productReviews = new ArrayList<>();
         // Initialize the ReviewsAdapter for RecyclerView
         ProductReviewsAdapter reviewsAdapter = new ProductReviewsAdapter(getContext(), productReviews);
@@ -1032,32 +971,19 @@ public class Product_Description extends Fragment {
         reviews_list_recycler.setAdapter(reviewsAdapter);
         reviews_list_recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         reviews_list_recycler.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        getProductReviews(""+productDetails.getProductsId(),reviewsAdapter);
+        getProductReviews("" + productDetails.getProductsId(), reviewsAdapter);
 
-
-
-        rate_product_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ConstantValues.IS_USER_LOGGED_IN) {
-                    showRateProductDialog();
-                }
-                else {
-                    getContext().startActivity(new Intent(getContext(), Login.class));
-                    ((DashboardActivity) getContext()).finish();
-                    ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
-                }
+        rate_product_button.setOnClickListener(v -> {
+            if (ConstantValues.IS_USER_LOGGED_IN) {
+                showRateProductDialog();
+            } else {
+                getContext().startActivity(new Intent(getContext(), Login.class));
+                ((DashboardActivity) getContext()).finish();
+                ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
             }
         });
 
-
-        dialog_back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reviews_ratings_dialog.dismiss();
-            }
-        });
-
+        dialog_back_button.setOnClickListener(v -> reviews_ratings_dialog.dismiss());
 
         reviews_ratings_dialog.show();
     }
@@ -1078,39 +1004,36 @@ public class Product_Description extends Fragment {
 
         final AlertDialog rateProductDialog = dialog.create();
 
-        dialog_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ValidateInputs.isValidName(dialog_author_name.getText().toString())) {
-                        if (!"".equalsIgnoreCase(dialog_author_message.getText().toString())) {
+        dialog_button.setOnClickListener(v -> {
+            if (ValidateInputs.isValidName(dialog_author_name.getText().toString())) {
+                if (!"".equalsIgnoreCase(dialog_author_message.getText().toString())) {
 
-                            rateProductDialog.dismiss();
+                    rateProductDialog.dismiss();
 
-                            RequestGiveRating(
-                                    String.valueOf(productDetails.getProductsId()),
-                                    String.valueOf(customerID),
-                                    dialog_author_name.getText().toString().trim(),
-                                    String.valueOf((int)dialog_rating_bar.getRating()),
-                                    String.valueOf(productDetails.getVendors_id()),
-                                    String.valueOf(productDetails.getLanguageId()),
-                                    dialog_author_message.getText().toString().trim()
-                            );
-                           /* getNonceForProductRating
-                                    (
-                                            String.valueOf(productDetails.getId()),
-                                            String.valueOf(dialog_rating_bar.getRating()),
-                                            dialog_author_name.getText().toString().trim(),
-                                            dialog_author_email.getText().toString().trim(),
-                                            dialog_author_message.getText().toString().trim()
-                                    );*/
-
-                        } else {
-                            dialog_author_message.setError(getContext().getString(R.string.enter_message));
-                        }
+                    RequestGiveRating(
+                            String.valueOf(productDetails.getProductsId()),
+                            String.valueOf(customerID),
+                            dialog_author_name.getText().toString().trim(),
+                            String.valueOf((int) dialog_rating_bar.getRating()),
+                            String.valueOf(productDetails.getVendors_id()),
+                            String.valueOf(productDetails.getLanguageId()),
+                            dialog_author_message.getText().toString().trim()
+                    );
+                       /* getNonceForProductRating
+                                (
+                                        String.valueOf(productDetails.getId()),
+                                        String.valueOf(dialog_rating_bar.getRating()),
+                                        dialog_author_name.getText().toString().trim(),
+                                        dialog_author_email.getText().toString().trim(),
+                                        dialog_author_message.getText().toString().trim()
+                                );*/
 
                 } else {
-                    dialog_author_name.setError(getContext().getString(R.string.enter_name));
+                    dialog_author_message.setError(getContext().getString(R.string.enter_message));
                 }
+
+            } else {
+                dialog_author_name.setError(getContext().getString(R.string.enter_name));
             }
         });
 
@@ -1128,7 +1051,7 @@ public class Product_Description extends Fragment {
                 .getProductReviews
                         (
                                 productID,
-                                ""+ConstantValues.LANGUAGE_ID
+                                "" + ConstantValues.LANGUAGE_ID
                         );
 
         call.enqueue(new Callback<GetRatings>() {
@@ -1143,12 +1066,11 @@ public class Product_Description extends Fragment {
                 if (response.isSuccessful()) {
                     String strGson = new Gson().toJson(response.body().getData());
 
-                        productReviews.addAll(response.body().getData());
-                        int size = productReviews.size();
-                        adapter.notifyDataSetChanged();
+                    productReviews.addAll(response.body().getData());
+                    int size = productReviews.size();
+                    adapter.notifyDataSetChanged();
 
-                }
-                else {
+                } else {
                     Toast.makeText(CropManagerApp.getContext(), response.message(), Toast.LENGTH_LONG).show();
                 }
             }
@@ -1156,23 +1078,22 @@ public class Product_Description extends Fragment {
             @Override
             public void onFailure(Call<GetRatings> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(CropManagerApp.getContext(), "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    private void RequestGiveRating(String products_id, String customers_id, String customers_nam, String reviews_rating,
+                                   String vendors_id, String languages_id, String reviews_text) {
 
-    private void RequestGiveRating(String products_id,String customers_id,String customers_nam,String reviews_rating,
-                                   String vendors_id,String languages_id,String reviews_text){
-
-        Map<String,String> map = new HashMap<>();
-        map.put("products_id",products_id);
-        map.put("customers_id",customers_id);
-        map.put("customers_name",customers_nam);
-        map.put("reviews_rating",reviews_rating);
+        Map<String, String> map = new HashMap<>();
+        map.put("products_id", products_id);
+        map.put("customers_id", customers_id);
+        map.put("customers_name", customers_nam);
+        map.put("reviews_rating", reviews_rating);
         //map.put("vendors_id",vendors_id);
-        map.put("languages_id",languages_id);
-        map.put("reviews_text",reviews_text);
+        map.put("languages_id", languages_id);
+        map.put("reviews_text", reviews_text);
 
 
         Call<GiveRating> call = BuyInputsAPIClient.getInstance().giveRating(map);
@@ -1181,23 +1102,20 @@ public class Product_Description extends Fragment {
             @Override
             public void onResponse(Call<GiveRating> call, Response<GiveRating> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
-                    Toast.makeText(getContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getContext(),response.message(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<GiveRating> call, Throwable t) {
-                Toast.makeText(getContext(),"NetworkCallFailure: "+t,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "NetworkCallFailure: " + t, Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     //********** Adds the Product to User's Cart *********//
