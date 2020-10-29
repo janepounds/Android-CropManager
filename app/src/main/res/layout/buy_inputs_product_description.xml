@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -162,20 +164,20 @@
                         android:id="@+id/ratings_reviews_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="18dp"
                         android:clickable="true"
                         app:layout_constraintTop_toBottomOf="@id/product_rating_bar"
                         app:layout_constraintStart_toStartOf="parent"
                         android:focusable="true">
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="@string/reviews_ratings"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                         <ImageView
                             android:layout_width="15dp"
-                            android:layout_height="20dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             app:srcCompat="@drawable/ic_arrow_next"
                             app:tint="@color/hintColor" />
@@ -473,19 +475,15 @@
                         android:text="@string/product_description"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#515C6F" />
+                        android:textStyle="bold" />
 
-                    <androidx.core.widget.NestedScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
                     <WebView
                         android:id="@+id/product_description_webView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:isScrollContainer="true"/>
-                    </androidx.core.widget.NestedScrollView>
+
 
                 </LinearLayout>
 

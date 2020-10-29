@@ -35,6 +35,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -99,7 +101,7 @@ public class Product_Description extends Fragment {
     PagerIndicator pagerIndicator;
     ImageButton product_share_btn;
     ToggleButton product_like_btn;
-    LinearLayout product_attributes;
+    LinearLayout product_attributes, product_reviews_ratings_new;
     RecyclerView attribute_recycler;
     WebView product_description_webView;
     TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount,product_ratings_count,pdtQty;
@@ -172,6 +174,17 @@ public class Product_Description extends Fragment {
 //        weight4 =rootView.findViewById(R.id.weight4);
 //        weight5 =rootView.findViewById(R.id.weight5);
 
+        product_reviews_ratings_new = rootView.findViewById(R.id.ratings_reviews_layout);
+        product_reviews_ratings_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ProductRatingReviewListFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment_container, fragment)
+                        .addToBackStack(null).commit();
+            }
+        });
         title = rootView.findViewById(R.id.product_title);
         category = rootView.findViewById(R.id.product_category);
         price_old = rootView.findViewById(R.id.product_price_old);
