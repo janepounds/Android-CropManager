@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.adapters.marketplace.MyProduceListAdapter;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
@@ -82,7 +83,7 @@ public class MyProduceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_produce, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView_my_produce_fragment);
-        Button addProduce = view.findViewById(R.id.btn_add_my_produce);
+        FloatingActionButton addProduce = view.findViewById(R.id.btn_add_my_produce);
 
         dbHandler = MyFarmDbHandlerSingleton.getHandlerInstance(context);
 

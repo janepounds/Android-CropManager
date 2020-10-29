@@ -83,10 +83,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dimen_10dp"
+                    android:paddingTop="15dp"
                     android:paddingLeft="@dimen/dimen_20dp"
                     android:paddingRight="@dimen/dimen_20dp"
-                    android:paddingBottom="@dimen/dimen_30dp"
+                    android:paddingBottom="35dp"
                     android:orientation="vertical" >
 
                     <LinearLayout

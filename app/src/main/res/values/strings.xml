@@ -2338,4 +2338,5 @@
     <string name="order_summary">Order Summary</string>
     <string name="promo_code">Promo Code</string>
     <string name="default_old_price"><strike>UGX 45.00</strike></string>
+    <string name="review_list">Review List</string>
 </resources>
