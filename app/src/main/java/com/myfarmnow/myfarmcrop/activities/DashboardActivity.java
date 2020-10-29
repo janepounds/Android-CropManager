@@ -98,7 +98,7 @@ import java.util.concurrent.TimeUnit;
 
 import static android.provider.SettingsSlicesContract.KEY_LOCATION;
 
-public class DashboardActivity extends AppCompatActivity implements PaymentMethodsFragment.PaymentMethodsResultListener {
+public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = "DashboardActivity";
 
     public static final String PREFERENCES_FILE_NAME = "UserInfo";
@@ -120,6 +120,8 @@ public class DashboardActivity extends AppCompatActivity implements PaymentMetho
 
     public static final String TASK_BACKUP_DATA_TAG = "SYNC_SERVICE";
     public static final String TASK_SEND_NOTIFICATIONS_TAG = "SEND_NOTIFICATIONS";
+
+    public static PostOrder postOrder = new PostOrder();
 
     SharedPreferences sharedPreferences;
     MyAppPrefsManager myAppPrefsManager;
@@ -228,8 +230,7 @@ public class DashboardActivity extends AppCompatActivity implements PaymentMetho
         } else if (curruntFrag instanceof Thank_You) {
             actionBar.setTitle(getString(R.string.order_confirmed));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        }
-        else if(curruntFrag instanceof Product_Description){
+        } else if (curruntFrag instanceof Product_Description) {
             actionBar.setTitle(getString(R.string.product_description));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         }
@@ -789,11 +790,5 @@ public class DashboardActivity extends AppCompatActivity implements PaymentMetho
 
     public void clearBackStackInclusive(String tag) {
         getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
-
-    @Override
-    public void paymentMethodResult(PostOrder order) {
-        CheckoutFinal checkoutFinal = new CheckoutFinal();
-        checkoutFinal.setPaymentResult(order);
     }
 }

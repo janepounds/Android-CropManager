@@ -90,13 +90,11 @@ public class PaymentMethodsFragment extends Fragment {
     private UserDetails userInfo;
     private My_Cart my_cart;
     final User_Cart_BuyInputsDB user_cart_BuyInputs_db;
-    private String braintreeToken;
+    private String brainTreeToken;
     private DialogLoader dialogLoader;
 
     private AddressDetails shippingAddress;
     User_Info_BuyInputsDB user_info_BuyInputs_db = new User_Info_BuyInputsDB();
-
-    private PaymentMethodsResultListener listener;
 
     public PaymentMethodsFragment(My_Cart my_cart, User_Cart_BuyInputsDB user_cart_BuyInputs_db, String merchantId, String shipping, Double tax, Double shipping_cost,
                                   Double discount, List couponList, Double subtotal, Double total, List productList, String orderId) {
@@ -113,10 +111,6 @@ public class PaymentMethodsFragment extends Fragment {
         this.total = total;
         this.productList = productList;
         this.orderId = orderId;
-    }
-
-    public interface PaymentMethodsResultListener {
-        void paymentMethodResult(PostOrder order);
     }
 
     @Override
@@ -278,31 +272,35 @@ public class PaymentMethodsFragment extends Fragment {
             } else if (eMaishaWallet.isChecked()) {
                 //
                 selectedPaymentMethod = "eMaisha Wallet";
-                GenerateBrainTreeToken();
+                proceedOrder();
+//                GenerateBrainTreeToken();
             } else if (eMaishaCard.isChecked()) {
-                //
                 selectedPaymentMethod = "eMaisha Card";
-                validateSelectedPaymentMethod();
+                proceedOrder();
+                // validateSelectedPaymentMethod();
             } else if (Visa.isChecked()) {
                 //save card info
                 selectedPaymentMethod = "Visa";
-                if (validatePaymentCard()) {
-                    // Setup Payment Method
-                    validateSelectedPaymentMethod();
+                proceedOrder();
 
-                    // Delay of 2 seconds
-                    new Handler().postDelayed(() -> {
-                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
-                            // Proceed Order
-                            proceedOrder();
-                        } else {
-                            Snackbar.make(v, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }, 2000);
-                }
+//                if (validatePaymentCard()) {
+//                    // Setup Payment Method
+//                    validateSelectedPaymentMethod();
+//
+//                    // Delay of 2 seconds
+//                    new Handler().postDelayed(() -> {
+//                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
+//                            // Proceed Order
+//                            proceedOrder();
+//                        } else {
+//                            Snackbar.make(v, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+//                        }
+//                    }, 2000);
+//                }
 
             } else if (MobileMoney.isChecked()) {
                 selectedPaymentMethod = "Mobile Money";
+                proceedOrder();
             }
         });
 
@@ -440,7 +438,7 @@ public class PaymentMethodsFragment extends Fragment {
         orderDetails.setCurrency("UGX");
 
 //        PlaceOrderNow(orderDetails);
-        listener.paymentMethodResult(orderDetails);
+        DashboardActivity.postOrder = orderDetails;
         requireActivity().onBackPressed();
     }
 
@@ -538,11 +536,11 @@ public class PaymentMethodsFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
-                        braintreeToken = response.body().getToken();
+                        brainTreeToken = response.body().getToken();
 
                         // Initialize BrainTreeFragment with BrainTreeToken
                         try {
-                            braintreeFragment = BraintreeFragment.newInstance(getActivity(), braintreeToken);
+                            braintreeFragment = BraintreeFragment.newInstance(getActivity(), brainTreeToken);
                         } catch (InvalidArgumentException e) {
                             e.printStackTrace();
                         }
@@ -561,21 +559,5 @@ public class PaymentMethodsFragment extends Fragment {
                 Log.d("BRAINTREE TOKEN CALL", "onFailure: \"NetworkCallFailure : \"+t");
             }
         });
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof PaymentMethodsResultListener) {
-            listener = (PaymentMethodsResultListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement PaymentMethodsResultListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
     }
 }

@@ -436,6 +436,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners_edittext_white"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:paddingStart="5dp"
@@ -448,8 +449,7 @@
                 android:textColor="@color/textColorSecondaryDark"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_chevron_down"
-                app:drawableRightCompat="@drawable/ic_chevron_down"
-                android:focusable="true" />
+                app:drawableRightCompat="@drawable/ic_chevron_down" />
 
         </LinearLayout>
 

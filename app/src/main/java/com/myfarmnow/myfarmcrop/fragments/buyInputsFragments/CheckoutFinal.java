@@ -209,6 +209,8 @@ public class CheckoutFinal extends Fragment {
         checkout_items_recycler = rootView.findViewById(R.id.checkout_items_recycler);
         checkout_coupons_recycler = rootView.findViewById(R.id.checkout_coupons_recycler);
 
+        Log.d(TAG, "onCreateView: Payment Method = " + payment_method.getText().toString());
+
         PAYMENT_CURRENCY = ConstantValues.CURRENCY_CODE;
         checkout_order_btn.setEnabled(false);
         checkout_items_recycler.setNestedScrollingEnabled(false);
@@ -499,7 +501,6 @@ public class CheckoutFinal extends Fragment {
                 }, 2000);
 
             }
-
         });
 
         return rootView;
@@ -546,6 +547,13 @@ public class CheckoutFinal extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        PostOrder postOrder = DashboardActivity.postOrder;
+        Log.d(TAG, "onResume: Method = " + postOrder.getPaymentMethod());
+        Log.d(TAG, "onResume: Resume Called");
+
+        if (postOrder.getPaymentMethod() != null) {
+            payment_method.setText(postOrder.getPaymentMethod());
+        }
     }
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
@@ -721,7 +729,6 @@ public class CheckoutFinal extends Fragment {
 
     }
 
-
     private void addProductsToList() {
         orderProductList = new ArrayList<>();
         for (int i = 0; i < checkoutItemsList.size(); i++) {
@@ -773,7 +780,6 @@ public class CheckoutFinal extends Fragment {
             orderProductList.add(orderProduct);
         }
     }
-
 
     //*********** Set Order Details to proceed CheckoutFinal ********//
 
@@ -845,7 +851,6 @@ public class CheckoutFinal extends Fragment {
         PlaceOrderNow(orderDetails);
 
     }
-
 
     //*********** Request the Server to Generate BrainTreeToken ********//
 
@@ -1341,9 +1346,7 @@ public class CheckoutFinal extends Fragment {
             } else {
                 valid_items_in_cart = true;
             }
-
         }
-
 
         /////////////////////////////////////////////////////
 
@@ -1416,9 +1419,7 @@ public class CheckoutFinal extends Fragment {
             showSnackBarForCoupon(getString(R.string.coupon_cannot_used_with_existing));
             return false;
         }
-
     }
-
 
     //*********** Validate Product type Coupon ********//
 
@@ -1437,7 +1438,6 @@ public class CheckoutFinal extends Fragment {
         boolean any_non_excluded_item_in_cart = false;
         boolean any_non_excluded_category_item_in_cart = false;
 
-
         if (couponsList.size() != 0) {
             for (int i = 0; i < couponsList.size(); i++) {
                 if (coupon.getCode().equalsIgnoreCase(couponsList.get(i).getCode())) {
@@ -1446,13 +1446,11 @@ public class CheckoutFinal extends Fragment {
             }
         }
 
-
         for (int i = 0; i < coupon.getUsedBy().size(); i++) {
             if (userInfo.getId().equalsIgnoreCase(coupon.getUsedBy().get(i))) {
                 user_used_this_coupon_counter += 1;
             }
         }
-
 
         if (coupon.getEmailRestrictions().size() != 0) {
             if (isStringExistsInList(userInfo.getEmail(), coupon.getEmailRestrictions())) {
@@ -1462,17 +1460,13 @@ public class CheckoutFinal extends Fragment {
             valid_user_email_for_coupon = true;
         }
 
-
         for (int i = 0; i < checkoutItemsList.size(); i++) {
-
             int productID = checkoutItemsList.get(i).getCustomersBasketProduct().getProductsId();
             int categoryID = checkoutItemsList.get(i).getCustomersBasketProduct().getLanguageId();
-
 
             if (!coupon.getExcludeSaleItems().equalsIgnoreCase("1") || !checkoutItemsList.get(i).getCustomersBasketProduct().getIsSaleProduct().equalsIgnoreCase("1")) {
                 valid_sale_items_in_for_coupon = true;
             }
-
 
             if (coupon.getExcludedProductCategories().size() != 0) {
                 if (isStringExistsInList(String.valueOf(categoryID), coupon.getExcludedProductCategories())) {
@@ -1498,7 +1492,6 @@ public class CheckoutFinal extends Fragment {
                 any_valid_category_item_in_cart = true;
             }
 
-
             if (coupon.getProductIds().size() != 0) {
                 if (isStringExistsInList(String.valueOf(productID), coupon.getProductIds())) {
                     any_valid_item_in_cart = true;
@@ -1506,9 +1499,7 @@ public class CheckoutFinal extends Fragment {
             } else {
                 any_valid_item_in_cart = true;
             }
-
         }
-
 
         /////////////////////////////////////////////////////
 
@@ -1527,7 +1518,6 @@ public class CheckoutFinal extends Fragment {
                                                         if (any_valid_item_in_cart) {
 
                                                             return true;
-
                                                         } else {
                                                             showSnackBarForCoupon(getString(R.string.coupon_is_not_for_these_products));
                                                             return false;
@@ -1580,9 +1570,7 @@ public class CheckoutFinal extends Fragment {
             showSnackBarForCoupon(getString(R.string.coupon_cannot_used_with_existing));
             return false;
         }
-
     }
-
 
     //*********** Show SnackBar with given Message  ********//
 
@@ -1597,7 +1585,6 @@ public class CheckoutFinal extends Fragment {
         snackbar.show();
     }
 
-
     //*********** Check if the given String exists in the given List ********//
 
     private boolean isStringExistsInList(String str, List<String> stringList) {
@@ -1609,15 +1596,12 @@ public class CheckoutFinal extends Fragment {
             }
         }
 
-
         return isExists;
     }
-
 
     //*********** Setup Demo Coupons Dialog ********//
 
     private void setupDemoCoupons() {
-
         demo_coupons_text.setVisibility(View.VISIBLE);
         demo_coupons_text.setPaintFlags(demo_coupons_text.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
@@ -1655,14 +1639,12 @@ public class CheckoutFinal extends Fragment {
         });
     }
 
-
     //*********** Sets selected Coupon code from the Dialog ********//
 
     public void setCouponCode(String code) {
         checkout_coupon_code.setText(code);
         demoCouponsDialog.dismiss();
     }
-
 
     //*********** Demo Coupons List ********//
 
@@ -1729,7 +1711,6 @@ public class CheckoutFinal extends Fragment {
         coupon10.setDiscountType("Percent Cart");
         coupon10.setDescription("For Men Jeans");
 
-
         couponsList.add(coupon1);
         couponsList.add(coupon2);
         couponsList.add(coupon3);
@@ -1743,7 +1724,6 @@ public class CheckoutFinal extends Fragment {
 
         return couponsList;
     }
-
 
     //*********** Validate Payment Card Inputs ********//
 
@@ -1777,13 +1757,6 @@ public class CheckoutFinal extends Fragment {
         } else {
             return true;
         }
-    }
-
-    public void setPaymentResult(PostOrder order) {
-        paymentMethodsResult = order;
-        Log.d(TAG, "setPaymentResult: Result = " + order.getPaymentMethod());
-
-        new Handler().postDelayed(() -> payment_method.setText(order.getPaymentMethod()), 5000);
     }
 }
 
