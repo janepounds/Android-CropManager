@@ -146,7 +146,7 @@
                     android:layout_margin="@dimen/dimen_10dp">
 
                     <RelativeLayout
-                        android:id="@+id/product_like_layout"
+                        android:id="@+id/product_rating_bar"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,10 +160,12 @@
 
                             <ImageView
                                 android:id="@+id/first_star"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
                                 android:layout_centerVertical="true"
+                                android:padding="@dimen/dimen_5dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintDimensionRatio="1:1"
                                 app:layout_constraintEnd_toStartOf="@+id/second_star"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -172,11 +174,13 @@
 
                             <ImageView
                                 android:id="@+id/second_star"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/first_star"
+                                android:padding="@dimen/dimen_5dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintDimensionRatio="1:1"
                                 app:layout_constraintEnd_toStartOf="@+id/third_star"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toEndOf="@+id/first_star"
@@ -185,11 +189,13 @@
 
                             <ImageView
                                 android:id="@+id/third_star"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/second_star"
+                                android:padding="@dimen/dimen_5dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintDimensionRatio="1:1"
                                 app:layout_constraintEnd_toStartOf="@+id/fourth_star"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toEndOf="@+id/second_star"
@@ -198,11 +204,13 @@
 
                             <ImageView
                                 android:id="@+id/fourth_star"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/third_star"
+                                android:padding="@dimen/dimen_5dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintDimensionRatio="1:1"
                                 app:layout_constraintEnd_toStartOf="@+id/fifth_star"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toEndOf="@+id/third_star"
@@ -211,11 +219,13 @@
 
                             <ImageView
                                 android:id="@+id/fifth_star"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/fourth_star"
+                                android:padding="@dimen/dimen_5dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintDimensionRatio="1:1"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toEndOf="@+id/fourth_star"
@@ -230,6 +240,7 @@
                         android:id="@+id/reduce_quantity"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:padding="@dimen/dimen_5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="2:1.5"
                         app:layout_constraintEnd_toStartOf="@+id/guideline58"
@@ -257,6 +268,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
+                        android:padding="@dimen/dimen_5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="2:1.5"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -567,7 +579,6 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"
