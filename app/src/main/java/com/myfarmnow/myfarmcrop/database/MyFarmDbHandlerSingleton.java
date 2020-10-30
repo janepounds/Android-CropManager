@@ -729,13 +729,12 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public static final String CROP_RECORDS_CROP_GALLERY_GLOBAL_ID = "globalId";
 
 
-    public static final String REGIONS_DETAILS_TABLE_NAME ="regionDetails";
-    public static final String REGIONS_DETAILS_TABLE_ID ="tableId";
-    public static final String REGIONS_DETAILS_ID ="id";
-    public static final String REGIONS_DETAILS_REGION_TYPE ="regionType";
-    public static final String REGIONS_DETAILS_REGION ="region";
-    public static final String REGIONS_DETAILS_BELONGS_TO ="belongs_to";
-
+    public static final String REGIONS_DETAILS_TABLE_NAME = "regionDetails";
+    public static final String REGIONS_DETAILS_TABLE_ID = "tableId";
+    public static final String REGIONS_DETAILS_ID = "id";
+    public static final String REGIONS_DETAILS_REGION_TYPE = "regionType";
+    public static final String REGIONS_DETAILS_REGION = "region";
+    public static final String REGIONS_DETAILS_BELONGS_TO = "belongs_to";
 
 
     private static MyFarmDbHandlerSingleton myFarmDbHandlerSingleton;
@@ -1044,7 +1043,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
             upGradingTablesFromVersion3ToVersion4(db);
         } else if (oldVersion == 5 && newVersion == 6) {
             upGradingTablesFromVersion5ToVersion6(db);
-        }else if(oldVersion == 6 && newVersion == 7){
+        } else if (oldVersion == 6 && newVersion == 7) {
             upGradingTablesFromVersion6ToVersion7(db);
         }
         onCreate(db);
@@ -4468,20 +4467,22 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         ArrayList<MyProduce> produceArrayList = new ArrayList<>();
 
-        if (cursor.moveToFirst()) {
-            do {
-                MyProduce model = new MyProduce();
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    MyProduce model = new MyProduce();
 
-                model.setName(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_NAME)));
-                model.setVariety(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_VARIETY)));
-                model.setQuantity(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_QUANTITY)));
-                model.setPrice(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_PRICE)));
-                model.setDate(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_DATE)));
-                model.setImage(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_IMAGE)));
+                    model.setName(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_NAME)));
+                    model.setVariety(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_VARIETY)));
+                    model.setQuantity(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_QUANTITY)));
+                    model.setPrice(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_PRICE)));
+                    model.setDate(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_DATE)));
+                    model.setImage(cursor.getString(cursor.getColumnIndex(ADD_PRODUCE_IMAGE)));
 
-                produceArrayList.add(model);
+                    produceArrayList.add(model);
 
-            } while (cursor.moveToNext());
+                } while (cursor.moveToNext());
+            }
         }
 
         return produceArrayList;
@@ -4620,6 +4621,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
         return marketPriceArrayList;
     }
+
     /********CRUD OPERATIONS FOR LIVESTOCK RECORDS***************/
 
     public BreedingStock getBreedingStock(String id, boolean isGlobal) {
@@ -5046,6 +5048,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("TESTING", array_list.toString());
         return array_list;
     }
+
     //returns litters in male breeds
     //return litters
     public ArrayList<Litter> getLittersInMaleBreeds(String sireId) {
@@ -5428,7 +5431,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
     public void insertRegionDetails(List<RegionDetails> regionDetails) {
         openDB();
         ContentValues contentValues = new ContentValues();
-        for(RegionDetails regionDetail : regionDetails) {
+        for (RegionDetails regionDetail : regionDetails) {
             contentValues.put(REGIONS_DETAILS_ID, regionDetail.getId());
             contentValues.put(REGIONS_DETAILS_REGION_TYPE, regionDetail.getRegionType());
             contentValues.put(REGIONS_DETAILS_REGION, regionDetail.getRegion());
@@ -5440,9 +5443,9 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     //*********GET LATEST ID FROM REGIONS DETAILS*************//
     public int getMaxRegionId() {
-          openDB();
+        openDB();
         SQLiteDatabase db = this.getReadableDatabase();
-        final String getRegionId = "SELECT MAX("+ REGIONS_DETAILS_ID +") FROM " + REGIONS_DETAILS_TABLE_NAME;
+        final String getRegionId = "SELECT MAX(" + REGIONS_DETAILS_ID + ") FROM " + REGIONS_DETAILS_TABLE_NAME;
 
         Cursor cur = db.rawQuery(getRegionId, null);
         cur.moveToFirst();
@@ -5459,13 +5462,13 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
     //******GET DISTRICTS*****//
 
-    public ArrayList<RegionDetails> getRegionDetails( String district) throws JSONException {
+    public ArrayList<RegionDetails> getRegionDetails(String district) throws JSONException {
         openDB();
         ArrayList<RegionDetails> array_list = new ArrayList();
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where "  + REGIONS_DETAILS_REGION_TYPE + " = '" + district + "'", null);
+        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_REGION_TYPE + " = '" + district + "'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -5484,27 +5487,24 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         Log.d("RegionDetails ", array_list.size() + "");
         return array_list;
     }
+
     //******GET DISTRICT ID****//
-    public int getDistrictId( String region) throws JSONException {
+    public int getDistrictId(String region) throws JSONException {
         openDB();
-       int regionId = 0;
+        int regionId = 0;
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select " + REGIONS_DETAILS_ID +" from " + REGIONS_DETAILS_TABLE_NAME + " where "  + REGIONS_DETAILS_REGION + " = '" + region + "'", null);
+        Cursor res = db.rawQuery("select " + REGIONS_DETAILS_ID + " from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_REGION + " = '" + region + "'", null);
         res.moveToFirst();
 
 
-        while(res.moveToNext())
-        {
-            if(res.isFirst())
-            {
+        while (res.moveToNext()) {
+            if (res.isFirst()) {
                 //Your code goes here in your case
                 return res.getInt(res.getColumnIndex(REGIONS_DETAILS_ID));
             }
         }
-
-
 
 
         res.close();
@@ -5520,7 +5520,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_BELONGS_TO + " = '" + belongs_to + "'" + " AND " + REGIONS_DETAILS_REGION_TYPE + " = '" + subcounty + "'" , null);
+        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_BELONGS_TO + " = '" + belongs_to + "'" + " AND " + REGIONS_DETAILS_REGION_TYPE + " = '" + subcounty + "'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {
@@ -5547,7 +5547,7 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_BELONGS_TO + " = '" + belongs_to + "'" + " AND " + REGIONS_DETAILS_REGION_TYPE + " = '" + subcounty + "'" , null);
+        Cursor res = db.rawQuery("select * from " + REGIONS_DETAILS_TABLE_NAME + " where " + REGIONS_DETAILS_BELONGS_TO + " = '" + belongs_to + "'" + " AND " + REGIONS_DETAILS_REGION_TYPE + " = '" + subcounty + "'", null);
         res.moveToFirst();
 
         while (!res.isAfterLast()) {

@@ -33,7 +33,6 @@ import com.myfarmnow.myfarmcrop.models.category_model.CategoryDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * CategoryListAdapter is the adapter class of RecyclerView holding List of Categories in MainCategories
  **/

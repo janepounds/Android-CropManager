@@ -307,7 +307,6 @@ public class PaymentMethodsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-
     private void validateSelectedPaymentMethod() {
         if (selectedPaymentMethod.equalsIgnoreCase("Visa")) {
             // Initialize BrainTreeCard

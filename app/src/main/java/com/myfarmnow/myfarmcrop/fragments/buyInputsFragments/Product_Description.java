@@ -105,7 +105,6 @@ public class Product_Description extends Fragment {
     RecyclerView attribute_recycler;
     WebView product_description_webView;
     TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount, product_ratings_count, pdtQty;
-    LinearLayout product_reviews_ratings;
     AppCompatButton addToCart;
     FrameLayout addCart;
 
@@ -117,7 +116,7 @@ public class Product_Description extends Fragment {
     List<Attribute> attributesList = new ArrayList<>();
     List<CartProductAttributes> selectedAttributesList;
     public List<ProductReviews> productReviews;
-    RatingBar product_rating_bar;
+    private RatingBar product_rating_bar;
     private RecyclerView recyclerView;
     private ProductMeasureAdapter productMeasureAdapter;
     private List<ProductMeasure> productMeasures;
@@ -125,6 +124,7 @@ public class Product_Description extends Fragment {
     private String selected_measure;
 
     ImageView checkImageView;
+    private AppCompatButton product_cart_btn;
 
     public Product_Description(ImageView checkedImageView) {
         this.checkImageView = checkedImageView;
@@ -164,17 +164,16 @@ public class Product_Description extends Fragment {
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
 
-        product_reviews_ratings_new = rootView.findViewById(R.id.ratings_reviews_layout);
-        product_reviews_ratings_new.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new ProductRatingReviewListFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment_container, fragment)
-                        .addToBackStack(null).commit();
-            }
+        product_rating_bar = rootView.findViewById(R.id.product_rating_bar);
+
+        product_rating_bar.setOnClickListener((View.OnClickListener) v -> {
+            Fragment fragment = new ProductRatingReviewListFragment();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, fragment)
+                    .addToBackStack(null).commit();
         });
+
         title = rootView.findViewById(R.id.product_title);
         category = rootView.findViewById(R.id.product_category);
         price_old = rootView.findViewById(R.id.product_price_old);
@@ -190,9 +189,7 @@ public class Product_Description extends Fragment {
         product_share_btn = rootView.findViewById(R.id.product_share_btn);
         product_attributes = rootView.findViewById(R.id.product_attributes);
         attribute_recycler = rootView.findViewById(R.id.product_attributes_recycler);
-        product_reviews_ratings = rootView.findViewById(R.id.product_reviews_ratings);
 
-        product_rating_bar = rootView.findViewById(R.id.product_rating_bar);
         product_ratings_count = rootView.findViewById(R.id.product_ratings_count);
 
         product_tag_new.setVisibility(View.GONE);
@@ -204,6 +201,7 @@ public class Product_Description extends Fragment {
         addToCart = rootView.findViewById(R.id.product_cart_btn);
         addCart = rootView.findViewById(R.id.frameLayout);
         recyclerView = rootView.findViewById(R.id.measure_recyclerview);
+        product_cart_btn = rootView.findViewById(R.id.product_cart_btn);
 
         attribute_recycler.setNestedScrollingEnabled(false);
 
@@ -235,7 +233,7 @@ public class Product_Description extends Fragment {
         }
 
         // Handle Click event of product_reviews_ratings Button
-        product_reviews_ratings.setOnClickListener(v -> showRatingsAndReviewsOfProduct());
+//        product_reviews_ratings.setOnClickListener(v -> showRatingsAndReviewsOfProduct());
 
         increaseQty.setOnClickListener(view -> {
             // Get the text on the text view and change to an Integer
@@ -262,7 +260,108 @@ public class Product_Description extends Fragment {
             }
         });
 
+        product_cart_btn.setOnClickListener((View.OnClickListener) view -> {
+            addProductToCart(productDetails);
+        });
+
         return rootView;
+    }
+
+    private void addProductToCart(ProductDetails product) {
+        CartProduct cartProduct = new CartProduct();
+
+        double productBasePrice, productFinalPrice = 0.0, attributesPrice = 0;
+        List<CartProductAttributes> selectedAttributesList = new ArrayList<>();
+
+        // Check Discount on Product with the help of static method of Helper class
+        final String discount = Utilities.checkDiscount(product.getProductsPrice(), product.getDiscountPrice());
+
+        // Get Product's Price based on Discount
+        if (discount != null) {
+            product.setIsSaleProduct("1");
+            productBasePrice = Double.parseDouble(product.getDiscountPrice());
+        } else {
+            product.setIsSaleProduct("0");
+            productBasePrice = Double.parseDouble(product.getProductsPrice());
+        }
+
+
+        // Get Default Attributes from AttributesList
+        for (int i = 0; i < product.getAttributes().size(); i++) {
+
+            CartProductAttributes productAttribute = new CartProductAttributes();
+
+            // Get Name and First Value of current Attribute
+            Option option = product.getAttributes().get(i).getOption();
+            Value value = product.getAttributes().get(i).getValues().get(0);
+
+
+            // Add the Attribute's Value Price to the attributePrices
+            String attrPrice = value.getPricePrefix() + value.getPrice();
+            attributesPrice += Double.parseDouble(attrPrice);
+
+
+            // Add Value to new List
+            List<Value> valuesList = new ArrayList<>();
+            valuesList.add(value);
+
+
+            // Set the Name and Value of Attribute
+            productAttribute.setOption(option);
+            productAttribute.setValues(valuesList);
+
+
+            // Add current Attribute to selectedAttributesList
+            selectedAttributesList.add(i, productAttribute);
+        }
+
+        productFinalPrice = Double.parseDouble(product.getFlashPrice()) + attributesPrice;
+
+
+        // Set Product's Price and Quantity
+        product.setCustomersBasketQuantity(1);
+        product.setProductsPrice(String.valueOf(productBasePrice));
+        product.setAttributesPrice(String.valueOf(attributesPrice));
+        product.setProductsFinalPrice(String.valueOf(productFinalPrice));
+        //set selected measure/weight
+//
+//        product.setSelectedProductsWeight(we);
+//        product.setSelectedProductsWeightUnit(product.getProductsWeightUnit().get(0));
+
+        product.setProductsQuantity(product.getProductsDefaultStock());
+
+        // Set Product's OrderProductCategory Info
+        String[] categoryIDs = new String[product.getCategories().size()];
+        String[] categoryNames = new String[product.getCategories().size()];
+        if (product.getCategories().size() > 0) {
+
+            for (int i = 0; i < product.getCategories().size(); i++) {
+                categoryIDs[i] = String.valueOf(product.getCategories().get(i).getCategoriesId());
+                categoryNames[i] = product.getCategories().get(i).getCategoriesName();
+            }
+
+            product.setCategoryIDs(TextUtils.join(",", categoryIDs));
+            product.setCategoryNames(TextUtils.join(",", categoryNames));
+        } else {
+            product.setCategoryIDs("");
+            product.setCategoryNames("");
+        }
+        // product.setCategoryNames(product.getCategoryNames());
+
+        product.setTotalPrice(String.valueOf(productFinalPrice));
+
+        // Set Customer's Basket Product and selected Attributes Info
+        cartProduct.setCustomersBasketProduct(product);
+        cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
+
+        // Add the Product to User's Cart with the help of static method of My_Cart class
+        My_Cart.AddCartItem
+                (
+                        cartProduct
+                );
+
+        // Recreate the OptionsMenu
+        ((DashboardActivity) context).invalidateOptionsMenu();
     }
 
     //*********** Adds Product's Details to the Views ********//
