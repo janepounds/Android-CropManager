@@ -193,47 +193,46 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void setupTitle() {
-        Fragment curruntFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
-        if (curruntFrag instanceof My_Cart) {
+        Fragment currentFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
+        if (currentFrag instanceof My_Cart) {
             actionBar.setTitle(getString(R.string.actionCart));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        } else if (curruntFrag instanceof Shipping_Address) {
+        } else if (currentFrag instanceof Shipping_Address) {
             actionBar.setTitle(getString(R.string.shipping_address));
-        } else if (curruntFrag instanceof Nearby_Merchants) {
+        } else if (currentFrag instanceof Nearby_Merchants) {
             actionBar.setTitle(getString(R.string.nearby_merchants));
-        } else if (curruntFrag instanceof UpdateAccountFragment) {
+        } else if (currentFrag instanceof UpdateAccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
-        } else if (curruntFrag instanceof My_Orders) {
+        } else if (currentFrag instanceof My_Orders) {
             actionBar.setTitle(getString(R.string.actionOrders));
-        } else if (curruntFrag instanceof My_Addresses) {
+        } else if (currentFrag instanceof My_Addresses) {
             actionBar.setTitle(getString(R.string.actionAddresses));
-        } else if (curruntFrag instanceof WishList) {
+        } else if (currentFrag instanceof WishList) {
             actionBar.setTitle(getString(R.string.actionFavourites));
-        } else if (curruntFrag instanceof SettingsFragment) {
+        } else if (currentFrag instanceof SettingsFragment) {
             actionBar.setTitle(getString(R.string.actionSettings));
-        } else if (curruntFrag instanceof AccountFragment) {
+        } else if (currentFrag instanceof AccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
-        } else if (curruntFrag instanceof MarketPlaceHomeFragment) {
+        } else if (currentFrag instanceof MarketPlaceHomeFragment) {
             actionBar.setTitle(getString(R.string.actionMarketPlace));
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
-        } else if (curruntFrag instanceof BuyInputsHomePage) {
+        } else if (currentFrag instanceof BuyInputsHomePage) {
             actionBar.setTitle(getString(R.string.app_name));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        } else if (curruntFrag instanceof SellProduceFragment) {
+        } else if (currentFrag instanceof SellProduceFragment) {
             actionBar.setTitle(getString(R.string.actionproducemarket));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        } else if (curruntFrag instanceof Category_Products) {
+        } else if (currentFrag instanceof Category_Products) {
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
-        } else if (curruntFrag instanceof PaymentMethodsFragment) {
+        } else if (currentFrag instanceof PaymentMethodsFragment) {
             actionBar.setTitle(getString(R.string.payment_methods));
-        } else if (curruntFrag instanceof Thank_You) {
+        } else if (currentFrag instanceof Thank_You) {
             actionBar.setTitle(getString(R.string.order_confirmed));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        } else if (curruntFrag instanceof Product_Description) {
+        } else if (currentFrag instanceof Product_Description) {
             actionBar.setTitle(getString(R.string.product_description));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         }
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
@@ -334,27 +333,23 @@ public class DashboardActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
 
-
         currentFragment = this.getSupportFragmentManager().getPrimaryNavigationFragment();
 
-        profileItem.getActionView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to My_Cart Fragment
-                Fragment fragment = new UpdateAccountFragment();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                if (currentFragment == null)
-                    fragmentManager.beginTransaction()
-                            .add(R.id.main_fragment_container, fragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .addToBackStack(getString(R.string.actionHome)).commit();
-                else
-                    fragmentManager.beginTransaction()
-                            .hide(currentFragment)
-                            .add(R.id.main_fragment_container, fragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .addToBackStack(getString(R.string.actionHome)).commit();
-            }
+        profileItem.getActionView().setOnClickListener(v -> {
+            // Navigate to My_Cart Fragment
+            Fragment fragment = new UpdateAccountFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (currentFragment == null)
+                fragmentManager.beginTransaction()
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
+            else
+                fragmentManager.beginTransaction()
+                        .hide(currentFragment)
+                        .add(R.id.main_fragment_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionHome)).commit();
         });
 
         cartItem.setActionView(R.layout.buy_inputs_animated_ic_cart);
