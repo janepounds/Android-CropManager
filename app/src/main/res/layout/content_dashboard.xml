@@ -99,8 +99,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:orientation="vertical"
-                            android:background="@drawable/weather_background"
-                            >
+                            android:background="@drawable/ic_dashboard_bg">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -108,8 +107,7 @@
                                 android:orientation="horizontal"
                                 android:layout_marginTop="@dimen/dimen_20dp"
                                 android:layout_marginStart="@dimen/dimen_10dp"
-                                android:weightSum="12"
-                                >
+                                android:weightSum="12">
 
                                 <ImageView
                                     android:layout_width="match_parent"
@@ -229,7 +227,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
                                     android:gravity="center"
-                                    android:src="@drawable/humidity"/>
+                                    app:srcCompat="@drawable/humidity"/>
 
 
                                 <ImageView
@@ -237,7 +235,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
                                     android:gravity="center"
-                                    android:src="@drawable/rain"/>
+                                    app:srcCompat="@drawable/rain"/>
 
 
                                 <ImageView
@@ -245,7 +243,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
                                     android:gravity="center"
-                                    android:src="@drawable/eye"/>
+                                    app:srcCompat="@drawable/eye"/>
 
 
                                 <ImageView
@@ -253,7 +251,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
                                     android:gravity="center"
-                                    android:src="@drawable/ic_wind"/>
+                                    app:srcCompat="@drawable/ic_wind"/>
 
                             </LinearLayout>
 
@@ -395,7 +393,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/ic_result" />
+                                        app:srcCompat="@drawable/ic_result" />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -433,7 +431,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/ic_wallet_solid" />
+                                        app:srcCompat="@drawable/ic_wallet_solid" />
 
                                     <TextView
                                         android:id="@+id/tv_litar"
@@ -480,7 +478,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/marketplace" />
+                                        app:srcCompat="@drawable/marketplace" />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -518,7 +516,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/agronomy" />
+                                        app:srcCompat="@drawable/agronomy" />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -567,7 +565,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/prediction_tools" />
+                                        app:srcCompat="@drawable/prediction_tools" />
 
                                     <TextView
                                         android:id="@+id/meat_Produced_txt"
@@ -605,7 +603,7 @@
                                         android:paddingRight="@dimen/dimen_20dp"
                                         android:paddingBottom="@dimen/dimen_20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/ic_service" />
+                                        app:srcCompat="@drawable/ic_service" />
 
                                     <TextView
                                         android:layout_width="match_parent"
