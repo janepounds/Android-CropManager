@@ -126,8 +126,14 @@ public class Product_Description extends Fragment {
     ImageView checkImageView;
     private AppCompatButton product_cart_btn;
 
-    public Product_Description(ImageView checkedImageView) {
+    private Boolean isFlash;
+    private long start, server;
+
+    public Product_Description(ImageView checkedImageView, Boolean isFlash, long start, long server) {
         this.checkImageView = checkedImageView;
+        this.isFlash = isFlash;
+        this.start = start;
+        this.server = server;
     }
 
     public Product_Description() {
@@ -255,21 +261,40 @@ public class Product_Description extends Fragment {
             }
         });
 
-        product_cart_btn.setOnClickListener(view ->
-        {
-            // Navigate to My_Cart Fragment
-            Fragment fragment = new My_Cart();
-            FragmentManager fragmentManager = requireParentFragment().getChildFragmentManager();
-            fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment_container, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(getString(R.string.actionHome)).commit();
+        product_cart_btn.setOnClickListener(view -> {
+            if (!My_Cart.checkCartHasProductAndMeasure(productDetails.getProductsId())) {
+                if (isFlash) {
+                    if (start > server) {
+                        Snackbar.make(view, context.getString(R.string.cannot_add_upcoming), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
+                        // Add Product to User's Cart
+                        addProductToCart(productDetails);
+                    }
+
+                } else {
+                    if (productDetails.getProductsDefaultStock() < 1) {
+
+                        Snackbar.make(view, context.getString(R.string.outOfStock), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Utilities.animateCartMenuIcon(context.getApplicationContext(), (DashboardActivity) context);
+                        // Add Product to User's Cart
+                        addProductToCart(productDetails);
+                    }
+                }
+
+            } else {
+                Snackbar.make(view, "Item already in your cart", Snackbar.LENGTH_SHORT).show();
+            }
         });
 
         return rootView;
     }
 
+    //********** Adds the Product to User's Cart *********//
+
     private void addProductToCart(ProductDetails product) {
+
         CartProduct cartProduct = new CartProduct();
 
         double productBasePrice, productFinalPrice = 0.0, attributesPrice = 0;
@@ -289,15 +314,18 @@ public class Product_Description extends Fragment {
 
         // Get Default Attributes from AttributesList
         for (int i = 0; i < product.getAttributes().size(); i++) {
+
             CartProductAttributes productAttribute = new CartProductAttributes();
 
             // Get Name and First Value of current Attribute
             Option option = product.getAttributes().get(i).getOption();
             Value value = product.getAttributes().get(i).getValues().get(0);
 
+
             // Add the Attribute's Value Price to the attributePrices
             String attrPrice = value.getPricePrefix() + value.getPrice();
             attributesPrice += Double.parseDouble(attrPrice);
+
 
             // Add Value to new List
             List<Value> valuesList = new ArrayList<>();
@@ -313,8 +341,12 @@ public class Product_Description extends Fragment {
             selectedAttributesList.add(i, productAttribute);
         }
 
-        productFinalPrice = Double.parseDouble(product.getFlashPrice()); // + attributesPrice;
-        Log.d(TAG, "addProductToCart: Flash Price = " + product.getFlashPrice());
+        if (isFlash) {
+            productFinalPrice = Double.parseDouble(product.getFlashPrice()) + attributesPrice;
+        } else {
+            // Add Attributes Price to Product's Final Price
+            productFinalPrice = productBasePrice + attributesPrice;
+        }
 
         // Set Product's Price and Quantity
         product.setCustomersBasketQuantity(1);
@@ -358,8 +390,19 @@ public class Product_Description extends Fragment {
                         cartProduct
                 );
 
+        Snackbar.make(requireActivity().findViewById(android.R.id.content), context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+
         // Recreate the OptionsMenu
         ((DashboardActivity) context).invalidateOptionsMenu();
+
+        Log.d(TAG, "onCreateView: Product Type = " + productDetails.getProductsType());
+        // Navigate to My_Cart Fragment
+        Fragment fragment = new My_Cart();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.main_fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(getString(R.string.actionHome)).commit();
     }
 
     //*********** Adds Product's Details to the Views ********//
