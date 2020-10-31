@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,6 +52,7 @@ import com.myfarmnow.myfarmcrop.adapters.buyInputsAdapters.ProductReviewsAdapter
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.customs.DividerItemDecoration;
+import com.myfarmnow.myfarmcrop.database.User_Cart_BuyInputsDB;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProduct;
 import com.myfarmnow.myfarmcrop.models.cart_model.CartProductAttributes;
 import com.myfarmnow.myfarmcrop.models.product_model.Attribute;
@@ -76,6 +78,7 @@ import com.daimajia.slider.library.Transformers.BaseTransformer;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,7 +109,7 @@ public class Product_Description extends Fragment {
     RecyclerView attribute_recycler;
     WebView product_description_webView;
     TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount, product_ratings_count, pdtQty;
-    AppCompatButton addToCart;
+    AppCompatButton addToCart, continue_shopping_btn;
 
     DialogLoader dialogLoader;
     static ProductDetails productDetails;
@@ -124,10 +127,19 @@ public class Product_Description extends Fragment {
     private String selected_measure;
 
     ImageView checkImageView;
-    private AppCompatButton product_cart_btn;
 
-    public Product_Description(ImageView checkedImageView) {
+    private Boolean isFlash;
+    private long start, server;
+
+    List<CartProduct> cartItemsList = new ArrayList<>();
+    User_Cart_BuyInputsDB user_cart_BuyInputs_db = new User_Cart_BuyInputsDB();
+    List<String> stocks = new ArrayList<>();
+
+    public Product_Description(ImageView checkedImageView, Boolean isFlash, long start, long server) {
         this.checkImageView = checkedImageView;
+        this.isFlash = isFlash;
+        this.start = start;
+        this.server = server;
     }
 
     public Product_Description() {
@@ -156,6 +168,8 @@ public class Product_Description extends Fragment {
 
         NoInternetDialog noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         // noInternetDialog.show();
+
+        cartItemsList = user_cart_BuyInputs_db.getCartItems();
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, "");
@@ -196,7 +210,7 @@ public class Product_Description extends Fragment {
         pdtQty = rootView.findViewById(R.id.product_quantity);
         addToCart = rootView.findViewById(R.id.product_cart_btn);
         recyclerView = rootView.findViewById(R.id.measure_recyclerview);
-        product_cart_btn = rootView.findViewById(R.id.product_cart_btn);
+        continue_shopping_btn = rootView.findViewById(R.id.continue_shopping_btn);
 
         attribute_recycler.setNestedScrollingEnabled(false);
 
@@ -255,21 +269,85 @@ public class Product_Description extends Fragment {
             }
         });
 
-        product_cart_btn.setOnClickListener(view ->
-        {
-            // Navigate to My_Cart Fragment
-            Fragment fragment = new My_Cart();
-            FragmentManager fragmentManager = requireParentFragment().getChildFragmentManager();
-            fragmentManager.beginTransaction()
-                    .add(R.id.main_fragment_container, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(getString(R.string.actionHome)).commit();
+        addToCart.setOnClickListener(view -> {
+            if (!My_Cart.checkCartHasProductAndMeasure(productDetails.getProductsId())) {
+                if (isFlash) {
+                    if (start > server) {
+                        Snackbar.make(view, context.getString(R.string.cannot_add_upcoming), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Utilities.animateCartMenuIcon(context, (DashboardActivity) context);
+                        // Add Product to User's Cart
+                        addProductToCart(productDetails);
+                    }
+
+                } else {
+                    if (productDetails.getProductsDefaultStock() < 1) {
+
+                        Snackbar.make(view, context.getString(R.string.outOfStock), Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Utilities.animateCartMenuIcon(context.getApplicationContext(), (DashboardActivity) context);
+                        // Add Product to User's Cart
+                        addProductToCart(productDetails);
+                    }
+                }
+
+            } else {
+                Snackbar.make(view, "Item already in your cart", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        continue_shopping_btn.setOnClickListener(view -> {
+            Log.e("CheckoutWarning: ", "checkout  " + ConstantValues.MAINTENANCE_MODE);
+
+            if (ConstantValues.MAINTENANCE_MODE != null) {
+                if (ConstantValues.MAINTENANCE_MODE.equalsIgnoreCase("Maintenance"))
+                    showDialog(ConstantValues.MAINTENANCE_TEXT);
+                else {
+                    // Check if cartItemsList isn't empty
+                    if (cartItemsList.size() != 0) {
+
+                        // Check if User is Logged-In
+                        if (ConstantValues.IS_USER_LOGGED_IN) {
+                            Log.e("VC_Shop", "checkout executes  ");
+                            new Product_Description.CheckStockTask().execute();
+                        } else {
+                            // Navigate to Login Activity
+                            Intent i = new Intent(getContext(), Login.class);
+                            getContext().startActivity(i);
+                            ((DashboardActivity) getContext()).finish();
+                            ((DashboardActivity) getContext()).overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
+                        }
+                    }
+
+                }
+            }
         });
 
         return rootView;
     }
 
+    private void showDialog(String str) {
+        android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(getContext());
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.buy_inputs_dialog_maintenance, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(false);
+
+        final TextView dialog_message = dialogView.findViewById(R.id.maintenanceText);
+        final Button dialog_button_positive = dialogView.findViewById(R.id.dialog_button);
+
+        dialog_message.setText(str);
+
+        final android.app.AlertDialog alertDialog = dialog.create();
+        alertDialog.show();
+
+        dialog_button_positive.setOnClickListener(v -> alertDialog.dismiss());
+    }
+
+    //********** Adds the Product to User's Cart *********//
+
     private void addProductToCart(ProductDetails product) {
+
         CartProduct cartProduct = new CartProduct();
 
         double productBasePrice, productFinalPrice = 0.0, attributesPrice = 0;
@@ -289,15 +367,18 @@ public class Product_Description extends Fragment {
 
         // Get Default Attributes from AttributesList
         for (int i = 0; i < product.getAttributes().size(); i++) {
+
             CartProductAttributes productAttribute = new CartProductAttributes();
 
             // Get Name and First Value of current Attribute
             Option option = product.getAttributes().get(i).getOption();
             Value value = product.getAttributes().get(i).getValues().get(0);
 
+
             // Add the Attribute's Value Price to the attributePrices
             String attrPrice = value.getPricePrefix() + value.getPrice();
             attributesPrice += Double.parseDouble(attrPrice);
+
 
             // Add Value to new List
             List<Value> valuesList = new ArrayList<>();
@@ -313,8 +394,12 @@ public class Product_Description extends Fragment {
             selectedAttributesList.add(i, productAttribute);
         }
 
-        productFinalPrice = Double.parseDouble(product.getFlashPrice()); // + attributesPrice;
-        Log.d(TAG, "addProductToCart: Flash Price = " + product.getFlashPrice());
+        if (isFlash) {
+            productFinalPrice = Double.parseDouble(product.getFlashPrice()) + attributesPrice;
+        } else {
+            // Add Attributes Price to Product's Final Price
+            productFinalPrice = productBasePrice + attributesPrice;
+        }
 
         // Set Product's Price and Quantity
         product.setCustomersBasketQuantity(1);
@@ -358,8 +443,19 @@ public class Product_Description extends Fragment {
                         cartProduct
                 );
 
+        Snackbar.make(requireActivity().findViewById(android.R.id.content), context.getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
+
         // Recreate the OptionsMenu
         ((DashboardActivity) context).invalidateOptionsMenu();
+
+        Log.d(TAG, "onCreateView: Product Type = " + productDetails.getProductsType());
+        // Navigate to My_Cart Fragment
+        Fragment fragment = new My_Cart();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.main_fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(getString(R.string.actionHome)).commit();
     }
 
     //*********** Adds Product's Details to the Views ********//
@@ -942,7 +1038,6 @@ public class Product_Description extends Fragment {
         });
     }
 
-
     //*********** Request the Server to Unlike the Product based on productID and customerID ********//
 
     public static void UnlikeProduct(int productID, String customerID, final Context context, final View view) {
@@ -1178,6 +1273,70 @@ public class Product_Description extends Fragment {
                 Toast.makeText(getContext(), "NetworkCallFailure: " + t, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public class CheckStockTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialogLoader.showProgressDialog();
+            stocks.clear();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            for (int i = 0; i < cartItemsList.size(); i++) {
+                requestProductStock2(cartItemsList.get(i).getCustomersBasketProduct().getProductsId(), getSelectedAttributesIds(cartItemsList.get(i).getCustomersBasketProductAttributes()), i);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialogLoader.hideProgressDialog();
+            if (isAllStockValid(stocks)) {
+                Fragment fragment = new My_Addresses(new My_Cart());
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
+                        .addToBackStack(getString(R.string.actionAddresses)).commit();
+
+            } else {
+                Toast.makeText(getContext(), "Your Product in the cart is out of stock.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private boolean isAllStockValid(List<String> stocks) {
+        for (int i = 0; i < stocks.size(); i++) {
+            if (Integer.parseInt(stocks.get(i)) <= 0)
+                return false;
+        }
+        return true;
+    }
+
+    private void requestProductStock2(int productID, List<String> attributes, int position) {
+        GetStock getStockParams = new GetStock();
+        getStockParams.setProductsId(productID + "");
+        getStockParams.setAttributes(attributes);
+        Call<ProductStock> call = BuyInputsAPIClient.getInstance().getProductStock(getStockParams);
+        try {
+            Response<ProductStock> response = call.execute();
+            if (response.isSuccessful()) {
+                stocks.add(position, response.body().getStock());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String> getSelectedAttributesIds(List<CartProductAttributes> selectedAttributes) {
+        List<String> ids = new ArrayList<>();
+        for (int i = 0; i < selectedAttributes.size(); i++) {
+            ids.add(String.valueOf(selectedAttributes.get(i).getValues().get(0).getProducts_attributes_id()));
+        }
+        return ids;
     }
 }
 

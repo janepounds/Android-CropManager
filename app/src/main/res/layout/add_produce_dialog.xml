@@ -31,9 +31,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
                 android:fontFamily="@font/josefin_sans"
-                android:text="Produce Market"
+                android:text="Add Produce"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -49,6 +48,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/crop"
+                        android:textSize="@dimen/dimen_16sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -78,7 +83,7 @@
                             android:layout_gravity="center"
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                            app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -88,7 +93,12 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/variety"
+                        android:textSize="@dimen/dimen_16sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -106,7 +116,6 @@
                             android:layout_weight="0.7"
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/josefin_sans"
-                            android:hint="Variety"
                             android:paddingLeft="@dimen/dimen_10dp"
                             android:textSize="14sp" />
                     </RelativeLayout>
@@ -127,6 +136,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/units"
+                        android:textSize="@dimen/dimen_16sp" />
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -156,18 +172,26 @@
                             android:layout_gravity="center"
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                            app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24" />
                     </RelativeLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Quantity Available"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:layout_marginEnd="@dimen/dimen_20dp"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:textSize="@dimen/dimen_16sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/margin_15"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:background="@drawable/edittext_corner"
                 android:orientation="horizontal">
@@ -179,7 +203,6 @@
                     android:layout_weight="0.7"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/josefin_sans"
-                    android:hint="Quantity Available"
                     android:inputType="numberDecimal"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:textSize="14sp" />
@@ -194,15 +217,23 @@
                     android:gravity="center"
                     android:text="Kg"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Price Per Unit"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/margin_15"
+                android:textSize="@dimen/dimen_16sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/margin_15"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:background="@drawable/edittext_corner"
                 android:orientation="horizontal">
@@ -214,7 +245,6 @@
                     android:layout_weight="0.7"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/josefin_sans"
-                    android:hint="Price / Unit"
                     android:inputType="numberDecimal"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:textSize="14sp" />
@@ -228,7 +258,8 @@
                     android:gravity="center"
                     android:text="UGX"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
@@ -248,9 +279,9 @@
                     <ImageView
                         android:id="@+id/produce_image"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/tomato_produce"
+                        app:srcCompat="@drawable/add_default_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -275,6 +306,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_right_chevron"
+                    android:paddingEnd="15dp"
                     android:text="@string/submit"
                     android:textAllCaps="true"
                     android:textColor="#ffffff"

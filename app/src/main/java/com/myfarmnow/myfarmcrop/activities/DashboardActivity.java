@@ -192,7 +192,7 @@ public class DashboardActivity extends AppCompatActivity {
         scheduleBackgroundWork();
     }
 
-    private void setupTitle() {
+    public void setupTitle() {
         Fragment currentFrag = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         if (currentFrag instanceof My_Cart) {
             actionBar.setTitle(getString(R.string.actionCart));

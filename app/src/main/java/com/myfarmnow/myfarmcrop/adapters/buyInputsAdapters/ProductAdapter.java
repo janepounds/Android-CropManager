@@ -136,7 +136,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     weight = splited[0];
                 }
 
-
                 if (My_Cart.checkCartHasProductAndMeasure(product.getProductsId())) {
                     holder.product_checked.setVisibility(View.VISIBLE);
                     holder.product_add_cart_btn.setVisibility(View.GONE);
@@ -345,7 +344,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 //            }
 
             // Handle the Click event of product_like_layout ToggleButton
-            holder.product_like_layout.setOnClickListener((View.OnClickListener) view -> {
+            holder.product_like_layout.setOnClickListener(view -> {
 
                 // Check if the User is Authenticated
                 if (ConstantValues.IS_USER_LOGGED_IN) {
@@ -380,38 +379,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
 
             // Handle the Click event of product_thumbnail ImageView
-            holder.product_thumbnail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            holder.product_thumbnail.setOnClickListener(view -> {
 
-                    // Get Product Info
-                    Bundle itemInfo = new Bundle();
-                    itemInfo.putParcelable("productDetails", product);
+                // Get Product Info
+                Bundle itemInfo = new Bundle();
+                itemInfo.putParcelable("productDetails", product);
 
-                    // Save the AddressDetails
-                    ((CropManagerApp) context.getApplicationContext()).setProductDetails(product);
-                    // Navigate to Product_Description of selected Product
-                    Fragment fragment = new Product_Description(holder.product_checked);
-                    fragment.setArguments(itemInfo);
-                    //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                    FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
-                    if (((DashboardActivity) context).currentFragment != null)
-                        fragmentManager.beginTransaction()
-                                .hide(((DashboardActivity) context).currentFragment)
-                                .add(R.id.main_fragment_container, fragment)
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .addToBackStack(null).commit();
-                    else
-                        fragmentManager.beginTransaction()
-                                .add(R.id.main_fragment_container, fragment)
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .addToBackStack(null).commit();
+                // Save the AddressDetails
+                ((CropManagerApp) context.getApplicationContext()).setProductDetails(product);
+                // Navigate to Product_Description of selected Product
+                Fragment fragment = new Product_Description(holder.product_checked, isFlash, start, server);
+                fragment.setArguments(itemInfo);
+                //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+                FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
+                if (((DashboardActivity) context).currentFragment != null)
+                    fragmentManager.beginTransaction()
+                            .hide(((DashboardActivity) context).currentFragment)
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(null).commit();
+                else
+                    fragmentManager.beginTransaction()
+                            .add(R.id.main_fragment_container, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack(null).commit();
 
 
-                    // Add the Product to User's Recently Viewed Products
-                    if (!recents_db.getUserRecents().contains(product.getProductsId())) {
-                        recents_db.insertRecentItem(product.getProductsId());
-                    }
+                // Add the Product to User's Recently Viewed Products
+                if (!recents_db.getUserRecents().contains(product.getProductsId())) {
+                    recents_db.insertRecentItem(product.getProductsId());
                 }
             });
 
@@ -424,7 +420,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 itemInfo.putParcelable("productDetails", product);
 
                 // Navigate to Product_Description of selected Product
-                Fragment fragment = new Product_Description(holder.product_checked);
+                Fragment fragment = new Product_Description(holder.product_checked, isFlash, start, server);
                 fragment.setArguments(itemInfo);
                 //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
                 FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
@@ -513,6 +509,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     holder.product_price_old.setVisibility(View.VISIBLE);
                 }
 
+                Log.d(TAG, "onBindViewHolder: Product Type = " + product.getProductsType());
+
                 holder.product_add_cart_btn.setOnClickListener(view -> {
 
                     if (product.getProductsType() != 0) {
@@ -522,7 +520,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                         itemInfo.putParcelable("productDetails", product);
 
                         // Navigate to Product_Description of selected Product
-                        Fragment fragment = new Product_Description(holder.product_checked);
+                        Fragment fragment = new Product_Description(holder.product_checked, isFlash, start, server);
                         fragment.setArguments(itemInfo);
                         //MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
                         FragmentManager fragmentManager = ((DashboardActivity) context).getSupportFragmentManager();
