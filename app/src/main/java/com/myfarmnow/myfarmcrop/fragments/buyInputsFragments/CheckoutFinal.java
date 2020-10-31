@@ -554,6 +554,7 @@ public class CheckoutFinal extends Fragment {
             payment_method.setText(postOrder.getPaymentMethod());
         }
 
+        // Disable the bottom navigation from showing when you come back from payment methods fragment
         DashboardActivity dashboardActivity = new DashboardActivity();
         dashboardActivity.setupTitle();
     }
