@@ -113,8 +113,8 @@ public class PaymentMethodsFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_payment_methods, container, false);
         // Inflate the layout for this fragment
-        shippingAddress = ((CropManagerApp) getContext().getApplicationContext()).getShippingAddress();
-        userInfo = user_info_BuyInputs_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));
+        shippingAddress = ((CropManagerApp) requireContext().getApplicationContext()).getShippingAddress();
+        userInfo = user_info_BuyInputs_db.getUserData(requireActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString(DashboardActivity.PREFERENCES_USER_ID, null));
         dialogLoader = new DialogLoader(getContext());
         cashOnDelivery = rootView.findViewById(R.id.radio_btn_cash_on_delivery);
         eMaishaWallet = rootView.findViewById(R.id.radio_btn_emaisha_wallet);
@@ -433,7 +433,8 @@ public class PaymentMethodsFragment extends Fragment {
 
 //        PlaceOrderNow(orderDetails);
         DashboardActivity.postOrder = orderDetails;
-        requireActivity().onBackPressed();
+        requireActivity().getSupportFragmentManager().popBackStack();
+//        requireActivity().onBackPressed();
     }
 
     private void PlaceOrderNow(PostOrder postOrder) {

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import android.os.Bundle;
 
+import com.braintreepayments.api.PaymentMethod;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.fragment.app.Fragment;
@@ -212,7 +213,6 @@ public class CheckoutFinal extends Fragment {
         Log.d(TAG, "onCreateView: Payment Method = " + payment_method.getText().toString());
 
         PAYMENT_CURRENCY = ConstantValues.CURRENCY_CODE;
-        checkout_order_btn.setEnabled(false);
         checkout_items_recycler.setNestedScrollingEnabled(false);
 
         dialogLoader = new DialogLoader(getContext());
@@ -276,7 +276,7 @@ public class CheckoutFinal extends Fragment {
             Fragment fragment = new PaymentMethodsFragment(my_cart, user_cart_BuyInputs_db, shop_id, checkout_shipping.getText().toString(), checkoutTax, checkoutShipping,
                     checkoutDiscount, couponsList, checkoutSubtotal, checkoutTotal, orderProductList, orderID);
 
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
                     .addToBackStack(getString(R.string.checkout)).commit();
         });
@@ -373,7 +373,6 @@ public class CheckoutFinal extends Fragment {
 //            demo_coupons_text.setVisibility(View.GONE);
         }
 
-
         // Handle the Click event of checkout_coupon_btn Button
         checkout_coupon_btn.setOnClickListener(view -> {
             if (!TextUtils.isEmpty(checkout_coupon_code.getText().toString())) {
@@ -383,125 +382,124 @@ public class CheckoutFinal extends Fragment {
         });
 
         // Handle the Click event of checkout_cancel_btn Button
-        checkout_cancel_btn.setOnClickListener(view -> {
-            // Cancel the Order and Navigate back to My_Cart Fragment
-            requireActivity().getSupportFragmentManager().popBackStack();
-//            if (getFragmentManager().getBackStackEntryCount() > 0) {
-//                getFragmentManager().popBackStack(getString(R.string.actionCart), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//            }
-        });
+        checkout_cancel_btn.setOnClickListener(view -> requireActivity().getSupportFragmentManager().popBackStack());
 
         // Handle the Click event of checkout_order_btn Button
         checkout_order_btn.setOnClickListener(view -> {
 
-            if (selectedPaymentMethod.equalsIgnoreCase("cod")) {
-                // Proceed Order
+            if (payment_method.getText().toString().equals("Payment Method")) {
+                payment_method.setError("Required");
+            } else {
+                progressDialog.show();
                 proceedOrder();
-                progressDialog.show();
-
-            } else if (selectedPaymentMethod.equalsIgnoreCase("braintree_paypal") || selectedPaymentMethod.equalsIgnoreCase("paypal")) {
-                // Setup Payment Method
-                validateSelectedPaymentMethod();
-                progressDialog.show();
-
-                // Delay of 2 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
-                            // Proceed Order
-                            proceedOrder();
-                        } else {
-                            progressDialog.dismiss();
-                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 2000);
-
-            } else if (selectedPaymentMethod.equalsIgnoreCase("stripe") || selectedPaymentMethod.equalsIgnoreCase("braintree_card")) {
-                if (validatePaymentCard()) {
-                    // Setup Payment Method
-                    validateSelectedPaymentMethod();
-                    progressDialog.show();
-
-                    // Delay of 2 seconds
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!"".equalsIgnoreCase(paymentNonceToken)) {
-                                // Proceed Order
-                                proceedOrder();
-                            } else {
-                                progressDialog.dismiss();
-                                Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, 2000);
-                }
-
-            } else if (selectedPaymentMethod.equalsIgnoreCase("instamojo")) {
-
-                // Setup Payment Method
-                validateSelectedPaymentMethod();
-                progressDialog.show();
-
-                // Delay of 2 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
-                            // Proceed Order
-                            proceedOrder();
-                        } else {
-                            progressDialog.dismiss();
-                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 2000);
-
-            } else if (selectedPaymentMethod.equalsIgnoreCase("razorpay")) {
-
-                // Setup Payment Method
-                validateSelectedPaymentMethod();
-                progressDialog.show();
-
-                // Delay of 2 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!"".equalsIgnoreCase(DashboardActivity.paymentNonceToken)) {
-                            paymentNonceToken = DashboardActivity.paymentNonceToken;
-                            // Proceed Order
-                            proceedOrder();
-
-                        } else {
-                            progressDialog.dismiss();
-                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 2000);
-
-            } else if (selectedPaymentMethod.equalsIgnoreCase("payumoney")) {
-
-                // Setup Payment Method
-                validateSelectedPaymentMethod();
-                progressDialog.show();
-
-                // Delay of 2 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
-                            // Proceed Order
-                            proceedOrder();
-                        } else {
-                            progressDialog.dismiss();
-                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 2000);
-
             }
+
+//            if (selectedPaymentMethod.equalsIgnoreCase("cod")) {
+//                // Proceed Order
+//                proceedOrder();
+//                progressDialog.show();
+//
+//            } else if (selectedPaymentMethod.equalsIgnoreCase("braintree_paypal") || selectedPaymentMethod.equalsIgnoreCase("paypal")) {
+//                // Setup Payment Method
+//                validateSelectedPaymentMethod();
+//                progressDialog.show();
+//
+//                // Delay of 2 seconds
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
+//                            // Proceed Order
+//                            proceedOrder();
+//                        } else {
+//                            progressDialog.dismiss();
+//                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, 2000);
+//
+//            } else if (selectedPaymentMethod.equalsIgnoreCase("stripe") || selectedPaymentMethod.equalsIgnoreCase("braintree_card")) {
+//                if (validatePaymentCard()) {
+//                    // Setup Payment Method
+//                    validateSelectedPaymentMethod();
+//                    progressDialog.show();
+//
+//                    // Delay of 2 seconds
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (!"".equalsIgnoreCase(paymentNonceToken)) {
+//                                // Proceed Order
+//                                proceedOrder();
+//                            } else {
+//                                progressDialog.dismiss();
+//                                Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }, 2000);
+//                }
+//
+//            } else if (selectedPaymentMethod.equalsIgnoreCase("instamojo")) {
+//
+//                // Setup Payment Method
+//                validateSelectedPaymentMethod();
+//                progressDialog.show();
+//
+//                // Delay of 2 seconds
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (!"".equalsIgnoreCase(paymentNonceToken)) {
+//                            // Proceed Order
+//                            proceedOrder();
+//                        } else {
+//                            progressDialog.dismiss();
+//                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, 2000);
+//
+//            } else if (selectedPaymentMethod.equalsIgnoreCase("razorpay")) {
+//
+//                // Setup Payment Method
+//                validateSelectedPaymentMethod();
+//                progressDialog.show();
+//
+//                // Delay of 2 seconds
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (!"".equalsIgnoreCase(DashboardActivity.paymentNonceToken)) {
+//                            paymentNonceToken = DashboardActivity.paymentNonceToken;
+//                            // Proceed Order
+//                            proceedOrder();
+//
+//                        } else {
+//                            progressDialog.dismiss();
+//                            Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, 2000);
+//
+//            } else if (selectedPaymentMethod.equalsIgnoreCase("payumoney")) {
+//
+//                // Setup Payment Method
+//                validateSelectedPaymentMethod();
+//                progressDialog.show();
+//
+//                // Delay of 2 seconds
+//                new Handler().postDelayed(() -> {
+//                    if (!"".equalsIgnoreCase(paymentNonceToken)) {
+//                        // Proceed Order
+//                        proceedOrder();
+//                    } else {
+//                        progressDialog.dismiss();
+//                        Snackbar.make(view, getString(R.string.invalid_payment_token), Snackbar.LENGTH_SHORT).show();
+//                    }
+//                }, 2000);
+//
+//            }
+
         });
 
         return rootView;
@@ -555,6 +553,9 @@ public class CheckoutFinal extends Fragment {
         if (postOrder.getPaymentMethod() != null) {
             payment_method.setText(postOrder.getPaymentMethod());
         }
+
+        DashboardActivity dashboardActivity = new DashboardActivity();
+        dashboardActivity.setupTitle();
     }
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
@@ -580,7 +581,6 @@ public class CheckoutFinal extends Fragment {
 //            Log.i("VC_Shop", "[paypal] > An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
 //        }
     }
-
 
     //*********** Validate Payment method Details according to the selectedPaymentMethod ********//
 
@@ -695,7 +695,6 @@ public class CheckoutFinal extends Fragment {
 
     }
 
-
     //*********** Returns Final Price of User's Cart ********//
 
     private double getProductsSubTotal() {
@@ -709,7 +708,6 @@ public class CheckoutFinal extends Fragment {
 
         return finalPrice;
     }
-
 
     //*********** Set CheckoutFinal's Subtotal, Tax, ShippingCost, Discount and Total Prices ********//
 
@@ -785,7 +783,6 @@ public class CheckoutFinal extends Fragment {
     //*********** Set Order Details to proceed CheckoutFinal ********//
 
     private void proceedOrder() {
-
         PostOrder orderDetails = new PostOrder();
 
         // Set Customer Info
@@ -813,21 +810,16 @@ public class CheckoutFinal extends Fragment {
         orderDetails.setDeliveryCost("" + checkoutShipping);
         orderDetails.setPackingChargeTax(ConstantValues.PACKING_CHARGE);
 
-
         // LatLang
         orderDetails.setLatitude(String.valueOf(shippingAddress.getLatitude()));
         orderDetails.setLongitude(String.valueOf(shippingAddress.getLongitude()));
-
-
         orderDetails.setLanguageId(ConstantValues.LANGUAGE_ID);
-
         orderDetails.setTaxZoneId(shippingAddress.getZoneId());
         orderDetails.setTotalTax(checkoutTax);
         orderDetails.setShippingMethod(getString(R.string.default_shipping_method));
         orderDetails.setShippingCost(checkoutShipping);
 
-
-        orderDetails.setComments(checkout_comments.getText().toString().trim());
+//        orderDetails.setComments(checkout_comments.getText().toString().trim());
 
         if (couponsList.size() > 0) {
             orderDetails.setIsCouponApplied(1);
@@ -839,7 +831,7 @@ public class CheckoutFinal extends Fragment {
 
         // Set PaymentNonceToken and PaymentMethod
         orderDetails.setNonce(paymentNonceToken);
-        orderDetails.setPaymentMethod(selectedPaymentMethod);
+        orderDetails.setPaymentMethod(payment_method.getText().toString());
 
         // Set CheckoutFinal Price and Products
         orderDetails.setProductsTotal(checkoutSubtotal);
@@ -850,7 +842,6 @@ public class CheckoutFinal extends Fragment {
         orderDetails.setCurrency(PAYMENT_CURRENCY);
 
         PlaceOrderNow(orderDetails);
-
     }
 
     //*********** Request the Server to Generate BrainTreeToken ********//
@@ -936,7 +927,6 @@ public class CheckoutFinal extends Fragment {
 //        });
 //    }
 
-
     //*********** Request the Server to Generate BrainTreeToken ********//
 
     private void GenerateBrainTreeToken() {
@@ -979,7 +969,6 @@ public class CheckoutFinal extends Fragment {
             }
         });
     }
-
 
     //*********** Request the Server to Generate BrainTreeToken ********//
 
@@ -1067,7 +1056,6 @@ public class CheckoutFinal extends Fragment {
         });
     }
 
-
     //*********** Request the Server to Place User's Order ********//
 
     private void PlaceOrderNow(PostOrder postOrder) {
@@ -1083,11 +1071,12 @@ public class CheckoutFinal extends Fragment {
         call.enqueue(new Callback<OrderData>() {
             @Override
             public void onResponse(Call<OrderData> call, retrofit2.Response<OrderData> response) {
-
                 progressDialog.dismiss();
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: Response is successful");
+
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
                         Intent notificationIntent = new Intent(getContext(), DashboardActivity.class);
@@ -1100,20 +1089,18 @@ public class CheckoutFinal extends Fragment {
                         My_Cart.ClearCart();
 
                         // Clear User's Shipping and Billing info from AppContext
-                        ((CropManagerApp) getContext().getApplicationContext()).setShippingAddress(new AddressDetails());
-                        ((CropManagerApp) getContext().getApplicationContext()).setBillingAddress(new AddressDetails());
-
+                        ((CropManagerApp) requireContext().getApplicationContext()).setShippingAddress(new AddressDetails());
+                        ((CropManagerApp) requireContext().getApplicationContext()).setBillingAddress(new AddressDetails());
 
                         // Navigate to Thank_You Fragment
-                        String ordernumber = response.body().getData().get(0).getOrdersId() + "";
+//                        String orderNumber = response.body().getData().get(0).getOrdersId() + "";
                         Fragment fragment = new Thank_You(my_cart);
-                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                         fragmentManager.popBackStack(getString(R.string.actionHome), FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         fragmentManager.beginTransaction()
                                 .add(R.id.main_fragment_container, fragment)
                                 .addToBackStack(null)
                                 .commit();
-
 
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
@@ -1135,7 +1122,6 @@ public class CheckoutFinal extends Fragment {
             }
         });
     }
-
 
     //*********** Apply given Coupon to buy_inputs_checkout ********//
 
@@ -1229,7 +1215,6 @@ public class CheckoutFinal extends Fragment {
 
     }
 
-
     //*********** Remove given Coupon from buy_inputs_checkout ********//
 
     public void removeCoupon(CouponsInfo coupon) {
@@ -1263,7 +1248,6 @@ public class CheckoutFinal extends Fragment {
         setCheckoutTotal();
 
     }
-
 
     //*********** Validate Cart type Coupon ********//
 
