@@ -53,7 +53,7 @@ public class ValidateInputs {
 
     public static boolean isValidPassword(String password) {
 
-        String regExpn = "^[a-z0-9_$@.!%*?&]{6,24}$";
+        String regExpn = "^[a-z0-9_$@.!%*?&#]{6,24}$";
         CharSequence inputStr = password;
         Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(inputStr);

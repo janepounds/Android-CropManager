@@ -102,7 +102,7 @@ public class Product_Description extends Fragment {
     PagerIndicator pagerIndicator;
     ImageButton product_share_btn;
     ToggleButton product_like_btn;
-    LinearLayout product_attributes, product_reviews_ratings_new;
+    LinearLayout product_attributes;
     RecyclerView attribute_recycler;
     WebView product_description_webView;
     TextView title, category, price_new, price_old, product_stock, product_likes, product_tag_new, product_tag_discount, product_ratings_count, pdtQty;
