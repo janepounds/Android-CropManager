@@ -88,7 +88,6 @@ public class AccountFragment extends Fragment {
         RelativeLayout layoutMyAddresses = view.findViewById(R.id.layout_my_addresses);
         RelativeLayout layoutMyOrders = view.findViewById(R.id.layout_my_orders);
         RelativeLayout layoutMyCart = view.findViewById(R.id.layout_my_cart);
-        RelativeLayout layoutFavourites = view.findViewById(R.id.layout_favourites);
         RelativeLayout layoutRateMyApp = view.findViewById(R.id.layout_rate_my_app);
         RelativeLayout layoutShareApp = view.findViewById(R.id.layout_share_app);
         RelativeLayout layoutPrivacyPolicy = view.findViewById(R.id.layout_privacy_policy);
@@ -128,8 +127,6 @@ public class AccountFragment extends Fragment {
         layoutMyOrders.setOnClickListener(v -> getMyOrders());
 
         layoutMyCart.setOnClickListener(v -> goToMyCart());
-
-        layoutFavourites.setOnClickListener(v -> getMyFavourites());
 
         layoutRateMyApp.setOnClickListener(v -> rateApp());
 
@@ -283,27 +280,6 @@ public class AccountFragment extends Fragment {
 
         currentFragment = my_cart;
         DashboardActivity.actionBar.setTitle(getString(R.string.actionCart));
-    }
-
-    public void getMyFavourites() {
-        if (myFavorites == null) {
-            myFavorites = new WishList();
-            if (currentFragment == null)
-                fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, myFavorites)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
-            else
-                fragmentManager.beginTransaction()
-                        .hide(currentFragment)
-                        .add(R.id.main_fragment_container, myFavorites)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
-        } else {
-            fragmentManager.beginTransaction().show(myFavorites).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-        }
-        currentFragment = myFavorites;
-        DashboardActivity.actionBar.setTitle(getString(R.string.actionFavourites));
     }
 
     public void getNews() {

@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_marginTop="?actionBarSize"
-        android:layout_marginBottom="?actionBarSize"/>
+        android:layout_marginTop="?actionBarSize"/>
 
     <LinearLayout
         android:gravity="center"

@@ -63,6 +63,7 @@ import com.myfarmnow.myfarmcrop.fragments.AccountFragment;
 import com.myfarmnow.myfarmcrop.fragments.HomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.OffersFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Category_Products;
+import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.CheckoutFinal;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.PaymentMethodsFragment;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Product_Description;
 import com.myfarmnow.myfarmcrop.fragments.buyInputsFragments.Thank_You;
@@ -199,20 +200,23 @@ public class DashboardActivity extends AppCompatActivity {
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof Shipping_Address) {
             actionBar.setTitle(getString(R.string.shipping_address));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof Nearby_Merchants) {
             actionBar.setTitle(getString(R.string.nearby_merchants));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof UpdateAccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
         } else if (currentFrag instanceof My_Orders) {
             actionBar.setTitle(getString(R.string.actionOrders));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof My_Addresses) {
             actionBar.setTitle(getString(R.string.actionAddresses));
-        } else if (currentFrag instanceof WishList) {
-            actionBar.setTitle(getString(R.string.actionFavourites));
-        } else if (currentFrag instanceof SettingsFragment) {
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
+        }  else if (currentFrag instanceof SettingsFragment) {
             actionBar.setTitle(getString(R.string.actionSettings));
         } else if (currentFrag instanceof AccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
+            DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
         } else if (currentFrag instanceof MarketPlaceHomeFragment) {
             actionBar.setTitle(getString(R.string.actionMarketPlace));
             DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
@@ -223,16 +227,21 @@ public class DashboardActivity extends AppCompatActivity {
             actionBar.setTitle(getString(R.string.actionproducemarket));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof Category_Products) {
-            DashboardActivity.bottomNavigationView.setVisibility(View.VISIBLE);
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof PaymentMethodsFragment) {
             actionBar.setTitle(getString(R.string.payment_methods));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof Thank_You) {
             actionBar.setTitle(getString(R.string.order_confirmed));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         } else if (currentFrag instanceof Product_Description) {
             actionBar.setTitle(getString(R.string.product_description));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
+        } else if (currentFrag instanceof CheckoutFinal) {
+            actionBar.setTitle(getString(R.string.checkout));
+            DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
         }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = item -> {
