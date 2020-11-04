@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,22 +25,25 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.myfarmnow.myfarmcrop.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.NumberFormat;
 
 public class TransferMoney extends DialogFragment {
-    LinearLayout layoutAddMoney,layoutTransfer;
+    LinearLayout layoutAddMoney, layoutTransfer;
     Button addMoneyImg;
-    TextView mobile_numberTxt,addMoneyTxt,phoneNumberTxt,errorMsgTxt;
+    TextView mobile_numberTxt, addMoneyTxt, phoneNumberTxt, errorMsgTxt;
     TextView balanceTextView, titleTextView;
     private double balance;
     Context activity;
     FragmentManager fm;
 
-    public TransferMoney(Context context, double balance, FragmentManager supportFragmentManager){
-        this.activity=context;   this.balance=balance;
-        this.fm=supportFragmentManager;
+    public TransferMoney(Context context, double balance, FragmentManager supportFragmentManager) {
+        this.activity = context;
+        this.balance = balance;
+        this.fm = supportFragmentManager;
 
-        Log.e("Balance",this.balance+"");
+        Log.e("Balance", this.balance + "");
     }
 
     @Override
@@ -48,6 +52,7 @@ public class TransferMoney extends DialogFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
@@ -57,15 +62,15 @@ public class TransferMoney extends DialogFragment {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        View view =inflater.inflate(R.layout.wallet_add_money, null);
-
+        View view = inflater.inflate(R.layout.wallet_add_money, null);
         builder.setView(view);
+
+        ImageView close = view.findViewById(R.id.wallet_transfer_money_close);
+        close.setOnClickListener(v -> dismiss());
 
         initializeForm(view);
         return builder.create();
-
     }
-
 
     public void initializeForm(View view) {
         phoneNumberTxt = view.findViewById(R.id.crop_add_money_mobile_no);
@@ -73,7 +78,7 @@ public class TransferMoney extends DialogFragment {
         addMoneyTxt = view.findViewById(R.id.crop_add_money_amount);
         balanceTextView = view.findViewById(R.id.crop_add_money_balance);
         titleTextView = view.findViewById(R.id.digital_wallet_title_label);
-        mobile_numberTxt=view.findViewById(R.id.text_mobile_number);
+        mobile_numberTxt = view.findViewById(R.id.text_mobile_number);
         errorMsgTxt = view.findViewById(R.id.text_view_error_message);
 
         balanceTextView.setText(NumberFormat.getInstance().format(balance));
@@ -81,38 +86,31 @@ public class TransferMoney extends DialogFragment {
         addMoneyImg.setText("Transfer");
         mobile_numberTxt.setText("Receiver No");
 
+        addMoneyImg.setOnClickListener(v -> {
 
+            String countryCode = "+256";
+            String phoneNumber = countryCode + phoneNumberTxt.getText().toString();
+            String amountEntered = addMoneyTxt.getText().toString();
+            float amount = Float.parseFloat(amountEntered);
+            float charges = (float) 100; //Transfer Charges
 
-        addMoneyImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String countryCode = "+256";
-                String phoneNumber = countryCode+phoneNumberTxt.getText().toString();
-                String amountEntered = addMoneyTxt.getText().toString();
-                float amount = Float.parseFloat(amountEntered);
-                float charges= (float) 100; //Transfer Charges
-
-                if( balance >= (amount+charges) ){
-                    FragmentTransaction ft = fm.beginTransaction();
-                    Fragment prev =fm.findFragmentByTag("dialog");
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
-
-                    // Create and show the dialog.
-                    DialogFragment transferPreviewDailog =new ConfirmTransfer(activity,phoneNumber,amount);
-                    transferPreviewDailog.show( ft, "dialog");
-                }else{
-                    Toast.makeText(getActivity(),"Insufficient Account balance!",Toast.LENGTH_LONG).show();
-                    Log.e("Error","Insufficient Account balance!");
+            if (balance >= (amount + charges)) {
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment prev = fm.findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
                 }
+                ft.addToBackStack(null);
 
+                // Create and show the dialog.
+                DialogFragment transferPreviewDailog = new ConfirmTransfer(activity, phoneNumber, amount);
+                transferPreviewDailog.show(ft, "dialog");
+            } else {
+                Toast.makeText(getActivity(), "Insufficient Account balance!", Toast.LENGTH_LONG).show();
+                Log.e("Error", "Insufficient Account balance!");
             }
+
         });
 
     }
-
-
 }

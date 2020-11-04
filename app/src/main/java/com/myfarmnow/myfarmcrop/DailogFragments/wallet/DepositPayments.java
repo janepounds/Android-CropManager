@@ -28,8 +28,6 @@ public class DepositPayments extends DialogFragment {
     private Context context;
     private double balance;
 
-    private NavController navController;
-
     public static DepositPayments newInstance(double balance) {
         DepositPayments dialog = new DepositPayments();
         Bundle bundle = new Bundle();
@@ -42,12 +40,6 @@ public class DepositPayments extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
     }
 
     @NotNull
@@ -63,12 +55,7 @@ public class DepositPayments extends DialogFragment {
         builder.setView(view);
 
         ImageView close = view.findViewById(R.id.wallet_deposit_close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                requireContext().
-            }
-        });
+        close.setOnClickListener(v -> dismiss());
 
         assert getArguments() != null;
         balance = getArguments().getFloat("interest");
