@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/solidwhite_shape"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/wallet_deposit_close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/close" />
 
     <LinearLayout
         android:id="@+id/layout_add_money"
@@ -137,7 +145,7 @@
                         android:backgroundTint="@color/background_home"
                         android:gravity="center"
                         android:onClick="openAddMoneyVoucher"
-                        android:src="@drawable/gift" />
+                        app:srcCompat="@drawable/gift" />
 
                 </LinearLayout>
 

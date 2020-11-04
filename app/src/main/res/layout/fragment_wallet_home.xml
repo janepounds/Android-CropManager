@@ -268,8 +268,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_marginTop="5dp"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/wallet_deposit" />
+                                app:backgroundTint="@color/white"
+                                app:srcCompat="@drawable/wallet_deposit" />
 
                             <TextView
                                 android:layout_width="match_parent"

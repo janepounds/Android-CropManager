@@ -54,18 +54,23 @@ public class WalletHomeFragment extends Fragment {
     public static FragmentManager fm;
 
     //Imageucf
-    private ProgressDialog dialog;
+    private ProgressDialog progressDialog;
 
     Toolbar toolbar;
     TextView walletBalance, usernameWalletHome;
     LinearLayout layoutWalletTransfer, layoutWalletTransactions, layoutWalletLoans, layoutWalletCoupons, layoutWalletBuy;
-    ImageButton btnWalletDeposit, btnWalletTransfer, btnWalletTransactions,btnWalletLoans, btnWalletCoupons,btnWalletBuy;
+    ImageButton btnWalletDeposit, btnWalletTransfer, btnWalletTransactions, btnWalletLoans, btnWalletCoupons, btnWalletBuy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet_home, container, false);
+
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Please Wait..");
+        progressDialog.setCancelable(false);
 
         toolbar = view.findViewById(R.id.toolbar_wallet_home);
         walletBalance = view.findViewById(R.id.wallet_balance);
@@ -101,11 +106,6 @@ public class WalletHomeFragment extends Fragment {
         usernameWalletHome.setText(ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
 
         Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
-
-        dialog = new ProgressDialog(context);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Please Wait..");
-        dialog.setCancelable(false);
 
         // return view;
         return view;
@@ -210,6 +210,7 @@ public class WalletHomeFragment extends Fragment {
         if (prev != null) {
             ft.remove(prev);
         }
+
         ft.addToBackStack(null);
 
         // Create and show the dialog.
@@ -218,18 +219,16 @@ public class WalletHomeFragment extends Fragment {
     }
 
     public void updateBalance() {
-        /***************RETROFIT IMPLEMENTATION****************/
-        dialog = new ProgressDialog(context);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Please Wait..");
-        dialog.setCancelable(true);
-        dialog.show();
+        progressDialog.show();
+
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<BalanceResponse> call = apiRequests.requestBalance(access_token);
         call.enqueue(new Callback<BalanceResponse>() {
             @Override
             public void onResponse(Call<BalanceResponse> call, Response<BalanceResponse> response) {
+                progressDialog.dismiss();
+
                 if (response.code() == 200) {
                     balance = response.body().getData().getBalance();
 
@@ -237,20 +236,18 @@ public class WalletHomeFragment extends Fragment {
 
                     walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
-
                 } else if (response.code() == 401) {
                     Toast.makeText(context, "Session Expired", Toast.LENGTH_LONG).show();
                 } else {
                     Log.e("info", new String(String.valueOf(response.body().getMessage())));
                 }
-                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<BalanceResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.e("info : ", new String(String.valueOf(t.getMessage())));
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
                 WalletAuthActivity.startAuth(context, false);
             }
         });
