@@ -34,11 +34,6 @@ public class WalletHomeActivity extends AppCompatActivity {
     public WalletTransactionsListFragment transactionsListFragment;
     public static FragmentManager fm;
 
-
-    public static final String PREFERENCES_FILE_NAME = "pref";
-    public static final String STREET_PREFERENCES_ID = "addressStreet";
-    public static final String CITY_PREFERENCES_ID = "addressCityOrTown";
-    public static final String COUNTRY_PREFERENCES_ID = "addressCountry";
     public static final String PREFERENCES_FIRST_NAME = "firstname";
     public static final String PREFERENCES_LAST_NAME = "lastname";
     public static final String PREFERENCES_USER_ID = "userId";
@@ -87,6 +82,7 @@ public class WalletHomeActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("Intent start Error: ", e.getMessage());
         }
+
     }
 
     public void openAddMobileMoney(View view) {

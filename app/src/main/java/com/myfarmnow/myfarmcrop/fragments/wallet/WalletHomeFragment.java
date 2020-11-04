@@ -219,11 +219,7 @@ public class WalletHomeFragment extends Fragment {
 
     public void updateBalance() {
         /***************RETROFIT IMPLEMENTATION****************/
-        dialog = new ProgressDialog(context);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Please Wait..");
-        dialog.setCancelable(true);
-        dialog.show();
+
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<BalanceResponse> call = apiRequests.requestBalance(access_token);
@@ -243,14 +239,14 @@ public class WalletHomeFragment extends Fragment {
                 } else {
                     Log.e("info", new String(String.valueOf(response.body().getMessage())));
                 }
-                dialog.dismiss();
+
             }
 
             @Override
             public void onFailure(Call<BalanceResponse> call, Throwable t) {
                 Log.e("info : ", new String(String.valueOf(t.getMessage())));
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+
                 WalletAuthActivity.startAuth(context, false);
             }
         });
