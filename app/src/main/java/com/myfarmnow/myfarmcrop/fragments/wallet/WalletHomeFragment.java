@@ -237,18 +237,20 @@ public class WalletHomeFragment extends Fragment {
 
                     walletBalance.setText("UGX " + NumberFormat.getInstance().format(balance));
 
-                    dialog.dismiss();
+
                 } else if (response.code() == 401) {
                     Toast.makeText(context, "Session Expired", Toast.LENGTH_LONG).show();
                 } else {
                     Log.e("info", new String(String.valueOf(response.body().getMessage())));
                 }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<BalanceResponse> call, Throwable t) {
                 Log.e("info : ", new String(String.valueOf(t.getMessage())));
                 Toast.makeText(context, "An error occurred Try again Later", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
                 WalletAuthActivity.startAuth(context, false);
             }
         });

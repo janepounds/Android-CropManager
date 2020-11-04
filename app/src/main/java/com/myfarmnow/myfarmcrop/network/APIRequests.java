@@ -72,6 +72,10 @@ public interface APIRequests {
     );
 
     /**************  WALLET REQUESTS *******************************/
+    @FormUrlEncoded
+    @POST("wallet/check_account")
+    Call<UserData> checkWalletAccount(@Field("email") String email, @Field("phoneNumber") String phonenumber);
+
     //wallet authentication
     @FormUrlEncoded
     @POST("emaishawallet/user/authenticate")
@@ -216,4 +220,5 @@ public interface APIRequests {
     Call<LoanPayResponse> loanPay(@Header("Authorization") String token,
                                   @Field("amount") double amount,
                                   @Field("userId") String userId);
+
 }

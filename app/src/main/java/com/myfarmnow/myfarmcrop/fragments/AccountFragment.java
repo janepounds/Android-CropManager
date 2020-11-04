@@ -68,7 +68,6 @@ public class AccountFragment extends Fragment {
 
     public My_Orders myOrders;
     public My_Addresses myAddresses;
-    public WishList myFavorites;
     public SettingsFragment settings;
     public My_Cart my_cart;
     public News news;

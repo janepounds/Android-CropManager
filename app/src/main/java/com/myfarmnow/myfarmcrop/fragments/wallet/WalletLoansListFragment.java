@@ -28,6 +28,7 @@ import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.LoansListAdapter;
@@ -118,7 +119,7 @@ public class WalletLoansListFragment extends Fragment {
 
         /*************RETROFIT IMPLEMENTATION********************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
-        String userId = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context);
+        String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, context);
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<LoanListResponse> call = apiRequests.getUserLoans(userId, access_token);
         call.enqueue(new Callback<LoanListResponse>() {

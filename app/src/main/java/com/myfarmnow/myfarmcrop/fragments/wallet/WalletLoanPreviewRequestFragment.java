@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.RequestLoanresponse;
@@ -112,7 +113,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     public void initiateApplication() {
         /*****************RETROFIT IMPLEMENTATION*******************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
-        String userId = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, context);
+        String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, context);
         float amount = loanApplication.getAmount();
         int duration = loanApplication.getDuration();
         String loanType = loanApplication.getLoanType();

@@ -70,39 +70,15 @@ public class CropManagerApp extends MultiDexApplication {
         String pkg_name = context.getPackageName();
         ConstantValues.PKG_NAME = pkg_name;
         //ConstantValues.SHA1 = getSHA1(pkg_name);
-    
-        if (ConstantValues.DEFAULT_NOTIFICATION.equalsIgnoreCase("onesignal")) {
-            
-//            OneSignal.sendTag("app", "AndroidEcommerceDemo2");
-//
-//            // initialize OneSignal
-//            OneSignal.startInit(this)
-//                    .filterOtherGCMReceivers(true)
-//                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.InAppAlert)
-//                    .unsubscribeWhenNotificationsAreDisabled(false)
-//                    .init();
 
-        }
 
     }
-
-
 
     //*********** Returns Application Context ********//
 
     public static Context getContext() {
         return context;
     }
-
-
-//    public AppEnvironment getAppEnvironment() {
-//        return appEnvironment;
-//    }
-//
-//    public void setAppEnvironment(AppEnvironment appEnvironment) {
-//        this.appEnvironment = appEnvironment;
-//    }
-
 
 
     public AppSettingsDetails getAppSettingsDetails() {

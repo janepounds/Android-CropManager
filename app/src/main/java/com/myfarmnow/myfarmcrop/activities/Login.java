@@ -57,6 +57,7 @@ import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
+import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.BuyInputsAPIClient;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.app.MyAppPrefsManager;
@@ -316,6 +317,63 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         Call<UserData> call = BuyInputsAPIClient.getInstance()
                 .processLogin
+                        (
+                                user_email.getText().toString().trim(),
+                                user_password.getText().toString().trim()
+                        );
+
+        call.enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+
+                dialogLoader.hideProgressDialog();
+
+                if (response.isSuccessful()) {
+
+                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2")) {
+                        // Get the User Details from Response
+                        userDetails = response.body().getData().get(0);
+
+                        Log.d(TAG, "onResponse: Email = " + userDetails.getEmail());
+                        Log.d(TAG, "onResponse: First Name = " + userDetails.getFirstName());
+                        Log.d(TAG, "onResponse: Last Name = " + userDetails.getLastName());
+                        Log.d(TAG, "onResponse: Username = " + userDetails.getUserName());
+                        Log.d(TAG, "onResponse: addressStreet = " + userDetails.getAddressStreet());
+                        Log.d(TAG, "onResponse: addressCityOrTown = " + userDetails.getAddressCityOrTown());
+                        Log.d(TAG, "onResponse: address_district = " + userDetails.getAddress_district());
+                        Log.d(TAG, "onResponse: addressCountry = " + userDetails.getAddressCountry());
+
+                        TEMP_USER_TYPE = 0; // 0 for Simple Login.
+                        //showPhoneDialog();
+                        loginUser(userDetails);
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                        // Get the Error Message from Response
+                        String message = response.body().getMessage();
+                        Snackbar.make(parentView, message, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Login.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    // Show the Error Message
+                    Toast.makeText(Login.this, response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
+                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private void checkWalletAccount() {
+        dialogLoader.showProgressDialog();
+        ConstantValues.CUSTOMER_HAS_WALLET=true;
+        Call<UserData> call = APIClient.getWalletInstance()
+                .checkWalletAccount
                         (
                                 user_email.getText().toString().trim(),
                                 user_password.getText().toString().trim()

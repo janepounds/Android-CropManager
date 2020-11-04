@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletHomeFragment;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletTransactionsListFragment;
@@ -54,28 +55,26 @@ public class WalletHomeActivity extends AppCompatActivity {
     }
 
     public static String getPreferences(String key, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("pref",
-                0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
         return sharedPreferences.getString(key, "");
     }
 
     public static void savePreferences(String key, String value, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME,
-                0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
     }
 
     public static void saveUser(JSONObject user, Context context) throws JSONException {
-        WalletHomeActivity.savePreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
         WalletHomeActivity.savePreferences("email", user.getString("email"), context);
-        WalletHomeActivity.savePreferences(WalletHomeActivity.PREFERENCES_USER_ID, user.getString("id"), context);
-        WalletHomeActivity.savePreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, user.getString("lastname"), context);
-        WalletHomeActivity.savePreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, user.getString("email"), context);
-        WalletHomeActivity.savePreferences(WalletHomeActivity.STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
-        WalletHomeActivity.savePreferences(WalletHomeActivity.CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
-        WalletHomeActivity.savePreferences("phoneNumber", user.getString("phoneNumber"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_USER_ID, user.getString("id"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_LAST_NAME, user.getString("lastname"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_USER_EMAIL, user.getString("email"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
+        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, user.getString("phoneNumber"), context);
 //        WalletHomeActivity.savePreferences("latitude", user.getString("latitude"), context);
 //        WalletHomeActivity.savePreferences("longitude", user.getString("longitude"), context);
 //        WalletHomeActivity.savePreferences("userimage", user.getString("userimage"), context);

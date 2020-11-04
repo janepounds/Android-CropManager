@@ -44,7 +44,7 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
     Context context;
     public static String WALLET_ACCESS_TOKEN=null;
     SharedPreferences sharedPreferences;
-    PinFragmentConfiguration pinConfig;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
         if ( ConstantValues.CUSTOMER_HAS_WALLET && WalletAuthActivity.WALLET_ACCESS_TOKEN==null){
 
-            pinConfig =new PinFragmentConfiguration(this)
+            PinFragmentConfiguration   pinConfig =new PinFragmentConfiguration(WalletAuthActivity.this)
                     .validator(new Validator(){
                         public boolean isValid(String submission){
 
@@ -69,26 +69,24 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                             dialog.setIndeterminate(true);
                             dialog.setMessage("Please Wait..");
                             dialog.setCancelable(false);
+                            String WalletPass=DashboardActivity.PREFERENCES_PREPIN_ENCRYPTION+submission;
 
-                            if (submission.length() <= 0) {
+                            if (submission.length() < 4) {
                                 Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
-                            }else if( ConstantValues.CUSTOMER_HAS_WALLET && WALLET_ACCESS_TOKEN==null ) {
+                            }else {
                                 //login and get token
-                                Log.w("Wallet:","attempting user login "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
+                                Log.w("Wallet:","attempting user login "+WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
 
-                                if (sharedPreferences.getString("userEmail", null) != null) {
+                                if (WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ) != null) {
 
-                                    WalletLoginHelper.checkLogin( submission, WalletAuthActivity.this, null, dialog);
+                                    WalletLoginHelper.checkLogin( WalletPass, WalletAuthActivity.this, null, dialog);
 
                                     overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                                 }
 
-                            }else if( !WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ).isEmpty() &&  WALLET_ACCESS_TOKEN == null  ) {
-
-                                Log.w("Wallet:","getting login token "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ));
-                                WalletAuthActivity.getLoginToken(  submission,WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this ), null,context);
                             }
-                            return submission.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context)); // ...check against where you saved the pin
+                            return WalletPass.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context));
+                           // return submission.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PIN, context)); // ...check against where you saved the pin
 
                         }
                     });
@@ -97,8 +95,9 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
             getFragmentManager().beginTransaction()
                     .replace( R.id.container, toShow)
                     .commit();
-        }else if( !ConstantValues.CUSTOMER_HAS_WALLET){
-            pinConfig =new PinFragmentConfiguration(this)
+        }
+        else if( !ConstantValues.CUSTOMER_HAS_WALLET){
+            PinFragmentConfiguration    pinConfig2 =new PinFragmentConfiguration(this)
                     .validator(new Validator(){
                         public boolean isValid(String submission){
 
@@ -106,29 +105,28 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                             dialog.setIndeterminate(true);
                             dialog.setMessage("Please Wait..");
                             dialog.setCancelable(false);
-
+                            String WalletPass=DashboardActivity.PREFERENCES_PREPIN_ENCRYPTION+submission;
                             if (submission.length() <= 0) {
                                 Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
                             }else {
                                 Log.w("Wallet: ","attempting user registration "+WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this )+" : "+WalletHomeActivity.PREFERENCES_USER_EMAIL);
 
-                                WalletLoginHelper.userRegister( dialog, context,submission);
+                                WalletLoginHelper.userRegister( dialog, context,WalletPass);
                             }
 
-                            return submission.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context)); // ...check against where you saved the pin
+                            return WalletPass.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context)); // ...check against where you saved the pin
 
                         }
                     });
 
-            PinFragment toShow =  PinFragment.newInstanceForCreation(pinConfig);
+            PinFragment toShow =  PinFragment.newInstanceForCreation(pinConfig2);
             getFragmentManager().beginTransaction()
                     .replace( R.id.container, toShow)
                     .commit();
-        }else{
+        }
+        else{
             WalletHomeActivity.startHome(getApplicationContext());
         }
-
-
 
     }
 
@@ -145,7 +143,6 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if (response.code()==200) {
-
                     Log.w("Get Token: ", "OnSuccess running");
                     TokenResponse tokenResponse = response.body();
 
@@ -153,12 +150,11 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                     Log.w("LoginToken: ",accessToken);
                         WALLET_ACCESS_TOKEN = accessToken;
 
-                        WalletHomeActivity.startHome(context);
-                    //now you can go to next wallet page
-
-
                     if(dialog!=null && dialog.isShowing())
                         dialog.dismiss();
+
+                    WalletHomeActivity.startHome(context);
+                    //now you can go to next wallet page
                 }else {
 
                     if(response.code()==403) {

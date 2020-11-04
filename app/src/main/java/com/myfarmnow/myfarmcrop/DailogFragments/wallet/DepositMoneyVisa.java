@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
@@ -156,7 +157,7 @@ public class DepositMoneyVisa extends DialogFragment implements
         String expiryDate=cardexpiryTxt.getText().toString();
         double amount = Double.parseDouble(amountEntered);
 
-        txRef= WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
+        txRef= WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
         Log.e("PUBK : ", BuildConfig.PUBLIC_KEY+" : "+expiryDate.substring(0,2)+" : "+expiryDate.substring(3,5));
 
 

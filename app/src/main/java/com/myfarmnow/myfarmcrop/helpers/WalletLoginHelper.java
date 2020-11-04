@@ -69,18 +69,27 @@ public class WalletLoginHelper extends AppCompatActivity{
                     dialog.dismiss();
                     WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
                     } catch (JSONException e) {
+                        dialog.dismiss();
+                        Log.e("response", response.toString());
                         e.printStackTrace();
                     }
 
-                }else if(response.code()==404){
-                    WalletLoginHelper.userRegister(dialog, context, rawpassword);
-
-                }else if(response.code()==403){
+                }
+                else{
+                    dialog.dismiss();
                     if (errorTextView != null) {
                         errorTextView.setText(response.body().getMessage());
                         errorTextView.setVisibility(View.VISIBLE);
                         errorTextView.requestFocus();
                     }
+                    else if(response.body()!=null){
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    else{
+
+                        Log.e("response", response.toString());
+                    }
+
 
 
                 }
@@ -91,7 +100,7 @@ public class WalletLoginHelper extends AppCompatActivity{
             @Override
             public void onFailure(Call<WalletAuthentication> call, Throwable t) {
                 Log.e("info2 : " , t.getMessage());
-
+                dialog.dismiss();
             }
         });
 

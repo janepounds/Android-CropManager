@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.myfarmnow.myfarmcrop.BuildConfig;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
@@ -100,7 +101,7 @@ public class DepositMoneyMobile extends DialogFragment {
         errorMsgTxt = view.findViewById(R.id.text_view_error_message);
 
         balanceTextView.setText(NumberFormat.getInstance().format(balance));
-        this.txRef = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
+        this.txRef = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
         addMoneyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +125,7 @@ public class DepositMoneyMobile extends DialogFragment {
         String amountEntered = addMoneyTxt.getText().toString();
 
         double amount = Float.parseFloat(amountEntered);
-        txRef = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
+        txRef = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
