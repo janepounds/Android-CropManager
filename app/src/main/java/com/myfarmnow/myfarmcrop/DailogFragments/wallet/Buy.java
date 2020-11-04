@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -52,6 +53,9 @@ public class Buy extends DialogFragment {
          View view =inflater.inflate(R.layout.wallet_buy, null);
          builder.setView(view);
          initializeForm( view);
+
+        ImageView close = view.findViewById(R.id.wallet_buy_close);
+        close.setOnClickListener(v -> dismiss());
 
          return builder.create();
     }

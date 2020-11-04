@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:fitsSystemWindows="true">
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_20dp">
+
+    <ImageView
+        android:id="@+id/wallet_buy_close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/close" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/background_home"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:textStyle="bold"
-                    android:textSize="25dp"
                     android:gravity="center"
                     android:text="Make Purchase"
-                    />
-
-
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/dimen_10dp"
                     android:paddingRight="@dimen/dimen_10dp"
-                    android:paddingBottom="@dimen/dimen_10dp"
-                    android:orientation="vertical">
+                    android:paddingBottom="@dimen/dimen_10dp">
 
 
                     <LinearLayout
@@ -56,17 +65,16 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/discount"
                             android:layout_weight="0.4"
+                            android:text="@string/discount"
                             android:textColor="@color/textColor"
-                            android:textSize="12sp"
-                            />
+                            android:textSize="12sp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@color/white"
                             android:layout_weight="0.3"
+                            android:background="@color/white"
                             android:orientation="horizontal">
 
 
@@ -87,13 +95,13 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.1"
-                                android:text="%"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="8dp"
+                                android:layout_weight="0.1"
+                                android:gravity="center_horizontal"
+                                android:text="%"
                                 android:textAlignment="center"
-                                android:textSize="18sp"
-                                android:gravity="center_horizontal" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -109,11 +117,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="@string/default_numeric_value"/>
+                                android:text="@string/default_numeric_value" />
 
                         </LinearLayout>
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -125,18 +132,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/josefin_sans"
                             android:text="Merchant ID"
-                            android:textSize="16dp"
-                            android:fontFamily="@font/josefin_sans"  />
+                            android:textSize="16dp" />
 
                         <EditText
                             android:id="@+id/txt_wallet_purchase_mechant_id"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:hint="Enter.."
-                            android:inputType="numberDecimal"
                             android:layout_marginTop="@dimen/margin_10"
                             android:background="@drawable/edittext_corner"
+                            android:hint="Enter.."
+                            android:inputType="numberDecimal"
                             android:paddingLeft="10dp"
                             android:textSize="14dp" />
                     </LinearLayout>
@@ -150,18 +157,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/josefin_sans"
                             android:text="Amount (UGX)"
-                            android:textSize="16dp"
-                            android:fontFamily="@font/josefin_sans" />
+                            android:textSize="16dp" />
 
                         <EditText
                             android:id="@+id/txt_crop_bill_total"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:hint="Enter.."
-                            android:inputType="numberDecimal"
                             android:layout_marginTop="@dimen/margin_10"
                             android:background="@drawable/edittext_corner"
+                            android:hint="Enter.."
+                            android:inputType="numberDecimal"
                             android:paddingLeft="10dp"
                             android:textSize="14dp" />
                     </LinearLayout>
@@ -170,21 +177,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/txt_bill_by_coupon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Coupon ?"
-                            android:textSize="16dp"
-                            android:gravity="center"
-                            android:textColor="@color/colorPrimary"
-                            android:textStyle="bold"
                             android:layout_marginTop="@dimen/margin_10"
                             android:fontFamily="@font/josefin_sans"
-                            />
+                            android:gravity="center"
+                            android:text="Coupon ?"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -193,28 +198,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="15dp"
                             android:fontFamily="@font/josefin_sans"
                             android:text="Discount Coupon"
-                            />
+                            android:textSize="15dp" />
 
                         <EditText
+                            android:id="@+id/txt_wallet_bill_coupon"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="@dimen/margin_10"
                             android:background="@drawable/edittext_corner"
-                            android:paddingLeft="10dp"
-                            android:textSize="15dp"
-                            android:id="@+id/txt_wallet_bill_coupon"
                             android:hint="Enter.."
                             android:inputType="text"
-                            />
+                            android:paddingLeft="10dp"
+                            android:textSize="15dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -222,33 +225,34 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginRight="@dimen/margin_10"
-                    android:paddingRight="@dimen/dimen_10dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/rounded_corners_button">
+                    android:background="@drawable/rounded_corners_button"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/dimen_10dp">
+
                     <Button
                         android:id="@+id/btn_save"
+                        style="@style/Button_DW"
                         android:layout_width="match_parent"
                         android:layout_height="40dip"
-                        android:background="@color/transparent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/button_text_size"
-                        style="@style/Button_DW"
+                        android:background="@color/transparent"
                         android:backgroundTint="@color/textColor"
                         android:text="Buy"
                         android:textAllCaps="false"
-                        />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/button_text_size" />
+
                     <ImageView
                         android:layout_width="30dip"
                         android:layout_height="30dip"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_margin="10dip"
                         android:layout_gravity="right|center_vertical"
+                        android:layout_margin="10dip"
                         android:src="@drawable/ic_right_arrow">
 
                     </ImageView>
@@ -257,5 +261,5 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
 
