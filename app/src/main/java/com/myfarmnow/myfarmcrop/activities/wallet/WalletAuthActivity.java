@@ -126,16 +126,13 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
         }
         else{
             WalletHomeActivity.startHome(getApplicationContext());
+            this.finish();
         }
 
     }
 
     public static void  getLoginToken( final String password, String email, String phoneNumber, final Context context) {
 
-        final ProgressDialog dialog = new ProgressDialog(context);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Please Wait..");
-        dialog.setCancelable(false);
         /****RETROFIT IMPLEMENTATION*******/
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<TokenResponse> call = apiRequests.getToken(email,password);
@@ -150,8 +147,6 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                     Log.w("LoginToken: ",accessToken);
                         WALLET_ACCESS_TOKEN = accessToken;
 
-                    if(dialog!=null && dialog.isShowing())
-                        dialog.dismiss();
 
                     WalletHomeActivity.startHome(context);
                     //now you can go to next wallet page
@@ -165,17 +160,13 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
                             errorTextView.requestFocus();
                         }
 
-                    }else if(response.code()==404){
-                        Log.e("info", new String(response.body().getMessage()));
-                        WalletLoginHelper.userRegister( dialog, context,password);
                     }
                     if (response.errorBody() != null) {
                         Log.e("info", new String(response.message()));
                     } else {
                         Log.e("info", "Something got very very wrong");
                     }
-                    if(dialog!=null && dialog.isShowing())
-                        dialog.dismiss();
+
                 }
 
 
@@ -186,10 +177,6 @@ public class WalletAuthActivity extends AppCompatActivity implements  PinFragmen
 
                     Log.e("info : ", new String(String.valueOf(t.getMessage())));
                     Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
-
-                if(dialog!=null && dialog.isShowing())
-                    dialog.dismiss();
-
 
             }
         });

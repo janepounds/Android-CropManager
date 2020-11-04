@@ -65,15 +65,16 @@ public class WalletLoginHelper extends AppCompatActivity{
                     Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                     Log.d("response", response.toString());
                     WalletHomeActivity.saveUser(object, context);
-                    ((AppCompatActivity) context).finish();
-                    dialog.dismiss();
+
+
                     WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
                     } catch (JSONException e) {
-                        dialog.dismiss();
                         Log.e("response", response.toString());
                         e.printStackTrace();
-                    }
+                    }finally {
 
+                        dialog.dismiss();
+                    }
                 }
                 else{
                     dialog.dismiss();
@@ -143,37 +144,31 @@ public class WalletLoginHelper extends AppCompatActivity{
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
                         Log.e("response", response.toString());
                         WalletHomeActivity.saveUser(object, context);
-
-                        dialog.dismiss();
-
                         WalletAuthActivity.getLoginToken(rawPassword, email, null, context);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.e("Error:", e.getMessage());
+                    }finally {
+                        dialog.dismiss();
                     }
                 }else if (response.code() == 403) {
-                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                     Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                } else if (response.code() == 400) {
+                    Log.w("Account Exists", "Attempting  User Login");
+                    WalletLoginHelper.checkLogin(rawPassword, context, null, dialog);
 
-                    } else if (response.code() == 400) {
-                        //user has account
-                        Log.w("Account Exists", "Attempting  User Login");
-                        WalletLoginHelper.checkLogin(rawPassword, context, null, dialog);
-
-                    } else {
-
-                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                } else {
+                    Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
 
                 }
 
 
             @Override
             public void onFailure(Call<WalletUserRegistration> call, Throwable t) {
-
                     Log.e("info : " , t.getMessage());
-
-                dialog.dismiss();
+                    dialog.dismiss();
             }
 
         });
