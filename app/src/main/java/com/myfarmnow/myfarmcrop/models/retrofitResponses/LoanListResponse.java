@@ -33,63 +33,83 @@ public class LoanListResponse {
         @SerializedName("id")
         @Expose
         private int id;
+
         @SerializedName("amount")
         @Expose
         private float amount;
+
         @SerializedName("ninNumber")
         @Expose
         private String ninNumber;
+
         @SerializedName("duration")
         @Expose
         private String duration;
+
         @SerializedName("status")
         @Expose
         private String status;
+
         @SerializedName("interestRate")
         @Expose
         private double interestRate;
+
         @SerializedName("dateApproved")
         @Expose
         private String dateApproved;
+
         @SerializedName("walletReferenceNumber")
         @Expose
         private String walletReferenceNumber;
+
         @SerializedName("repaymentPlan")
         @Expose
         private String repaymentPlan;
+
         @SerializedName("amountPaid")
         @Expose
         private double amountPaid;
+
         @SerializedName("isDue")
         @Expose
         private String isDue;
+
         @SerializedName("dueDate")
         @Expose
         private String dueDate;
+
         @SerializedName("amountExpected")
         @Expose
         private double amountExpected;
+
         @SerializedName("totalFines")
         @Expose
         private double totalFines;
+
         @SerializedName("nationalIDFrontPic")
         @Expose
         private String nationalIDFrontPic;
+
         @SerializedName("nationalIDBackPic")
         @Expose
         private String nationalIDBackPic;
+
         @SerializedName("userPhotoPic")
         @Expose
         private String userPhotoPic;
+
         @SerializedName("requestDate")
         @Expose
         private String requestDate;
+
         @SerializedName("applicationDate")
         @Expose
         private String applicationDate;
+
         @SerializedName("dueAmount")
         @Expose
         private double dueAmount;
+
         @SerializedName("totalPayments")
         @Expose
         private double totalPayments;

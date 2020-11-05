@@ -99,7 +99,7 @@ import static android.provider.SettingsSlicesContract.KEY_LOCATION;
 
 public class DashboardActivity extends AppCompatActivity {
     public static final String PREFERENCES_USER_PIN = "";
-    public static final String PREFERENCES_PREPIN_ENCRYPTION ="12" ;
+    public static final String PREFERENCES_PREPIN_ENCRYPTION = "12";
     private static final String TAG = "DashboardActivity";
 
     public static final String PREFERENCES_FILE_NAME = "UserInfo";
@@ -169,8 +169,8 @@ public class DashboardActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setTitle(ConstantValues.APP_HEADER);
 
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         // Handle ToolbarNavigationClickListener with OnBackStackChangedListener
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
 
@@ -214,7 +214,7 @@ public class DashboardActivity extends AppCompatActivity {
         } else if (currentFrag instanceof My_Addresses) {
             actionBar.setTitle(getString(R.string.actionAddresses));
             DashboardActivity.bottomNavigationView.setVisibility(View.GONE);
-        }  else if (currentFrag instanceof SettingsFragment) {
+        } else if (currentFrag instanceof SettingsFragment) {
             actionBar.setTitle(getString(R.string.actionSettings));
         } else if (currentFrag instanceof AccountFragment) {
             actionBar.setTitle(getString(R.string.actionAccount));
@@ -460,16 +460,14 @@ public class DashboardActivity extends AppCompatActivity {
             case android.R.id.home:
 
                 if (currentFragment == defaultHomeFragment)
+
                     new AlertDialog.Builder(this)
                             .setMessage("Are you sure you want to exit?")
                             .setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    DashboardActivity.super.onBackPressed();
-                                }
-                            })
-                            .setNegativeButton("No", null)
+                            .setPositiveButton("Yes", (dialog, id) -> finishAffinity())
+                            .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                             .show();
+
                 else if (fragmentManager.getBackStackEntryCount() > 0) {
                     // Pop previous Fragment
                     fragmentManager.popBackStack();
@@ -520,25 +518,21 @@ public class DashboardActivity extends AppCompatActivity {
         // Get FragmentManager
         FragmentManager fm = getSupportFragmentManager();
 
-
         if (fm.getBackStackEntryCount() > 0) {
             // Pop previous Fragment
             fm.popBackStack();
         } else {
+
             if (currentFragment == defaultHomeFragment)
+
                 new AlertDialog.Builder(this)
                         .setMessage("Are you sure you want to exit?")
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                DashboardActivity.super.onBackPressed();
-                            }
-                        })
-                        .setNegativeButton("No", null)
+                        .setPositiveButton("Yes", (dialog, id) -> finishAffinity())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                         .show();
             else
                 showHomePage();
-
         }
     }
 
