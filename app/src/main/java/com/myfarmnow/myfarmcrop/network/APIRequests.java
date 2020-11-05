@@ -160,24 +160,21 @@ public interface APIRequests {
     @GET("/wallet/payments/receipt/{referenceNumber}")
     Call<WalletTransactionReceiptResponse> getReceipt(@Header("Authorization") String token,
                                                       @Path("referenceNumber") String referenceNumber
-
     );
 
     //get user loans
     @GET("wallet/loan/user/loans")
-    Call<LoanListResponse> getUserLoans(@Field("userId") String userId,
-                                        @Header("Authorization") String token
-
+    Call<LoanListResponse> getUserLoans(@Query("userId") String userId
+            /*@Header("Authorization") String token*/
     );
 
     //request loans
     @POST("wallet/loan/user/request")
     Call<RequestLoanresponse> requestLoans(@Header("Authorization") String token,
-                                           @Field("userId") String userId,
-                                           @Field("amount") double amount,
-                                           @Field("duration") int duration,
-                                           @Field("loanType") String loanType
-
+                                           @Header("userId") String userId,
+                                           @Header("amount") double amount,
+                                           @Header("duration") int duration,
+                                           @Header("loanType") String loanType
     );
 
     //add loan photos

@@ -50,7 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WalletLoansListFragment extends Fragment {
-    private static final String TAG = "WalletLoansListFragment";
+    private static final String TAG = "WalletLoansList";
     private Context context;
 
     AppBarConfiguration appBarConfiguration;
@@ -110,6 +110,7 @@ public class WalletLoansListFragment extends Fragment {
     }
 
     private void actualStatementData() {
+
         ProgressDialog dialog;
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
@@ -118,44 +119,58 @@ public class WalletLoansListFragment extends Fragment {
         dialog.show();
 
         /*************RETROFIT IMPLEMENTATION********************/
+
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, context);
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<LoanListResponse> call = apiRequests.getUserLoans(userId, access_token);
+
+        Call<LoanListResponse> call = apiRequests.getUserLoans(userId);
+
         call.enqueue(new Callback<LoanListResponse>() {
             @Override
-            public void onResponse(Call<LoanListResponse> call, Response<LoanListResponse> response) {
+            public void onResponse(@NotNull Call<LoanListResponse> call, @NotNull Response<LoanListResponse> response) {
+                Log.d(TAG, "onResponse: Call Successful");
+
+                Log.d(TAG, "onResponse: Code = " + response.code());
+
+                dialog.dismiss();
+
                 if (response.code() == 200) {
-                    try {
+
                         LoanApplication data = null;
-                        LoanListResponse loanListResponse = response.body();
-                        List<LoanListResponse.Loans> loans = loanListResponse.getLoans();
+                        List<LoanListResponse.Loans> loans = response.body().getLoans();
+
                         interest = (float) response.body().getInterest();
+
                         for (int i = 0; i < loans.size(); i++) {
+
                             LoanListResponse.Loans record = loans.get(i);
                             Gson gson = new Gson();
                             String res = gson.toJson(record);
-                            JSONObject jsonObject = new JSONObject(res);
-                            data = new LoanApplication(jsonObject);
-                            dataList.add(data);
-                            if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
-                                walletApplyLoanLayout.setVisibility(View.GONE);
-                                walletPayLoanLayout.setVisibility(View.VISIBLE);
+                            JSONObject jsonObject = null;
+
+                            try {
+                                jsonObject = new JSONObject(res);
+                                data = new LoanApplication(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+                            
+                            dataList.add(data);
+                            Log.d(TAG, "onResponse: Data = " + data);
+
+//                            if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
+//                                walletApplyLoanLayout.setVisibility(View.GONE);
+//                                walletPayLoanLayout.setVisibility(View.VISIBLE);
+//                            }
 
                         }
                         statementAdapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.e("info : ", e.getMessage());
-                    }
 
-
-                    dialog.dismiss();
                 } else if (response.code() == 401) {
 
                     if (response.errorBody() != null) {
-                        Log.e("info", new String(String.valueOf(response.errorBody())));
+                        Log.e("info", String.valueOf(response.errorBody()));
                     } else {
                         Log.e("info", "Something got very very wrong");
                     }
@@ -164,7 +179,7 @@ public class WalletLoansListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<LoanListResponse> call, Throwable t) {
+            public void onFailure(@NotNull Call<LoanListResponse> call, @NotNull Throwable t) {
 
                 Log.e("info : ", new String(String.valueOf(t.getMessage())));
                 Log.e("info : ", "Something got very very wrong");
