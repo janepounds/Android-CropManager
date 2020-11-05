@@ -73,8 +73,8 @@ public interface APIRequests {
 
     /**************  WALLET REQUESTS *******************************/
     @FormUrlEncoded
-    @POST("wallet/check_account")
-    Call<UserData> checkWalletAccount(@Field("email") String email, @Field("phoneNumber") String phonenumber);
+    @POST("user/check_account")
+    Call<TokenResponse> checkWalletAccount(@Field("email") String email, @Field("phoneNumber") String phonenumber);
 
     //wallet authentication
     @FormUrlEncoded

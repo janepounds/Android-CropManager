@@ -55,6 +55,7 @@ import am.appwise.components.ni.NoInternetDialog;
 
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
 import com.myfarmnow.myfarmcrop.network.APIClient;
@@ -345,6 +346,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
                         TEMP_USER_TYPE = 0; // 0 for Simple Login.
                         //showPhoneDialog();
+                        checkWalletAccount();
                         loginUser(userDetails);
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Get the Error Message from Response
@@ -370,45 +372,34 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
     private void checkWalletAccount() {
-        dialogLoader.showProgressDialog();
-        ConstantValues.CUSTOMER_HAS_WALLET=true;
-        Call<UserData> call = APIClient.getWalletInstance()
+
+
+        sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+        String email = sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_EMAIL, "");
+        String phonenumber = sharedPreferences.getString(DashboardActivity.PREFERENCES_PHONE_NUMBER, "");
+
+        Call<TokenResponse> call = APIClient.getWalletInstance()
                 .checkWalletAccount
                         (
-                                user_email.getText().toString().trim(),
-                                user_password.getText().toString().trim()
+                                email,
+                                phonenumber
                         );
 
-        call.enqueue(new Callback<UserData>() {
+        call.enqueue(new Callback<TokenResponse>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
 
                 dialogLoader.hideProgressDialog();
 
                 if (response.isSuccessful()) {
 
-                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2")) {
-                        // Get the User Details from Response
-                        userDetails = response.body().getData().get(0);
-
-                        Log.d(TAG, "onResponse: Email = " + userDetails.getEmail());
-                        Log.d(TAG, "onResponse: First Name = " + userDetails.getFirstName());
-                        Log.d(TAG, "onResponse: Last Name = " + userDetails.getLastName());
-                        Log.d(TAG, "onResponse: Username = " + userDetails.getUserName());
-                        Log.d(TAG, "onResponse: addressStreet = " + userDetails.getAddressStreet());
-                        Log.d(TAG, "onResponse: addressCityOrTown = " + userDetails.getAddressCityOrTown());
-                        Log.d(TAG, "onResponse: address_district = " + userDetails.getAddress_district());
-                        Log.d(TAG, "onResponse: addressCountry = " + userDetails.getAddressCountry());
-
-                        TEMP_USER_TYPE = 0; // 0 for Simple Login.
-                        //showPhoneDialog();
-                        loginUser(userDetails);
-                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                    if (response.body().getMessage().equalsIgnoreCase("Wallet Account found") ) {
+                        ConstantValues.CUSTOMER_HAS_WALLET=true;
+                    }
+                    else{
                         // Get the Error Message from Response
                         String message = response.body().getMessage();
                         Snackbar.make(parentView, message, Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Login.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -418,10 +409,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             }
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                dialogLoader.hideProgressDialog();
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+
                 Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
             }
+
+
         });
     }
 

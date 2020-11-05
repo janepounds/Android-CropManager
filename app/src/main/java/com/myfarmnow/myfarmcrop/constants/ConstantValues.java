@@ -29,7 +29,7 @@ public class ConstantValues {
 
     public static final String NAVIGATION_STYLE = "side";                             // "bottom" for bottom navigation. "side" for side navigation.
 
-    public static Boolean CUSTOMER_HAS_WALLET = true;//false
+    public static Boolean CUSTOMER_HAS_WALLET = false;//false
 
     public static String APP_HEADER;
 
