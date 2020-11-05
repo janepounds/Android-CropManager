@@ -221,16 +221,16 @@ public class AccountFragment extends Fragment {
     public void getMyAddresses() {
 
         if (myAddresses == null) {
-            myAddresses = new My_Addresses(null);
+            fragment = new My_Addresses(null);
             if (currentFragment == null)
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, myAddresses)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             else
                 fragmentManager.beginTransaction()
                         .hide(currentFragment)
-                        .add(R.id.main_fragment_container, myAddresses)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
         } else {
@@ -243,16 +243,16 @@ public class AccountFragment extends Fragment {
     public void getMyOrders() {
 
         if (myOrders == null) {
-            myOrders = new My_Orders();
+            fragment = new My_Orders();
             if (currentFragment == null)
                 fragmentManager.beginTransaction()
-                        .add(R.id.main_fragment_container, myOrders)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
             else
                 fragmentManager.beginTransaction()
                         .hide(currentFragment)
-                        .add(R.id.main_fragment_container, myOrders)
+                        .add(R.id.main_fragment_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
         } else {

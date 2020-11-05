@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
     LinearLayout contactsSubMenu, helpSubMenu, inventorySubMenu, cropsSubMenu, financialsSubMenu, slesSubMenu, purchasesSubMenu, digitalWalletLayout;
 
 
-    LinearLayout walletLinearLayout, fieldsLinearLayout, farmrecordsLinearLayout, predictiontoolsLinearLayout, marketplaceLinearLayout,
+    LinearLayout walletLinearLayout, fieldsLinearLayout, farmRecordsLinearLayout, predictionToolsLinearLayout, marketplaceLinearLayout,
             agronomyLinearLayout, servicesLinearLayout, tasksLinearLayout, userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
 
     TextView textViewUserEmail, textViewUserName, textViewVersion;
@@ -99,10 +99,10 @@ public class HomeFragment extends Fragment {
         mainlayout = view.findViewById(R.id.mainlayout);
         walletLinearLayout = view.findViewById(R.id.layout_dashboard_wallet);
         fieldsLinearLayout = view.findViewById(R.id.layout_crop_dashboard_fields);
-        farmrecordsLinearLayout = view.findViewById(R.id.layout_dashboard_farmrecords);
+        farmRecordsLinearLayout = view.findViewById(R.id.layout_dashboard_farmrecords);
         marketplaceLinearLayout = view.findViewById(R.id.layout_dashboard_marketplace);
         agronomyLinearLayout = view.findViewById(R.id.layout_dashboard_agronomy);
-        predictiontoolsLinearLayout = view.findViewById(R.id.layout_predictiontools_dashboard);
+        predictionToolsLinearLayout = view.findViewById(R.id.layout_predictiontools_dashboard);
         tasksLinearLayout = view.findViewById(R.id.layout_crop_dashboard_tasks);
         servicesLinearLayout = view.findViewById(R.id.layout_dashboard_service);
 
@@ -126,14 +126,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        farmrecordsLinearLayout.setOnClickListener(v -> {
+        farmRecordsLinearLayout.setOnClickListener(v -> {
             Intent openFields = new Intent(appContext, FarmRecordsDashboardActivity.class);
             startActivity(openFields);
         });
 
         marketplaceLinearLayout.setOnClickListener(view1 ->
                  getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, new MarketPlaceHomeFragment(), getString(R.string.actionMarketPlace)).commit()
-
         );
 
         agronomyLinearLayout.setOnClickListener(v -> {
@@ -141,7 +140,7 @@ public class HomeFragment extends Fragment {
             startActivity(openFields);
         });
 
-        predictiontoolsLinearLayout.setOnClickListener(v -> {
+        predictionToolsLinearLayout.setOnClickListener(v -> {
             Intent openFields = new Intent(appContext, PredictionToolsDashboardActivity.class);
             startActivity(openFields);
         });
