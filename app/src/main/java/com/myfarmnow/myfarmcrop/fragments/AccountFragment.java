@@ -420,5 +420,4 @@ public class AccountFragment extends Fragment {
         searchItem.setVisible(false);
         cartItem.setVisible(false);
     }
-
 }

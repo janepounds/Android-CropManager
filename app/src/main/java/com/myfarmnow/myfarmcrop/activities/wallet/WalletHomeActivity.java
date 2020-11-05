@@ -70,9 +70,6 @@ public class WalletHomeActivity extends AppCompatActivity {
         WalletHomeActivity.savePreferences(DashboardActivity.STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
         WalletHomeActivity.savePreferences(DashboardActivity.CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
         WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, user.getString("phoneNumber"), context);
-//        WalletHomeActivity.savePreferences("latitude", user.getString("latitude"), context);
-//        WalletHomeActivity.savePreferences("longitude", user.getString("longitude"), context);
-//        WalletHomeActivity.savePreferences("userimage", user.getString("userimage"), context);
     }
 
     public static void startHome(Context context) {
@@ -125,5 +122,15 @@ public class WalletHomeActivity extends AppCompatActivity {
         // Create and show the dialog.
         DialogFragment depositDialog = new DepositMoneyVoucher(this, WalletHomeFragment.balance);
         depositDialog.show(ft, "dialog");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(this, DashboardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
     }
 }

@@ -108,18 +108,14 @@ public class HomeFragment extends Fragment {
 
         weatherForecastLinearLayout = view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
 
-//
 //        textViewVersion = view.findViewById(R.id.text_view_crop_dashboard_android_version);
 //        textViewVersion.setText("version " + BuildConfig.VERSION_NAME);
-
 
         walletLinearLayout.setOnClickListener(v -> {
             if (WalletAuthActivity.WALLET_ACCESS_TOKEN == null) {
                 startActivity(new Intent(appContext, WalletAuthActivity.class));
-                //finish();
                 getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
             } else {
-                //WalletAuthActivity.startAuth(context, true);
                 Intent authenticate = new Intent(appContext, WalletHomeActivity.class);
                 startActivity(authenticate);
                 getActivity().finish();
@@ -132,7 +128,7 @@ public class HomeFragment extends Fragment {
         });
 
         marketplaceLinearLayout.setOnClickListener(view1 ->
-                 getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, new MarketPlaceHomeFragment(), getString(R.string.actionMarketPlace)).commit()
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, new MarketPlaceHomeFragment(), getString(R.string.actionMarketPlace)).commit()
         );
 
         agronomyLinearLayout.setOnClickListener(v -> {
