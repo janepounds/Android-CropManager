@@ -121,7 +121,7 @@ public class WalletLoansListFragment extends Fragment {
         /*************RETROFIT IMPLEMENTATION********************/
 
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
-        String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, context);
+        String userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, context);
         APIRequests apiRequests = APIClient.getWalletInstance();
 
         Call<LoanListResponse> call = apiRequests.getUserLoans(userId);

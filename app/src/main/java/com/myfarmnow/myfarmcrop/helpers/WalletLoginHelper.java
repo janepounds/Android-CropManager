@@ -59,16 +59,11 @@ public class WalletLoginHelper extends AppCompatActivity {
             public void onResponse(@NotNull Call<WalletAuthentication> call, @NotNull Response<WalletAuthentication> response) {
                 if (response.code() == 200) {
                     try {
-                        Gson gson = new Gson();
-                        String user = gson.toJson(response.body().getData());
-                        JSONObject object = new JSONObject(user);
-
-                        Log.d("response", response.toString());
-                        WalletHomeActivity.saveUser(object, context);
-
-
+//                        Gson gson = new Gson();
+//                        String user = gson.toJson(response.body().getData());
+//                        JSONObject object = new JSONObject(user);
                         WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         Log.e("response", response.toString());
                         e.printStackTrace();
                     } finally {
@@ -113,8 +108,8 @@ public class WalletLoginHelper extends AppCompatActivity {
         String lastname = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, context);
         String addressStreet = DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID, context);
         String addressCityOrTown = DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID, context);
-        String phoneNumber = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, context);
-
+        String phoneNumber = "+"+DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, context);
+        dialog.show();
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<WalletUserRegistration> call = apiRequests.create(firstname, lastname, email, rawPassword, phoneNumber, addressStreet, addressCityOrTown);
         call.enqueue(new Callback<WalletUserRegistration>() {
@@ -128,23 +123,18 @@ public class WalletLoginHelper extends AppCompatActivity {
                         String user = gson.toJson(userdata);
                         JSONObject object = new JSONObject(user);
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
-                        Log.e("response", response.toString());
-                        WalletHomeActivity.saveUser(object, context);
+
+                         DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID,object.getString("id"),context);
                         WalletAuthActivity.getLoginToken(rawPassword, email, null, context);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.e("Error:", e.getMessage());
+                        Log.e("WalletREgResponseError:", e.getMessage());
                     } finally {
                         dialog.dismiss();
                     }
-                } else if (response.code() == 403) {
-                    Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                } else if (response.code() == 400) {
-                    Log.w("Account Exists", "Attempting  User Login");
-                    WalletLoginHelper.checkLogin(rawPassword, context, null, dialog);
-
                 } else {
+                    dialog.dismiss();
                     Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
                 }
 

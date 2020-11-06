@@ -1,9 +1,7 @@
 package com.myfarmnow.myfarmcrop.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,9 +20,6 @@ import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.models.device_model.AppSettingsDetails;
 import com.myfarmnow.myfarmcrop.network.StartAppRequests;
 import com.myfarmnow.myfarmcrop.utils.Utilities;
-import com.google.android.material.snackbar.Snackbar;
-
-import am.appwise.components.ni.NoInternetDialog;
 
 
 /**
@@ -186,12 +181,21 @@ public class SplashScreen extends AppCompatActivity {
             if (!prefsManager.isUserLoggedIn()) {
                 startActivity(new Intent(getBaseContext(), Login.class));
             } else {
+
+                SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+                String email=sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_EMAIL, "");
+                String phonenumber=sharedPreferences.getString(DashboardActivity.PREFERENCES_PHONE_NUMBER, "");
+
+                CropManagerApp.checkWalletAccount(email, phonenumber);
                 startActivity(new Intent(getBaseContext(), DashboardActivity.class));
             }
 
             finish();
         }
     }
+
+
+
 }
 
 

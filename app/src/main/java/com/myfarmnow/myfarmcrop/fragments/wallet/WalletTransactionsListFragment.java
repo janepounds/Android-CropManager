@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
@@ -121,7 +122,7 @@ public class WalletTransactionsListFragment extends Fragment {
                             } else if (record.getString("type").equals("Deposit")) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
                             } else if (record.getString("type").equals("Transfer")) {
-                                String userName = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context) + " " + WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context);
+                                String userName = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME, context) + " " + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, context);
 
                                 if (userName.equals(record.getString("sender"))) {
                                     data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));

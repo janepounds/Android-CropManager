@@ -113,7 +113,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     public void initiateApplication() {
         /*****************RETROFIT IMPLEMENTATION*******************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
-        String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, context);
+        String userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, context);
         float amount = loanApplication.getAmount();
         int duration = loanApplication.getDuration();
         String loanType = loanApplication.getLoanType();

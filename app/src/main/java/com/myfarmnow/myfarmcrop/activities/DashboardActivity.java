@@ -100,6 +100,7 @@ import static android.provider.SettingsSlicesContract.KEY_LOCATION;
 public class DashboardActivity extends AppCompatActivity {
     public static final String PREFERENCES_USER_PIN = "";
     public static final String PREFERENCES_PREPIN_ENCRYPTION = "12";
+    public static final String PREFERENCES_WALLET_USER_ID = null;
     private static final String TAG = "DashboardActivity";
 
     public static final String PREFERENCES_FILE_NAME = "UserInfo";

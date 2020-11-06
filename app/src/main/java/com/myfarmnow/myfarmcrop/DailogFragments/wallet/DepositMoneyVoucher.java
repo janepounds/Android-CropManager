@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.myfarmnow.myfarmcrop.R;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
@@ -105,8 +106,8 @@ public class DepositMoneyVoucher extends DialogFragment {
         dialog.show();
         /************RETROFIT IMPLEMENTATION*************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
-        String email = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity);
-        String phoneNumber =  WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_PHONE_NUMBER,this.activity);
+        String email = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,this.activity);
+        String phoneNumber =  DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,this.activity);
         String codeEntered = voucherTxt.getText().toString();
 
         APIRequests apiRequests = APIClient.getWalletInstance();

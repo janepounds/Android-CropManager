@@ -14,9 +14,9 @@
         android:layout_height="50dp"
         android:elevation="4dp"
         android:fontFamily="@font/josefin_sans"
-        android:theme="@style/MyToolbarWallet"
         app:layout_collapseMode="pin"
-        app:popupTheme="@style/MyToolbarPopUp">
+        android:theme="@style/MyToolbar"
+        app:popupTheme="@style/MyToolbar">
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -112,7 +112,7 @@
                         android:layout_weight="6"
                         android:fontFamily="@font/josefin_sans"
                         android:paddingLeft="20dp"
-                        android:text="Mutesasira Jovan"
+                        android:text="Mutesasira J.Jovan"
                         android:textColor="@color/white"
                         android:textSize="11sp" />
 

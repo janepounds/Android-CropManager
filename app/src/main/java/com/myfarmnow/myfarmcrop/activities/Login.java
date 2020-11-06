@@ -53,6 +53,8 @@ import java.util.concurrent.TimeUnit;
 
 import am.appwise.components.ni.NoInternetDialog;
 
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
@@ -345,8 +347,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         Log.d(TAG, "onResponse: addressCountry = " + userDetails.getAddressCountry());
 
                         TEMP_USER_TYPE = 0; // 0 for Simple Login.
-                        //showPhoneDialog();
-                        checkWalletAccount();
                         loginUser(userDetails);
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Get the Error Message from Response
@@ -371,52 +371,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
 
-    private void checkWalletAccount() {
-
-
-        sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-        String email = sharedPreferences.getString(DashboardActivity.PREFERENCES_USER_EMAIL, "");
-        String phonenumber = sharedPreferences.getString(DashboardActivity.PREFERENCES_PHONE_NUMBER, "");
-
-        Call<TokenResponse> call = APIClient.getWalletInstance()
-                .checkWalletAccount
-                        (
-                                email,
-                                phonenumber
-                        );
-
-        call.enqueue(new Callback<TokenResponse>() {
-            @Override
-            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-
-                dialogLoader.hideProgressDialog();
-
-                if (response.isSuccessful()) {
-
-                    if (response.body().getMessage().equalsIgnoreCase("Wallet Account found") ) {
-                        ConstantValues.CUSTOMER_HAS_WALLET=true;
-                    }
-                    else{
-                        // Get the Error Message from Response
-                        String message = response.body().getMessage();
-                        Snackbar.make(parentView, message, Snackbar.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    // Show the Error Message
-                    Toast.makeText(Login.this, response.message(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TokenResponse> call, Throwable t) {
-
-                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
-            }
-
-
-        });
-    }
 
     private void showPhoneDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
@@ -555,7 +509,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor.putString(DashboardActivity.PREFERENCES_USER_EMAIL, userDetails.getEmail());
         editor.putString(DashboardActivity.PREFERENCES_FIRST_NAME, userDetails.getFirstName());
         editor.putString(DashboardActivity.PREFERENCES_LAST_NAME, userDetails.getLastName());
-        editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, user_current_phone_number);
+        editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, userDetails.getPhone());
         editor.putString(DashboardActivity.USER_DEFAULT_ADDRESS_PREFERENCES_ID, userDetails.getDefaultAddressId());
 
         editor.putString("addressStreet", userDetails.getAddressStreet());
@@ -565,7 +519,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         editor.putBoolean("isLogged_in", true);
         editor.apply();
-
+        WalletAuthActivity.WALLET_ACCESS_TOKEN=null;
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
         myAppPrefsManager.logInUser();
@@ -573,12 +527,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         // Set isLogged_in of ConstantValues
         ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
         StartAppRequests.RegisterDeviceForFCM(Login.this);
+        CropManagerApp.checkWalletAccount(userDetails.getEmail(),userDetails.getPhone());
         // Navigate back to MainActivity
         Intent i = new Intent(Login.this, DashboardActivity.class);
         startActivity(i);
         finish();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
+
+
 
     private void loginGmailUser(UserDetails userDetails) {
         // Save User Data to Local Databases

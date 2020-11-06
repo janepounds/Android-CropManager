@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.myfarmnow.myfarmcrop.R;
 
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
@@ -103,9 +104,9 @@ public class WalletHomeFragment extends Fragment {
 
         updateBalance();
 
-        usernameWalletHome.setText(ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
+        usernameWalletHome.setText(ucf(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME, context)));
 
-        Log.d(TAG, "onCreateView: Name = " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, context)));
+        Log.d(TAG, "onCreateView: Name = " + ucf(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, context)) + " " + ucf(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME, context)));
 
         // return view;
         return view;
