@@ -39,13 +39,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="12"
-                android:background="@drawable/profile_background"
+                android:background="@drawable/ic_emaisha_card_bg"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="120dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/josefin_sans"
+                        android:gravity="end"
+                        android:text="eMaisha Card"
+                        android:layout_margin="10dp"
+                        android:paddingEnd="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
                     android:orientation="horizontal"
                     android:weightSum="12">
 
@@ -101,15 +121,41 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
-                    android:weightSum="12">
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/josefin_sans"
+                        android:paddingLeft="20dp"
+                        android:text="Card Holder"
+                        android:textColor="@color/hintColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="Expiry"
+                        android:textColor="@color/hintColor"
+                        android:textSize="16sp"
+                        android:layout_weight="0.5"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
                     <TextView
                         android:id="@+id/username_wallet_home"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dimen_20dp"
-                        android:layout_weight="6"
+                        android:layout_weight="5"
                         android:fontFamily="@font/josefin_sans"
                         android:paddingLeft="20dp"
                         android:text="Mutesasira J.Jovan"
@@ -120,7 +166,6 @@
                         android:id="@+id/expiry_date"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dimen_20dp"
-                        android:layout_marginLeft="@dimen/dimen_30dp"
                         android:fontFamily="@font/josefin_sans"
                         android:text="10/22"
                         android:textColor="@color/white"
@@ -307,7 +352,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="0.3"
                                 android:backgroundTint="@color/white"
-                                android:src="@drawable/wallet_transfer" />
+                                android:src="@drawable/wallet_transfer"
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -356,7 +402,8 @@
                                 android:layout_marginTop="5dp"
                                 android:backgroundTint="@color/white"
                                 android:gravity="center"
-                                android:src="@drawable/wallet_transactions" />
+                                android:src="@drawable/wallet_transactions"
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/crop_txt_buy_inputs"
@@ -394,7 +441,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="0.3"
                                 android:backgroundTint="@color/white"
-                                android:src="@drawable/wallet_loan" />
+                                android:src="@drawable/wallet_loan"
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -483,7 +531,8 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="0.3"
                                 android:backgroundTint="@color/white"
-                                android:src="@drawable/wallet_buy" />
+                                android:src="@drawable/wallet_buy"
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:layout_width="match_parent"
