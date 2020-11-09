@@ -9,10 +9,15 @@
 
     <path
         android:pathData="M6,0L466,0A6,6 0,0 1,472 6L472,262A6,6 0,0 1,466 268L6,268A6,6 0,0 1,0 262L0,6A6,6 0,0 1,6 0z"
-        android:fillColor="#36513d"/>
+        android:fillColor="#4A6D53"/>
+  <group>
+    <clip-path
+        android:pathData="M4,0L468,0A4,4 0,0 1,472 4L472,264A4,4 0,0 1,468 268L4,268A4,4 0,0 1,0 264L0,4A4,4 0,0 1,4 0z"/>
+
     <path
         android:pathData="M129.5,-250C284.416,-250 410,-131.355 410,15S284.416,280 129.5,280 -151,161.355 -151,15 -25.416,-250 129.5,-250Z"
         android:fillColor="#557f5f"/>
+  </group>
     <path
         android:pathData="M20,94l12,-9L32,103Z"
         android:fillColor="#fff"/>

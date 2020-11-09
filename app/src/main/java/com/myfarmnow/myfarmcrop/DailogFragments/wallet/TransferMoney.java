@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,11 +33,12 @@ import java.text.NumberFormat;
 public class TransferMoney extends DialogFragment {
     LinearLayout layoutAddMoney, layoutTransfer;
     Button addMoneyImg;
-    TextView mobile_numberTxt, addMoneyTxt, phoneNumberTxt, errorMsgTxt;
+    TextView mobile_numberTxt, addMoneyTxt,  errorMsgTxt;
     TextView balanceTextView, titleTextView;
     private double balance;
     Context activity;
     FragmentManager fm;
+    EditText phoneNumberTxt;
 
     public TransferMoney(Context context, double balance, FragmentManager supportFragmentManager) {
         this.activity = context;
