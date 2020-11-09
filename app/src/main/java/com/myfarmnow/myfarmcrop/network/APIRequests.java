@@ -191,7 +191,8 @@ public interface APIRequests {
     );
 
     //create user credit
-    @GET("wallet/flutter/payment/credituser")
+    @FormUrlEncoded
+    @POST("wallet/flutter/payment/credituser")
     Call<WalletTransaction> creditUser(@Header("Authorization") String token,
                                        @Field("email") String email,
                                        @Field("amount") Double amount,

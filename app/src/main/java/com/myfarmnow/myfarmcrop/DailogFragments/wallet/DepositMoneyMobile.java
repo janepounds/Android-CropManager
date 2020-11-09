@@ -115,7 +115,7 @@ public class DepositMoneyMobile extends DialogFragment {
 
 
     public void initiateDeposit() {
-
+      
         dialog = new ProgressDialog(this.activity);
         dialog.setIndeterminate(true);
         dialog.setMessage("Processing transaction..");
