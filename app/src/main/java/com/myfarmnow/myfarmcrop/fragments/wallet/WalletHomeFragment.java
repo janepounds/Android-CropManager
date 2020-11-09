@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +61,7 @@ public class WalletHomeFragment extends Fragment {
     Toolbar toolbar;
     TextView walletBalance, usernameWalletHome;
     LinearLayout layoutWalletTransfer, layoutWalletTransactions, layoutWalletLoans, layoutWalletCoupons, layoutWalletBuy;
-    ImageButton btnWalletDeposit, btnWalletTransfer, btnWalletTransactions, btnWalletLoans, btnWalletCoupons, btnWalletBuy;
+    ImageView btnWalletDeposit, btnWalletTransfer, btnWalletTransactions, btnWalletLoans, btnWalletCoupons, btnWalletBuy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
