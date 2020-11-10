@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 app:spb_animateToCurrentProgressState="true"
                 app:spb_checkStateCompleted="true"
+                app:spb_animationDuration="500"
                 app:spb_currentStateDescriptionColor="@color/colorPrimary"
                 app:spb_currentStateNumber="three"
                 app:spb_maxStateNumber="three"
@@ -62,7 +63,8 @@
                 app:spb_stateDescriptionColor="#808080"
                 app:spb_stateForegroundColor="@color/colorPrimary"
                 app:spb_stateNumberBackgroundColor="#808080"
-                app:spb_stateNumberForegroundColor="#eeeeee" />
+                app:spb_stateNumberForegroundColor="#eeeeee"
+                app:spb_stateLineThickness="4dp" />
 
             <ScrollView
                 android:layout_width="match_parent"

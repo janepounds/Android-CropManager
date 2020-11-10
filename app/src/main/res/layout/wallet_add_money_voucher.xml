@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,14 +13,24 @@
         android:id="@+id/layout_add_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_weight=".1"
             android:gravity="center"
             android:text="@string/addmoney"
             android:theme="@style/HeaderTheme"/>
+        <ImageView
+            android:id="@+id/wallet_deposit_close"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight=".9"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:src="@drawable/close" />
 
     </LinearLayout>
 
@@ -51,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
-                    android:src="@drawable/wallet_deposit" />
+                    app:srcCompat="@drawable/wallet_deposit" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -75,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
-                    android:src="@drawable/transfer_money" />
+                    app:srcCompat="@drawable/transfer_money" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -123,20 +134,43 @@
                     android:paddingLeft="2dp"
                     android:textSize="12sp" />
             </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rounded_corners_button"
+                android:gravity="right">
 
-            <Button
-                android:id="@+id/button_add_money"
-                style="@style/Button_DW"
-                android:layout_marginTop="@dimen/dimen_20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="right"
-                android:background="@drawable/solidbtn_shape"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="Submit"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
+                <Button
+                    android:id="@+id/button_add_money"
+                    style="@style/Button_DW"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:backgroundTint="@color/textColor"
+                    android:text="@string/submit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/ic_right_arrow">
+
+                </ImageView>
+
+            </FrameLayout>
+
 
 
         </LinearLayout>

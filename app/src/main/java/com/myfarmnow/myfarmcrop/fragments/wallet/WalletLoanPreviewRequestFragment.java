@@ -60,6 +60,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wallet_loan_preview_request, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_preview_request);
+        toolbar.setVisibility(View.GONE);
         loanProgressBarId = view.findViewById(R.id.loan_preview_request_progress_bar_id);
         textViewLoanPreviewAmount = view.findViewById(R.id.text_view_loan_preview_amount);
         textViewLoanPreviewInterestRate = view.findViewById(R.id.text_view_loan_preview_interest_rate);
@@ -70,7 +71,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
 
         loanProgressBarId.setStateDescriptionData(descriptionData);
-
+        loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
         assert getArguments() != null;
         loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
 

@@ -7,6 +7,9 @@
     android:background="@color/colorAccentLight"
     tools:context=".activities.wallet.WalletPurchaseCardPreviewActivity" >
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +47,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Status "
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
                         android:id="@+id/text_view_purchase_status"
@@ -53,9 +57,10 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
-                        android:text="successful"
+                        android:text="Successful"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -71,7 +76,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Reference ID "
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
                         android:id="@+id/text_view_purchase_reference_number"
@@ -82,7 +88,8 @@
                         android:layout_weight="1"
                         android:text="123456789025"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -98,7 +105,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Receipt ID "
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
                         android:id="@+id/text_view_purchase_receipt_number"
@@ -109,7 +117,8 @@
                         android:layout_weight="1"
                         android:text="001230"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -125,7 +134,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Service"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
                         android:id="@+id/text_view_purchase_service"
@@ -136,7 +146,8 @@
                         android:layout_weight="1"
                         android:text="Food Purchase"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -152,6 +163,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Paid To "
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:textAppearance="@style/textAppearance_general"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
@@ -163,7 +176,8 @@
                         android:layout_weight="1"
                         android:text="Kalin Farms"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -179,6 +193,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Transaction Amount"
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:textAppearance="@style/textAppearance_general"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
@@ -190,7 +206,8 @@
                         android:layout_weight="1"
                         android:text="UGX 0"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -206,7 +223,8 @@
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Purchase Date"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textColor="#707070"
+                        android:textSize="14sp"
                         android:background="@drawable/rectangular_green_frame"/>
                     <TextView
                         android:id="@+id/text_view_purchase_date_time"
@@ -217,7 +235,8 @@
                         android:layout_weight="1"
                         android:text="2019/01/01  23:00pm"
                         android:alpha="1.0"
-                        android:textAppearance="@style/textAppearance_general"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:background="@drawable/rectangular_green_frame"
                         />
                 </LinearLayout>
@@ -226,29 +245,43 @@
 
 
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/dimen_20dp"
-                android:orientation="horizontal">
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rounded_corners_button"
+                android:gravity="right">
 
-                    <Button
-                        android:layout_width="200dp"
-                        android:layout_height="60dp"
-                        android:background="@drawable/rectangular_green_border"
-                        android:textAllCaps="true"
-                        android:theme="@style/textAppearance_general"
-                        android:textSize="@dimen/dimen_16sp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:textColor="@color/white"
-                        android:text="Print Receipt"></Button>
+                <Button
+                    android:id="@+id/button_add_money"
+                    style="@style/Button_DW"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:backgroundTint="@color/textColor"
+                    android:text="Print Receipt"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
 
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/ic_right_arrow">
 
-            </LinearLayout>
+                </ImageView>
 
+            </FrameLayout>
 
         </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

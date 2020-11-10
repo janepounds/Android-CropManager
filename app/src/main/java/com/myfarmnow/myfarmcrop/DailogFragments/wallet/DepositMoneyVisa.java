@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +96,9 @@ public class DepositMoneyVisa extends DialogFragment implements
         View view =inflater.inflate(R.layout.wallet_add_money_visa, null);
         builder.setView(view);
         initializeForm( view);
+        ImageView close = view.findViewById(R.id.wallet_deposit_close);
+        close.setOnClickListener(v -> dismiss());
+
         return builder.create();
 
     }

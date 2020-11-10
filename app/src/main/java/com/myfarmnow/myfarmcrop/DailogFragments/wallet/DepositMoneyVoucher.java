@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,10 +77,13 @@ public class DepositMoneyVoucher extends DialogFragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         View view =inflater.inflate(R.layout.wallet_add_money_voucher, null);
+        ImageView close = view.findViewById(R.id.wallet_deposit_close);
+        close.setOnClickListener(v -> dismiss());
 
         builder.setView(view);
 
         initializeForm( view);
+
         return builder.create();
 
     }

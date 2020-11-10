@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="#f0f1ed"
-    android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context=".activities.wallet.WalletHomeActivity">
 
@@ -24,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".1"
             android:gravity="center"
-            android:text="Deposit Money"
+            android:text="Add Money"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -206,7 +205,7 @@
                     android:layout_weight="1"
                     android:background="@color/transparent"
                     android:backgroundTint="@color/textColor"
-                    android:text="@string/add_money"
+                    android:text="@string/deposit"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/button_text_size" />

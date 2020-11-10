@@ -99,6 +99,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet_loan_app_photos, container, false);
 
+
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_photos);
         loanProgressBarId = view.findViewById(R.id.loan_app_photos_progress_bar_id);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_app_photos_next_step);
@@ -107,7 +108,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
         imageViewLoanPhotosSelfie = view.findViewById(R.id.image_view_loan_photos_selfie);
         textViewLoanPhotosTitle = view.findViewById(R.id.text_view_loan_photos_title);
         textViewErrorMessage = view.findViewById(R.id.text_view_error_message);
-
+        loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
         assert getArguments() != null;
         if (getArguments().getString("loanApplicationId") != null) {
             loanApplicationId = getArguments().getString("loanApplicationId");
