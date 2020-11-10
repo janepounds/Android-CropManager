@@ -42,8 +42,8 @@ public class WalletLoanAppInitiateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet_loan_app_initiate, container, false);
-
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_initiate);
+        toolbar.setVisibility(View.GONE);
         loanProgressBarId = view.findViewById(R.id.loan_progress_bar_id);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
         txtLoanApplicationAmount = view.findViewById(R.id.txt_loan_application_amount);
@@ -51,6 +51,7 @@ public class WalletLoanAppInitiateFragment extends Fragment {
         spLoanApplicationType = view.findViewById(R.id.sp_loan_application_type);
 
         loanProgressBarId.setStateDescriptionData(descriptionData);
+        loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
 
         return view;
     }

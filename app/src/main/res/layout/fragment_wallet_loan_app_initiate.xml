@@ -33,12 +33,12 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="15dp"
-                android:src="@drawable/back_black_24dp" />
+                app:srcCompat="@drawable/back_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Loans"
                 android:textColor="@color/white"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -77,14 +77,16 @@
             android:layout_marginTop="@dimen/dimen_20dp"
             app:spb_animateToCurrentProgressState="true"
             app:spb_checkStateCompleted="true"
+            app:spb_animationDuration="500"
             app:spb_currentStateDescriptionColor="@color/colorPrimary"
-            app:spb_currentStateNumber="two"
+            app:spb_currentStateNumber="one"
             app:spb_maxStateNumber="three"
             app:spb_stateBackgroundColor="#BDBDBD"
             app:spb_stateDescriptionColor="#808080"
             app:spb_stateForegroundColor="@color/colorPrimary"
             app:spb_stateNumberBackgroundColor="#808080"
-            app:spb_stateNumberForegroundColor="#eeeeee" />
+            app:spb_stateNumberForegroundColor="#eeeeee"
+            app:spb_stateLineThickness="4dp"/>
 
         <TextView
             android:id="@+id/text_view_error_message"

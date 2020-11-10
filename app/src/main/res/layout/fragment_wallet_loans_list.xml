@@ -8,13 +8,13 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/colorPrimary">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_wallet_loans_list"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:theme="@style/HeaderThemeWhite"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
