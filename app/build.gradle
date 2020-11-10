@@ -123,8 +123,8 @@ dependencies {
     //implementation 'io.intercom.android:intercom-sdk-fcm:5.1.0'
 
     implementation 'com.appyvet:materialrangebar:1.4.4'
-    implementation 'com.github.Flutterwave.rave-android:rave_presentation:2.1.8'
-    implementation 'com.github.Flutterwave.rave-android:rave_utils:2.1.8'
+    implementation 'com.github.Flutterwave.rave-android:rave_presentation:2.1.10'
+    implementation 'com.github.Flutterwave.rave-android:rave_utils:2.1.10'
 
     //Remove
     implementation 'com.venmo.android.pin:library:0.2@aar'

@@ -398,7 +398,8 @@ public class DepositMoneyVisa extends DialogFragment implements
 
     @Override
     public void onError(String errorMessage, @Nullable String flwRef) {
-        Log.e("MobileMoneypaymentError",errorMessage);
+        Log.e("VisapaymentError",errorMessage);
+        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -416,8 +417,8 @@ public class DepositMoneyVisa extends DialogFragment implements
 
     @Override
     public void showAuthenticationWebPage(String authenticationUrl) {
-        Log.e("Loading auth web page: ",authenticationUrl);
-        verificationUtils.showOtpScreen(authenticationUrl);
+        Log.w("Loading auth web page: ",authenticationUrl);
+        verificationUtils.showWebpageVerificationScreen(authenticationUrl);
     }
 
 }
