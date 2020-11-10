@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
+import com.myfarmnow.myfarmcrop.models.coupons_model.CouponsData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
 import com.loopj.android.http.AsyncHttpClient;
@@ -111,10 +113,10 @@ public class DepositMoneyVoucher extends DialogFragment {
         String codeEntered = voucherTxt.getText().toString();
 
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<UserData> call = apiRequests.voucherDeposit(access_token,email,phoneNumber,codeEntered);
-        call.enqueue(new Callback<UserData>() {
+        Call<CouponsData> call = apiRequests.voucherDeposit(access_token,email,phoneNumber,codeEntered);
+        call.enqueue(new Callback<CouponsData>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
+            public void onResponse(Call<CouponsData> call, Response<CouponsData> response) {
                 if(response.code()== 200){
                     refreshActivity();
                 }else if(response.code()==401){
@@ -130,13 +132,13 @@ public class DepositMoneyVoucher extends DialogFragment {
 
                 }else if(response.code() ==400){
                     if (response.errorBody() != null) {
-                        errorMsgTxt.setText(response.body().getMessage());
+                        Toast.makeText(getContext(), "Wrong Voucher code!", Toast.LENGTH_LONG).show();
                     } else {
 
                         Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
                     Log.e("info 500", new String(String.valueOf(response.errorBody()))+", code: "+response.code());
-
+                    dialog.dismiss();
                 }else if(response.code() ==406){
                     if (response.errorBody() != null) {
 
@@ -148,6 +150,7 @@ public class DepositMoneyVoucher extends DialogFragment {
                         Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
                     Log.e("info 406", new String(String.valueOf(response.errorBody()))+", code: "+response.code());
+                    dialog.dismiss();
                 }
                 else{
                     errorMsgTxt.setText("Error Occurred Try again later");
@@ -159,14 +162,14 @@ public class DepositMoneyVoucher extends DialogFragment {
                         Log.e("info", "Something got very very wrong, code: "+response.code());
                     }
                 }
-
+                dialog.dismiss();
                 }
 
 
 
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
+            public void onFailure(Call<CouponsData> call, Throwable t) {
 
                     errorMsgTxt.setText(t.getMessage());
 
