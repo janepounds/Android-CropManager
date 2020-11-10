@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.network;
 
 
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.models.coupons_model.CouponsData;
 import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantData;
 import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsData;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
@@ -203,12 +204,10 @@ public interface APIRequests {
     //voucher deposit
     @FormUrlEncoded
     @POST("wallet/payment/voucherdeposit")
-    Call<UserData> voucherDeposit(@Header("Authorization") String token,
-                                  @Field("email") String email,
-                                  @Field("phoneNumber") String phoneNumber,
-                                  @Field("codeEntered") String codeEntered
-
-
+    Call<CouponsData> voucherDeposit(@Header("Authorization") String token,
+                                     @Field("email") String email,
+                                     @Field("phoneNumber") String phoneNumber,
+                                     @Field("codeEntered") String codeEntered
     );
 
     //loan pay
