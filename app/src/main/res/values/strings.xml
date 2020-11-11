@@ -1633,10 +1633,10 @@
         <item>Weeks</item>
     </string-array>
 
-    <string name="my_wallet" translatable="false">eMaisha Wallet</string>
+    <string name="my_wallet" translatable="false">eMaisha Pay</string>
     <string name="deposit" translatable="false">Deposit</string>
     <string name="addmoney" translatable="false">ADD MONEY</string>
-    <string name="current_balance_label" translatable="false">Current Balance</string>
+    <string name="current_balance_label" translatable="false">Wallet Balance</string>
     <string name="comfirm_purchase" translatable="false">Confirm Payment</string>
     <string name="pin" translatable="false">PIN</string>
 
@@ -2339,4 +2339,5 @@
     <string name="promo_code">Promo Code</string>
     <string name="default_old_price"><strike>UGX 45.00</strike></string>
     <string name="review_list">Review List</string>
+    <string name="payMerchant">Pay Merchant</string>
 </resources>

@@ -158,7 +158,7 @@ public interface APIRequests {
     );
 
     //get merchant receipt
-    @GET("/wallet/payments/receipt/{referenceNumber}")
+    @GET("wallet/payments/receipt/{referenceNumber}")
     Call<WalletTransactionReceiptResponse> getReceipt(@Header("Authorization") String token,
                                                       @Path("referenceNumber") String referenceNumber
     );

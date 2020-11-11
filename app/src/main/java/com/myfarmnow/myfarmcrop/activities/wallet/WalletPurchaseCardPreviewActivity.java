@@ -76,9 +76,10 @@ public class WalletPurchaseCardPreviewActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.show();
         /******************RETROFIT IMPLEMENTATION************************/
-        String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<WalletTransactionReceiptResponse> call = apiRequests.getReceipt(WalletAuthActivity.WALLET_ACCESS_TOKEN,getIntent().getStringExtra("referenceNumber"));
+        Call<WalletTransactionReceiptResponse> call = apiRequests.
+                getReceipt(WalletAuthActivity.WALLET_ACCESS_TOKEN,getIntent().getStringExtra("referenceNumber"));
+
         call.enqueue(new Callback<WalletTransactionReceiptResponse>() {
             @Override
             public void onResponse(Call<WalletTransactionReceiptResponse> call, Response<WalletTransactionReceiptResponse> response) {

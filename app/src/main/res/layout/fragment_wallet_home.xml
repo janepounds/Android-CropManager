@@ -565,7 +565,7 @@
                         android:maxLines="2"
                         android:paddingBottom="5dp"
                         android:layout_marginTop="-5dp"
-                        android:text="Buy"
+                        android:text="@string/payMerchant"
                         android:textAllCaps="true"
                         android:textSize="14sp"
                         android:textColor="#000"
