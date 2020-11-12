@@ -36,7 +36,6 @@ import com.myfarmnow.myfarmcrop.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 
-
 public class AddMatingFragment extends DialogFragment {
     private Context context;
     private Mating mating;

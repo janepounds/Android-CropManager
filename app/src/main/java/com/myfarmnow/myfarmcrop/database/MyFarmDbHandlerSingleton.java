@@ -34,6 +34,9 @@ import com.myfarmnow.myfarmcrop.models.livestock_models.BreedingStock;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Litter;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Mating;
 import com.myfarmnow.myfarmcrop.models.livestock_models.Medication;
+import com.myfarmnow.myfarmcrop.models.livestock_models.backup.BreedingStocks;
+import com.myfarmnow.myfarmcrop.models.livestock_models.backup.Litters;
+import com.myfarmnow.myfarmcrop.models.livestock_models.backup.Matings;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPrice;
 import com.myfarmnow.myfarmcrop.models.marketplace.MarketPriceSubItem;
 import com.myfarmnow.myfarmcrop.models.marketplace.MyProduce;
@@ -4597,7 +4600,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         return marketPriceArrayList;
     }
 
-
     public ArrayList<MarketPriceSubItem> filterMarketPriceSubItem(String crop) {
         openDB();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -4676,7 +4678,6 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         contentValues.put(LIVESTOCK_RECORDS_ANIMAL_TYPE, breedingStock.getAnimalType());
         database.insert(LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME, null, contentValues);
         closeDB();
-
     }
 
     public void updateBreedingStock(BreedingStock breedingStock) {
@@ -4908,6 +4909,123 @@ public class MyFarmDbHandlerSingleton extends SQLiteOpenHelper {
         closeDB();
         return array_list;
 
+    }
+
+    public ArrayList<Mating> BackupMatings() {
+
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + LIVESTOCK_RECORDS_MATING_TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<Mating> matingArrayList = new ArrayList<>();
+
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Mating mating = new Mating();
+
+                    mating.setUserId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_USER_ID)));
+                    mating.setMatingDate(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_DATE)));
+                    mating.setMaleName(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_MALE_NAME)));
+                    mating.setFemaleName(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_FEMALE_NAME)));
+                    mating.setMethod(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_METHOD)));
+                    mating.setGestationPeriod(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_GESTATION_PERIOD))));
+                    mating.setDeliveryAlertDaysBefore(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_DELIVERY_ALERT_DAYS_BEFORE))));
+                    mating.setGlobalId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_GLOBAL_ID)));
+                    mating.setNotes(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_NOTES)));
+                    mating.setSyncStatus(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_MATING_SYNC_STATUS)));
+                    matingArrayList.add(mating);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        cursor.close();
+        closeDB();
+
+        return matingArrayList;
+    }
+
+    public ArrayList<BreedingStocks> BackupBreedingStock() {
+
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + LIVESTOCK_RECORDS_BREEDING_STOCK_TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<BreedingStocks> breedingStocksArrayList = new ArrayList<>();
+
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    BreedingStocks breedingStocks = new BreedingStocks();
+
+                    breedingStocks.setUserId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_USER_ID)));
+                    breedingStocks.setName(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_NAME)));
+                    breedingStocks.setEarTag(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_EAR_TAG)));
+                    breedingStocks.setColor(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_COLOR)));
+                    breedingStocks.setSex(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SEX)));
+                    breedingStocks.setBreed(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_BREED)));
+                    breedingStocks.setDateOfBirth(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_DATE_OF_BIRTH)));
+                    breedingStocks.setSource(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_SOURCE)));
+                    breedingStocks.setWeight(Float.parseFloat(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_WEIGHT))));
+                    breedingStocks.setFather(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_FATHER)));
+                    breedingStocks.setMotherDam(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_MOTHER_DAM)));
+                    breedingStocks.setPhoto(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_BREEDING_STOCK_PHOTO)));
+
+                    breedingStocksArrayList.add(breedingStocks);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        cursor.close();
+        closeDB();
+
+        return breedingStocksArrayList;
+    }
+
+    public ArrayList<Litters> BackupLitters() {
+
+        openDB();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + LIVESTOCK_RECORDS_LITTERS_TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<Litters> littersArrayList = new ArrayList<>();
+
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Litters litters = new Litters();
+
+                    litters.setUserId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_USER_ID)));
+                    litters.setDateOfBirth(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_DATE_OF_BIRTH)));
+                    litters.setLitterSize(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_LITTER_SIZE))));
+                    litters.setBreedingId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_BREEDING_ID)));
+                    litters.setBornAlive(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_BORN_ALIVE))));
+                    litters.setBornDead(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_BORN_DEAD))));
+                    litters.setNoOfMale(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_MALE))));
+                    litters.setNoOfFemale(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_NO_OF_FEMALE))));
+                    litters.setWeaning(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING))));
+                    litters.setMotherDam(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_MOTHER_DAM)));
+                    litters.setFatherSire(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_FATHER_SIRE)));
+                    litters.setSireId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_SIRE_ID)));
+                    litters.setDamId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_DAM_ID)));
+                    litters.setWeaningAlert(Integer.parseInt(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_WEANING_ALERT))));
+                    litters.setGlobalId(cursor.getString(cursor.getColumnIndex(LIVESTOCK_RECORDS_LITTERS_GLOBAL_ID)));
+
+                    littersArrayList.add(litters);
+
+                } while (cursor.moveToNext());
+            }
+        }
+
+        cursor.close();
+        closeDB();
+
+        return littersArrayList;
     }
 
     /************LITTERS OPERATIONS*************************/

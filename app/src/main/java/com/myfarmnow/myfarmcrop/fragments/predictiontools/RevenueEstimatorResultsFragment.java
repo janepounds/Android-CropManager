@@ -58,7 +58,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
 public class RevenueEstimatorResultsFragment extends Fragment {
     private Context context;
     private NavController navController;
@@ -184,12 +183,11 @@ public class RevenueEstimatorResultsFragment extends Fragment {
         plotOptions.getPie().setAllowPointSelect(true);
 
         plotOptions.getPie().setCursor("pointer");
-        plotOptions.getPie().setDataLabels(new HIDataLabels());
-        plotOptions.getPie().getDataLabels().setEnabled(true);
-        plotOptions.getPie().getDataLabels().setFormat("<b>{point.name}</b>:<br /> <center>{point.percentage:.1f}</center> %");
-        ;
-        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
-        plotOptions.getPie().getDataLabels().getStyle().setColor("black");
+//        plotOptions.getPie().setDataLabels(new HIDataLabels());
+//        plotOptions.getPie().getDataLabels().setEnabled(true);
+//        plotOptions.getPie().getDataLabels().setFormat("<b>{point.name}</b>:<br /> <center>{point.percentage:.1f}</center> %");
+//        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
+//        plotOptions.getPie().getDataLabels().getStyle().setColor("black");
         options.setPlotOptions(plotOptions);
 
         HICredits credits = new HICredits();
