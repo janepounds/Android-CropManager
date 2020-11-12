@@ -61,8 +61,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WalletLoanAppPhotosFragment extends Fragment {
-    private static final String TAG = "WalletLoanAppPhotosFragment";
+public class WalletLoanKycDetailsFragment extends Fragment {
+    private static final String TAG = "WalletLoanKycDetailsFragment";
     private Context context;
 
     NavController navController;
@@ -80,7 +80,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
     private static final int REQUESTED_NID_FRONT = 9;
 
     ProgressDialog dialog;
-    String[] descriptionData = {"Amount", "Confirm", "Photo", "Referees"};
+    String[] descriptionData = {"Loan\nDetails", "Farming\nDetails", "Preview", "KYC\nDetails"};
 
     Boolean isNidFrontAdded = false, isNidbackAdded = false, isSelfieAdded = false;
     String loanApplicationId;
@@ -97,7 +97,7 @@ public class WalletLoanAppPhotosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_wallet_loan_app_photos, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet_loan_kyc_details, container, false);
 
 
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_photos);

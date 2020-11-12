@@ -42,7 +42,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
 
     private Context context;
 
-    String[] descriptionData = {"Amount", "Confirm", "Photo", "Referees"};
+    String[] descriptionData = {"Loan\nDetails", "Farming\nDetails", "Preview", "KYC\nDetails"};
     LoanApplication loanApplication;
     ProgressDialog dialog;
     private NavController navController;
@@ -51,7 +51,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     private StateProgressBar loanProgressBarId;
     private TextView textViewLoanPreviewAmount, textViewLoanPreviewInterestRate, textViewLoanPreviewDuration, textViewLoanPreviewDueDate,
             textViewLoanPreviewDueAmount, textViewErrorMessage;
-    private Button btnLoanNextStep;
+    private Button btnLoanNextStep, btnPrevious;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +69,8 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         textViewLoanPreviewDueAmount = view.findViewById(R.id.text_view_loan_preview_due_amount);
         textViewErrorMessage = view.findViewById(R.id.text_view_error_message);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
+        btnPrevious = view.findViewById(R.id.previous_btn);
+        btnPrevious.setOnClickListener(view1 -> navController.popBackStack());
 
         loanProgressBarId.setStateDescriptionData(descriptionData);
         loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
