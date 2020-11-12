@@ -113,7 +113,7 @@ public class PayLoan extends DialogFragment {
             float amount = Float.parseFloat(totalAmountTxt.getText().toString());
 
             String access_token =WalletAuthActivity.WALLET_ACCESS_TOKEN;
-            String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, activity);
+            String userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, activity);
             
 
             /*********RETROFIT IMPLEMENTATION*************/

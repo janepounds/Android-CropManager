@@ -719,7 +719,7 @@ public class SignUp extends AppCompatActivity {
 
         RequestBody fName = RequestBody.create(MediaType.parse("text/plain"), firstName.getText().toString().trim());
         RequestBody lName = RequestBody.create(MediaType.parse("text/plain"), lastName.getText().toString().trim());
-        RequestBody customersTelephone = RequestBody.create(MediaType.parse("text/plain"),  getResources().getString(R.string.ugandan_code)+phoneNumber.getText().toString().trim());
+        RequestBody customersTelephone = RequestBody.create(MediaType.parse("text/plain"),  "0"+phoneNumber.getText().toString().trim());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user_email.getText().toString().trim());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword.getText().toString().trim());
         RequestBody countryCode = RequestBody.create(MediaType.parse("text/plain"), getResources().getString(R.string.ugandan_code));

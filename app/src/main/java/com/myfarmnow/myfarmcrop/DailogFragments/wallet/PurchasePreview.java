@@ -128,7 +128,6 @@ public class PurchasePreview extends DialogFragment {
         //confirmBtn.setVisibility(View.GONE);
 
         getMechantName();
-        comfirmPayment();
     }
 
     public void getMechantName(){
@@ -257,57 +256,6 @@ public class PurchasePreview extends DialogFragment {
 
             }
 
-        });
-
-
-    }
-    public void comfirmPayment(){
-        ProgressDialog dialog;
-        dialog = new ProgressDialog(activity);
-        dialog.setIndeterminate(true);
-        dialog.setMessage("Please Wait..");
-        dialog.setCancelable(false);
-        dialog.show();
-        int merchantId =Integer.parseInt(WalletPurchase.getInstance().getMechantId());
-        double amount = WalletPurchase.getInstance().getAmount();
-        String coupon  = WalletPurchase.getInstance().getCoupon();
-
-        /*********RETROFIT IMPLEMENTATION**************/
-        APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<WalletPurchaseConfirmResponse> call = apiRequests.confirmPayment(merchantId,amount,coupon);
-        call.enqueue(new Callback<WalletPurchaseConfirmResponse>() {
-            @Override
-            public void onResponse(Call<WalletPurchaseConfirmResponse> call, Response<WalletPurchaseConfirmResponse> response) {
-                if(response.code() == 200){
-                    dialog.dismiss();
-                    discount_layout.setVisibility(View.VISIBLE);
-                    discountTextView.setVisibility(View.VISIBLE);
-
-                    discountTextView.setText("UGX "+response.body().getData().getCharge());
-                }else {
-                    errorTextView.setText(response.errorBody().toString());
-                    error_message_layout.setVisibility(View.VISIBLE);
-                    errorTextView.setVisibility(View.VISIBLE);
-                    if(response.errorBody() != null){
-                        Log.e("BACKUP RESPONSE 1A"+response.code(),response.errorBody().toString());
-                    }
-
-                    dialog.dismiss();
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<WalletPurchaseConfirmResponse> call, Throwable t) {
-
-                    Log.e("info 1A: ", t.getMessage());
-                    Log.e("info 1A: ", "Something got very very wrong");
-                errorTextView.setText("Error occured! Try again later");
-                error_message_layout.setVisibility(View.VISIBLE);
-                errorTextView.setVisibility(View.VISIBLE);
-                dialog.dismiss();
-            }
         });
 
 

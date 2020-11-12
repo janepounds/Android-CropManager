@@ -7,15 +7,34 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:paddingBottom="@dimen/dimen_20dp">
+    <LinearLayout
+        android:id="@+id/layout_add_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
 
-    <ImageView
-        android:id="@+id/wallet_buy_close"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:src="@drawable/close" />
+        <TextView
+            android:id="@+id/digital_wallet_title_label"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:gravity="center"
+            android:text="Make Purchase"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
+        <ImageView
+            android:id="@+id/wallet_buy_close"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight=".9"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:src="@drawable/close" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,14 +53,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background_home"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:text="Make Purchase"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -227,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginRight="@dimen/margin_10"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/rounded_corners_button"
                     android:gravity="right"
                     android:paddingRight="@dimen/dimen_10dp">
@@ -242,7 +253,7 @@
                         android:background="@color/transparent"
                         android:backgroundTint="@color/textColor"
                         android:text="Buy"
-                        android:textAllCaps="false"
+                        android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/button_text_size" />
 

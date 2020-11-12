@@ -42,7 +42,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
 
     private Context context;
 
-    String[] descriptionData = {"Amount", "Confirm", "Photo", "Referees"};
+    String[] descriptionData = {"Loan\nDetails", "Farming\nDetails", "Preview", "KYC\nDetails"};
     LoanApplication loanApplication;
     ProgressDialog dialog;
     private NavController navController;
@@ -51,7 +51,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     private StateProgressBar loanProgressBarId;
     private TextView textViewLoanPreviewAmount, textViewLoanPreviewInterestRate, textViewLoanPreviewDuration, textViewLoanPreviewDueDate,
             textViewLoanPreviewDueAmount, textViewErrorMessage;
-    private Button btnLoanNextStep;
+    private Button btnLoanNextStep, btnPrevious;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +60,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wallet_loan_preview_request, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_preview_request);
+        toolbar.setVisibility(View.GONE);
         loanProgressBarId = view.findViewById(R.id.loan_preview_request_progress_bar_id);
         textViewLoanPreviewAmount = view.findViewById(R.id.text_view_loan_preview_amount);
         textViewLoanPreviewInterestRate = view.findViewById(R.id.text_view_loan_preview_interest_rate);
@@ -68,9 +69,11 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         textViewLoanPreviewDueAmount = view.findViewById(R.id.text_view_loan_preview_due_amount);
         textViewErrorMessage = view.findViewById(R.id.text_view_error_message);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
+        btnPrevious = view.findViewById(R.id.previous_btn);
+        btnPrevious.setOnClickListener(view1 -> navController.popBackStack());
 
         loanProgressBarId.setStateDescriptionData(descriptionData);
-
+        loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
         assert getArguments() != null;
         loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
 
@@ -113,7 +116,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     public void initiateApplication() {
         /*****************RETROFIT IMPLEMENTATION*******************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
-        String userId = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, context);
+        String userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, context);
         float amount = loanApplication.getAmount();
         int duration = loanApplication.getDuration();
         String loanType = loanApplication.getLoanType();

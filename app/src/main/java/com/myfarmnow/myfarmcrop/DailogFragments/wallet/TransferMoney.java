@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,11 +33,12 @@ import java.text.NumberFormat;
 public class TransferMoney extends DialogFragment {
     LinearLayout layoutAddMoney, layoutTransfer;
     Button addMoneyImg;
-    TextView mobile_numberTxt, addMoneyTxt, phoneNumberTxt, errorMsgTxt;
+    TextView mobile_numberTxt, addMoneyTxt,  errorMsgTxt;
     TextView balanceTextView, titleTextView;
     private double balance;
     Context activity;
     FragmentManager fm;
+    EditText phoneNumberTxt;
 
     public TransferMoney(Context context, double balance, FragmentManager supportFragmentManager) {
         this.activity = context;
@@ -88,8 +90,7 @@ public class TransferMoney extends DialogFragment {
 
         addMoneyImg.setOnClickListener(v -> {
 
-            String countryCode = "+256";
-            String phoneNumber = countryCode + phoneNumberTxt.getText().toString();
+            String phoneNumber = "0"+phoneNumberTxt.getText().toString();
             String amountEntered = addMoneyTxt.getText().toString();
             float amount = Float.parseFloat(amountEntered);
             float charges = (float) 100; //Transfer Charges

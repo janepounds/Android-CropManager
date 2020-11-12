@@ -40,21 +40,21 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="15dp"
-                    android:src="@drawable/back_black_24dp" />
+                    app:srcCompat="@drawable/back_black_24dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="60dp"
-                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
                     android:text="Confirm Details"
                     android:textColor="@color/white"
-                    android:textSize="25dp" />
+                    android:textSize="20dp" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -84,14 +84,16 @@
                 android:layout_marginTop="@dimen/dimen_20dp"
                 app:spb_animateToCurrentProgressState="true"
                 app:spb_checkStateCompleted="true"
+                app:spb_animationDuration="500"
                 app:spb_currentStateDescriptionColor="@color/colorPrimary"
-                app:spb_currentStateNumber="two"
-                app:spb_maxStateNumber="three"
+                app:spb_currentStateNumber="three"
+                app:spb_maxStateNumber="four"
                 app:spb_stateBackgroundColor="#BDBDBD"
                 app:spb_stateDescriptionColor="#808080"
                 app:spb_stateForegroundColor="@color/colorPrimary"
                 app:spb_stateNumberBackgroundColor="#808080"
-                app:spb_stateNumberForegroundColor="#eeeeee" />
+                app:spb_stateNumberForegroundColor="#eeeeee"
+                app:spb_stateLineThickness="4dp" />
 
             <TextView
                 android:id="@+id/text_view_error_message"
@@ -113,6 +115,7 @@
                 android:padding="@dimen/dimen_20dp">
 
                 <LinearLayout
+                    android:id="@+id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
@@ -124,7 +127,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.4"
                         android:fontFamily="@font/josefin_sans"
-                        android:text="Amount"
+                        android:text="Loan Amount"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
 
@@ -149,9 +152,49 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_below="@id/layout1"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="Loan Purpose"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="Fertilizers, Seeds"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/layout2"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -186,9 +229,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/layout3"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -197,7 +242,46 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.4"
                         android:fontFamily="@font/josefin_sans"
-                        android:text="Duration"
+                        android:text="Payment Schedule"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:fontFamily="@font/josefin_sans"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textColor="@color/textColor"
+                        android:textSize="18sp" />
+
+                    <TextView
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="Monthly"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout4"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:fontFamily="@font/josefin_sans"
+                        android:text="Loan Duration"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
 
@@ -223,9 +307,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="130dp"
+                    android:layout_below="@id/layout5"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -260,9 +346,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="170dp"
+                    android:layout_below="@id/layout6"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -271,7 +359,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.4"
                         android:fontFamily="@font/josefin_sans"
-                        android:text="Due Amount"
+                        android:text="Amount Due"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
 
@@ -296,37 +384,69 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="@dimen/dimen_20dp"
-                    android:layout_marginTop="220dp"
-                    android:layout_marginRight="@dimen/dimen_20dp"
-                    android:background="@drawable/rounded_corners_button">
-
-                    <Button
-                        android:id="@+id/btn_loan_next_step"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout7"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dip"
-                        android:layout_gravity="center_vertical"
+                        android:layout_height="45dp"
                         android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:text="Confirm"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/button_text_size" />
+                        android:layout_marginEnd="@dimen/dimen_5dp"
+                        android:background="@drawable/round_corners_button_darkgray">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="start|center_vertical"
+                            android:layout_margin="10dp"
+                            app:srcCompat="@drawable/ic_left_chevron"/>
+                        <Button
 
-                    <ImageView
-                        android:layout_width="30dip"
-                        android:layout_height="30dip"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="right|center_vertical"
-                        android:layout_margin="10dip"
-                        android:src="@drawable/ic_right_arrow">
+                            android:id="@+id/previous_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="@string/previous"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
 
-                    </ImageView>
-                </FrameLayout>
+
+
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dimen_5dp"
+                        android:background="@drawable/rounded_corners_button">
+
+                        <Button
+                            android:id="@+id/btn_loan_next_step"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:text="@string/label_confirm"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/button_text_size" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_margin="10dp"
+                            app:srcCompat="@drawable/ic_right_chevron">
+
+                        </ImageView>
+                    </FrameLayout>
+                </LinearLayout>
+
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

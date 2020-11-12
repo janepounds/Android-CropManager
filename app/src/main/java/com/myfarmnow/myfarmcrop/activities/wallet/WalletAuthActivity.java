@@ -21,6 +21,7 @@ import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.venmo.android.pin.PinFragment;
 import com.venmo.android.pin.PinFragmentConfiguration;
+import com.venmo.android.pin.PinSaver;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +46,7 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
         errorTextView = findViewById(R.id.text_view_crop_user_error);
         context = WalletAuthActivity.this;
 
-        if (ConstantValues.CUSTOMER_HAS_WALLET && WalletAuthActivity.WALLET_ACCESS_TOKEN == null) {
+        if (ConstantValues.CUSTOMER_HAS_WALLET /*&& WalletAuthActivity.WALLET_ACCESS_TOKEN == null*/) {
 
             PinFragmentConfiguration pinConfig = new PinFragmentConfiguration(WalletAuthActivity.this)
                     .validator(submission -> {
@@ -60,9 +61,9 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
                             Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
                         } else {
                             //login and get token
-                            Log.d(TAG, "attempting user login " + WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this));
+                            Log.d(TAG, "attempting user login " + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this));
 
-                            if (WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) != null) {
+                            if (DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) != null) {
 
                                 WalletLoginHelper.checkLogin(WalletPass, WalletAuthActivity.this, null, dialog);
 
@@ -79,23 +80,32 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, toShow)
                     .commit();
-        } else if (!ConstantValues.CUSTOMER_HAS_WALLET) {
+        }
+        else if (!ConstantValues.CUSTOMER_HAS_WALLET) {
             PinFragmentConfiguration pinConfig2 = new PinFragmentConfiguration(this)
-                    .validator(submission -> {
+                    .pinSaver(new PinSaver(){
+                        @Override
+                        public void save(String pin) {
 
-                        final ProgressDialog dialog = new ProgressDialog(context);
-                        dialog.setIndeterminate(true);
-                        dialog.setMessage("Please Wait..");
-                        dialog.setCancelable(false);
-                        String WalletPass = DashboardActivity.PREFERENCES_PREPIN_ENCRYPTION + submission;
-                        if (submission.length() <= 0) {
-                            Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d(TAG, "attempting user registration " + WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) + " : " + WalletHomeActivity.PREFERENCES_USER_EMAIL);
+                            final ProgressDialog dialog = new ProgressDialog(context);
+                            dialog.setIndeterminate(true);
+                            dialog.setMessage("Please Wait..");
+                            dialog.setCancelable(false);
+                            String WalletPass = DashboardActivity.PREFERENCES_PREPIN_ENCRYPTION + pin;
+                            Log.w(TAG, "attempting user registration " + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) + " : " + DashboardActivity.PREFERENCES_USER_EMAIL);
 
                             WalletLoginHelper.userRegister(dialog, context, WalletPass);
                         }
 
+                        public void onSave(String pin) {
+                            // ...do some saving
+                        }
+                    })
+                    .validator(submission -> {
+                        String WalletPass = DashboardActivity.PREFERENCES_PREPIN_ENCRYPTION + submission;
+                        if (submission.length() <= 0) {
+                            Toast.makeText(WalletAuthActivity.this, "Enter PIN!", Toast.LENGTH_SHORT).show();
+                        }
                         return WalletPass.equals(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_PASSWORD, context)); // ...check against where you saved the pin
 
                     });
@@ -104,7 +114,8 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, toShow)
                     .commit();
-        } else {
+        }
+        else {
             WalletHomeActivity.startHome(getApplicationContext());
             this.finish();
         }
@@ -130,7 +141,8 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
 
                     WalletHomeActivity.startHome(context);
                     //now you can go to next wallet page
-                } else {
+                }
+                else {
 
                     if (response.code() == 403) {
                         //Toast.makeText(context, errorResponse.getString("message"), Toast.LENGTH_LONG).show();

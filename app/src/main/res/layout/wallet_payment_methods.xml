@@ -2,38 +2,40 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="@drawable/solidwhite_shape"
     android:fitsSystemWindows="true"
+    android:layout_gravity="center"
+    android:background="#f0f1ed"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/wallet_deposit_close"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:src="@drawable/close" />
+
 
     <LinearLayout
         android:id="@+id/layout_add_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_30dp"
-        android:gravity="center">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/digital_wallet_title_label"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight=".1"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/select"
+            android:textColor="@color/white"
             android:theme="@style/HeaderThemeWhite" />
-
+        <ImageView
+            android:id="@+id/wallet_deposit_close"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight=".9"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:src="@drawable/close" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,19 +61,17 @@
                     android:id="@+id/layout_wallet_add_money"
                     android:layout_width="150dp"
                     android:layout_height="90dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="20dp"
+                    android:padding="8dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_weight="0.3"
-                    android:background="@drawable/solid_shape_border_yellow"
+                    android:background="@color/white"
                     android:onClick="openAddMobileMoney"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/crop_img_add_money"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
                         android:onClick="openAddMobileMoney"
                         android:src="@drawable/mobilemoney" />
 
@@ -81,18 +81,16 @@
                     android:id="@+id/layout_wallet_transfer"
                     android:layout_width="150dp"
                     android:layout_height="90dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_weight="0.3"
-                    android:background="@drawable/solid_shape_border_red"
+                    android:padding="8dp"
+                    android:layout_weight=".3"
+                    android:background="@color/white"
                     android:onClick="openAddMobileMoney"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/crop_img_transfer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3"
-                        android:backgroundTint="#ED1B24"
                         android:onClick="openAddMobileMoney"
                         android:src="@drawable/airtelmoney" />
 
@@ -111,17 +109,15 @@
                 <LinearLayout
                     android:layout_width="150dp"
                     android:layout_height="90dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="20dp"
+                    android:padding="8dp"
                     android:layout_weight="0.3"
-                    android:background="@drawable/solid_shape_border"
+                    android:background="@color/white"
                     android:onClick="openAddMoneyVisa"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/background_home"
                         android:gravity="center"
                         android:onClick="openAddMoneyVisa"
                         android:src="@drawable/visa" />
@@ -131,17 +127,16 @@
                 <LinearLayout
                     android:layout_width="150dp"
                     android:layout_height="90dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="8dp"
                     android:layout_weight="0.3"
-                    android:background="@drawable/solid_shape_border"
+                    android:background="@color/white"
                     android:onClick="openAddMoneyVoucher"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:backgroundTint="@color/background_home"
                         android:gravity="center"
                         android:onClick="openAddMoneyVoucher"
                         app:srcCompat="@drawable/gift" />

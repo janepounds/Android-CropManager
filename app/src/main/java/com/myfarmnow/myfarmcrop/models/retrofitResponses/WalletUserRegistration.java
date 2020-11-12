@@ -44,79 +44,91 @@ public class WalletUserRegistration {
     public class ResponseData {
      @SerializedName("firstname")
      @Expose
-     private ArrayList<String> firstname;
+     private String firstname;
      @SerializedName("lastname")
      @Expose
-     private ArrayList<String> lastname;
+     private String lastname;
      @SerializedName("password")
      @Expose
-     private ArrayList<String>  password;
+     private String  password;
      @SerializedName("phoneNumber")
      @Expose
-     private ArrayList<String>  phoneNumber;
+     private String  phoneNumber;
      @SerializedName("email")
      @Expose
-     private ArrayList<String> email;
+     private String email;
      @SerializedName("addressStreet")
      @Expose
-     private ArrayList<String>  addressStreet;
-     @SerializedName("addressCityOrTown")
-     @Expose
-     private ArrayList<String> addressCityOrTown;
+     private String  addressStreet;
+    @SerializedName("addressCityOrTown")
+    @Expose
+    private String addressCityOrTown;
 
-        public ArrayList<String> getFirstname() {
+    @SerializedName("id")
+    @Expose
+    private String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getFirstname() {
             return firstname;
         }
 
-        public void setFirstname(ArrayList<String> firstname) {
+        public void setFirstname(String firstname) {
             this.firstname = firstname;
         }
 
-        public ArrayList<String> getLastname() {
+        public String getLastname() {
             return lastname;
         }
 
-        public void setLastname(ArrayList<String> lastname) {
+        public void setLastname(String lastname) {
             this.lastname = lastname;
         }
 
-        public ArrayList<String> getPassword() {
+        public String getPassword() {
             return password;
         }
 
-        public ArrayList<String> getEmail() {
+        public String getEmail() {
             return email;
         }
 
-        public void setEmail(ArrayList<String> email) {
+        public void setEmail(String email) {
             this.email = email;
         }
 
-        public void setPassword(ArrayList<String> password) {
+        public void setPassword(String password) {
             this.password = password;
         }
 
-        public ArrayList<String> getPhoneNumber() {
+        public String getPhoneNumber() {
             return phoneNumber;
         }
 
-        public void setPhoneNumber(ArrayList<String> phoneNumber) {
+        public void setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
         }
 
-        public ArrayList<String> getAddressStreet() {
+        public String getAddressStreet() {
             return addressStreet;
         }
 
-        public void setAddressStreet(ArrayList<String> addressStreet) {
+        public void setAddressStreet(String addressStreet) {
             this.addressStreet = addressStreet;
         }
 
-        public ArrayList<String> getAddressCityOrTown() {
+        public String getAddressCityOrTown() {
             return addressCityOrTown;
         }
 
-        public void setAddressCityOrTown(ArrayList<String> addressCityOrTown) {
+        public void setAddressCityOrTown(String addressCityOrTown) {
             this.addressCityOrTown = addressCityOrTown;
         }
     }

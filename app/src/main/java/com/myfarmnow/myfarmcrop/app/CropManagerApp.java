@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.multidex.MultiDexApplication;
 
 import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.TypefaceUtil;
+import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.database.BuyInputsDB_Handler;
 import com.myfarmnow.myfarmcrop.database.BuyInputsDB_Manager;
@@ -23,12 +25,20 @@ import com.myfarmnow.myfarmcrop.models.livestock_models.backup.Litters;
 import com.myfarmnow.myfarmcrop.models.livestock_models.backup.Matings;
 import com.myfarmnow.myfarmcrop.models.pages_model.PagesDetails;
 import com.myfarmnow.myfarmcrop.models.product_model.ProductDetails;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.shipping_model.ShippingService;
+import com.myfarmnow.myfarmcrop.network.APIClient;
+//import com.google.common.io.BaseEncoding;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * App extending Application, is used to save some Lists and Objects with Application Context.
@@ -179,6 +189,51 @@ public class CropManagerApp extends MultiDexApplication {
 
     public void setProductDetails(ProductDetails productDetails) {
         this.productDetails = productDetails;
+    }
+    public static  void checkWalletAccount(String email, String phonenumber) {
+
+        if(ConstantValues.IS_USER_LOGGED_IN){
+            Call<TokenResponse> call = APIClient.getWalletInstance()
+                    .checkWalletAccount
+                            (
+                                    email,
+                                    phonenumber
+                            );
+
+            call.enqueue(new Callback<TokenResponse>() {
+                @Override
+                public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+
+
+                    if (response.isSuccessful()) {
+
+                        if (response.body().getMessage().equalsIgnoreCase("Wallet Account found") ) {
+                            ConstantValues.CUSTOMER_HAS_WALLET=true;
+                        }
+                        else{
+                            // Get the Error Message from Response
+                            ConstantValues.CUSTOMER_HAS_WALLET=false;
+                            String message = response.body().getMessage();
+                            Log.e("CheckWalletAccountError",message);
+                        }
+
+                    } else {
+                        // Show the Error Message
+                        ConstantValues.CUSTOMER_HAS_WALLET=false;
+                       // Toast.makeText(context, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TokenResponse> call, Throwable t) {
+
+                    Toast.makeText(context, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
+                }
+
+
+            });
+        }
+
     }
 }
 

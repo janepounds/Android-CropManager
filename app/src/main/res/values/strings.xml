@@ -75,7 +75,7 @@
         <item>Bunches</item>
     </string-array>
     <string-array name="crop_havest_units">
-        <item>Harvest Units</item>
+        <item>Select</item>
         <item>Boxes</item>
         <item>Kg</item>
         <item>Tonnes</item>
@@ -1629,14 +1629,18 @@
     <string name="title_activity_loan_status_preview" translatable="false">My Loan</string>
 
     <string-array name="loan_durations">
-        <item>Months</item>
-        <item>Weeks</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>After 3 months</item>
+        <item>After 6 months</item>
+
     </string-array>
 
-    <string name="my_wallet" translatable="false">eMaisha Wallet</string>
+    <string name="my_wallet" translatable="false">eMaisha Pay</string>
     <string name="deposit" translatable="false">Deposit</string>
     <string name="addmoney" translatable="false">ADD MONEY</string>
-    <string name="current_balance_label" translatable="false">Current Balance</string>
+    <string name="current_balance_label" translatable="false">Wallet Balance</string>
     <string name="comfirm_purchase" translatable="false">Confirm Payment</string>
     <string name="pin" translatable="false">PIN</string>
 
@@ -2328,6 +2332,27 @@
         <item>Village One</item>
         <item>Village Two</item>
     </string-array>
+    <string-array name="loan_farming_details_crops_list">
+        <item>Select</item>
+        <item>Beans</item>
+        <item>Tomatoes</item>
+        <item>Maize</item>
+        <item>Cassava</item>
+        <item>Matooke</item>
+        <item>Sweet Potatoes</item>
+        <item>Coffee</item>
+        <item>Ground nuts</item>
+        <item>Soy beans</item>
+        <item>Garlic</item>
+        <item>Onions</item>
+        <item>Pepper</item>
+        <item>Sorghum</item>
+    </string-array>
+    <string-array name="loan_farm_insurance">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
     <string name="default_shipping_method">Boda Boda</string>
     <string name="cash_on_delivery">Cash on delivery</string>
     <string name="visa_card">Visa / Master Card</string>
@@ -2339,4 +2364,5 @@
     <string name="promo_code">Promo Code</string>
     <string name="default_old_price"><strike>UGX 45.00</strike></string>
     <string name="review_list">Review List</string>
+    <string name="payMerchant">Pay Merchant</string>
 </resources>

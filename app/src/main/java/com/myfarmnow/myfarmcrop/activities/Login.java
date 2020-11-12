@@ -53,8 +53,11 @@ import java.util.concurrent.TimeUnit;
 
 import am.appwise.components.ni.NoInternetDialog;
 
+import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
+import com.myfarmnow.myfarmcrop.app.CropManagerApp;
 import com.myfarmnow.myfarmcrop.constants.ConstantValues;
 import com.myfarmnow.myfarmcrop.customs.DialogLoader;
+import com.myfarmnow.myfarmcrop.models.retrofitResponses.TokenResponse;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserDetails;
 import com.myfarmnow.myfarmcrop.network.APIClient;
@@ -344,7 +347,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         Log.d(TAG, "onResponse: addressCountry = " + userDetails.getAddressCountry());
 
                         TEMP_USER_TYPE = 0; // 0 for Simple Login.
-                        //showPhoneDialog();
                         loginUser(userDetails);
                     } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Get the Error Message from Response
@@ -369,61 +371,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
 
-    private void checkWalletAccount() {
-        dialogLoader.showProgressDialog();
-        ConstantValues.CUSTOMER_HAS_WALLET=true;
-        Call<UserData> call = APIClient.getWalletInstance()
-                .checkWalletAccount
-                        (
-                                user_email.getText().toString().trim(),
-                                user_password.getText().toString().trim()
-                        );
-
-        call.enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-
-                dialogLoader.hideProgressDialog();
-
-                if (response.isSuccessful()) {
-
-                    if (response.body().getSuccess().equalsIgnoreCase("1") || response.body().getSuccess().equalsIgnoreCase("2")) {
-                        // Get the User Details from Response
-                        userDetails = response.body().getData().get(0);
-
-                        Log.d(TAG, "onResponse: Email = " + userDetails.getEmail());
-                        Log.d(TAG, "onResponse: First Name = " + userDetails.getFirstName());
-                        Log.d(TAG, "onResponse: Last Name = " + userDetails.getLastName());
-                        Log.d(TAG, "onResponse: Username = " + userDetails.getUserName());
-                        Log.d(TAG, "onResponse: addressStreet = " + userDetails.getAddressStreet());
-                        Log.d(TAG, "onResponse: addressCityOrTown = " + userDetails.getAddressCityOrTown());
-                        Log.d(TAG, "onResponse: address_district = " + userDetails.getAddress_district());
-                        Log.d(TAG, "onResponse: addressCountry = " + userDetails.getAddressCountry());
-
-                        TEMP_USER_TYPE = 0; // 0 for Simple Login.
-                        //showPhoneDialog();
-                        loginUser(userDetails);
-                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
-                        // Get the Error Message from Response
-                        String message = response.body().getMessage();
-                        Snackbar.make(parentView, message, Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Login.this, getString(R.string.unexpected_response), Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    // Show the Error Message
-                    Toast.makeText(Login.this, response.message(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : " + t, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     private void showPhoneDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
@@ -562,7 +509,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         editor.putString(DashboardActivity.PREFERENCES_USER_EMAIL, userDetails.getEmail());
         editor.putString(DashboardActivity.PREFERENCES_FIRST_NAME, userDetails.getFirstName());
         editor.putString(DashboardActivity.PREFERENCES_LAST_NAME, userDetails.getLastName());
-        editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, user_current_phone_number);
+        editor.putString(DashboardActivity.PREFERENCES_PHONE_NUMBER, userDetails.getPhone());
         editor.putString(DashboardActivity.USER_DEFAULT_ADDRESS_PREFERENCES_ID, userDetails.getDefaultAddressId());
 
         editor.putString("addressStreet", userDetails.getAddressStreet());
@@ -572,7 +519,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         editor.putBoolean("isLogged_in", true);
         editor.apply();
-
+        WalletAuthActivity.WALLET_ACCESS_TOKEN=null;
         // Set UserLoggedIn in MyAppPrefsManager
         MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Login.this);
         myAppPrefsManager.logInUser();
@@ -580,12 +527,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         // Set isLogged_in of ConstantValues
         ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
         StartAppRequests.RegisterDeviceForFCM(Login.this);
+        CropManagerApp.checkWalletAccount(userDetails.getEmail(),userDetails.getPhone());
         // Navigate back to MainActivity
         Intent i = new Intent(Login.this, DashboardActivity.class);
         startActivity(i);
         finish();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_out_right);
     }
+
+
 
     private void loginGmailUser(UserDetails userDetails) {
         // Save User Data to Local Databases

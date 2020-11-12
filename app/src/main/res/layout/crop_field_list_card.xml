@@ -93,7 +93,7 @@
                                         android:id="@+id/img_crop_fields_card_more"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@drawable/ic_baseline_more_vert" />
+                                        app:srcCompat="@drawable/ic_baseline_more_vert" />
 
 
                                 </LinearLayout>

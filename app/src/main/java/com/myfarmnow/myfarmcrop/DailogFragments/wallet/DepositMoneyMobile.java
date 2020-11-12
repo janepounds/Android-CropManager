@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,6 +89,10 @@ public class DepositMoneyMobile extends DialogFragment {
         builder.setView(view);
 
         initializeForm(view);
+
+        ImageView close = view.findViewById(R.id.wallet_transfer_money_close);
+        close.setOnClickListener(v -> dismiss());
+
         return builder.create();
 
     }
@@ -101,7 +106,7 @@ public class DepositMoneyMobile extends DialogFragment {
         errorMsgTxt = view.findViewById(R.id.text_view_error_message);
 
         balanceTextView.setText(NumberFormat.getInstance().format(balance));
-        this.txRef = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
+        this.txRef = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, this.activity) + (new Date().getTime());
         addMoneyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +120,7 @@ public class DepositMoneyMobile extends DialogFragment {
 
 
     public void initiateDeposit() {
-
+      
         dialog = new ProgressDialog(this.activity);
         dialog.setIndeterminate(true);
         dialog.setMessage("Processing transaction..");
@@ -125,13 +130,13 @@ public class DepositMoneyMobile extends DialogFragment {
         String amountEntered = addMoneyTxt.getText().toString();
 
         double amount = Float.parseFloat(amountEntered);
-        txRef = WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID, this.activity) + (new Date().getTime());
+        txRef = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, this.activity) + (new Date().getTime());
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
-                .setEmail(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, this.activity))
-                .setfName(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME, this.activity))
-                .setlName(WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME, this.activity))
+                .setEmail(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, this.activity))
+                .setfName(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME, this.activity))
+                .setlName(DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, this.activity))
                 .setPhoneNumber("0" + phoneNumber)
                 .setNarration("Cabral Tech Ltd")
                 .setPublicKey(BuildConfig.PUBLIC_KEY)
@@ -202,7 +207,7 @@ public class DepositMoneyMobile extends DialogFragment {
         String amountEntered = addMoneyTxt.getText().toString();
         double amount = Float.parseFloat(amountEntered);
         String referenceNumber = txRef;
-        String email = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL, this.activity);
+        String email = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, this.activity);
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<WalletTransaction> call = apiRequests.creditUser(access_token,email,amount,referenceNumber);

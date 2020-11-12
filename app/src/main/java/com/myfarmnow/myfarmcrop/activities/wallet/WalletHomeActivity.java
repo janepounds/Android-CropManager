@@ -34,12 +34,7 @@ public class WalletHomeActivity extends AppCompatActivity {
     public WalletTransactionsListFragment transactionsListFragment;
     public static FragmentManager fm;
 
-    public static final String PREFERENCES_FIRST_NAME = "firstname";
-    public static final String PREFERENCES_LAST_NAME = "lastname";
-    public static final String PREFERENCES_USER_ID = "userId";
-    public static final String PREFERENCES_USER_EMAIL = "email";
-    public static final String PREFERENCES_PHONE_NUMBER = "phoneNumber";
-
+    public static final String PREFERENCES_WALLET_USER_ID = "walletuserId";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,28 +44,8 @@ public class WalletHomeActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
     }
 
-    public static String getPreferences(String key, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
-        return sharedPreferences.getString(key, "");
-    }
 
-    public static void savePreferences(String key, String value, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
 
-    public static void saveUser(JSONObject user, Context context) throws JSONException {
-        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_FIRST_NAME, user.getString("firstname"), context);
-        WalletHomeActivity.savePreferences("email", user.getString("email"), context);
-        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_USER_ID, user.getString("id"), context);
-        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_LAST_NAME, user.getString("lastname"), context);
-        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_USER_EMAIL, user.getString("email"), context);
-        WalletHomeActivity.savePreferences(DashboardActivity.STREET_PREFERENCES_ID, user.getString("addressStreet"), context);
-        WalletHomeActivity.savePreferences(DashboardActivity.CITY_PREFERENCES_ID, user.getString("addressCityOrTown"), context);
-        WalletHomeActivity.savePreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, user.getString("phoneNumber"), context);
-    }
 
     public static void startHome(Context context) {
         try {

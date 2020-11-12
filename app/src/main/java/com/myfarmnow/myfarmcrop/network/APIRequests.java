@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.network;
 
 
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
+import com.myfarmnow.myfarmcrop.models.coupons_model.CouponsData;
 import com.myfarmnow.myfarmcrop.models.merchants_model.MerchantData;
 import com.myfarmnow.myfarmcrop.models.news_model.all_news.NewsData;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.BalanceResponse;
@@ -73,8 +74,8 @@ public interface APIRequests {
 
     /**************  WALLET REQUESTS *******************************/
     @FormUrlEncoded
-    @POST("wallet/check_account")
-    Call<UserData> checkWalletAccount(@Field("email") String email, @Field("phoneNumber") String phonenumber);
+    @POST("user/check_account")
+    Call<TokenResponse> checkWalletAccount(@Field("email") String email, @Field("phoneNumber") String phonenumber);
 
     //wallet authentication
     @FormUrlEncoded
@@ -153,11 +154,17 @@ public interface APIRequests {
     @GET("wallet/merchant/{merchantId}")
     Call<MerchantInfoResponse> getMerchant(@Header("Authorization") String token,
                                            @Path("merchantId") int merchantId
-
     );
 
+    //get merchant information
+    @GET("wallet/user/get/receiver_by_phone/{phonenumber}")
+    Call<MerchantInfoResponse> getUserBusinessName(@Header("Authorization") String token,
+                                           @Path("phonenumber") String phonenumber
+    );
+
+
     //get merchant receipt
-    @GET("/wallet/payments/receipt/{referenceNumber}")
+    @GET("wallet/payments/receipt/{referenceNumber}")
     Call<WalletTransactionReceiptResponse> getReceipt(@Header("Authorization") String token,
                                                       @Path("referenceNumber") String referenceNumber
     );
@@ -191,7 +198,8 @@ public interface APIRequests {
     );
 
     //create user credit
-    @GET("wallet/flutter/payment/credituser")
+    @FormUrlEncoded
+    @POST("wallet/flutter/payment/credituser")
     Call<WalletTransaction> creditUser(@Header("Authorization") String token,
                                        @Field("email") String email,
                                        @Field("amount") Double amount,
@@ -202,12 +210,10 @@ public interface APIRequests {
     //voucher deposit
     @FormUrlEncoded
     @POST("wallet/payment/voucherdeposit")
-    Call<UserData> voucherDeposit(@Header("Authorization") String token,
-                                  @Field("email") String email,
-                                  @Field("phoneNumber") String phoneNumber,
-                                  @Field("codeEntered") String codeEntered
-
-
+    Call<CouponsData> voucherDeposit(@Header("Authorization") String token,
+                                     @Field("email") String email,
+                                     @Field("phoneNumber") String phoneNumber,
+                                     @Field("codeEntered") String codeEntered
     );
 
     //loan pay

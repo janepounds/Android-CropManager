@@ -30,7 +30,7 @@ public class UserDetails {
     @SerializedName("country_code")
     @Expose
     private String countryCode;
-    @SerializedName("phone")
+    @SerializedName("phoneNumber")
     @Expose
     private String phone;
     @SerializedName("email")

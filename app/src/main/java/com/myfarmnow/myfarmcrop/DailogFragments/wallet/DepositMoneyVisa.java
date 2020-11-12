@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +96,9 @@ public class DepositMoneyVisa extends DialogFragment implements
         View view =inflater.inflate(R.layout.wallet_add_money_visa, null);
         builder.setView(view);
         initializeForm( view);
+        ImageView close = view.findViewById(R.id.wallet_deposit_close);
+        close.setOnClickListener(v -> dismiss());
+
         return builder.create();
 
     }
@@ -157,16 +161,16 @@ public class DepositMoneyVisa extends DialogFragment implements
         String expiryDate=cardexpiryTxt.getText().toString();
         double amount = Double.parseDouble(amountEntered);
 
-        txRef= WalletHomeActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
+        txRef= DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_ID,this.activity)+(new Date().getTime());
         Log.e("PUBK : ", BuildConfig.PUBLIC_KEY+" : "+expiryDate.substring(0,2)+" : "+expiryDate.substring(3,5));
 
 
 
         RaveNonUIManager raveNonUIManager = new RaveNonUIManager().setAmount(amount)
                 .setCurrency("UGX")
-                .setEmail( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity) )
-                .setfName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_FIRST_NAME,this.activity) )
-                .setlName( WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_LAST_NAME,this.activity) )
+                .setEmail( DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,this.activity) )
+                .setfName( DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME,this.activity) )
+                .setlName( DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,this.activity) )
                 //.setPhoneNumber(userInfo.getPhone())
                 .setNarration("Cabral Tech Ltd")
                 .setPublicKey(BuildConfig.PUBLIC_KEY)
@@ -204,7 +208,7 @@ public class DepositMoneyVisa extends DialogFragment implements
 
         String amountEntered = addMoneyTxt.getText().toString();
         double amount = Float.parseFloat(amountEntered);
-        String email = WalletHomeActivity.getPreferences(WalletHomeActivity.PREFERENCES_USER_EMAIL,this.activity);
+        String email = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL,this.activity);
         /************RETROFIT IMPLEMENTATION*******************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         APIRequests apiRequests = APIClient.getWalletInstance();
@@ -398,7 +402,8 @@ public class DepositMoneyVisa extends DialogFragment implements
 
     @Override
     public void onError(String errorMessage, @Nullable String flwRef) {
-        Log.e("MobileMoneypaymentError",errorMessage);
+        Log.e("VisapaymentError",errorMessage);
+        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -416,8 +421,8 @@ public class DepositMoneyVisa extends DialogFragment implements
 
     @Override
     public void showAuthenticationWebPage(String authenticationUrl) {
-        Log.e("Loading auth web page: ",authenticationUrl);
-        verificationUtils.showOtpScreen(authenticationUrl);
+        Log.w("Loading auth web page: ",authenticationUrl);
+        verificationUtils.showWebpageVerificationScreen(authenticationUrl);
     }
 
 }
