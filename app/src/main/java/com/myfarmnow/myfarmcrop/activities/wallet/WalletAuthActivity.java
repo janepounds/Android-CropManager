@@ -92,12 +92,9 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
                             dialog.setMessage("Please Wait..");
                             dialog.setCancelable(false);
                             String WalletPass = DashboardActivity.PREFERENCES_PREPIN_ENCRYPTION + pin;
-
                             Log.w(TAG, "attempting user registration " + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) + " : " + DashboardActivity.PREFERENCES_USER_EMAIL);
 
                             WalletLoginHelper.userRegister(dialog, context, WalletPass);
-
-
                         }
 
                         public void onSave(String pin) {
@@ -117,7 +114,8 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, toShow)
                     .commit();
-        } else {
+        }
+        else {
             WalletHomeActivity.startHome(getApplicationContext());
             this.finish();
         }

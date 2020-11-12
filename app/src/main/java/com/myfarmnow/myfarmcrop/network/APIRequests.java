@@ -154,8 +154,14 @@ public interface APIRequests {
     @GET("wallet/merchant/{merchantId}")
     Call<MerchantInfoResponse> getMerchant(@Header("Authorization") String token,
                                            @Path("merchantId") int merchantId
-
     );
+
+    //get merchant information
+    @GET("wallet/user/get/receiver_by_phone/{phonenumber}")
+    Call<MerchantInfoResponse> getUserBusinessName(@Header("Authorization") String token,
+                                           @Path("phonenumber") String phonenumber
+    );
+
 
     //get merchant receipt
     @GET("wallet/payments/receipt/{referenceNumber}")

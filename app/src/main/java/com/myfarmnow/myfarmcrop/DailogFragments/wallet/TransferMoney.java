@@ -90,8 +90,7 @@ public class TransferMoney extends DialogFragment {
 
         addMoneyImg.setOnClickListener(v -> {
 
-            String countryCode = "+256";
-            String phoneNumber = countryCode + phoneNumberTxt.getText().toString();
+            String phoneNumber = "0"+phoneNumberTxt.getText().toString();
             String amountEntered = addMoneyTxt.getText().toString();
             float amount = Float.parseFloat(amountEntered);
             float charges = (float) 100; //Transfer Charges

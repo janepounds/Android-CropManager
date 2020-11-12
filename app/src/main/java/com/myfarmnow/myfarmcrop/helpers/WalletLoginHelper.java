@@ -108,7 +108,7 @@ public class WalletLoginHelper extends AppCompatActivity {
         String lastname = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, context);
         String addressStreet = DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID, context);
         String addressCityOrTown = DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID, context);
-        String phoneNumber = "+"+DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, context);
+        String phoneNumber = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, context);
         dialog.show();
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<WalletUserRegistration> call = apiRequests.create(firstname, lastname, email, rawPassword, phoneNumber, addressStreet, addressCityOrTown);
@@ -124,7 +124,7 @@ public class WalletLoginHelper extends AppCompatActivity {
                         JSONObject object = new JSONObject(user);
                         Toast.makeText(context, "Successfully Logged in..", Toast.LENGTH_SHORT).show();
 
-                         DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID,object.getString("id"),context);
+                        DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID,object.getString("id"),context);
                         WalletAuthActivity.getLoginToken(rawPassword, email, null, context);
 
                     } catch (JSONException e) {
