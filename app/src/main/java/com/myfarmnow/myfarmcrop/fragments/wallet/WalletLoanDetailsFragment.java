@@ -23,13 +23,13 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 
-public class WalletLoanAppInitiateFragment extends Fragment {
+public class WalletLoanDetailsFragment extends Fragment {
     private static final String TAG = "WalletLoanAppInitiateFr";
     private Context context;
 
     AppBarConfiguration appBarConfiguration;
 
-    String[] descriptionData = {"Amount", "Confirm", "Photo", "Referees"};
+    String[] descriptionData = {"Loan\nDetails", "Farming\nDetails", "Preview", "KYC\nDetails"};
 
     private Toolbar toolbar;
     private StateProgressBar loanProgressBarId;
@@ -41,7 +41,7 @@ public class WalletLoanAppInitiateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_wallet_loan_app_initiate, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet_loan_details, container, false);
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_initiate);
         toolbar.setVisibility(View.GONE);
         loanProgressBarId = view.findViewById(R.id.loan_progress_bar_id);
@@ -79,7 +79,7 @@ public class WalletLoanAppInitiateFragment extends Fragment {
                 bundle.putFloat("interest", getArguments().getFloat("interest"));
                 bundle.putSerializable("loanApplication", loanApplication);
 
-                btnLoanNextStep.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoanAppInitiateFragment_to_walletLoanPreviewRequestFragment, bundle));
+                btnLoanNextStep.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoanAppInitiateFragment_to_walletLoanFarmingDetailsFragment, bundle));
             }
         });
     }

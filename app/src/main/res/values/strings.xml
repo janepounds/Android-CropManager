@@ -75,7 +75,7 @@
         <item>Bunches</item>
     </string-array>
     <string-array name="crop_havest_units">
-        <item>Harvest Units</item>
+        <item>Select</item>
         <item>Boxes</item>
         <item>Kg</item>
         <item>Tonnes</item>
@@ -1629,8 +1629,12 @@
     <string name="title_activity_loan_status_preview" translatable="false">My Loan</string>
 
     <string-array name="loan_durations">
-        <item>Months</item>
-        <item>Weeks</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>After 3 months</item>
+        <item>After 6 months</item>
+
     </string-array>
 
     <string name="my_wallet" translatable="false">eMaisha Pay</string>
@@ -2327,6 +2331,27 @@
         <item>Village</item>
         <item>Village One</item>
         <item>Village Two</item>
+    </string-array>
+    <string-array name="loan_farming_details_crops_list">
+        <item>Select</item>
+        <item>Beans</item>
+        <item>Tomatoes</item>
+        <item>Maize</item>
+        <item>Cassava</item>
+        <item>Matooke</item>
+        <item>Sweet Potatoes</item>
+        <item>Coffee</item>
+        <item>Ground nuts</item>
+        <item>Soy beans</item>
+        <item>Garlic</item>
+        <item>Onions</item>
+        <item>Pepper</item>
+        <item>Sorghum</item>
+    </string-array>
+    <string-array name="loan_farm_insurance">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
     </string-array>
     <string name="default_shipping_method">Boda Boda</string>
     <string name="cash_on_delivery">Cash on delivery</string>

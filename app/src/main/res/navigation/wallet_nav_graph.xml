@@ -42,12 +42,12 @@
 
     <fragment
         android:id="@+id/walletLoanAppInitiateFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppInitiateFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanDetailsFragment"
         android:label="Apply for Loan"
-        tools:layout="@layout/fragment_wallet_loan_app_initiate">
+        tools:layout="@layout/fragment_wallet_loan_details">
         <action
-            android:id="@+id/action_walletLoanAppInitiateFragment_to_walletLoanPreviewRequestFragment"
-            app:destination="@id/walletLoanPreviewRequestFragment" />
+            android:id="@+id/action_walletLoanAppInitiateFragment_to_walletLoanFarmingDetailsFragment"
+            app:destination="@id/walletLoanFarmingDetailsFragment" />
     </fragment>
 
     <fragment
@@ -61,9 +61,9 @@
     </fragment>
     <fragment
         android:id="@+id/walletLoanAppPhotosFragment"
-        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanAppPhotosFragment"
-        android:label="Photos"
-        tools:layout="@layout/fragment_wallet_loan_app_photos">
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanKycDetailsFragment"
+        android:label="KYC Details"
+        tools:layout="@layout/fragment_wallet_loan_kyc_details">
         <action
             android:id="@+id/action_walletLoanAppPhotosFragment_to_walletLoansListFragment"
             app:destination="@id/walletLoansListFragment" />
@@ -81,6 +81,15 @@
     <fragment
         android:id="@+id/walletLoanStatusPreview"
         android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanStatusPreview"
-        android:label="wallet_loanstatus_preview"
+        android:label="Loan Status Preview"
         tools:layout="@layout/wallet_loanstatus_preview" />
+    <fragment
+        android:id="@+id/walletLoanFarmingDetailsFragment"
+        android:name="com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoanFarmingDetailsFragment"
+        android:label="Farming Details"
+        tools:layout="@layout/fragment_wallet_loan_farming_details" >
+        <action
+            android:id="@+id/action_walletLoanFarmingDetailsFragment_to_walletLoanPreviewRequestFragment"
+            app:destination="@id/walletLoanPreviewRequestFragment" />
+    </fragment>
 </navigation>
