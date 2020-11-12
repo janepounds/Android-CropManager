@@ -213,12 +213,12 @@ public class CropProductionReports extends Fragment {
 
         HIPlotOptions plotOptions = new HIPlotOptions();
         plotOptions.setPie(new HIPie());
-        plotOptions.getPie().setDataLabels(new HIDataLabels());
-        plotOptions.getPie().getDataLabels().setEnabled(false);
-        plotOptions.getPie().getDataLabels().setDistance(-50);
-        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
-        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
-        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
+//        plotOptions.getPie().setDataLabels(new HIDataLabels());
+//        plotOptions.getPie().getDataLabels().setEnabled(false);
+//        plotOptions.getPie().getDataLabels().setDistance(-50);
+//        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
+//        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
+//        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
         options.setPlotOptions(plotOptions);
 
         HIPie series1 = new HIPie();
@@ -361,12 +361,12 @@ public class CropProductionReports extends Fragment {
 
         HIPlotOptions plotOptions = new HIPlotOptions();
         plotOptions.setPie(new HIPie());
-        plotOptions.getPie().setDataLabels(new HIDataLabels());
-        plotOptions.getPie().getDataLabels().setEnabled(false);
-        plotOptions.getPie().getDataLabels().setDistance(-50);
-        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
-        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
-        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
+//        plotOptions.getPie().setDataLabels(new HIDataLabels());
+//        plotOptions.getPie().getDataLabels().setEnabled(false);
+//        plotOptions.getPie().getDataLabels().setDistance(-50);
+//        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
+//        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
+//        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
         options.setPlotOptions(plotOptions);
 
         HIPie series1 = new HIPie();
@@ -431,12 +431,12 @@ public class CropProductionReports extends Fragment {
 
         HIPlotOptions plotOptions = new HIPlotOptions();
         plotOptions.setPie(new HIPie());
-        plotOptions.getPie().setDataLabels(new HIDataLabels());
-        plotOptions.getPie().getDataLabels().setEnabled(false);
-        plotOptions.getPie().getDataLabels().setDistance(-50);
-        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
-        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
-        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
+//        plotOptions.getPie().setDataLabels(new HIDataLabels());
+//        plotOptions.getPie().getDataLabels().setEnabled(false);
+//        plotOptions.getPie().getDataLabels().setDistance(-50);
+//        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
+//        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
+//        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
         options.setPlotOptions(plotOptions);
 
         HIPie series1 = new HIPie();
@@ -502,12 +502,12 @@ public class CropProductionReports extends Fragment {
 
         HIPlotOptions plotOptions = new HIPlotOptions();
         plotOptions.setPie(new HIPie());
-        plotOptions.getPie().setDataLabels(new HIDataLabels());
-        plotOptions.getPie().getDataLabels().setEnabled(false);
-        plotOptions.getPie().getDataLabels().setDistance(-50);
-        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
-        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
-        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
+//        plotOptions.getPie().setDataLabels(new HIDataLabels());
+//        plotOptions.getPie().getDataLabels().setEnabled(false);
+//        plotOptions.getPie().getDataLabels().setDistance(-50);
+//        plotOptions.getPie().getDataLabels().setStyle(new HICSSObject());
+//        plotOptions.getPie().getDataLabels().getStyle().setFontWeight("bold");
+//        plotOptions.getPie().getDataLabels().getStyle().setColor("white");
         options.setPlotOptions(plotOptions);
 
         HIPie series1 = new HIPie();
