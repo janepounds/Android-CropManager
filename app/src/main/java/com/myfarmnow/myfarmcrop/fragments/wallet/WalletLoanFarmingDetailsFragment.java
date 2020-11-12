@@ -61,7 +61,7 @@ public class WalletLoanFarmingDetailsFragment extends Fragment {
 
         return view;
     }
-    
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
