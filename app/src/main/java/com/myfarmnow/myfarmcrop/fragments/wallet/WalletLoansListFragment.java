@@ -95,6 +95,7 @@ public class WalletLoansListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         Bundle bundle = new Bundle();

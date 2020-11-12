@@ -43,7 +43,7 @@ public class WalletLoanDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet_loan_details, container, false);
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_initiate);
-        toolbar.setVisibility(View.GONE);
+
         loanProgressBarId = view.findViewById(R.id.loan_progress_bar_id);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
         txtLoanApplicationAmount = view.findViewById(R.id.txt_loan_application_amount);
