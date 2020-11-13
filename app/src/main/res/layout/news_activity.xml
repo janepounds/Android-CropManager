@@ -17,7 +17,7 @@ android:orientation="vertical"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/back_black_24dp"
+            app:srcCompat="@drawable/back_black_24dp"
             android:layout_marginLeft="0dp"
             />
         <TextView
@@ -55,7 +55,7 @@ android:orientation="vertical"
 
     <ImageView
         android:layout_width="match_parent"
-        android:src="@drawable/ic_newspaper"
+        app:srcCompat="@drawable/ic_newspaper"
         android:layout_height="300dp" >
     </ImageView>
 
