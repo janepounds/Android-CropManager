@@ -75,6 +75,10 @@ public class WalletLoanFarmingDetailsFragment extends Fragment {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        previousBtn.setOnClickListener(view2 -> navController.popBackStack());
+
+
+        nextBtn.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoanFarmingDetailsFragment_to_walletLoanPreviewRequestFragment));
 
         harvesting_unit_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

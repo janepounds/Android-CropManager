@@ -61,7 +61,7 @@
                     android:id="@+id/layout_wallet_add_money"
                     android:layout_width="150dp"
                     android:layout_height="90dp"
-                    android:padding="8dp"
+
                     android:layout_marginEnd="20dp"
                     android:layout_weight="0.3"
                     android:background="@color/white"
@@ -73,7 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:onClick="openAddMobileMoney"
-                        android:src="@drawable/mobilemoney" />
+                        android:src="@drawable/mobile_money" />
 
                 </LinearLayout>
 
@@ -81,7 +81,7 @@
                     android:id="@+id/layout_wallet_transfer"
                     android:layout_width="150dp"
                     android:layout_height="90dp"
-                    android:padding="8dp"
+                    android:padding="16dp"
                     android:layout_weight=".3"
                     android:background="@color/white"
                     android:onClick="openAddMobileMoney"
