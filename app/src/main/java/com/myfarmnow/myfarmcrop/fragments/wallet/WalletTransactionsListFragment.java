@@ -2,7 +2,6 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +24,6 @@ import com.google.gson.Gson;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletAuthActivity;
-import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.adapters.wallet.WalletTransactionsListAdapter;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletTransactionResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
@@ -50,7 +48,6 @@ public class WalletTransactionsListFragment extends Fragment {
     AppBarConfiguration appBarConfiguration;
 
     RecyclerView.Adapter statementAdapter;
-    ActionBar actionBar;
     private List<WalletTransaction> dataList = new ArrayList<>();
 
     Toolbar toolbar;
@@ -100,6 +97,7 @@ public class WalletTransactionsListFragment extends Fragment {
         /**********RETROFIT IMPLEMENTATION************/
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<WalletTransactionResponse> call = apiRequests.transactionList(access_token);
+
         call.enqueue(new Callback<WalletTransactionResponse>() {
             @Override
             public void onResponse(Call<WalletTransactionResponse> call, Response<WalletTransactionResponse> response) {
@@ -114,14 +112,15 @@ public class WalletTransactionsListFragment extends Fragment {
                             String ress = gson.toJson(res);
                             JSONObject record = new JSONObject(ress);
                             //type
-                            if (record.getString("type").equals("Charge")) {
+                            if (record.getString("type").equalsIgnoreCase("Charge")) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
-                            } else if (record.getString("type").equals("FoodPurchase")) {
+                            } else if (record.getString("type").equalsIgnoreCase("Purchase")) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
                                 data.setIsPurchase(true);
-                            } else if (record.getString("type").equals("Deposit")) {
+                            } else if (record.getString("type").equalsIgnoreCase("Deposit")) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
-                            } else if (record.getString("type").equals("Transfer")) {
+
+                            } else if (record.getString("type").equalsIgnoreCase("Transfer")) {
                                 String userName = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME, context) + " " + DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME, context);
 
                                 if (userName.equals(record.getString("sender"))) {
@@ -129,7 +128,7 @@ public class WalletTransactionsListFragment extends Fragment {
                                 } else {
                                     data = new WalletTransaction(record.getString("date"), record.getString("sender"), "credit", record.getDouble("amount"), record.getString("referenceNumber"));
                                 }
-                            } else if (record.getString("type").equals("Withdraw")) {
+                            } else if (record.getString("type").equalsIgnoreCase("Withdraw")) {
                                 data = new WalletTransaction(record.getString("date"), record.getString("receiver"), "debit", record.getDouble("amount"), record.getString("referenceNumber"));
                             }
                             if (data != null) {
@@ -157,7 +156,7 @@ public class WalletTransactionsListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<WalletTransactionResponse> call, Throwable t) {
-
+                dialog.dismiss();
             }
         });
 

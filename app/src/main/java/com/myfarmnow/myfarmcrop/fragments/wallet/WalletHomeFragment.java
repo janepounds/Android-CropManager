@@ -2,6 +2,7 @@ package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -151,60 +152,6 @@ public class WalletHomeFragment extends Fragment {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
-    public void openAddMoney() {
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        // Create and show the dialog.
-//        DialogFragment depositDialog = new DepositPayments(context, balance);
-//        depositDialog.show(ft, "dialog");
-    }
-
-    public void openAddMobileMoney(View view) {
-        // DialogFragment.show() will take care of adding the fragment
-        // in a transaction.  We also want to remove any currently showing
-        // dialog, so make our own transaction and take care of that here.
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        // Create and show the dialog.
-        DialogFragment depositDailog = new DepositMoneyMobile(context, balance);
-        depositDailog.show(ft, "dialog");
-    }
-
-    public void openAddMoneyVisa(View view) {
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        // Create and show the dialog.
-        DialogFragment depositDailog = new DepositMoneyVisa(context, balance, getActivity().getSupportFragmentManager());
-        depositDailog.show(ft, "dialog");
-    }
-
-    public void openAddMoneyVoucher(View view) {
-        FragmentTransaction ft = this.fm.beginTransaction();
-        Fragment prev = this.fm.findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        // Create and show the dialog.
-        DialogFragment depositDailog = new DepositMoneyVoucher(context, balance);
-        depositDailog.show(ft, "dialog");
-    }
 
     public void openTransfer() {
         FragmentTransaction ft = fm.beginTransaction();
@@ -240,6 +187,8 @@ public class WalletHomeFragment extends Fragment {
 
                 } else if (response.code() == 401) {
                     Toast.makeText(context, "Session Expired", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getContext(), WalletAuthActivity.class));
+                    getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                 } else {
                     Log.e("info", new String(String.valueOf(response.body().getMessage())));
                 }

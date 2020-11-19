@@ -50,18 +50,18 @@ android {
         }
     }
 
-    splits {
-        density {
-            enable true
-            reset()
-            include "ldpi","mdpi", "xhdpi"
-        }
-        abi {
-            enable true
-            reset()
-            include "x86", "x86_64", "armeabi", "armeabi-v7a", "arm64-v8a", "mips64", "mips"
-        }
-    }
+//    splits {
+//        density {
+//            enable true
+//            reset()
+//            include "ldpi","mdpi", "xhdpi"
+//        }
+//        abi {
+//            enable true
+//            reset()
+//            include "x86", "x86_64", "armeabi", "armeabi-v7a", "arm64-v8a", "mips64", "mips"
+//        }
+//    }
 
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 

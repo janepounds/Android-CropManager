@@ -110,13 +110,13 @@ public class WalletTransactionsListAdapter  extends RecyclerView.Adapter<WalletT
             holder.textPaidTo.setText(data.getRecepient());
             holder.referenceNumberTxtView.setText(data.getReferenceNumber());
             holder.textReceivedFrom.setText(data.getRecepient());
-
-            if(data.getType().equals("credit")) {
+            Log.w("TransactionType",data.getType());
+            if(data.getType().equalsIgnoreCase("credit")) {
                 holder.debitLayout.setVisibility(View.GONE);
                 holder.textCreditAmount.setText("+ UGX "+ NumberFormat.getInstance().format(data.getAmount())+"");
                 holder.creditLayout.setVisibility(View.VISIBLE);
             }
-            else if(data.getType().equals("debit")) {
+            else if(data.getType().equalsIgnoreCase("debit")) {
                 holder.creditLayout.setVisibility(View.GONE);
                 holder.debitLayout.setVisibility(View.VISIBLE);
                 holder.textDebitAmount.setText("- UGX "+ NumberFormat.getInstance().format(data.getAmount())+"");
@@ -124,16 +124,14 @@ public class WalletTransactionsListAdapter  extends RecyclerView.Adapter<WalletT
 
             holder.receiptTextView.setVisibility(View.VISIBLE);
             if(data.isPurchase()){
-                holder.textPaidTo_label.setText("Food From");
+                holder.textPaidTo_label.setText("Purchase From");
             }else{
                 holder.textPaidTo_label.setText("Transferred To");
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("Error",e.getMessage());
+            Log.e("TransactionError",e.getMessage());
         }
-
-
 
     }
 

@@ -2365,4 +2365,11 @@
     <string name="default_old_price"><strike>UGX 45.00</strike></string>
     <string name="review_list">Review List</string>
     <string name="payMerchant">Pay Merchant</string>
+    <string name="per_month">per month</string>
+    <string name="per_after3months">after 3 months</string>
+    <string name="per_after6months">after 6 months</string>
+    <string name="weeks">weeks</string>
+    <string name="months">months</string>
+    <string name="quarteryear">quarter years</string>
+    <string name="halfyear">half years</string>
 </resources>

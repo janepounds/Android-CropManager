@@ -76,6 +76,42 @@ public class LoanApplication implements Serializable {
     @Expose
     private int dueAmount;
 
+    //crop
+    @SerializedName("crop")
+    @Expose
+    private int crop;
+    @SerializedName("crop_area")
+    @Expose
+    private int crop_area;
+    @SerializedName("crop_area_unit")
+    @Expose
+    private int crop_area_unit;
+    @SerializedName("expected_yield")
+    @Expose
+    private int expected_yield;
+    @SerializedName("expected_revenue")
+    @Expose
+    private int expected_revenue;
+    @SerializedName("yeild_units")
+    @Expose
+    private int yeild_units;
+    @SerializedName("from_insurance")
+    @Expose
+    private int from_insurance;
+    @SerializedName("purpose_for_fetilizer")
+    @Expose
+    private boolean purpose_for_fetilizer;
+    @SerializedName("purpose_for_seeds")
+    @Expose
+    private boolean purpose_for_seeds;
+    @SerializedName("purpose_for_crop_protection")
+    @Expose
+    private boolean purpose_for_crop_protection;
+    @SerializedName("purpose_for_equipments")
+    @Expose
+    private boolean purpose_for_equipments;
+
+
     public LoanApplication(){
 
     }

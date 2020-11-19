@@ -178,10 +178,11 @@ public interface APIRequests {
     //request loans
     @POST("wallet/loan/user/request")
     Call<RequestLoanresponse> requestLoans(@Header("Authorization") String token,
-                                           @Header("userId") String userId,
-                                           @Header("amount") double amount,
-                                           @Header("duration") int duration,
-                                           @Header("loanType") String loanType
+                                           @Query("userId") String userId,
+                                           @Query("amount") double amount,
+                                           @Query("duration") int duration,
+                                           @Query("interest") double interest,
+                                           @Query("loanType") String loanType
     );
 
     //add loan photos

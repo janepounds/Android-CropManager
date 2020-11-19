@@ -49,7 +49,7 @@ public class APIClient {
 
 
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
-                    .connectTimeout(5, TimeUnit.MINUTES)
+                    .connectTimeout(2, TimeUnit.MINUTES)
                     .readTimeout(60, TimeUnit.SECONDS)
                     .writeTimeout(60, TimeUnit.SECONDS)
                     //.addInterceptor(apiInterceptor)

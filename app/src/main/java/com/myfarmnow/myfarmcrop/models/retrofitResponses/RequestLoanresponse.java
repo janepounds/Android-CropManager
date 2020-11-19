@@ -46,7 +46,6 @@ public class RequestLoanresponse {
         @SerializedName("status")
         @Expose
         private String status;
-
         @SerializedName("loanApplicationId")
         @Expose
         private int loanApplicationId;

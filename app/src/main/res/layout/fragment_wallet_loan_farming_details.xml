@@ -228,6 +228,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
+                                android:id="@+id/harvesting_unit_spn"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:layout_centerVertical="true"
@@ -281,7 +282,7 @@
                             android:inputType="numberDecimal" />
 
                         <TextView
-
+                            android:id="@+id/harvesting_unit_txt"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/edittext_right_corners_green"
@@ -338,7 +339,7 @@
                             android:paddingStart="@dimen/dimen_10dp" />
 
                         <TextView
-
+                            android:id="@+id/per_harvesting_unit_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="0.15"

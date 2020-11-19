@@ -74,7 +74,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
 
         loanProgressBarId.setStateDescriptionData(descriptionData);
         loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
-        assert getArguments() != null;
+       if(getArguments() != null)
         loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
 
         if (loanApplication != null) {
@@ -123,26 +123,32 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         double interest = loanApplication.getInterestRate();
 
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<RequestLoanresponse> call = apiRequests.requestLoans(access_token, userId, amount, duration, loanType);
+        Call<RequestLoanresponse> call = apiRequests.requestLoans(access_token, userId, amount, duration, interest, loanType);
         call.enqueue(new Callback<RequestLoanresponse>() {
             @Override
             public void onResponse(Call<RequestLoanresponse> call, Response<RequestLoanresponse> response) {
                 if (response.code() == 200) {
+                    if( response.body().getData().getLoanApplicationId().equals("0") ){
+                        Log.e("info 200", new String(String.valueOf(response.toString())) + ", code: " + response.code());
+                        textViewErrorMessage.setText(response.body().getData().getMessage());
+                    }else {
+                        Bundle bundle = new Bundle();
+                        assert getArguments() != null;
+                        bundle.putString("loanApplicationId", response.body().getData().getLoanApplicationId() );
+                        navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment,bundle);
+                    }
 
-                    Bundle bundle = new Bundle();
-                    assert getArguments() != null;
-                    bundle.putString("loanApplicationId", String.valueOf(Integer.parseInt(response.body().getData().getLoanApplicationId())));
                 } else if (response.code() == 401) {
                     WalletAuthActivity.startAuth(context, true);
                 } else if (response.code() == 500) {
                     textViewErrorMessage.setText("Error Occurred Try again later");
                     Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
                 } else if (response.code() == 400) {
-                    textViewErrorMessage.setText(response.errorBody().toString());
-                    Log.e("info 500", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                    Log.e("info 400", new String(String.valueOf(response.toString())) + ", code: " + response.code());
+                    textViewErrorMessage.setText(response.body().getData().getMessage());
                 } else if (response.code() == 406) {
                     textViewErrorMessage.setText(response.errorBody().toString());
-                    Log.e("info 406", new String(String.valueOf(response.errorBody())) + ", code: " + response.code());
+                    Log.e("info 406", new String(String.valueOf(response.toString())) + ", code: " + response.code());
                 } else {
                     textViewErrorMessage.setText("Error Occurred Try again later");
                     if (response.errorBody() != null) {

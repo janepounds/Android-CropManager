@@ -10,81 +10,68 @@ import java.io.Serializable;
 
 public class Referee implements Serializable {
 
+
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("name")
+    @SerializedName("first_name")
     @Expose
-    private String name;
-    @SerializedName("phoneNumber")
+    private String first_name;
+    @SerializedName("last_name")
     @Expose
-    private String phoneNumber;
-    @SerializedName("status")
+    private String last_name;
+    @SerializedName("relationship")
     @Expose
-    private String status;
-    @SerializedName("updated_at")
+    private String relationship;
+    @SerializedName("contact")
     @Expose
-    private String updatedAt;
-    @SerializedName("nationalIDPic")
-    @Expose
-    private String nationalIDPic;
+    private String contact;
     public Referee(JSONObject loanObject) throws JSONException {
 
         setId(loanObject.getString("id"));
-        setName(loanObject.getString("name"));
-        setStatus(loanObject.getString("status"));
-        setPhoneNumber(loanObject.getString("phoneNumber"));
-        setNationalIDPic(loanObject.getString("nationalIDPic"));
-
-
+        setFirst_name(loanObject.getString("first_name"));
+        setLast_name(loanObject.getString("last_name"));
+        setRelationship(loanObject.getString("relationship"));
+        setContact(loanObject.getString("contact"));
     }
 
     public String getId() {
         return id;
     }
 
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getNationalIDPic() {
-        return nationalIDPic;
-    }
-
-    public void setNationalIDPic(String nationalIDPic) {
-        this.nationalIDPic = nationalIDPic;
-    }
-
 }

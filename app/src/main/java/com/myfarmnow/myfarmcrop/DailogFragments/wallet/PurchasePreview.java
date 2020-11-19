@@ -204,6 +204,7 @@ public class PurchasePreview extends DialogFragment {
         dialog.setCancelable(false);
         dialog.show();
         Call<WalletPurchaseResponse> call = apiRequests.makeTransaction(access_token,merchantId,amount,coupon);
+
         call.enqueue(new Callback<WalletPurchaseResponse>() {
             @Override
             public void onResponse(Call<WalletPurchaseResponse> call, Response<WalletPurchaseResponse> response) {
@@ -214,7 +215,7 @@ public class PurchasePreview extends DialogFragment {
                     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     dialog.setCancelable(false);
                     TextView text = dialog.findViewById(R.id.dlg_one_button_tv_message);
-                    text.setText("You have purchased Food worth UGX "+ NumberFormat.getInstance().format(WalletPurchase.getInstance().getAmount())+" from "+businessName);
+                    text.setText("Processed Purchase worth UGX "+ NumberFormat.getInstance().format(WalletPurchase.getInstance().getAmount())+" from "+businessName);
                     TextView title = dialog.findViewById(R.id.dlg_one_button_tv_title);
                     title.setText("SUCCESS!");
                     Button dialogButton = (Button) dialog.findViewById(R.id.dlg_one_button_btn_ok);

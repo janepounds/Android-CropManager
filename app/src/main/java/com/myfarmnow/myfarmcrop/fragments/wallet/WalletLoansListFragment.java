@@ -98,9 +98,15 @@ public class WalletLoansListFragment extends Fragment {
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
-        Bundle bundle = new Bundle();
-        bundle.putFloat("interest", interest);
-        walletApplyLoanBtn.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanAppInitiateFragment, bundle));
+
+        walletApplyLoanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putFloat("interest", interest);
+                navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanAppInitiateFragment, bundle);
+            }
+        });
         walletPayLoanBtn.setOnClickListener(view2 -> payLoan());
     }
 
@@ -160,10 +166,6 @@ public class WalletLoansListFragment extends Fragment {
                             dataList.add(data);
                             Log.d(TAG, "onResponse: Data = " + data);
 
-//                            if (data.getStatus().equals("Approved") || data.getStatus().equals("Partially Paid")) {
-//                                walletApplyLoanLayout.setVisibility(View.GONE);
-//                                walletPayLoanLayout.setVisibility(View.VISIBLE);
-//                            }
 
                         }
                         statementAdapter.notifyDataSetChanged();
