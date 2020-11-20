@@ -83,10 +83,40 @@ public class WalletLoanFarmingDetailsFragment extends Fragment {
         harvesting_unit_spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem=harvesting_unit_spn.getSelectedItem().toString();
-                if(!selectedItem.isEmpty()){
-                    harvesting_unit_txt.setText(selectedItem);
-                    per_harvesting_unit_txt.setText("/"+selectedItem);
+//                String selectedItem=harvesting_unit_spn.getSelectedItem().toString();
+//
+//                if(!selectedItem.isEmpty()){
+//                    harvesting_unit_txt.setText(selectedItem);
+//                    per_harvesting_unit_txt.setText("/"+selectedItem);
+//                }
+
+                if(position==0){
+                    harvesting_unit_txt.setText(getString(R.string.units));
+                    per_harvesting_unit_txt.setText(getString(R.string.per_unit));
+                }
+                else if(position==1){
+                    harvesting_unit_txt.setText("Box(es)");
+                    per_harvesting_unit_txt.setText("/ box");
+                }
+                else if(position==2){
+                    harvesting_unit_txt.setText("Kg");
+                    per_harvesting_unit_txt.setText("/ kg");
+                }
+                else if(position==3){
+                    harvesting_unit_txt.setText("Tonne(s)");
+                    per_harvesting_unit_txt.setText("/ tonne");
+                }
+                else if(position==4){
+                    harvesting_unit_txt.setText("Bushel(s)");
+                    per_harvesting_unit_txt.setText("/ bushel");
+                }
+                else if(position==5){
+                    harvesting_unit_txt.setText("Bag(s)");
+                    per_harvesting_unit_txt.setText("/ bag");
+                }
+                else if(position==6){
+                    harvesting_unit_txt.setText("Bunch(es)");
+                    per_harvesting_unit_txt.setText("/ bunch");
                 }
             }
 
