@@ -117,7 +117,6 @@ public class WalletLoansListFragment extends Fragment {
     }
 
     private void actualStatementData() {
-
         ProgressDialog dialog;
         dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
@@ -137,40 +136,41 @@ public class WalletLoansListFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<LoanListResponse> call, @NotNull Response<LoanListResponse> response) {
                 Log.d(TAG, "onResponse: Call Successful");
-
                 Log.d(TAG, "onResponse: Code = " + response.code());
 
                 dialog.dismiss();
-
                 if (response.code() == 200) {
 
                         LoanApplication data = null;
-                        List<LoanListResponse.Loans> loans = response.body().getLoans();
+                        List<LoanApplication> loans = response.body().getLoans();
 
                         interest = (float) response.body().getInterest();
 
                         for (int i = 0; i < loans.size(); i++) {
-
-                            LoanListResponse.Loans record = loans.get(i);
-                            Gson gson = new Gson();
-                            String res = gson.toJson(record);
-                            JSONObject jsonObject = null;
-
-                            try {
-                                jsonObject = new JSONObject(res);
-                                data = new LoanApplication(jsonObject);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+//
+//                            LoanListResponse.Loans record = loans.get(i);
+//                            Gson gson = new Gson();
+//                            String res = gson.toJson(record);
+//                            JSONObject jsonObject = null;
+//
+//                            try {
+//                                jsonObject = new JSONObject(res);
+//                                data = new LoanApplication(jsonObject);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                                Log.w("LoanData", e.getMessage());
+//                            }
+                            LoanApplication record = loans.get(i);
                             
-                            dataList.add(data);
+                            dataList.add(record);
                             Log.d(TAG, "onResponse: Data = " + data);
 
 
                         }
                         statementAdapter.notifyDataSetChanged();
 
-                } else if (response.code() == 401) {
+                }
+                else if (response.code() == 401) {
 
                     if (response.errorBody() != null) {
                         Log.e("info", String.valueOf(response.errorBody()));
@@ -185,7 +185,7 @@ public class WalletLoansListFragment extends Fragment {
             public void onFailure(@NotNull Call<LoanListResponse> call, @NotNull Throwable t) {
 
                 Log.e("info : ", new String(String.valueOf(t.getMessage())));
-                Log.e("info : ", "Something got very very wrong");
+                Log.e("info : ", "Something got very wrong");
 
                 dialog.dismiss();
                 WalletAuthActivity.startAuth(context, true);

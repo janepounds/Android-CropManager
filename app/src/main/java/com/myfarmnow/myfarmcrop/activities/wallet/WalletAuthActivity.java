@@ -34,7 +34,7 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
     static TextView errorTextView;
     private Context context;
     public static String WALLET_ACCESS_TOKEN = null;
-    private SharedPreferences sharedPreferences;
+    private static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class WalletAuthActivity extends AppCompatActivity implements PinFragment
 
                             if (DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, WalletAuthActivity.this) != null) {
 
-                                WalletLoginHelper.checkLogin(WalletPass, WalletAuthActivity.this, null, dialog);
+                                WalletLoginHelper.checkLogin(WalletPass, WalletAuthActivity.this, null, dialog,sharedPreferences);
 
                                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_out_left);
                             }

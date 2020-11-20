@@ -68,6 +68,9 @@ public class LoanApplication implements Serializable {
     @Expose
     private String userPhotoPic;
 
+    @SerializedName("farm_photo")
+    @Expose
+    private String farm_photo;
     @SerializedName("requestDate")
     @Expose
     private String requestDate;
@@ -121,19 +124,21 @@ public class LoanApplication implements Serializable {
     public LoanApplication(JSONObject loanObject) throws JSONException {
 
        setId(loanObject.getString("id"));
+        setAmount((float)loanObject.getDouble("amount"));
+        setFarm_photo(loanObject.getString("farm_photo"));
+        setNinNumber(loanObject.getString("ninNumber"));
        setLoanType(loanObject.getString("loanType"));
+       setDuration(loanObject.getInt("duration"));
        setStatus(loanObject.getString("status"));
+        setInterestRate((float)loanObject.getDouble("interestRate"));
        setDateApproved(loanObject.getString("dateApproved"));
         setRequestDate(loanObject.getString("requestDate"));
         setDueDate(loanObject.getString("dueDate"));
        setNationalIDFrontPic(loanObject.getString("nationalIDFrontPic"));
        setNationalIDBackPic(loanObject.getString("nationalIDBackPic"));
        setUserPhotoPic(loanObject.getString("userPhotoPic"));
-       setDuration(loanObject.getInt("duration"));
-       setAmount((float)loanObject.getDouble("amount"));
        setAmountExpected((float)loanObject.getDouble("amountExpected"));
        setTotalFines((float)loanObject.getDouble("totalFines"));
-      setInterestRate((float)loanObject.getDouble("interestRate"));
         setDueAmount((int)loanObject.getDouble("dueAmount"));
         setAmountPaid((double)loanObject.getDouble("totalPayments"));
 
@@ -145,6 +150,14 @@ public class LoanApplication implements Serializable {
     public double getDueAmount(){
         return this.dueAmount;
 
+    }
+
+    public void setFarm_photo(String farm_photo) {
+        this.farm_photo = farm_photo;
+    }
+
+    public String getFarm_photo() {
+        return farm_photo;
     }
 
     public String getCrop() {

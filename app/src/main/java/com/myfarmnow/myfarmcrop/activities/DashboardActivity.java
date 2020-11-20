@@ -547,7 +547,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     /**
      * Schedules the background tasks such as synchronisation and notification
-     * It uses the WorkerManager library
+     * It uses the WorkerManager library scheduleBackgroundWork();
      */
     public static void scheduleBackgroundWork() {
         Constraints backupConstraints = new Constraints.Builder()

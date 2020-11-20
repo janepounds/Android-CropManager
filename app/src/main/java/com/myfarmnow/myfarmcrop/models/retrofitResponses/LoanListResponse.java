@@ -2,22 +2,23 @@ package com.myfarmnow.myfarmcrop.models.retrofitResponses;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 
 import java.util.List;
 
 public class LoanListResponse {
     @SerializedName("loans")
     @Expose
-    private List<Loans> loans;
+    private List<LoanApplication> loans;
     @SerializedName("Interest")
     @Expose
     private double Interest;
 
-    public List<Loans> getLoans() {
+    public List<LoanApplication> getLoans() {
         return loans;
     }
 
-    public void setLoans(List<Loans> loans) {
+    public void setLoans(List<LoanApplication> loans) {
         this.loans = loans;
     }
 

@@ -39,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WalletLoginHelper extends AppCompatActivity {
 
 
-    public static void checkLogin(final String rawpassword, final Context context, final TextView errorTextView, final ProgressDialog dialog) {
+    public static void checkLogin(final String rawpassword, final Context context, final TextView errorTextView, final ProgressDialog dialog, SharedPreferences sharedPreferences) {
 
         final RequestParams params = new RequestParams();
 
@@ -59,9 +59,15 @@ public class WalletLoginHelper extends AppCompatActivity {
             public void onResponse(@NotNull Call<WalletAuthentication> call, @NotNull Response<WalletAuthentication> response) {
                 if (response.code() == 200) {
                     try {
-//                        Gson gson = new Gson();
-//                        String user = gson.toJson(response.body().getData());
-//                        JSONObject object = new JSONObject(user);
+                        Gson gson = new Gson();
+                        String user = gson.toJson(response.body().getData());
+                        JSONObject userobject = new JSONObject(user);
+                        //userobject.getInt("id")
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(DashboardActivity.PREFERENCES_WALLET_USER_ID, userobject.getString("id"));
+                        editor.apply();
+
+                        Log.w("WALLET_ID", DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, context) );
                         WalletAuthActivity.getLoginToken(rawpassword, email, phoneNumber, context);
                     } catch (Exception e) {
                         Log.e("response", response.toString());
