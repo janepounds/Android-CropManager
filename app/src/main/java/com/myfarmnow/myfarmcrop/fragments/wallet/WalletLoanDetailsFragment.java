@@ -62,8 +62,6 @@ public class WalletLoanDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet_loan_details, container, false);
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_app_initiate);
-
-
         loanpaymentfrequency = view.findViewById(R.id.loanpaymentfrequency);
         amount_due_txtview = view.findViewById(R.id.amount_due_txtview);
         txt_loan_application_duration = view.findViewById(R.id.txt_loan_application_duration);
@@ -134,6 +132,15 @@ public class WalletLoanDetailsFragment extends Fragment {
                     amount_due_txtview.setText(amountDue+"");
                     Log.e("intrestbug",interest+"");
                 }
+                if(!amount_due_txtview.toString().isEmpty() && !loanpayments_edtxt.getText().toString().isEmpty()){
+
+                    Float amount_due= Float.parseFloat(amount_due_txtview.getText().toString());
+                    Float loanpayments =Float.parseFloat( loanpayments_edtxt.getText().toString());
+                    int loanduration_integer=(int) Math.ceil(amount_due/loanpayments);
+
+
+                    txt_loan_application_duration.setText(loanduration_integer+"");
+                }
             }
         });
 
@@ -158,6 +165,12 @@ public class WalletLoanDetailsFragment extends Fragment {
 
 
                     txt_loan_application_duration.setText(loanduration_integer+"");
+                }
+                if (!txtLoanApplicationAmount.getText().toString().isEmpty() ){
+                    int applicationAmount=Integer.parseInt(txtLoanApplicationAmount.getText().toString());
+                    int amountDue= (int) ((int) applicationAmount*( (interest+100)/100));
+                    amount_due_txtview.setText(amountDue+"");
+                    Log.e("intrestbug",interest+"");
                 }
             }
         });

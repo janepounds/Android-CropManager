@@ -130,7 +130,7 @@
                             android:orientation="horizontal">
 
                             <Spinner
-
+                                android:id="@+id/crop_spn"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:layout_centerVertical="true"
@@ -176,6 +176,7 @@
 
 
                             <EditText
+                                android:id="@+id/crop_area_edt"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.5"
@@ -184,12 +185,11 @@
                                 android:inputType="numberDecimal" />
 
                             <TextView
-
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edittext_right_corners_green"
                                 android:textColor="@color/white"
-                                android:text="Acres"
+                                android:text="@string/default_crop_area_units"
                                 android:textSize="14sp"
                                 android:gravity="center"
                                 android:layout_weight="0.4" />
@@ -274,6 +274,7 @@
 
 
                         <EditText
+                            android:id="@+id/expected_yield_edt"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
@@ -329,7 +330,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-
+                            android:id="@+id/expected_revenue_edt"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_margin="0dp"
@@ -374,6 +375,7 @@
 
 
                         <Spinner
+                            android:id="@+id/from_insurance_spn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.7"
@@ -417,14 +419,14 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <CheckBox
-                                android:id="@+id/main_activities_production_cb"
+                                android:id="@+id/Fertilizers_cb"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Fertilizers"
                                 android:checked="false"
                                 android:layout_weight="1"/>
                             <CheckBox
-                                android:id="@+id/main_activities_bulking_cb"
+                                android:id="@+id/crop_protection_cb"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Pesticides / Crop Protection"
@@ -438,14 +440,14 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <CheckBox
-                                android:id="@+id/main_activities_storage_cb"
+                                android:id="@+id/seeds_cb"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Seeds"
                                 android:checked="false"
                                 android:layout_weight="1"/>
                             <CheckBox
-                                android:id="@+id/main_activities_processing_cb"
+                                android:id="@+id/equipments_cb"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text="Farm Equipment"

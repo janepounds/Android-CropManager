@@ -79,25 +79,25 @@ public class LoanApplication implements Serializable {
     //crop
     @SerializedName("crop")
     @Expose
-    private int crop;
+    private String crop;
     @SerializedName("crop_area")
     @Expose
-    private int crop_area;
+    private double crop_area;
     @SerializedName("crop_area_unit")
     @Expose
-    private int crop_area_unit;
+    private String crop_area_unit;
     @SerializedName("expected_yield")
     @Expose
-    private int expected_yield;
+    private double expected_yield;
     @SerializedName("expected_revenue")
     @Expose
     private int expected_revenue;
     @SerializedName("yeild_units")
     @Expose
-    private int yeild_units;
+    private String yeild_units;
     @SerializedName("from_insurance")
     @Expose
-    private int from_insurance;
+    private boolean from_insurance;
     @SerializedName("purpose_for_fetilizer")
     @Expose
     private boolean purpose_for_fetilizer;
@@ -110,7 +110,9 @@ public class LoanApplication implements Serializable {
     @SerializedName("purpose_for_equipments")
     @Expose
     private boolean purpose_for_equipments;
-
+    @SerializedName("loan_gaurantors")
+    @Expose
+    private Referee loan_gaurantors;
 
     public LoanApplication(){
 
@@ -143,6 +145,54 @@ public class LoanApplication implements Serializable {
     public double getDueAmount(){
         return this.dueAmount;
 
+    }
+
+    public String getCrop() {
+        return crop;
+    }
+
+    public double getCrop_area() {
+        return crop_area;
+    }
+
+    public String getCrop_area_unit() {
+        return crop_area_unit;
+    }
+
+    public double getExpected_yield() {
+        return expected_yield;
+    }
+
+    public int getExpected_revenue() {
+        return expected_revenue;
+    }
+
+    public String getYeild_units() {
+        return yeild_units;
+    }
+
+    public boolean isFrom_insurance() {
+        return from_insurance;
+    }
+
+    public boolean isPurpose_for_fetilizer() {
+        return purpose_for_fetilizer;
+    }
+
+    public boolean isPurpose_for_seeds() {
+        return purpose_for_seeds;
+    }
+
+    public boolean isPurpose_for_crop_protection() {
+        return purpose_for_crop_protection;
+    }
+
+    public boolean isPurpose_for_equipments() {
+        return purpose_for_equipments;
+    }
+
+    public Referee getLoan_gaurantors() {
+        return loan_gaurantors;
     }
 
     public void setId(String id) {
@@ -187,6 +237,54 @@ public class LoanApplication implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setCrop(String crop) {
+        this.crop = crop;
+    }
+
+    public void setCrop_area(double crop_area) {
+        this.crop_area = crop_area;
+    }
+
+    public void setCrop_area_unit(String crop_area_unit) {
+        this.crop_area_unit = crop_area_unit;
+    }
+
+    public void setExpected_yield(double expected_yield) {
+        this.expected_yield = expected_yield;
+    }
+
+    public void setExpected_revenue(int expected_revenue) {
+        this.expected_revenue = expected_revenue;
+    }
+
+    public void setYeild_units(String yeild_units) {
+        this.yeild_units = yeild_units;
+    }
+
+    public void setFrom_insurance(boolean from_insurance) {
+        this.from_insurance = from_insurance;
+    }
+
+    public void setPurpose_for_fetilizer(boolean purpose_for_fetilizer) {
+        this.purpose_for_fetilizer = purpose_for_fetilizer;
+    }
+
+    public void setPurpose_for_seeds(boolean purpose_for_seeds) {
+        this.purpose_for_seeds = purpose_for_seeds;
+    }
+
+    public void setPurpose_for_crop_protection(boolean purpose_for_crop_protection) {
+        this.purpose_for_crop_protection = purpose_for_crop_protection;
+    }
+
+    public void setPurpose_for_equipments(boolean purpose_for_equipments) {
+        this.purpose_for_equipments = purpose_for_equipments;
+    }
+
+    public void setLoan_gaurantors(Referee loan_gaurantors) {
+        this.loan_gaurantors = loan_gaurantors;
     }
 
     public float getInterestRate() {
@@ -321,6 +419,7 @@ public class LoanApplication implements Serializable {
 
         return getLoanType().replace("ly","")+(getDuration()==1?"":"s");
     }
+
 }
 
 

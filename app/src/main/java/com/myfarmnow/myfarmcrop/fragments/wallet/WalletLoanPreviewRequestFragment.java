@@ -50,7 +50,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     private Toolbar toolbar;
     private StateProgressBar loanProgressBarId;
     private TextView textViewLoanPreviewAmount, textViewLoanPreviewInterestRate, textViewLoanPreviewDuration, textViewLoanPreviewDueDate,
-            textViewLoanPreviewDueAmount, textViewErrorMessage;
+            textViewLoanPreviewDueAmount, loan_type_or_schedule_txt,textViewErrorMessage;
     private Button btnLoanNextStep, btnPrevious;
 
     @Override
@@ -67,6 +67,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         textViewLoanPreviewDuration = view.findViewById(R.id.text_view_loan_preview_duration);
         textViewLoanPreviewDueDate = view.findViewById(R.id.text_view_loan_preview_due_date);
         textViewLoanPreviewDueAmount = view.findViewById(R.id.text_view_loan_preview_due_amount);
+        loan_type_or_schedule_txt = view.findViewById(R.id.loan_type_or_schedule_txt);
         textViewErrorMessage = view.findViewById(R.id.text_view_error_message);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
         btnPrevious = view.findViewById(R.id.previous_btn);
@@ -107,6 +108,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
 
         textViewLoanPreviewAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmount()));
         textViewLoanPreviewInterestRate.setText(NumberFormat.getInstance().format(loanApplication.getInterestRate()) + "%");
+        loan_type_or_schedule_txt.setText(loanApplication.getLoanType());
         textViewLoanPreviewDuration.setText(loanApplication.getDuration() + " " + loanApplication.getDurationLabel());
         textViewLoanPreviewDueDate.setText(loanApplication.computeDueDate());
         textViewLoanPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.computeDueAmount()));
