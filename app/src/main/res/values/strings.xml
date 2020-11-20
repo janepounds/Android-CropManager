@@ -1213,7 +1213,7 @@
     <string name="harvest_units">Harvest Units</string>
     <string name="date_sold">Date Sold</string>
     <string name="customer">Customer</string>
-    <string name="per_unit">/ unit</string>
+    <string name="per_unit">/ Unit</string>
     <string name="quantity_sold">Quantity Sold</string>
     <string name="storage_date">Storage Date</string>
     <string name="quantity_stored">Quantity Stored</string>
