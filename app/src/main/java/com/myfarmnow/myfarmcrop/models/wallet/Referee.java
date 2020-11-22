@@ -35,6 +35,13 @@ public class Referee implements Serializable {
         setContact(loanObject.getString("contact"));
     }
 
+    public Referee(String first_name,String last_name,String relationship, String contact ){
+        setFirst_name(first_name);
+        setLast_name(last_name);
+        setRelationship(relationship);
+        setContact(contact);
+    }
+
     public String getId() {
         return id;
     }

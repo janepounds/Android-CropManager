@@ -138,34 +138,18 @@ public class WalletLoansListFragment extends Fragment {
                 Log.d(TAG, "onResponse: Call Successful");
                 Log.d(TAG, "onResponse: Code = " + response.code());
 
-                dialog.dismiss();
+
                 if (response.code() == 200) {
 
-                        LoanApplication data = null;
                         List<LoanApplication> loans = response.body().getLoans();
 
                         interest = (float) response.body().getInterest();
 
                         for (int i = 0; i < loans.size(); i++) {
-//
-//                            LoanListResponse.Loans record = loans.get(i);
-//                            Gson gson = new Gson();
-//                            String res = gson.toJson(record);
-//                            JSONObject jsonObject = null;
-//
-//                            try {
-//                                jsonObject = new JSONObject(res);
-//                                data = new LoanApplication(jsonObject);
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                                Log.w("LoanData", e.getMessage());
-//                            }
+
                             LoanApplication record = loans.get(i);
-                            
                             dataList.add(record);
-                            Log.d(TAG, "onResponse: Data = " + data);
-
-
+                            Log.d(TAG, "onResponse: Data = " + record);
                         }
                         statementAdapter.notifyDataSetChanged();
 
@@ -177,8 +161,9 @@ public class WalletLoansListFragment extends Fragment {
                     } else {
                         Log.e("info", "Something got very very wrong");
                     }
-                    dialog.dismiss();
                 }
+
+                dialog.dismiss();
             }
 
             @Override

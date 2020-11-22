@@ -2373,4 +2373,6 @@
     <string name="quarteryear">quarter years</string>
     <string name="halfyear">half years</string>
     <string name="default_crop_area_units">Acres</string>
+    <string name="crop_protection">Pestcides/ Crop Protection</string>
+    <string name="equipments">Equipments</string>
 </resources>

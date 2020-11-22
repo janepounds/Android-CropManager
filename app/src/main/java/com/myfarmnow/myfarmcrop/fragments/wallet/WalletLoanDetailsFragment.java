@@ -186,7 +186,7 @@ public class WalletLoanDetailsFragment extends Fragment {
                 LoanApplication loanApplication = new LoanApplication();
                 loanApplication.setAmount(Float.valueOf(txtLoanApplicationAmount.getText().toString()));
                 loanApplication.setDuration(Integer.parseInt(txt_loan_application_duration.getText().toString()));
-                loanApplication.setLoanType(spLoanApplicationType.getSelectedItem().toString().equals("Months") ? "Monthly" : "Weekly");
+                loanApplication.setLoanType(spLoanApplicationType.getSelectedItem().toString());
 
                 Bundle bundle = new Bundle();
                 assert getArguments() != null;

@@ -100,7 +100,8 @@
                         android:orientation="horizontal">
 
 
-                        <EditText
+                        <TextView
+                            android:id="@+id/front_id_photo_tv"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
@@ -109,7 +110,7 @@
                             android:inputType="numberDecimal" />
 
                         <TextView
-
+                            android:id="@+id/front_id_photo_browse_tv"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/edittext_right_corners_green"
@@ -121,11 +122,7 @@
 
 
                     </LinearLayout>
-                    <ImageView
-                        android:id="@+id/image_view_loan_photos_nid_front"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
+
                 </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -150,6 +147,7 @@
 
 
                             <EditText
+                                android:id="@+id/back_id_photo_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.5"
@@ -158,7 +156,7 @@
                                 android:inputType="numberDecimal" />
 
                             <TextView
-
+                                android:id="@+id/back_id_photo_browse_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edittext_right_corners_green"
@@ -169,11 +167,8 @@
                                 android:layout_weight="0.4" />
 
                         </LinearLayout>
-                        <ImageView
-                            android:id="@+id/image_view_loan_photos_nid_back"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"/>
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -198,7 +193,8 @@
                             android:orientation="horizontal">
 
 
-                            <EditText
+                            <TextView
+                                android:id="@+id/selfie_id_photo_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.5"
@@ -207,7 +203,7 @@
                                 android:inputType="numberDecimal" />
 
                             <TextView
-
+                                android:id="@+id/selfie_id_photo_browse_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edittext_right_corners_green"
@@ -218,11 +214,8 @@
                                 android:layout_weight="0.4" />
 
                         </LinearLayout>
-                        <ImageView
-                            android:id="@+id/image_view_loan_photos_selfie"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"/>
+
+
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -246,7 +239,8 @@
                             android:orientation="horizontal">
 
 
-                            <EditText
+                            <TextView
+                                android:id="@+id/farm_photo_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.5"
@@ -255,7 +249,7 @@
                                 android:inputType="numberDecimal" />
 
                             <TextView
-
+                                android:id="@+id/farm_photo_browse_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edittext_right_corners_green"
@@ -297,6 +291,7 @@
                                 android:text="@string/first_name" />
 
                             <EditText
+                                android:id="@+id/first_name_edt1"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:background="@drawable/edittext_corner"
@@ -326,6 +321,7 @@
                                 android:text="Second Name" />
 
                             <EditText
+                                android:id="@+id/last_name_edt1"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:background="@drawable/edittext_corner"
@@ -367,7 +363,7 @@
                                 android:orientation="horizontal">
 
                                 <Spinner
-
+                                    android:id="@+id/guarantor_relationship_spn1"
                                     android:layout_width="match_parent"
                                     android:layout_height="45dp"
                                     android:layout_centerVertical="true"
@@ -421,6 +417,7 @@
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
                                 <EditText
+                                    android:id="@+id/guarantor_contact_edt1"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/josefin_sans"
@@ -469,6 +466,7 @@
                                 android:text="@string/first_name" />
 
                             <EditText
+                                android:id="@+id/first_name_edt2"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:background="@drawable/edittext_corner"
@@ -498,6 +496,7 @@
                                 android:text="Second Name" />
 
                             <EditText
+                                android:id="@+id/last_name_edt2"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:background="@drawable/edittext_corner"
@@ -539,7 +538,7 @@
                                 android:orientation="horizontal">
 
                                 <Spinner
-
+                                    android:id="@+id/guarantor_relationship_spn2"
                                     android:layout_width="match_parent"
                                     android:layout_height="45dp"
                                     android:layout_centerVertical="true"
@@ -593,6 +592,7 @@
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
                                 <EditText
+                                    android:id="@+id/guarantor_contact_edt2"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/josefin_sans"

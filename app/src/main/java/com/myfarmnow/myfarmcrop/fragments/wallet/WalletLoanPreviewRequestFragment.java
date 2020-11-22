@@ -50,7 +50,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     private Toolbar toolbar;
     private StateProgressBar loanProgressBarId;
     private TextView textViewLoanPreviewAmount, textViewLoanPreviewInterestRate, textViewLoanPreviewDuration, textViewLoanPreviewDueDate,
-            textViewLoanPreviewDueAmount, loan_type_or_schedule_txt,textViewErrorMessage;
+            textViewLoanPreviewDueAmount, loan_type_or_schedule_txt,textViewErrorMessage, loan_purpose_txt;
     private Button btnLoanNextStep, btnPrevious;
 
     @Override
@@ -69,6 +69,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         textViewLoanPreviewDueAmount = view.findViewById(R.id.text_view_loan_preview_due_amount);
         loan_type_or_schedule_txt = view.findViewById(R.id.loan_type_or_schedule_txt);
         textViewErrorMessage = view.findViewById(R.id.text_view_error_message);
+        loan_purpose_txt= view.findViewById(R.id.loan_purpose_txt);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
         btnPrevious = view.findViewById(R.id.previous_btn);
         btnPrevious.setOnClickListener(view1 -> navController.popBackStack());
@@ -112,10 +113,33 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         textViewLoanPreviewDuration.setText(loanApplication.getDuration() + " " + loanApplication.getDurationLabel());
         textViewLoanPreviewDueDate.setText(loanApplication.computeDueDate());
         textViewLoanPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.computeDueAmount()));
-        btnLoanNextStep.setOnClickListener(view -> initiateApplication());
+        if(loanApplication.isPurpose_for_fetilizer()){
+            loan_purpose_txt.setText(getString(R.string.fertilizer_title));
+        }
+        if(loanApplication.isPurpose_for_crop_protection()){
+            if(loan_purpose_txt.getText().toString().isEmpty())
+                loan_purpose_txt.setText(loan_purpose_txt.getText().toString()+", "+getString(R.string.crop_protection));
+            else
+                loan_purpose_txt.setText(getString(R.string.crop_protection));
+        }
+        if(loanApplication.isPurpose_for_equipments()){
+            if(loan_purpose_txt.getText().toString().isEmpty())
+                loan_purpose_txt.setText(loan_purpose_txt.getText().toString()+", "+getString(R.string.equipments));
+            else
+                loan_purpose_txt.setText(getString(R.string.equipments));
+        }
+
+        if(loanApplication.isPurpose_for_equipments()){
+            if(loan_purpose_txt.getText().toString().isEmpty())
+                loan_purpose_txt.setText(loan_purpose_txt.getText().toString()+", "+getString(R.string.equipments));
+            else
+                loan_purpose_txt.setText(getString(R.string.equipments));
+        }
+
+        btnLoanNextStep.setOnClickListener(view -> comfirmLoanApplication());
     }
 
-    public void initiateApplication() {
+    public void comfirmLoanApplication() {
         /*****************RETROFIT IMPLEMENTATION*******************/
         String access_token = WalletAuthActivity.WALLET_ACCESS_TOKEN;
         String userId = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_WALLET_USER_ID, context);
@@ -125,18 +149,17 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         double interest = loanApplication.getInterestRate();
 
         APIRequests apiRequests = APIClient.getWalletInstance();
-        Call<RequestLoanresponse> call = apiRequests.requestLoans(access_token, userId, amount, duration, interest, loanType);
+        Call<RequestLoanresponse> call = apiRequests.comfirmLoanApplication(access_token, userId, amount, duration, interest, loanType);
         call.enqueue(new Callback<RequestLoanresponse>() {
             @Override
             public void onResponse(Call<RequestLoanresponse> call, Response<RequestLoanresponse> response) {
                 if (response.code() == 200) {
-                    if( response.body().getData().getLoanApplicationId().equals("0") ){
+                    if( response.body().getData().getStatus().equals("0") ){
                         Log.e("info 200", new String(String.valueOf(response.toString())) + ", code: " + response.code());
                         textViewErrorMessage.setText(response.body().getData().getMessage());
                     }else {
                         Bundle bundle = new Bundle();
-                        assert getArguments() != null;
-                        bundle.putString("loanApplicationId", response.body().getData().getLoanApplicationId() );
+                        bundle.putSerializable("loanApplication", loanApplication);
                         navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment,bundle);
                     }
 

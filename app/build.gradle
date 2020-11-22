@@ -173,4 +173,5 @@ dependencies {
     implementation 'com.braintreepayments.api:braintree:2.+'
 
     implementation 'com.crystal:crystalrangeseekbar:1.1.1'
+    implementation 'com.github.maayyaannkk:ImagePicker:1.0.9'
 }

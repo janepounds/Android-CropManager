@@ -113,9 +113,12 @@ public class LoanApplication implements Serializable {
     @SerializedName("purpose_for_equipments")
     @Expose
     private boolean purpose_for_equipments;
-    @SerializedName("loan_gaurantors")
+    @SerializedName("loan_gaurantor1")
     @Expose
-    private Referee loan_gaurantors;
+    private Referee loan_gaurantor1;
+    @SerializedName("loan_gaurantor2")
+    @Expose
+    private Referee loan_gaurantor2;
 
     public LoanApplication(){
 
@@ -204,8 +207,20 @@ public class LoanApplication implements Serializable {
         return purpose_for_equipments;
     }
 
-    public Referee getLoan_gaurantors() {
-        return loan_gaurantors;
+    public Referee getLoan_gaurantor1() {
+        return loan_gaurantor1;
+    }
+
+    public Referee getLoan_gaurantor2() {
+        return loan_gaurantor2;
+    }
+
+    public void setLoan_gaurantor1(Referee loan_gaurantor1) {
+        this.loan_gaurantor1 = loan_gaurantor1;
+    }
+
+    public void setLoan_gaurantor2(Referee loan_gaurantor2) {
+        this.loan_gaurantor2 = loan_gaurantor2;
     }
 
     public void setId(String id) {
@@ -294,10 +309,6 @@ public class LoanApplication implements Serializable {
 
     public void setPurpose_for_equipments(boolean purpose_for_equipments) {
         this.purpose_for_equipments = purpose_for_equipments;
-    }
-
-    public void setLoan_gaurantors(Referee loan_gaurantors) {
-        this.loan_gaurantors = loan_gaurantors;
     }
 
     public float getInterestRate() {
