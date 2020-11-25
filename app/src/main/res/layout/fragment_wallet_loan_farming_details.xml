@@ -26,29 +26,6 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/colorPrimary">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="15dp"
-                app:srcCompat="@drawable/back_black_24dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="60dp"
-                android:gravity="center_vertical"
-                android:text="Farming Details"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-        </RelativeLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_statement_card"
@@ -477,12 +454,12 @@
                         android:layout_margin="10dp"
                         app:srcCompat="@drawable/ic_left_chevron"/>
                     <Button
-
                         android:id="@+id/btn_previous"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
+                        android:paddingStart="6dp"
                         android:background="@color/transparent"
                         android:text="@string/previous"
                         android:textColor="@color/white"
@@ -506,6 +483,7 @@
                         android:layout_weight="1"
                         android:background="@color/transparent"
                         android:paddingStart="30dp"
+                        android:paddingEnd="4dp"
                         android:text="@string/next"
                         android:textColor="@color/white"
                         android:textSize="@dimen/button_text_size" />

@@ -52,6 +52,7 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     private TextView textViewLoanPreviewAmount, textViewLoanPreviewInterestRate, textViewLoanPreviewDuration, textViewLoanPreviewDueDate,
             textViewLoanPreviewDueAmount, loan_type_or_schedule_txt,textViewErrorMessage, loan_purpose_txt;
     private Button btnLoanNextStep, btnPrevious;
+    AppBarConfiguration appBarConfiguration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +61,6 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wallet_loan_preview_request, container, false);
 
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_preview_request);
-        toolbar.setVisibility(View.GONE);
         loanProgressBarId = view.findViewById(R.id.loan_preview_request_progress_bar_id);
         textViewLoanPreviewAmount = view.findViewById(R.id.text_view_loan_preview_amount);
         textViewLoanPreviewInterestRate = view.findViewById(R.id.text_view_loan_preview_interest_rate);
@@ -72,7 +72,6 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         loan_purpose_txt= view.findViewById(R.id.loan_purpose_txt);
         btnLoanNextStep = view.findViewById(R.id.btn_loan_next_step);
         btnPrevious = view.findViewById(R.id.previous_btn);
-        btnPrevious.setOnClickListener(view1 -> navController.popBackStack());
 
         loanProgressBarId.setStateDescriptionData(descriptionData);
         loanProgressBarId.setStateDescriptionTypeface("fonts/JosefinSans-SemiBold.ttf");
@@ -91,9 +90,11 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavController navController = Navigation.findNavController(view);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        btnPrevious.setOnClickListener(view1 -> navController.popBackStack());
+
     }
 
     @Override
@@ -116,6 +117,10 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         textViewLoanPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.computeDueAmount()));
         if(loanApplication.isPurpose_for_fetilizer()){
             loan_purpose_txt.setText(getString(R.string.fertilizer_title));
+            if(loan_purpose_txt.getText().toString().isEmpty())
+                loan_purpose_txt.setText(loan_purpose_txt.getText().toString()+", "+getString(R.string.fertilizer_title));
+            else
+                loan_purpose_txt.setText(getString(R.string.fertilizer_title));
         }
         if(loanApplication.isPurpose_for_crop_protection()){
             if(loan_purpose_txt.getText().toString().isEmpty())
@@ -130,12 +135,14 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
                 loan_purpose_txt.setText(getString(R.string.equipments));
         }
 
-        if(loanApplication.isPurpose_for_equipments()){
+        if(loanApplication.isPurpose_for_seeds()){
             if(loan_purpose_txt.getText().toString().isEmpty())
-                loan_purpose_txt.setText(loan_purpose_txt.getText().toString()+", "+getString(R.string.equipments));
+                loan_purpose_txt.setText(loan_purpose_txt.getText().toString()+", "+getString(R.string.seeds));
             else
-                loan_purpose_txt.setText(getString(R.string.equipments));
+                loan_purpose_txt.setText(getString(R.string.seeds));
         }
+
+        btnPrevious.setOnClickListener(view1 -> navController.popBackStack());
 
         btnLoanNextStep.setOnClickListener(view -> comfirmLoanApplication());
     }

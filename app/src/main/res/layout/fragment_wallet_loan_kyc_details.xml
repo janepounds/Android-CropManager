@@ -648,6 +648,7 @@
                                 android:layout_weight="1"
                                 android:background="@color/transparent"
                                 android:text="@string/previous"
+                                android:paddingStart="6dp"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/button_text_size" />
 
@@ -669,6 +670,7 @@
                                 android:layout_weight="1"
                                 android:background="@color/transparent"
                                 android:paddingStart="30dp"
+                                android:paddingEnd="4dp"
                                 android:text="@string/submit"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/button_text_size" />

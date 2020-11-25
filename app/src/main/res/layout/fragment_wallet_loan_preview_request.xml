@@ -33,29 +33,6 @@
             android:orientation="vertical"
             tools:context=".MainActivity">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/colorPrimary">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="15dp"
-                    app:srcCompat="@drawable/back_black_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="60dp"
-                    android:gravity="center_vertical"
-                    android:text="Confirm Details"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +40,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingLeft="@dimen/margin_10"
-            android:paddingTop="80dp"
+            android:layout_marginTop="?actionBarSize"
+            android:paddingTop="10dp"
             android:paddingRight="@dimen/margin_10">
 
             <TextView
@@ -411,6 +389,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
+                            android:paddingStart="8dp"
                             android:background="@color/transparent"
                             android:text="@string/previous"
                             android:textColor="@color/white"
@@ -432,6 +411,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
+                            android:paddingEnd="8dp"
                             android:background="@color/transparent"
                             android:text="@string/label_confirm"
                             android:textColor="@color/white"

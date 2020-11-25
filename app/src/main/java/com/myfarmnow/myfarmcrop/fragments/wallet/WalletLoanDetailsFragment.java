@@ -1,6 +1,8 @@
 package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +90,13 @@ public class WalletLoanDetailsFragment extends Fragment {
         spLoanApplicationType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    //Change selected text color
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.textColor));
+                    ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);//Change selected text size
+                } catch (Exception e) {
+
+                }
                 if(position==0){
                     loanpaymentfrequency.setText(getString(R.string.per_day));
                     loanpayment_duration_units.setText(getString(R.string.days));
@@ -179,9 +189,10 @@ public class WalletLoanDetailsFragment extends Fragment {
 
         btnLoanNextStep.setOnClickListener(v -> {
             if (txtLoanApplicationAmount.getText().toString().trim() == null || txtLoanApplicationAmount.getText().toString().trim().isEmpty()) {
-                txtLoanApplicationAmount.setError("Amount Required");
-            } else if (txt_loan_application_duration.getText().toString().trim() == null || txt_loan_application_duration.getText().toString().trim().isEmpty()) {
-                txt_loan_application_duration.setError("Required");
+                txtLoanApplicationAmount.setError("Please enter value");
+
+            } else if (loanpayments_edtxt.getText().toString().trim() == null || txt_loan_application_duration.getText().toString().trim().isEmpty()) {
+                loanpayments_edtxt.setError("Please enter value");
             } else {
                 LoanApplication loanApplication = new LoanApplication();
                 loanApplication.setAmount(Float.valueOf(txtLoanApplicationAmount.getText().toString()));
@@ -193,7 +204,7 @@ public class WalletLoanDetailsFragment extends Fragment {
                 bundle.putFloat("interest", getArguments().getFloat("interest"));
                 bundle.putSerializable("loanApplication", loanApplication);
 
-                btnLoanNextStep.setOnClickListener(view1 -> navController.navigate(R.id.action_walletLoanAppInitiateFragment_to_walletLoanFarmingDetailsFragment, bundle));
+               navController.navigate(R.id.action_walletLoanAppInitiateFragment_to_walletLoanFarmingDetailsFragment,bundle);
             }
         });
     }

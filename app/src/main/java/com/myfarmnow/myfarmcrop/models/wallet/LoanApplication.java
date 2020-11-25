@@ -441,6 +441,9 @@ public class LoanApplication implements Serializable {
     }
     public String getDurationLabel(){
 
+        if(getLoanType().equals("Daily")){
+            return getLoanType().replace("il","")+(getDuration()==1?"":"s");
+        }
         return getLoanType().replace("ly","")+(getDuration()==1?"":"s");
     }
 

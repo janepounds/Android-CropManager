@@ -13,8 +13,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_wallet_loan_app_initiate"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -26,36 +26,14 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/colorPrimary">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="15dp"
-                app:srcCompat="@drawable/back_black_24dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="60dp"
-                android:gravity="center_vertical"
-                android:text="Loans"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_statement_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="?actionBarSize"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -273,6 +251,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
                             android:paddingLeft="@dimen/dimen_10dp"
+                            android:paddingStart="10dp"
+                            android:textColor="@color/textColor"
                             android:background="@android:color/transparent"
                             android:inputType="numberDecimal" />
 
@@ -336,6 +316,7 @@
                             android:gravity="start|center_vertical"
                             android:inputType="number"
                             android:background="@android:color/transparent"
+                            android:textSize="16sp"
                             android:textAlignment="viewStart"
                             android:textColor="@color/textColor"
                             android:textColorHint="@color/textColorPrimaryDark"/>
@@ -372,9 +353,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
-                        android:paddingLeft="@dimen/dimen_15sp"
+                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="16sp"
                         android:background="@android:color/transparent"
                         android:inputType="numberDecimal" />
