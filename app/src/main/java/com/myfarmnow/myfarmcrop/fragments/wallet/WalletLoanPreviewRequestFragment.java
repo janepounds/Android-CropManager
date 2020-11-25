@@ -80,7 +80,8 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
         loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
 
         if (loanApplication != null) {
-            loanApplication.setInterestRate((float) getArguments().getFloat("interest"));
+            float interest=getArguments().getFloat("interest");
+            loanApplication.setInterestRate((float) interest);
             initializeActivity();
         }
 
@@ -158,9 +159,14 @@ public class WalletLoanPreviewRequestFragment extends Fragment {
                         Log.e("info 200", new String(String.valueOf(response.toString())) + ", code: " + response.code());
                         textViewErrorMessage.setText(response.body().getData().getMessage());
                     }else {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("loanApplication", loanApplication);
-                        navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment,bundle);
+                        try {
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("loanApplication", loanApplication);
+                            navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment,bundle);
+                        }catch (Exception exception){
+                            exception.printStackTrace();
+                        }
+
                     }
 
                 } else if (response.code() == 401) {

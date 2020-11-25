@@ -34,15 +34,12 @@ import java.text.NumberFormat;
 
 public class WalletLoanStatusPreview extends Fragment {
     private static final String TAG = "WalletLoanStatusPreview";
-    private Context context;
     private AppBarConfiguration appBarConfiguration;
 
-    private View mContentView;
-    private View mControlsView;
     LoanApplication loanApplication;
 
     private Toolbar toolbar;
-    private TextView textViewLoanStatusPreviewDueDate, textViewLoanStatusPreviewDuration, textViewLoanStatusPreviewStatus, textViewLoanStatusPreviewAmount,
+    private TextView text_view_loan_status_preview_date,textViewLoanStatusPreviewDueDate, textViewLoanStatusPreviewDuration, textViewLoanStatusPreviewStatus, textViewLoanStatusPreviewAmount,
             textViewLoanStatusEditPhotos, textViewLoanStatusPreviewInterestRate, textViewLoanStatusPreviewDueAmount, textViewLoanStatusPreviewPayments,
             textViewLoanStatusPreviewFines;
     private ImageView imageViewLoanStatusPreviewNidBack, imageViewLoanStatusPreviewNidFront, imageViewLoanStatusPreviewUserPhoto;
@@ -56,6 +53,8 @@ public class WalletLoanStatusPreview extends Fragment {
 
         toolbar = view.findViewById(R.id.toolbar_wallet_loan_status_preview);
         textViewLoanStatusPreviewDueDate = view.findViewById(R.id.text_view_loan_status_preview_due_date);
+        text_view_loan_status_preview_date = view.findViewById(R.id.text_view_loan_status_preview_date);
+
         textViewLoanStatusPreviewDuration = view.findViewById(R.id.text_view_loan_status_preview_duration);
         textViewLoanStatusPreviewStatus = view.findViewById(R.id.text_view_loan_status_preview_status);
         textViewLoanStatusPreviewAmount = view.findViewById(R.id.text_view_loan_status_preview_amount);
@@ -68,10 +67,10 @@ public class WalletLoanStatusPreview extends Fragment {
         imageViewLoanStatusPreviewNidFront = view.findViewById(R.id.image_view_loan_status_preview_nid_front);
         imageViewLoanStatusPreviewUserPhoto = view.findViewById(R.id.image_view_loan_status_preview_user_photo);
 
-//        assert getArguments() != null;
-//        loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
+        assert getArguments() != null;
+        loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
 
-//        initializeActivity();
+        initializeActivity();
 
         return view;
     }
@@ -80,6 +79,7 @@ public class WalletLoanStatusPreview extends Fragment {
         textViewLoanStatusPreviewDuration.setText(loanApplication.getDuration() + " " + loanApplication.getDurationLabel());
         //referee1ImageView, referee2ImageView
         textViewLoanStatusPreviewDueDate.setText(loanApplication.getDueDate());
+        text_view_loan_status_preview_date.setText(loanApplication.getRequestDate());
         textViewLoanStatusPreviewStatus.setText(loanApplication.getStatus());
         textViewLoanStatusPreviewAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmount()));
 
@@ -158,7 +158,7 @@ public class WalletLoanStatusPreview extends Fragment {
         });
 
         textViewLoanStatusPreviewInterestRate.setText(loanApplication.getInterestRate() + "%");
-        textViewLoanStatusPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getDueAmount()));
+        textViewLoanStatusPreviewDueAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.computeDueAmount()));
         textViewLoanStatusPreviewPayments.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmountPaid()));
         textViewLoanStatusPreviewFines.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getTotalFines()));
 

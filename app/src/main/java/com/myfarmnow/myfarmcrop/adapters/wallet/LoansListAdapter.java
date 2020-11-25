@@ -115,7 +115,7 @@ public class LoansListAdapter extends RecyclerView.Adapter<LoansListAdapter.MyVi
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("loanApplication", transaction);
-            navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanStatusPreview);
+            navController.navigate(R.id.action_walletLoansListFragment_to_walletLoanStatusPreview,bundle);
         }
     }
 }

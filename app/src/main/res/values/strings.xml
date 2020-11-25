@@ -2332,6 +2332,18 @@
         <item>Village One</item>
         <item>Village Two</item>
     </string-array>
+
+    <string-array name="next_of_kin_relation">
+        <item>Select</item>
+        <item>Sister</item>
+        <item>Brother</item>
+        <item>Friend</item>
+        <item>Mother</item>
+        <item>Father</item>
+        <item>Guardian</item>
+        <item>Wife</item>
+    </string-array>
+
     <string-array name="loan_farming_details_crops_list">
         <item>Select</item>
         <item>Beans</item>

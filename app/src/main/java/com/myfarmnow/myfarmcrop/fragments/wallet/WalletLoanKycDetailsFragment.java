@@ -1,6 +1,7 @@
 package com.myfarmnow.myfarmcrop.fragments.wallet;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -67,11 +68,10 @@ public class WalletLoanKycDetailsFragment extends Fragment {
     NavController navController;
     AppBarConfiguration appBarConfiguration;
 
-    Bitmap bitmap;
     private static final int GALLERY_REQUESTED_NID_BACK = 1;
     private static final int GALLERY_REQUESTED_NID_FRONT = 2;
     private static final int GALLERY_REQUESTED_SELFIE = 3;
-    private static final int GALLERY_REQUESTED_FARM_PHOTO = 4;
+    private static final int GALLERY_REQUESTED_FARM_PHOTO = 5;
 
     ProgressDialog dialog;
     String[] descriptionData = {"Loan\nDetails", "Farming\nDetails", "Preview", "KYC\nDetails"};
@@ -120,7 +120,7 @@ public class WalletLoanKycDetailsFragment extends Fragment {
         assert getArguments() != null;
          if (getArguments().getSerializable("loanApplication") != null) {
             loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
-
+             double interest = loanApplication.getInterestRate();
         } else {
             requireActivity().finish();
         }
@@ -204,7 +204,7 @@ public class WalletLoanKycDetailsFragment extends Fragment {
                 intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);//default is true
                 intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true);//default is true
                 startActivityForResult(intent, GALLERY_REQUESTED_NID_BACK);
-            } //back_id_photo_tv
+            }
         });
         selfie_id_photo_browse_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,7 +213,7 @@ public class WalletLoanKycDetailsFragment extends Fragment {
                 intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);//default is true
                 intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);//default is true
                 intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true);//default is true
-                startActivityForResult(intent, GALLERY_REQUESTED_NID_FRONT);
+                startActivityForResult(intent, GALLERY_REQUESTED_SELFIE);
             }
         });
         farm_photo_browse_tv.setOnClickListener(new View.OnClickListener() {
@@ -237,29 +237,27 @@ public class WalletLoanKycDetailsFragment extends Fragment {
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK)
         switch (requestCode) {
             case GALLERY_REQUESTED_NID_BACK:
-                bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
                 filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
                 selectedImage = BitmapFactory.decodeFile(filePath);
                 encodedBackIdImageID = encodeImage(selectedImage);
                 back_id_photo_tv.setText(filePath);
                 break;
             case GALLERY_REQUESTED_NID_FRONT:
-                bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
                 filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
                 selectedImage = BitmapFactory.decodeFile(filePath);
                 encodedFrontIdImageID = encodeImage(selectedImage);
                 front_id_photo_tv.setText(filePath);
                 break;
             case GALLERY_REQUESTED_SELFIE:
-                bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
                 filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
                 selectedImage = BitmapFactory.decodeFile(filePath);
                 encodedSelfieIdImageID = encodeImage(selectedImage);
                 selfie_id_photo_tv.setText(filePath);
+                break;
             case GALLERY_REQUESTED_FARM_PHOTO:
-                bitmap = ImageUtils.getImageFromResult(context, resultCode, data);
                 filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
                 selectedImage = BitmapFactory.decodeFile(filePath);
                 encodedlfarmImage = encodeImage(selectedImage);
@@ -298,6 +296,7 @@ public class WalletLoanKycDetailsFragment extends Fragment {
                 loanApplication.setLoan_gaurantor2(new Referee(first_name_edt2.getText().toString(), last_name_edt2.getText().toString(), guarantor_relationship_spn2.getSelectedItem().toString(), guarantor_contact_edt2.getText().toString()));
 
             }
+
             requestObject.put("loanParams", loanApplication);
 
         }catch (Exception e){
@@ -315,10 +314,8 @@ public class WalletLoanKycDetailsFragment extends Fragment {
                         Log.e("info 200", new String(String.valueOf(response.toString())) + ", code: " + response.code());
                         textViewErrorMessage.setText(response.body().getData().getMessage());
                     }else {
-                        Bundle bundle = new Bundle();
-                        assert getArguments() != null;
-                        bundle.putString("loanApplicationId", response.body().getData().getLoanApplicationId() );
-                        navController.navigate(R.id.action_walletLoanPreviewRequestFragment_to_walletLoanAppPhotosFragment,bundle);
+
+                        navController.navigate(R.id.action_walletLoanAppPhotosFragment_to_walletLoansListFragment);
                     }
 
                 } else if (response.code() == 401) {

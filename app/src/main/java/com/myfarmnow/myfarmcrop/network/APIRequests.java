@@ -185,7 +185,7 @@ public interface APIRequests {
     //request loans
     @POST("wallet/loan/user/request")
     Call<RequestLoanresponse> requestLoans(@Header("Authorization") String token,
-                                           JSONObject object
+                                           @Body JSONObject object
     );
 
 

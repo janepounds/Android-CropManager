@@ -146,7 +146,7 @@
                             android:orientation="horizontal">
 
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/back_id_photo_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -369,7 +369,7 @@
                                     android:layout_centerVertical="true"
                                     android:layout_gravity="center"
                                     android:background="@android:color/transparent"
-                                    android:entries="@array/loan_farming_details_crops_list"
+                                    android:entries="@array/next_of_kin_relation"
                                     android:gravity="center"
                                     android:spinnerMode="dropdown" />
 
@@ -544,7 +544,7 @@
                                     android:layout_centerVertical="true"
                                     android:layout_gravity="center"
                                     android:background="@android:color/transparent"
-                                    android:entries="@array/loan_farming_details_crops_list"
+                                    android:entries="@array/next_of_kin_relation"
                                     android:gravity="center"
                                     android:spinnerMode="dropdown" />
 
@@ -664,12 +664,12 @@
                             <Button
                                 android:id="@+id/btn_loan_app_photos_next_step"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="35dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:background="@color/transparent"
                                 android:paddingStart="30dp"
-                                android:text="@string/next"
+                                android:text="@string/submit"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/button_text_size" />
 
@@ -683,19 +683,7 @@
                             </ImageView>
                         </FrameLayout>
                     </LinearLayout>
-                    <Button
 
-                        style="@style/Button_DW"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/rectangular_green_solid"
-                        android:fontFamily="@font/josefin_sans"
-                        android:gravity="center"
-                        android:text="@string/submit"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
                 </LinearLayout>
             </ScrollView>
 
