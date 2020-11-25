@@ -23,15 +23,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  **/
 
 public class BuyInputsAPIClient {
-    
-    
     // Base URL for API Requests
     private static final String BASE_URL = ConstantValues.ECOMMERCE_URL + "api/";
-    private static final String BASE_URL_WALLET ="http://emaishawallet.myfarmnow.com/api/";
+    private static final String BASE_URL_WALLET ="http://emaisha.com/api/";
 
     private static APIRequestsForBuyInputs apiRequests;
     private  final String TAG="Retrofit2 Errors";
-
 
     // Singleton Instance of APIRequests
     public static APIRequestsForBuyInputs getInstance() {
@@ -91,8 +88,7 @@ public class BuyInputsAPIClient {
             return apiRequests;
         }
     }
-
-
+    
 }
 
 
