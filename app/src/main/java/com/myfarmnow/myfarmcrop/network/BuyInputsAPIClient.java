@@ -23,8 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  **/
 
 public class BuyInputsAPIClient {
-    
-    
+
+
     // Base URL for API Requests
     private static final String BASE_URL = ConstantValues.ECOMMERCE_URL + "api/";
     private static final String BASE_URL_WALLET ="http://emaishawallet.myfarmnow.com/api/";
