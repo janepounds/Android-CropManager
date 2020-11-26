@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/solidwhite_shape"
+    android:background="@color/colorAccentLight"
     android:layout_margin="10dp"
     android:orientation="vertical">
 
@@ -13,17 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingRight="@dimen/dimen_5dp"
-            android:paddingLeft="@dimen/dimen_5dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:background="@drawable/solidwhite_shape">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="10dp"
-                android:background="@drawable/rectangular_green_frame" >
+                android:layout_margin="10dp">
 
                 <TextView
                     android:id="@+id/text_view_purchase_preview_error"
@@ -37,170 +35,200 @@
                     android:gravity="center_horizontal" />
 
                 <LinearLayout
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:id="@+id/txt_wallet_purchase_mechant_label"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Merchant ID"
-                        android:background="@drawable/rectangular_green_frame"/>
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"  />
                     <TextView
                         android:id="@+id/text_view_purchase_preview_mechant_id"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="123456789025"
                         android:alpha="1.0"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:background="@drawable/rectangular_green_frame"
-                        />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp">
 
                     <TextView
                         android:id="@+id/transaction_receiver_label"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Paying "
-                        android:background="@drawable/rectangular_green_frame"/>
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"  />
                     <TextView
                         android:id="@+id/text_view_purchase_preview_name"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Kalin Farms"
                         android:alpha="1.0"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:background="@drawable/rectangular_green_frame"
-                        />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Service"
-                        android:background="@drawable/rectangular_green_frame"/>
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"  />
                     <TextView
                         android:id="@+id/text_view_purchase_service"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Food Purchase"
                         android:alpha="1.0"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:background="@drawable/rectangular_green_frame"
-                        />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Transaction Amount"
-                        android:background="@drawable/rectangular_green_frame"/>
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"  />
                     <TextView
                         android:id="@+id/txt_view_crop_bill_preview_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="UGX 0"
                         android:alpha="1.0"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:background="@drawable/rectangular_green_frame"
-                        />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:text="Purchase Date"
-                        android:background="@drawable/rectangular_green_frame"/>
-                    <TextView
-                        android:id="@+id/text_view_purchase_date_time"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:text="2019/01/01  23:00pm"
-                        android:alpha="1.0"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:background="@drawable/rectangular_green_frame"
-                        />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/discount_layount"
-                    android:layout_height="50dp"
-                    android:layout_width="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="Discount Amount"
-                        android:background="@drawable/rectangular_green_frame"/>
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"  />
                     <TextView
                         android:id="@+id/txt_view_discount_preview_total"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:paddingLeft="@dimen/dimen_10dp"
                         android:layout_weight="1"
                         android:text="UGX 0"
                         android:alpha="1.0"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:background="@drawable/rectangular_green_frame"
-                        />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:layout_weight="1"
+                        android:text="Purchase Date"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:text=":"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"  />
+                    <TextView
+                        android:id="@+id/text_view_purchase_date_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/dimen_10dp"
+                        android:layout_weight="1"
+                        android:text="2019/01/01  23:00pm"
+                        android:alpha="1.0"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
