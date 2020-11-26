@@ -12,6 +12,8 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import com.bumptech.glide.request.target.Target;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 
 
@@ -39,10 +42,10 @@ public class WalletLoanStatusPreview extends Fragment {
     LoanApplication loanApplication;
 
     private Toolbar toolbar;
-    private TextView text_view_loan_status_preview_date,textViewLoanStatusPreviewDueDate, textViewLoanStatusPreviewDuration, textViewLoanStatusPreviewStatus, textViewLoanStatusPreviewAmount,
+    private TextView text_view_loan_status_preview_date, textViewLoanStatusPreviewDueDate, textViewLoanStatusPreviewDuration, textViewLoanStatusPreviewStatus, textViewLoanStatusPreviewAmount,
             textViewLoanStatusEditPhotos, textViewLoanStatusPreviewInterestRate, textViewLoanStatusPreviewDueAmount, textViewLoanStatusPreviewPayments,
             textViewLoanStatusPreviewFines;
-    private ImageView imageViewLoanStatusPreviewNidBack, imageViewLoanStatusPreviewNidFront, imageViewLoanStatusPreviewUserPhoto;
+    private ImageView imageViewLoanStatusPreviewNidBack, imageViewLoanStatusPreviewNidFront, imageViewLoanStatusPreviewUserPhoto, imageViewLoanStatusPreviewFarmPhoto;
 
     @Nullable
     @Override
@@ -66,6 +69,7 @@ public class WalletLoanStatusPreview extends Fragment {
         imageViewLoanStatusPreviewNidBack = view.findViewById(R.id.image_view_loan_status_preview_nid_back);
         imageViewLoanStatusPreviewNidFront = view.findViewById(R.id.image_view_loan_status_preview_nid_front);
         imageViewLoanStatusPreviewUserPhoto = view.findViewById(R.id.image_view_loan_status_preview_user_photo);
+        imageViewLoanStatusPreviewFarmPhoto = view.findViewById(R.id.image_view_loan_status_preview_farm_photo);
 
         assert getArguments() != null;
         loanApplication = (LoanApplication) getArguments().getSerializable("loanApplication");
@@ -90,65 +94,15 @@ public class WalletLoanStatusPreview extends Fragment {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .priority(Priority.HIGH);
 
-        Glide.with(this)
-                .setDefaultRequestOptions(options)
-                .load(loanApplication.getNationalIDBackPic())
-                .addListener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        //bannerItemShimmer.stopShimmer();
-                        //bannerItemShimmer.setVisibility(View.GONE);
+        Log.d(TAG, "National ID front: " + loanApplication.getNationalIDFrontPic());
+        Log.d(TAG, "National ID back: " + loanApplication.getNationalIDBackPic());
+        Log.d(TAG, "Farm photo: " + loanApplication.getFarm_photo());
+        Log.d(TAG, "User photo: " + loanApplication.getUserPhotoPic());
 
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-
-                        return false;
-                    }
-                })
-                .into(imageViewLoanStatusPreviewNidBack);
-
-        Glide.with(this)
-                .setDefaultRequestOptions(options)
-                .load(loanApplication.getNationalIDFrontPic())
-                .addListener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        //bannerItemShimmer.stopShimmer();
-                        //bannerItemShimmer.setVisibility(View.GONE);
-
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-
-                        return false;
-                    }
-                })
-                .into(imageViewLoanStatusPreviewNidFront);
-
-        Glide.with(this)
-                .setDefaultRequestOptions(options)
-                .load(loanApplication.getUserPhotoPic())
-                .addListener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        //bannerItemShimmer.stopShimmer();
-                        //bannerItemShimmer.setVisibility(View.GONE);
-
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-
-                        return false;
-                    }
-                })
-                .into(imageViewLoanStatusPreviewUserPhoto);
+        Glide.with(requireContext()).load(loanApplication.getNationalIDFrontPic()).apply(options).into(imageViewLoanStatusPreviewNidFront);
+        Glide.with(requireContext()).load(loanApplication.getNationalIDBackPic()).apply(options).into(imageViewLoanStatusPreviewNidBack);
+        Glide.with(requireContext()).load(loanApplication.getFarm_photo()).apply(options).into(imageViewLoanStatusPreviewUserPhoto);
+        Glide.with(requireContext()).load(loanApplication.getUserPhotoPic()).apply(options).into(imageViewLoanStatusPreviewFarmPhoto);
 
         textViewLoanStatusEditPhotos.setOnClickListener(v -> {
 //                Intent startNext = new Intent(LoanStatusPreviewActivity.this,WalletLoanAppPhotos.class);
