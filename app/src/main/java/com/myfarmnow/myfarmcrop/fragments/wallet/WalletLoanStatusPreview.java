@@ -88,7 +88,7 @@ public class WalletLoanStatusPreview extends Fragment {
         textViewLoanStatusPreviewAmount.setText("UGX " + NumberFormat.getInstance().format(loanApplication.getAmount()));
 
         RequestOptions options = new RequestOptions()
-                .centerCrop()
+                .centerInside()
                 .placeholder(R.drawable.add_default_image)
                 .error(R.drawable.add_default_image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
