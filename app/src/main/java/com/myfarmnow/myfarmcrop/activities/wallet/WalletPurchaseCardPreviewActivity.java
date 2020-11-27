@@ -16,9 +16,7 @@ import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
 import com.myfarmnow.myfarmcrop.singletons.WalletSettingsSingleton;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import cz.msebera.android.httpclient.Header;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

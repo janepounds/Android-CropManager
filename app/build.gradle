@@ -99,17 +99,13 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'com.google.firebase:firebase-core:17.0.1'
-    implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    // (Recommended) Add Analytics
-    implementation 'com.google.firebase:firebase-analytics:17.0.1'
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     // Add dependency
     // implementation 'com.crashlytics.sdk.android:crashlytics:17.2.2'
 
-    // Remove
-    implementation 'com.loopj.android:android-async-http:1.4.9'
+
 
     implementation 'com.highsoft.highcharts:highcharts:8.1.2'
 
@@ -128,7 +124,6 @@ dependencies {
     implementation 'com.github.Flutterwave.rave-android:rave_presentation:2.1.10'
     implementation 'com.github.Flutterwave.rave-android:rave_utils:2.1.10'
 
-    //Remove
     implementation 'com.venmo.android.pin:library:0.2@aar'
     configurations {
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
@@ -154,11 +149,13 @@ dependencies {
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-    implementation 'com.google.firebase:firebase-analytics:17.0.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
-    implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    // (Recommended) Add Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.0.1'
+
     //location and places
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'

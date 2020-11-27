@@ -29,8 +29,7 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.fragments.wallet.WalletLoansListFragment;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.LoanPayResponse;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+
 import com.myfarmnow.myfarmcrop.models.wallet.LoanApplication;
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
@@ -40,11 +39,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
