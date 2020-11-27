@@ -6,673 +6,667 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.DashboardActivity"
-    >
+    tools:context=".activities.DashboardActivity">
 
 
-        <RelativeLayout
-            android:id="@+id/mainlayout"
+    <RelativeLayout
+        android:id="@+id/mainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/mainView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/mainView"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/colorPrimary"
-                android:theme="@style/AppTheme.AppBarOverlay">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="@string/app_name"
-                            android:textColor="@color/whiteColor"
-                            android:textStyle="bold"
-                            android:textSize="24sp" />
-
-                        <ImageView
-                            android:id="@+id/img_crop_dashboard_notifications"
-                            android:layout_width="30dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="15dp"
-                            android:src="@drawable/event" />
-
-                        <TextView
-                            android:id="@+id/text_view_crop_dashboard_notification_unread_counter"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignTop="@+id/img_crop_dashboard_notifications"
-                            android:layout_alignRight="@+id/img_crop_dashboard_notifications"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="0dp"
-                            android:background="@drawable/rounded_badge"
-                            android:gravity="center"
-                            android:text="0"
-                            android:textColor="#000"
-                            android:textSize="14sp" />
-
-
-
-                    </RelativeLayout>
-                </androidx.appcompat.widget.Toolbar>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/mainView"
-                android:fillViewport="true"
-                android:background="@drawable/home_background">
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="15dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="35dp"
-                    android:orientation="vertical" >
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/app_name"
+                        android:textColor="@color/whiteColor"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/img_crop_dashboard_notifications"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/event" />
+
+                    <TextView
+                        android:id="@+id/text_view_crop_dashboard_notification_unread_counter"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignTop="@+id/img_crop_dashboard_notifications"
+                        android:layout_alignRight="@+id/img_crop_dashboard_notifications"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="0dp"
+                        android:background="@drawable/rounded_badge"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="@dimen/dimen_30dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:orientation="vertical"
-                            android:background="@drawable/ic_dashboard_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="@dimen/dimen_20dp"
-                                android:layout_marginStart="@dimen/dimen_10dp"
-                                android:weightSum="12">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3.5"
-                                    android:gravity="center"
-                                    app:srcCompat="@drawable/ic_rain"/>
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="2.5"
-                                    android:gravity="left"
-                                    android:layout_gravity="center_vertical"
-                                    android:text="@string/day"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="25sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:layout_gravity="center_vertical"
-                                    android:text="@string/temp_max"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:layout_gravity="center_vertical"
-                                    android:text="@string/temp_min"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="@dimen/dimen_10dp"
-                                android:layout_marginStart="@dimen/dimen_10dp"
-                                android:weightSum="12"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/humidity"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/rain"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/visibility"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/wind"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginStart="@dimen/dimen_10dp"
-                                android:weightSum="12"
-                                >
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    app:srcCompat="@drawable/humidity"/>
-
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    app:srcCompat="@drawable/rain"/>
-
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    app:srcCompat="@drawable/eye"/>
-
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    app:srcCompat="@drawable/ic_wind"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginStart="@dimen/dimen_10dp"
-                                android:weightSum="12"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/humidity_default"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/rain_default"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/visibility_default"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/wind_default"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginBottom="@dimen/dimen_10dp"
-                                android:layout_marginStart="@dimen/dimen_10dp"
-                                android:weightSum="12"
-                                >
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center"
-                                    android:text="@string/humidity_default2"
-                                    android:textColor="@color/white"
-                                    android:fontFamily="@font/josefin_sans"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3"
-                                    android:gravity="center" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3" />
-
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="3" />
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_10dp"
-                            android:weightSum="24"
-                            android:orientation="vertical" >
-
-                            <LinearLayout
-                                android:id="@+id/broke2"
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="8"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/dimen_10dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-
-                                <LinearLayout
-                                    android:id="@+id/layout_dashboard_farmrecords"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/dimen_10dp"
-                                    android:layout_marginRight="@dimen/dimen_10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/background_round_white"
-                                    >
-
-                                    <ImageView
-                                        android:layout_width="160dp"
-                                        android:layout_height="80dp"
-                                        android:paddingTop="@dimen/dimen_10dp"
-                                        android:paddingLeft="@dimen/dimen_20dp"
-                                        android:paddingRight="@dimen/dimen_20dp"
-                                        android:paddingBottom="@dimen/dimen_20dp"
-                                        android:layout_gravity="center"
-                                        app:srcCompat="@drawable/ic_result" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="-5dp"
-                                        android:layout_gravity="top"
-                                        android:gravity="center"
-                                        android:paddingBottom="5dp"
-                                        android:text="@string/label_farmrecords"
-                                        android:textAllCaps="true"
-                                        android:textColor="#000"
-                                        android:textSize="14sp"
-                                        android:fontFamily="@font/josefin_sans"
-                                        android:textStyle="bold" />
-
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/layout_dashboard_wallet"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/dimen_10dp"
-                                    android:layout_marginRight="@dimen/dimen_10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/background_round_white">
-
-                                    <ImageView
-                                        android:layout_width="160dp"
-                                        android:layout_height="80dp"
-                                        android:paddingTop="@dimen/dimen_10dp"
-                                        android:paddingLeft="@dimen/dimen_20dp"
-                                        android:paddingRight="@dimen/dimen_20dp"
-                                        android:paddingBottom="@dimen/dimen_20dp"
-                                        android:layout_gravity="center"
-                                        app:srcCompat="@drawable/ic_wallet_solid" />
-
-                                    <TextView
-                                        android:id="@+id/tv_litar"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="top"
-                                        android:gravity="center"
-                                        android:paddingBottom="5dp"
-                                        android:layout_marginTop="-5dp"
-                                        android:text="@string/label_wallet"
-                                        android:textAllCaps="true"
-                                        android:textColor="#000"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/josefin_sans"/>
-
-
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="8"
-                                android:layout_marginTop="@dimen/dimen_10dp"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:id="@+id/layout_dashboard_marketplace"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/dimen_10dp"
-                                    android:layout_marginRight="@dimen/dimen_10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/background_round_white">
-
-                                    <ImageView
-                                        android:layout_width="160dp"
-                                        android:layout_height="80dp"
-                                        android:paddingTop="@dimen/dimen_10dp"
-                                        android:paddingLeft="@dimen/dimen_20dp"
-                                        android:paddingRight="@dimen/dimen_20dp"
-                                        android:paddingBottom="@dimen/dimen_20dp"
-                                        android:layout_gravity="center"
-                                        app:srcCompat="@drawable/marketplace" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="top"
-                                        android:gravity="center"
-                                        android:paddingBottom="5dp"
-                                        android:layout_marginTop="-5dp"
-                                        android:text="@string/label_marketplace"
-                                        android:textAllCaps="true"
-                                        android:textColor="#000"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/josefin_sans" />
-
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/layout_dashboard_agronomy"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/dimen_10dp"
-                                    android:layout_marginRight="@dimen/dimen_10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/background_round_white">
-
-                                    <ImageView
-                                        android:layout_width="160dp"
-                                        android:layout_height="80dp"
-                                        android:paddingTop="@dimen/dimen_10dp"
-                                        android:paddingLeft="@dimen/dimen_20dp"
-                                        android:paddingRight="@dimen/dimen_20dp"
-                                        android:paddingBottom="@dimen/dimen_20dp"
-                                        android:layout_gravity="center"
-                                        app:srcCompat="@drawable/agronomy" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="top"
-                                        android:gravity="center"
-                                        android:paddingBottom="5dp"
-                                        android:layout_marginTop="-5dp"
-                                        android:text="@string/label_agronomy"
-                                        android:textAllCaps="true"
-                                        android:textSize="14sp"
-                                        android:textColor="#000"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/josefin_sans"/>
-
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="8"
-                                android:layout_marginTop="@dimen/dimen_10dp"
-                                android:orientation="horizontal">
-
-
-
-                                <LinearLayout
-                                    android:id="@+id/layout_predictiontools_dashboard"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/dimen_10dp"
-                                    android:layout_weight="1"
-                                    android:layout_marginRight="@dimen/dimen_10dp"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/background_round_white">
-
-                                    <ImageView
-                                        android:layout_width="160dp"
-                                        android:layout_height="80dp"
-                                        android:paddingTop="@dimen/dimen_10dp"
-                                        android:paddingLeft="@dimen/dimen_20dp"
-                                        android:paddingRight="@dimen/dimen_20dp"
-                                        android:paddingBottom="@dimen/dimen_20dp"
-                                        android:layout_gravity="center"
-                                        app:srcCompat="@drawable/prediction_tools" />
-
-                                    <TextView
-                                        android:id="@+id/meat_Produced_txt"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="top"
-                                        android:gravity="center"
-                                        android:paddingBottom="5dp"
-                                        android:layout_marginTop="-5dp"
-                                        android:text="@string/title_predictiontools"
-                                        android:textAllCaps="true"
-                                        android:textColor="#000"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/josefin_sans" />
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/layout_dashboard_service"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="@dimen/dimen_10dp"
-                                    android:layout_marginRight="@dimen/dimen_10dp"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:background="@drawable/background_round_white"
-                                    android:layout_gravity="center" >
-
-                                    <ImageView
-                                        android:layout_width="160dp"
-                                        android:layout_height="80dp"
-                                        android:paddingTop="@dimen/dimen_10dp"
-                                        android:paddingLeft="@dimen/dimen_20dp"
-                                        android:paddingRight="@dimen/dimen_20dp"
-                                        android:paddingBottom="@dimen/dimen_20dp"
-                                        android:layout_gravity="center"
-                                        app:srcCompat="@drawable/ic_service" />
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="top"
-                                        android:gravity="center"
-                                        android:paddingBottom="5dp"
-                                        android:layout_marginTop="-5dp"
-                                        android:text="@string/label_services"
-                                        android:textAllCaps="true"
-                                        android:textSize="14sp"
-                                        android:textColor="#000"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/josefin_sans"/>
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                    </LinearLayout>
                 </RelativeLayout>
-            </ScrollView>
 
+            </androidx.appcompat.widget.Toolbar>
 
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <FrameLayout
-                android:id="@+id/frame_layout_notifications"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/mainView"
+            android:background="@drawable/home_background"
+            android:fillViewport="true">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/black_border"
-                android:padding="1dp"
-                android:visibility="gone">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="35dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dimen_30dp">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabLayout"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@drawable/ic_dashboard_bg"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_10dp"
+                            android:layout_marginTop="@dimen/dimen_20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="12">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3.5"
+                                android:gravity="center"
+                                app:srcCompat="@drawable/ic_rain" />
+
+                            <TextView
+                                android:id="@+id/weather_day"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="2.5"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="left"
+                                android:text="@string/day"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/weather_temp_max"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/temp_max"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/temp_min"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_10dp"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="12">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/humidity"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_view_rain"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/rain"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/visibility"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/wind"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_10dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="12">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                app:srcCompat="@drawable/humidity" />
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                app:srcCompat="@drawable/rain" />
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                app:srcCompat="@drawable/eye" />
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                app:srcCompat="@drawable/ic_wind" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="12">
+
+                            <TextView
+                                android:id="@+id/humidity_max"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/humidity_default"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/rain_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/rain_default"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/visibility_default"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/visibility_default"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/wind_default"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/wind_default"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_10dp"
+                            android:layout_marginBottom="@dimen/dimen_10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="12">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:fontFamily="@font/josefin_sans"
+                                android:gravity="center"
+                                android:text="@string/humidity_default2"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="40dp"
-                        app:tabBackground="@drawable/tab_color_selector"
-                        app:tabGravity="fill"
-                        app:tabIndicatorColor="@color/green_mh"
-                        app:tabIndicatorHeight="0dp"
-                        app:tabSelectedTextColor="@color/black"
-                        app:tabTextColor="@color/black"
+                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:orientation="vertical"
+                        android:weightSum="24">
 
-                        ></com.google.android.material.tabs.TabLayout>
+                        <LinearLayout
+                            android:id="@+id/broke2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            android:layout_weight="8"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
 
-                    </androidx.viewpager.widget.ViewPager>
+                            <LinearLayout
+                                android:id="@+id/layout_dashboard_farmrecords"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_round_white"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:paddingLeft="@dimen/dimen_20dp"
+                                    android:paddingTop="@dimen/dimen_10dp"
+                                    android:paddingRight="@dimen/dimen_20dp"
+                                    android:paddingBottom="@dimen/dimen_20dp"
+                                    app:srcCompat="@drawable/ic_result" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="-5dp"
+                                    android:fontFamily="@font/josefin_sans"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_farmrecords"
+                                    android:textAllCaps="true"
+                                    android:textColor="#000"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layout_dashboard_wallet"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_round_white"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:paddingLeft="@dimen/dimen_20dp"
+                                    android:paddingTop="@dimen/dimen_10dp"
+                                    android:paddingRight="@dimen/dimen_20dp"
+                                    android:paddingBottom="@dimen/dimen_20dp"
+                                    app:srcCompat="@drawable/ic_wallet_solid" />
+
+                                <TextView
+                                    android:id="@+id/tv_litar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="-5dp"
+                                    android:fontFamily="@font/josefin_sans"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_wallet"
+                                    android:textAllCaps="true"
+                                    android:textColor="#000"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            android:layout_weight="8"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/layout_dashboard_marketplace"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_round_white"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:paddingLeft="@dimen/dimen_20dp"
+                                    android:paddingTop="@dimen/dimen_10dp"
+                                    android:paddingRight="@dimen/dimen_20dp"
+                                    android:paddingBottom="@dimen/dimen_20dp"
+                                    app:srcCompat="@drawable/marketplace" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="-5dp"
+                                    android:fontFamily="@font/josefin_sans"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_marketplace"
+                                    android:textAllCaps="true"
+                                    android:textColor="#000"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layout_dashboard_agronomy"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_round_white"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:paddingLeft="@dimen/dimen_20dp"
+                                    android:paddingTop="@dimen/dimen_10dp"
+                                    android:paddingRight="@dimen/dimen_20dp"
+                                    android:paddingBottom="@dimen/dimen_20dp"
+                                    app:srcCompat="@drawable/agronomy" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="-5dp"
+                                    android:fontFamily="@font/josefin_sans"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_agronomy"
+                                    android:textAllCaps="true"
+                                    android:textColor="#000"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="@dimen/dimen_10dp"
+                            android:layout_weight="8"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:id="@+id/layout_predictiontools_dashboard"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_round_white"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:paddingLeft="@dimen/dimen_20dp"
+                                    android:paddingTop="@dimen/dimen_10dp"
+                                    android:paddingRight="@dimen/dimen_20dp"
+                                    android:paddingBottom="@dimen/dimen_20dp"
+                                    app:srcCompat="@drawable/prediction_tools" />
+
+                                <TextView
+                                    android:id="@+id/meat_Produced_txt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="-5dp"
+                                    android:fontFamily="@font/josefin_sans"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/title_predictiontools"
+                                    android:textAllCaps="true"
+                                    android:textColor="#000"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layout_dashboard_service"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/background_round_white"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="160dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:paddingLeft="@dimen/dimen_20dp"
+                                    android:paddingTop="@dimen/dimen_10dp"
+                                    android:paddingRight="@dimen/dimen_20dp"
+                                    android:paddingBottom="@dimen/dimen_20dp"
+                                    app:srcCompat="@drawable/ic_service" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="top"
+                                    android:layout_marginTop="-5dp"
+                                    android:fontFamily="@font/josefin_sans"
+                                    android:gravity="center"
+                                    android:paddingBottom="5dp"
+                                    android:text="@string/label_services"
+                                    android:textAllCaps="true"
+                                    android:textColor="#000"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
                 </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
 
 
-            </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_layout_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/black_border"
+            android:padding="1dp"
+            android:visibility="gone">
 
-        </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    app:tabBackground="@drawable/tab_color_selector"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/green_mh"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextColor="@color/black"
+
+                    ></com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </androidx.viewpager.widget.ViewPager>
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

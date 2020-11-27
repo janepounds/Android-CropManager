@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
-
     <include
         layout="@layout/content_dashboard"/>
 
