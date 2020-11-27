@@ -1,5 +1,6 @@
 package com.myfarmnow.myfarmcrop.adapters.wallet;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myfarmnow.myfarmcrop.DailogFragments.wallet.WalletTransactionsReceiptDialog;
 import com.myfarmnow.myfarmcrop.R;
 import com.myfarmnow.myfarmcrop.activities.wallet.WalletPurchaseCardPreviewActivity;
 import com.myfarmnow.myfarmcrop.models.wallet.WalletTransaction;
@@ -32,6 +35,7 @@ public class WalletTransactionsListAdapter  extends RecyclerView.Adapter<WalletT
 
         TextView textDate, textTime, textCreditAmount, textDebitAmount, textPaidTo,textPaidTo_label, textReceivedFrom, referenceNumberTxtView,receiptTextView;
         LinearLayout debitLayout, creditLayout;
+        Context context;
 
         public MyViewHolder(View v, FragmentManager fm) {
             super(v);
@@ -54,9 +58,15 @@ public class WalletTransactionsListAdapter  extends RecyclerView.Adapter<WalletT
             WalletTransaction transaction = dataList.get(getAdapterPosition());
             Log.e("Reference Number", transaction.getReferenceNumber()+" is "+transaction.isPurchase());
             if (fm!=null ){
-                Intent intent = new Intent(v.getContext(), WalletPurchaseCardPreviewActivity.class);
+                Intent intent = new Intent(v.getContext(), WalletTransactionsReceiptDialog.class);
                 intent.putExtra("referenceNumber",transaction.getReferenceNumber());
-                v.getContext().startActivity(intent);
+               // v.getContext().startActivity(intent);
+//
+//                FragmentActivity fragmentActivity = (FragmentActivity) context;
+//                FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
+               WalletTransactionsReceiptDialog walletTransactionsReceiptDialog = new WalletTransactionsReceiptDialog();
+
+                walletTransactionsReceiptDialog.show(fm, "walletTransactionsReceiptDialog");
 
             }
         }
