@@ -20,9 +20,7 @@ import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletAuthentication;
 import com.myfarmnow.myfarmcrop.models.retrofitResponses.WalletUserRegistration;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
 
@@ -30,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,18 +38,18 @@ public class WalletLoginHelper extends AppCompatActivity {
 
     public static void checkLogin(final String rawpassword, final Context context, final TextView errorTextView, final ProgressDialog dialog, SharedPreferences sharedPreferences) {
 
-        final RequestParams params = new RequestParams();
+//        final RequestParams params = new RequestParams();
 
         /*****RETROFIT IMPLEMENTATION*******/
         final String email = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_EMAIL, context);
         final String phoneNumber = DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER, context);
-        params.put("email", email);
-        params.put("password", rawpassword);
-        params.put("phoneNumber", phoneNumber);
+//        params.put("email", email);
+//        params.put("password", rawpassword);
+//        params.put("phoneNumber", phoneNumber);
         APIRequests apiRequests = APIClient.getWalletInstance();
         Call<WalletAuthentication> call = apiRequests.authenticate(email, rawpassword);
         Log.w("email_log", email);
-        Log.w("Info ", ApiPaths.Emaisha_Wallet_LOGIN_GET_ALL + "?" + params);
+//        Log.w("Info ", ApiPaths.Emaisha_Wallet_LOGIN_GET_ALL + "?" + params);
         dialog.show();
         call.enqueue(new Callback<WalletAuthentication>() {
             @Override

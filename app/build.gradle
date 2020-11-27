@@ -108,8 +108,7 @@ dependencies {
     // Add dependency
     // implementation 'com.crashlytics.sdk.android:crashlytics:17.2.2'
 
-    // Remove
-    implementation 'com.loopj.android:android-async-http:1.4.9'
+
 
     implementation 'com.highsoft.highcharts:highcharts:8.1.2'
 

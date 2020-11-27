@@ -15,9 +15,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+
 import com.myfarmnow.myfarmcrop.activities.DashboardActivity;
 import com.myfarmnow.myfarmcrop.database.MyFarmDbHandlerSingleton;
 import com.myfarmnow.myfarmcrop.models.ApiPaths;
@@ -42,11 +40,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
+
 
 
 
@@ -99,11 +93,11 @@ public class CropSyncService extends Service {
 
     public void prepareSyncRequest(){
         try{
-            startBlock1TablesBackup();
+//            startBlock1TablesBackup();
             //startBlock2TablesBackup();
-            backupDeletedRecords();
+//            backupDeletedRecords();
             if(!DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,CropSyncService.this).equals("yes")){
-                userBackup();
+//                userBackup();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -371,852 +365,852 @@ public class CropSyncService extends Service {
      (task, transplantings, income/expense) as block 1f, (machine service, notes, tasks) as 1g
      *
      */
-    private void startBlock1TablesBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("fields",prepareFields());
-//            requestObject.put("contacts",prepareContacts());
-//            requestObject.put("employees",prepareEmployees());
-            requestObject.put("settings",prepareSettings());
-            requestObject.put("userId",userId);
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-            Log.d("PATH 1A",params.toString());
-
-            client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1a",params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //logic to save the updated fields
-
-                    try {
-                        JSONArray fields = response.getJSONArray("fields");
-                        Log.d("FIELDS RESPONSE",fields.toString());
-                        for(int i=0; i<fields.length(); i++){
-
-
-                            try{
-                                CropField field = dbHandler.getCropField( fields.getJSONObject(i).getString("localId"),false);
-                                field.setGlobalId(fields.getJSONObject(i).getString("globalId"));
-                                field.setSyncStatus("yes");
-                                dbHandler.updateCropField(field);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        JSONArray settings = response.getJSONArray("settings");
-                        for(int i=0; i<settings.length(); i++){
-                            try{
-                                CropSettingsSingleton settingsSingleton = dbHandler.getSettings(userId,false);
-                                settingsSingleton.setGlobalId(settings.getJSONObject(i).getString("globalId"));
-                                settingsSingleton.setSyncStatus("yes");
-                                dbHandler.updateSettings(settingsSingleton);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    startBlock1bBackup();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                   if(errorResponse != null){
-                       Log.e("BACKUP RESPONSE 1A"+statusCode,errorResponse.toString());
-                   }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1A: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1A: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-            });
-
-
-        }
-        catch (JSONException e) {
-            block1Completed = true;
-            attemptToStopService();
-            e.printStackTrace();
-        }catch (Exception e) {
-            block1Completed = true;
-            attemptToStopService();
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private void startBlock1bBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("inventoryFertilizers",prepareInventoryFertilizers());
-            requestObject.put("inventorySeeds",prepareInventorySeeds());
-            requestObject.put("inventorySprays",prepareInventorySprays());
-            requestObject.put("userId",userId);
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-              ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-
-
-          //  client.post()
-            client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1b",           params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //logic to  updated the synced tables
-                    try {
-                        JSONArray inventorySeeds = response.getJSONArray("inventorySeeds");
-                        for(int i=0; i<inventorySeeds.length(); i++){
-
-
-                            try{
-                                CropInventorySeeds inventorySeed = dbHandler.getCropSeed( inventorySeeds.getJSONObject(i).getString("localId"),false);
-                                inventorySeed.setGlobalId(inventorySeeds.getJSONObject(i).getString("globalId"));
-                                inventorySeed.setSyncStatus("yes");
-                                dbHandler.updateCropSeeds(inventorySeed);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        JSONArray inventoryFertilizers = response.getJSONArray("inventoryFertilizers");
-                        for(int i=0; i<inventoryFertilizers.length(); i++){
-
-
-                            try{
-                                CropInventoryFertilizer cropFertilizer = dbHandler.getCropFertilizer( inventoryFertilizers.getJSONObject(i).getString("localId"),false);
-                                cropFertilizer.setGlobalId(inventoryFertilizers.getJSONObject(i).getString("globalId"));
-                                cropFertilizer.setSyncStatus("yes");
-                                dbHandler.updateCropFertilizerInventory(cropFertilizer);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        JSONArray inventorySprays = response.getJSONArray("inventorySprays");
-                        for(int i=0; i<inventorySprays.length(); i++){
-                            try{
-                                CropInventorySpray inventorySeed = dbHandler.getCropSprayById( inventorySprays.getJSONObject(i).getString("localId"),false);
-                                inventorySeed.setGlobalId(inventorySprays.getJSONObject(i).getString("globalId"));
-                                inventorySeed.setSyncStatus("yes");
-                                dbHandler.updateCropSpray(inventorySeed);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    startBlock1cBackup();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse != null){
-                        Log.e("BACCKUP RESPONSE 1B"+statusCode,errorResponse.toString());
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1B: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1B: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-            });
-
-
-        }  catch (JSONException e) {
-            block1Completed = true;
-            e.printStackTrace();
-        }catch (Exception e) {
-            block1Completed = true;
-            e.printStackTrace();
-        }
-    }
-    private void startBlock1cBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("crops",prepareCrops());
-//            requestObject.put("soilAnalysis",prepareSoilAnalysis());
-//            requestObject.put("machines",prepareMachines());
-            requestObject.put("userId",userId);
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1c",           params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                    try {
-                        JSONArray crops = response.getJSONArray("crops");
-                        for(int i=0; i<crops.length(); i++){
-                            try{
-                                Crop crop = dbHandler.getCrop( crops.getJSONObject(i).getString("localId"),false);
-                                crop.setGlobalId(crops.getJSONObject(i).getString("globalId"));
-                                crop.setSyncStatus("yes");
-                                CropField field = dbHandler.getCropField(crop.getFieldId(),true);
-                                if(field != null){
-                                    crop.setFieldId(field.getId());
-                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getName(),false);
-                                    if(inventorySeed != null){
-                                        crop.setName(inventorySeed.getId());
-                                    }
-                                    dbHandler.updateCrop(crop);
-                                }
-
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    startBlock1dBackup();
-                    startBlock1eBackup();
-                    startBlock1fBackup();
-                    startBlock1gBackup();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse != null){
-                        Log.e("BACCKUP RESPONSE 1C"+statusCode,errorResponse.toString());
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1C: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1C: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-
-                }
-
-            });
-
-
-        }
-        catch (JSONException e) {
-            block1Completed = true;
-            e.printStackTrace();
-        }catch (Exception e) {
-            block1Completed = true;
-            e.printStackTrace();
-        }
-    }
-    private void startBlock1dBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("harvests",prepareHarvest());
-            requestObject.put("fertilizerApplication",prepareFertilizerApplication());
-            requestObject.put("sprayings",prepareSprayings());
-            requestObject.put("userId",userId);
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-
-           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1d",           params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    //logic to save the updated fields
-                    try {
-                        JSONArray crops = response.getJSONArray("harvests");
-                        for(int i=0; i<crops.length(); i++){
-                            try{
-                                CropHarvest harvest = dbHandler.getCropHarvest( crops.getJSONObject(i).getString("localId"),false);
-                                harvest.setGlobalId(crops.getJSONObject(i).getString("globalId"));
-                                harvest.setSyncStatus("yes");
-                                dbHandler.updateCropHarvest(harvest);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        JSONArray application = response.getJSONArray("sprayings");
-                        for(int i=0; i<application.length(); i++){
-                            try{
-                                CropSpraying harvest = dbHandler.getCropSpraying( application.getJSONObject(i).getString("localId"),false);
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
-                                harvest.setSyncStatus("yes");
-                                dbHandler.updateCropSpraying(harvest);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        JSONArray application = response.getJSONArray("fertilizerApplication");
-                        for(int i=0; i<application.length(); i++){
-                            try{
-                                CropFertilizerApplication harvest = dbHandler.getCropFertilizerApplication( application.getJSONObject(i).getString("localId"),false);
-                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
-                                harvest.setSyncStatus("yes");
-                                dbHandler.updateCropFertilizerApplication(harvest);
-
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse != null){
-                        Log.e("RESPONSE 1D", errorResponse.toString());
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1D: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1D: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-            });
-
-
-        }
-        catch (JSONException e) {
-            block1Completed = true;
-            e.printStackTrace();
-        }catch (Exception e) {
-            block1Completed = true;
-            e.printStackTrace();
-        }
-    }
-    private void startBlock1eBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("userId",userId);
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-
-           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1e",           params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse!=null){
-                        Log.e("RESPONSE 1E", errorResponse.toString());
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-
-
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1E: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1E: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-            });
-
-
-        }
-        catch (JSONException e) {
-            block1Completed = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }catch (Exception e) {
-            block1Completed = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }
-    }
-    private void startBlock1fBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-//            requestObject.put("transplantings",prepareTransplantings());
-//            requestObject.put("tasks",prepareTasks());
-            requestObject.put("incomeExpenses",prepareIncomeExpense());
-           requestObject.put("userId",userId);
-            StringEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-
-
-           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1f",           params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-
-                    try {
-                        JSONArray incomeExpenses = response.getJSONArray("incomeExpenses");
-                        for(int i=0; i<incomeExpenses.length(); i++){
-                            try{
-                                CropIncomeExpense incomeExpense = dbHandler.getCropIncomeExpense( incomeExpenses.getJSONObject(i).getString("localId"),false);
-                                incomeExpense.setGlobalId(incomeExpenses.getJSONObject(i).getString("globalId"));
-                                incomeExpense.setSyncStatus("yes");
-                                dbHandler.updateCropIncomeExpense(incomeExpense);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse != null){
-                        Log.e("RESPONSE", errorResponse.toString());
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1F: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1F: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-
-                }
-            });
-
-
-        }
-        catch (JSONException e) {
-            block1Completed = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }catch (Exception e) {
-            block1Completed = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }
-    }
-    private void startBlock1gBackup(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-
-
-        JSONObject requestObject = new JSONObject();
-
-        try {
-//            requestObject.put("machineServices",prepareMachineServices());
-//            requestObject.put("machineTasks",prepareMachineTasks());
-            requestObject.put("notes",prepareNotes());
-            requestObject.put("userId",userId);
-            HttpEntity params = null;
-            try {
-                params = new StringEntity(requestObject.toString());
-                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-
-           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1g",           params,"application/json", new JsonHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-
-
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-
-                    try {
-                        JSONArray tasks = response.getJSONArray("notes");
-                        for(int i=0; i<tasks.length(); i++){
-                            try{
-                                CropNote note = dbHandler.getCropNote( tasks.getJSONObject(i).getString("localId"),false);
-                                note.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
-                                note.setSyncStatus("yes");
-                                dbHandler.updateCropNote(note);
-
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse != null){
-                        Log.e("RESPONSE 1G", errorResponse.toString());
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 1G: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 1G: "+statusCode, "Something got very very wrong");
-                    }
-                    block1Completed = true;
-                    attemptToStopService();
-
-                }
-            });
-
-
-        }
-        catch (JSONException e) {
-            block1Completed = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }catch (Exception e) {
-            block1Completed = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }
-    }
-
-    /**
-     * COVERS FINANCIAL MANAGER
-     * 1. send customers, suppliers, buy_inputs_products as block 2a
-     * 2. after 2a send Estimates, Invoice, Sales Order as block 2b
-     * 3. after 2b send Purchase Order, Bills as block 2c
-     * 4. after 2c send Invoice Payments and Bill payments as 2d
-     * 5. After 2d send product items as 2e
-     */
-
-
-    private void backupDeletedRecords(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setTimeout(20000);
-        JSONObject requestObject = new JSONObject();
-
-        try {
-            requestObject.put("delete",prepareDeleteRecords());
-            requestObject.put("userId",userId);
-            StringEntity params = null;
-            Log.d("Deleted this", requestObject.toString());
-            try {
-                params = new StringEntity(requestObject.toString());
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-                return;
-            }
-
-
-           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP_DELETED_RECORDS,           params,"application/json", new JsonHttpResponseHandler() {
-                @Override
-                public void onStart() {
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    try {
-                        JSONArray tasks = response.getJSONArray("deleted");
-                        Log.d("Deleted stuff", tasks.toString());
-                        for(int i=0; i<tasks.length(); i++){
-                            try{
-                                DeletedRecord productItem = dbHandler.getDeletedRecord( tasks.getJSONObject(i).getString("id"));
-                                productItem.setSyncStatus("yes");
-                                dbHandler.updateDeletedRecord(productItem);
-                            }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    deletesCompleted = true;
-                    attemptToStopService();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    if(errorResponse != null){
-                        Log.e("RESPONSE DELETES", errorResponse.toString());
-                    }
-                    deletesCompleted = true;
-                    attemptToStopService();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-                    if (errorResponse != null) {
-                        Log.e("info 2E: "+statusCode, new String(String.valueOf(errorResponse)));
-                    } else {
-                        Log.e("info 2E: "+statusCode, "Something got very very wrong");
-                    }
-                    deletesCompleted = true;
-                    attemptToStopService();
-                }
-            });
-
-
-        }
-        catch (JSONException e) {
-            deletesCompleted = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }catch (Exception e) {
-            deletesCompleted = true;
-            e.printStackTrace();
-            attemptToStopService();
-        }
-
-
-    }
-
-    public  void userBackup() {
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        final RequestParams params = new RequestParams();
-
-        params.put("userId", DashboardActivity.getPreferences(DashboardActivity.RETRIEVED_USER_ID,this));
-        params.put("firstName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME,this));
-        params.put("lastName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,this));
-        params.put("country",DashboardActivity.getPreferences("country",this));
-        params.put("countryCode",DashboardActivity.getPreferences("countryCode",this));
-        params.put("email",DashboardActivity.getPreferences("email",this));
-        params.put("farmName",DashboardActivity.getPreferences(DashboardActivity.FARM_NAME_PREFERENCES_ID,this));
-        params.put("addressStreet",DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID,this));
-        params.put("addressCityOrTown",DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID,this));
-        params.put("addressCountry",DashboardActivity.getPreferences(DashboardActivity.COUNTRY_PREFERENCES_ID,this));
-        params.put("phoneNumber" ,DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,this));
-        params.put("latitude",DashboardActivity.getPreferences("latitude",this));
-        params.put("longitude",DashboardActivity.getPreferences("longitude",this));
-
-        client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                Log.e("USER BACKUP","Started");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-                if(statusCode==400){
-                    DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
-                }
-
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
-
-                if (errorResponse != null) {
-                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
-                } else {
-                    Log.e("info : "+statusCode, "Something got very very wrong");
-                }
-
-            }
-        });
-
-    }
+//    private void startBlock1TablesBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+//            requestObject.put("fields",prepareFields());
+////            requestObject.put("contacts",prepareContacts());
+////            requestObject.put("employees",prepareEmployees());
+//            requestObject.put("settings",prepareSettings());
+//            requestObject.put("userId",userId);
+//            HttpEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//            Log.d("PATH 1A",params.toString());
+//
+//            client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1a",params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    //logic to save the updated fields
+//
+//                    try {
+//                        JSONArray fields = response.getJSONArray("fields");
+//                        Log.d("FIELDS RESPONSE",fields.toString());
+//                        for(int i=0; i<fields.length(); i++){
+//
+//
+//                            try{
+//                                CropField field = dbHandler.getCropField( fields.getJSONObject(i).getString("localId"),false);
+//                                field.setGlobalId(fields.getJSONObject(i).getString("globalId"));
+//                                field.setSyncStatus("yes");
+//                                dbHandler.updateCropField(field);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    try {
+//                        JSONArray settings = response.getJSONArray("settings");
+//                        for(int i=0; i<settings.length(); i++){
+//                            try{
+//                                CropSettingsSingleton settingsSingleton = dbHandler.getSettings(userId,false);
+//                                settingsSingleton.setGlobalId(settings.getJSONObject(i).getString("globalId"));
+//                                settingsSingleton.setSyncStatus("yes");
+//                                dbHandler.updateSettings(settingsSingleton);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    startBlock1bBackup();
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                   if(errorResponse != null){
+//                       Log.e("BACKUP RESPONSE 1A"+statusCode,errorResponse.toString());
+//                   }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1A: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1A: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            block1Completed = true;
+//            attemptToStopService();
+//            e.printStackTrace();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            attemptToStopService();
+//            e.printStackTrace();
+//        }
+//
+//
+//    }
+//
+//    private void startBlock1bBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//
+//
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+//            requestObject.put("inventoryFertilizers",prepareInventoryFertilizers());
+//            requestObject.put("inventorySeeds",prepareInventorySeeds());
+//            requestObject.put("inventorySprays",prepareInventorySprays());
+//            requestObject.put("userId",userId);
+//            HttpEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//              ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//
+//
+//          //  client.post()
+//            client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1b",           params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    //logic to  updated the synced tables
+//                    try {
+//                        JSONArray inventorySeeds = response.getJSONArray("inventorySeeds");
+//                        for(int i=0; i<inventorySeeds.length(); i++){
+//
+//
+//                            try{
+//                                CropInventorySeeds inventorySeed = dbHandler.getCropSeed( inventorySeeds.getJSONObject(i).getString("localId"),false);
+//                                inventorySeed.setGlobalId(inventorySeeds.getJSONObject(i).getString("globalId"));
+//                                inventorySeed.setSyncStatus("yes");
+//                                dbHandler.updateCropSeeds(inventorySeed);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    try {
+//                        JSONArray inventoryFertilizers = response.getJSONArray("inventoryFertilizers");
+//                        for(int i=0; i<inventoryFertilizers.length(); i++){
+//
+//
+//                            try{
+//                                CropInventoryFertilizer cropFertilizer = dbHandler.getCropFertilizer( inventoryFertilizers.getJSONObject(i).getString("localId"),false);
+//                                cropFertilizer.setGlobalId(inventoryFertilizers.getJSONObject(i).getString("globalId"));
+//                                cropFertilizer.setSyncStatus("yes");
+//                                dbHandler.updateCropFertilizerInventory(cropFertilizer);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    try {
+//                        JSONArray inventorySprays = response.getJSONArray("inventorySprays");
+//                        for(int i=0; i<inventorySprays.length(); i++){
+//                            try{
+//                                CropInventorySpray inventorySeed = dbHandler.getCropSprayById( inventorySprays.getJSONObject(i).getString("localId"),false);
+//                                inventorySeed.setGlobalId(inventorySprays.getJSONObject(i).getString("globalId"));
+//                                inventorySeed.setSyncStatus("yes");
+//                                dbHandler.updateCropSpray(inventorySeed);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    startBlock1cBackup();
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse != null){
+//                        Log.e("BACCKUP RESPONSE 1B"+statusCode,errorResponse.toString());
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1B: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1B: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//            });
+//
+//
+//        }  catch (JSONException e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//        }
+//    }
+//    private void startBlock1cBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//
+//
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+//            requestObject.put("crops",prepareCrops());
+////            requestObject.put("soilAnalysis",prepareSoilAnalysis());
+////            requestObject.put("machines",prepareMachines());
+//            requestObject.put("userId",userId);
+//            HttpEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1c",           params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//
+//                    try {
+//                        JSONArray crops = response.getJSONArray("crops");
+//                        for(int i=0; i<crops.length(); i++){
+//                            try{
+//                                Crop crop = dbHandler.getCrop( crops.getJSONObject(i).getString("localId"),false);
+//                                crop.setGlobalId(crops.getJSONObject(i).getString("globalId"));
+//                                crop.setSyncStatus("yes");
+//                                CropField field = dbHandler.getCropField(crop.getFieldId(),true);
+//                                if(field != null){
+//                                    crop.setFieldId(field.getId());
+//                                    CropInventorySeeds inventorySeed = dbHandler.getCropSeed(crop.getName(),false);
+//                                    if(inventorySeed != null){
+//                                        crop.setName(inventorySeed.getId());
+//                                    }
+//                                    dbHandler.updateCrop(crop);
+//                                }
+//
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    startBlock1dBackup();
+//                    startBlock1eBackup();
+//                    startBlock1fBackup();
+//                    startBlock1gBackup();
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse != null){
+//                        Log.e("BACCKUP RESPONSE 1C"+statusCode,errorResponse.toString());
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1C: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1C: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//
+//                }
+//
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//        }
+//    }
+//    private void startBlock1dBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//
+//
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+//            requestObject.put("harvests",prepareHarvest());
+//            requestObject.put("fertilizerApplication",prepareFertilizerApplication());
+//            requestObject.put("sprayings",prepareSprayings());
+//            requestObject.put("userId",userId);
+//            HttpEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//
+//           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1d",           params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    //logic to save the updated fields
+//                    try {
+//                        JSONArray crops = response.getJSONArray("harvests");
+//                        for(int i=0; i<crops.length(); i++){
+//                            try{
+//                                CropHarvest harvest = dbHandler.getCropHarvest( crops.getJSONObject(i).getString("localId"),false);
+//                                harvest.setGlobalId(crops.getJSONObject(i).getString("globalId"));
+//                                harvest.setSyncStatus("yes");
+//                                dbHandler.updateCropHarvest(harvest);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    try {
+//                        JSONArray application = response.getJSONArray("sprayings");
+//                        for(int i=0; i<application.length(); i++){
+//                            try{
+//                                CropSpraying harvest = dbHandler.getCropSpraying( application.getJSONObject(i).getString("localId"),false);
+//                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+//                                harvest.setSyncStatus("yes");
+//                                dbHandler.updateCropSpraying(harvest);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    try {
+//                        JSONArray application = response.getJSONArray("fertilizerApplication");
+//                        for(int i=0; i<application.length(); i++){
+//                            try{
+//                                CropFertilizerApplication harvest = dbHandler.getCropFertilizerApplication( application.getJSONObject(i).getString("localId"),false);
+//                                harvest.setGlobalId(application.getJSONObject(i).getString("globalId"));
+//                                harvest.setSyncStatus("yes");
+//                                dbHandler.updateCropFertilizerApplication(harvest);
+//
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse != null){
+//                        Log.e("RESPONSE 1D", errorResponse.toString());
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1D: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1D: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//        }
+//    }
+//    private void startBlock1eBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+//            requestObject.put("userId",userId);
+//            HttpEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//
+//           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1e",           params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse!=null){
+//                        Log.e("RESPONSE 1E", errorResponse.toString());
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//
+//
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1E: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1E: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }
+//    }
+//    private void startBlock1fBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//
+//
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+////            requestObject.put("transplantings",prepareTransplantings());
+////            requestObject.put("tasks",prepareTasks());
+//            requestObject.put("incomeExpenses",prepareIncomeExpense());
+//           requestObject.put("userId",userId);
+//            StringEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//
+//
+//           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1f",           params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//
+//
+//                    try {
+//                        JSONArray incomeExpenses = response.getJSONArray("incomeExpenses");
+//                        for(int i=0; i<incomeExpenses.length(); i++){
+//                            try{
+//                                CropIncomeExpense incomeExpense = dbHandler.getCropIncomeExpense( incomeExpenses.getJSONObject(i).getString("localId"),false);
+//                                incomeExpense.setGlobalId(incomeExpenses.getJSONObject(i).getString("globalId"));
+//                                incomeExpense.setSyncStatus("yes");
+//                                dbHandler.updateCropIncomeExpense(incomeExpense);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse != null){
+//                        Log.e("RESPONSE", errorResponse.toString());
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1F: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1F: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//
+//                }
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }
+//    }
+//    private void startBlock1gBackup(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//
+//
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+////            requestObject.put("machineServices",prepareMachineServices());
+////            requestObject.put("machineTasks",prepareMachineTasks());
+//            requestObject.put("notes",prepareNotes());
+//            requestObject.put("userId",userId);
+//            HttpEntity params = null;
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//                ((StringEntity) params).setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//
+//           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP+"/1g",           params,"application/json", new JsonHttpResponseHandler() {
+//
+//                @Override
+//                public void onStart() {
+//
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//
+//
+//                    try {
+//                        JSONArray tasks = response.getJSONArray("notes");
+//                        for(int i=0; i<tasks.length(); i++){
+//                            try{
+//                                CropNote note = dbHandler.getCropNote( tasks.getJSONObject(i).getString("localId"),false);
+//                                note.setGlobalId(tasks.getJSONObject(i).getString("globalId"));
+//                                note.setSyncStatus("yes");
+//                                dbHandler.updateCropNote(note);
+//
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse != null){
+//                        Log.e("RESPONSE 1G", errorResponse.toString());
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 1G: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 1G: "+statusCode, "Something got very very wrong");
+//                    }
+//                    block1Completed = true;
+//                    attemptToStopService();
+//
+//                }
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }catch (Exception e) {
+//            block1Completed = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }
+//    }
+//
+//    /**
+//     * COVERS FINANCIAL MANAGER
+//     * 1. send customers, suppliers, buy_inputs_products as block 2a
+//     * 2. after 2a send Estimates, Invoice, Sales Order as block 2b
+//     * 3. after 2b send Purchase Order, Bills as block 2c
+//     * 4. after 2c send Invoice Payments and Bill payments as 2d
+//     * 5. After 2d send product items as 2e
+//     */
+//
+//
+//    private void backupDeletedRecords(){
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.setTimeout(20000);
+//        JSONObject requestObject = new JSONObject();
+//
+//        try {
+//            requestObject.put("delete",prepareDeleteRecords());
+//            requestObject.put("userId",userId);
+//            StringEntity params = null;
+//            Log.d("Deleted this", requestObject.toString());
+//            try {
+//                params = new StringEntity(requestObject.toString());
+//            } catch (UnsupportedEncodingException e) {
+//
+//                e.printStackTrace();
+//                return;
+//            }
+//
+//
+//           client.post(CropSyncService.this,ApiPaths.DATA_BACK_UP_DELETED_RECORDS,           params,"application/json", new JsonHttpResponseHandler() {
+//                @Override
+//                public void onStart() {
+//                }
+//
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    try {
+//                        JSONArray tasks = response.getJSONArray("deleted");
+//                        Log.d("Deleted stuff", tasks.toString());
+//                        for(int i=0; i<tasks.length(); i++){
+//                            try{
+//                                DeletedRecord productItem = dbHandler.getDeletedRecord( tasks.getJSONObject(i).getString("id"));
+//                                productItem.setSyncStatus("yes");
+//                                dbHandler.updateDeletedRecord(productItem);
+//                            }catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                            catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    deletesCompleted = true;
+//                    attemptToStopService();
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                    if(errorResponse != null){
+//                        Log.e("RESPONSE DELETES", errorResponse.toString());
+//                    }
+//                    deletesCompleted = true;
+//                    attemptToStopService();
+//                }
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//                    if (errorResponse != null) {
+//                        Log.e("info 2E: "+statusCode, new String(String.valueOf(errorResponse)));
+//                    } else {
+//                        Log.e("info 2E: "+statusCode, "Something got very very wrong");
+//                    }
+//                    deletesCompleted = true;
+//                    attemptToStopService();
+//                }
+//            });
+//
+//
+//        }
+//        catch (JSONException e) {
+//            deletesCompleted = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }catch (Exception e) {
+//            deletesCompleted = true;
+//            e.printStackTrace();
+//            attemptToStopService();
+//        }
+//
+//
+//    }
+//
+//    public  void userBackup() {
+//
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        final RequestParams params = new RequestParams();
+//
+//        params.put("userId", DashboardActivity.getPreferences(DashboardActivity.RETRIEVED_USER_ID,this));
+//        params.put("firstName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_FIRST_NAME,this));
+//        params.put("lastName",DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_LAST_NAME,this));
+//        params.put("country",DashboardActivity.getPreferences("country",this));
+//        params.put("countryCode",DashboardActivity.getPreferences("countryCode",this));
+//        params.put("email",DashboardActivity.getPreferences("email",this));
+//        params.put("farmName",DashboardActivity.getPreferences(DashboardActivity.FARM_NAME_PREFERENCES_ID,this));
+//        params.put("addressStreet",DashboardActivity.getPreferences(DashboardActivity.STREET_PREFERENCES_ID,this));
+//        params.put("addressCityOrTown",DashboardActivity.getPreferences(DashboardActivity.CITY_PREFERENCES_ID,this));
+//        params.put("addressCountry",DashboardActivity.getPreferences(DashboardActivity.COUNTRY_PREFERENCES_ID,this));
+//        params.put("phoneNumber" ,DashboardActivity.getPreferences(DashboardActivity.PREFERENCES_PHONE_NUMBER,this));
+//        params.put("latitude",DashboardActivity.getPreferences("latitude",this));
+//        params.put("longitude",DashboardActivity.getPreferences("longitude",this));
+//
+//        client.post(ApiPaths.CROP_USER_BACKUP, params, new JsonHttpResponseHandler() {
+//
+//            @Override
+//            public void onStart() {
+//                Log.e("USER BACKUP","Started");
+//            }
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                if (errorResponse != null) {
+//                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+//                } else {
+//                    Log.e("info : "+statusCode, "Something got very very wrong");
+//                }
+//                if(statusCode==400){
+//                    DashboardActivity.savePreferences(DashboardActivity.PREFERENCES_USER_BACKED_UP,"yes",CropSyncService.this);
+//                }
+//
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String errorResponse,Throwable throwable) {
+//
+//                if (errorResponse != null) {
+//                    Log.e("info : "+statusCode, new String(String.valueOf(errorResponse)));
+//                } else {
+//                    Log.e("info : "+statusCode, "Something got very very wrong");
+//                }
+//
+//            }
+//        });
+//
+//    }
 
 
 

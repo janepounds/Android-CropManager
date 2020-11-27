@@ -29,16 +29,14 @@ import com.myfarmnow.myfarmcrop.activities.wallet.WalletHomeActivity;
 import com.myfarmnow.myfarmcrop.models.coupons_model.CouponsData;
 import com.myfarmnow.myfarmcrop.models.user_model.UserData;
 import com.myfarmnow.myfarmcrop.models.wallet.ApiPaths;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+
 import com.myfarmnow.myfarmcrop.network.APIClient;
 import com.myfarmnow.myfarmcrop.network.APIRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
