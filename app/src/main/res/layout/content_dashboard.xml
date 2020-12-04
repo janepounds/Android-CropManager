@@ -141,6 +141,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/weather_temp_min"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"

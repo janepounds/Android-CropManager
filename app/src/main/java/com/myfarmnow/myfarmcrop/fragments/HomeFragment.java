@@ -53,12 +53,14 @@ import com.myfarmnow.myfarmcrop.network.APIClient;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,7 +73,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     private Context appContext;
     RelativeLayout mainlayout;
 
-    public static final String WEATHER_API_KEY = "0CHwh88HI3G4GK62bu6glx6K4Nfxv6Uy";
+
 
     boolean isGPSEnabled = false;// flag for network status
     boolean isNetworkEnabled = false;// flag for GPS status
@@ -83,7 +85,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 200 * 10; // 2 seconds// Declaring a Location Manager
     protected LocationManager locationManager;
 
-    private TextView textCommissions, temp, visibility, humidity, wind_speed, precipitation_type, precipitation, weather_day;
+    private TextView textCommissions, temp_min,temp_max, visibility, humidity, wind_speed, precipitation_type, precipitation, weather_day;
 
     LinearLayout walletLinearLayout, fieldsLinearLayout, farmRecordsLinearLayout, predictionToolsLinearLayout, marketplaceLinearLayout,
             agronomyLinearLayout, servicesLinearLayout, tasksLinearLayout, userProfileLayout, weatherForecastLinearLayout, contactsLinearLayout;
@@ -137,7 +139,8 @@ public class HomeFragment extends Fragment implements LocationListener {
         tasksLinearLayout = view.findViewById(R.id.layout_crop_dashboard_tasks);
         servicesLinearLayout = view.findViewById(R.id.layout_dashboard_service);
         weatherForecastLinearLayout = view.findViewById(R.id.layout_crop_dashboard_weather_forecast);
-        temp = view.findViewById(R.id.weather_temp_max);
+        temp_max = view.findViewById(R.id.weather_temp_max);
+        temp_min = view.findViewById(R.id.weather_temp_min);
         visibility = view.findViewById(R.id.visibility_default);
         humidity = view.findViewById(R.id.humidity_max);
         wind_speed = view.findViewById(R.id.wind_default);
@@ -216,7 +219,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         fieldValues.add("precipitation_type");
 
         //*******************WEATHER API INTEGRATION*************************//
-
+        String WEATHER_API_KEY = getString(R.string.WEATHER_API_KEY);
         Call<WeatherResponse> call = APIClient.getWeatherInstance()
                 .getRealtimeWeather(WEATHER_API_KEY, (float) getLatitude(), (float) getLongitude(), null, "si", fieldValues);
         call.enqueue(new Callback<WeatherResponse>() {
@@ -226,7 +229,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     //set temperature
                     double temperature_value = response.body().getTemp().getValue();
                     String temperature_units = response.body().getTemp().getUnits();
-                    temp.setText(temperature_value + " " + "\u2103");
+//                    temp.setText(temperature_value + " " + "\u2103");
 
                     //set visibility
                     int visibility_value = response.body().getVisibility().getValue();
@@ -266,6 +269,44 @@ public class HomeFragment extends Fragment implements LocationListener {
             @Override
             public void onFailure(@NotNull Call<WeatherResponse> call, @NotNull Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG);
+            }
+        });
+
+        ArrayList<String> fieldValuess = new ArrayList<>();
+        fieldValuess.add("temp");
+
+        //******************FORECAST********//
+        Call<WeatherResponse[]> call_hourlycast = APIClient.getWeatherInstance()
+                .getHourlyCastTemp(WEATHER_API_KEY, (float) getLatitude(), (float) getLongitude(), null, "si","now",generateTodaysMidNightTimestamp(), fieldValuess);
+        call_hourlycast.enqueue(new Callback<WeatherResponse[]>() {
+            @Override
+            public void onResponse(Call<WeatherResponse[]> call, Response<WeatherResponse[]> response) {
+                if (response.isSuccessful()) {
+                    //get maximum and minimum temperature
+                    double temperature_max=0, temperature_min=100; String temperature_units="C";
+                    for (WeatherResponse weather : response.body() ) {
+
+                        if(weather.getTemp().getValue()>temperature_max)
+                            temperature_max=weather.getTemp().getValue();
+
+                        if(weather.getTemp().getValue()<temperature_min)
+                            temperature_min=weather.getTemp().getValue();
+
+                    }
+
+
+                    temp_min.setText(temperature_min + " " + "\u2103");
+                    temp_max.setText(temperature_max + " " + "\u2103");
+
+                }else{
+                    Log.d(TAG, "onResponse: failed"+generateTodaysMidNightTimestamp());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse[]> call, Throwable t) {
+
             }
         });
     }
@@ -404,5 +445,18 @@ public class HomeFragment extends Fragment implements LocationListener {
                 Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+
+    //generate midnight timestamp
+
+    public  String generateTodaysMidNightTimestamp(){
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+
+        return nowAsISO+"T23:59:00.000Z";
     }
 }
